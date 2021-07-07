@@ -53,9 +53,18 @@ function update(req, res) {
         .then(dulceUpd => {
             res.status(200).send({message: 'Los datos se han actualizado correctamente 😎👍', dulceUpd})
         })
-        .catch(error => {
-            res.status(500).send({error})
+        .catch(error => res.status(500).send({error}))
+}
+
+function destroyer(req, res){
+    if(req.body.error) return res.status(500).send({error})
+    if(!req.body.dulces) return res.status(404).send({message: 'No se encontraron datos para eliminar 🤯🤬'})
+    
+    req.body.dulces[0].remove()
+        .then(dulceDelete => {
+            return res.status(200).send({message: 'El Registro se ha eliminado correctamente 😱👌', dulceDelete})
         })
+        .catch(error => res.status(500).send({error}))
 }
 
 function show(req, res){
@@ -71,5 +80,6 @@ module.exports = {
     add,
     search,
     update,
+    destroyer,
     show
 }
