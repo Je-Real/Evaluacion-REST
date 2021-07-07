@@ -47,11 +47,11 @@ function update(req, res) {
     if(!req.body.dulces) return res.status(404).send({message: 'No se encontraron datos 🥶😢'})
 
     var dulcesObj = req.body.dulces[0]
-    dulcesObj = Object.assign(dulcesObjeto, req.body)
+    dulcesObj = Object.assign(dulcesObj, req.body)
 
-    dulcesObj.save
+    dulcesObj.save()
         .then(dulceUpd => {
-            res.status(200).send({message: 'Los datos se han actualizado correctamente 😎👍'})
+            res.status(200).send({message: 'Los datos se han actualizado correctamente 😎👍', dulceUpd})
         })
         .catch(error => {
             res.status(500).send({error})
