@@ -1,13 +1,15 @@
+//Import express & routes
 const express = require('express')
-const routeDulces = require('./routes/routeDulces')
-const routeSabritas = require('./routes/routeSabritas')
+const routeEval = require('./routes/routeEval')
 
 const app = express()
 
+//Do N O T delete this 2 rows or else...
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 
-app.use('/dulces', routeDulces)
-app.use('/sabritas', routeSabritas)
+//Root route
+app.use('/evaluation', routeEval)
 
+//Export
 module.exports = app

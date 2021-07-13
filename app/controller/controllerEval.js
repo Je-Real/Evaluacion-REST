@@ -1,11 +1,11 @@
-const modelDulces = require('../model/modelDulces')
+const modelEval = require('../model/modelEval')
 
 function index(req, res) {
-    console.log('ok')
-    modelDulces.find({})
-    .then(dulces => {
-        if (dulces.length) {
-            return res.status(200).send({dulces})
+    //console.log('ok')
+    modelEval.find({})
+    .then(eval => {
+        if (eval.length) {
+            return res.status(200).send({eval})
         }
         else {
             return res.status(204).send({message: 'No content'})
@@ -15,9 +15,9 @@ function index(req, res) {
 }
 
 function add(req, res){
-    new modelDulces(req.body).save()
-    .then(dulces => {
-        res.status(200).send({dulces})
+    new modelEval(req.body).save()
+    .then(eval => {
+        res.status(200).send({eval})
     })
     .catch(error => res.status(500).send({error}))
 }
@@ -26,13 +26,13 @@ function search(req, res, next){
     var consulta = {}
     consulta[req.params.key] = req.params.value
     
-    modelDulces.find(consulta)
-    .then(dulces => {
-        if(!dulces.length) {
+    modelEval.find(consulta)
+    .then(eval => {
+        if(!eval.length) {
             return next()
         }
         else {
-            req.body.dulces = dulces
+            req.body.eval = eval
             return next()
         }
     })
@@ -44,12 +44,12 @@ function search(req, res, next){
 
 function update(req, res) {
     if(req.body.error) return res.status(500).send({error})
-    if(!req.body.dulces) return res.status(404).send({message: 'No se encontraron datos 🥶😢'})
+    if(!req.body.eval) return res.status(404).send({message: 'No se encontraron datos 🥶😢'})
 
-    var dulcesObj = req.body.dulces[0]
-    dulcesObj = Object.assign(dulcesObj, req.body)
+    var evalObj = req.body.eval[0]
+    evalObj = Object.assign(evalObj, req.body)
 
-    dulcesObj.save()
+    evalObj.save()
         .then(dulceUpd => {
             res.status(200).send({message: 'Los datos se han actualizado correctamente 😎👍', dulceUpd})
         })
@@ -58,9 +58,9 @@ function update(req, res) {
 
 function destroyer(req, res){
     if(req.body.error) return res.status(500).send({error})
-    if(!req.body.dulces) return res.status(404).send({message: 'No se encontraron datos para eliminar 🤯🤬'})
+    if(!req.body.eval) return res.status(404).send({message: 'No se encontraron datos para eliminar 🤯🤬'})
     
-    req.body.dulces[0].remove()
+    req.body.eval[0].remove()
         .then(dulceDelete => {
             return res.status(200).send({message: 'El Registro se ha eliminado correctamente 😱👌', dulceDelete})
         })
@@ -69,10 +69,10 @@ function destroyer(req, res){
 
 function show(req, res){
     if(req.body.error) return res.status(500).send({error})
-    if(!req.body.dulces) return res.status(404).send({message: 'No se encontraron datos 🥶😢'})
+    if(!req.body.eval) return res.status(404).send({message: 'No se encontraron datos 🥶😢'})
     
-    var dulcesObj = req.body.dulces
-    return res.status(200).send({dulcesObj})
+    var evalObj = req.body.eval
+    return res.status(200).send({evalObj})
 }
 
 module.exports = {
