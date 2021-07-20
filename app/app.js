@@ -1,6 +1,16 @@
 //Import express & routes
+
+/* Dependencies
+ * "body-parser": "^1.19.0",
+ * "boostrap": "^2.0.0",
+ * "ejs": "^3.1.6",
+ * "express": "^4.17.1",
+ * "mongoose": "^5.12.14",
+ * "morgan": "^1.10.0" */
+
 const express = require('express')
 const routeEval = require('./routes/routeEval')
+const path = require('path');
 
 const app = express()
 
@@ -9,7 +19,7 @@ app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 
 //Root route
-app.use('/evaluation', routeEval)
+app.use('/evaluacion', routeEval)
 
-//Export
+//Export and execute the aplication
 module.exports = app

@@ -1,9 +1,9 @@
 //Import db configs & mongoose for db connection 
 const CONFIG = require('./config')
-const mongoose=require('mongoose')
+const mongoose = require('mongoose')
 
 //Export connection with db
-module.exports={
+module.exports = {
     //Set a null connection
     connection:null,
     //Try to connect to db

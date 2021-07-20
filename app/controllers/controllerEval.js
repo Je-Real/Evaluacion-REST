@@ -1,17 +1,29 @@
 //Import db model
-const modelEval = require('../model/modelEval')
+const modelEval = require('../models/modelEval')
+const path = require('path');
 
+
+// >>>>>>>>>>>>>>>>>>>>>> Index <<<<<<<<<<<<<<<<<<<<<<
 function index(req, res) {
-    //console.log('ok')
-    //Root route promise
-    modelEval.find({})
+    //Root route
+    
+    try{
+        return res.status(200).sendFile(path.join(__dirname+'/../views/index.html'))
+    }
+    catch(err){
+        return res.status(500).sendFile(path.join(__dirname+'/../views/error/500.html'))
+    }
+
+    /*modelEval.find({})
     .then(eval => {
         if (eval.length) {
-            return res.status(200).send({eval})
+            console.log('yeah')
+            return res.status(200).send('../views/index')
         }
+        console.log('yeah no')
         return res.status(204).send({message: 'No se encontraron datos..'})
     })
-    .catch(error => res.status(500).send({error}))
+    .catch(error => res.status(500).send({error}))*/
 }
 
 function add(req, res){
