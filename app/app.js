@@ -18,6 +18,9 @@ const app = express()
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 
+//Use the folder assets for access to /css, /js, /img, etc.
+app.use(express.static(path.join(__dirname, 'assets')))
+
 //Root route
 app.use('/evaluacion', routeEval)
 
