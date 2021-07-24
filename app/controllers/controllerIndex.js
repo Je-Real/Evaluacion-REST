@@ -1,11 +1,11 @@
 //Import db model
-const modelEval = require('../models/modelEval')
+//const modelEval = require('../models/modelEval')
 const path = require('path')
 
 // >>>>>>>>>>>>>>>>>>>>>> Index <<<<<<<<<<<<<<<<<<<<<<
 function index(req, res) {
     //Root route
-    return res.status(200).sendFile(path.join(__dirname + '/../views/index.html'))
+    return res.status(200).render(path.join(__dirname + '/../views/index'))
 
     /*modelEval.find({})
     .then(eval => {

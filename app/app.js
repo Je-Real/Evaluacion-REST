@@ -14,6 +14,9 @@ const path = require('path');
 
 const app = express()
 
+// set the view engine to ejs
+app.set('view engine', 'ejs');
+
 //Do N O T delete this 2 rows or else...
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())

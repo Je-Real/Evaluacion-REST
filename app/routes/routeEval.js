@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const router = Router()
-const controllerEval = require('../controllers/controllerEval')
+const controllerEval = require('../controllers/controllerIndex')
 
 router.get('/', controllerEval.index)
       .post('/', controllerEval.add)
