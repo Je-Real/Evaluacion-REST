@@ -3,7 +3,7 @@ const modelEval = require('../models/modelEval')
 const path = require('path')
 
 // >>>>>>>>>>>>>>>>>>>>>> Index <<<<<<<<<<<<<<<<<<<<<<
-function index(req, res) {
+function root(req, res) {
     //Root route
     return res.status(200).render(path.join(__dirname + '/../views/index'))
 
@@ -49,7 +49,7 @@ function show(req, res){
 }
 
 module.exports = {
-    index,
+    root,
     search,
     show
 }

@@ -9,8 +9,12 @@
  * "morgan": "^1.10.0" */
 
 const express = require('express')
-const routeEval = require('./routes/routeIndex')
-const path = require('path');
+const path = require('path')
+
+const routeIndex = require('./routes/routeIndex')
+const routeCharts = require('./routes/routeCharts')
+const routeTables = require('./routes/routeTables')
+const routeLayoutStatic = require('./routes/routeLayoutStatic')
 
 const app = express()
 
@@ -25,7 +29,10 @@ app.use(express.json())
 app.use(express.static(path.join(__dirname, 'assets')))
 
 //Root route
-app.use('/evaluacion', routeEval)
+app.use('/evaluacion', routeIndex)
+app.use('/evaluacion/charts', routeCharts)
+app.use('/evaluacion/tables', routeTables)
+app.use('/evaluacion/layoutstatic', routeLayoutStatic)
 
 //Export and execute the aplication
 module.exports = app
