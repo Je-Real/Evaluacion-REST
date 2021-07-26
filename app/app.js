@@ -10,13 +10,9 @@
 
 const express = require('express')
 const path = require('path')
-
-const routeIndex = require('./routes/routeIndex')
-const routeCharts = require('./routes/routeCharts')
-const routeTables = require('./routes/routeTables')
-const routeLayoutStatic = require('./routes/routeLayoutStatic')
-
 const app = express()
+
+const routeMaster = require('./routes/routeMaster') //Require the routes
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -28,11 +24,8 @@ app.use(express.json())
 //Use the folder assets for access to /css, /js, /img, etc.
 app.use(express.static(path.join(__dirname, 'assets')))
 
-//Root route
-app.use('/evaluacion', routeIndex)
-app.use('/evaluacion/charts', routeCharts)
-app.use('/evaluacion/tables', routeTables)
-app.use('/evaluacion/layoutstatic', routeLayoutStatic)
+//Routes
+app.use('/evaluacion', routeMaster)
 
-//Export and execute the aplication
+//Export and execute the application
 module.exports = app
