@@ -1,5 +1,5 @@
 //Import db model
-const modelEval = require('../models/modelEval')
+const modelEval = require('../models/modelMaster')
 const path = require('path')
 
 // >>>>>>>>>>>>>>>>>>>>>> Index <<<<<<<<<<<<<<<<<<<<<<
