@@ -29,18 +29,20 @@ router.get('/tables/', controllerTables.root)
 router.get('/layout-sidenav-light/', controllerLayoutSidenav.root)
 
 
-router.get('/session/login/', controllerLogin.root)
+router.get('/login/', controllerLogin.root)
+      .post('/login/', controllerLogin.search)
 
-router.get('/session/pass/', controllerPassword.root)
+router.get('/password/', controllerPassword.root)
 
-router.get('/session/signin/', controllerRegister.root)
+router.get('/register/', controllerRegister.root)
+      .post('/register/', controllerRegister.signIn)
 
 
-router.get('/error/404/', controller404.root)
+router.get('/404/', controller404.root)
 
-router.get('/error/401/', controller401.root)
+router.get('/401/', controller401.root)
 
-router.get('/error/500/', controller500.root)
+router.get('/500/', controller500.root)
 
 
 //router.get('/Ex', controllerEx.root)

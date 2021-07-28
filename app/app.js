@@ -1,11 +1,8 @@
 //Import express & routes
 
-/* Dependencies
- * "body-parser": "^1.19.0",
- * "boostrap": "^2.0.0",
- * "ejs": "^3.1.6",
- * "mongoose": "^5.12.14",
- * "morgan": "^1.10.0" */
+/* 
+ * npm i body-parser boostrap ejs mongoose morgan crypto
+ */
 
 const express = require('express')
 const path = require('path')
@@ -23,7 +20,6 @@ app.use(express.json())
 
 //Use the folder assets for access to /css, /js, /img, etc.
 app.use(express.static(path.join(__dirname, 'assets')))
-
 
 //Routes
 app.use('/evaluacion', routeMaster)
