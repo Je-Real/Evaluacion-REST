@@ -91,6 +91,7 @@ h1, .h1 {
 
 h2, .h2 {
   font-size: calc(1.325rem + 0.9vw);
+  text-align: center;
 }
 @media (min-width: 1200px) {
   h2, .h2 {
@@ -288,6 +289,32 @@ caption {
 th {
   text-align: inherit;
   text-align: -webkit-match-parent;
+}
+
+.flex-table {
+  padding: 10px;
+  width: 100px;
+  height: 50px;
+  margin-top: 20px;
+  line-height: 30px;
+}
+
+.flex-th {
+  padding: 20px;
+  width: 100px;
+  height: 50px;
+  margin-top: 20px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.flex-td {
+  padding: 10px;
+  width: 100px;
+  height: 50px;
+  margin-top: 20px;
+  line-height: 0px;
+  text-align: center;
 }
 
 thead,
@@ -554,6 +581,17 @@ progress {
 }
 .blockquote > :last-child {
   margin-bottom: 0;
+}
+
+.page-footer{
+  margin-top: 3rem;
+  background-color: #212529;
+  color: #fff;
+}
+
+.footer-copyright {
+  background-color: #2c3236;
+  color: #fff;
 }
 
 .blockquote-footer {
@@ -10953,6 +10991,7 @@ body {
   padding-top: 56px;
 }
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav .sb-sidenav-menu {
+
   overflow-y: auto;
 }
 .sb-nav-fixed #layoutSidenav #layoutSidenav_content {
@@ -11049,16 +11088,16 @@ body {
   color: rgba(255, 255, 255, 0.5);
 }
 .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {
-  color: rgba(255, 255, 255, 0.25);
+  color: #fff;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: #fff;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
-  color: rgba(255, 255, 255, 0.25);
+  color: #fff;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-sidenav-collapse-arrow {
-  color: rgba(255, 255, 255, 0.25);
+  color: #fff;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
   color: #fff;
@@ -11078,25 +11117,25 @@ body {
   color: #212529;
 }
 .sb-sidenav-light .sb-sidenav-menu .sb-sidenav-menu-heading {
-  color: #adb5bd;
+  color: #fff;
 }
 .sb-sidenav-light .sb-sidenav-menu .nav-link {
-  color: #212529;
+  color: rgb(255, 255, 255);
 }
 .sb-sidenav-light .sb-sidenav-menu .nav-link .sb-nav-link-icon {
-  color: #adb5bd;
+  color: #ffffff;
 }
 .sb-sidenav-light .sb-sidenav-menu .nav-link .sb-sidenav-collapse-arrow {
-  color: #adb5bd;
+  color: #ffffff;
 }
 .sb-sidenav-light .sb-sidenav-menu .nav-link:hover {
-  color: #0d6efd;
+  color: #ffffff;
 }
 .sb-sidenav-light .sb-sidenav-menu .nav-link.active {
-  color: #0d6efd;
+  color: #ffffff;
 }
 .sb-sidenav-light .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
-  color: #0d6efd;
+  color: #ffffff;
 }
 .sb-sidenav-light .sb-sidenav-footer {
   background-color: #e9ecef;
