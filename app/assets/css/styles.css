@@ -291,6 +291,10 @@ th {
   text-align: -webkit-match-parent;
 }
 
+.bg-gradient-primary-to-secondary {
+  background: #2c3236!important;
+}
+
 .flex-table {
   padding: 10px;
   width: 100px;
