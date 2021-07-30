@@ -1,6 +1,7 @@
 //Import db model
 const path = require('path')
 const modelUser = require('../../models/modelUser')
+const crypto = require('crypto')
 
 // >>>>>>>>>>>>>>>>>>>>>> Charts <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res){
