@@ -4,6 +4,7 @@ const modelUser = require('../../models/modelUser')
 const crypto = require('crypto')
 const key = crypto.randomBytes(32)
 const iv = crypto.randomBytes(16)
+const ivStn = 'abcdefghijklmnop'
 
 // >>>>>>>>>>>>>>>>>>>>>> Charts <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res){
@@ -12,11 +13,16 @@ function root(req, res){
 }
 
 function logIn(req, res){
-    modelUser.find(req.body.user)
+    modelUser.find({user:req.body.user})
     .then(data => {
         if(data.length) { //if data 👍
-            console.log(data)
-            //req.body.userdata = data
+            console.log(Buffer.from(iv, 'hex').toString())
+
+            /*let encryptedText = Buffer.from(data[0].pass, 'hex')
+            let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv)
+            let decrypted = decipher.update(encryptedText)
+            decrypted = Buffer.concat([decrypted, decipher.final()])
+            console.log(decrypted)*/
         }
         else { //if no data 🥶
             console.log('No data')
@@ -29,12 +35,7 @@ function logIn(req, res){
         console.log('Error:', error)
     })
 
-    /*let iv = Buffer.from(text.iv, 'hex');
-    var decipher = crypto.createDecipheriv(algorithm, key, Buffer.from(hash.iv, 'hex'));
-    var decrpyted = Buffer.concat([decipher.update(Buffer.from(hash.content, 'hex')), decipher.final()]);
-    return decrpyted.toString();*/
-
-    return res.status(200).render(path.join(__dirname + '/../../views/session/login'))
+    return res.status(200).redirect('/evaluacion/login')
 
     //if(req.body.userdata.user)
 }

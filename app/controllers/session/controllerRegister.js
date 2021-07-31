@@ -33,13 +33,13 @@ async function signIn(req, res){
     for(const data in req.body){
         req.body[data] = String(req.body[data]).trim()
         if(req.body[data] == null || req.body[data] == '')
-            return res.status(200).render(path.join(__dirname + '/../../views/session/register'))
+            return res.status(200).redirect('/evaluacion/register')
     }
 
     new modelUser(req.body).save()
     .then(data => {
         console.log(data)
-        return res.status(200).render(path.join(__dirname + '/../../views/session/login'))
+        return res.status(200).redirect('/evaluacion/login')
     })
     .catch(error => res.status(500).send({error}))
 }
