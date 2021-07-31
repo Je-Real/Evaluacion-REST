@@ -30,7 +30,7 @@ router.get('/layout-sidenav-light/', controllerLayoutSidenav.root)
 
 
 router.get('/login/', controllerLogin.root)
-      .post('/login/', controllerLogin.search)
+      .post('/login/', controllerLogin.logIn)
 
 router.get('/password/', controllerPassword.root)
 

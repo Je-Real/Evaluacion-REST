@@ -12,30 +12,29 @@ function root(req, res){
 }
 
 async function signIn(req, res){
-    modelUser.find(req.body.user)
+    await modelUser.find({user:req.body.user})
     .then(data => {
         if(data.length) { //if data 👍
             return console.log('Existe usuario', data)
-            //req.body.userdata = data
-        }
-        else { //if no data 🥶
+        } else { //if no data 🥶
             console.log('No data')
-            //return next()
         }
     })
     .catch(error => { //if error 🤬
         //req.body.error = error
-        //next()
-        console.log('Error')
+        console.log('Error:', error)
     })
 
     var cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv)
     var encrypted = cipher.update(req.body.pass)
     encrypted = Buffer.concat([encrypted, cipher.final()])
-    await console.log('Encrypted:', encrypted.toString('hex'))
+    req.body.pass = encrypted.toString('hex')
 
-    if(req.body.user == null)
-        return res.status(500).render(path.join(__dirname + '/../../views/session/register'))
+    for(const data in req.body){
+        req.body[data] = String(req.body[data]).trim()
+        if(req.body[data] == null || req.body[data] == '')
+            return res.status(200).render(path.join(__dirname + '/../../views/session/register'))
+    }
 
     new modelUser(req.body).save()
     .then(data => {
