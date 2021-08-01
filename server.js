@@ -5,10 +5,9 @@ const base = require('./app/config/base')
 
 base.connect()
 
-app.listen(CONFIG.PORT, function(error){
+app.listen(CONFIG.PORT, function(error) {
     if(error) return console.log(error)
-    console.log("Server's Port: " + `\x1b[36m%s\x1b[0m`, `${CONFIG.PORT}`)
+    console.log("Server's Port: " + `\x1b[36m%s\x1b[0m`, `${CONFIG.PORT}\n`)
 })
-
 
 app.use(morgan('dev'))

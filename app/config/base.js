@@ -7,13 +7,13 @@ module.exports = {
     //Set a null connection
     connection:null,
     //Try to connect to db
-    connect: function(){
-        if(this.connection){
+    connect: function() {
+        if(this.connection) {
             return this.connect
         }
-        return mongoose.connect(CONFIG.DB).then(conexion => {
-            this.connection = conexion
+        return mongoose.connect(CONFIG.DB, {useNewUrlParser: true, useUnifiedTopology: true}).then(conn => {
+            this.connection = conn
             //console.log('Connection... OK')
-        }).catch(error => console.log('Error In Connection: ', error))
+        }).catch(error => console.log('Error in DB connection: ', error))
     }
 }

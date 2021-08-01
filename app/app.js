@@ -1,7 +1,7 @@
 //Import express & routes
 
 /* 
- * npm i body-parser boostrap ejs mongoose morgan crypto
+ * npm i body-parser boostrap ejs mongoose morgan crypto-js node-localstorage
  */
 
 const express = require('express')

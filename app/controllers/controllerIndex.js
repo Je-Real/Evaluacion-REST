@@ -1,25 +1,16 @@
 //Import db model
 const modelEval = require('../models/modelMaster')
 const path = require('path')
+const LocalStorage = require('node-localstorage').LocalStorage
+localStorage = new LocalStorage('./scratch')
 
 // >>>>>>>>>>>>>>>>>>>>>> Index <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
     //Root route
-    return res.status(200).render(path.join(__dirname + '/../views/index'))
-
-    /*modelEval.find({})
-    .then(eval => {
-        if (eval.length) {
-            console.log('yeah')
-            return res.status(200).send('../views/index')
-        }
-        console.log('yeah no')
-        return res.status(204).send({message: 'No se encontraron datos..'})
-    })
-    .catch(error => res.status(500).send({error}))*/
+    return res.status(200).render('index', {localStorage: localStorage})
 }
 
-function search(req, res, next){
+function search(req, res, next) {
     //Variable for a bunch of information to search
     var consulta = {}
     //Save the value with its key
@@ -40,7 +31,7 @@ function search(req, res, next){
     })
 }
 
-function show(req, res){
+function show(req, res) {
     if(req.body.error) return res.status(500).send({error})
     if(!req.body.eval) return res.status(404).send({message: 'No se encontraron datos.'})
     
