@@ -1,10 +1,7 @@
-//Import db model
-const path = require('path')
-
-// >>>>>>>>>>>>>>>>>>>>>> Charts <<<<<<<<<<<<<<<<<<<<<<
+// >>>>>>>>>>>>>>>>>>>>>> Error 401 <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
-    //Charts route
-    return res.status(200).render(path.join(__dirname + '/../../views/error/401'))
+    //Error 401 route
+    return res.status(401).render('error/401')
 }
 
 module.exports = {

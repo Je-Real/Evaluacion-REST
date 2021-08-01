@@ -1,12 +1,10 @@
-//Import db model
-const path = require('path')
 const modelUser = require('../../models/modelUser')
 const crypto = require('crypto-js')
 
-// >>>>>>>>>>>>>>>>>>>>>> Charts <<<<<<<<<<<<<<<<<<<<<<
+// >>>>>>>>>>>>>>>>>>>>>> Register <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
-	//Charts route
-	return res.status(200).render(path.join(__dirname + '/../../views/session/register'))
+	//Register route
+	return res.status(200).render('session/register')
 }
 
 async function signIn(req, res) {
@@ -20,7 +18,7 @@ async function signIn(req, res) {
 				for (var data in req.body) {
 					req.body[data] = String(req.body[data]).trim()
 					if (req.body[data] == null || req.body[data] == '')
-						return res.status(200).redirect('/evaluacion/register')
+						return res.status(200).redirect('/register')
 				}
 
 				//Encryption
@@ -29,7 +27,7 @@ async function signIn(req, res) {
 				//Save data
 				new modelUser(req.body).save()
 					.then(() => { //🟢
-						return res.status(200).redirect('/evaluacion/login')
+						return res.status(200).redirect('/login')
 					})
 					.catch((error) => { //🔴
 						console.log("Can't save.", error)
@@ -39,7 +37,7 @@ async function signIn(req, res) {
 		.catch((error) => { //if error 🤬
 			console.log('Error:', error)
 		})
-	return res.status(200).redirect('/evaluacion/register')
+	return res.status(200).redirect('/register')
 }
 
 module.exports = {

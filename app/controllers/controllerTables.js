@@ -1,10 +1,7 @@
-//Import db model
-const path = require('path')
-
-// >>>>>>>>>>>>>>>>>>>>>> Charts <<<<<<<<<<<<<<<<<<<<<<
+// >>>>>>>>>>>>>>>>>>>>>> Tables <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
-    //Charts route
-    return res.status(200).render(path.join(__dirname + '/../views/tables'))
+    //Tables route
+    return res.status(200).render('tables')
 }
 
 module.exports = {

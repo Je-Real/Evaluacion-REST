@@ -1,10 +1,10 @@
 const LocalStorage = require('node-localstorage').LocalStorage
 localStorage = new LocalStorage('./scratch')
 
-// >>>>>>>>>>>>>>>>>>>>>> Index <<<<<<<<<<<<<<<<<<<<<<
+// >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
     //Root route
-    return res.status(200).render('index', {localStorage: localStorage})
+    return res.status(200).render('secret/control', {localStorage: localStorage})
 }
 
 function search(req, res, next) {

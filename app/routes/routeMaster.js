@@ -15,36 +15,38 @@ const controllerLogin = require('../controllers/session/controllerLogin')
 const controllerPassword = require('../controllers/session/controllerPassword')
 const controllerRegister = require('../controllers/session/controllerRegister')
 
-//const controllerEx = require('../controllers/Ex')
-
-router.get('/', controllerIndex.root)
-      .get('/:key/:value', controllerIndex.search, controllerIndex.show)
-
-router.get('/charts/', controllerCharts.root)
-
-router.get('/layout-static/', controllerLayoutStatic.root)
-
-router.get('/tables/', controllerTables.root)
-
-router.get('/layout-sidenav-light/', controllerLayoutSidenav.root)
+const controllerControl = require('../controllers/secret/controllerControl')
 
 
-router.get('/login/', controllerLogin.root)
-      .post('/login/', controllerLogin.logIn)
+router.get('/inicio', controllerIndex.root)
+      //.get('/inicio/:key/:value', controllerIndex.search, controllerIndex.show)
 
-router.get('/password/', controllerPassword.root)
+router.get('/charts', controllerCharts.root)
 
-router.get('/register/', controllerRegister.root)
-      .post('/register/', controllerRegister.signIn)
+router.get('/layout-static', controllerLayoutStatic.root)
 
+router.get('/tables', controllerTables.root)
 
-router.get('/404/', controller404.root)
-
-router.get('/401/', controller401.root)
-
-router.get('/500/', controller500.root)
+router.get('/layout-sidenav-light', controllerLayoutSidenav.root)
 
 
-//router.get('/Ex', controllerEx.root)
+router.get('/login', controllerLogin.root)
+      .post('/login', controllerLogin.logIn)
+
+router.get('/password', controllerPassword.root)
+
+router.get('/register', controllerRegister.root)
+      .post('/register', controllerRegister.signIn)
+
+
+router.get('/error/404', controller404.root)
+
+router.get('/error/401', controller401.root)
+
+router.get('/error/500', controller500.root)
+
+
+router.get('/control', controllerControl.root)
+
 
 module.exports = router

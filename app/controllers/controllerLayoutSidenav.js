@@ -1,10 +1,7 @@
-//Import db model
-const path = require('path')
-
-// >>>>>>>>>>>>>>>>>>>>>> Charts <<<<<<<<<<<<<<<<<<<<<<
+// >>>>>>>>>>>>>>>>>>>>>> Layout sidebar <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
-    //Charts route
-    return res.status(200).render(path.join(__dirname + '/../views/layout-sidenav-light'))
+    //Layout sidebar route
+    return res.status(200).render('layout-sidenav-light')
 }
 
 module.exports = {

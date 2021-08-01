@@ -1,14 +1,12 @@
-//Import db model
-const path = require('path')
 const modelUser = require('../../models/modelUser')
 const crypto = require('crypto-js')
 const LocalStorage = require('node-localstorage').LocalStorage
 localStorage = new LocalStorage('./scratch')
 
-// >>>>>>>>>>>>>>>>>>>>>> Charts <<<<<<<<<<<<<<<<<<<<<<
+// >>>>>>>>>>>>>>>>>>>>>> Login <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
-	//Charts route
-	return res.status(200).render(path.join(__dirname + '/../../views/session/login'))
+	//Login route
+	return res.status(200).render('session/login')
 }
 
 async function logIn(req, res) {
@@ -24,7 +22,7 @@ async function logIn(req, res) {
 						.then(() => {
                             localStorage.setItem('user', req.body.user)
 
-							return res.status(200).redirect('/evaluacion')
+							return res.status(200).redirect('')
 						})
 						.catch((error) => {
 							console.log('No se pudo:', error)
@@ -39,7 +37,7 @@ async function logIn(req, res) {
 		.catch((error) => { //if error 🤬
 			console.log('Error:', error)
 		})
-	return res.status(200).redirect('/evaluacion/login')
+	return res.status(200).redirect('/login')
 }
 
 module.exports = {

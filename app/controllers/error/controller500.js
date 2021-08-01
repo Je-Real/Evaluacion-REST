@@ -1,10 +1,7 @@
-//Import db model
-const path = require('path')
-
-// >>>>>>>>>>>>>>>>>>>>>> Charts <<<<<<<<<<<<<<<<<<<<<<
+// >>>>>>>>>>>>>>>>>>>>>> Error 500 <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
-    //Charts route
-    return res.status(200).render(path.join(__dirname + '/../../views/error/500'))
+    //Error 500 route
+    return res.status(500).render('/error/500')
 }
 
 module.exports = {
