@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
-//Schema for colecction information
 const informationSchema = new mongoose.Schema({
+    user:{ type:String, required:true, unique:true },
     first_name:{ type:String, required:true },
     last_name:{ type:String, required:true },
     address:{ type:String, required:true },
@@ -10,4 +10,4 @@ const informationSchema = new mongoose.Schema({
     b_day:{ type:Date, required:true }
 })
 
-module.exports = mongoose.model('Information', informationSchema)
+module.exports = mongoose.model('Info', informationSchema)

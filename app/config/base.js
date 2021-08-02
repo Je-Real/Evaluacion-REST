@@ -11,7 +11,9 @@ module.exports = {
         if(this.connection) {
             return this.connect
         }
-        return mongoose.connect(CONFIG.DB, {useNewUrlParser: true, useUnifiedTopology: true}).then(conn => {
+        // useCreateIndex is caused by modelUser.Info
+        return mongoose.connect(CONFIG.DB, 
+            {useNewUrlParser: true, useUnifiedTopology: true, /*useCreateIndex: true*/}).then(conn => {
             this.connection = conn
             //console.log('Connection... OK')
         }).catch(error => console.log('Error in DB connection: ', error))

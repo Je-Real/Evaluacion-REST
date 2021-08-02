@@ -1,4 +1,5 @@
 const modelUser = require('../../models/modelUser')
+//const modelUserInfo = require('../../models/modelUserInfo')
 const crypto = require('crypto-js')
 
 // >>>>>>>>>>>>>>>>>>>>>> Register <<<<<<<<<<<<<<<<<<<<<<
@@ -18,7 +19,7 @@ async function signIn(req, res) {
 				for (var data in req.body) {
 					req.body[data] = String(req.body[data]).trim()
 					if (req.body[data] == null || req.body[data] == '')
-						return res.status(200).redirect('/register')
+						return res.status(200).redirect('/registro')
 				}
 
 				//Encryption
@@ -27,6 +28,14 @@ async function signIn(req, res) {
 				//Save data
 				new modelUser(req.body).save()
 					.then(() => { //🟢
+						/*new modelUser(req.body).save()
+							.then(() => { //🟢
+								
+							})
+							.catch((error) => { //🔴
+								console.log("Can't save.", error)
+							})*/
+						
 						return res.status(200).redirect('/login')
 					})
 					.catch((error) => { //🔴
@@ -37,7 +46,7 @@ async function signIn(req, res) {
 		.catch((error) => { //if error 🤬
 			console.log('Error:', error)
 		})
-	return res.status(200).redirect('/register')
+	return res.status(200).redirect('/registro')
 }
 
 module.exports = {

@@ -9,3 +9,5 @@ const UserSchema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model('User', UserSchema)
+    //👇 Cause DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead. 👇
+    //mongoose.model('Info', informationSchema) 

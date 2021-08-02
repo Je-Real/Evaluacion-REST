@@ -19,7 +19,7 @@ const controllerControl = require('../controllers/secret/controllerControl')
 
 
 router.get('/inicio', controllerIndex.root)
-      //.get('/inicio/:key/:value', controllerIndex.search, controllerIndex.show)
+      .post('/inicio', controllerLogin.logIn)
 
 router.get('/charts', controllerCharts.root)
 
@@ -30,13 +30,10 @@ router.get('/tables', controllerTables.root)
 router.get('/layout-sidenav-light', controllerLayoutSidenav.root)
 
 
-router.get('/login', controllerLogin.root)
-      .post('/login', controllerLogin.logIn)
-
 router.get('/password', controllerPassword.root)
 
-router.get('/register', controllerRegister.root)
-      .post('/register', controllerRegister.signIn)
+router.get('/registro', controllerRegister.root)
+      .post('/registro', controllerRegister.signIn)
 
 
 router.get('/error/404', controller404.root)
