@@ -1,10 +1,10 @@
 const modelUser = require('../../models/modelUser')
-//const modelUserInfo = require('../../models/modelUserInfo')
+const modelUserInfo = require('../../models/modelUserInfo')
 const crypto = require('crypto-js')
 
-// >>>>>>>>>>>>>>>>>>>>>> Register <<<<<<<<<<<<<<<<<<<<<<
+// >>>>>>>>>>>>>>>>>>>>>> Registration <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
-	//Register route
+	//Registration route
 	return res.status(200).render('session/register')
 }
 
@@ -14,39 +14,39 @@ async function signIn(req, res) {
 		.then((data) => {
 			if (data.length) { //if data 👍
 				console.log('Existe usuario')
+				//return res.status(200).redirect('/registro') //Cambiar por mensaje
 			} else { //if no data 🥶
-				//Trim unnecessary spaces
-				for (var data in req.body) {
-					req.body[data] = String(req.body[data]).trim()
-					if (req.body[data] == null || req.body[data] == '')
-						return res.status(200).redirect('/registro')
-				}
-
 				//Encryption
 				req.body.pass = crypto.AES.encrypt(req.body.pass, req.body.user).toString()
 
 				//Save data
 				new modelUser(req.body).save()
-					.then(() => { //🟢
-						/*new modelUser(req.body).save()
-							.then(() => { //🟢
-								
-							})
-							.catch((error) => { //🔴
-								console.log("Can't save.", error)
-							})*/
-						
-						return res.status(200).redirect('/login')
+					.then((data) => { //🟢
+						console.log(data)
+						//return res.status(200).redirect('/inicio')
 					})
 					.catch((error) => { //🔴
-						console.log("Can't save.", error)
+						console.log('Cannot save: ', error)
+						//return res.status(200).redirect('/registro')
+					})
+
+				new modelUserInfo(req.body).save()
+					.then((data) => { //🟢
+						console.log(data)
+						return res.status(200).redirect('/inicio')
+					})
+					.catch((error) => { //🔴
+						console.log('Cannot save: ', error)
+						//return res.status(200).redirect('/registro')
 					})
 			}
 		})
 		.catch((error) => { //if error 🤬
 			console.log('Error:', error)
+			//return res.status(200).redirect('/registro')
 		})
-	return res.status(200).redirect('/registro')
+	//NUNCA colocar un return fuera del catch
+	//NEVER place a return outside the catch
 }
 
 module.exports = {

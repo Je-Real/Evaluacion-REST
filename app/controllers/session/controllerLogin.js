@@ -22,22 +22,25 @@ async function logIn(req, res) {
 						.then(() => {
                             localStorage.setItem('user', req.body.user)
 
-							return res.status(200).redirect('')
+							return res.status(200).redirect('/inicio') //Change it
 						})
 						.catch((error) => {
 							console.log('No se pudo:', error)
+							return res.status(200).redirect('/inicio') //Change it
 						})
 				} else { //🔴
 					console.log('No same pass')
+					return res.status(200).redirect('/inicio') //Change it
 				}
 			} else { //if no data 🥶
 				console.log('No user')
+				return res.status(200).redirect('/inicio') //Change it
 			}
 		})
 		.catch((error) => { //if error 🤬
 			console.log('Error:', error)
+			return res.status(200).redirect('/inicio') //Change it
 		})
-	return res.status(200).redirect('/login')
 }
 
 module.exports = {

@@ -1,7 +1,7 @@
 var proceed = document.getElementById('submit')
 
 window.onload = function(){
-    //proceed.disabled = true
+    proceed.disabled = true
 }
 
 function addressGetter() {
@@ -12,12 +12,13 @@ function addressGetter() {
     var number_i = String(document.getElementById('number_i').value).trim()
     var postal_code = String(document.getElementById('postal_code').value).trim()
 
-    console.log(number_i)
     if(number_i.length)
         number_i = '(int. '+number_i+')'
     
     document.getElementById('address').value = 
         String(street+' #'+number+' '+number_i+', '+postal_code+', '+municipality+', '+state)
+    
+    console.log(String(street+' #'+number+' '+number_i+', '+postal_code+', '+municipality+', '+state))
     
     if( state.length && municipality.length && street.length && 
         number.length && postal_code.length) {
