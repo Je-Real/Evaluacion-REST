@@ -19,7 +19,8 @@ const controllerControl = require('../controllers/secret/controllerControl')
 
 
 router.get('/inicio', controllerIndex.root)
-      .post('/inicio', controllerLogin.logIn)
+      .get('/inicio/test', controllerIndex.test)
+      .post('/inicio/login', controllerLogin.logIn)
 
 router.get('/charts', controllerCharts.root)
 

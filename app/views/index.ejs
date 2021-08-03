@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 
+<% function brr() { console.log('Yeah') } %>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -39,12 +41,15 @@
                     aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <% if(localStorage.getItem('user') == null){ %>
-                        <li> <button class="btn dropdown-item" onclick="toggleLogin()">Iniciar sesión</button>
-                            </li>
+                        <li>
+                            <button class="btn dropdown-item" onclick="toggleLogin()">Iniciar sesión</button>
+                        </li>
                     <% } else { %>
                         <li><a class="dropdown-item" href="!">Perfil</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="¿">Cerrar sesión</a></li>
+                        <li>
+                            <button class="btn dropdown-item" onclick="test()">Cerrar sesión</button>
+                        </li>
                     <% } %>
                 </ul>
             </li>
@@ -131,7 +136,7 @@
                     <div class="col-4">
 
                     </div>
-                    <div class="col-4">
+                    <div id="test" class="col-4">
                         <h2>Bienvenido a la UTNA</h2>
                     </div>
                     <div class="col-4">
@@ -284,14 +289,14 @@
         <div class="card w-50 shadow-lg border-0 rounded-lg">
             <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
             <div class="card-body">
-                <form method="POST">
+                <form action="/inicio/login" method="POST">
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="user" id="user" type="email" placeholder="." />
-                        <label for="user">Email address</label>
+                        <input class="form-control" name="_id" id="_id" type="text" placeholder="." />
+                        <label for="_id">Usuario</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" name="pass" id="pass" type="password" placeholder="." />
-                        <label for="pass">Password</label>
+                        <label for="pass">Contraseña</label>
                     </div>
                     <div class="form-check mb-3">
                         <input class="form-check-input" name="rememberPass" id="rememberPass" type="checkbox" value="" />

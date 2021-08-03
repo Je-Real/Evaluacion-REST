@@ -11,16 +11,15 @@ function root(req, res) {
 
 function signIn(req, res) {
 	//SignIn validator
-	modelUser.find({ user: req.body.user })
+	modelUser.find({ _id: req.body._id })
 		.then((data) => {
 			if (data.length) { //if data 👍
 				console.log('Existe usuario')
 				//return res.status(200).redirect('/registro') //Cambiar por mensaje
 			} else { //if no data 🥶
 				//Encryption
-				req.body.pass = crypto.AES.encrypt(req.body.pass, req.body.user).toString()
+				req.body.pass = crypto.AES.encrypt(req.body.pass, req.body._id).toString()
 
-				req.body._id = req.body.user
 				req.body.address = {
 					street : req.body.street,
 					num : req.body.number,

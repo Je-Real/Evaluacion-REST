@@ -25,4 +25,13 @@ function toggleLogin() {
     toggler = !toggler
 }
 
+function test() {
+    const xhttp = new XMLHttpRequest()
+    xhttp.onload = function() {
+        document.getElementById("test").innerHTML = this.responseText
+    }
+    xhttp.open("GET", "http://localhost:3000/inicio/test", true)
+    xhttp.send()
+}
+
 /*<div id="glass" class="d-none w-100 h-100 position-fixed bg-dark-50"></div>*/

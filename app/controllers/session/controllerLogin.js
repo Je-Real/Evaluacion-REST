@@ -11,16 +11,16 @@ function root(req, res) {
 
 async function logIn(req, res) {
 	//LogIn validator
-	await modelUser.find({ user: req.body.user })
+	await modelUser.find({ _id: req.body._id })
 		.then((data) => {
 			if (data.length) { //if data 👍
 				//Encryption
-				var compare = crypto.AES.decrypt(data[0].pass, req.body.user)
+				var compare = crypto.AES.decrypt(data[0].pass, req.body._id)
 
 				if (compare.toString(crypto.enc.Utf8) === req.body.pass) { //🟢
-					modelUser.updateOne({ user: req.body.user }, { last_conn: Date.now() })
+					modelUser.updateOne({ user: req.body._id }, { last_conn: Date.now() })
 						.then(() => {
-                            localStorage.setItem('user', req.body.user)
+                            localStorage.setItem('user', req.body._id)
 
 							return res.status(200).redirect('/inicio') //Change it
 						})

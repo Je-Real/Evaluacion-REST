@@ -36,8 +36,14 @@ function show(req, res) {
     return res.status(200).send({evalObj})
 }
 
+function test(req, res) {
+    console.log('Testing inicio')
+    return res.status(200).send('yeah') //Works!!! 😈
+}
+
 module.exports = {
     root,
     search,
-    show
+    show,
+    test
 }
