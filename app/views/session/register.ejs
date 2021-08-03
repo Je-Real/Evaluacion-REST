@@ -30,14 +30,14 @@
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" onchange="addressGetter()" name="first_name" id="first_name"
-                                                        type="text" placeholder="Nombre(s)" required />
+                                                        type="text" placeholder="Nombre(s)" maxlength="15" required />
                                                     <label for="first_name">Nombre(s)</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
                                                     <input class="form-control" onchange="addressGetter()" name="last_name" id="last_name"
-                                                        type="text" placeholder="Apellido(s)" required />
+                                                        type="text" placeholder="Apellido(s)" maxlength="20" required />
                                                     <label for="last_name">Apellido(s)</label>
                                                 </div>
                                             </div>
@@ -65,7 +65,7 @@
                                                         <option value="2">Two</option>
                                                         <option value="3">Three</option>
                                                     </select>
-                                                    <label for="career">Area</label>
+                                                    <label for="career">Carrera</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -74,14 +74,14 @@
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" onchange="addressGetter()" name="state" id="state"
-                                                        type="text" placeholder="Apellido(s)" required />
+                                                        type="text" placeholder="." required />
                                                     <label for="state">Estado</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
                                                     <input class="form-control" onchange="addressGetter()" name="municipality" id="municipality"
-                                                        type="text" placeholder="Apellido(s)" required />
+                                                        type="text" placeholder="." required />
                                                     <label for="municipality">Municipio</label>
                                                 </div>
                                             </div>
@@ -95,24 +95,17 @@
                                                     <label for="street">Calle</label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" onchange="addressGetter()" name="number" id="number"
-                                                        type="text" placeholder="Nº" required />
+                                                        type="number" placeholder="Nº" required max="9999" min="1" />
                                                     <label for="number">Nº</label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" onchange="addressGetter()" name="number_i" id="number_i"
-                                                        type="text" placeholder="Int." required />
-                                                    <label for="number_i">Int.</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                     <input class="form-control" onchange="addressGetter()" name="postal_code" id="postal_code"
-                                                        type="text" placeholder="C.P." required />
+                                                        type="text" placeholder="C.P." required maxlength="5" />
                                                     <label for="postal_code">C.P.</label>
                                                 </div>
                                             </div>
@@ -128,8 +121,8 @@
                                         </div>
 
                                         <div class="form-floating mb-3 mt-5">
-                                            <input class="form-control" onchange="addressGetter()" name="user" id="user" type="text"
-                                                placeholder="R1234567890" />
+                                            <input class="form-control" onchange="addressGetter()" maxlength="11" name="user" id="user" type="text"
+                                                placeholder="R123456789" />
                                             <label for="user">Usuario</label>
                                         </div>
                                         <div class="row mb-3">
@@ -154,7 +147,7 @@
                                                     Create Account</button>
                                             </div>
                                         </div>
-                                    <input type="hidden" name="address" id="address">
+                                    <!--input type="hidden" name="address" id="address"-->
                                     </form>
                                 </div>
                                 <div class="card-footer text-center py-3">

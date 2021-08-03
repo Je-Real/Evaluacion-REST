@@ -1,27 +1,28 @@
 var proceed = document.getElementById('submit')
+var firstName, lastName, area, career, state, municipality, street, number, postal_code
 
 window.onload = function(){
     proceed.disabled = true
 }
 
 function addressGetter() {
-    var state = String(document.getElementById('state').value).trim()
-    var municipality = String(document.getElementById('municipality').value).trim()
-    var street = String(document.getElementById('street').value).trim()
-    var number = String(document.getElementById('number').value).trim()
-    var number_i = String(document.getElementById('number_i').value).trim()
-    var postal_code = String(document.getElementById('postal_code').value).trim()
-
-    if(number_i.length)
-        number_i = '(int. '+number_i+')'
+    firstName = String(document.getElementById('first_name').value).trim()
+    lastName = String(document.getElementById('last_name').value).trim()
+    area = document.getElementById('area').value
+    career = document.getElementById('career').value
+    state = String(document.getElementById('state').value).trim()
+    municipality = String(document.getElementById('municipality').value).trim()
+    street = String(document.getElementById('street').value).trim()
+    number = String(document.getElementById('number').value).trim()
+    postal_code = String(document.getElementById('postal_code').value).trim()
     
-    document.getElementById('address').value = 
-        String(street+' #'+number+' '+number_i+', '+postal_code+', '+municipality+', '+state)
+    /*document.getElementById('address').value = 
+        String(street+' #'+number+', '+postal_code+', '+municipality+', '+state)*/
     
-    console.log(String(street+' #'+number+' '+number_i+', '+postal_code+', '+municipality+', '+state))
+    console.log(String(street+' #'+number+', '+postal_code+', '+municipality+', '+state))
     
-    if( state.length && municipality.length && street.length && 
-        number.length && postal_code.length) {
+    if( firstName.length && lastName.length && area.length && career.length && state.length &&
+        municipality.length && street.length && number.length && postal_code.length) {
             proceed.disabled = false
     }
 }

@@ -1,6 +1,7 @@
 const modelUser = require('../../models/modelUser')
 const modelUserInfo = require('../../models/modelUserInfo')
 const crypto = require('crypto-js')
+const { json } = require('body-parser')
 
 // >>>>>>>>>>>>>>>>>>>>>> Registration <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
@@ -8,9 +9,9 @@ function root(req, res) {
 	return res.status(200).render('session/register')
 }
 
-async function signIn(req, res) {
+function signIn(req, res) {
 	//SignIn validator
-	await modelUser.find({ user: req.body.user })
+	modelUser.find({ user: req.body.user })
 		.then((data) => {
 			if (data.length) { //if data 👍
 				console.log('Existe usuario')
@@ -19,24 +20,35 @@ async function signIn(req, res) {
 				//Encryption
 				req.body.pass = crypto.AES.encrypt(req.body.pass, req.body.user).toString()
 
+				req.body._id = req.body.user
+				req.body.address = {
+					street : req.body.street,
+					num : req.body.number,
+					postal_code : req.body.postal_code
+				}
+
 				//Save data
 				new modelUser(req.body).save()
 					.then((data) => { //🟢
+						req = null
 						console.log(data)
 						//return res.status(200).redirect('/inicio')
 					})
 					.catch((error) => { //🔴
-						console.log('Cannot save: ', error)
+						req = null
+						console.log('Cannot save user:', error)
 						//return res.status(200).redirect('/registro')
 					})
 
 				new modelUserInfo(req.body).save()
 					.then((data) => { //🟢
 						console.log(data)
+						req = null
 						return res.status(200).redirect('/inicio')
 					})
 					.catch((error) => { //🔴
-						console.log('Cannot save: ', error)
+						req = null
+						console.log('Cannot save info:', error)
 						//return res.status(200).redirect('/registro')
 					})
 			}
