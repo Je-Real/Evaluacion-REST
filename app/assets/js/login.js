@@ -28,9 +28,9 @@ function toggleLogin() {
 function test() {
     const xhttp = new XMLHttpRequest()
     xhttp.onload = function() {
-        document.getElementById("test").innerHTML = this.responseText
+        document.getElementById('test').innerHTML = this.responseText
     }
-    xhttp.open("GET", "http://localhost:3000/inicio/test", true)
+    xhttp.open('GET', 'http://localhost:3000/inicio/test', true)
     xhttp.send()
 }
 

@@ -30,31 +30,26 @@ function signIn(req, res) {
 				new modelUser(req.body).save()
 					.then((data) => { //🟢
 						req = null
-						console.log(data)
-						//return res.status(200).redirect('/inicio')
+						return res
 					})
 					.catch((error) => { //🔴
 						req = null
-						console.log('Cannot save user:', error)
-						//return res.status(200).redirect('/registro')
+						//console.log('Cannot save user:', error)
 					})
 
 				new modelUserInfo(req.body).save()
 					.then((data) => { //🟢
-						console.log(data)
 						req = null
 						return res.status(200).redirect('/inicio')
 					})
 					.catch((error) => { //🔴
 						req = null
-						console.log('Cannot save info:', error)
-						//return res.status(200).redirect('/registro')
+						//console.log('Cannot save info:', error)
 					})
 			}
 		})
 		.catch((error) => { //if error 🤬
 			console.log('Error:', error)
-			//return res.status(200).redirect('/registro')
 		})
 	//NUNCA colocar un return fuera del catch
 	//NEVER place a return outside the catch
