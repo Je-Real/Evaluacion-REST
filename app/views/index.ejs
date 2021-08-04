@@ -37,7 +37,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <ul id="dropSession" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <% if(localStorage.getItem('user') == null){ %>
                         <li>
                             <button class="btn dropdown-item" onclick="toggleLogin()">Iniciar sesión</button>
@@ -301,12 +301,13 @@
                         <label class="form-check-label" for="rememberPass">Remember Password</label>
                     </div-->
                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                        <a class="small" href="/password/">Forgot Password?</a>
+                        <p class="small">¿No recuerdas tu contraseña? <a class="small" href="javascript:test()">Reestablece tu contraseña</a></p>
                         <button class="btn btn-primary" type="button" onclick="login()">Login</button>
                     </div>
                 </form>
             </div>
             <div class="card-footer text-center py-3">
+                <p id="loginMsg" class="text-center my-2"></p>
             </div>
         </div>
     </div>

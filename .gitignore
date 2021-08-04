@@ -1,3 +1,4 @@
+scratch/*
 node_modules/*
 node_modules/.bin/is-ci
 node_modules/.bin/is-ci.cmd
@@ -1899,3 +1900,4 @@ node_modules/jake/test/integration/jakelib/rule.jake.js
 node_modules/jake/test/unit/jakefile.js
 node_modules/jake/test/unit/namespace.js
 node_modules/jake/test/unit/parseargs.js
+scratch/user

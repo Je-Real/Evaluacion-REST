@@ -15,13 +15,20 @@ async function logOut(req, res) {
 	await modelUser.find({ _id: req.body._id })
 		.then(() => {
 			localStorage.clear()
-			return 0
+			return res.end(JSON.stringify({
+				msg: 'Sesión cerrada.', 
+				status: 200,
+				noti: true
+			}))
 		})
 		.catch(() => {
 			localStorage.clear()
-			return 1
+			return res.end(JSON.stringify({
+				msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.', 
+				status: 404,
+				noti: true
+			}))
 		})
-	return 2
 }
 
 async function logIn(req, res) {
@@ -39,29 +46,48 @@ async function logIn(req, res) {
 								.then(data => {
 									localStorage.setItem('user', req.body._id)
 									//Response success for AJAX
-									return res.end(
-										JSON.stringify({
-											success: 'Sesión iniciada. Bienvenido '+data.first_name, 
-											status: 200
-										}))
+									return res.end(JSON.stringify({
+										msg: 'Sesión iniciada. Bienvenido '+data.first_name+'.', 
+										status: 200,
+										noti: true
+									}))
 								})
-								.catch((error) => {
-									console.log(error)
-									return res.end('{"error" : "Error de busqueda de usuario", "status" : 404}')
+								.catch(() => {
+									return res.end(JSON.stringify({
+										msg: 'Error de busqueda de usuario. Intenta de nuevo mas tarde.', 
+										status: 404,
+										noti: true
+									}))
 								})
 						})
 						.catch(() => {
-							return res.end('{"error" : "Error de busqueda de usuario 1", "status" : 404}')
+							return res.end(JSON.stringify({
+								msg: 'Error de busqueda de usuario. Intenta de nuevo mas tarde.', 
+								status: 404,
+								noti: true
+							}))
 						})
 				} else { //🔴
-					return res.end('{"error" : "El usuario o contraseña no coinciden", "status" : 404}')
+					return res.end(JSON.stringify({
+						msg: 'El usuario o contraseña no coinciden.', 
+						status: 404,
+						noti: false
+					}))
 				}
 			} else { //if no data 🥶
-				return res.end('{"error" : "El usuario no existe", "status" : 404}')
+				return res.end(JSON.stringify({
+					msg: 'El usuario no existe.', 
+					status: 404,
+					noti: false
+				}))
 			}
 		})
 		.catch(() => { //if error 🤬
-			return res.end('{"error" : "No se pudo", "status" : 500}')
+			return res.end(JSON.stringify({
+				msg: 'Error del servidor.\n\r¡No te alarmes! Todo saldra bien.', 
+				status: 500,
+				error: true
+			}))
 		})
 }
 

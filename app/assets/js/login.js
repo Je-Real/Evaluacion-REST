@@ -42,6 +42,7 @@ function test() {
 }
 
 function login() {
+    console.log('--')
     var i = document.getElementById('_id').value
     var p = document.getElementById('pass').value
 
@@ -53,9 +54,22 @@ function login() {
         dataType: 'json',
         async: true,
         success: function(result){
-            console.log(result);
-            if(result.status == 200){
-                toggleLogin()
+            if(result.noti){
+                $('#loginMsg').html('Notify: '+result.msg)
+            } else {
+                if(result.status === 200) $('#loginMsg').addClass('text-success')
+                $('#loginMsg').addClass('text-danger')
+                $('#loginMsg').html(result.msg)
+            }
+
+            if(result.status === 200){
+                $('#dropSession').html('<li><a class="dropdown-item" href="!">Perfil</a></li>'+
+                '<li><hr class="dropdown-divider" /></li><li>'+
+                '<button class="btn dropdown-item" onclick="logout()">Cerrar sesión</button></li>')
+
+                setTimeout(function () {
+                    toggleLogin()
+                }, 5000)
             }
         },
         error: function (xhr, status, error) { console.log('Status:'+status+'. '+error) }
@@ -67,21 +81,15 @@ function logout() {
         type: 'GET',
         url: 'http://localhost:3000/sesion/logout',
         async: true,
-        success: function(msg){
-            switch (msg) {
-                case 0:
-                    console.log('Cerrando sesión')
-                    break
-                case 1:
-                    console.log('No se pudo encontrar usuario')
-                    break
-                case 2:
-                    console.log('Error de sistema :(')
-                    break
-            
-                default:
-                    console.log('Golazooooo!')
-                    break
+        success: function(result){
+            if(result.status === 200){
+                $('#test').html('<li><a class="dropdown-item" href="!">Perfil</a></li>'+
+                '<li><hr class="dropdown-divider" /></li><li>'+
+                '<button class="btn dropdown-item" onclick="logout()">Cerrar sesión</button></li>')
+
+                setTimeout(function () {
+                    toggleLogin()
+                }, 5000)
             }
             location.reload()
         },
