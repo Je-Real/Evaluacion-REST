@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+//Schema for users info colecction
 const informationSchema = new mongoose.Schema({
     _id:{ type:String },
     first_name:{ type:String, required:true },

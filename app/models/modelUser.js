@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-//Schema for colecction users
+//Schema for users colecction
 const UserSchema = new mongoose.Schema({
     _id:{ type:String },
     pass:{ type:String, required:true },
