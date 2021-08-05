@@ -1,7 +1,6 @@
 const modelUser = require('../../models/modelUser')
 const modelUserInfo = require('../../models/modelUserInfo')
 const crypto = require('crypto-js')
-const { json } = require('body-parser')
 
 // >>>>>>>>>>>>>>>>>>>>>> Registration <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
