@@ -1,28 +1,51 @@
 #backpanel {
-    top: 0%;
-    position: fixed;
-    z-index: 1049;
+	top: 0%;
+	position: fixed;
+	z-index: 1049;
+}
+
+#closeCont {
+	top: 0;
+	left: 0;
+    right: 0;
+	width: 7.5rem;
+	margin-top: 31rem;
+}
+
+@media (max-width: 768px) {
+	.w-md-100 {
+		width: 100% !important;
+	}
+	#closeCont {
+		margin-top: 4rem;
+	}
+}
+
+.close-pill {
+	max-width: 7rem;
+	width: 6rem;
+	min-width: 4rem;
 }
 
 .floating {
-    z-index: 1050;
-    top: 7rem;
+	z-index: 1050;
+	top: 7rem;
 	text-align: -webkit-center;
 }
 
 .bg-dark-50 {
-    background-color: rgba(31, 31, 31, 0.5);
-    background: rgba(31, 31, 31, 0.5);
+	background-color: rgba(31, 31, 31, 0.5);
+	background: rgba(31, 31, 31, 0.5);
 }
 
 .blur-on {
-    filter: blur(5px);
+	filter: blur(5px);
 	-webkit-animation: fadein 0.8s;
 	animation: fadein 0.8s;
 }
 
 .blur-off {
-    filter: blur(0px);
+	filter: blur(0px);
 	-webkit-animation: fadeout 0.8s;
 	animation: fadeout 0.8s;
 }

@@ -18,8 +18,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         crossorigin="anonymous"></script>
 </head>
+
 <body class="sb-nav-fixed">
-    
+
     <nav id="layoutNavbar" class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="/index/">
@@ -38,17 +39,19 @@
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul id="dropSession" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <% if(localStorage.getItem('user') == null){ %>
+                    <% if(localStorage.getItem('user')==null){ %>
                         <li>
-                            <button class="btn dropdown-item" onclick="toggleLogin()">Iniciar sesión</button>
+                            <button class="btn dropdown-item" onclick="toggleFloating(0)">Iniciar sesión</button>
                         </li>
-                    <% } else { %>
-                        <li><a class="dropdown-item" href="!">Perfil</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li>
-                            <button class="btn dropdown-item" onclick="logout()">Cerrar sesión</button>
-                        </li>
-                    <% } %>
+                        <% } else { %>
+                            <li><a class="dropdown-item" href="!">Perfil</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li>
+                                <button class="btn dropdown-item" onclick="logout()">Cerrar sesión</button>
+                            </li>
+                            <% } %>
                 </ul>
             </li>
         </ul>
@@ -62,61 +65,9 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-home fa-2x"></i></div>
                             Inicio
                         </a>
-                        <div class="sb-sidenav-menu-heading">Interface</div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                            data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Layouts
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
-                            data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="/layout-static/">Static Navigation</a>
-                                <a class="nav-link" href="/layout-sidenav-light/">Light Sidenav</a>
-                            </nav>
-                        </div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
-                            aria-expanded="false" aria-controls="collapsePages">
-                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                            Pages
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
-                            data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                                    data-bs-target="#pagesCollapseAuth" aria-expanded="false"
-                                    aria-controls="pagesCollapseAuth">
-                                    Authentication
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
-                                    data-bs-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="/login/">Login</a>
-                                        <a class="nav-link" href="/registro">Register</a>
-                                        <a class="nav-link" href="/password/">Forgot Password</a>
-                                    </nav>
-                                </div>
-                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                                    data-bs-target="#pagesCollapseError" aria-expanded="false"
-                                    aria-controls="pagesCollapseError">
-                                    Error
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne"
-                                    data-bs-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="/error/401/">401 Page</a>
-                                        <a class="nav-link" href="/error/404/">404 Page</a>
-                                        <a class="nav-link" href="/error/500">500 Page</a>
-                                    </nav>
-                                </div>
-                            </nav>
-                        </div>
+
                         <div class="sb-sidenav-menu-heading">Reportes</div>
-                        <a class="nav-link" href="/report/">
+                        <a class="nav-link" href="/reporte/">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-line fa-2x"></i></div>
                             Reporte completo
                         </a>
@@ -132,7 +83,7 @@
                 </div>
             </nav>
         </div>
-        
+
         <div id="layoutSidenav_content">
             <div class="container">
                 <div class="row mt-4">
@@ -287,18 +238,22 @@
             <!-- Footer -->
         </div>
     </div>
-    
+
     <div id="floatingLogin" class="floating w-100 d-none flex-nowrap justify-content-center position-fixed">
-        <div class="card w-50 shadow-lg border-0 rounded-lg">
-            <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+        <div class="card w-50 w-md-100 shadow-lg border-0 rounded-lg">
+            <div class="card-header">
+                <h3 class="text-center font-weight-light my-4">Login</h3>
+            </div>
             <div class="card-body">
                 <form method="POST" name="f_login" id="f_login">
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="_id" id="_id" type="text" onkeypress="onEnterHandler(event)" placeholder="." required />
+                        <input class="form-control" name="_id" id="_id" type="text" onkeypress="onEnterHandler(event)"
+                            placeholder="." required />
                         <label for="_id">Usuario</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="pass" id="pass" type="password" onkeypress="onEnterHandler(event)" placeholder="." required />
+                        <input class="form-control" name="pass" id="pass" type="password"
+                            onkeypress="onEnterHandler(event)" placeholder="." required />
                         <label for="pass">Contraseña</label>
                     </div>
                     <!--div class="form-check mb-3">
@@ -306,7 +261,8 @@
                         <label class="form-check-label" for="rememberPass">Remember Password</label>
                     </div-->
                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                        <p class="small">¿No recuerdas tu contraseña? <a class="small" href="javascript:togglePass()">Reestablece tu contraseña</a></p>
+                        <p class="small">¿No recuerdas tu contraseña? </p> 
+                        <p><a class="small" href="javascript:toggleFloating(1)">Reestablece tu contraseña</a></p>
                         <button class="btn btn-primary" type="button" onclick="login()">Login</button>
                     </div>
                 </form>
@@ -318,8 +274,10 @@
     </div>
 
     <div id="floatingPass" class="floating w-100 d-none flex-nowrap justify-content-center position-fixed">
-        <div class="card w-50 shadow-lg border-0 rounded-lg">
-            <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+        <div class="card w-50 w-md-100 shadow-lg border-0 rounded-lg">
+            <div class="card-header">
+                <h3 class="text-center font-weight-light my-4">Reestablecer contraseña</h3>
+            </div>
             <div class="card-body">
                 <form method="POST" name="f_pass" id="f_pass">
                     <div class="form-floating mb-3">
@@ -327,7 +285,7 @@
                         <label for="inputEmail">Usuario</label>
                     </div>
                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                        <a class="small" href="javascript:togglePass()">Regresar a Incio de Sesión</a>
+                        <a class="small" href="javascript:toggleFloating(0)">Regresar a Incio de Sesión</a>
                     </div>
                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                         <p class="small"></p>
@@ -340,11 +298,18 @@
         </div>
     </div>
 
-    <div id="backPanel" onclick="toggleLogin()" class="d-none w-100 h-100 position-fixed bg-dark-50"></div>
+    <div id="closeCont" class="floating mx-auto d-none flex-nowrap justify-content-center position-fixed">
+        <div class="close-pill container rounded-pill bg-dark text-light">
+            <p class="text-center my-2"> X </p>
+        </div>
+    </div>
+
+    <div id="backPanel" onclick="toggleFloating(2)" class="d-none w-100 h-100 position-fixed bg-dark-50"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="/demo/chart-area-demo.js"></script>

@@ -1,11 +1,12 @@
 const { Router } = require('express')
 const router = Router()
 
-const controllerIndex = require('../controllers/controllerIndex')
+const controllerIndex = require('../controllers/controllerInicio')
 const controllerCharts = require('../controllers/controllerCharts')
 const controllerLayoutStatic = require('../controllers/controllerLayoutStatic')
 const controllerTables = require('../controllers/controllerTables')
 const controllerLayoutSidenav = require('../controllers/controllerLayoutSidenav')
+const controllerReporteC = require('../controllers/controllerReporteC')
 
 const controller404 = require('../controllers/error/controller404')
 const controller401 = require('../controllers/error/controller401')
@@ -21,8 +22,10 @@ const controllerControl = require('../controllers/secret/controllerControl')
 router.get('/inicio', controllerIndex.root)
       .get('/inicio/test', controllerIndex.test)
       
-router.get('/charts', controllerCharts.root)
-      
+router.get('/charts', controllerReporteC.root)
+
+router.get('/reporte', controllerCharts.root)
+
 router.get('/layout-static', controllerLayoutStatic.root)
       
 router.get('/tables', controllerTables.root)

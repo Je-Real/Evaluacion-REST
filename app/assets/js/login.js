@@ -11,56 +11,44 @@ function onEnterHandler(event) {
     }
 }
 
-function togglePass() {
-    if(toggler){
-        frameL.className = frameL.className.replace('d-flex', 'd-none')
-        backpanel.className = backpanel.className.replace('d-block', 'd-none')
-        glass.className = ''
-        console.log('Off')
-    }
-    else{
-        frameL.className = frameL.className.replace('d-none', 'd-flex')
-        backpanel.className = backpanel.className.replace('d-none', 'd-block')
-        if(glass.className == 'blur-off'){
-            glass.className = glass.className.replace('blur-off', 'blur-on')
-        } else {
-            glass.className = 'blur-on position-fixed'
-        }
-        $('#_id').focus()
-        console.log('On')
-    }
-
-    toggler = !toggler
-}
-
 function password() {
     console.log('Reemplazar')
 }
 
-function toggleLogin() {
-    if(toggler){
+function toggleFloating(floating) {
+    if(toggler || floating === 2){
         frameL.className = frameL.className.replace('d-flex', 'd-none')
+        frameP.className = frameP.className.replace('d-flex', 'd-none')
         backpanel.className = backpanel.className.replace('d-block', 'd-none')
         glass.className = ''
         console.log('Off')
-    }
-    else{
-        frameL.className = frameL.className.replace('d-none', 'd-flex')
-        backpanel.className = backpanel.className.replace('d-none', 'd-block')
-        if(glass.className == 'blur-off'){
-            glass.className = glass.className.replace('blur-off', 'blur-on')
-        } else {
-            glass.className = 'blur-on position-fixed'
-        }
-        $('#_id').focus()
-        console.log('On')
-    }
+    } else {
+        if(floating === 0){
+            frameP.className = frameP.className.replace('d-flex', 'd-none')
 
-    toggler = !toggler
+            frameL.className = frameL.className.replace('d-none', 'd-flex')
+            backpanel.className = backpanel.className.replace('d-none', 'd-block')
+            if(glass.className == 'blur-off'){
+                glass.className = glass.className.replace('blur-off', 'blur-on')
+            } else {
+                glass.className = 'blur-on position-fixed'
+            }
+            $('#_id').focus()
+        } else {
+            frameL.className = frameL.className.replace('d-flex', 'd-none')
+
+            frameP.className = frameP.className.replace('d-none', 'd-flex')
+            backpanel.className = backpanel.className.replace('d-none', 'd-block')
+            if(glass.className == 'blur-off'){
+                glass.className = glass.className.replace('blur-off', 'blur-on')
+            } else {
+                glass.className = 'blur-on position-fixed'
+            }
+        }
+    }
 }
 
 function login() {
-    console.log('--')
     var i = document.getElementById('_id').value
     var p = document.getElementById('pass').value
 
