@@ -283,13 +283,13 @@
         </div>
     </div>
     
-    <div id="floatingLogin" class="w-100 d-none flex-nowrap justify-content-center position-fixed">
+    <div id="floatingLogin" class="floating w-100 d-none flex-nowrap justify-content-center position-fixed">
         <div class="card w-50 shadow-lg border-0 rounded-lg">
             <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
             <div class="card-body">
                 <form method="POST" name="f_login" id="f_login">
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="_id" id="_id" type="text" placeholder="." required />
+                        <input class="form-control" name="_id" id="_id" type="text" onkeypress="onEnterHandler(event)" placeholder="." required />
                         <label for="_id">Usuario</label>
                     </div>
                     <div class="form-floating mb-3">
@@ -301,7 +301,7 @@
                         <label class="form-check-label" for="rememberPass">Remember Password</label>
                     </div-->
                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                        <p class="small">¿No recuerdas tu contraseña? <a class="small" href="javascript:test()">Reestablece tu contraseña</a></p>
+                        <p class="small">¿No recuerdas tu contraseña? <a class="small" href="javascript:togglePass()">Reestablece tu contraseña</a></p>
                         <button class="btn btn-primary" type="button" onclick="login()">Login</button>
                     </div>
                 </form>
@@ -311,6 +311,30 @@
             </div>
         </div>
     </div>
+
+    <div id="floatingPass" class="floating w-100 d-none flex-nowrap justify-content-center position-fixed">
+        <div class="card w-50 shadow-lg border-0 rounded-lg">
+            <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+            <div class="card-body">
+                <form method="POST" name="f_pass" id="f_pass">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="inputEmail" type="text" placeholder="." />
+                        <label for="inputEmail">Usuario</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                        <a class="small" href="javascript:togglePass()">Regresar a Incio de Sesión</a>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                        <p class="small"></p>
+                        <button class="btn btn-primary" type="button" onclick="password()">Generar ticket</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center py-3">
+            </div>
+        </div>
+    </div>
+
     <div id="backPanel" onclick="toggleLogin()" class="d-none w-100 h-100 position-fixed bg-dark-50"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

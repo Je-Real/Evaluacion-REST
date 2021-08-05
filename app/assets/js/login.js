@@ -1,17 +1,25 @@
 var toggler = false
-var frame = document.getElementById('floatingLogin')
+var frameL = document.getElementById('floatingLogin')
+var frameP = document.getElementById('floatingPass')
 var backpanel = document.getElementById('backPanel')
 var glass = document.getElementById('layoutSidenav')
 
-function toggleLogin() {
+function onEnterHandler(event) {
+    var code = event.which || event.keyCode     
+    if(code === 13){
+      login()
+    }
+}
+
+function togglePass() {
     if(toggler){
-        frame.className = frame.className.replace('d-flex', 'd-none')
+        frameL.className = frameL.className.replace('d-flex', 'd-none')
         backpanel.className = backpanel.className.replace('d-block', 'd-none')
         glass.className = ''
         console.log('Off')
     }
     else{
-        frame.className = frame.className.replace('d-none', 'd-flex')
+        frameL.className = frameL.className.replace('d-none', 'd-flex')
         backpanel.className = backpanel.className.replace('d-none', 'd-block')
         if(glass.className == 'blur-off'){
             glass.className = glass.className.replace('blur-off', 'blur-on')
@@ -25,20 +33,30 @@ function toggleLogin() {
     toggler = !toggler
 }
 
-function onEnterHandler(event) {
-    var code = event.which || event.keyCode     
-    if(code === 13){
-      login()
-    }
+function password() {
+    console.log('Reemplazar')
 }
 
-function test() {
-    const xhttp = new XMLHttpRequest()
-    xhttp.onload = function() {
-        document.getElementById('test').innerHTML = this.responseText
+function toggleLogin() {
+    if(toggler){
+        frameL.className = frameL.className.replace('d-flex', 'd-none')
+        backpanel.className = backpanel.className.replace('d-block', 'd-none')
+        glass.className = ''
+        console.log('Off')
     }
-    xhttp.open('GET', 'http://localhost:3000/inicio/test', true)
-    xhttp.send()
+    else{
+        frameL.className = frameL.className.replace('d-none', 'd-flex')
+        backpanel.className = backpanel.className.replace('d-none', 'd-block')
+        if(glass.className == 'blur-off'){
+            glass.className = glass.className.replace('blur-off', 'blur-on')
+        } else {
+            glass.className = 'blur-on position-fixed'
+        }
+        $('#_id').focus()
+        console.log('On')
+    }
+
+    toggler = !toggler
 }
 
 function login() {
@@ -63,13 +81,12 @@ function login() {
             }
 
             if(result.status === 200){
-                $('#dropSession').html('<li><a class="dropdown-item" href="!">Perfil</a></li>'+
-                '<li><hr class="dropdown-divider" /></li><li>'+
-                '<button class="btn dropdown-item" onclick="logout()">Cerrar sesión</button></li>')
-
-                setTimeout(function () {
-                    toggleLogin()
-                }, 5000)
+                $('#dropSession').html(
+                    '<li><a class="dropdown-item" href="!">Perfil</a></li>'+
+                    '<li><hr class="dropdown-divider" /></li><li>'+
+                    '<button class="btn dropdown-item" onclick="logout()">Cerrar sesión</button></li>'
+                )
+                toggleLogin()
             }
         },
         error: function (xhr, status, error) { console.log('Status:'+status+'. '+error) }
@@ -83,16 +100,24 @@ function logout() {
         async: true,
         success: function(result){
             if(result.status === 200){
-                $('#test').html('<li><a class="dropdown-item" href="!">Perfil</a></li>'+
-                '<li><hr class="dropdown-divider" /></li><li>'+
-                '<button class="btn dropdown-item" onclick="logout()">Cerrar sesión</button></li>')
-
-                setTimeout(function () {
-                    toggleLogin()
-                }, 5000)
+                $('#test').html(
+                    '<li>'+
+                    '<button class="btn dropdown-item" onclick="toggleLogin()">Iniciar sesión</button>'+
+                    '</li>'
+                )
+                toggleLogin()
             }
-            location.reload()
         },
         error: function (xhr, status, error) { console.log('Status:'+status+'. '+error) }
     })
+}
+
+
+function test() {
+    const xhttp = new XMLHttpRequest()
+    xhttp.onload = function() {
+        document.getElementById('test').innerHTML = this.responseText
+    }
+    xhttp.open('GET', 'http://localhost:3000/inicio/test', true)
+    xhttp.send()
 }

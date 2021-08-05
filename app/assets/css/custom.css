@@ -4,9 +4,10 @@
     z-index: 1049;
 }
 
-#floatingLogin {
+.floating {
     z-index: 1050;
     top: 7rem;
+	text-align: -webkit-center;
 }
 
 .bg-dark-50 {
