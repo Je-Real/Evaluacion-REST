@@ -2,7 +2,6 @@ const { Router } = require('express')
 const router = Router()
 
 const controllerIndex = require('../controllers/controllerInicio')
-const controllerCharts = require('../controllers/controllerCharts')
 const controllerLayoutStatic = require('../controllers/controllerLayoutStatic')
 const controllerTables = require('../controllers/controllerTables')
 const controllerLayoutSidenav = require('../controllers/controllerLayoutSidenav')
@@ -22,9 +21,7 @@ const controllerControl = require('../controllers/secret/controllerControl')
 router.get('/inicio', controllerIndex.root)
       .get('/inicio/test', controllerIndex.test)
       
-router.get('/charts', controllerReporteC.root)
-
-router.get('/reporte', controllerCharts.root)
+router.get('/reporte', controllerReporteC.root)
 
 router.get('/layout-static', controllerLayoutStatic.root)
       
