@@ -5,17 +5,7 @@ const crypto = require('crypto-js')
 // >>>>>>>>>>>>>>>>>>>>>> Reporte-c <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
     //Reporte-c route
-    modelEvaluation.find({})
-        .then(data => {  //🟢
-            console.log(data)
-            return res.status(200).render('reporte-c', {
-                info: data
-            })
-        })
-        .catch((error) => { //🔴
-            console.log('Error', error)
-            return res.status(200).render('reporte-c')
-        })
+    return res.status(200).render('reporte-c')
 }
 
 function add(req, res) {
@@ -37,7 +27,7 @@ function add(req, res) {
 }
 
 function get(req, res) {
-    modelEvaluation.find({ })
+    modelEvaluation.find({ _id: req.query._id })
         .then(data => {
             return res.end(JSON.stringify({
 				data: data,
@@ -47,6 +37,7 @@ function get(req, res) {
 			}))
         })
         .catch(error => {
+            console.log('Error',error)
             return res.end(JSON.stringify({
 				msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
 				status: 404,
