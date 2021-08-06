@@ -36,7 +36,27 @@ function add(req, res) {
         })
 }
 
+function get(req, res) {
+    modelEvaluation.find({ })
+        .then(data => {
+            return res.end(JSON.stringify({
+				data: data,
+                msg: 'Datos obtenidos.',
+				status: 200,
+				noti: true
+			}))
+        })
+        .catch(error => {
+            return res.end(JSON.stringify({
+				msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
+				status: 404,
+				noti: true
+			}))
+        })
+}
+
 module.exports = {
     root,
-    add
+    add,
+    get,
 }
