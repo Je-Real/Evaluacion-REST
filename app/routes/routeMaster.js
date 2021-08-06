@@ -23,6 +23,7 @@ router.get('/inicio', controllerIndex.root)
       
 router.get('/reporte', controllerReporteC.root)
       .post('/reporte/add', controllerReporteC.add)
+      .get('/reporte/get', controllerReporteC.get)
 
 router.get('/layout-static', controllerLayoutStatic.root)
       
