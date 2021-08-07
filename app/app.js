@@ -9,7 +9,6 @@ const path = require('path')
 const app = express()
 
 const routeMaster = require('./routes/routeMaster') //Require the routes
-const routeTest = require('./routes/routeTest') //Require the routes
 
 // set the view engine to ejs
 app.set('view engine', 'ejs')
@@ -24,7 +23,6 @@ app.use(express.static(path.join(__dirname, 'assets')))
 
 //Routes
 app.use('/', routeMaster)
-app.use('/test', routeTest)
 
 //Export and execute the application
 module.exports = app

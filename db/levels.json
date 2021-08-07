@@ -1,31 +1,37 @@
-[{
-  "_id": {
-    "$oid": "61088139bd860e3cf7582673"
-  },
-  "level": "0",
-  "name": "admin"
-},{
-  "_id": {
-    "$oid": "61088139bd860e3cf7582674"
-  },
-  "level": "1",
-  "name": "torbellino"
-},{
-  "_id": {
-    "$oid": "61088139bd860e3cf7582675"
-  },
-  "level": "2",
-  "name": "yogurt"
-},{
-  "_id": {
-    "$oid": "61088139bd860e3cf7582676"
-  },
-  "level": "3",
-  "name": "pluma"
-},{
-  "_id": {
-    "$oid": "61088139bd860e3cf7582677"
-  },
-  "level": "4",
-  "name": "mortal"
-}]
+[
+    {
+        "_id": {
+            "$oid": "61088139bd860e3cf7582673"
+        },
+        "level": "0",
+        "name": "admin"
+    },
+    {
+        "_id": {
+            "$oid": "61088139bd860e3cf7582674"
+        },
+        "level": "1",
+        "name": "torbellino"
+    },
+    {
+        "_id": {
+            "$oid": "61088139bd860e3cf7582675"
+        },
+        "level": "2",
+        "name": "yogurt"
+    },
+    {
+        "_id": {
+            "$oid": "61088139bd860e3cf7582676"
+        },
+        "level": "3",
+        "name": "pluma"
+    },
+    {
+        "_id": {
+            "$oid": "61088139bd860e3cf7582677"
+        },
+        "level": "4",
+        "name": "mortal"
+    }
+]

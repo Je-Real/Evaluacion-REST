@@ -27,8 +27,8 @@ function add(req, res) {
 }
 
 function get(req, res) {
-    modelEvaluation.find({ _id: req.query._id })
-        .then(data => {
+    modelEvaluation.find({ _id: 'R123456789' })
+        .then(data => { //🟢
             return res.end(JSON.stringify({
 				data: data,
                 msg: 'Datos obtenidos.',
@@ -36,7 +36,7 @@ function get(req, res) {
 				noti: true
 			}))
         })
-        .catch(error => {
+        .catch(error => { //🔴
             console.log('Error',error)
             return res.end(JSON.stringify({
 				msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',

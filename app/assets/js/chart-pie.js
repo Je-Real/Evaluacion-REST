@@ -10,7 +10,7 @@ $(document).ready(function() {
         type: 'GET',
         url: 'http://localhost:3000/reporte/get',
         contentType: 'application/json; charset=utf-8',
-        data: {_id: 'R132456789'},
+        data: {_id: 'R123456789'},
         dataType: 'json',
         async: true,
         success: function(result) {
@@ -20,8 +20,11 @@ $(document).ready(function() {
                     labels.push(String(record))
                 }
 
+                console.log('L:',labels)
+                console.log('D:',info)
+
                 // Pie Chart
-                var ctx = document.getElementById("myPieChart");
+                var ctx = document.getElementById("myPieChart")
                 var myPieChart = new Chart(ctx, {
                     type: 'pie',
                     data: {
@@ -31,7 +34,7 @@ $(document).ready(function() {
                             backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
                         }],
                     },
-                });
+                })
             }
             else {
                 console.log('No:'+result.msg)

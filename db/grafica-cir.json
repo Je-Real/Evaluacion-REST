@@ -1,426 +1,15 @@
 {
     "chart": {
-      "zIndex": 0,
-      "enabled": true,
-      "type": "pie",
-      "title": {
-        "zIndex": 80,
+        "zIndex": 0,
         "enabled": true,
-        "maxLength": null,
-        "fontSize": 14,
-        "fontFamily": "\"Lucida Console\", Monaco, monospace",
-        "fontColor": "#757575",
-        "fontOpacity": 1,
-        "fontDecoration": "none",
-        "fontStyle": "normal",
-        "fontVariant": "normal",
-        "fontWeight": "normal",
-        "letterSpacing": "normal",
-        "textDirection": "ltr",
-        "textShadow": "none",
-        "lineHeight": "normal",
-        "textIndent": 0,
-        "vAlign": "top",
-        "hAlign": "center",
-        "wordWrap": "normal",
-        "wordBreak": "normal",
-        "textOverflow": "",
-        "selectable": false,
-        "disablePointerEvents": false,
-        "useHtml": false,
-        "width": null,
-        "height": null,
-        "align": "center",
-        "text": "Donut chart with grouped points\nand custom interactivity",
-        "margin": {
-          "left": 0,
-          "top": 0,
-          "bottom": 0,
-          "right": 0
-        },
-        "padding": {
-          "left": 0,
-          "top": 0,
-          "bottom": 10,
-          "right": 0
-        },
-        "background": {
-          "zIndex": 0,
-          "enabled": false
-        }
-      },
-      "background": {
-        "zIndex": 0.5,
-        "enabled": true
-      },
-      "tooltip": {
-        "enabled": true,
+        "type": "pie",
         "title": {
-          "zIndex": 1,
-          "enabled": true,
-          "maxLength": null,
-          "fontSize": 14,
-          "fontFamily": "\"Lucida Console\", Monaco, monospace",
-          "fontColor": "#616161",
-          "fontOpacity": 1,
-          "fontDecoration": "none",
-          "fontStyle": "normal",
-          "fontVariant": "normal",
-          "fontWeight": "normal",
-          "letterSpacing": "normal",
-          "textDirection": "ltr",
-          "textShadow": "none",
-          "lineHeight": "normal",
-          "textIndent": 0,
-          "vAlign": "top",
-          "hAlign": "left",
-          "wordWrap": "normal",
-          "wordBreak": "normal",
-          "textOverflow": "",
-          "selectable": false,
-          "disablePointerEvents": false,
-          "useHtml": false,
-          "width": null,
-          "height": null,
-          "align": "left",
-          "orientation": "top",
-          "rotation": 0,
-          "text": "",
-          "margin": {
-            "left": 0,
-            "top": 0,
-            "bottom": 0,
-            "right": 0
-          },
-          "padding": {
-            "left": 0,
-            "top": 0,
-            "bottom": 0,
-            "right": 0
-          },
-          "background": {
-            "enabled": false
-          }
-        },
-        "separator": {
-          "zIndex": 1,
-          "enabled": true,
-          "fill": {
-            "color": "#9e9e9e",
-            "opacity": 0.4
-          },
-          "stroke": "none",
-          "width": "100%",
-          "height": 1,
-          "orientation": "top",
-          "margin": {
-            "left": 0,
-            "top": 10,
-            "bottom": 10,
-            "right": 0
-          }
-        },
-        "background": {
-          "zIndex": 0,
-          "enabled": true
-        }
-      },
-      "margin": {
-        "left": 0,
-        "top": 0,
-        "bottom": 0,
-        "right": 0
-      },
-      "padding": {
-        "left": 15,
-        "top": 20,
-        "bottom": 15,
-        "right": 25
-      },
-      "a11y": {
-        "enabled": true,
-        "mode": "chart-elements"
-      },
-      "autoRedraw": true,
-      "chartLabels": [
-        {
-          "zIndex": 50,
-          "enabled": true,
-          "fontSize": 12,
-          "fontFamily": "\"Lucida Console\", Monaco, monospace",
-          "fontColor": "#757575",
-          "fontOpacity": 1,
-          "fontDecoration": "none",
-          "fontStyle": "normal",
-          "fontVariant": "normal",
-          "fontWeight": "normal",
-          "letterSpacing": "normal",
-          "textDirection": "ltr",
-          "textShadow": "none",
-          "lineHeight": "normal",
-          "textIndent": 0,
-          "vAlign": "top",
-          "hAlign": "center",
-          "wordWrap": "normal",
-          "wordBreak": "normal",
-          "textOverflow": "",
-          "selectable": false,
-          "disablePointerEvents": false,
-          "useHtml": true,
-          "text": "<span style=\"font-size: 28px; color: \">190</span><br><span style=\"font-size: 9px; font-weight: bold\">BONDS</span>",
-          "position": "center",
-          "width": null,
-          "height": null,
-          "anchor": "right-top",
-          "offsetX": 10,
-          "offsetY": 0,
-          "rotation": 0,
-          "adjustFontSize": {
-            "width": false,
-            "height": false
-          },
-          "minFontSize": 8,
-          "maxFontSize": 72,
-          "background": {
-            "enabled": false
-          },
-          "padding": {}
-        },
-        {
-          "zIndex": 50,
-          "enabled": true,
-          "fontSize": 12,
-          "fontFamily": "\"Lucida Console\", Monaco, monospace",
-          "fontColor": "#757575",
-          "fontOpacity": 1,
-          "fontDecoration": "none",
-          "fontStyle": "normal",
-          "fontVariant": "normal",
-          "fontWeight": "normal",
-          "letterSpacing": "normal",
-          "textDirection": "ltr",
-          "textShadow": "none",
-          "lineHeight": "normal",
-          "textIndent": 0,
-          "vAlign": "top",
-          "hAlign": "center",
-          "wordWrap": "normal",
-          "wordBreak": "normal",
-          "textOverflow": "",
-          "selectable": false,
-          "disablePointerEvents": false,
-          "useHtml": true,
-          "text": "<span style=\"font-size: 28px; color: \">260</span><br><span style=\"font-size: 9px; font-weight: bold\">STOCK</span>",
-          "position": "center",
-          "width": null,
-          "height": null,
-          "anchor": "left-top",
-          "offsetX": 10,
-          "offsetY": 0,
-          "rotation": 0,
-          "adjustFontSize": {
-            "width": false,
-            "height": false
-          },
-          "minFontSize": 8,
-          "maxFontSize": 72,
-          "background": {
-            "enabled": false
-          },
-          "padding": {}
-        }
-      ],
-      "bounds": {},
-      "animation": {
-        "enabled": false,
-        "duration": 2000
-      },
-      "contextMenu": {
-        "enabled": true
-      },
-      "credits": {
-        "text": "AnyChart",
-        "url": "https://www.anychart.com/?utm_source=registered",
-        "alt": "AnyChart - JavaScript Charts designed to be embedded and integrated{{anychart-version}}",
-        "imgAlt": "AnyChart - JavaScript Charts",
-        "logoSrc": "https://static.anychart.com/logo.png",
-        "enabled": false
-      },
-      "selectRectangleMarqueeFill": {
-        "color": "#d3d3d3",
-        "opacity": 0.4
-      },
-      "selectRectangleMarqueeStroke": "#d3d3d3",
-      "legend": {
-        "zIndex": 200,
-        "enabled": false,
-        "fontSize": 12,
-        "fontFamily": "\"Lucida Console\", Monaco, monospace",
-        "fontColor": "#757575",
-        "fontOpacity": 1,
-        "fontDecoration": "none",
-        "fontStyle": "normal",
-        "fontVariant": "normal",
-        "fontWeight": "normal",
-        "letterSpacing": "normal",
-        "textDirection": "ltr",
-        "textShadow": "none",
-        "lineHeight": "normal",
-        "textIndent": 0,
-        "vAlign": "top",
-        "hAlign": "start",
-        "wordWrap": "normal",
-        "wordBreak": "normal",
-        "textOverflow": "...",
-        "selectable": false,
-        "disablePointerEvents": false,
-        "useHtml": false,
-        "inverted": false,
-        "itemsLayout": "vertical",
-        "iconSize": 15,
-        "width": null,
-        "height": null,
-        "maxWidth": null,
-        "maxHeight": null,
-        "position": "right",
-        "positionMode": "outside",
-        "drag": false,
-        "itemsFormat": null,
-        "titleFormat": null,
-        "itemsHAlign": "left",
-        "itemsSpacing": 15,
-        "itemsSourceMode": "default",
-        "hoverCursor": "pointer",
-        "iconTextSpacing": 5,
-        "align": "center",
-        "margin": {
-          "left": 0,
-          "top": 0,
-          "bottom": 0,
-          "right": 0
-        },
-        "padding": {
-          "left": 10,
-          "top": 10,
-          "bottom": 0,
-          "right": 10
-        },
-        "background": {
-          "enabled": false
-        },
-        "title": {
-          "enabled": false,
-          "maxLength": null,
-          "fontSize": 15,
-          "fontFamily": "\"Lucida Console\", Monaco, monospace",
-          "fontColor": "#757575",
-          "fontOpacity": 1,
-          "fontDecoration": "none",
-          "fontStyle": "normal",
-          "fontVariant": "normal",
-          "fontWeight": "normal",
-          "letterSpacing": "normal",
-          "textDirection": "ltr",
-          "textShadow": "none",
-          "lineHeight": "normal",
-          "textIndent": 0,
-          "vAlign": "top",
-          "hAlign": "center",
-          "wordWrap": "normal",
-          "wordBreak": "normal",
-          "textOverflow": "",
-          "selectable": false,
-          "disablePointerEvents": false,
-          "useHtml": false,
-          "width": null,
-          "height": null,
-          "align": "center",
-          "text": "Title text",
-          "margin": {
-            "left": 0,
-            "top": 0,
-            "bottom": 0,
-            "right": 0
-          },
-          "padding": {
-            "left": 0,
-            "top": 0,
-            "bottom": 0,
-            "right": 0
-          },
-          "background": {
-            "enabled": false
-          }
-        },
-        "titleSeparator": {
-          "zIndex": 1,
-          "enabled": false,
-          "fill": {
-            "color": "#9e9e9e",
-            "opacity": 0.4
-          },
-          "stroke": "none",
-          "width": "100%",
-          "height": 1,
-          "orientation": "top",
-          "margin": {
-            "left": 0,
-            "top": 5,
-            "bottom": 5,
-            "right": 0
-          }
-        },
-        "paginator": {
-          "zIndex": 30,
-          "enabled": true,
-          "fontSize": 12,
-          "fontFamily": "\"Lucida Console\", Monaco, monospace",
-          "fontColor": "#545f69",
-          "fontOpacity": 1,
-          "fontDecoration": "none",
-          "fontStyle": "normal",
-          "fontVariant": "normal",
-          "fontWeight": "normal",
-          "letterSpacing": "normal",
-          "textDirection": "ltr",
-          "textShadow": "none",
-          "lineHeight": "normal",
-          "textIndent": 0,
-          "vAlign": "top",
-          "hAlign": "start",
-          "wordWrap": "normal",
-          "wordBreak": "normal",
-          "textOverflow": "",
-          "selectable": false,
-          "disablePointerEvents": false,
-          "useHtml": false,
-          "orientation": "bottom",
-          "layout": "horizontal",
-          "background": {
-            "enabled": false
-          },
-          "padding": {
-            "left": 5,
-            "top": 0,
-            "bottom": 0,
-            "right": 0
-          },
-          "margin": {
-            "left": 0,
-            "top": 0,
-            "bottom": 0,
-            "right": 0
-          }
-        },
-        "tooltip": {
-          "enabled": false,
-          "title": {
-            "zIndex": 1,
-            "enabled": false,
+            "zIndex": 80,
+            "enabled": true,
             "maxLength": null,
             "fontSize": 14,
             "fontFamily": "\"Lucida Console\", Monaco, monospace",
-            "fontColor": "#616161",
+            "fontColor": "#757575",
             "fontOpacity": 1,
             "fontDecoration": "none",
             "fontStyle": "normal",
@@ -432,7 +21,7 @@
             "lineHeight": "normal",
             "textIndent": 0,
             "vAlign": "top",
-            "hAlign": "left",
+            "hAlign": "center",
             "wordWrap": "normal",
             "wordBreak": "normal",
             "textOverflow": "",
@@ -441,409 +30,819 @@
             "useHtml": false,
             "width": null,
             "height": null,
-            "align": "left",
-            "orientation": "top",
-            "rotation": 0,
-            "text": "",
+            "align": "center",
+            "text": "Donut chart with grouped points\nand custom interactivity",
             "margin": {
-              "left": 0,
-              "top": 0,
-              "bottom": 0,
-              "right": 0
+                "left": 0,
+                "top": 0,
+                "bottom": 0,
+                "right": 0
             },
             "padding": {
-              "left": 0,
-              "top": 0,
-              "bottom": 0,
-              "right": 0
+                "left": 0,
+                "top": 0,
+                "bottom": 10,
+                "right": 0
             },
             "background": {
-              "enabled": false
+                "zIndex": 0,
+                "enabled": false
             }
-          },
-          "separator": {
-            "zIndex": 1,
-            "enabled": false,
-            "fill": {
-              "color": "#9e9e9e",
-              "opacity": 0.4
-            },
-            "stroke": "none",
-            "width": "100%",
-            "height": 1,
-            "orientation": "top",
-            "margin": {
-              "left": 0,
-              "top": 10,
-              "bottom": 10,
-              "right": 0
-            }
-          },
-          "background": {
-            "zIndex": 0,
+        },
+        "background": {
+            "zIndex": 0.5,
             "enabled": true
-          }
+        },
+        "tooltip": {
+            "enabled": true,
+            "title": {
+                "zIndex": 1,
+                "enabled": true,
+                "maxLength": null,
+                "fontSize": 14,
+                "fontFamily": "\"Lucida Console\", Monaco, monospace",
+                "fontColor": "#616161",
+                "fontOpacity": 1,
+                "fontDecoration": "none",
+                "fontStyle": "normal",
+                "fontVariant": "normal",
+                "fontWeight": "normal",
+                "letterSpacing": "normal",
+                "textDirection": "ltr",
+                "textShadow": "none",
+                "lineHeight": "normal",
+                "textIndent": 0,
+                "vAlign": "top",
+                "hAlign": "left",
+                "wordWrap": "normal",
+                "wordBreak": "normal",
+                "textOverflow": "",
+                "selectable": false,
+                "disablePointerEvents": false,
+                "useHtml": false,
+                "width": null,
+                "height": null,
+                "align": "left",
+                "orientation": "top",
+                "rotation": 0,
+                "text": "",
+                "margin": {
+                    "left": 0,
+                    "top": 0,
+                    "bottom": 0,
+                    "right": 0
+                },
+                "padding": {
+                    "left": 0,
+                    "top": 0,
+                    "bottom": 0,
+                    "right": 0
+                },
+                "background": {
+                    "enabled": false
+                }
+            },
+            "separator": {
+                "zIndex": 1,
+                "enabled": true,
+                "fill": {
+                    "color": "#9e9e9e",
+                    "opacity": 0.4
+                },
+                "stroke": "none",
+                "width": "100%",
+                "height": 1,
+                "orientation": "top",
+                "margin": {
+                    "left": 0,
+                    "top": 10,
+                    "bottom": 10,
+                    "right": 0
+                }
+            },
+            "background": {
+                "zIndex": 0,
+                "enabled": true
+            }
+        },
+        "margin": {
+            "left": 0,
+            "top": 0,
+            "bottom": 0,
+            "right": 0
+        },
+        "padding": {
+            "left": 15,
+            "top": 20,
+            "bottom": 15,
+            "right": 25
+        },
+        "a11y": {
+            "enabled": true,
+            "mode": "chart-elements"
+        },
+        "autoRedraw": true,
+        "chartLabels": [
+            {
+                "zIndex": 50,
+                "enabled": true,
+                "fontSize": 12,
+                "fontFamily": "\"Lucida Console\", Monaco, monospace",
+                "fontColor": "#757575",
+                "fontOpacity": 1,
+                "fontDecoration": "none",
+                "fontStyle": "normal",
+                "fontVariant": "normal",
+                "fontWeight": "normal",
+                "letterSpacing": "normal",
+                "textDirection": "ltr",
+                "textShadow": "none",
+                "lineHeight": "normal",
+                "textIndent": 0,
+                "vAlign": "top",
+                "hAlign": "center",
+                "wordWrap": "normal",
+                "wordBreak": "normal",
+                "textOverflow": "",
+                "selectable": false,
+                "disablePointerEvents": false,
+                "useHtml": true,
+                "text": "<span style=\"font-size: 28px; color: \">190</span><br><span style=\"font-size: 9px; font-weight: bold\">BONDS</span>",
+                "position": "center",
+                "width": null,
+                "height": null,
+                "anchor": "right-top",
+                "offsetX": 10,
+                "offsetY": 0,
+                "rotation": 0,
+                "adjustFontSize": {
+                    "width": false,
+                    "height": false
+                },
+                "minFontSize": 8,
+                "maxFontSize": 72,
+                "background": {
+                    "enabled": false
+                },
+                "padding": {}
+            },
+            {
+                "zIndex": 50,
+                "enabled": true,
+                "fontSize": 12,
+                "fontFamily": "\"Lucida Console\", Monaco, monospace",
+                "fontColor": "#757575",
+                "fontOpacity": 1,
+                "fontDecoration": "none",
+                "fontStyle": "normal",
+                "fontVariant": "normal",
+                "fontWeight": "normal",
+                "letterSpacing": "normal",
+                "textDirection": "ltr",
+                "textShadow": "none",
+                "lineHeight": "normal",
+                "textIndent": 0,
+                "vAlign": "top",
+                "hAlign": "center",
+                "wordWrap": "normal",
+                "wordBreak": "normal",
+                "textOverflow": "",
+                "selectable": false,
+                "disablePointerEvents": false,
+                "useHtml": true,
+                "text": "<span style=\"font-size: 28px; color: \">260</span><br><span style=\"font-size: 9px; font-weight: bold\">STOCK</span>",
+                "position": "center",
+                "width": null,
+                "height": null,
+                "anchor": "left-top",
+                "offsetX": 10,
+                "offsetY": 0,
+                "rotation": 0,
+                "adjustFontSize": {
+                    "width": false,
+                    "height": false
+                },
+                "minFontSize": 8,
+                "maxFontSize": 72,
+                "background": {
+                    "enabled": false
+                },
+                "padding": {}
+            }
+        ],
+        "bounds": {},
+        "animation": {
+            "enabled": false,
+            "duration": 2000
+        },
+        "contextMenu": {
+            "enabled": true
+        },
+        "credits": {
+            "text": "AnyChart",
+            "url": "https://www.anychart.com/?utm_source=registered",
+            "alt": "AnyChart - JavaScript Charts designed to be embedded and integrated{{anychart-version}}",
+            "imgAlt": "AnyChart - JavaScript Charts",
+            "logoSrc": "https://static.anychart.com/logo.png",
+            "enabled": false
+        },
+        "selectRectangleMarqueeFill": {
+            "color": "#d3d3d3",
+            "opacity": 0.4
+        },
+        "selectRectangleMarqueeStroke": "#d3d3d3",
+        "legend": {
+            "zIndex": 200,
+            "enabled": false,
+            "fontSize": 12,
+            "fontFamily": "\"Lucida Console\", Monaco, monospace",
+            "fontColor": "#757575",
+            "fontOpacity": 1,
+            "fontDecoration": "none",
+            "fontStyle": "normal",
+            "fontVariant": "normal",
+            "fontWeight": "normal",
+            "letterSpacing": "normal",
+            "textDirection": "ltr",
+            "textShadow": "none",
+            "lineHeight": "normal",
+            "textIndent": 0,
+            "vAlign": "top",
+            "hAlign": "start",
+            "wordWrap": "normal",
+            "wordBreak": "normal",
+            "textOverflow": "...",
+            "selectable": false,
+            "disablePointerEvents": false,
+            "useHtml": false,
+            "inverted": false,
+            "itemsLayout": "vertical",
+            "iconSize": 15,
+            "width": null,
+            "height": null,
+            "maxWidth": null,
+            "maxHeight": null,
+            "position": "right",
+            "positionMode": "outside",
+            "drag": false,
+            "itemsFormat": null,
+            "titleFormat": null,
+            "itemsHAlign": "left",
+            "itemsSpacing": 15,
+            "itemsSourceMode": "default",
+            "hoverCursor": "pointer",
+            "iconTextSpacing": 5,
+            "align": "center",
+            "margin": {
+                "left": 0,
+                "top": 0,
+                "bottom": 0,
+                "right": 0
+            },
+            "padding": {
+                "left": 10,
+                "top": 10,
+                "bottom": 0,
+                "right": 10
+            },
+            "background": {
+                "enabled": false
+            },
+            "title": {
+                "enabled": false,
+                "maxLength": null,
+                "fontSize": 15,
+                "fontFamily": "\"Lucida Console\", Monaco, monospace",
+                "fontColor": "#757575",
+                "fontOpacity": 1,
+                "fontDecoration": "none",
+                "fontStyle": "normal",
+                "fontVariant": "normal",
+                "fontWeight": "normal",
+                "letterSpacing": "normal",
+                "textDirection": "ltr",
+                "textShadow": "none",
+                "lineHeight": "normal",
+                "textIndent": 0,
+                "vAlign": "top",
+                "hAlign": "center",
+                "wordWrap": "normal",
+                "wordBreak": "normal",
+                "textOverflow": "",
+                "selectable": false,
+                "disablePointerEvents": false,
+                "useHtml": false,
+                "width": null,
+                "height": null,
+                "align": "center",
+                "text": "Title text",
+                "margin": {
+                    "left": 0,
+                    "top": 0,
+                    "bottom": 0,
+                    "right": 0
+                },
+                "padding": {
+                    "left": 0,
+                    "top": 0,
+                    "bottom": 0,
+                    "right": 0
+                },
+                "background": {
+                    "enabled": false
+                }
+            },
+            "titleSeparator": {
+                "zIndex": 1,
+                "enabled": false,
+                "fill": {
+                    "color": "#9e9e9e",
+                    "opacity": 0.4
+                },
+                "stroke": "none",
+                "width": "100%",
+                "height": 1,
+                "orientation": "top",
+                "margin": {
+                    "left": 0,
+                    "top": 5,
+                    "bottom": 5,
+                    "right": 0
+                }
+            },
+            "paginator": {
+                "zIndex": 30,
+                "enabled": true,
+                "fontSize": 12,
+                "fontFamily": "\"Lucida Console\", Monaco, monospace",
+                "fontColor": "#545f69",
+                "fontOpacity": 1,
+                "fontDecoration": "none",
+                "fontStyle": "normal",
+                "fontVariant": "normal",
+                "fontWeight": "normal",
+                "letterSpacing": "normal",
+                "textDirection": "ltr",
+                "textShadow": "none",
+                "lineHeight": "normal",
+                "textIndent": 0,
+                "vAlign": "top",
+                "hAlign": "start",
+                "wordWrap": "normal",
+                "wordBreak": "normal",
+                "textOverflow": "",
+                "selectable": false,
+                "disablePointerEvents": false,
+                "useHtml": false,
+                "orientation": "bottom",
+                "layout": "horizontal",
+                "background": {
+                    "enabled": false
+                },
+                "padding": {
+                    "left": 5,
+                    "top": 0,
+                    "bottom": 0,
+                    "right": 0
+                },
+                "margin": {
+                    "left": 0,
+                    "top": 0,
+                    "bottom": 0,
+                    "right": 0
+                }
+            },
+            "tooltip": {
+                "enabled": false,
+                "title": {
+                    "zIndex": 1,
+                    "enabled": false,
+                    "maxLength": null,
+                    "fontSize": 14,
+                    "fontFamily": "\"Lucida Console\", Monaco, monospace",
+                    "fontColor": "#616161",
+                    "fontOpacity": 1,
+                    "fontDecoration": "none",
+                    "fontStyle": "normal",
+                    "fontVariant": "normal",
+                    "fontWeight": "normal",
+                    "letterSpacing": "normal",
+                    "textDirection": "ltr",
+                    "textShadow": "none",
+                    "lineHeight": "normal",
+                    "textIndent": 0,
+                    "vAlign": "top",
+                    "hAlign": "left",
+                    "wordWrap": "normal",
+                    "wordBreak": "normal",
+                    "textOverflow": "",
+                    "selectable": false,
+                    "disablePointerEvents": false,
+                    "useHtml": false,
+                    "width": null,
+                    "height": null,
+                    "align": "left",
+                    "orientation": "top",
+                    "rotation": 0,
+                    "text": "",
+                    "margin": {
+                        "left": 0,
+                        "top": 0,
+                        "bottom": 0,
+                        "right": 0
+                    },
+                    "padding": {
+                        "left": 0,
+                        "top": 0,
+                        "bottom": 0,
+                        "right": 0
+                    },
+                    "background": {
+                        "enabled": false
+                    }
+                },
+                "separator": {
+                    "zIndex": 1,
+                    "enabled": false,
+                    "fill": {
+                        "color": "#9e9e9e",
+                        "opacity": 0.4
+                    },
+                    "stroke": "none",
+                    "width": "100%",
+                    "height": 1,
+                    "orientation": "top",
+                    "margin": {
+                        "left": 0,
+                        "top": 10,
+                        "bottom": 10,
+                        "right": 0
+                    }
+                },
+                "background": {
+                    "zIndex": 0,
+                    "enabled": true
+                }
+            }
+        },
+        "interactivity": {
+            "spotRadius": 2,
+            "multiSelectOnClick": true,
+            "unselectOnClickOutOfPoint": false,
+            "hoverMode": "single",
+            "selectionMode": "multi-select"
+        },
+        "data": [
+            {
+                "name": "Point 1",
+                "value": 10,
+                "group": "stock",
+                "fill": "#e5f2ff",
+                "stroke": "#e5f2ff"
+            },
+            {
+                "name": "Point 2",
+                "value": 30,
+                "group": "stock",
+                "fill": "#c3e0ff",
+                "stroke": "#c3e0ff"
+            },
+            {
+                "name": "Point 3",
+                "value": 60,
+                "group": "stock",
+                "fill": "#a0ceff",
+                "stroke": "#a0ceff"
+            },
+            {
+                "name": "Point 4",
+                "value": 30,
+                "group": "stock",
+                "fill": "#7ebcff",
+                "stroke": "#7ebcff"
+            },
+            {
+                "name": "Point 5",
+                "value": 80,
+                "group": "stock",
+                "fill": "#5baaff",
+                "stroke": "#5baaff"
+            },
+            {
+                "name": "Point 6",
+                "value": 40,
+                "group": "stock",
+                "fill": "#3998ff",
+                "stroke": "#3998ff"
+            },
+            {
+                "name": "Point 7",
+                "value": 10,
+                "group": "stock",
+                "fill": "#1687ff",
+                "stroke": "#1687ff"
+            },
+            {
+                "name": "Point 8",
+                "value": 40,
+                "group": "bonds",
+                "fill": "#ebf9f0",
+                "stroke": "#ebf9f0"
+            },
+            {
+                "name": "Point 9",
+                "value": 60,
+                "group": "bonds",
+                "fill": "#cdf1d9",
+                "stroke": "#cdf1d9"
+            },
+            {
+                "name": "Point 10",
+                "value": 40,
+                "group": "bonds",
+                "fill": "#b0e8c2",
+                "stroke": "#b0e8c2"
+            },
+            {
+                "name": "Point 11",
+                "value": 10,
+                "group": "bonds",
+                "fill": "#92e0aa",
+                "stroke": "#92e0aa"
+            },
+            {
+                "name": "Point 12",
+                "value": 40,
+                "group": "bonds",
+                "fill": "#74d793",
+                "stroke": "#74d793"
+            }
+        ],
+        "palette": {
+            "type": "distinct",
+            "items": [
+                "#a9e1d4",
+                "#54dbdf",
+                "#15a9c7",
+                "#207fbf",
+                "#c0aca5",
+                "#8b8a92",
+                "#dbcb8f",
+                "#dba869",
+                "#ffab00",
+                "#00897b"
+            ]
+        },
+        "hatchFillPalette": {
+            "items": [
+                {
+                    "type": "backward-diagonal",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "forward-diagonal",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "horizontal",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "vertical",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "dashed-backward-diagonal",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "grid",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "dashed-forward-diagonal",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "dashed-horizontal",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "dashed-vertical",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "diagonal-cross",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "diagonal-brick",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "divot",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "horizontal-brick",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "vertical-brick",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "checker-board",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "confetti",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "plaid",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "solid-diamond",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "zig-zag",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "weave",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "percent-05",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "percent-10",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "percent-20",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "percent-25",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "percent-30",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "percent-40",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "percent-50",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "percent-60",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "percent-70",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "percent-75",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "percent-80",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                },
+                {
+                    "type": "percent-90",
+                    "color": "black 0.5",
+                    "thickness": 1,
+                    "size": 10
+                }
+            ]
+        },
+        "center": {
+            "stroke": "none",
+            "fill": "none"
+        },
+        "overlapMode": "no-overlap",
+        "startAngle": 0,
+        "radius": "43%",
+        "innerRadius": "70%",
+        "sort": "none",
+        "insideLabelsOffset": "50%",
+        "connectorLength": 20,
+        "outsideLabelsCriticalAngle": 60,
+        "forceHoverLabels": true,
+        "connectorStroke": "#bdbdbd",
+        "mode3d": false,
+        "normal": {
+            "explode": 0,
+            "stroke": "none",
+            "hatchFill": "none",
+            "labels": {
+                "zIndex": 34,
+                "enabled": false
+            },
+            "outline": {
+                "stroke": "none",
+                "width": 0,
+                "offset": 0,
+                "enabled": true
+            }
+        },
+        "hovered": {
+            "explode": 0,
+            "labels": {
+                "enabled": null
+            },
+            "outline": {
+                "stroke": "none",
+                "width": 10,
+                "offset": 0,
+                "enabled": null
+            }
+        },
+        "selected": {
+            "explode": "5%",
+            "stroke": "none",
+            "labels": {
+                "enabled": null
+            },
+            "outline": {
+                "stroke": "none",
+                "width": 10,
+                "offset": 0,
+                "enabled": null
+            }
         }
-      },
-      "interactivity": {
-        "spotRadius": 2,
-        "multiSelectOnClick": true,
-        "unselectOnClickOutOfPoint": false,
-        "hoverMode": "single",
-        "selectionMode": "multi-select"
-      },
-      "data": [
-        {
-          "name": "Point 1",
-          "value": 10,
-          "group": "stock",
-          "fill": "#e5f2ff",
-          "stroke": "#e5f2ff"
-        },
-        {
-          "name": "Point 2",
-          "value": 30,
-          "group": "stock",
-          "fill": "#c3e0ff",
-          "stroke": "#c3e0ff"
-        },
-        {
-          "name": "Point 3",
-          "value": 60,
-          "group": "stock",
-          "fill": "#a0ceff",
-          "stroke": "#a0ceff"
-        },
-        {
-          "name": "Point 4",
-          "value": 30,
-          "group": "stock",
-          "fill": "#7ebcff",
-          "stroke": "#7ebcff"
-        },
-        {
-          "name": "Point 5",
-          "value": 80,
-          "group": "stock",
-          "fill": "#5baaff",
-          "stroke": "#5baaff"
-        },
-        {
-          "name": "Point 6",
-          "value": 40,
-          "group": "stock",
-          "fill": "#3998ff",
-          "stroke": "#3998ff"
-        },
-        {
-          "name": "Point 7",
-          "value": 10,
-          "group": "stock",
-          "fill": "#1687ff",
-          "stroke": "#1687ff"
-        },
-        {
-          "name": "Point 8",
-          "value": 40,
-          "group": "bonds",
-          "fill": "#ebf9f0",
-          "stroke": "#ebf9f0"
-        },
-        {
-          "name": "Point 9",
-          "value": 60,
-          "group": "bonds",
-          "fill": "#cdf1d9",
-          "stroke": "#cdf1d9"
-        },
-        {
-          "name": "Point 10",
-          "value": 40,
-          "group": "bonds",
-          "fill": "#b0e8c2",
-          "stroke": "#b0e8c2"
-        },
-        {
-          "name": "Point 11",
-          "value": 10,
-          "group": "bonds",
-          "fill": "#92e0aa",
-          "stroke": "#92e0aa"
-        },
-        {
-          "name": "Point 12",
-          "value": 40,
-          "group": "bonds",
-          "fill": "#74d793",
-          "stroke": "#74d793"
-        }
-      ],
-      "palette": {
-        "type": "distinct",
-        "items": [
-          "#a9e1d4",
-          "#54dbdf",
-          "#15a9c7",
-          "#207fbf",
-          "#c0aca5",
-          "#8b8a92",
-          "#dbcb8f",
-          "#dba869",
-          "#ffab00",
-          "#00897b"
-        ]
-      },
-      "hatchFillPalette": {
-        "items": [
-          {
-            "type": "backward-diagonal",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "forward-diagonal",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "horizontal",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "vertical",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "dashed-backward-diagonal",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "grid",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "dashed-forward-diagonal",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "dashed-horizontal",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "dashed-vertical",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "diagonal-cross",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "diagonal-brick",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "divot",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "horizontal-brick",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "vertical-brick",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "checker-board",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "confetti",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "plaid",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "solid-diamond",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "zig-zag",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "weave",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "percent-05",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "percent-10",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "percent-20",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "percent-25",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "percent-30",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "percent-40",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "percent-50",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "percent-60",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "percent-70",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "percent-75",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "percent-80",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          },
-          {
-            "type": "percent-90",
-            "color": "black 0.5",
-            "thickness": 1,
-            "size": 10
-          }
-        ]
-      },
-      "center": {
-        "stroke": "none",
-        "fill": "none"
-      },
-      "overlapMode": "no-overlap",
-      "startAngle": 0,
-      "radius": "43%",
-      "innerRadius": "70%",
-      "sort": "none",
-      "insideLabelsOffset": "50%",
-      "connectorLength": 20,
-      "outsideLabelsCriticalAngle": 60,
-      "forceHoverLabels": true,
-      "connectorStroke": "#bdbdbd",
-      "mode3d": false,
-      "normal": {
-        "explode": 0,
-        "stroke": "none",
-        "hatchFill": "none",
-        "labels": {
-          "zIndex": 34,
-          "enabled": false
-        },
-        "outline": {
-          "stroke": "none",
-          "width": 0,
-          "offset": 0,
-          "enabled": true
-        }
-      },
-      "hovered": {
-        "explode": 0,
-        "labels": {
-          "enabled": null
-        },
-        "outline": {
-          "stroke": "none",
-          "width": 10,
-          "offset": 0,
-          "enabled": null
-        }
-      },
-      "selected": {
-        "explode": "5%",
-        "stroke": "none",
-        "labels": {
-          "enabled": null
-        },
-        "outline": {
-          "stroke": "none",
-          "width": 10,
-          "offset": 0,
-          "enabled": null
-        }
-      }
     }
-  }
-                  
+}
