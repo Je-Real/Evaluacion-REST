@@ -4,7 +4,7 @@
 	z-index: 1049;
 }
 
-#closeCont {
+#closeFloat {
 	top: 0;
 	left: 0;
     right: 0;
@@ -12,11 +12,16 @@
 	margin-top: 31rem;
 }
 
+#closeReg {
+	right: 1.5rem;
+    top: 1.5rem;
+}
+
 @media (max-width: 768px) {
 	.w-md-100 {
 		width: 100% !important;
 	}
-	#closeCont {
+	#closeFloat {
 		margin-top: 4rem;
 	}
 }

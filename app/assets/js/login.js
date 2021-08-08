@@ -5,7 +5,7 @@ var backpanel = document.getElementById('backPanel')
 var glass = document.getElementById('layoutSidenav')
 
 function onEnterHandler(event) {
-    var code = event.which || event.keyCode     
+    var code = event.which || event.keyCode
     if(code === 13){
       login()
     }
