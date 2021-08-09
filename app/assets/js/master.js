@@ -23,11 +23,13 @@ function inSession(setter) {
 
     if(setter <= 2) {
         strDrop = '<li><a class="dropdown-item" href="">Perfil</a></li>'+
+        '<li><a class="dropdown-item" href="/encuesta/">Encuesta</a></li>'+
         '<li><a class="dropdown-item" href="javascript:toggleRegister()">Nuevo usuario</a></li>'+
         '<li><hr class="dropdown-divider" /></li>'+
         '<li><a class="dropdown-item" href="javascript:logout()">Cerrar sesión</a></li>'
     } else {
         strDrop = '<li><a class="dropdown-item" href="">Perfil</a></li>'+
+        '<li><a class="dropdown-item" href="/encuesta/">Encuesta</a></li>'+
         '<li><hr class="dropdown-divider" /></li>'+
         '<li><a class="dropdown-item" href="javascript:logout()">Cerrar sesión</a></li>'
     }

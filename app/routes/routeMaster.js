@@ -2,7 +2,7 @@ const { Router } = require('express')
 const router = Router()
 
 const controllerIndex = require('../controllers/controllerInicio')
-const controllerLayoutStatic = require('../controllers/controllerLayoutStatic')
+const controllerLayoutStatic = require('../controllers/controllerEncuesta')
 const controllerTables = require('../controllers/controllerTables')
 const controllerLayoutSidenav = require('../controllers/controllerLayoutSidenav')
 const controllerReporteC = require('../controllers/controllerReporteC')
@@ -25,7 +25,7 @@ router.get('/reporte', controllerReporteC.root)
       .post('/reporte/add', controllerReporteC.add)
       .get('/reporte/get', controllerReporteC.get)
 
-router.get('/layout-static', controllerLayoutStatic.root)
+router.get('/encuesta', controllerLayoutStatic.root)
       
 router.get('/tables', controllerTables.root)
       
