@@ -3,16 +3,11 @@ const modelUserInfo = require('../../models/modelUserInfo')
 const crypto = require('crypto-js')
 
 // >>>>>>>>>>>>>>>>>>>>>> Registration <<<<<<<<<<<<<<<<<<<<<<
-function root(req, res) {
-	//Registration route
-	return res.status(200).render('session/register')
-}
-
 function signIn(req, res) {
 	//SignIn validator
 	modelUser.find({ _id: req.body._id })
-		.then((data) => {
-			if (data.length) { //if data 👍
+		.then((dataUser) => {
+			if (dataUser.length || !dataUser[0].enabled) { //if data 👍
 				console.log('Existe usuario')
 				//return res.status(200).redirect('/registro') //Cambiar por mensaje
 			} else { //if no data 🥶
@@ -27,7 +22,7 @@ function signIn(req, res) {
 
 				//Save data
 				new modelUser(req.body).save()
-					.then((data) => { //🟢
+					.then((dataUser) => { //🟢
 						req = null
 						return res
 					})
@@ -37,7 +32,7 @@ function signIn(req, res) {
 					})
 
 				new modelUserInfo(req.body).save()
-					.then((data) => { //🟢
+					.then((dataUInfo) => { //🟢
 						req = null
 						return res.status(200).redirect('/inicio')
 					})
@@ -55,6 +50,5 @@ function signIn(req, res) {
 }
 
 module.exports = {
-	root,
 	signIn,
 }

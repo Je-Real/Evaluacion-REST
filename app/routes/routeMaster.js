@@ -34,8 +34,7 @@ router.get('/layout-sidenav-light', controllerLayoutSidenav.root)
       
 router.get('/password', controllerPassword.root)
       
-router.get('/sesion/nuevo-usuario', controllerRegister.root)
-      .post('/sesion/nuevo-usuario', controllerRegister.signIn)
+router.post('/sesion/nuevo-usuario', controllerRegister.signIn)
       .post('/sesion/login', controllerLogin.logIn)
       .get('/sesion/logout', controllerLogin.logOut)
 

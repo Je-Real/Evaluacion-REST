@@ -4,8 +4,8 @@ const mongoose = require('mongoose')
 const UserSchema = new mongoose.Schema({
     _id:{ type:String },
     pass:{ type:String, required:true },
-    last_conn:{ type:Date, default:Date.now() },
-    level:{ type:Number, default:4 },
+    last_conn:{ type:Date, default:Date.now(), required:true },
+    level:{ type:Number, default:4, required:true },
     enabled:{ type:Boolean, default:true, required:true }
 })
 

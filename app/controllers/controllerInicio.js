@@ -4,7 +4,9 @@ localStorage = new LocalStorage('./scratch')
 // >>>>>>>>>>>>>>>>>>>>>> Index <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
     //Root route
-    return res.status(200).render('index', {localStorage: localStorage})
+    return res.status(200).render('index', {
+        l: localStorage.getItem('l')
+    })
 }
 
 function search(req, res, next) {

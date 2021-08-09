@@ -5,7 +5,7 @@ const informationSchema = new mongoose.Schema({
     _id:{ type:String },
     first_name:{ type:String, required:true },
     area:{ type:Number, required:true },
-    department:{ type:Number },
+    department:{ type:Number, required:true },
     career:{ type:Number },
     contract:{ type:Number },
     address:{
