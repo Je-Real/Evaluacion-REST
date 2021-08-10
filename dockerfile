@@ -1,8 +1,8 @@
 FROM node:carbon-alpine
 RUN mkdir /eval
-COPY package.json /eval
-COPY /. /eval
-WORKDIR /eval
+COPY package.json .
+COPY . .
+WORKDIR .
 RUN npm install
-EXPOSE 80
+EXPOSE 3000
 CMD node server.js

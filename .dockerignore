@@ -1,0 +1,6 @@
+node_modules
+npm-debug.log
+scratch
+db
+.git
+.gitignore
