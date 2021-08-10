@@ -39,9 +39,9 @@ router.post('/sesion/nuevo-usuario', controllerRegister.signIn)
       .get('/sesion/logout', controllerLogin.logOut)
 
 
-router.get('/error/404', controller404.root)
-
 router.get('/error/401', controller401.root)
+      
+router.get('/error/404', controller404.root)
 
 router.get('/error/500', controller500.root)
 
