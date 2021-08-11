@@ -22,7 +22,7 @@ async function logIn(req, res) {
 									modelUserInfo.find({ _id: req.body._id })
 										.then(dataUInfo => {
 											localStorage.setItem('user', req.body._id)
-											localStorage.setItem('l', dataLevel[0].level)
+											localStorage.setItem('lvl', dataLevel[0].level)
 											//Response success for AJAX
 											return res.end(JSON.stringify({
 												msg: 'Sesión iniciada. Bienvenido '+dataUInfo.first_name+'.',

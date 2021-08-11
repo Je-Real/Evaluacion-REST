@@ -1,3 +1,5 @@
+<% var contracts %>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -257,6 +259,7 @@
         </div>
     </div>
 
+    <%  %>
     <div id="floatingRegister" class="floating w-100 d-none flex-nowrap justify-content-center position-fixed">
         <div class="card w-50 w-md-100 shadow-lg border-0 rounded-lg">
             <div class="card-header">
@@ -329,13 +332,12 @@
                             <div class="form-floating">
                                 <select class="form-select" name="contract" id="contract"
                                     aria-label="Selección" >
-                                    <option selected>Seleccione categoria...</option>
-                                    <%  %>
-                                    <option value="1">Personal por contrato</option>
-                                    <option value="2">Personal de base</option>
-                                    <option value="3">Personal de confianza</option>
+                                    <option selected>Seleccione contrato...</option>
+                                    <% for(var d in contracts) { %>
+                                        <option value="<%= contracts[d]['n'] %>"><%= contracts[d]['desc'] %></option>
+                                    <% } %>
                                 </select>
-                                <label for="contract">Categoria</label>
+                                <label for="contract">Contrato</label>
                             </div>
                         </div>
                     </div>
@@ -350,9 +352,9 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-floating mb-3 mb-md-0">
-                                <input class="form-control" name="b-day" id="b-day"
-                                    type="date" placeholder="Nº" />
-                                <label for="b-day">numero</label>
+                                <input class="form-control" name="num" id="num"
+                                    type="number" placeholder="Nº" />
+                                <label for="num">numero</label>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -388,6 +390,7 @@
             </div>
         </div>
     </div>
+    <%  %>
 
     <div id="floatingPass" class="floating w-100 d-none flex-nowrap justify-content-center position-fixed">
         <div class="card w-50 w-md-100 shadow-lg border-0 rounded-lg">
