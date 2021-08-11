@@ -24,7 +24,7 @@ function inSession(setter) {
     if(setter <= 2) {
         strDrop = '<li><a class="dropdown-item" href="">Perfil</a></li>'+
         '<li><a class="dropdown-item" href="/encuesta/">Encuesta</a></li>'+
-        '<li><a class="dropdown-item" href="javascript:toggleRegister()">Nuevo usuario</a></li>'+
+        '<li><a class="dropdown-item" href="javascript:toggleRegister(1)">Nuevo usuario</a></li>'+
         '<li><hr class="dropdown-divider" /></li>'+
         '<li><a class="dropdown-item" href="javascript:logout()">Cerrar sesión</a></li>'
     } else {
@@ -86,8 +86,9 @@ function toggleFloating(floating) {
     }
 }
 
-function toggleRegister() {
-    tr = !tr
+function toggleRegister(show) {
+    if(show === 1) tr = show
+    else tr = !tr
 
     if(tr) {
         frameR.className = frameR.className.replace('d-none', 'd-flex')
@@ -172,7 +173,7 @@ function register() {
     var num = document.getElementById('num').value
     var pc = document.getElementById('postal_code').value
     var bday = document.getElementById('b_day').value
-    var pass = 'default'
+    var pass = document.getElementById('pass_r').value
 
     var packed = JSON.stringify({ 
         _id: _id, 

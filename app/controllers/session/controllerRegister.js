@@ -5,7 +5,6 @@ const crypto = require('crypto-js')
 // >>>>>>>>>>>>>>>>>>>>>> Registration <<<<<<<<<<<<<<<<<<<<<<
 async function signIn(req, res) {
 	//SignIn validator
-	console.log('body', req.body)
 	await modelUser.find({ _id: req.body._id })
 		.then((dataUser) => {
 			if (dataUser.length) { //if data 👍
@@ -23,8 +22,6 @@ async function signIn(req, res) {
 					num : req.body.num,
 					postal_code : req.body.postal_code
 				}
-
-				console.log('Finally:', req.body)
 
 				//Save data
 				new modelUserInfo(req.body).save()
@@ -57,7 +54,7 @@ async function signIn(req, res) {
 			}
 		})
 		.catch((error) => { //if error 🤬
-			console.log('Fuck it:',error)
+			console.log('Error:',error)
 			return res.end(JSON.stringify({
 				msg: 'Error en servidor.',
 				status: 500,

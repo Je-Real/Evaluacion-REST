@@ -17,11 +17,13 @@ if(user == null || String(user).trim() == '') { %>
     <title>UTNA - Reportes</title>
     <link rel="icon" href="/img/favicon.png" type="image/x-icon">
     <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/css/custom.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         crossorigin="anonymous"></script>
 </head>
 
 <body onload="init()" class="sb-nav-fixed">
+    <div id="noti" class="noti mx-auto w-25 d-flex flex-nowrap justify-content-center position-fixed"></div>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="/inicio/">

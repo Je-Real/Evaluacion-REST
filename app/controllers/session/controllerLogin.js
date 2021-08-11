@@ -32,7 +32,8 @@ async function logIn(req, res) {
 												noti: true
 											}))
 										})
-										.catch(() => {
+										.catch((error) => {
+											console.log(error)
 											return res.end(JSON.stringify({
 												msg: 'Error de busqueda de usuario. Intenta de nuevo mas tarde.', 
 												status: 404,
@@ -40,7 +41,8 @@ async function logIn(req, res) {
 											}))
 										})
 								})
-								.catch(() => {
+								.catch((error) => {
+									console.log(error)
 									return res.end(JSON.stringify({
 										msg: 'Error de busqueda de usuario. Intenta de nuevo mas tarde.', 
 										status: 404,
@@ -48,7 +50,8 @@ async function logIn(req, res) {
 									}))
 								})
 						})
-						.catch(() => {
+						.catch((error) => {
+							console.log(error)
 							return res.end(JSON.stringify({
 								msg: 'Error de busqueda de usuario. Intenta de nuevo mas tarde.', 
 								status: 404,
@@ -70,7 +73,8 @@ async function logIn(req, res) {
 				}))
 			}
 		})
-		.catch(() => { //if error 🤬
+		.catch((error) => { //if error 🤬
+			console.log(error)
 			return res.end(JSON.stringify({
 				msg: 'Error del servidor.\n\r¡No te alarmes! Todo saldra bien.', 
 				status: 500,

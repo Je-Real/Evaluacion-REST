@@ -27,9 +27,7 @@ try { lvl = localStorage.getItem('lvl') } catch { lvl = null } %>
 
 <body onload="init()" class="sb-nav-fixed">
 
-    <div id="noti" class="noti mx-auto w-25 d-flex flex-nowrap justify-content-center position-fixed">
-        
-    </div>
+    <div id="noti" class="noti mx-auto w-25 d-flex flex-nowrap justify-content-center position-fixed"></div>
 
     <nav id="layoutNavbar" class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
@@ -272,7 +270,7 @@ try { lvl = localStorage.getItem('lvl') } catch { lvl = null } %>
     </div>
 
     <% if(/*lvl != null && lvl <= 2*/ true) { %>
-    <div id="floatingRegister" class="floating mx-auto w-md-75 d-flex flex-nowrap justify-content-center position-fixed">
+    <div id="floatingRegister" class="floating mx-auto w-md-75 d-none flex-nowrap justify-content-center position-fixed">
         <div class="card w-100 mx-md-4 w-md-100 shadow-lg border-0 rounded-lg">
             <div class="card-header">
                 <div class="row d-flex flex-wrap">
@@ -386,7 +384,6 @@ try { lvl = localStorage.getItem('lvl') } catch { lvl = null } %>
                     </div>
 
                     <div class="row mb-3">
-                        <div class="col-md-3"></div>
                         <div class="col-md-6">
                             <div class="form-floating mb-3 mb-md-0">
                                 <input class="form-control" name="b-day" id="b_day"
@@ -394,7 +391,13 @@ try { lvl = localStorage.getItem('lvl') } catch { lvl = null } %>
                                 <label for="b_day">Fecha de nacimiento</label>
                             </div>
                         </div>
-                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3 mb-md-0">
+                                <input class="form-control" name="pass" id="pass_r"
+                                    type="password" placeholder="Nº" />
+                                <label for="pass_r">Contraseña</label>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="mt-4 mb-0">
