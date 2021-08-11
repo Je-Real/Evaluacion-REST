@@ -5,13 +5,15 @@ Chart.defaults.global.defaultFontColor = '#292b2c'
 var labels = []
 var info = []
 
+user = localStorage.getItem('user')
+
 //Pie
 $(document).ready(function() {
     $.ajax({
         type: 'GET',
         url: 'http://localhost:3000/reporte/get',
         contentType: 'application/json; charset=utf-8',
-        data: {_id: 'R123456789'},
+        data: {_id: user},
         dataType: 'json',
         async: true,
         success: function(result) {
@@ -20,9 +22,6 @@ $(document).ready(function() {
                     info.push(result.data[0].records[record])
                     labels.push(String(record))
                 }
-
-                console.log('L:',labels)
-                console.log('D:',info)
 
                 // Pie Chart
                 var ctx = document.getElementById("myPieChart")

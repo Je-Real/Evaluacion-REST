@@ -7,24 +7,19 @@ localStorage = new LocalStorage('./scratch')
 function root(req, res) {
     var contracts
 
-    //Root route
-    return res.status(200).render('index', {
-        contracts: contracts
-    })
-
     modelContract.find({})
         .then(data => {
             contracts = data
 
             //Root route
-            return res.status(200).render('index', {
+            return res.status(200).render('inicio', {
                 contracts: contracts
             })
         })
         .catch(error => {
             console.log('Error', error)
 
-            return res.status(200).render('index', {
+            return res.status(200).render('inicio', {
                 contracts: contracts
             })
         })

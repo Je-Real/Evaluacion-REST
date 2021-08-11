@@ -22,6 +22,7 @@ async function logIn(req, res) {
 									modelUserInfo.find({ _id: req.body._id })
 										.then(dataUInfo => {
 											localStorage.setItem('user', req.body._id)
+											localStorage.setItem('name', dataUInfo[0].first_name)
 											localStorage.setItem('lvl', dataLevel[0].level)
 											//Response success for AJAX
 											return res.end(JSON.stringify({

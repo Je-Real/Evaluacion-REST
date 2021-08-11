@@ -4,8 +4,7 @@ const router = Router()
 const controllerIndex = require('../controllers/controllerInicio')
 const controllerLayoutStatic = require('../controllers/controllerEncuesta')
 const controllerTables = require('../controllers/controllerTables')
-const controllerLayoutSidenav = require('../controllers/controllerLayoutSidenav')
-const controllerReporteC = require('../controllers/controllerReporteC')
+const controllerReporteC = require('../controllers/controllerReporte')
 
 const controller404 = require('../controllers/error/controller404')
 const controller401 = require('../controllers/error/controller401')
@@ -28,8 +27,6 @@ router.get('/reporte', controllerReporteC.root)
 router.get('/encuesta', controllerLayoutStatic.root)
       
 router.get('/tables', controllerTables.root)
-      
-router.get('/layout-sidenav-light', controllerLayoutSidenav.root)
       
       
 router.get('/password', controllerPassword.root)

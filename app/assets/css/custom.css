@@ -4,25 +4,26 @@
 	z-index: 1049;
 }
 
-#closeFloat {
-	top: 0;
-	left: 0;
-    right: 0;
-	width: 7.5rem;
-	margin-top: 31rem;
-}
-
 #closeReg {
 	right: 1.5rem;
     top: 1.5rem;
 }
 
 @media (max-width: 768px) {
-	.w-md-100 {
+	.w-sm-100 {
 		width: 100% !important;
 	}
 	#closeFloat {
 		margin-top: 4rem;
+	}
+}
+
+@media (min-width: 768px) {
+	.w-md-50 {
+		width: 50% !important;
+	}
+	.w-md-75 {
+		width: 75% !important;
 	}
 }
 
@@ -35,7 +36,20 @@
 .floating {
 	z-index: 1050;
 	top: 7rem;
+	left: 0;
+    right: 0;
 	text-align: -webkit-center;
+}
+
+.noti {
+	z-index: 1055;
+	left: 0;
+    right: 0;
+	text-align: -webkit-center;
+}
+
+.floating>.card.limit  {
+	max-width: 32rem;
 }
 
 .bg-dark-50 {

@@ -1,3 +1,10 @@
+<% var user = localStorage.getItem('user')
+var lvl = localStorage.getItem('lvl')
+if(user == null || String(user).trim() == '' && lvl <= 2) { %>
+    <script>
+        window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
+    </script>
+<% } else { %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -7,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Tables - SB Admin</title>
+    <title>UTNA - Información</title>
     <link rel="icon" href="/img/favicon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -52,7 +59,7 @@
                         <div class="sb-sidenav-menu-heading">Reportes</div>
                         <a class="nav-link" href="/reporte/">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-line fa-2x"></i></div>
-                            Reporte completo
+                            Reporte
                         </a>
                         <a class="nav-link" href="/tables/">
                             <div class="sb-nav-link-icon"><i class="fas fa-table fa-2x"></i></div>
@@ -173,3 +180,4 @@
 </body>
 
 </html>
+<% } %>

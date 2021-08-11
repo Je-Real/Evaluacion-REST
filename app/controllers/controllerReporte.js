@@ -2,10 +2,10 @@ const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
 const crypto = require('crypto-js')
 
-// >>>>>>>>>>>>>>>>>>>>>> Reporte-c <<<<<<<<<<<<<<<<<<<<<<
+// >>>>>>>>>>>>>>>>>>>>>> Reportes <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
-    //Reporte-c route
-    return res.status(200).render('reporte-c')
+    //Reportes route
+    return res.status(200).render('reportes')
 }
 
 function add(req, res) {
@@ -14,20 +14,20 @@ function add(req, res) {
             new modelEvaluation(req.body).save()
                 .then((data) => { //🟢
                     console.log('Subido pa!', data)
-                    return res.status(200).render('reporte-c')
+                    return res.status(200).render('reportes')
                 })
                 .catch(() => { //🔴
-                    return res.status(200).render('reporte-c')
+                    return res.status(200).render('reportes')
                 })
         })
         .catch((error) => {
             console.log('Error', error)
-            return res.status(200).render('reporte-c')
+            return res.status(200).render('reportes')
         })
 }
 
 function get(req, res) {
-    modelEvaluation.find({ _id: 'R123456789' })
+    modelEvaluation.find({ _id: req.query._id })
         .then(data => { //🟢
             return res.end(JSON.stringify({
 				data: data,

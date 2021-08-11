@@ -39,12 +39,17 @@ function inSession(setter) {
     )
 }
 
-function outSession() {
+function outSession(clicked) {
     $('#dropSession').html(
         '<li>'+
         '<li><a class="dropdown-item" href="javascript:toggleFloating(1)">Iniciar sesión</a></li>'+
         '</li>'
     )
+    if(clicked) {
+        setTimeout(() => {
+            window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
+        }, 2500)
+    }
 }
 
 function toggleFloating(floating) {
@@ -114,7 +119,7 @@ function login() {
         async: true,
         success: function(result){
             if(result.noti){
-                $('#loginMsg').html('Notify: '+result.msg)
+                showSnack(result.msg)
             } else {
                 if(result.status === 200) $('#loginMsg').addClass('text-success')
                 $('#loginMsg').addClass('text-danger')
@@ -129,7 +134,7 @@ function login() {
             }
         },
         error: function (xhr, status, error) { 
-            console.log('Status:'+status+'. '+error) //notify
+            showSnack(msg='Status:'+status+'. '+error) //notify
         }
     })
 }
@@ -142,18 +147,36 @@ function logout() {
         async: true,
         success: function(result){
             if(result.status === 200){
-                outSession()
+                outSession(true)
                 localStorage.clear()
+                showSnack('Sesión finalizada')
             } else {
-                console.log('Error: '+result.msg) //notify
+                showSnack(msg='Error: '+result.msg) //notify
             }
         },
         error: function (xhr, status, error) { 
-            console.log('Status:'+status+'. '+error) //notify
+            showSnack(msg='Status:'+status+'. '+error) //notify
         }
     })
 }
 
 function password() {
     console.log('Reemplazar')
+}
+
+function showSnack(msg, status) {
+	$('#noti').html(
+		`<div class="mt-5 toast show">
+			<div class="toast-header bg-info text-light">
+				<strong class="me-auto">Notificación</strong>
+				<button type="button" class="btn-close" role="button" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+			<div class="toast-body">
+				${msg}
+			</div>
+		</div>`
+	)
+	setTimeout(function () {
+		$('#noti').html('')
+	}, 3000)
 }
