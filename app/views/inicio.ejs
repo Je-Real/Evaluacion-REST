@@ -1,11 +1,9 @@
 <% var contracts
-try {
-    var user = localStorage.getItem('user')
-} catch { var user = null }
+var user = null
+var lvl = null
+try { user = localStorage.getItem('user') } catch { user = null }
 
-try {
-    var lvl = localStorage.getItem('lvl') 
-} catch { var lvl = null } %>
+try { lvl = localStorage.getItem('lvl') } catch { lvl = null } %>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -273,8 +271,8 @@ try {
         </div>
     </div>
 
-    <% if(lvl <= 2) { %>
-    <div id="floatingRegister" class="floating mx-auto w-md-75 d-none flex-nowrap justify-content-center position-fixed">
+    <% if(/*lvl != null && lvl <= 2*/ true) { %>
+    <div id="floatingRegister" class="floating mx-auto w-md-75 d-flex flex-nowrap justify-content-center position-fixed">
         <div class="card w-100 mx-md-4 w-md-100 shadow-lg border-0 rounded-lg">
             <div class="card-header">
                 <div class="row d-flex flex-wrap">
@@ -286,20 +284,27 @@ try {
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST">
+                <form method="POST" name="f_reg" id="f_reg">
                     <div class="row mb-3">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-floating mb-3 mb-md-0">
                                 <input class="form-control" name="first_name" id="first_name"
-                                    type="text" placeholder="Nombre(s)" />
+                                    type="text" placeholder="." />
                                 <label for="first_name">Nombre(s)</label>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-floating">
                                 <input class="form-control" name="last_name" id="last_name"
-                                    type="text" placeholder="Apellido(s)" />
+                                    type="text" placeholder="." />
                                 <label for="last_name">Apellido(s)</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input class="form-control" name="_id" id="_id_r"
+                                    type="text" placeholder="." />
+                                <label for="_id_r">Usuario</label>
                             </div>
                         </div>
                     </div>
@@ -384,9 +389,9 @@ try {
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
                             <div class="form-floating mb-3 mb-md-0">
-                                <input class="form-control" name="b-day" id="b-day"
+                                <input class="form-control" name="b-day" id="b_day"
                                     type="date" placeholder="Nº" />
-                                <label for="b-day">Fecha de nacimiento</label>
+                                <label for="b_day">Fecha de nacimiento</label>
                             </div>
                         </div>
                         <div class="col-md-3"></div>
@@ -394,7 +399,7 @@ try {
 
                     <div class="mt-4 mb-0">
                         <div class="d-grid">
-                            <button class="btn btn-primary btn-block" type="button" onclick="">Guardar</button>
+                            <button class="btn btn-primary btn-block" type="button" onclick="register()">Registrar</button>
                         </div>
                     </div>
                 </form>

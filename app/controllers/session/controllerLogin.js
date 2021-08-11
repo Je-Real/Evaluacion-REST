@@ -26,7 +26,7 @@ async function logIn(req, res) {
 											localStorage.setItem('lvl', dataLevel[0].level)
 											//Response success for AJAX
 											return res.end(JSON.stringify({
-												msg: 'Sesión iniciada. Bienvenido '+dataUInfo.first_name+'.',
+												msg: 'Sesión iniciada. Bienvenido '+dataUInfo[0].first_name+'.',
 												stg: {level: dataLevel[0].level, user: req.body._id},
 												status: 200,
 												noti: true

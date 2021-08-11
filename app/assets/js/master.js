@@ -122,7 +122,7 @@ function login() {
                 showSnack(result.msg)
             } else {
                 if(result.status === 200) $('#loginMsg').addClass('text-success')
-                $('#loginMsg').addClass('text-danger')
+                else $('#loginMsg').addClass('text-danger')
                 $('#loginMsg').html(result.msg)
             }
 
@@ -134,7 +134,7 @@ function login() {
             }
         },
         error: function (xhr, status, error) { 
-            showSnack(msg='Status:'+status+'. '+error) //notify
+            showSnack(msg='Status:'+status+'. '+error) //noti
         }
     })
 }
@@ -151,11 +151,60 @@ function logout() {
                 localStorage.clear()
                 showSnack('Sesión finalizada')
             } else {
-                showSnack(msg='Error: '+result.msg) //notify
+                showSnack(msg='Error: '+result.msg) //noti
             }
         },
         error: function (xhr, status, error) { 
-            showSnack(msg='Status:'+status+'. '+error) //notify
+            showSnack(msg='Status:'+status+'. '+error) //noti
+        }
+    })
+}
+
+function register() {
+    var _id = document.getElementById('_id_r').value
+    var fn = document.getElementById('first_name').value
+    var ln = document.getElementById('last_name').value
+    var area = document.getElementById('area').value
+    var dep = document.getElementById('department').value
+    var cr = document.getElementById('career').value
+    var ct = document.getElementById('contract').value
+    var st = document.getElementById('street').value
+    var num = document.getElementById('num').value
+    var pc = document.getElementById('postal_code').value
+    var bday = document.getElementById('b_day').value
+    var pass = 'default'
+
+    var packed = JSON.stringify({ 
+        _id: _id, 
+        pass: pass,
+        first_name: fn,
+        last_name: ln,
+        area: area,
+        department: dep,
+        career: cr,
+        contract: ct,
+        street: st,
+        num: num,
+        postal_code: pc,
+        b_day: bday
+    })
+
+    $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3000/sesion/nuevo-usuario',
+        contentType: 'application/json; charset=utf-8',
+        data: packed,
+        dataType: 'json',
+        async: true,
+        success: function(result){
+            showSnack(result.msg)
+
+            if(result.status === 200){
+                toggleFloating(0)
+            }
+        },
+        error: function (xhr, status, error) { 
+            showSnack(msg='Status:'+status+'. '+error) //noti
         }
     })
 }
