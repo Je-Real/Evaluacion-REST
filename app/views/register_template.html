@@ -1,0 +1,142 @@
+<div id="floatingRegister" class="floating mx-auto w-md-75 d-none flex-nowrap justify-content-center position-fixed">
+    <div class="card w-100 mx-md-4 w-md-100 shadow-lg border-0 rounded-lg">
+        <div class="card-header">
+            <div class="row d-flex flex-wrap">
+                <h3 class="text-center font-weight-light my-4">Nuevo personal</h3>
+                <button id="closeReg" onclick="toggleFloating(0)"
+                    class="h3 m-0 p-1 w-auto position-absolute form-control btn-danger">
+                    <i class="fas fa-times-circle fa-2x"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <form method="POST" name="f_reg" id="f_reg">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <input class="form-control" name="first_name" id="first_name"
+                                type="text" placeholder="." />
+                            <label for="first_name">Nombre(s)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating">
+                            <input class="form-control" name="last_name" id="last_name"
+                                type="text" placeholder="." />
+                            <label for="last_name">Apellido(s)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating">
+                            <input class="form-control" name="_id" id="_id_r"
+                                type="text" placeholder="." />
+                            <label for="_id_r">Usuario</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <select class="form-select" name="area" id="area"
+                                aria-label="Selección" >
+                                <option selected>Seleccione area...</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                            <label for="area">Area</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <select class="form-select" name="department" id="department"
+                                aria-label="Selección" >
+                                <option selected>Seleccione departamento...</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                            <label for="department">Departamento</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <select class="form-select" name="career" id="career"
+                                aria-label="Selección" >
+                                <option selected>Seleccione carrera...</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                            <label for="career">Carrera</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <select class="form-select" name="contract" id="contract"
+                                aria-label="Selección" >
+                                <option selected>Seleccione contrato...</option>
+                                <% for(var d in contracts) { %>
+                                    <option value="<%= contracts[d]['n'] %>"><%= contracts[d]['desc'] %></option>
+                                <% } %>
+                            </select>
+                            <label for="contract">Contrato</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row my-3">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <input class="form-control" name="street" id="street"
+                                type="text" placeholder="." />
+                            <label for="street">Calle</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <input class="form-control" name="num" id="num"
+                                type="number" placeholder="Nº" />
+                            <label for="num">numero</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <input class="form-control" name="postal_code" id="postal_code"
+                                type="text" placeholder="." />
+                            <label for="postal_code">No. Código</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <input class="form-control" name="b-day" id="b_day"
+                                type="date" placeholder="Nº" />
+                            <label for="b_day">Fecha de nacimiento</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <input class="form-control" name="pass" id="pass_r"
+                                type="password" placeholder="Nº" />
+                            <label for="pass_r">Contraseña</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 mb-0">
+                    <div class="d-grid">
+                        <button class="btn btn-primary btn-block" type="button" onclick="register()">Registrar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-center py-3">
+            <p id="loginMsg" class="text-center my-2"></p>
+        </div>
+    </div>
+</div>

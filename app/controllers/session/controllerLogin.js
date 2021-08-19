@@ -10,7 +10,14 @@ async function logIn(req, res) {
 	//LogIn validator
 	await modelUser.find({ _id: req.body._id })
 		.then((dataUser) => {
-			if (dataUser.length || !dataUser[0].enabled) { //if dataUser 👍
+			if (dataUser.length) { //if dataUser 👍
+				if(!dataUser[0].enabled) {
+					return res.end(JSON.stringify({
+						msg: 'El usuario o contraseña no coinciden.', 
+						status: 404,
+						noti: false
+					}))
+				}
 				//Encryption
 				var compare = crypto.AES.decrypt(dataUser[0].pass, req.body._id)
 
@@ -67,7 +74,7 @@ async function logIn(req, res) {
 				}
 			} else { //if no data 🥶
 				return res.end(JSON.stringify({
-					msg: 'El usuario no existe.', 
+					msg: 'El usuario no existe. Por favor revisa tu usuario.', 
 					status: 404,
 					noti: false
 				}))
