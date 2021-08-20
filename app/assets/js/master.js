@@ -22,28 +22,26 @@ function inSession(setter) {
     var strDrop
 
     if(setter <= 2) {
-        strDrop = '<li><a class="dropdown-item" href="">Perfil</a></li>'+
-        '<li><a class="dropdown-item" href="/encuesta/">Encuesta</a></li>'+
-        '<li><a class="dropdown-item" href="javascript:toggleRegister(1)">Nuevo usuario</a></li>'+
-        '<li><hr class="dropdown-divider" /></li>'+
-        '<li><a class="dropdown-item" href="javascript:logout()">Cerrar sesión</a></li>'
+        strDrop = `<li><a class="dropdown-item" href="">Perfil</a></li>
+        <li><a class="dropdown-item" href="/encuesta/">Encuesta</a></li>
+        <li><a class="dropdown-item" href="javascript:toggleRegister(1)">Nuevo usuario</a></li>
+        <li><hr class="dropdown-divider" /></li>
+        <li><a class="dropdown-item" href="javascript:logout()">Cerrar sesión</a></li>`
     } else {
-        strDrop = '<li><a class="dropdown-item" href="">Perfil</a></li>'+
-        '<li><a class="dropdown-item" href="/encuesta/">Encuesta</a></li>'+
-        '<li><hr class="dropdown-divider" /></li>'+
-        '<li><a class="dropdown-item" href="javascript:logout()">Cerrar sesión</a></li>'
+        strDrop = `<li><a class="dropdown-item" href="">Perfil</a></li>
+        <li><a class="dropdown-item" href="/encuesta/">Encuesta</a></li>
+        <li><hr class="dropdown-divider" /></li>
+        <li><a class="dropdown-item" href="javascript:logout()">Cerrar sesión</a></li>`
     }
 
-    $('#dropSession').html(
-        strDrop
-    )
+    $('#dropSession').html(strDrop)
 }
 
 function outSession(clicked) {
     $('#dropSession').html(
-        '<li>'+
-        '<li><a class="dropdown-item" href="javascript:toggleFloating(1)">Iniciar sesión</a></li>'+
-        '</li>'
+        `<li><li>
+            <a class="dropdown-item" href="javascript:toggleFloating(1)">Iniciar sesión</a>
+        </li></li>`
     )
     if(clicked) {
         setTimeout(() => {
@@ -54,10 +52,26 @@ function outSession(clicked) {
 
 function toggleFloating(floating) {
     if(tf || floating === 0) {
-        frameL.className = frameL.className.replace('d-flex', 'd-none')
-        frameP.className = frameP.className.replace('d-flex', 'd-none')
-        frameR.className = frameR.className.replace('d-flex', 'd-none')
-        backpanel.className = backpanel.className.replace('d-block', 'd-none')
+        try {
+            frameL.className = frameL.className.replace('d-flex', 'd-none')
+        } catch {
+            showSnack('Error, no se encontro Frame Login', 'error')
+        }
+        try {
+            frameP.className = frameP.className.replace('d-flex', 'd-none')
+        } catch {
+            showSnack('Error, no se encontro Frame Password', 'error')
+        }
+        try {
+            frameR.className = frameR.className.replace('d-flex', 'd-none')
+        } catch {
+            showSnack('Error, no se encontro Frame Registro', 'error')
+        }
+        try {
+            backpanel.className = backpanel.className.replace('d-block', 'd-none')
+        } catch {
+            showSnack('Error, no se encontro Background Panel', 'error')
+        }
         glass.className = ''
     } else {
         if(floating === 1){
@@ -120,7 +134,7 @@ function login() {
         async: true,
         success: function(result){
             if(result.noti){
-                showSnack(result.msg)
+                showSnack(result.msg, 'success')
             } else {
                 if(result.status === 200) $('#loginMsg').addClass('text-success')
                 else $('#loginMsg').addClass('text-danger')
@@ -135,7 +149,7 @@ function login() {
             }
         },
         error: function (xhr, status, error) { 
-            showSnack(msg='Status:'+status+'. '+error) //noti
+            showSnack('Status:'+status+'. '+error, 'error')
         }
     })
 }
@@ -150,13 +164,13 @@ function logout() {
             if(result.status === 200){
                 outSession(true)
                 localStorage.clear()
-                showSnack('Sesión finalizada')
+                showSnack('Sesión finalizada', 'success')
             } else {
-                showSnack(msg='Error: '+result.msg) //noti
+                showSnack('Error: '+result.msg, 'error')
             }
         },
         error: function (xhr, status, error) { 
-            showSnack(msg='Status:'+status+'. '+error) //noti
+            showSnack('Status:'+status+'. '+error, 'error')
         }
     })
 }
@@ -198,14 +212,14 @@ function register() {
         dataType: 'json',
         async: true,
         success: function(result){
-            showSnack(result.msg)
+            showSnack(result.msg, 'success')
 
             if(result.status === 200){
                 toggleFloating(0)
             }
         },
-        error: function (xhr, status, error) { 
-            showSnack(msg='Status:'+status+'. '+error) //noti
+        error: function (xhr, status, error) {
+            showSnack('Status:'+status+'. '+error, 'error')
         }
     })
 }
@@ -215,18 +229,51 @@ function password() {
 }
 
 function showSnack(msg, status) {
-	$('#noti').html(
-		`<div class="mt-5 toast show">
-			<div class="toast-header bg-info text-light">
-				<strong class="me-auto">Notificación</strong>
-				<button type="button" class="btn-close" role="button" data-bs-dismiss="toast" aria-label="Close"></button>
-			</div>
-			<div class="toast-body">
-				${msg}
-			</div>
+    var bgColor
+    var id = Math.random().toString(16).substr(2, 8)
+
+    switch(status) {
+        case 'success':
+            bgColor = 'bg-success'
+            break
+        
+        case 'secondary':
+            bgColor = 'bg-secondary'
+            break
+        
+        case 'warning':
+            bgColor = 'bg-warning'
+            break
+        
+        case 'error':
+            bgColor = 'bg-danger'
+            break
+        
+        default:
+            bgColor = 'bg-info'
+            break
+    }
+
+	$('#noti').append(
+        `<div id="${id}" class="animate__animated mt-5 toast show">
+        <div class="toast-header ${bgColor} text-light">
+        <strong class="me-auto">Notificación</strong>
+        <button type="button" class="btn-close" role="button" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">${msg}</div>
 		</div>`
-	)
-	setTimeout(function () {
-		$('#noti').html('')
+    )
+    $(`#${id}`).addClass('animate__fadeIn')
+
+	setTimeout(function() {
+        hideSnack(id)
 	}, 3000)
+}
+
+function hideSnack(id) {
+    $(`#${id}`).removeClass('animate__fadeIn')
+    $(`#${id}`).addClass('animate__fadeOut')
+	setTimeout(function() {
+        $(`#${id}`).remove()
+    }, 1000)
 }
