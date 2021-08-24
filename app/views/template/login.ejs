@@ -1,0 +1,37 @@
+<div id="floatingLogin" class="animate__animated d-none floating mx-auto w-md-50 flex-nowrap justify-content-center position-fixed">
+    <div class="card limit w-100 mx-md-5 w-md-100 shadow-lg border-0 rounded-lg">
+        <div class="card-header">
+            <h3 class="text-center font-weight-light my-4">Login</h3>
+            <button id="closeReg" onclick="toggleFloating(0)"
+                class="h3 m-0 p-1 w-auto position-absolute form-control btn-danger">
+                <i class="fas fa-times-circle fa-2x"></i>
+            </button>
+        </div>
+        <div class="card-body">
+            <form method="POST" name="f_login" id="f_login">
+                <div class="form-floating mb-3">
+                    <input class="form-control" autocomplete="on" name="_id" id="_id" type="text" onkeypress="onEnterHandler(event)"
+                        placeholder="." required />
+                    <label for="_id">Usuario</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" autocomplete="on" name="pass" id="pass" type="password"
+                        onkeypress="onEnterHandler(event)" placeholder="." autocomplete="current-password" required />
+                    <label for="pass">Contraseña</label>
+                </div>
+                <!--div class="form-check mb-3">
+                    <input class="form-check-input" name="rememberPass" id="rememberPass" type="checkbox" value="" />
+                    <label class="form-check-label" for="rememberPass">Remember Password</label>
+                </div-->
+                <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                    <p class="small">¿No recuerdas tu contraseña? </p> 
+                    <p><a class="small" href="javascript:toggleFloating(2)">Reestablece tu contraseña</a></p>
+                    <button class="btn btn-primary" type="button" onclick="login()">Login</button>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-center py-3">
+            <p id="loginMsg" class="text-center my-2"></p>
+        </div>
+    </div>
+</div>

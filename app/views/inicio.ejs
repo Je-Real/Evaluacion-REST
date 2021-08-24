@@ -1,10 +1,3 @@
-<% var contracts
-var user = null
-var lvl = null
-try { user = localStorage.getItem('user') } catch { user = null }
-
-try { lvl = localStorage.getItem('lvl') } catch { lvl = null } %>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -25,16 +18,11 @@ try { lvl = localStorage.getItem('lvl') } catch { lvl = null } %>
 </head>
 
 <body onload="init()" class="sb-nav-fixed">
-
-    <div id="noti" class="noti mx-auto w-25 d-flex flex-nowrap justify-content-center position-fixed">
-        <div id="inToast" class="animate__animated toast mt-5 show">
-            <div class="toast-header bg-info text-light">
-                <strong class="me-auto">Notificación</strong>
-                <button type="button" class="btn-close"></button>
-            </div>
-            <div class="toast-body">Yeah</div>
-        </div>
+    <div class="noti mx-auto w-25 d-flex flex-nowrap justify-content-center position-fixed">
+        <div id="noti" class="container-fluid mt-5"></div>
     </div>
+
+    <div id="backPanel" onclick="toggleFloating(0)" class="d-none w-100 h-100 position-fixed bg-dark-50"></div>
 
     <nav id="layoutNavbar" class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
@@ -53,12 +41,28 @@ try { lvl = localStorage.getItem('lvl') } catch { lvl = null } %>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <ul id="dropSession" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <% if(session) { %>
+                        <li><a class="dropdown-item" href="">Perfil</a></li>
+                        <% if(session.lvl <= 2) { %>
+                            <li>
+                                <a class="dropdown-item" href="javascript:toggleRegister(1)">Nuevo usuario</a>
+                            </li>
+                        <% } %>
+                        <li><a class="dropdown-item" href="/encuesta/">Encuesta</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="javascript:logout()">Cerrar sesión</a></li>
+                    <% } else { %>
+                        <li>
+                            <a class="dropdown-item" href="javascript:toggleFloating(1)">Iniciar sesión</a>
+                        </li>
+                    <% } %>
                 </ul>
             </li>
         </ul>
     </nav>
-    <div id="layoutSidenav" class="">
+
+    <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
@@ -238,74 +242,11 @@ try { lvl = localStorage.getItem('lvl') } catch { lvl = null } %>
         </div>
     </div>
 
-    <div id="floatingLogin" class="floating mx-auto w-md-50 d-none flex-nowrap justify-content-center position-fixed">
-        <div class="card limit w-100 mx-md-5 w-md-100 shadow-lg border-0 rounded-lg">
-            <div class="card-header">
-                <h3 class="text-center font-weight-light my-4">Login</h3>
-                <button id="closeReg" onclick="toggleFloating(0)"
-                    class="h3 m-0 p-1 w-auto position-absolute form-control btn-danger">
-                    <i class="fas fa-times-circle fa-2x"></i>
-                </button>
-            </div>
-            <div class="card-body">
-                <form method="POST" name="f_login" id="f_login">
-                    <div class="form-floating mb-3">
-                        <input class="form-control" autocomplete="on" name="_id" id="_id" type="text" onkeypress="onEnterHandler(event)"
-                            placeholder="." required />
-                        <label for="_id">Usuario</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input class="form-control" autocomplete="on" name="pass" id="pass" type="password"
-                            onkeypress="onEnterHandler(event)" placeholder="." autocomplete="current-password" required />
-                        <label for="pass">Contraseña</label>
-                    </div>
-                    <!--div class="form-check mb-3">
-                        <input class="form-check-input" name="rememberPass" id="rememberPass" type="checkbox" value="" />
-                        <label class="form-check-label" for="rememberPass">Remember Password</label>
-                    </div-->
-                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                        <p class="small">¿No recuerdas tu contraseña? </p> 
-                        <p><a class="small" href="javascript:toggleFloating(2)">Reestablece tu contraseña</a></p>
-                        <button class="btn btn-primary" type="button" onclick="login()">Login</button>
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer text-center py-3">
-                <p id="loginMsg" class="text-center my-2"></p>
-            </div>
-        </div>
-    </div>
-
-    <div id="floatingPass" class="floating mx-auto w-md-50 d-none flex-nowrap justify-content-center position-fixed">
-        <div class="card limit w-100 mx-md-5 w-md-100 shadow-lg border-0 rounded-lg">
-            <div class="card-header">
-                <h3 class="text-center font-weight-light my-4">Reestablecer contraseña</h3>
-                <button id="closeReg" onclick="toggleFloating(0)"
-                    class="h3 m-0 p-1 w-auto position-absolute form-control btn-danger">
-                    <i class="fas fa-times-circle fa-2x"></i>
-                </button>
-            </div>
-            <div class="card-body">
-                <form method="POST" name="f_pass" id="f_pass">
-                    <div class="form-floating mb-3">
-                        <input class="form-control" id="_id_u" name="_id" type="text" placeholder="." />
-                        <label for="_id_u">Usuario</label>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                        <a class="small" href="javascript:toggleFloating(1)">Regresar a Incio de Sesión</a>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                        <p class="small"></p>
-                        <button class="btn btn-primary" type="button" onclick="password()">Generar ticket</button>
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer text-center py-3">
-            </div>
-        </div>
-    </div>
-
-    <div id="backPanel" onclick="toggleFloating(0)" class="d-none w-100 h-100 position-fixed bg-dark-50"></div>
+    <%- include('template/password.ejs') %>
+    <%- include('template/login.ejs') %>
+    <% if(session) { if(session.lvl <= 2) { %>
+        <%- include('template/register.ejs') %>
+    <% } } %>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"

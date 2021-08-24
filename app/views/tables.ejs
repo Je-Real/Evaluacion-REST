@@ -1,5 +1,5 @@
-<% var user = localStorage.getItem('user')
-var lvl = localStorage.getItem('lvl')
+<% /* var user = local Storage getItem('user')
+var lvl = local Storage getItem('lvl') */
 if(user == null || String(user).trim() == '' && lvl <= 2) { %>
     <script>
         window.location.href = String(location.href).slice(0, 21+1)+"inicio/"

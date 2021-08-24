@@ -1,5 +1,5 @@
-<% var user = localStorage.getItem('user')
-var lvl = localStorage.getItem('lvl')
+<% /* var user = local Storage getItem('user')
+var lvl = local Storage getItem('lvl') */
 if(user == null || String(user).trim() == '') { %>
     <script>
         window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
@@ -79,7 +79,7 @@ if(user == null || String(user).trim() == '') { %>
                             Reporte Personal
                         <% } %>
                     </h1>
-                    <h2 class="display-6 text-center mb-5">Buenas tardes, <%= localStorage.getItem('name') %></h2>
+                    <h2 class="display-6 text-center mb-5">Buenas tardes, local Storage ('name')</h2>
 
                     <div class="row my-4">
                         <% if(lvl <= 2) { %>

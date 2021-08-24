@@ -2,10 +2,10 @@
   "name": "api-rest-9b",
   "version": "1.0.0",
   "description": "Api Rest del grupo 9B",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js",
+    "dev": "nodemon -e js, ejs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "IT-Star-Corp",
@@ -15,9 +15,9 @@
     "crypto-js": "^4.1.1",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "express-session": "^1.17.2",
     "mongoose": "^5.13.6",
-    "morgan": "^1.10.0",
-    "node-localstorage": "^2.2.1"
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"

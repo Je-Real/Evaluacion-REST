@@ -1,0 +1,19 @@
+[{
+  "_id": "ad0",
+  "last_conn": {
+    "$date": "2021-08-24T03:51:42.218Z"
+  },
+  "level": 0,
+  "enabled": true,
+  "pass": "U2FsdGVkX1/Gg+9HAwpI4ase8fDDiP2gqAcJ/waET3U="
+},{
+  "_id": "user",
+  "last_conn": {
+    "$date": "2021-08-24T03:51:42.218Z"
+  },
+  "level": 4,
+  "enabled": true,
+  "pass": "U2FsdGVkX1+S1TXpfK2tKrmDKC5d62Z52h1/vnhG7ys="
+}]
+
+/* The password is the same user */

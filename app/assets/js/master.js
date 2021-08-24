@@ -18,31 +18,7 @@ function onEnterHandler(event) {
     }
 }
 
-function inSession(setter) {
-    var strDrop
-
-    if(setter <= 2) {
-        strDrop = `<li><a class="dropdown-item" href="">Perfil</a></li>
-        <li><a class="dropdown-item" href="/encuesta/">Encuesta</a></li>
-        <li><a class="dropdown-item" href="javascript:toggleRegister(1)">Nuevo usuario</a></li>
-        <li><hr class="dropdown-divider" /></li>
-        <li><a class="dropdown-item" href="javascript:logout()">Cerrar sesión</a></li>`
-    } else {
-        strDrop = `<li><a class="dropdown-item" href="">Perfil</a></li>
-        <li><a class="dropdown-item" href="/encuesta/">Encuesta</a></li>
-        <li><hr class="dropdown-divider" /></li>
-        <li><a class="dropdown-item" href="javascript:logout()">Cerrar sesión</a></li>`
-    }
-
-    $('#dropSession').html(strDrop)
-}
-
 function outSession(clicked) {
-    $('#dropSession').html(
-        `<li><li>
-            <a class="dropdown-item" href="javascript:toggleFloating(1)">Iniciar sesión</a>
-        </li></li>`
-    )
     if(clicked) {
         setTimeout(() => {
             window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
@@ -52,33 +28,25 @@ function outSession(clicked) {
 
 function toggleFloating(floating) {
     if(tf || floating === 0) {
+        try { frameL.className = frameL.className.replace('d-flex', 'd-none') }
+        catch { console.log('No se encontro Frame Login') }
+        try { frameP.className = frameP.className.replace('d-flex', 'd-none') }
+        catch { console.log('No se encontro Frame Password') }
+        try { frameR.className = frameR.className.replace('d-flex', 'd-none') }
+        catch { console.log('No se encontro Frame Registro') }
         try {
-            frameL.className = frameL.className.replace('d-flex', 'd-none')
-        } catch {
-            showSnack('Error, no se encontro Frame Login', 'error')
-        }
-        try {
-            frameP.className = frameP.className.replace('d-flex', 'd-none')
-        } catch {
-            showSnack('Error, no se encontro Frame Password', 'error')
-        }
-        try {
-            frameR.className = frameR.className.replace('d-flex', 'd-none')
-        } catch {
-            showSnack('Error, no se encontro Frame Registro', 'error')
-        }
-        try {
+            backpanel.className = backpanel.className.replace('blur-on', 'blur-off')
             backpanel.className = backpanel.className.replace('d-block', 'd-none')
-        } catch {
-            showSnack('Error, no se encontro Background Panel', 'error')
         }
+        catch { console.log('No se encontro Background Panel') }
         glass.className = ''
     } else {
         if(floating === 1){
             frameP.className = frameP.className.replace('d-flex', 'd-none')
-
             frameL.className = frameL.className.replace('d-none', 'd-flex')
             backpanel.className = backpanel.className.replace('d-none', 'd-block')
+            backpanel.className = backpanel.className.replace('blur-off', 'blur-on')
+
             if(glass.className == 'blur-off'){
                 glass.className = glass.className.replace('blur-off', 'blur-on')
             } else {
@@ -87,9 +55,10 @@ function toggleFloating(floating) {
             $('#_id').focus()
         } else {
             frameL.className = frameL.className.replace('d-flex', 'd-none')
-
             frameP.className = frameP.className.replace('d-none', 'd-flex')
             backpanel.className = backpanel.className.replace('d-none', 'd-block')
+            backpanel.className = backpanel.className.replace('blur-off', 'blur-on')
+
             if(glass.className == 'blur-off'){
                 glass.className = glass.className.replace('blur-off', 'blur-on')
             } else {
@@ -136,16 +105,15 @@ function login() {
             if(result.noti){
                 showSnack(result.msg, 'success')
             } else {
-                if(result.status === 200) $('#loginMsg').addClass('text-success')
-                else $('#loginMsg').addClass('text-danger')
+                $('#loginMsg').addClass('text-danger')
                 $('#loginMsg').html(result.msg)
             }
 
             if(result.status === 200){
-                localStorage.setItem('lvl', result.stg.level)
-                localStorage.setItem('user', result.stg.user)
-                inSession(localStorage.getItem('lvl'))
                 toggleFloating(0)
+                setTimeout(() => {
+                    window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
+                }, 3500)
             }
         },
         error: function (xhr, status, error) { 
@@ -163,7 +131,6 @@ function logout() {
         success: function(result){
             if(result.status === 200){
                 outSession(true)
-                localStorage.clear()
                 showSnack('Sesión finalizada', 'success')
             } else {
                 showSnack('Error: '+result.msg, 'error')
@@ -255,13 +222,14 @@ function showSnack(msg, status) {
     }
 
 	$('#noti').append(
-        `<div id="${id}" class="animate__animated mt-5 toast show">
-        <div class="toast-header ${bgColor} text-light">
-        <strong class="me-auto">Notificación</strong>
-        <button type="button" class="btn-close" role="button" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">${msg}</div>
-		</div>`
+        `<div class="row">
+            <div id="${id}" class="animate__animated p-0 my-1 toast show">
+                <div class="toast-header ${bgColor} text-light">
+                <strong class="me-auto">Notificación</strong>
+                <button type="button" class="btn-close" role="button" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            <div class="toast-body">${msg}</div>
+		</div></div>`
     )
     $(`#${id}`).addClass('animate__fadeIn')
 

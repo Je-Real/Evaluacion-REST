@@ -2,8 +2,6 @@ const modelUser = require('../../models/modelUser')
 const modelUserInfo = require('../../models/modelUserInfo')
 const modelLevel = require('../../models/modelLevel')
 const crypto = require('crypto-js')
-const LocalStorage = require('node-localstorage').LocalStorage
-localStorage = new LocalStorage('./scratch')
 
 // >>>>>>>>>>>>>>>>>>>>>> Login <<<<<<<<<<<<<<<<<<<<<<
 async function logIn(req, res) {
@@ -28,13 +26,12 @@ async function logIn(req, res) {
 								.then((dataLevel) => {
 									modelUserInfo.find({ _id: req.body._id })
 										.then(dataUInfo => {
-											localStorage.setItem('user', req.body._id)
-											localStorage.setItem('name', dataUInfo[0].first_name)
-											localStorage.setItem('lvl', dataLevel[0].level)
+											req.session.user = req.body._id
+											req.session.name = dataUInfo[0].first_name
+											req.session.lvl = dataLevel[0].level
 											//Response success for AJAX
 											return res.end(JSON.stringify({
 												msg: 'Sesión iniciada. Bienvenido '+dataUInfo[0].first_name+'.',
-												stg: {level: dataLevel[0].level, user: req.body._id},
 												status: 200,
 												noti: true
 											}))
@@ -96,7 +93,6 @@ async function logOut(req, res) {
 	//Login route
 	await modelUser.find({ _id: req.body._id })
 		.then(() => {
-			localStorage.clear()
 			return res.end(JSON.stringify({
 				msg: 'Sesión cerrada.', 
 				status: 200,
@@ -104,7 +100,6 @@ async function logOut(req, res) {
 			}))
 		})
 		.catch(() => {
-			localStorage.clear()
 			return res.end(JSON.stringify({
 				msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.', 
 				status: 404,

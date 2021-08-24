@@ -1,9 +1,10 @@
 //Import express & routes
 
 /* 
- * npm i express body-parser ejs mongoose morgan crypto-js node-localstorage
+ * npm i express body-parser ejs mongoose morgan crypto-js express-session
  */
 
+const session = require("express-session")
 const express = require('express')
 const path = require('path')
 const app = express()
@@ -21,8 +22,17 @@ app.use(express.json())
 //Use the folder assets for access to /css, /js, /img, etc.
 app.use(express.static(path.join(__dirname, 'assets')))
 
+//Use sessions for users
+app.use(session({
+    //Do not hex to text
+    secret: '65796520747269616e676c652072657665616c656420626974636821',
+    saveUninitialized: true,
+    resave: true
+}))
+
 //Routes
 app.use('/', routeMaster)
+
 
 //Export and execute the application
 module.exports = app

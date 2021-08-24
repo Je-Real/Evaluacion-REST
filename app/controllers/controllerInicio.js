@@ -1,23 +1,36 @@
 const modelContract = require('../models/modelContract')
 const modelUser = require('../models/modelUser')
 const modelUserInfo = require('../models/modelUserInfo')
-const LocalStorage = require('node-localstorage').LocalStorage
-localStorage = new LocalStorage('./scratch')
 
 // >>>>>>>>>>>>>>>>>>>>>> Index <<<<<<<<<<<<<<<<<<<<<<
-function root(req, res) {
-    var contracts
+async function root(req, res) {
+    var session
 
-    modelContract.find({})
-        .then(data => {
-            contracts = data
-            return res.status(200).render('inicio', {
-                contracts: contracts
-            })
+    if(!req.session.user && !req.session.lvl) {
+        // No session 😡
+        session = null
+    } else {
+        // Session 🤑
+        session = {
+            user: req.session.user,
+            lvl: req.session.lvl,
+            name: req.session.name
+        }
+    }
+
+    await modelContract.find({})
+    .then(data => {
+        contracts = data
+        return res.status(200).render('inicio', {
+            contracts: contracts,
+            session: session
         })
-        .catch((error) => {
-            console.log(error)
-        })
+    })
+    .catch((error) => {
+        console.log(error)
+        return res.status(200).render('inicio', {session: session})
+    })
+
 }
 
 function search(req, res, next) {
