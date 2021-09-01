@@ -1,10 +1,4 @@
-<% /* var user = local Storage getItem('user')
-var lvl = local Storage getItem('lvl') */
-if(user == null || String(user).trim() == '') { %>
-    <script>
-        window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
-    </script>
-<% } else { %>
+<% if(session) { %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -24,7 +18,7 @@ if(user == null || String(user).trim() == '') { %>
 
 <body onload="init()" class="sb-nav-fixed">
     <div id="noti" class="noti mx-auto w-25 d-flex flex-nowrap justify-content-center position-fixed"></div>
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav id="layoutNavbar" class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="/inicio/">
             <img class="mx-auto d-block pt-1" src="/img/logo.jpg" width="110px" alt="UTNA">
@@ -42,6 +36,15 @@ if(user == null || String(user).trim() == '') { %>
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul id="dropSession" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="">Perfil</a></li>
+                    <% if(session.lvl <= 2) { %>
+                        <li>
+                            <a class="dropdown-item" href="javascript:toggleRegister(1)">Nuevo usuario</a>
+                        </li>
+                    <% } %>
+                    <li><a class="dropdown-item" href="/encuesta/">Encuesta</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" href="javascript:logout()">Cerrar sesión</a></li>   
                 </ul>
             </li>
         </ul>
@@ -73,16 +76,16 @@ if(user == null || String(user).trim() == '') { %>
             <main>
                 <div class="container-fluid px-4">
                     <h1 class="display-1 text-center my-5">
-                        <% if(lvl <= 2) { %>
+                        <% if(session.lvl <= 2) { %>
                             Reporte Completo
                         <% } else { %>
                             Reporte Personal
                         <% } %>
                     </h1>
-                    <h2 class="display-6 text-center mb-5">Buenas tardes, local Storage ('name')</h2>
+                    <h2 class="display-6 text-center mb-5">Buenas tardes, <%= session.name %></h2>
 
                     <div class="row my-4">
-                        <% if(lvl <= 2) { %>
+                        <% if(session.lvl <= 2) { %>
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-header d-flex">
@@ -253,4 +256,8 @@ if(user == null || String(user).trim() == '') { %>
 </body>
 
 </html>
+<% } else { %>
+    <script>
+        window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
+    </script>
 <% } %>

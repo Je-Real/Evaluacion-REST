@@ -72,16 +72,18 @@
                             Inicio
                         </a>
 
-                        <div class="sb-sidenav-menu-heading">Reportes</div>
-                        <a class="nav-link" href="/reporte/">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-line fa-2x"></i></div>
-                            Reporte
-                        </a>
-                        <a class="nav-link" href="/tables/">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table fa-2x"></i></div>
-                            Tablas
-                        </a>
-                        
+                        <% if(session) {
+                            if(session.lvl) { %>
+                            <div class="sb-sidenav-menu-heading">Reportes</div>
+                            <a class="nav-link" href="/reporte/">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-line fa-2x"></i></div>
+                                Reporte
+                            </a>
+                            <a class="nav-link" href="/tables/">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table fa-2x"></i></div>
+                                Tablas
+                            </a>
+                        <% } } %>
                     </div>
                 </div>
             </nav>
@@ -122,7 +124,7 @@
                 </div>
             </div>
 
-            <aside class="text-center bg-gradient-primary-to-secondary my-4">
+            <aside class="text-center bg-gradient-primary-to-secondary py-md-5 shadow">
                 <div class="container px-5">
                     <div class="row gx-5 justify-content-center">
                         <div class="col-xl-8">
@@ -192,35 +194,30 @@
 
 
             <!-- Footer -->
-            <footer class="page-footer font-small blue mt-6 py-3">
+            <footer class="page-footer font-small blue mt-5 py-3">
                 <div class="container-fluid text-center text-md-left">
-                    <div class="row mt-6">
-                        <div class="col-md-4">
+                    <div class="row">
+                        <div class="col col-md-4"></div>
+                        <div class="col col-md-4">
                             <img class="mx-auto d-block pt-1" src="/img/logo.jpg" width="110px" alt="UTNA">
                             </a>
                             <h4>Universidad Tecnológica del Norte de Aguascalientes</h4>
                         </div>
-                        <hr class="clearfix w-100 d-md-none pb-3">
-
-                        <div class="col-md-4 mb-md-0 mb-3">
+                        <div class="col col-md-4"></div>
+                    </div>
+                    <div class="row mt-6">
+                        <div class="col-md-4 mb-md-0 mb-3 align-self-center">
                             <h5 class="text-uppercase">Ubicación</h5>
-
                             <ul class="list-unstyled">
-                                <li>
-                                    <p>Av. Universidad #1001, La Estación Rincón, El Potrero</p>
-                                </li>
-                                <li>
-                                    <p>C.P. 20400 Rincón de Romos, Ags.</p>
-                                </li>
+                                <li><p>Av. Universidad #1001, La Estación Rincón, El Potrero</p></li>
+                                <li><p>C.P. 20400 Rincón de Romos, Ags.</p></li>
                             </ul>
                         </div>
 
                         <div class="col-md-4 mb-md-0 mb-3">
                             <h5 class="text-uppercase">Contáctanos</h5>
                             <ul class="list-unstyled">
-                                <li>
-                                    <p>Teléfono: 465 965 0030</p>
-                                </li>
+                                <li><p>Teléfono: 465 965 0030</p></li>
                                 <li>
                                     <i class="fab fa-facebook fa-2x"></i>
                                     <p>Universidad Tecnológica del Norte de Aguascalientes</p>

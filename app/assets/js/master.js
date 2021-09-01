@@ -132,6 +132,10 @@ function logout() {
             if(result.status === 200){
                 outSession(true)
                 showSnack('Sesión finalizada', 'success')
+                setTimeout(() => {
+                    console.log('Yeah')
+                    window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
+                }, 3500)
             } else {
                 showSnack('Error: '+result.msg, 'error')
             }

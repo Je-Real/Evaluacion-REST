@@ -4,8 +4,20 @@ const crypto = require('crypto-js')
 
 // >>>>>>>>>>>>>>>>>>>>>> Reportes <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
+    if(!req.session.user && !req.session.lvl) {
+        // No session 😡
+        session = null
+    } else {
+        // Session 🤑
+        session = {
+            user: req.session.user,
+            lvl: req.session.lvl,
+            name: req.session.name
+        }
+    }
+
     //Reportes route
-    return res.status(200).render('reportes')
+    return res.status(200).render('reportes', {session: session})
 }
 
 function add(req, res) {

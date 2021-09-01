@@ -91,23 +91,21 @@ async function logIn(req, res) {
 
 async function logOut(req, res) {
 	//Login route
-	await modelUser.find({ _id: req.body._id })
-		.then(() => {
-			return res.end(JSON.stringify({
-				msg: 'Sesión cerrada.', 
-				status: 200,
-				noti: true
-			}))
-		})
-		.catch(() => {
-			return res.end(JSON.stringify({
-				msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.', 
-				status: 404,
-				noti: true
-			}))
-		})
-	//NUNCA colocar un return fuera del catch
-	//NEVER place a return outside the catch
+	req.session.destroy()
+	
+	if(req.session == null) {
+		return res.end(JSON.stringify({
+			msg: 'Sesión cerrada.', 
+			status: 200,
+			noti: true
+		}))
+	} else {
+		return res.end(JSON.stringify({
+			msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.', 
+			status: 404,
+			noti: true
+		}))
+	}
 }
 
 module.exports = {

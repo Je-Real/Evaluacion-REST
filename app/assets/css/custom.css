@@ -67,6 +67,11 @@
 	filter: blur(0px);
 }
 
+#layoutNavbar {
+	padding-bottom: 2rem;
+    padding-top: 2.2rem;
+}
+
 @-webkit-keyframes fadein {
 	from {
 		filter: blur(0px);
