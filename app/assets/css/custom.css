@@ -1,3 +1,7 @@
+svg{
+	margin: 0;
+}
+
 #backpanel {
 	top: 0%;
 	position: fixed;
@@ -7,6 +11,14 @@
 #closeReg {
 	right: 1.5rem;
     top: 1.5rem;
+}
+
+#load-b {
+	z-index: 1070;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 
 @media (max-width: 768px) {

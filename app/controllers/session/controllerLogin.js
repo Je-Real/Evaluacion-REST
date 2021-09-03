@@ -39,7 +39,7 @@ async function logIn(req, res) {
 										.catch((error) => {
 											console.log(error)
 											return res.end(JSON.stringify({
-												msg: 'Error de busqueda de usuario. Intenta de nuevo mas tarde.', 
+												msg: 'Error de búsqueda de usuario. Intenta de nuevo mas tarde.', 
 												status: 404,
 												noti: true
 											}))
@@ -48,7 +48,7 @@ async function logIn(req, res) {
 								.catch((error) => {
 									console.log(error)
 									return res.end(JSON.stringify({
-										msg: 'Error de busqueda de usuario. Intenta de nuevo mas tarde.', 
+										msg: 'Error de búsqueda de usuario. Intenta de nuevo mas tarde.', 
 										status: 404,
 										noti: true
 									}))
@@ -57,7 +57,7 @@ async function logIn(req, res) {
 						.catch((error) => {
 							console.log(error)
 							return res.end(JSON.stringify({
-								msg: 'Error de busqueda de usuario. Intenta de nuevo mas tarde.', 
+								msg: 'Error de búsqueda de usuario. Intenta de nuevo mas tarde.', 
 								status: 404,
 								noti: true
 							}))
@@ -80,7 +80,7 @@ async function logIn(req, res) {
 		.catch((error) => { //if error 🤬
 			console.log(error)
 			return res.end(JSON.stringify({
-				msg: 'Error del servidor.\n\r¡No te alarmes! Todo saldra bien.', 
+				msg: 'Error del servidor.\n\r¡No te alarmes! Todo saldrá bien.', 
 				status: 500,
 				error: true
 			}))
@@ -95,13 +95,13 @@ async function logOut(req, res) {
 	
 	if(req.session == null) {
 		return res.end(JSON.stringify({
-			msg: 'Sesión cerrada.', 
+			msg: 'Sesión finalizada.', 
 			status: 200,
 			noti: true
 		}))
 	} else {
 		return res.end(JSON.stringify({
-			msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.', 
+			msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldrá bien.', 
 			status: 404,
 			noti: true
 		}))

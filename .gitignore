@@ -1901,3 +1901,4 @@ node_modules/jake/test/unit/jakefile.js
 node_modules/jake/test/unit/namespace.js
 node_modules/jake/test/unit/parseargs.js
 scratch/user
+.vscode/settings.json

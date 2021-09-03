@@ -6,9 +6,16 @@ var frameR = document.getElementById('floatingRegister')
 var backpanel = document.getElementById('backPanel')
 var glass = document.getElementById('layoutSidenav')
 
-function init() {
+window.onload = function() {
     if(localStorage.getItem('user') != null) inSession(localStorage.getItem('lvl'))
     else outSession()
+
+    setTimeout(() => {
+        $('#load-b').fadeOut(200);
+        setTimeout(() => {
+            $('#load-b').remove()
+        }, 100)
+    }, 200)
 }
 
 function onEnterHandler(event) {
@@ -131,9 +138,8 @@ function logout() {
         success: function(result){
             if(result.status === 200){
                 outSession(true)
-                showSnack('Sesión finalizada', 'success')
+                showSnack(result.msg, 'success')
                 setTimeout(() => {
-                    console.log('Yeah')
                     window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
                 }, 3500)
             } else {
@@ -219,7 +225,7 @@ function showSnack(msg, status) {
         case 'error':
             bgColor = 'bg-danger'
             break
-        
+
         default:
             bgColor = 'bg-info'
             break
