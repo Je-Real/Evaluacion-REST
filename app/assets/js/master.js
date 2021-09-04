@@ -6,18 +6,18 @@ var frameR = document.getElementById('floatingRegister')
 var backpanel = document.getElementById('backPanel')
 var glass = document.getElementById('layoutSidenav')
 
-window.onload = function() {
-    if(localStorage.getItem('user') != null) inSession(localStorage.getItem('lvl'))
-    else outSession()
 
+
+window.addEventListener('DOMContentLoaded', event => {
     setTimeout(() => {
         $('#load-b').fadeOut(200);
         setTimeout(() => {
             $('#load-b').remove()
         }, 100)
     }, 200)
-}
+})
 
+//Capture Enter key in inputs
 function onEnterHandler(event) {
     var code = event.which || event.keyCode
     if(code === 13){

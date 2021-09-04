@@ -1,5 +1,9 @@
-svg{
+svg {
 	margin: 0;
+}
+
+th {
+	border: 0;
 }
 
 #backpanel {
@@ -11,6 +15,11 @@ svg{
 #closeReg {
 	right: 1.5rem;
     top: 1.5rem;
+}
+
+#layoutNavbar {
+	padding-bottom: 2rem;
+    padding-top: 2.2rem;
 }
 
 #load-b {
@@ -77,11 +86,6 @@ svg{
 
 .blur-off {
 	filter: blur(0px);
-}
-
-#layoutNavbar {
-	padding-bottom: 2rem;
-    padding-top: 2.2rem;
 }
 
 @-webkit-keyframes fadein {

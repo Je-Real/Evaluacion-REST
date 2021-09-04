@@ -26,9 +26,11 @@ async function logIn(req, res) {
 								.then((dataLevel) => {
 									modelUserInfo.find({ _id: req.body._id })
 										.then(dataUInfo => {
+											//🍪
 											req.session.user = req.body._id
 											req.session.name = dataUInfo[0].first_name
 											req.session.lvl = dataLevel[0].level
+
 											//Response success for AJAX
 											return res.end(JSON.stringify({
 												msg: 'Sesión iniciada. Bienvenido '+dataUInfo[0].first_name+'.',
@@ -91,6 +93,7 @@ async function logIn(req, res) {
 
 async function logOut(req, res) {
 	//Login route
+	//🍪🚫
 	req.session.destroy()
 	
 	if(req.session == null) {

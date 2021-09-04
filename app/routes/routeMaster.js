@@ -3,7 +3,7 @@ const router = Router()
 
 const controllerIndex = require('../controllers/controllerInicio')
 const controllerLayoutStatic = require('../controllers/controllerEncuesta')
-const controllerTables = require('../controllers/controllerTables')
+const controllerTablas = require('../controllers/controllerTablas')
 const controllerReporteC = require('../controllers/controllerReporte')
 
 const controller404 = require('../controllers/error/controller404')
@@ -26,7 +26,7 @@ router.get('/reportes', controllerReporteC.root)
 
 router.get('/encuesta', controllerLayoutStatic.root)
       
-router.get('/tables', controllerTables.root)
+router.get('/tablas', controllerTablas.root)
       
       
 router.get('/password', controllerPassword.root)

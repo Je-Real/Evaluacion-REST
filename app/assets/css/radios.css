@@ -1,38 +1,3 @@
-.rating-container {
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-pack: justify;
-	-ms-flex-pack: justify;
-	justify-content: space-between;
-	padding: 0.4rem 0.8rem;
-	width: 100%;
-}
-
-.rating-text p {
-	color: rgba(0, 0, 16, 0.8);
-	font-size: 1.3rem;
-	padding: 0.3rem;
-}
-
-.rating {
-	background-color: rgba(0, 0, 16, 0.8);
-	padding: 0.4rem 0.4rem 0.1rem 0.4rem;
-	border-radius: 2.2rem;
-}
-
-svg {
-	height: 3.6rem;
-	width: 3.6rem;
-	margin: 0.2rem;
-}
-
-.rating-form-2 svg {
-	height: 3rem;
-	width: 3rem;
-	margin: 0.5rem;
-}
-
 #radios label {
 	position: relative;
 }
@@ -52,26 +17,34 @@ input + svg {
     color: gray;
 }
 
-input[class="super-happy"]:hover + svg,
-input[class="super-happy"]:checked + svg,
-input[class="super-happy"]:focus + svg {
+input.super-happy:hover+svg,
+input.super-happy:focus+svg {
+	color: rgb(159, 204, 235);
+}
+input.super-happy:checked+svg {
 	color: rgb(61, 161, 228);
 }
 
-input[class="happy"]:hover + svg,
-input[class="happy"]:checked + svg,
-input[class="happy"]:focus + svg {
-	color: rgb(80, 224, 135);
+input.happy:hover+svg,
+input.happy:focus+svg {
+	color: rgb(152, 236, 184);
+}
+input.happy:checked+svg {
+	color: rgb(57, 223, 120);
 }
 
-input[class="sad"]:hover + svg,
-input[class="sad"]:checked + svg,
-input[class="sad"]:focus + svg {
-	color: rgb(240, 161, 51);
+input.sad:hover+svg,
+input.sad:focus+svg {
+	color: rgb(240, 202, 149);
+}
+input.sad:checked+svg {
+	color: rgb(243, 155, 32);
 }
 
-input[class="super-sad"]:hover + svg,
-input[class="super-sad"]:checked + svg,
-input[class="super-sad"]:focus + svg {
+input.super-sad:hover+svg,
+input.super-sad:focus+svg {
+	color: rgb(241, 147, 135);
+}
+input.super-sad:checked+svg {
 	color: rgb(245, 78, 56);
 }

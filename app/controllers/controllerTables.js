@@ -1,4 +1,4 @@
-// >>>>>>>>>>>>>>>>>>>>>> Tables <<<<<<<<<<<<<<<<<<<<<<
+// >>>>>>>>>>>>>>>>>>>>>> Tablas <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
     if(!req.session.user && !req.session.lvl) {
         // No session 😡
@@ -12,8 +12,8 @@ function root(req, res) {
         }
     }
 
-    //Tables route
-    return res.status(200).render('tables', {session: session})
+    //Tablas route
+    return res.status(200).render('tablas', {session: session})
 }
 
 module.exports = {
