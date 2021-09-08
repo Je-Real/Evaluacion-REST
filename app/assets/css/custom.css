@@ -105,3 +105,47 @@ th {
 		filter: blur(5px);
 	}
 }
+
+.table-header-deactivated-light {
+	--bs-table-bg: #dddddd;
+    --bs-table-striped-bg: #dddddd;
+    --bs-table-striped-color: #000;
+    --bs-table-active-bg: #dddddd;
+    --bs-table-active-color: #000;
+    --bs-table-hover-bg: #dddddd;
+    --bs-table-hover-color: #000;
+    color: #000;
+}
+
+.table-header-activated-light {
+	--bs-table-bg: #dcffb5;
+    --bs-table-striped-bg: #dcffb5;
+    --bs-table-striped-color: #000;
+    --bs-table-active-bg: #dcffb5;
+    --bs-table-active-color: #000;
+    --bs-table-hover-bg: #dcffb5;
+    --bs-table-hover-color: #000;
+    color: #000;
+}
+
+.table-header-deactivated-dark {
+	--bs-table-bg: #525252;
+    --bs-table-striped-bg: #525252;
+    --bs-table-striped-color: #f5f5f5;
+    --bs-table-active-bg: #525252;
+    --bs-table-active-color: #f5f5f5;
+    --bs-table-hover-bg: #525252;
+    --bs-table-hover-color: #f5f5f5;
+    color: #f5f5f5;
+}
+
+.table-header-activated-dark {
+	--bs-table-bg: #4a6629;
+    --bs-table-striped-bg: #4a6629;
+    --bs-table-striped-color: #f5f5f5;
+    --bs-table-active-bg: #4a6629;
+    --bs-table-active-color: #f5f5f5;
+    --bs-table-hover-bg: #4a6629;
+    --bs-table-hover-color: #f5f5f5;
+    color: #f5f5f5;
+}

@@ -330,6 +330,8 @@ td,
 th {
   border-color: inherit;
   border-width: 0;
+  -webkit-transition: all 0.2s;
+	transition: all 0.2s;
 }
 
 label {
