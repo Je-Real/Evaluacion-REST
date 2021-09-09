@@ -27,7 +27,9 @@ router.get('/reportes', controllerReporteC.root)
 router.get('/encuesta', controllerLayoutStatic.root)
       
 router.get('/tablas', controllerTablas.root)
-      
+
+router.get('/registro', controllerRegister.root)
+
       
 router.get('/password', controllerPassword.root)
       

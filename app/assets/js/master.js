@@ -6,8 +6,6 @@ var frameR = document.getElementById('floatingRegister')
 var backpanel = document.getElementById('backPanel')
 var glass = document.getElementById('layoutSidenav')
 
-
-
 window.addEventListener('DOMContentLoaded', event => {
     setTimeout(() => {
         $('#load-b').fadeOut(200);
@@ -39,8 +37,6 @@ function toggleFloating(floating) {
         catch { console.log('No se encontro Frame Login') }
         try { frameP.className = frameP.className.replace('d-flex', 'd-none') }
         catch { console.log('No se encontro Frame Password') }
-        try { frameR.className = frameR.className.replace('d-flex', 'd-none') }
-        catch { console.log('No se encontro Frame Registro') }
         try {
             backpanel.className = backpanel.className.replace('blur-on', 'blur-off')
             backpanel.className = backpanel.className.replace('d-block', 'd-none')
@@ -74,27 +70,6 @@ function toggleFloating(floating) {
             $('#_id_u').focus()
         }
     }
-}
-
-function toggleRegister(show) {
-    if(show === 1) tr = show
-    else tr = !tr
-
-    if(tr) {
-        frameR.className = frameR.className.replace('d-none', 'd-flex')
-        backpanel.className = backpanel.className.replace('d-none', 'd-block')
-        if(glass.className == 'blur-off'){
-            glass.className = glass.className.replace('blur-off', 'blur-on')
-        } else {
-            glass.className = 'blur-on position-fixed'
-        }
-        $('#first_name').focus()
-    } else {
-        frameR.className = frameR.className.replace('d-flex', 'd-none')
-        backpanel.className = backpanel.className.replace('d-block', 'd-none')
-        glass.className = ''
-    }
-
 }
 
 function login() {
@@ -147,55 +122,6 @@ function logout() {
             }
         },
         error: function (xhr, status, error) { 
-            showSnack('Status:'+status+'. '+error, 'error')
-        }
-    })
-}
-
-function register() {
-    var _id = document.getElementById('_id_r').value
-    var fn = document.getElementById('first_name').value
-    var ln = document.getElementById('last_name').value
-    var area = document.getElementById('area').value
-    var dep = document.getElementById('department').value
-    var cr = document.getElementById('career').value
-    var ct = document.getElementById('contract').value
-    var st = document.getElementById('street').value
-    var num = document.getElementById('num').value
-    var pc = document.getElementById('postal_code').value
-    var bday = document.getElementById('b_day').value
-    var pass = document.getElementById('pass_r').value
-
-    var packed = JSON.stringify({ 
-        _id: _id, 
-        pass: pass,
-        first_name: fn,
-        last_name: ln,
-        area: area,
-        department: dep,
-        career: cr,
-        contract: ct,
-        street: st,
-        num: num,
-        postal_code: pc,
-        b_day: bday
-    })
-
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:3000/sesion/nuevo-usuario',
-        contentType: 'application/json; charset=utf-8',
-        data: packed,
-        dataType: 'json',
-        async: true,
-        success: function(result){
-            showSnack(result.msg, 'success')
-
-            if(result.status === 200){
-                toggleFloating(0)
-            }
-        },
-        error: function (xhr, status, error) {
             showSnack('Status:'+status+'. '+error, 'error')
         }
     })

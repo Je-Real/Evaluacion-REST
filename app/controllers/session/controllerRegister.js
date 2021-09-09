@@ -3,6 +3,24 @@ const modelUserInfo = require('../../models/modelUserInfo')
 const crypto = require('crypto-js')
 
 // >>>>>>>>>>>>>>>>>>>>>> Registration <<<<<<<<<<<<<<<<<<<<<<
+async function root(req, res) {
+    var session
+
+    if(!req.session.user && !req.session.lvl) {
+        // No session 😡
+        session = null
+    } else {
+        // Session 🤑
+        session = {
+            user: req.session.user,
+            lvl: req.session.lvl,
+            name: req.session.name
+        }
+    }
+
+    return res.status(200).render('registro', {session: session})
+}
+
 async function signIn(req, res) {
 	//SignIn validator
 	await modelUser.find({ _id: req.body._id })
@@ -66,5 +84,6 @@ async function signIn(req, res) {
 }
 
 module.exports = {
+	root,
 	signIn,
 }
