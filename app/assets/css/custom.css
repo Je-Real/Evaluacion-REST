@@ -14,12 +14,12 @@ th {
 
 #closeReg {
 	right: 1.5rem;
-    top: 1.5rem;
+	top: 1.5rem;
 }
 
 #layoutNavbar {
 	padding-bottom: 2rem;
-    padding-top: 2.2rem;
+	padding-top: 2.2rem;
 }
 
 #load-b {
@@ -48,6 +48,14 @@ th {
 	}
 }
 
+.fs-1-5x {
+	font-size: 1.5rem;
+}
+
+.text-justify {
+	text-align: justify;
+}
+
 .close-pill {
 	max-width: 7rem;
 	width: 6rem;
@@ -58,18 +66,18 @@ th {
 	z-index: 1050;
 	top: 7rem;
 	left: 0;
-    right: 0;
+	right: 0;
 	text-align: -webkit-center;
 }
 
 .noti {
 	z-index: 1055;
 	left: 0;
-    right: 0;
+	right: 0;
 	text-align: -webkit-center;
 }
 
-.floating>.card.limit  {
+.floating > .card.limit {
 	max-width: 32rem;
 }
 
@@ -80,15 +88,15 @@ th {
 
 .blur-on {
 	filter: blur(5px);
-	-webkit-animation: fadein 0.8s;
-	animation: fadein 0.8s;
+	-webkit-animation: fadein-blur 0.8s;
+	animation: fadein-blur 0.8s;
 }
 
 .blur-off {
 	filter: blur(0px);
 }
 
-@-webkit-keyframes fadein {
+@-webkit-keyframes fadein-blur {
 	from {
 		filter: blur(0px);
 	}
@@ -97,7 +105,7 @@ th {
 	}
 }
 
-@keyframes fadein {
+@keyframes fadein-blur {
 	from {
 		filter: blur(0px);
 	}
@@ -106,46 +114,180 @@ th {
 	}
 }
 
+.green-border-b {
+	border-bottom: 10px solid #99d128;
+}
+
+.orange-border-b {
+	border-bottom: 10px solid #e29e20;
+}
+
+.top-border-b[data-color] {
+	border-bottom: 10px solid #424242;
+	/* Experimental - no works yet */
+	border-bottom: 10px solid attr(data-color color, #424242);
+
+}
+
+.sidebar-top-p {
+	padding: 5px 0 6px 0;
+}
+
+/* Tooltip */
+.tooltip-tb {
+	position: relative;
+	display: inline-block;
+}
+
+.tooltip-tb svg {
+	cursor: pointer;
+}
+
+.tooltip-tb .tooltiptext {
+    visibility: hidden;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    opacity: 0;
+	left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.tooltiptext p {
+	position: absolute;
+	display: flex;
+    align-items: center;
+	padding: .5rem 1rem .5rem 1rem;
+	text-align: center;
+	border-radius: 6px;
+	background-color: #555;
+    color: #fff;
+	width: 30vw;
+	max-width: 500px;
+	min-width: 200px;
+	bottom: 5%;
+	justify-content: center;
+}
+
+.tooltiptext.one-line p {
+    height: 2rem;
+	max-width: 9rem;
+	min-width: 5rem;
+}
+
+.tooltip-tb.hover .tooltiptext {
+	visibility: visible;
+	opacity: 1;
+}
+
+.tooltip-tb svg {
+	color: #424242;
+	transition: all .65s;
+}
+
+.tooltip-tb svg:hover {
+	color: #53dbae;
+}
+/* Tooltip */
+
+/* Encuesta */
+#radios label {
+	position: relative;
+}
+
+input[type="radio"] {
+	position: absolute;
+	opacity: 0;
+}
+
+input[type="radio"]+svg {
+	-webkit-transition: all 0.2s;
+	transition: all 0.2s;
+}
+
+input+svg {
+	cursor: pointer;
+	color: #424242;
+}
+
+input.super-happy:hover+svg,
+input.super-happy:focus+svg {
+	color: rgb(159, 204, 235);
+}
+input.super-happy:checked+svg {
+	color: rgb(61, 161, 228);
+}
+
+input.happy:hover+svg,
+input.happy:focus+svg {
+	color: rgb(152, 236, 184);
+}
+input.happy:checked+svg {
+	color: rgb(57, 223, 120);
+}
+
+input.sad:hover+svg,
+input.sad:focus+svg {
+	color: rgb(240, 202, 149);
+}
+input.sad:checked+svg {
+	color: rgb(243, 155, 32);
+}
+
+input.super-sad:hover+svg,
+input.super-sad:focus+svg {
+	color: rgb(241, 147, 135);
+}
+input.super-sad:checked+svg {
+	color: rgb(245, 78, 56);
+}
+
+/* Tables */
 .table-header-deactivated-light {
 	--bs-table-bg: #dddddd;
-    --bs-table-striped-bg: #dddddd;
-    --bs-table-striped-color: #000;
-    --bs-table-active-bg: #dddddd;
-    --bs-table-active-color: #000;
-    --bs-table-hover-bg: #dddddd;
-    --bs-table-hover-color: #000;
-    color: #000;
+	--bs-table-striped-bg: #dddddd;
+	--bs-table-striped-color: #000;
+	--bs-table-active-bg: #dddddd;
+	--bs-table-active-color: #000;
+	--bs-table-hover-bg: #dddddd;
+	--bs-table-hover-color: #000;
+	color: #000;
 }
 
 .table-header-activated-light {
-	--bs-table-bg: #dcffb5;
-    --bs-table-striped-bg: #dcffb5;
-    --bs-table-striped-color: #000;
-    --bs-table-active-bg: #dcffb5;
-    --bs-table-active-color: #000;
-    --bs-table-hover-bg: #dcffb5;
-    --bs-table-hover-color: #000;
-    color: #000;
+	--bs-table-bg: #bee98e;
+	--bs-table-striped-bg: #bee98e;
+	--bs-table-striped-color: #000;
+	--bs-table-active-bg: #bee98e;
+	--bs-table-active-color: #000;
+	--bs-table-hover-bg: #bee98e;
+	--bs-table-hover-color: #000;
+	color: #000;
 }
 
 .table-header-deactivated-dark {
 	--bs-table-bg: #525252;
-    --bs-table-striped-bg: #525252;
-    --bs-table-striped-color: #f5f5f5;
-    --bs-table-active-bg: #525252;
-    --bs-table-active-color: #f5f5f5;
-    --bs-table-hover-bg: #525252;
-    --bs-table-hover-color: #f5f5f5;
-    color: #f5f5f5;
+	--bs-table-striped-bg: #525252;
+	--bs-table-striped-color: #f5f5f5;
+	--bs-table-active-bg: #525252;
+	--bs-table-active-color: #f5f5f5;
+	--bs-table-hover-bg: #525252;
+	--bs-table-hover-color: #f5f5f5;
+	color: #f5f5f5;
 }
 
 .table-header-activated-dark {
 	--bs-table-bg: #4a6629;
-    --bs-table-striped-bg: #4a6629;
-    --bs-table-striped-color: #f5f5f5;
-    --bs-table-active-bg: #4a6629;
-    --bs-table-active-color: #f5f5f5;
-    --bs-table-hover-bg: #4a6629;
-    --bs-table-hover-color: #f5f5f5;
-    color: #f5f5f5;
+	--bs-table-striped-bg: #4a6629;
+	--bs-table-striped-color: #f5f5f5;
+	--bs-table-active-bg: #4a6629;
+	--bs-table-active-color: #f5f5f5;
+	--bs-table-hover-bg: #4a6629;
+	--bs-table-hover-color: #f5f5f5;
+	color: #f5f5f5;
 }
+/* Encuesta */

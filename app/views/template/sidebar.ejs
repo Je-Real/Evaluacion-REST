@@ -1,7 +1,8 @@
 <div id="layoutSidenav_nav">
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
-            <div class="nav mt-4">
+            <div class="nav">
+                <div class="sidebar-top-p top-border-b" data-color="#e29e20"></div>
                 <a class="nav-link" href="/inicio/">
                     <div class="sb-nav-link-icon"><i class="fas fa-home fa-2x"></i></div>
                     Inicio
@@ -9,7 +10,7 @@
 
                 <% if(session) {
                     if(session.lvl) { %>
-                    <div class="sb-sidenav-menu-heading">Reportes</div>
+                    <div class="sb-sidenav-menu-heading green-border-b">Reportes</div>
                     <a class="nav-link" href="/reportes/">
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-line fa-2x"></i></div>
                         Reporte
@@ -19,7 +20,7 @@
                         Tablas
                     </a>
 
-                    <div class="sb-sidenav-menu-heading">Acciones</div>
+                    <div class="sb-sidenav-menu-heading orange-border-b">Acciones</div>
                     <a class="nav-link" href="/encuesta/">
                         <div class="sb-nav-link-icon"><i class="fas fa-pen-alt fa-2x"></i></div>
                         Encuesta
@@ -29,7 +30,7 @@
                         Cerrar sesión
                     </a>
                 <% } } else { %>
-                    <div class="sb-sidenav-menu-heading">Sesión</div>
+                    <div class="sb-sidenav-menu-heading orange-border-b">Sesión</div>
                     <a class="nav-link" href="javascript:toggleFloating(1)">
                         <div class="sb-nav-link-icon"><i class="fas fa-user fa-2x"></i></div>
                         Iniciar sesión
