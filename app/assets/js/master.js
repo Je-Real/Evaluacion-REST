@@ -95,7 +95,7 @@ function login() {
                 toggleFloating(0)
                 setTimeout(() => {
                     window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
-                }, 3500)
+                }, 100) /* Change */
             }
         },
         error: function (xhr, status, error) { 

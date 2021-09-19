@@ -1,4 +1,3 @@
-const modelContract = require('../models/modelContract')
 const modelUser = require('../models/modelUser')
 const modelUserInfo = require('../models/modelUserInfo')
 
@@ -18,19 +17,8 @@ async function root(req, res) {
         }
     }
 
-    await modelContract.find({})
-    .then(data => {
-        contracts = data
-        return res.status(200).render('inicio', {
-            contracts: contracts,
-            session: session
-        })
-    })
-    .catch((error) => {
-        console.log(error)
-        return res.status(200).render('inicio', {session: session})
-    })
-
+    //Inicio route
+    return res.status(200).render('inicio', {session: session})
 }
 
 function search(req, res, next) {

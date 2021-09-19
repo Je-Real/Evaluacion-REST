@@ -21,7 +21,6 @@ router.get('/inicio', controllerIndex.root)
       .get('/inicio/test', controllerIndex.test)
       
 router.get('/reportes', controllerReporteC.root)
-      .post('/reportes/add', controllerReporteC.add)
       .get('/reportes/get', controllerReporteC.get)
 
 router.get('/encuesta', controllerLayoutStatic.root)

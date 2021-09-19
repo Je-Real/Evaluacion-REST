@@ -1,9 +1,18 @@
 const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
-const crypto = require('crypto-js')
+const modelArea = require('../models/modelArea')
+const modelDepartment = require('../models/modelDepartment')
 
 // >>>>>>>>>>>>>>>>>>>>>> Reportes <<<<<<<<<<<<<<<<<<<<<<
-function root(req, res) {
+async function root(req, res) {
+    var date = new Date()
+    var hour = date.getHours()
+    var s
+
+    if(hour >= 5 && hour <= 12) { s = 'Buen dia' } 
+    else if (hour > 12 && hour <= 19) { s = 'Buenas tardes' }
+    else { s = 'Buenas noches' }
+
     if(!req.session.user && !req.session.lvl) {
         // No session 😡
         session = null
@@ -16,50 +25,112 @@ function root(req, res) {
         }
     }
 
-    //Reportes route
-    return res.status(200).render('reportes', {session: session})
-}
+    if(req.session.lvl <= 1){
+        var area, department
+        var getter /* Ex: getter.eval[num_doc].field */
 
-function add(req, res) {
-    modelEvaluation.find({ _id: req.body._id })
-        .then(data => {
-            new modelEvaluation(req.body).save()
-                .then((data) => { //🟢
-                    console.log('Subido pa!', data)
-                    return res.status(200).render('reportes')
-                })
-                .catch(() => { //🔴
-                    return res.status(200).render('reportes')
-                })
+        await modelArea.find({}) // Get all areas in DB
+            .then((data) => { //🟢
+                area = data
+            })
+            .catch((error) => { //🔴
+                area = null
+            })
+
+        await modelDepartment.find({}) // Get all departments in DB
+            .then((data) => { //🟢
+                department = data
+            })
+            .catch((error) => { //🔴
+                department = null
+            })
+
+        await modelEvaluation.find({}) // Get all evaluations
+            .then((dataE) => { //🟢
+                getter = { eval: dataE }
+            })
+            .catch((error) => { //🔴
+                getter = error
+            })
+        
+        await modelUserInfo.find({})
+
+        return res.status(200).render('reportes', {
+            session: session,
+            depa: department,
+            area: area,
+            hour: hour,
+            s: s
         })
-        .catch((error) => {
-            console.log('Error', error)
-            return res.status(200).render('reportes')
-        })
+    }
+
+    //Reportes route
+    return res.status(200).render('reportes', {
+        session: session,
+        hour: hour,
+        s: s
+    })
 }
 
 function get(req, res) {
-    modelEvaluation.find({ _id: req.query._id })
-        .then(data => { //🟢
-            return res.end(JSON.stringify({
-				data: data,
-                msg: 'Datos obtenidos.',
-				status: 200,
-				noti: true
-			}))
-        })
-        .catch(error => { //🔴
-            console.log('Error',error)
-            return res.end(JSON.stringify({
-				msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
-				status: 404,
-				noti: true
-			}))
-        })
+    if(req.query._id){
+        modelEvaluation.find({ _id: req.query._id })
+            .then(data => { //🟢
+                return res.end(JSON.stringify({
+                    data: data,
+                    msg: 'Datos obtenidos.',
+                    status: 200,
+                    noti: true
+                }))
+            })
+            .catch(error => { //🔴
+                return res.end(JSON.stringify({
+                    msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
+                    status: 404,
+                    noti: true,
+                    error: error
+                }))
+            })
+    } else if(req.query.area && req.query.department) {
+        modelEvaluation.find({ area: req.query.area, department: req.query.department })
+            .then(data => { //🟢
+                return res.end(JSON.stringify({
+                    data: data,
+                    msg: 'Datos obtenidos.',
+                    status: 200,
+                    noti: true
+                }))
+            })
+            .catch(error => { //🔴
+                return res.end(JSON.stringify({
+                    msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
+                    status: 404,
+                    noti: true,
+                    error: error
+                }))
+            })
+    } else {
+        modelEvaluation.find({ area: req.query.area })
+            .then(data => { //🟢
+                return res.end(JSON.stringify({
+                    data: data,
+                    msg: 'Datos obtenidos.',
+                    status: 200,
+                    noti: true
+                }))
+            })
+            .catch(error => { //🔴
+                return res.end(JSON.stringify({
+                    msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
+                    status: 404,
+                    noti: true,
+                    error: error
+                }))
+            })
+    }
 }
 
 module.exports = {
     root,
-    add,
     get,
 }

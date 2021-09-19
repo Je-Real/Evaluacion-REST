@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(() => {
     $('.tooltip-tb svg').hover(() => {
         setTimeout(() => {
             $('.tooltip-tb:hover').addClass('hover')

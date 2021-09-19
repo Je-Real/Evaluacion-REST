@@ -122,6 +122,14 @@ th {
 	border-bottom: 10px solid #e29e20;
 }
 
+.green-border-t {
+	border-top: 10px solid #99d128;
+}
+
+.orange-border-t {
+	border-top: 10px solid #e29e20;
+}
+
 .top-border-b[data-color] {
 	border-bottom: 10px solid #424242;
 	/* Experimental - no works yet */

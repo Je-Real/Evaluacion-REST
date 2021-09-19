@@ -10,7 +10,7 @@
 
                 <% if(session) {
                     if(session.lvl) { %>
-                    <div class="sb-sidenav-menu-heading green-border-b">Reportes</div>
+                    <div class="sb-sidenav-menu-heading green-border-t py-3">Reportes</div>
                     <a class="nav-link" href="/reportes/">
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-line fa-2x"></i></div>
                         Reporte
@@ -20,7 +20,7 @@
                         Tablas
                     </a>
 
-                    <div class="sb-sidenav-menu-heading orange-border-b">Acciones</div>
+                    <div class="sb-sidenav-menu-heading orange-border-t py-3">Acciones</div>
                     <a class="nav-link" href="/encuesta/">
                         <div class="sb-nav-link-icon"><i class="fas fa-pen-alt fa-2x"></i></div>
                         Encuesta
@@ -30,7 +30,7 @@
                         Cerrar sesión
                     </a>
                 <% } } else { %>
-                    <div class="sb-sidenav-menu-heading orange-border-b">Sesión</div>
+                    <div class="sb-sidenav-menu-heading orange-border-t py-3">Sesión</div>
                     <a class="nav-link" href="javascript:toggleFloating(1)">
                         <div class="sb-nav-link-icon"><i class="fas fa-user fa-2x"></i></div>
                         Iniciar sesión

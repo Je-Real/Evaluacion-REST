@@ -1,10 +1,32 @@
 [{
-  "desc": "Primera area",
-  "n": 1
+  "n": 1,
+  "desc": "Rectoría"
 },{
-  "desc": "Segunda area",
-  "n": 2
+  "n": 2,
+  "desc": "Jurídico"
 },{
-  "desc": "Tercera area",
-  "n": 3
-}]
+  "n": 3,
+  "desc": "Vinculación"
+},{
+  "n": 4,
+  "desc": "Logística y Enlace Institucional"
+},{
+  "n": 5,
+  "desc": "Administración y Finanzas"
+},{
+  "n": 6,
+  "desc": "Planeación y evaluación institucional"
+},{
+  "n": 7,
+  "desc": "Promoción, Comunicación y Extensión Universitaria"
+},{
+  "n": 8,
+  "desc": "Secretaria Académica"
+},{
+  "n": 9,
+  "desc": "Atención al Cliente"
+},{
+  "n": 10,
+  "desc": "Formación integral"
+}
+]

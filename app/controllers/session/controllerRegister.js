@@ -1,5 +1,6 @@
 const modelUser = require('../../models/modelUser')
 const modelUserInfo = require('../../models/modelUserInfo')
+const modelContract = require('../../models/modelContract')
 const crypto = require('crypto-js')
 
 // >>>>>>>>>>>>>>>>>>>>>> Registration <<<<<<<<<<<<<<<<<<<<<<
@@ -18,7 +19,18 @@ async function root(req, res) {
         }
     }
 
-    return res.status(200).render('registro', {session: session})
+	await modelContract.find({})
+    .then(data => {
+        contracts = data
+        return res.status(200).render('registro', {
+            contracts: contracts,
+            session: session
+        })
+    })
+    .catch((error) => {
+        console.log(error)
+        return res.status(200).render('registro', {session: session})
+    })
 }
 
 async function signIn(req, res) {

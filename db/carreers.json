@@ -1,10 +1,55 @@
-[{
-  "desc": "Primera carrera",
-  "n": 1
-},{
-  "desc": "Segunda carrera",
-  "n": 2
-},{
-  "desc": "Tercera carrera",
-  "n": 3
-}]
+[
+  {
+    "n": 1,
+    "department": 12,
+    "desc": "1 carrera"
+  },{
+    "n": 2,
+    "department": 12,
+    "desc": "2 carrera"
+  },{
+    "n": 3,
+    "department": 12,
+    "desc": "3 carrera"
+  }
+  ,
+  {
+    "n": 4,
+    "department": 13,
+    "desc": "1 carrera"
+  },{
+    "n": 5,
+    "department": 13,
+    "desc": "2 carrera"
+  }
+  ,
+  {
+    "n": 6,
+    "department": 14,
+    "desc": "1 carrera"
+  },{
+    "n": 7,
+    "department": 14,
+    "desc": "2 carrera"
+  }
+  ,
+  {
+    "n": 8,
+    "department": 15,
+    "desc": "1 carrera"
+  },{
+    "n": 9,
+    "department": 15,
+    "desc": "2 carrera"
+  }
+  ,
+  {
+    "n": 10,
+    "department": 16,
+    "desc": "1 carrera"
+  },{
+    "n": 11,
+    "department": 16,
+    "desc": "2 carrera"
+  }
+]
