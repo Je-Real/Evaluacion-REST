@@ -24,71 +24,75 @@
                     <div class="row my-4">
 
                         <% if(session.lvl <= 2) { %>
-                        <div class="col-md-6">
-                            <form method="POST" name="f-rep" id="f-rep" autocomplete="off">
-                                <div class="card">
-                                    <div class="card-header d-flex">
-                                        <i class="fas fa-id-card fa-2x me-1"></i>
-                                        <h5 class="mx-3">Selección de filtros</h5>
-                                    </div>
+                            <div class="col-md-6">
+                                <form method="GET" name="f-rep" id="f-rep" autocomplete="off">
+                                    <input class="deletable" type="hidden" name="user" id="user" value="<%= session.user %>">
+                                    <input class="deletable" type="hidden" name="name" id="name" value="<%= session.name %>">
+                                    <input class="deletable" type="hidden" name="lvl" id="lvl" value="<%= session.lvl %>">
 
-                                    <div class="card-body">
-                                        <div class="container">
-                                            <div class="row my-2">
-                                                <div class="col-4 d-flex justify-content-center align-self-center">
-                                                    <h6>Área: </h6>
-                                                </div>
-                                                <div class="col mx-1">
+                                    <div class="card">
+                                        <div class="card-header d-flex">
+                                            <i class="fas fa-id-card fa-2x me-1"></i>
+                                            <h5 class="mx-3">Selección de filtros</h5>
+                                        </div>
 
-                                                    <div class="form-floating">
-                                                        <select class="form-select" name="area" id="area"
-                                                            aria-label="Selección" >
-                                                            <option id="are-s" value="0" selected>-Selecciona área-</option>
-                                                            <% for(var d in area) { %>
-                                                                <option class="are" value="<%= area[d]['n'] %>"><%= area[d]['desc'] %></option>
-                                                            <% } %>
-                                                        </select>
-                                                        <label for="area">Área</label>
+                                        <div class="card-body">
+                                            <div class="container">
+                                                <div class="row my-2">
+                                                    <div class="col-4 d-flex justify-content-center align-self-center">
+                                                        <h6>Área: </h6>
                                                     </div>
+                                                    <div class="col mx-1">
 
-                                                </div>
-                                            </div>
+                                                        <div class="form-floating">
+                                                            <select class="form-select" name="area" id="area"
+                                                                aria-label="Selección" >
+                                                                <option id="are-s" value="0" selected>-Selecciona área-</option>
+                                                                <% for(var d in area) { %>
+                                                                    <option class="are" value="<%= area[d]['n'] %>"><%= area[d]['desc'] %></option>
+                                                                <% } %>
+                                                            </select>
+                                                            <label for="area">Área</label>
+                                                        </div>
 
-                                            <div class="row my-2">
-                                                <div class="col-5 d-flex justify-content-center align-self-center">
-                                                    <h6>Departamento:</h6>
-                                                </div>
-                                                <div class="col mx-1">
-
-                                                    <div class="form-floating">
-                                                        <select class="form-select" name="department" id="department"
-                                                            aria-label="Selección" disabled>
-                                                            <option id="dep-s" class="dep" value="0" selected>N/A</option>
-                                                            <% for(var d in depa) { %>
-                                                                <option class="dep" data-area="<%= depa[d]['area'] %>" value="<%= depa[d]['n'] %>"><%= depa[d]['desc'] %></option>
-                                                            <% } %>
-                                                        </select>
-                                                        <label for="department">Departamento</label>
                                                     </div>
+                                                </div>
 
+                                                <div class="row my-2">
+                                                    <div class="col-5 d-flex justify-content-center align-self-center">
+                                                        <h6>Departamento:</h6>
+                                                    </div>
+                                                    <div class="col mx-1">
+
+                                                        <div class="form-floating">
+                                                            <select class="form-select" name="department" id="department"
+                                                                aria-label="Selección" disabled>
+                                                                <option id="dep-s" class="dep" value="0" selected>N/A</option>
+                                                                <% for(var d in depa) { %>
+                                                                    <option class="dep" data-area="<%= depa[d]['area'] %>" value="<%= depa[d]['n'] %>"><%= depa[d]['desc'] %></option>
+                                                                <% } %>
+                                                            </select>
+                                                            <label for="department">Departamento</label>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="card mb-4">
-                                <div class="card-header d-flex">
-                                    <i class="fas fa-chart-pie fa-2x me-1"></i>
-                                    <h5>Desempeño por años</h5>
-                                </div>
-                                <div class="card-body"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
-                                <div class="card-footer small text-muted"></div>
+                                </form>
                             </div>
-                        </div>
+
+                            <div class="col-md-6">
+                                <div class="card mb-4">
+                                    <div class="card-header d-flex">
+                                        <i class="fas fa-chart-pie fa-2x me-1"></i>
+                                        <h5>Desempeño por años</h5>
+                                    </div>
+                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
+                                    <div class="card-footer small text-muted"></div>
+                                </div>
+                            </div>
                         <% } else { %>
                             <div class="col-md-12">
                                 <div class="card mb-4">

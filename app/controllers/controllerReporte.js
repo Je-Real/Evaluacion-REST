@@ -25,7 +25,7 @@ async function root(req, res) {
         }
     }
 
-    if(req.session.lvl <= 1){
+    if(req.session.lvl <= 2){
         var area, department
         var getter /* Ex: getter.eval[num_doc].field */
 
@@ -72,9 +72,11 @@ async function root(req, res) {
     })
 }
 
-function get(req, res) {
-    if(req.query._id){
-        modelEvaluation.find({ _id: req.query._id })
+async function get(req, res) {
+    //console.log(`User: ${req.body._id}, area: ${req.body.area}, department: ${req.body.area}`)
+    if(req.session.lvl > 2){ //Normal user request
+        //console.log('User request (Reporte)')
+        await modelEvaluation.find({ _id: req.body._id })
             .then(data => { //🟢
                 return res.end(JSON.stringify({
                     data: data,
@@ -91,42 +93,46 @@ function get(req, res) {
                     error: error
                 }))
             })
-    } else if(req.query.area && req.query.department) {
-        modelEvaluation.find({ area: req.query.area, department: req.query.department })
-            .then(data => { //🟢
-                return res.end(JSON.stringify({
-                    data: data,
-                    msg: 'Datos obtenidos.',
-                    status: 200,
-                    noti: true
-                }))
-            })
-            .catch(error => { //🔴
-                return res.end(JSON.stringify({
-                    msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
-                    status: 404,
-                    noti: true,
-                    error: error
-                }))
-            })
-    } else {
-        modelEvaluation.find({ area: req.query.area })
-            .then(data => { //🟢
-                return res.end(JSON.stringify({
-                    data: data,
-                    msg: 'Datos obtenidos.',
-                    status: 200,
-                    noti: true
-                }))
-            })
-            .catch(error => { //🔴
-                return res.end(JSON.stringify({
-                    msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
-                    status: 404,
-                    noti: true,
-                    error: error
-                }))
-            })
+    } else if(req.session.lvl <= 2) { //Administrative user request
+        if(req.body.area && req.body.department){
+            //console.log('Admin request (Double) (Reporte)')
+            await modelEvaluation.find({ area: req.body.area, department: req.body.department })
+                .then(data => { //🟢
+                    return res.end(JSON.stringify({
+                        data: data,
+                        msg: 'Datos obtenidos.',
+                        status: 200,
+                        noti: true
+                    }))
+                })
+                .catch(error => { //🔴
+                    return res.end(JSON.stringify({
+                        msg: 'No se encontraron datos.',
+                        status: 404,
+                        noti: true,
+                        error: error
+                    }))
+                })
+        } else {
+            //console.log('User request (Simple) (Reporte)')
+            await modelEvaluation.find({ area: req.body.area })
+                .then(data => { //🟢
+                    return res.end(JSON.stringify({
+                        data: data,
+                        msg: 'Datos obtenidos.',
+                        status: 200,
+                        noti: true
+                    }))
+                })
+                .catch(error => { //🔴
+                    return res.end(JSON.stringify({
+                        msg: 'No se encontraron datos.',
+                        status: 404,
+                        noti: true,
+                        error: error
+                    }))
+                })
+        }
     }
 }
 
