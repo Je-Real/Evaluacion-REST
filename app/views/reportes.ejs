@@ -2,8 +2,6 @@
 <%- include('template/!head.ejs') %>
 
 <body class="sb-nav-fixed">
-    <div id="noti" class="noti mx-auto w-25 d-flex flex-nowrap justify-content-center position-fixed"></div>
-
     <%- include('template/navbar.ejs') %>
 
     <div id="layoutSidenav">
@@ -21,7 +19,7 @@
                     </h1>
                     <h2 class="display-6 text-center mb-5" data-time="<%= hour %>" ><%= s %>, <%= session.name %></h2>
 
-                    <div class="row my-4">
+                    <div class="row my-4 mx-auto w-big-80">
 
                         <% if(session.lvl <= 2) { %>
                             <div class="col-md-6">
@@ -90,7 +88,7 @@
                                         <h5>Desempeño por años</h5>
                                     </div>
                                     <div class="card-body">
-                                        <canvas id="pieChart" width="100%" height="50"></canvas>
+                                        <canvas id="doughnutChart" width="100%" height="40"></canvas>
                                     </div>
                                     <div class="card-footer small text-muted"></div>
                                 </div>
@@ -100,23 +98,27 @@
                                 <div class="card mb-4">
                                     <div class="card-header d-flex">
                                         <i class="fas fa-chart-pie fa-2x me-1"></i>
-                                        <h5>Desempeño por años</h5>
+                                        <h5>Desempeño personal por años</h5>
                                     </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
+                                    <div class="card-body">
+                                        <canvas id="doughnutChart" width="80%" height="40"></canvas>
+                                    </div>
                                     <div class="card-footer small text-muted"></div>
                                 </div>
                             </div>
                         <% } %>
                     </div>
 
-                    <div class="row my-4">
+                    <div class="row my-4 mx-auto w-big-80">
                         <div class="col-lg-6">
                             <div class="card mb-4">
                                 <div class="card-header d-flex">
                                     <i class="fas fa-chart-bar fa-2x me-1"></i>
                                     <h5>Desempeño por años</h5>
                                 </div>
-                                <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>
+                                <div class="card-body">
+                                    <canvas id="barChart" width="100%" height="75%"></canvas>
+                                </div>
                                 <div class="card-footer small text-muted"></div>
                             </div>
                         </div>
@@ -126,7 +128,9 @@
                                     <i class="fas fa-chart-area fa-2x me-1"></i>
                                     <h5>Desempeño por años</h5>
                                 </div>
-                                <div class="card-body"><canvas id="myPieChart" width="100%" height="50"></canvas></div>
+                                <div class="card-body">
+                                    <canvas id="lineChart" width="100%" height="75%"></canvas>
+                                </div>
                                 <div class="card-footer small text-muted"></div>
                             </div>
                         </div>

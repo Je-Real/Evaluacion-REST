@@ -48,6 +48,12 @@ th {
 	}
 }
 
+@media (min-width: 1118px) {
+	.w-big-80 {
+		width: 80% !important;
+	}
+}
+
 .fs-1-5x {
 	font-size: 1.5rem;
 }
