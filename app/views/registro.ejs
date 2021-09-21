@@ -56,22 +56,22 @@
                                         <div class="form-floating mb-3 mb-md-0">
                                             <select class="form-select" name="area" id="area"
                                                 aria-label="Selección" >
-                                                <option selected>Seleccione area...</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
+                                                <option id="are-s" value="0" selected>-Selecciona área-</option>
+                                                <% for(var d in area) { %>
+                                                    <option class="are" value="<%= area[d]['n'] %>"><%= area[d]['desc'] %></option>
+                                                <% } %>
                                             </select>
-                                            <label for="area">Area</label>
+                                            <label for="area">Área</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-floating">
+                                        <div class="form-floating mb-3 mb-md-0">
                                             <select class="form-select" name="department" id="department"
-                                                aria-label="Selección" >
-                                                <option selected>Seleccione departamento...</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
+                                                aria-label="Selección" disabled>
+                                                <option id="dep-s" class="dep" value="0" selected>N/A</option>
+                                                <% for(var d in depa) { %>
+                                                    <option class="dep" data-area="<%= depa[d]['area'] %>" value="<%= depa[d]['n'] %>"><%= depa[d]['desc'] %></option>
+                                                <% } %>
                                             </select>
                                             <label for="department">Departamento</label>
                                         </div>
@@ -80,14 +80,14 @@
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <select class="form-select" name="career" id="career"
+                                            <select class="form-select" name="carrera" id="carrera"
                                                 aria-label="Selección" >
-                                                <option selected>Seleccione carrera...</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
+                                                <option id="are-s" value="0" selected>-Selecciona área-</option>
+                                                <% for(var d in carrera) { %>
+                                                    <option class="are" value="<%= carrera[d]['n'] %>"><%= carrera[d]['desc'] %></option>
+                                                <% } %>
                                             </select>
-                                            <label for="career">Carrera</label>
+                                            <label for="carrera">Carrera</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
