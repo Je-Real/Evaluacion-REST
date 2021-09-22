@@ -42,7 +42,7 @@ $(".form-select").change(() => {
 			}),
 			dataType: "json",
 			async: true,
-			success: function (result) {
+			success: (result) => {
 				if (result.status === 200) {
 					var years = [], records = []
 

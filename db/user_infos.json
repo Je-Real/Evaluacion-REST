@@ -1,0 +1,53 @@
+[
+  {
+    "_id": "admin",
+    "first_name": "admin",
+    "last_name": "admin",
+    "area": 1,
+    "department": 1,
+    "career": 1,
+    "contract": 3,
+    "b_day": {
+      "$date": "2000-01-01T00:00:00Z"
+    },
+    "address": {
+      "street": "admin",
+      "num": 1,
+      "postal_code": 1
+    }
+  },
+  {
+    "_id": "user",
+    "first_name": "user",
+    "last_name": "user",
+    "area": 1,
+    "department": 1,
+    "career": 1,
+    "contract": 1,
+    "b_day": {
+      "$date": "2021-08-23T00:00:00Z"
+    },
+    "address": {
+      "street": "user",
+      "num": 2,
+      "postal_code": 2
+    }
+  },
+  {
+    "_id": "R181308558",
+    "first_name": "Jeremy",
+    "last_name": "Richarte",
+    "area": 8,
+    "department": 15,
+    "career": 8,
+    "contract": 3,
+    "b_day": {
+      "$date": "2021-09-08T00:00:00.000Z"
+    },
+    "address": {
+      "street": "Rafael Iriarte 304",
+      "num": 0,
+      "postal_code": 20303
+    }
+  }
+]

@@ -17,4 +17,4 @@ const informationSchema = new mongoose.Schema({
     b_day:{ type:Date, required:true }
 })
 
-module.exports = mongoose.model('Info', informationSchema)
+module.exports = mongoose.model('user_info', informationSchema)

@@ -6,6 +6,10 @@ th {
 	border: 0;
 }
 
+label {
+	margin-left: 1rem;
+}
+
 #backpanel {
 	top: 0%;
 	position: fixed;

@@ -1,9 +1,9 @@
 [
     {
         "_id": "R181308558",
-        "area": 1,
-        "department": 2,
-        "carreer": 3,
+        "area": 8,
+        "department": 15,
+        "carreer": 8,
         "records": {
             "2017": 89,
             "2018": 49,
