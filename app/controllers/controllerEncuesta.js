@@ -1,4 +1,6 @@
-// >>>>>>>>>>>>>>>>>>>>>> Layout static <<<<<<<<<<<<<<<<<<<<<<
+const modelEvaluation = require('../models/modelEvaluation')
+
+// >>>>>>>>>>>>>>>>>>>>>> Encuesta static <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
     if(!req.session.user && !req.session.lvl) {
         // No session 😡
@@ -12,12 +14,25 @@ function root(req, res) {
         }
     }
 
-    
-
-    //Layout static route
+    //Encuesta static route
     return res.status(200).render('encuesta', {session: session})
 }
 
+function post(req, res) {
+    var grade = null
+
+    for (grade in req.body.grades) {
+        console.log(req.body.grades)
+    }
+
+    return res.end(JSON.stringify({
+        msg: 'Test hecho',
+        resType: 'warning',
+        status: 500,
+    }))
+}
+
 module.exports = {
-    root
+    root,
+    post
 }

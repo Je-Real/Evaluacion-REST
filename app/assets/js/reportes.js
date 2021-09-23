@@ -46,9 +46,9 @@ $(".form-select").change(() => {
 				if (result.status === 200) {
 					var years = [], records = []
 
-					for (var r in result.data[0].records) {
-						years.push(String(r))
-						records.push(result.data[0].records[r])
+					for (var record in result.data[0].records) {
+						years.push(String(record))
+						records.push(result.data[0].records[record])
 					}
 
                     doughnutChart(years, records)

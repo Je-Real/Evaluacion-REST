@@ -21,10 +21,12 @@
                         </div>
                     </div>
 
+
                     <div class="container-fluid mt-4">
                         <form method="POST" name="f_survey" id="f_survey">
                             <input type="hidden" name="lvl" id="lvl" value="<%= session.lvl %>">
                             <input type="hidden" name="user" id="user" value="<%= session.user %>">
+
                             <div class="row">
                                 <table class="table caption-top flex-table">
                                     <tr class="table-header-deactivated-light border-0" id="P-I">
@@ -53,78 +55,30 @@
                                                 <p class="m-0 px-4 text-justify pe-1">
                                                     1. Funciones principales del puesto
                                                 </p>
-                                                <div class="tooltip-tb">
-                                                    <i id="info-1" class="fas fa-info-circle fs-1-5x mt-1"></i>
-                                                    <span class="tooltiptext">
-                                                        <p class="m-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                        Explicabo corporis, voluptatibus, nisi quam tenetur asperiores 
-                                                        laboriosam velit rem beatae, dolor delectus qui hic expedita 
-                                                        aliquam corrupti. Velit qui deleniti temporibus?</p>
-                                                    </span>
-                                                </div>
                                             </div>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="I-1">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="P-I" class="super-sad" id="I-1" value="1" />
-                                                    <i class="far fa-sad-tear fa-3x"></i>
-                                                    <span class="tooltiptext">
-                                                        <p class="m-0">
-                                                            Tiene conocimiento en las funciones de su puesto,
-                                                            sin embargo, no sabe realizar las acciones necesarias para
-                                                            lograr los resultados esperados. Requiere supervisión 
-                                                            permanente debido a sus continuos errores
-                                                        </p>
-                                                    </span>
-                                                </div>
+                                            <label class="m-0" for="I-1">
+                                                <input type="radio" name="P-I" class="super-sad" id="I-1" value="1" />
+                                                <i class="far fa-sad-tear fa-3x"></i>
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="I-2">
-                                                <div class="tooltip-tb radio">
+                                            <label class="m-0" for="I-2">
                                                     <input type="radio" name="P-I" class="sad" id="I-2" value="2" />
                                                     <i class="far fa-meh fa-3x"></i>
-                                                    <span class="tooltiptext">
-                                                        <p class="m-0">
-                                                            Sabe todo lo necesario sobre las funciones de su puesto
-                                                            y realiza algunas de las acciones necesarias sin embargo
-                                                            no logra los resultados esperados. Necesita frecuentemente
-                                                            supervisión.
-                                                        </p>
-                                                    </span>
-                                                </div>
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="I-3">
-                                                <div class="tooltip-tb radio">
+                                            <label class="m-0" for="I-3">
                                                     <input type="radio" name="P-I" class="happy" id="I-3" value="3" />
                                                     <i class="far fa-smile fa-3x"></i>
-                                                    <span class="tooltiptext">
-                                                        <p class="m-0">
-                                                            Conoce todas las funciones de su puesto y trabaja de manera
-                                                            correcta en cada una de ellas cumpliendo con la mayoría de
-                                                            los resultados esperados.
-                                                        </p>
-                                                    </span>
-                                                </div>
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="I-4">
-                                                <div class="tooltip-tb radio">
+                                            <label class="m-0" for="I-4">
                                                     <input type="radio" name="P-I" class="super-happy" id="I-4" value="4" />
                                                     <i class="far fa-laugh-beam fa-3x"></i>
-                                                    <span class="tooltiptext">
-                                                        <p class="m-0">
-                                                            Cumple con todo lo requerido en las funciones de su puesto 
-                                                            logrando los resultados esperados y además apoya en otras funciones 
-                                                            que aun cuando no le corresponden reflejan una actitud proactiva. 
-                                                            La supervisión que necesita solo es en casos especiales.
-                                                        </p>
-                                                    </span>
-                                                </div>
                                             </label>
                                         </td>
                                     </tr>
@@ -151,19 +105,10 @@
                                                 <p class="m-0 px-4 text-justify pe-1">
                                                     2. Competencias y/o habilidades
                                                 </p>
-                                                <div class="tooltip-tb">
-                                                    <i id="info-2" class="fas fa-info-circle fs-1-5x mt-1"></i>
-                                                    <span class="tooltiptext">
-                                                        <p class="m-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                        Explicabo corporis, voluptatibus, nisi quam tenetur asperiores 
-                                                        laboriosam velit rem beatae, dolor delectus qui hic expedita 
-                                                        aliquam corrupti. Velit qui deleniti temporibus?</p>
-                                                    </span>
-                                                </div>
                                             </div>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="II-1">
+                                            <label class="m-0" for="II-1">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-II" class="super-sad" id="II-1" value="1" />
                                                     <i class="far fa-sad-tear fa-3x"></i>
@@ -171,7 +116,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="II-2">
+                                            <label class="m-0" for="II-2">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-II" class="sad" id="II-2" value="2" />
                                                     <i class="far fa-meh fa-3x"></i>
@@ -179,7 +124,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="II-3">
+                                            <label class="m-0" for="II-3">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-II" class="happy" id="II-3" value="3" />
                                                     <i class="far fa-smile fa-3x"></i>
@@ -187,7 +132,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="II-4">
+                                            <label class="m-0" for="II-4">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-II" class="super-happy" id="II-4" value="4" />
                                                     <i class="far fa-laugh-beam fa-3x"></i>
@@ -217,19 +162,10 @@
                                                     3. Líneas de acción de participación directa
                                                     o indirecta del POA
                                                 </p>
-                                                <div class="tooltip-tb">
-                                                    <i id="info-3" class="fas fa-info-circle fs-1-5x mt-1"></i>
-                                                    <span class="tooltiptext">
-                                                        <p class="m-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                        Explicabo corporis, voluptatibus, nisi quam tenetur asperiores 
-                                                        laboriosam velit rem beatae, dolor delectus qui hic expedita 
-                                                        aliquam corrupti. Velit qui deleniti temporibus?</p>
-                                                    </span>
-                                                </div>
                                             </div>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="III-1">
+                                            <label class="m-0" for="III-1">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-III" class="super-sad" id="III-1" value="1" />
                                                     <i class="far fa-sad-tear fa-3x"></i>
@@ -237,7 +173,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="III-2">
+                                            <label class="m-0" for="III-2">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-III" class="sad" id="III-2" value="2" />
                                                     <i class="far fa-meh fa-3x"></i>
@@ -245,7 +181,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="III-3">
+                                            <label class="m-0" for="III-3">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-III" class="happy" id="III-3" value="3" />
                                                     <i class="far fa-smile fa-3x"></i>
@@ -253,7 +189,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="III-4">
+                                            <label class="m-0" for="III-4">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-III" class="super-happy" id="III-4" value="4" />
                                                     <i class="far fa-laugh-beam fa-3x"></i>
@@ -285,19 +221,10 @@
                                                     4. Indicadores del SGC con participación
                                                     directa o indirecta
                                                 </p>
-                                                <div class="tooltip-tb">
-                                                    <i id="info-4" class="fas fa-info-circle fs-1-5x mt-1"></i>
-                                                    <span class="tooltiptext">
-                                                        <p class="m-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                        Explicabo corporis, voluptatibus, nisi quam tenetur asperiores 
-                                                        laboriosam velit rem beatae, dolor delectus qui hic expedita 
-                                                        aliquam corrupti. Velit qui deleniti temporibus?</p>
-                                                    </span>
-                                                </div>
                                             </div>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="IV-1">
+                                            <label class="m-0" for="IV-1">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-IV" class="super-sad" id="IV-1" value="1" />
                                                     <i class="far fa-sad-tear fa-3x"></i>
@@ -305,7 +232,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="IV-2">
+                                            <label class="m-0" for="IV-2">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-IV" class="sad" id="IV-2" value="2" />
                                                     <i class="far fa-meh fa-3x"></i>
@@ -313,7 +240,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="IV-3">
+                                            <label class="m-0" for="IV-3">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-IV" class="happy" id="IV-3" value="3" />
                                                     <i class="far fa-smile fa-3x"></i>
@@ -321,7 +248,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="IV-4">
+                                            <label class="m-0" for="IV-4">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-IV" class="super-happy" id="IV-4" value="4" />
                                                     <i class="far fa-laugh-beam fa-3x"></i>
@@ -354,19 +281,10 @@
                                                     retardos, días económicos, vacaciones, etc.
                                                     en tiempo y forma
                                                 </p>
-                                                <div class="tooltip-tb">
-                                                    <i id="info-5" class="fas fa-info-circle fs-1-5x mt-1"></i>
-                                                    <span class="tooltiptext">
-                                                        <p class="m-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                        Explicabo corporis, voluptatibus, nisi quam tenetur asperiores 
-                                                        laboriosam velit rem beatae, dolor delectus qui hic expedita 
-                                                        aliquam corrupti. Velit qui deleniti temporibus?</p>
-                                                    </span>
-                                                </div>
                                             </div>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="V-1">
+                                            <label class="m-0" for="V-1">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-V" class="super-sad" id="V-1" value="1" />
                                                     <i class="far fa-sad-tear fa-3x"></i>
@@ -374,7 +292,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="V-2">
+                                            <label class="m-0" for="V-2">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-V" class="sad" id="V-2" value="2" />
                                                     <i class="far fa-meh fa-3x"></i>
@@ -382,7 +300,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="V-3">
+                                            <label class="m-0" for="V-3">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-V" class="happy" id="V-3" value="3" />
                                                     <i class="far fa-smile fa-3x"></i>
@@ -390,7 +308,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="V-4">
+                                            <label class="m-0" for="V-4">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-V" class="super-happy" id="V-4" value="4" />
                                                     <i class="far fa-laugh-beam fa-3x"></i>
@@ -405,19 +323,10 @@
                                                 <p class="m-0 px-4 text-justify pe-1">
                                                     6. Vestimenta según la normativa establecida
                                                 </p>
-                                                <div class="tooltip-tb">
-                                                    <i id="info-6" class="fas fa-info-circle fs-1-5x mt-1"></i>
-                                                    <span class="tooltiptext">
-                                                        <p class="m-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                        Explicabo corporis, voluptatibus, nisi quam tenetur asperiores 
-                                                        laboriosam velit rem beatae, dolor delectus qui hic expedita 
-                                                        aliquam corrupti. Velit qui deleniti temporibus?</p>
-                                                    </span>
-                                                </div>
                                             </div>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="VI-1">
+                                            <label class="m-0" for="VI-1">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-VI" class="super-sad" id="VI-1" value="1" />
                                                     <i class="far fa-sad-tear fa-3x"></i>
@@ -425,7 +334,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="VI-2">
+                                            <label class="m-0" for="VI-2">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-VI" class="sad" id="VI-2" value="2" />
                                                     <i class="far fa-meh fa-3x"></i>
@@ -433,7 +342,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="VI-3">
+                                            <label class="m-0" for="VI-3">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-VI" class="happy" id="VI-3" value="3" />
                                                     <i class="far fa-smile fa-3x"></i>
@@ -441,7 +350,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="VI-4">
+                                            <label class="m-0" for="VI-4">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-VI" class="super-happy" id="VI-4" value="4" />
                                                     <i class="far fa-laugh-beam fa-3x"></i>
@@ -457,19 +366,10 @@
                                                     7. Participación activa en la capacitación a
                                                     la que se le invita
                                                 </p>
-                                                <div class="tooltip-tb">
-                                                    <i id="info-7" class="fas fa-info-circle fs-1-5x mt-1"></i>
-                                                    <span class="tooltiptext">
-                                                        <p class="m-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                        Explicabo corporis, voluptatibus, nisi quam tenetur asperiores 
-                                                        laboriosam velit rem beatae, dolor delectus qui hic expedita 
-                                                        aliquam corrupti. Velit qui deleniti temporibus?</p>
-                                                    </span>
-                                                </div>
                                             </div>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="VII-1">
+                                            <label class="m-0" for="VII-1">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-VII" class="super-sad" id="VII-1" value="1" />
                                                     <i class="far fa-sad-tear fa-3x"></i>
@@ -477,7 +377,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="VII-2">
+                                            <label class="m-0" for="VII-2">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-VII" class="sad" id="VII-2" value="2" />
                                                     <i class="far fa-meh fa-3x"></i>
@@ -485,7 +385,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="VII-3">
+                                            <label class="m-0" for="VII-3">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-VII" class="happy" id="VII-3" value="3" />
                                                     <i class="far fa-smile fa-3x"></i>
@@ -493,7 +393,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="VII-4">
+                                            <label class="m-0" for="VII-4">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-VII" class="super-happy" id="VII-4" value="4" />
                                                     <i class="far fa-laugh-beam fa-3x"></i>
@@ -507,19 +407,10 @@
                                                 <p class="m-0 px-4 text-justify pe-1">
                                                     8. Cumplimiento de los reglamentos aplicables
                                                 </p>
-                                                <div class="tooltip-tb">
-                                                    <i id="info-8" class="fas fa-info-circle fs-1-5x mt-1"></i>
-                                                    <span class="tooltiptext">
-                                                        <p class="m-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                        Explicabo corporis, voluptatibus, nisi quam tenetur asperiores 
-                                                        laboriosam velit rem beatae, dolor delectus qui hic expedita 
-                                                        aliquam corrupti. Velit qui deleniti temporibus?</p>
-                                                    </span>
-                                                </div>
                                             </div>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="VIII-1">
+                                            <label class="m-0" for="VIII-1">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-VIII" class="super-sad" id="VIII-1" value="1" />
                                                     <i class="far fa-sad-tear fa-3x"></i>
@@ -527,7 +418,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="VIII-2">
+                                            <label class="m-0" for="VIII-2">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-VIII" class="sad" id="VIII-2" value="2" />
                                                     <i class="far fa-meh fa-3x"></i>
@@ -535,7 +426,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="VIII-3">
+                                            <label class="m-0" for="VIII-3">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-VIII" class="happy" id="VIII-3" value="3" />
                                                     <i class="far fa-smile fa-3x"></i>
@@ -543,7 +434,7 @@
                                             </label>
                                         </td>
                                         <td class="flex-td">
-                                            <label for="VIII-4">
+                                            <label class="m-0" for="VIII-4">
                                                 <div class="tooltip-tb radio">
                                                     <input type="radio" name="P-VIII" class="super-happy" id="VIII-4" value="4" />
                                                     <i class="far fa-laugh-beam fa-3x"></i>
@@ -577,19 +468,10 @@
                                                         realizan en su dirección que coadyuvan
                                                         a cumplir objetivos institucionales
                                                     </p>
-                                                    <div class="tooltip-tb">
-                                                        <i id="info-9" class="fas fa-info-circle fs-1-5x mt-1"></i>
-                                                        <span class="tooltiptext">
-                                                            <p class="m-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                            Explicabo corporis, voluptatibus, nisi quam tenetur asperiores 
-                                                            laboriosam velit rem beatae, dolor delectus qui hic expedita 
-                                                            aliquam corrupti. Velit qui deleniti temporibus?</p>
-                                                        </span>
-                                                    </div>
                                                 </div>
                                             </td>
                                             <td class="flex-td">
-                                                <label for="IX-1">
+                                                <label class="m-0" for="IX-1">
                                                     <div class="tooltip-tb radio">
                                                         <input type="radio" name="P-IX" class="super-sad" id="IX-1" value="1" />
                                                         <i class="far fa-sad-tear fa-3x"></i>
@@ -597,7 +479,7 @@
                                                 </label>
                                             </td>
                                             <td class="flex-td">
-                                                <label for="IX-2">
+                                                <label class="m-0" for="IX-2">
                                                     <div class="tooltip-tb radio">
                                                         <input type="radio" name="P-IX" class="sad" id="IX-2" value="2" />
                                                         <i class="far fa-meh fa-3x"></i>
@@ -605,7 +487,7 @@
                                                 </label>
                                             </td>
                                             <td class="flex-td">
-                                                <label for="IX-3">
+                                                <label class="m-0" for="IX-3">
                                                     <div class="tooltip-tb radio">
                                                         <input type="radio" name="P-IX" class="happy" id="IX-3" value="3" />
                                                         <i class="far fa-smile fa-3x"></i>
@@ -613,7 +495,7 @@
                                                 </label>
                                             </td>
                                             <td class="flex-td">
-                                                <label for="IX-4">
+                                                <label class="m-0" for="IX-4">
                                                     <div class="tooltip-tb radio">
                                                         <input type="radio" name="P-IX" class="super-happy" id="IX-4" value="4" />
                                                         <i class="far fa-laugh-beam fa-3x"></i>
@@ -631,19 +513,10 @@
                                                         comités, capacitaciones, organización de
                                                         eventos, nombramientos especiales, etc.)
                                                     </p>
-                                                    <div class="tooltip-tb">
-                                                        <i id="info-10" class="fas fa-info-circle fs-1-5x mt-1"></i>
-                                                        <span class="tooltiptext">
-                                                            <p class="m-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                            Explicabo corporis, voluptatibus, nisi quam tenetur asperiores 
-                                                            laboriosam velit rem beatae, dolor delectus qui hic expedita 
-                                                            aliquam corrupti. Velit qui deleniti temporibus?</p>
-                                                        </span>
-                                                    </div>
                                                 </div>
                                             </td>
                                             <td class="flex-td">
-                                                <label for="X-1">
+                                                <label class="m-0" for="X-1">
                                                     <div class="tooltip-tb radio">
                                                         <input type="radio" name="P-X" class="super-sad" id="X-1" value="1" />
                                                         <i class="far fa-sad-tear fa-3x"></i>
@@ -651,7 +524,7 @@
                                                 </label>
                                             </td>
                                             <td class="flex-td">
-                                                <label for="X-2">
+                                                <label class="m-0" for="X-2">
                                                     <div class="tooltip-tb radio">
                                                         <input type="radio" name="P-X" class="sad" id="X-2" value="2" />
                                                         <i class="far fa-meh fa-3x"></i>
@@ -659,7 +532,7 @@
                                                 </label>
                                             </td>
                                             <td class="flex-td">
-                                                <label for="X-3">
+                                                <label class="m-0" for="X-3">
                                                     <div class="tooltip-tb radio">
                                                         <input type="radio" name="P-X" class="happy" id="X-3" value="3" />
                                                         <i class="far fa-smile fa-3x"></i>
@@ -667,7 +540,7 @@
                                                 </label>
                                             </td>
                                             <td class="flex-td">
-                                                <label for="X-4">
+                                                <label class="m-0" for="X-4">
                                                     <div class="tooltip-tb radio">
                                                         <input type="radio" name="P-X" class="super-happy" id="X-4" value="4" />
                                                         <i class="far fa-laugh-beam fa-3x"></i>
@@ -678,7 +551,9 @@
                                 </table>
 
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                                    <button class="btn btn-success btn-lg mx-auto" type="button">Enviar</button>
+                                    <a href="javascript:postSurvey()" class="m-0 p-0 mx-auto">
+                                        <button class="btn btn-success btn-lg mx-auto" type="button">Enviar</button>
+                                    </a>
                                 </div>
                             </div>
                         </form>

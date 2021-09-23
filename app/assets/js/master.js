@@ -158,8 +158,8 @@ function showSnack(msg, status) {
     }
 
 	$('#noti').append(
-        `<div class="row">
-            <div id="${id}" class="animate__animated p-0 my-1 toast show">
+        `<div id="${id}" class="row d-block animate__animated">
+            <div class="p-0 my-1 toast show">
                 <div class="toast-header ${bgColor} text-light">
                 <strong class="me-auto">Notificación</strong>
                 <button type="button" class="btn-close" role="button" data-bs-dismiss="toast" aria-label="Close"></button>

@@ -1,38 +1,42 @@
-[
-  {
-    "_id": "admin",
-    "last_conn": {
-      "$date": "2021-09-09T00:49:40.764Z"
-    },
-    "created": {
-      "$date": "2021-09-09T00:49:40.764Z"
-    },
-    "level": 0,
-    "enabled": true,
-    "pass": "U2FsdGVkX19Orf9sKU1lg/Qh6qv73yzUqe1usvPrSC8="
+[{
+  "_id": "user",
+  "last_conn": {
+    "$date": "2021-08-24T03:51:42.218Z"
   },
-  {
-    "_id": "user",
-    "last_conn": {
-      "$date": "2021-08-24T03:51:42.218Z"
-    },
-    "created": {
-      "$date": "2021-09-09T00:49:40.764Z"
-    },
-    "level": 4,
-    "enabled": true,
-    "pass": "U2FsdGVkX1+S1TXpfK2tKrmDKC5d62Z52h1/vnhG7ys="
+  "level": 4,
+  "enabled": true,
+  "pass": "U2FsdGVkX1+S1TXpfK2tKrmDKC5d62Z52h1/vnhG7ys="
+},{
+  "_id": "admin",
+  "last_conn": {
+    "$date": "2021-09-09T00:49:40.764Z"
   },
-  {
-    "_id": "R181308558",
-    "last_conn": {
-      "$date": "2021-09-09T01:24:41.751Z"
-    },
-    "created": {
-      "$date": "2021-09-09T01:24:41.751Z"
-    },
-    "level": 4,
-    "enabled": true,
-    "pass": "U2FsdGVkX1/0VGWKtuxXZM0bUHC74DVKNJTw0WD21o0="
-  }
-]
+  "created": {
+    "$date": "2021-09-09T00:49:40.764Z"
+  },
+  "level": 0,
+  "enabled": true,
+  "pass": "U2FsdGVkX19Orf9sKU1lg/Qh6qv73yzUqe1usvPrSC8="
+},{
+  "_id": "admin2",
+  "last_conn": {
+    "$date": "2021-09-09T01:21:53.324Z"
+  },
+  "created": {
+    "$date": "2021-09-09T01:21:53.324Z"
+  },
+  "level": 2,
+  "enabled": true,
+  "pass": "U2FsdGVkX18BzubhTACRmHaLLMB+XTxWaixoGADB4eM="
+},{
+  "_id": "R181308558",
+  "last_conn": {
+    "$date": "2021-09-09T01:24:41.751Z"
+  },
+  "created": {
+    "$date": "2021-09-09T01:24:41.751Z"
+  },
+  "level": 4,
+  "enabled": true,
+  "pass": "U2FsdGVkX1/0VGWKtuxXZM0bUHC74DVKNJTw0WD21o0="
+}]

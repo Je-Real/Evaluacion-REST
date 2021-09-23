@@ -1,4 +1,12 @@
+var _id, lvl
+
 $(document).ready(() => {
+    _id = $('#user').val()
+    lvl = $('#lvl').val()
+
+    $('#user').remove()
+    $('#lvl').remove()
+
     $('.tooltip-tb svg').hover(() => {
         setTimeout(() => {
             $('.tooltip-tb:hover').addClass('hover')
@@ -8,17 +16,6 @@ $(document).ready(() => {
             $('.tooltip-tb.hover').removeClass('hover')
         }, 100)
     })
-
-    /*$('.tooltip-tb.radio').append(`
-        <span class="tooltiptext one-line">
-            You cannot read this🥶😂😂😂
-        </span>
-    `)
-    
-    $('.fa-sad-tear+.tooltiptext').html('<p class="m-0">Deficiente</p>')
-    $('.fa-meh+.tooltiptext').html('<p class="m-0">Regular</p>')
-    $('.fa-smile+.tooltiptext').html('<p class="m-0">Bueno</p>')
-    $('.fa-laugh-beam+.tooltiptext').html('<p class="m-0">Muy bueno</p>')*/
 
     $('input[type="radio"]').click(function(){
         var active_V = 0
@@ -88,6 +85,49 @@ $(document).ready(() => {
     })
 })
 
-function sendSurvey() {
-    
+function postSurvey() {
+    var temp, grades = {
+        p_1: $('input[name="P-I"]:checked'),
+        p_2: $('input[name="P-II"]:checked'),
+        p_3: $('input[name="P-III"]:checked'),
+        p_4: $('input[name="P-IV"]:checked'),
+        p_5: $('input[name="P-V"]:checked'),
+        p_6: $('input[name="P-VI"]:checked'),
+        p_7: $('input[name="P-VII"]:checked'),
+        p_8: $('input[name="P-VIII"]:checked'),
+        p_9: $('input[name="P-IX"]:checked'),
+        p_10: $('input[name="P-X"]:checked')
+    }
+
+    for (var grade in grades){
+        //console.log(`${grade} = ${grades[grade].val()}`)
+        if(grades[grade].val() == undefined){
+            return showSnack('¡Aun no se puede enviar!<br/>Debes completar la encuesta', 'warning')
+        }
+        grades[grade] = parseInt(grades[grade].val())
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3000/encuesta',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify({
+            _id: _id,
+            lvl: lvl,
+            grades : grades
+        }),
+        dataType: 'json',
+        async: true,
+        success: function(result){
+            if(result.status === 200){
+                showSnack(result.msg, result.resType)
+                setTimeout(() => {
+                    window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
+                }, 100)
+            }
+        },
+        error: function (xhr, status, error) { 
+            showSnack('Status:'+status+'. '+error, 'error')
+        }
+    })
 }

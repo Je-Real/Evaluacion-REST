@@ -24,6 +24,7 @@ router.get('/reportes', controllerReporteC.root)
       .post('/reportes/get', controllerReporteC.get)
 
 router.get('/encuesta', controllerLayoutStatic.root)
+      .post('/encuesta', controllerLayoutStatic.post)
       
 router.get('/tablas', controllerTablas.root)
 

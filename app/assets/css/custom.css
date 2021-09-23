@@ -148,7 +148,6 @@ input {
 	border-bottom: 10px solid #424242;
 	/* Experimental - no works yet */
 	border-bottom: 10px solid attr(data-color color, #424242);
-
 }
 
 .sidebar-top-p {
@@ -156,63 +155,28 @@ input {
 }
 
 /* Tooltip */
-.tooltip-tb {
+.toolt {
 	position: relative;
 	display: inline-block;
 }
 
-.tooltip-tb svg {
-	cursor: pointer;
-}
-
-.tooltip-tb .tooltiptext {
-    visibility: hidden;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    opacity: 0;
-	left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    transition: all 0.3s;
-}
-
-.tooltiptext p {
+.toolt .tooltiptext {
+	/*visibility: hidden;*/
+	padding: 5px 0;
 	position: absolute;
+	z-index: 1;
+	bottom: 125%;
+	opacity: 0;
+	left: 0;
+	right: 0;
 	display: flex;
-    align-items: center;
-	padding: .5rem 1rem .5rem 1rem;
-	text-align: center;
-	border-radius: 6px;
-	background-color: #555;
-    color: #fff;
-	width: 30vw;
-	max-width: 500px;
-	min-width: 200px;
-	bottom: 5%;
 	justify-content: center;
+	transition: all 0.3s;
 }
 
-/*.tooltiptext.one-line p {
-    height: 2rem;
-	max-width: 9rem;
-	min-width: 5rem;
-}*/
-
-.tooltip-tb.hover .tooltiptext {
+.toolt.hover .tooltiptext {
 	visibility: visible;
 	opacity: 1;
-}
-
-.tooltip-tb svg {
-	color: #424242;
-	transition: all .65s;
-}
-
-.tooltip-tb svg:hover {
-	color: #53dbae;
 }
 /* Tooltip */
 
@@ -226,45 +190,45 @@ input[type="radio"] {
 	opacity: 0;
 }
 
-input[type="radio"]+svg {
+input[type="radio"] + svg {
 	-webkit-transition: all 0.2s;
 	transition: all 0.2s;
 }
 
-input+svg {
+input + svg {
 	cursor: pointer;
 	color: #424242;
 }
 
-input.super-happy:hover+svg,
-input.super-happy:focus+svg {
+input.super-happy:hover + svg,
+input.super-happy:focus + svg {
 	color: rgb(159, 204, 235);
 }
-input.super-happy:checked+svg {
+input.super-happy:checked + svg {
 	color: rgb(61, 161, 228);
 }
 
-input.happy:hover+svg,
-input.happy:focus+svg {
+input.happy:hover + svg,
+input.happy:focus + svg {
 	color: rgb(152, 236, 184);
 }
-input.happy:checked+svg {
+input.happy:checked + svg {
 	color: rgb(57, 223, 120);
 }
 
-input.sad:hover+svg,
-input.sad:focus+svg {
+input.sad:hover + svg,
+input.sad:focus + svg {
 	color: rgb(240, 202, 149);
 }
-input.sad:checked+svg {
+input.sad:checked + svg {
 	color: rgb(243, 155, 32);
 }
 
-input.super-sad:hover+svg,
-input.super-sad:focus+svg {
+input.super-sad:hover + svg,
+input.super-sad:focus + svg {
 	color: rgb(241, 147, 135);
 }
-input.super-sad:checked+svg {
+input.super-sad:checked + svg {
 	color: rgb(245, 78, 56);
 }
 
