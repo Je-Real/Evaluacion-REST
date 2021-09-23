@@ -10,6 +10,10 @@ label {
 	margin-left: 1rem;
 }
 
+input {
+	padding-left: 1.2rem !important;
+}
+
 #backpanel {
 	top: 0%;
 	position: fixed;
@@ -191,11 +195,11 @@ label {
 	justify-content: center;
 }
 
-.tooltiptext.one-line p {
+/*.tooltiptext.one-line p {
     height: 2rem;
 	max-width: 9rem;
 	min-width: 5rem;
-}
+}*/
 
 .tooltip-tb.hover .tooltiptext {
 	visibility: visible;

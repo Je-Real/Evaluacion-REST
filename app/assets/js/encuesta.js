@@ -9,7 +9,7 @@ $(document).ready(() => {
         }, 100)
     })
 
-    $('.tooltip-tb.radio').append(`
+    /*$('.tooltip-tb.radio').append(`
         <span class="tooltiptext one-line">
             You cannot read this🥶😂😂😂
         </span>
@@ -18,7 +18,7 @@ $(document).ready(() => {
     $('.fa-sad-tear+.tooltiptext').html('<p class="m-0">Deficiente</p>')
     $('.fa-meh+.tooltiptext').html('<p class="m-0">Regular</p>')
     $('.fa-smile+.tooltiptext').html('<p class="m-0">Bueno</p>')
-    $('.fa-laugh-beam+.tooltiptext').html('<p class="m-0">Muy bueno</p>')
+    $('.fa-laugh-beam+.tooltiptext').html('<p class="m-0">Muy bueno</p>')*/
 
     $('input[type="radio"]').click(function(){
         var active_V = 0
@@ -88,3 +88,6 @@ $(document).ready(() => {
     })
 })
 
+function sendSurvey() {
+    
+}

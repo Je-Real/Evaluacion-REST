@@ -10,25 +10,27 @@
 
                 <% if(session) {
                     if(session.lvl) { %>
-                    <div class="sb-sidenav-menu-heading green-border-t py-3">Reportes</div>
-                    <a class="nav-link" href="/reportes/">
-                        <div class="sb-nav-link-icon"><i class="fas fa-chart-line fa-2x"></i></div>
-                        Reporte
-                    </a>
-                    <a class="nav-link" href="/tablas/">
-                        <div class="sb-nav-link-icon"><i class="fas fa-table fa-2x"></i></div>
-                        Tablas
-                    </a>
+                        <div class="sb-sidenav-menu-heading green-border-t py-3">Reportes</div>
+                        <a class="nav-link" href="/reportes/">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-line fa-2x"></i></div>
+                            Reporte
+                        </a>
+                        <% if(session.lvl <= 2) { %>
+                            <a class="nav-link" href="/tablas/">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table fa-2x"></i></div>
+                                Tablas
+                            </a>
+                        <% } %>
 
-                    <div class="sb-sidenav-menu-heading orange-border-t py-3">Acciones</div>
-                    <a class="nav-link" href="/encuesta/">
-                        <div class="sb-nav-link-icon"><i class="fas fa-pen-alt fa-2x"></i></div>
-                        Encuesta
-                    </a>
-                    <a class="nav-link" href="javascript:logout()">
-                        <div class="sb-nav-link-icon"><i class="fas fa-door-open fa-2x"></i></div>
-                        Cerrar sesión
-                    </a>
+                        <div class="sb-sidenav-menu-heading orange-border-t py-3">Acciones</div>
+                        <a class="nav-link" href="/encuesta/">
+                            <div class="sb-nav-link-icon"><i class="fas fa-pen-alt fa-2x"></i></div>
+                            Encuesta
+                        </a>
+                        <a class="nav-link" href="javascript:logout()">
+                            <div class="sb-nav-link-icon"><i class="fas fa-door-open fa-2x"></i></div>
+                            Cerrar sesión
+                        </a>
                 <% } } else { %>
                     <div class="sb-sidenav-menu-heading orange-border-t py-3">Sesión</div>
                     <a class="nav-link" href="javascript:toggleFloating(1)">

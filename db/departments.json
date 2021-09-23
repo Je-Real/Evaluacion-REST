@@ -1,71 +1,82 @@
 [
-{
-  "n": 1,
-  "area": 5,
-  "desc": "Contabilidad"
-},{
-  "n": 2,
-  "area": 5,
-  "desc": "Programación y Presupuesto"
-},{
-  "n": 3,
-  "area": 5,
-  "desc": "Adquisiciones"
-},{
-  "n": 4,
-  "area": 5,
-  "desc": "Servicios Administrativos"
-},{
-  "n": 5,
-  "area": 5,
-  "desc": "Capital Humano"
-},{
-  "n": 6,
-  "area": 5,
-  "desc": "Infraestructura"
-},{
-  "n": 7,
-  "area": 5,
-  "desc": "Redes y Telecomunicaciones"
-}
-,
-{
-  "n": 8,
-  "area": 6,
-  "desc": "Subdirección de Evaluación"
-},{
-  "n": 9,
-  "area": 6,
-  "desc": "Subdirección de Planeación"
-},{
-  "n": 10,
-  "area": 6,
-  "desc": "Gestión de la Calidad"
-},{
-  "n": 11,
-  "area": 6,
-  "desc": "Centro de Información"
-}
-,
-{
-  "n": 12,
-  "area": 8,
-  "desc": "Dirección Académica de Ingenierías"
-},{
-  "n": 13,
-  "area": 8,
-  "desc": "Dirección Académica de Administración y Contaduría"
-},{
-  "n": 14,
-  "area": 8,
-  "desc": "Dirección Académica de Agricultura y DNM"
-},{
-  "n": 15,
-  "area": 8,
-  "desc": "Dirección Académica de Tecnologías y Mecatrónica"
-},{
-  "n": 16,
-  "area": 8,
-  "desc": "Departamento de Idiomas"
-}
+  {
+    "n": 1,
+    "area": 5,
+    "desc": "Contabilidad"
+  },
+  {
+    "n": 2,
+    "area": 5,
+    "desc": "Programación y Presupuesto"
+  },
+  {
+    "n": 3,
+    "area": 5,
+    "desc": "Adquisiciones"
+  },
+  {
+    "n": 4,
+    "area": 5,
+    "desc": "Servicios Administrativos"
+  },
+  {
+    "n": 5,
+    "area": 5,
+    "desc": "Capital Humano"
+  },
+  {
+    "n": 6,
+    "area": 5,
+    "desc": "Infraestructura"
+  },
+  {
+    "n": 7,
+    "area": 5,
+    "desc": "Redes y Telecomunicaciones"
+  },
+  {
+    "n": 8,
+    "area": 6,
+    "desc": "Subdirección de Evaluación"
+  },
+  {
+    "n": 9,
+    "area": 6,
+    "desc": "Subdirección de Planeación"
+  },
+  {
+    "n": 10,
+    "area": 6,
+    "desc": "Gestión de la Calidad"
+  },
+  {
+    "n": 11,
+    "area": 6,
+    "desc": "Centro de Información"
+  },
+  {
+    "n": 12,
+    "area": 8,
+    "desc": "Dirección Académica de Ingenierías"
+  },
+  {
+    "n": 13,
+    "area": 8,
+    "desc": "Dirección Académica de Administración y Contaduría"
+  },
+  {
+    "n": 14,
+    "area": 8,
+    "desc": "Dirección Académica de Agricultura y DNM"
+  },
+  {
+    "n": 15,
+    "area": 8,
+    "desc": "Dirección Académica de Tecnologías y Mecatrónica"
+  },
+  {
+    "n": 16,
+    "area": 8,
+    "desc": "Departamento de Idiomas"
+  }
 ]
