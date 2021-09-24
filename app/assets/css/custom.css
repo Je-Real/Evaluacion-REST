@@ -14,6 +14,14 @@ input {
 	padding-left: 1.2rem !important;
 }
 
+table, tbody, tr, th, td {
+	border-style: none !important;
+}
+
+table {
+	box-shadow: 0 0.7rem 1rem rgba(0,0,0,0.175);
+}
+
 #backpanel {
 	top: 0%;
 	position: fixed;
@@ -155,28 +163,32 @@ input {
 }
 
 /* Tooltip */
-.toolt {
-	position: relative;
-	display: inline-block;
-}
-
-.toolt .tooltiptext {
-	/*visibility: hidden;*/
-	padding: 5px 0;
-	position: absolute;
-	z-index: 1;
-	bottom: 125%;
+#toolt {
+	pointer-events: none;
+	visibility: hidden;
 	opacity: 0;
-	left: 0;
-	right: 0;
-	display: flex;
-	justify-content: center;
-	transition: all 0.3s;
+	background: #222222ec;
+	color: white;
+	position: absolute;
+	border-radius: 0.5rem;
+	z-index: 1600;
+	-webkit-box-shadow: 0px 10px 23px -5px #000000;
+	box-shadow: 0px 10px 23px -5px #000000;
+	transition: all 0.25s;
 }
 
-.toolt.hover .tooltiptext {
+#toolt.show {
 	visibility: visible;
 	opacity: 1;
+}
+
+#toolt p {
+	margin: 0.7rem 1.5rem 0.7rem 1.5rem;
+	z-index: 99;
+	max-width: 25vw;
+	min-width: fit-content;
+	text-align: justify;
+	font-size: 0.9rem;
 }
 /* Tooltip */
 
@@ -233,7 +245,7 @@ input.super-sad:checked + svg {
 }
 
 /* Tables */
-.table-header-deactivated-light {
+.table-header.deactivated.light {
 	--bs-table-bg: #dddddd;
 	--bs-table-striped-bg: #dddddd;
 	--bs-table-striped-color: #000;
@@ -244,7 +256,7 @@ input.super-sad:checked + svg {
 	color: #000;
 }
 
-.table-header-activated-light {
+.table-header.activated.light {
 	--bs-table-bg: #bee98e;
 	--bs-table-striped-bg: #bee98e;
 	--bs-table-striped-color: #000;
@@ -253,9 +265,11 @@ input.super-sad:checked + svg {
 	--bs-table-hover-bg: #bee98e;
 	--bs-table-hover-color: #000;
 	color: #000;
+
+	box-shadow: 0 -0.3rem 0.8rem rgba(136, 255, 0, 0.322);
 }
 
-.table-header-deactivated-dark {
+.table-header.deactivated.dark {
 	--bs-table-bg: #525252;
 	--bs-table-striped-bg: #525252;
 	--bs-table-striped-color: #f5f5f5;
@@ -266,7 +280,7 @@ input.super-sad:checked + svg {
 	color: #f5f5f5;
 }
 
-.table-header-activated-dark {
+.table-header.activated.dark {
 	--bs-table-bg: #4a6629;
 	--bs-table-striped-bg: #4a6629;
 	--bs-table-striped-color: #f5f5f5;
@@ -275,5 +289,7 @@ input.super-sad:checked + svg {
 	--bs-table-hover-bg: #4a6629;
 	--bs-table-hover-color: #f5f5f5;
 	color: #f5f5f5;
+
+	box-shadow: 0 -0.3rem 0.8rem rgba(136, 255, 0, 0.322);
 }
 /* Encuesta */

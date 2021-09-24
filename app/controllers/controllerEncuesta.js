@@ -19,10 +19,184 @@ function root(req, res) {
 }
 
 function post(req, res) {
-    var grade = null
+    var score
+    var failure = (question) => {
+        return res.end(JSON.stringify({
+            msg: 'Error: No se obtuvo calificacion de ' + question,
+            resType: 'error',
+            notify: true,
+            status: 500,
+        }))
+    }
 
-    for (grade in req.body.grades) {
-        console.log(req.body.grades)
+    switch (req.body.grades.p_1) {
+        case 4:
+            req.body.grades.p_1 = 25
+            break;
+        case 3:
+            req.body.grades.p_1 = 17.5
+            break;
+        case 2:
+            req.body.grades.p_1 = 12.5
+            break;
+        case 1:
+            req.body.grades.p_1 = 7.5
+            break;
+        default:
+            return failure('p_1')
+    }
+
+    switch (req.body.grades.p_1) {
+        case 4:
+            req.body.grades.p_1 = 25
+            break;
+        case 3:
+            req.body.grades.p_1 = 17.5
+            break;
+        case 2:
+            req.body.grades.p_1 = 12.5
+            break;
+        case 1:
+            req.body.grades.p_1 = 7.5
+            break;
+        default:
+            return failure('p_1')
+    }
+
+    switch (req.body.grades.p_1) {
+        case 4:
+            req.body.grades.p_1 = 25
+            break;
+        case 3:
+            req.body.grades.p_1 = 17.5
+            break;
+        case 2:
+            req.body.grades.p_1 = 12.5
+            break;
+        case 1:
+            req.body.grades.p_1 = 7.5
+            break;
+        default:
+            return failure('p_1')
+    }
+
+    switch (req.body.grades.p_1) {
+        case 4:
+            req.body.grades.p_1 = 25
+            break;
+        case 3:
+            req.body.grades.p_1 = 17.5
+            break;
+        case 2:
+            req.body.grades.p_1 = 12.5
+            break;
+        case 1:
+            req.body.grades.p_1 = 7.5
+            break;
+        default:
+            return failure('p_1')
+    }
+
+    switch (req.body.grades.p_1) {
+        case 4:
+            req.body.grades.p_1 = 25
+            break;
+        case 3:
+            req.body.grades.p_1 = 17.5
+            break;
+        case 2:
+            req.body.grades.p_1 = 12.5
+            break;
+        case 1:
+            req.body.grades.p_1 = 7.5
+            break;
+        default:
+            return failure('p_1')
+    }
+
+    switch (req.body.grades.p_1) {
+        case 4:
+            req.body.grades.p_1 = 25
+            break;
+        case 3:
+            req.body.grades.p_1 = 17.5
+            break;
+        case 2:
+            req.body.grades.p_1 = 12.5
+            break;
+        case 1:
+            req.body.grades.p_1 = 7.5
+            break;
+        default:
+            return failure('p_1')
+    }
+
+    switch (req.body.grades.p_1) {
+        case 4:
+            req.body.grades.p_1 = 25
+            break;
+        case 3:
+            req.body.grades.p_1 = 17.5
+            break;
+        case 2:
+            req.body.grades.p_1 = 12.5
+            break;
+        case 1:
+            req.body.grades.p_1 = 7.5
+            break;
+        default:
+            return failure('p_1')
+    }
+
+    switch (req.body.grades.p_1) {
+        case 4:
+            req.body.grades.p_1 = 25
+            break;
+        case 3:
+            req.body.grades.p_1 = 17.5
+            break;
+        case 2:
+            req.body.grades.p_1 = 12.5
+            break;
+        case 1:
+            req.body.grades.p_1 = 7.5
+            break;
+        default:
+            return failure('p_1')
+    }
+
+    switch (req.body.grades.p_1) {
+        case 4:
+            req.body.grades.p_1 = 25
+            break;
+        case 3:
+            req.body.grades.p_1 = 17.5
+            break;
+        case 2:
+            req.body.grades.p_1 = 12.5
+            break;
+        case 1:
+            req.body.grades.p_1 = 7.5
+            break;
+        default:
+            return failure('p_1')
+    }
+    
+    switch (req.body.grades.p_1) {
+        case 4:
+            req.body.grades.p_1 = 25
+            break;
+        case 3:
+            req.body.grades.p_1 = 17.5
+            break;
+        case 2:
+            req.body.grades.p_1 = 12.5
+            break;
+        case 1:
+            req.body.grades.p_1 = 7.5
+            break;
+        default:
+            return failure('p_1')
     }
 
     return res.end(JSON.stringify({

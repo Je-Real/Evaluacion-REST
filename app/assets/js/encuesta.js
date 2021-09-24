@@ -22,35 +22,35 @@ $(document).ready(() => {
         var active_VI = 0
 
         if($('input[name="P-I"]:checked').val()) {
-            $('#P-I').removeClass('table-header-deactivated-light')
-            $('#P-I').addClass('table-header-activated-light')
+            $('#P-I').removeClass('deactivated')
+            $('#P-I').addClass('activated')
         } else {
-            $('#P-I').removeClass('table-header-activated-light')
-            $('#P-I').addClass('table-header-deactivated-light')
+            $('#P-I').removeClass('activated')
+            $('#P-I').addClass('deactivated')
         }
 
         if($('input[name="P-II"]:checked').val()) {
-            $('#P-II').removeClass('table-header-deactivated-light')
-            $('#P-II').addClass('table-header-activated-light')
+            $('#P-II').removeClass('deactivated')
+            $('#P-II').addClass('activated')
         } else {
-            $('#P-II').removeClass('table-header-activated-light')
-            $('#P-II').addClass('table-header-deactivated-light')
+            $('#P-II').removeClass('activated')
+            $('#P-II').addClass('deactivated')
         }
         
         if($('input[name="P-III"]:checked').val()) {
-            $('#P-III').removeClass('table-header-deactivated-light')
-            $('#P-III').addClass('table-header-activated-light')
+            $('#P-III').removeClass('deactivated')
+            $('#P-III').addClass('activated')
         } else {
-            $('#P-III').removeClass('table-header-activated-light')
-            $('#P-III').addClass('table-header-deactivated-light')
+            $('#P-III').removeClass('activated')
+            $('#P-III').addClass('deactivated')
         }
         
         if($('input[name="P-IV"]:checked').val()) {
-            $('#P-IV').removeClass('table-header-deactivated-light')
-            $('#P-IV').addClass('table-header-activated-light')
+            $('#P-IV').removeClass('deactivated')
+            $('#P-IV').addClass('activated')
         } else {
-            $('#P-IV').removeClass('table-header-activated-light')
-            $('#P-IV').addClass('table-header-deactivated-light')
+            $('#P-IV').removeClass('activated')
+            $('#P-IV').addClass('deactivated')
         }
 
         if($('input[name="P-V"]:checked').val()) { active_V++ } 
@@ -63,11 +63,11 @@ $(document).ready(() => {
         else { active_V+-1 }
 
         if(active_V == 4) {
-            $('#P-V').removeClass('table-header-deactivated-light')
-            $('#P-V').addClass('table-header-activated-light')
+            $('#P-V').removeClass('deactivated')
+            $('#P-V').addClass('activated')
         } else {
-            $('#P-V').removeClass('table-header-activated-light')
-            $('#P-V').addClass('table-header-deactivated-light')
+            $('#P-V').removeClass('activated')
+            $('#P-V').addClass('deactivated')
         }
         
         if($('input[name="P-IX"]:checked').val()) { active_VI++ } 
@@ -76,11 +76,11 @@ $(document).ready(() => {
         else { active_VI+-1 }
 
         if(active_VI == 2) {
-            $('#P-VI').removeClass('table-header-deactivated-light')
-            $('#P-VI').addClass('table-header-activated-light')
+            $('#P-VI').removeClass('deactivated')
+            $('#P-VI').addClass('activated')
         } else {
-            $('#P-VI').removeClass('table-header-activated-light')
-            $('#P-VI').addClass('table-header-deactivated-light')
+            $('#P-VI').removeClass('activated')
+            $('#P-VI').addClass('deactivated')
         }
     })
 })
