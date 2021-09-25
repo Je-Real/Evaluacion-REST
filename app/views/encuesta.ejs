@@ -1,4 +1,4 @@
-<% if(true) { %>
+<% if(session) { %>
 <%- include('template/!head.ejs') %>
 
 <body class="sb-nav-fixed">
@@ -15,8 +15,13 @@
                     <div class="container-fluid mt-4">
                         <div class="row">
                             <div class="col text-center">
-                                <h5 class="mt-4">Nombre: <%= 'session.name' %></h5>
-                                <h5 class="mt-4">Área: <%= 'session.lvl' %> </h5>
+                                <h5 class="mt-4">Nombre: <%= session.name %></h5>
+                                <h5 class="mt-4">Área: <%= session.area %> </h5>
+                                <% if(session.department > 0) { %>
+                                    <h5 class="mt-4">Department: <%= session.department %> </h5>
+                                <% } if(session.career > 0) { %>
+                                    <h5 class="mt-4">Career: <%= session.career %> </h5>
+                                <% } %>
                             </div>
                         </div>
                     </div>
@@ -24,8 +29,8 @@
 
                     <div class="container-fluid mt-4">
                         <form method="POST" name="f_survey" id="f_survey">
-                            <input type="hidden" name="lvl" id="lvl" value="<%= 'session.lvl' %>">
-                            <input type="hidden" name="user" id="user" value="<%= 'session.user' %>">
+                            <input type="hidden" name="lvl" id="lvl" value="<%= session.lvl %>">
+                            <input type="hidden" name="user" id="user" value="<%= session.user %>">
 
                             <div class="row">
                                 <table class="table caption-top flex-table">
@@ -543,6 +548,64 @@
                                                 <label class="m-0" for="X-4">
                                                     <div class="tooltip-tb radio">
                                                         <input type="radio" name="P-X" class="super-happy" id="X-4" value="4" />
+                                                        <i class="far fa-laugh-beam fa-3x"></i>
+                                                    </div>
+                                                </label>
+                                            </td>
+                                        </tr>
+                                </table>
+                                
+                                <table class="table caption-top flex-table">
+                                    <thead>
+                                        <tr class="table-header deactivated light border-0" id="P-VII">
+                                            <th scope="col">
+                                                <div class="">
+                                                    <p class="m-0 px-4 text-justify">
+                                                        VII. Actitud
+                                                    </p>
+                                                </div>
+                                            </th>
+                                            <th scope="col"></th>
+                                            <th scope="col"></th>
+                                            <th scope="col"></th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                        <tr class="table-light">
+                                            <td scope="row">
+                                                <div class="d-flex">
+                                                    <p class="m-0 px-4 text-justify pe-1">
+                                                        11. Actitud
+                                                    </p>
+                                                </div>
+                                            </td>
+                                            <td class="flex-td">
+                                                <label class="m-0" for="XI-1">
+                                                    <div class="tooltip-tb radio">
+                                                        <input type="radio" name="P-XI" class="super-sad" id="XI-1" value="1" />
+                                                        <i class="far fa-sad-tear fa-3x"></i>
+                                                    </div>
+                                                </label>
+                                            </td>
+                                            <td class="flex-td">
+                                                <label class="m-0" for="XI-2">
+                                                    <div class="tooltip-tb radio">
+                                                        <input type="radio" name="P-XI" class="sad" id="XI-2" value="2" />
+                                                        <i class="far fa-meh fa-3x"></i>
+                                                    </div>
+                                                </label>
+                                            </td>
+                                            <td class="flex-td">
+                                                <label class="m-0" for="XI-3">
+                                                    <div class="tooltip-tb radio">
+                                                        <input type="radio" name="P-XI" class="happy" id="XI-3" value="3" />
+                                                        <i class="far fa-smile fa-3x"></i>
+                                                    </div>
+                                                </label>
+                                            </td>
+                                            <td class="flex-td">
+                                                <label class="m-0" for="XI-4">
+                                                    <div class="tooltip-tb radio">
+                                                        <input type="radio" name="P-XI" class="super-happy" id="XI-4" value="4" />
                                                         <i class="far fa-laugh-beam fa-3x"></i>
                                                     </div>
                                                 </label>

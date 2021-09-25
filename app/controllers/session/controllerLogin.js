@@ -28,9 +28,12 @@ async function logIn(req, res) {
 										.then(dataUInfo => {
 											//🍪
 											req.session.user = req.body._id
-											req.session.name = dataUInfo[0].first_name
 											req.session.lvl = dataLevel[0].level
-
+											req.session.name = dataUInfo[0].first_name
+											req.session.area = dataUInfo[0].area
+											req.session.department = dataUInfo[0].department
+											req.session.career = dataUInfo[0].career
+											
 											//Response success for AJAX
 											return res.end(JSON.stringify({
 												msg: 'Sesión iniciada. Bienvenido '+dataUInfo[0].first_name+'.',

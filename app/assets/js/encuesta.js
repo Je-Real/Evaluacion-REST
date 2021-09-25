@@ -82,11 +82,19 @@ $(document).ready(() => {
             $('#P-VI').removeClass('activated')
             $('#P-VI').addClass('deactivated')
         }
+
+        if($('input[name="P-XI"]:checked').val()) {
+            $('#P-VII').removeClass('deactivated')
+            $('#P-VII').addClass('activated')
+        } else {
+            $('#P-VII').removeClass('activated')
+            $('#P-VII').addClass('deactivated')
+        }
     })
 })
 
 function postSurvey() {
-    var temp, grades = {
+    var grades = {
         p_1: $('input[name="P-I"]:checked'),
         p_2: $('input[name="P-II"]:checked'),
         p_3: $('input[name="P-III"]:checked'),
@@ -96,7 +104,8 @@ function postSurvey() {
         p_7: $('input[name="P-VII"]:checked'),
         p_8: $('input[name="P-VIII"]:checked'),
         p_9: $('input[name="P-IX"]:checked'),
-        p_10: $('input[name="P-X"]:checked')
+        p_10: $('input[name="P-X"]:checked'),
+        p_11: $('input[name="P-XI"]:checked')
     }
 
     for (var grade in grades){
@@ -114,16 +123,20 @@ function postSurvey() {
         data: JSON.stringify({
             _id: _id,
             lvl: lvl,
-            grades : grades
+            area: -1,
+            department: -1,
+            career:-1,
+            records: grades
         }),
         dataType: 'json',
         async: true,
         success: function(result){
+            if(result.noti) showSnack(result.msg, result.resType)
+
             if(result.status === 200){
-                showSnack(result.msg, result.resType)
                 setTimeout(() => {
-                    window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
-                }, 100)
+                    window.location.href = String(location.href).slice(0, 21+1)+"reportes/"
+                }, 1500)
             }
         },
         error: function (xhr, status, error) { 
