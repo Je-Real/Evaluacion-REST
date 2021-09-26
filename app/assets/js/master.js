@@ -8,11 +8,15 @@ var glass = document.getElementById('layoutSidenav')
 
 window.addEventListener('DOMContentLoaded', event => {
     setTimeout(() => {
-        $('#load-b').fadeOut(200);
+        $('#load-b').fadeOut(200)
         setTimeout(() => {
             $('#load-b').remove()
         }, 100)
     }, 200)
+
+    setTimeout(() => {
+        $('.deletable').remove() //Remove all the "deletable" elements after 1 sec
+    }, 1000)
 })
 
 //Capture Enter key in inputs

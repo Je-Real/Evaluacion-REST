@@ -7,16 +7,6 @@ $(document).ready(() => {
     $('#user').remove()
     $('#lvl').remove()
 
-    $('.tooltip-tb svg').hover(() => {
-        setTimeout(() => {
-            $('.tooltip-tb:hover').addClass('hover')
-        }, 400)
-    }, () => {
-        setTimeout(() => {
-            $('.tooltip-tb.hover').removeClass('hover')
-        }, 100)
-    })
-
     $('input[type="radio"]').click(function(){
         var active_V = 0
         var active_VI = 0

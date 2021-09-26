@@ -1,6 +1,6 @@
 {
-  "name": "api-rest-9b",
-  "version": "1.0.0",
+  "name": "eval-utna",
+  "version": "0.1.9",
   "description": "Api Rest del grupo 9B",
   "main": "server.js",
   "scripts": {

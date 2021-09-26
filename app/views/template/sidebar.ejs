@@ -23,10 +23,12 @@
                         <% } %>
 
                         <div class="sb-sidenav-menu-heading orange-border-t py-3">Acciones</div>
-                        <a class="nav-link" href="/encuesta/">
-                            <div class="sb-nav-link-icon"><i class="fas fa-pen-alt fa-2x"></i></div>
-                            Encuesta
-                        </a>
+                        <% if(session.evaluation) { %>
+                            <a class="nav-link" href="/encuesta/">
+                                <div class="sb-nav-link-icon"><i class="fas fa-pen-alt fa-2x"></i></div>
+                                Encuesta
+                            </a>
+                        <% } %>
                         <a class="nav-link" href="javascript:logout()">
                             <div class="sb-nav-link-icon"><i class="fas fa-door-open fa-2x"></i></div>
                             Cerrar sesión

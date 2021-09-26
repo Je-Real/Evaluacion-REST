@@ -162,6 +162,65 @@ table {
 	padding: 5px 0 6px 0;
 }
 
+.h-45-r {
+	min-width: fit-content;
+	height: 45rem;
+	max-height: max-content;
+}
+
+.sb-sidenav-menu {
+	transition: all 0.25s;
+}
+
+.sb-sidenav-menu:hover {
+	box-shadow: 0 0 2.5rem rgba(0,0,0,.7)
+}
+
+.f-vScreen-15 {
+	font-size: calc((15vw + 15vh)/2);
+}
+
+.text-black-15 {
+	color: rgba(0,0,0,0.15);
+}
+
+.text-ghost {
+	font-style: italic;
+    font-variant: all-petite-caps;
+    font-weight: 700;
+    color: rgba(0,0,0,0.40)!important;
+}
+
+.icon-ghost{
+	position: relative;
+	-webkit-animation: ghost-anim 4s ease-in-out infinite;
+	animation: ghost-anim 4s ease-in-out infinite;
+}
+
+@-webkit-keyframes ghost-anim {
+	0% {
+		top: -7px;
+	}
+	50% {
+		top: 10px;
+	}
+	100% {
+		top: -7px;
+	}
+}
+
+@keyframes ghost-anim {
+	0% {
+		top: -7px;
+	}
+	50% {
+		top: 10px;
+	}
+	100% {
+		top: -7px;
+	}
+}
+
 /* Tooltip */
 #toolt {
 	pointer-events: none;
@@ -293,3 +352,11 @@ input.super-sad:checked + svg {
 	box-shadow: 0 -0.3rem 0.8rem rgba(136, 255, 0, 0.322);
 }
 /* Encuesta */
+
+.shadow-sm, .shadow-lg {
+	transition: all 0.25s;
+}
+
+.shadow-sm:hover {
+	box-shadow: 0 0.7rem 1.5rem rgba(0,0,0,.175) !important;
+}

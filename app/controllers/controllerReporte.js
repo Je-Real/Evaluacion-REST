@@ -18,11 +18,7 @@ async function root(req, res) {
         session = null
     } else {
         // Session 🤑
-        session = {
-            user: req.session.user,
-            lvl: req.session.lvl,
-            name: req.session.name
-        }
+        session = req.session
     }
 
     if(req.session.lvl <= 2){
@@ -73,9 +69,7 @@ async function root(req, res) {
 }
 
 async function get(req, res) {
-    //console.log(`User: ${req.body._id}, area: ${req.body.area}, department: ${req.body.area}`)
     if(req.session.lvl > 2){ //Normal user request
-        //console.log('User request (Reporte)')
         await modelEvaluation.find({ _id: req.body._id })
             .then(data => { //🟢
                 return res.end(JSON.stringify({

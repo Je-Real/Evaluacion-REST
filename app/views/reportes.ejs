@@ -12,76 +12,93 @@
                 <div class="container-fluid px-4">
                     <div class="row my-4 mx-auto"> 
                         <div class="col-12 col-md-4">
-                            <div class="col-12">
-                                <h1 class="display-3 text-center my-5">
-                                    <% if(session.lvl <=2) { %>
-                                        Reporte Completo
-                                    <% } else { %>
-                                        Reporte Personal
-                                    <% } %>
-                                </h1>
-                                <h2 class="display-6 text-center mb-5" data-time="<%= hour %>">
-                                    <%= s %>, <%= session.name %>
-                                </h2>
-                            </div>
-                            <% if(session.lvl <=2) { %>
-                                <div class="col-12 mb-5">
-                                    <form method="GET" name="f-rep" id="f-rep" autocomplete="off">
-                                        <input class="deletable" type="hidden" name="user" id="user"
+                            <div class="container">
+                                <div class="row">
+                                    <div class="">
+                                        <h1 class="display-3 text-center my-5">
+                                            <% if(session.lvl <=2) { %>
+                                                Reporte Completo
+                                            <% } else { %>
+                                                Reporte Personal
+                                            <% } %>
+                                        </h1>
+                                        <h2 class="display-6 text-center mb-5" data-time="<%= hour %>">
+                                            <%= s %>, <%= session.name %>
+                                        </h2>
+                                    </div>
+                                    
+                                    <input class="deletable" type="hidden" name="user" id="user"
                                         value="<%= session.user %>">
-                                        <input class="deletable" type="hidden" name="name" id="name"
+                                    <input class="deletable" type="hidden" name="name" id="name"
                                         value="<%= session.name %>">
-                                        <input class="deletable" type="hidden" name="lvl" id="lvl"
+                                    <input class="deletable" type="hidden" name="lvl" id="lvl"
                                         value="<%= session.lvl %>">
-                                        
-                                        <div class="card border-0 shadow-sm">
-                                            <div class="card-header border-0 border-0 d-flex justify-content-center">
-                                                <i class="fas fa-sliders-h fa-2x me-1"></i>
-                                                <h5 class="mx-3">Selección de filtros</h5>
-                                            </div>
-                                            
-                                            <div class="card-body">
-                                                <div class="container p-0">
-                                                    <div class="row my-2">
-                                                        <h6>Área:</h6>
-                                                        <div class="form-floating mb-4">
-                                                            <select class="form-select" name="area" id="area" aria-label="Selección">
-                                                            <option id="are-s" value="0" selected>-Selecciona área-</option>
-                                                            <% for(var d in area) { %>
-                                                                <option class="are" value="<%= area[d]['n'] %>"> 
-                                                                    <%= area[d]['desc'] %> 
-                                                                </option>
-                                                            <% } %>
-                                                        </select>
-                                                        <label for="area">Área</label>
-                                                    </div>
-                                                                                    
-                                                    <h6>Departamento:</h6>
-                                                    <div class="form-floating">
-                                                        <select class="form-select" name="department" id="department" aria-label="Selección" disabled>
-                                                            <option id="dep-s" class="dep" value="0" selected>N/A</option>
-                                                            <% for(var d in depa) { %>
-                                                                <option class="dep" data-area="<%= depa[d]['area'] %>" value="<%= depa[d]['n'] %>">
-                                                                    <%= depa[d]['desc'] %>
-                                                                </option>
-                                                            <% } %>
+                                    
+                                    <input class="deletable" type="hidden" name="s-area" id="s-area"
+                                        value="<%= session.area %>">
+                                    <input class="deletable" type="hidden" name="s-department" id="s-department"
+                                        value="<%= session.department %>">
+                                    <input class="deletable" type="hidden" name="s-career" id="s-career"
+                                        value="<%= session.career %>">
+            
+                                    <% if(session.lvl <= 2) { %>
+                                    <div class="">
+                                        <form method="GET" name="f-rep" id="f-rep" autocomplete="off">                                        
+                                            <div class="card border-0 shadow-sm">
+                                                <div class="card-header border-0 border-0 d-flex justify-content-center">
+                                                    <i class="fas fa-sliders-h fa-2x me-1"></i>
+                                                    <h5 class="mx-3">Selección de filtros</h5>
+                                                </div>
+                                                    
+                                                <div class="card-body">
+                                                    <div class="container p-0">
+                                                        <div class="row my-2">
+                                                            <h6>Área:</h6>
+                                                            <div class="form-floating mb-4">
+                                                                <select class="form-select" name="area" id="area" aria-label="Selección">
+                                                                <option id="are-s" value="0" selected>-Selecciona área-</option>
+                                                                <% for(var d in area) { %>
+                                                                    <option class="are" value="<%= area[d]['n'] %>"> 
+                                                                        <%= area[d]['desc'] %> 
+                                                                    </option>
+                                                                <% } %>
                                                             </select>
-                                                            <label for="department">Departamento</label>
+                                                            <label for="area">Área</label>
+                                                        </div>
+                                                                                            
+                                                        <h6>Departamento:</h6>
+                                                        <div class="form-floating">
+                                                            <select class="form-select" name="department" id="department" aria-label="Selección" disabled>
+                                                                <option id="dep-s" class="dep" value="0" selected>N/A</option>
+                                                                <% for(var d in depa) { %>
+                                                                    <option class="dep" data-area="<%= depa[d]['area'] %>" value="<%= depa[d]['n'] %>">
+                                                                        <%= depa[d]['desc'] %>
+                                                                    </option>
+                                                                <% } %>
+                                                                </select>
+                                                                <label for="department">Departamento</label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
+                                    <% } %>
                                 </div>
-                            <% } %>
-                            
+                            </div>
                         </div>
+
                         <div class="col-12 col-md-8">
-                            
-                        <% if(session.lvl <=2) { %>
-                            <div class="containter">
+                            <div class="container h-100">
                                 <div class="row">
+                                    <div class="col-12 mt-4">
+                                        <h5 class="text-center display-6">Registros</h5>
+                                    </div>
+                                </div>
+
+                                <div class="row h-100">
+                                    <% if(session.lvl <=2) { %>
                                     <div class="col-0 col-lg-3"></div>
                                     <div class="col-12 col-lg-6">
                                         <div class="card mb-4 shadow-sm border-0">
@@ -89,66 +106,48 @@
                                                 <i class="fas fa-chart-pie fa-2x me-1"></i>
                                                 <h5>Desempeño por años</h5>
                                             </div>
-                                            <div class="card-body">
+                                            <div class="card-body chart-display doughnut">
                                                 <canvas id="doughnutChart" width="100%" height="40"></canvas>
                                             </div>
                                             <div class="card-footer border-0 small text-muted"></div>
                                         </div>
                                     </div>
                                     <div class="col-0 col-lg-3"></div>
-                                </div>
-                            </div>
-                        <% } else { %>
-                            <div class="containter">
-                                <div class="row">
+                                    <% } %>
+
                                     <div class="col-12 col-lg-6">
                                         <div class="card mb-4 shadow-sm border-0">
                                             <div class="card-header border-0 d-flex justify-content-center">
-                                                <i class="fas fa-chart-pie fa-2x me-1"></i>
-                                                <h5>Desempeño personal por años</h5>
+                                                <i class="fas fa-chart-bar fa-2x me-1"></i>
+                                                <h5>Desempeño por años</h5>
                                             </div>
-                                            <div class="card-body">
-                                                <canvas id="doughnutChart" width="80%" height="40"></canvas>
+                                            <div class="card-body chart-display bar">
+                                                <div class="text-center">
+                                                    <i class="fas fa-ghost icon-ghost f-vScreen-15 my-3 text-black-15"></i>
+                                                    <p class="my-2 text-ghost">No hay datos para mostrar</p>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer border-0 small text-muted"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <div class="card mb-4 shadow-sm border-0">
+                                            <div class="card-header border-0 d-flex justify-content-center">
+                                                <i class="fas fa-chart-area fa-2x me-1"></i>
+                                                <h5>Desempeño por años</h5>
+                                            </div>
+                                            <div class="card-body chart-display line">
+                                                <canvas id="lineChart" width="100%" height="75%"></canvas>
                                             </div>
                                             <div class="card-footer border-0 small text-muted"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        <% } %>
-                        
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-12 col-lg-6">
-                                    <div class="card mb-4 shadow-sm border-0">
-                                        <div class="card-header border-0 d-flex justify-content-center">
-                                            <i class="fas fa-chart-bar fa-2x me-1"></i>
-                                            <h5>Desempeño por años</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <canvas id="barChart" width="100%" height="75%"></canvas>
-                                        </div>
-                                        <div class="card-footer border-0 small text-muted"></div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-lg-6">
-                                    <div class="card mb-4 shadow-sm border-0">
-                                        <div class="card-header border-0 d-flex justify-content-center">
-                                            <i class="fas fa-chart-area fa-2x me-1"></i>
-                                            <h5>Desempeño por años</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <canvas id="lineChart" width="100%" height="75%"></canvas>
-                                        </div>
-                                        <div class="card-footer border-0 small text-muted"></div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
+            </main>
 
         <%- include('template/!footer.ejs') %>
         </div>

@@ -1,10 +1,14 @@
 const modelUser = require('../../models/modelUser')
 const modelUserInfo = require('../../models/modelUserInfo')
 const modelLevel = require('../../models/modelLevel')
+const modelEvaluation = require('../../models/modelEvaluation')
 const crypto = require('crypto-js')
 
 // >>>>>>>>>>>>>>>>>>>>>> Login <<<<<<<<<<<<<<<<<<<<<<
 async function logIn(req, res) {
+	const date = new Date()
+	const year = date.getFullYear()
+
 	//LogIn validator
 	await modelUser.find({ _id: req.body._id })
 		.then((dataUser) => {
@@ -26,28 +30,36 @@ async function logIn(req, res) {
 								.then((dataLevel) => {
 									modelUserInfo.find({ _id: req.body._id })
 										.then(dataUInfo => {
-											//🍪
-											req.session.user = req.body._id
-											req.session.lvl = dataLevel[0].level
-											req.session.name = dataUInfo[0].first_name
-											req.session.area = dataUInfo[0].area
-											req.session.department = dataUInfo[0].department
-											req.session.career = dataUInfo[0].career
-											
-											//Response success for AJAX
-											return res.end(JSON.stringify({
-												msg: 'Sesión iniciada. Bienvenido '+dataUInfo[0].first_name+'.',
-												status: 200,
-												noti: true
-											}))
-										})
-										.catch((error) => {
-											console.log(error)
-											return res.end(JSON.stringify({
-												msg: 'Error de búsqueda de usuario. Intenta de nuevo mas tarde.', 
-												status: 404,
-												noti: true
-											}))
+											modelEvaluation.find({ _id: req.body._id })
+												.then(dataEval => {
+													//🍪🍪🍪
+													req.session.user = req.body._id
+													req.session.lvl = dataLevel[0].level
+													req.session.name = dataUInfo[0].first_name
+													req.session.area = dataUInfo[0].area
+													req.session.department = dataUInfo[0].department
+													req.session.career = dataUInfo[0].career
+													try {
+														req.session.evaluation = dataEval[0].records[year] ? true : false
+													} catch {
+														req.session.evaluation = true
+													}
+													
+													//Response success for AJAX
+													return res.end(JSON.stringify({
+														msg: 'Sesión iniciada. Bienvenido '+dataUInfo[0].first_name+'.',
+														status: 200,
+														noti: false
+													}))
+												})
+												.catch((error) => {
+													console.log(error)
+													return res.end(JSON.stringify({
+														msg: 'Error de búsqueda de usuario. Intenta de nuevo mas tarde.', 
+														status: 404,
+														noti: true
+													}))
+												})
 										})
 								})
 								.catch((error) => {

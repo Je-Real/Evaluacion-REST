@@ -8,14 +8,7 @@ function root(req, res) {
         session = null
     } else {
         // Session 🤑
-        session = {
-            user: req.session.user,
-            lvl: req.session.lvl,
-            name: req.session.name,
-            area: req.session.area,
-            department: req.session.department,
-            career: req.session.career
-        }
+        session = req.session
     }
 
     //Encuesta static route

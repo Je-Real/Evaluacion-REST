@@ -1,4 +1,4 @@
-var still_hover, x, y, w, h
+var still_hover, msg, x, y, w, h
 
 $(document).ready(() => {
     $('.h-toolt').mousemove((e) => {
@@ -12,19 +12,24 @@ $(document).ready(() => {
     })
 
 	$('.h-toolt').hover((e) => {
-        if(still_hover != $('.h-toolt:hover').hover()){
+        msg = $('.h-toolt:hover .toolt-txt').attr('data-text')
+        $('#toolt p').html(msg)
+
+        if(still_hover != $('.h-toolt').hover()){
             still_hover = true
+            
+            setTimeout(() => {
+                if(still_hover) {
+                    $('#toolt').addClass('show')
+                }
+            }, 800)
         }
 
-		setTimeout(() => {
-            if(still_hover) {
-                $('#toolt').addClass('show')
-            }
-        }, t = ($('.h-toolt:hover').hover()) ? 1000 : 0)
 	}, () => {
         setTimeout(() => {
-            still_hover = false
             $('#toolt').removeClass('show')
-        }, 200)
+            still_hover = false
+        }, 100)
+        
 	})
 })

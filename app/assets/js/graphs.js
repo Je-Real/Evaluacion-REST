@@ -1,3 +1,18 @@
+const bgColor = [ 
+    "rgba(255, 99, 132, 0.65)",
+    "rgba(54, 162, 235, 0.65)",
+    "rgba(255, 206, 86, 0.65)",
+    "rgba(75, 192, 192, 0.65)",
+    "rgba(153, 102, 255, 0.65)",
+]
+const brColor = [
+    "rgba(255, 99, 132, 1)",
+    "rgba(54, 162, 235, 1)",
+    "rgba(255, 206, 86, 1)",
+    "rgba(75, 192, 192, 1)",
+    "rgba(153, 102, 255, 1)"
+]
+
 function doughnutChart(labels, data, colors) {
     if(labels.length && data.length){
         var ctx = document.getElementById("doughnutChart").getContext("2d")
@@ -9,22 +24,8 @@ function doughnutChart(labels, data, colors) {
                     {
                         label: "Puntuación",
                         data: data, //Records' data
-                        backgroundColor: [
-                            "rgba(255, 99, 132, 0.65)",
-                            "rgba(54, 162, 235, 0.65)",
-                            "rgba(255, 206, 86, 0.65)",
-                            "rgba(75, 192, 192, 0.65)",
-                            "rgba(153, 102, 255, 0.65)",
-                            "rgba(255, 159, 64, 0.65)",
-                        ],
-                        borderColor: [
-                            "rgba(255, 99, 132, 1)",
-                            "rgba(54, 162, 235, 1)",
-                            "rgba(255, 206, 86, 1)",
-                            "rgba(75, 192, 192, 1)",
-                            "rgba(153, 102, 255, 1)",
-                            "rgba(255, 159, 64, 1)",
-                        ],
+                        backgroundColor: bgColor,
+                        borderColor: brColor,
                         borderWidth: 2,
                     },
                 ],
@@ -43,24 +44,10 @@ function barChart(labels, data, colors) {
                 labels: labels, //Years labels
                 datasets: [
                     {
-                        label: "Puntuación",
+                        label: 'Puntuación',
                         data: data, //Records' data
-                        backgroundColor: [
-                            "rgba(255, 99, 132, 0.65)",
-                            "rgba(54, 162, 235, 0.65)",
-                            "rgba(255, 206, 86, 0.65)",
-                            "rgba(75, 192, 192, 0.65)",
-                            "rgba(153, 102, 255, 0.65)",
-                            "rgba(255, 159, 64, 0.65)",
-                        ],
-                        borderColor: [
-                            "rgba(255, 99, 132, 1)",
-                            "rgba(54, 162, 235, 1)",
-                            "rgba(255, 206, 86, 1)",
-                            "rgba(75, 192, 192, 1)",
-                            "rgba(153, 102, 255, 1)",
-                            "rgba(255, 159, 64, 1)",
-                        ],
+                        backgroundColor: bgColor,
+                        borderColor: brColor,
                         borderWidth: 2,
                     },
                 ],
@@ -86,20 +73,20 @@ function lineChart(labels, data, colors) {
                 labels: labels, //Years labels
                 datasets: [
                     {
-                        label: "Puntuación",
+                        label: 'Puntuación',
                         data: data, //Records' data
                         cubicInterpolationMode: 'monotone',
                         fill: false,
                         tension: 0.4,
-                        borderColor: function(context) {
+                        borderColor: (context) => {
                             const chart = context.chart;
                             const {ctx, chartArea} = chart;
-                    
+                        
                             if (!chartArea) {
                               // This case happens on initial chart load
                               return null;
                             }
-                            return getGradient(ctx, chartArea);
+                            return getGradient(ctx, chartArea)
                         },
                         borderWidth: 3,
                     },
@@ -110,6 +97,11 @@ function lineChart(labels, data, colors) {
                     y: {
                         beginAtZero: true,
                     },
+                },
+                interaction: {
+                    mode: 'nearest',
+                    axis: 'x',
+                    intersect: false
                 },
             },
         })
