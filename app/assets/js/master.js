@@ -1,10 +1,10 @@
-var tf = false
-var tr = false
-var frameL = document.getElementById('floatingLogin')
-var frameP = document.getElementById('floatingPass')
-var frameR = document.getElementById('floatingRegister')
-var backpanel = document.getElementById('backPanel')
-var glass = document.getElementById('layoutSidenav')
+var tf = false,
+    tr = false,
+    frameL = document.getElementById('floatingLogin'),
+    frameP = document.getElementById('floatingPass'),
+    frameR = document.getElementById('floatingRegister'),
+    backpanel = document.getElementById('backPanel'),
+    glass = document.getElementById('layoutSidenav')
 
 window.addEventListener('DOMContentLoaded', event => {
     setTimeout(() => {
