@@ -13,11 +13,9 @@ async function root(req, res) {
     else if (hour > 12 && hour <= 19) { s = 'Buenas tardes' }
     else { s = 'Buenas noches' }
 
-    if(!req.session.user && !req.session.lvl) {
-        // No session 😡
+    if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
-    } else {
-        // Session 🤑
+    } else { // Session 🤑
         session = req.session
     }
 

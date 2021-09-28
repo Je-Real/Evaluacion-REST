@@ -6,6 +6,10 @@ th {
 	border: 0;
 }
 
+td {
+	vertical-align: middle;
+}
+
 label {
 	margin-left: 1rem;
 }
@@ -14,12 +18,12 @@ input {
 	padding-left: 1.2rem !important;
 }
 
-table, tbody, tr, th, td {
-	border-style: none !important;
-}
-
 table {
 	box-shadow: 0 0.7rem 1rem rgba(0,0,0,0.175);
+}
+
+body.sb-nav-fixed {
+	font-family: 'Lato', sans-serif;
 }
 
 #backpanel {
@@ -46,6 +50,26 @@ table {
 	right: 0;
 }
 
+#snackbar {
+	visibility: hidden;
+	min-width: 250px;
+	margin-left: -125px;
+	text-align: center;
+	border-radius: 2px;
+	padding: 16px;
+	position: fixed;
+	z-index: 1500;
+	left: 50%;
+	top: 10px;
+	font-size: 1.15rem;
+}
+
+#snackbar.show {
+	visibility: visible;
+	/*-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+	animation: fadein 0.5s, fadeout 0.5s 2.5s;*/
+}
+
 @media (max-width: 768px) {
 	.w-sm-100 {
 		width: 100% !important;
@@ -56,6 +80,9 @@ table {
 }
 
 @media (min-width: 768px) {
+	.w-md-25 {
+		width: 25% !important;
+	}
 	.w-md-50 {
 		width: 50% !important;
 	}
@@ -220,6 +247,44 @@ table {
 		top: -7px;
 	}
 }
+
+.text-card {
+	font-family: 'Dosis', sans-serif;
+}
+
+
+/* Control */
+.dataTable-selector {
+	padding: 0.5rem 2rem 0.5rem 0.75rem !important;
+}
+
+.dataTable-dropdown {
+	margin-right: 2.3rem;
+}
+
+.dataTable-dropdown>label {
+	display: grid;
+}
+
+.dataTable-search {
+	margin-left: 2.3rem;
+}
+
+.dataTable-top {
+	display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.dataTable-container {
+	margin: .25rem 0;
+	padding: 0 1rem;
+}
+
+.dataTable-table {
+	margin: 3rem 0;
+}
+/* Control */
 
 /* Tooltip */
 #toolt {

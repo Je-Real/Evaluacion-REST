@@ -1,65 +1,580 @@
-[{
-  "_id": "user",
-  "first_name": "user",
-  "last_name": "user",
-  "area": 2,
-  "department": 0,
-  "career": 0,
-  "contract": 1,
-  "b_day": {
-    "$date": "2021-08-23T00:00:00Z"
-  },
-  "address": {
-    "street": "user",
-    "num": 2,
-    "postal_code": 2
-  }
-},{
-  "_id": "admin",
-  "first_name": "admin",
-  "last_name": "admin",
-  "area": 1,
-  "department": 0,
-  "career": 0,
-  "contract": 3,
-  "b_day": {
-    "$date": "2000-01-01T00:00:00Z"
-  },
-  "address": {
-    "street": "admin",
-    "num": 0,
-    "postal_code": 0
-  }
-},{
-  "_id": "admin2",
-  "first_name": "admin",
-  "last_name": "admin",
-  "area": 2,
-  "department": 0,
-  "career": 0,
-  "contract": 2,
-  "b_day": {
-    "$date": "2002-02-02T00:00:00Z"
-  },
-  "address": {
-    "street": "2",
-    "num": 2,
-    "postal_code": 2
-  }
-},{
-  "_id": "R181308558",
-  "first_name": "Jeremy",
-  "last_name": "Richarte",
-  "area": 8,
-  "department": 15,
-  "career": 8,
-  "contract": 3,
-  "b_day": {
-    "$date": "2021-09-08T00:00:00Z"
-  },
-  "address": {
-    "street": "Rafael Iriarte 304",
-    "num": 0,
-    "postal_code": 20303
-  }
-}]
+[
+    {
+        "_id": "user",
+        "first_name": "user",
+        "last_name": "user",
+        "area": 2,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00Z"
+        },
+        "address": {
+            "street": "user",
+            "num": 2,
+            "postal_code": 2
+        }
+    },
+    {
+        "_id": "admin",
+        "first_name": "admin",
+        "last_name": "admin",
+        "area": 1,
+        "department": 0,
+        "career": 0,
+        "contract": 3,
+        "b_day": {
+            "$date": "2000-01-01T00:00:00Z"
+        },
+        "address": {
+            "street": "admin",
+            "num": 0,
+            "postal_code": 0
+        }
+    },
+    {
+        "_id": "admin2",
+        "first_name": "admin",
+        "last_name": "admin",
+        "area": 2,
+        "department": 0,
+        "career": 0,
+        "contract": 2,
+        "b_day": {
+            "$date": "2002-02-02T00:00:00Z"
+        },
+        "address": {
+            "street": "2",
+            "num": 2,
+            "postal_code": 2
+        }
+    },
+    {
+        "_id": "R181308558",
+        "first_name": "Jeremy",
+        "last_name": "Richarte",
+        "area": 8,
+        "department": 15,
+        "career": 8,
+        "contract": 3,
+        "b_day": {
+            "$date": "2021-09-08T00:00:00Z"
+        },
+        "address": {
+            "street": "Rafael Iriarte 304",
+            "num": 0,
+            "postal_code": 20303
+        }
+    },
+    {
+        "_id": "user0",
+        "first_name": "user0",
+        "last_name": "user0",
+        "area": 1,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user0",
+            "num": 44,
+            "postal_code": 74
+        }
+    },
+    {
+        "_id": "user1",
+        "first_name": "user1",
+        "last_name": "user1",
+        "area": 5,
+        "department": 7,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user1",
+            "num": 26,
+            "postal_code": 46
+        }
+    },
+    {
+        "_id": "user2",
+        "first_name": "user2",
+        "last_name": "user2",
+        "area": 4,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user2",
+            "num": 36,
+            "postal_code": 67
+        }
+    },
+    {
+        "_id": "user3",
+        "first_name": "user3",
+        "last_name": "user3",
+        "area": 4,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user3",
+            "num": 52,
+            "postal_code": 95
+        }
+    },
+    {
+        "_id": "user4",
+        "first_name": "user4",
+        "last_name": "user4",
+        "area": 6,
+        "department": 11,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user4",
+            "num": 88,
+            "postal_code": 35
+        }
+    },
+    {
+        "_id": "user5",
+        "first_name": "user5",
+        "last_name": "user5",
+        "area": 2,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user5",
+            "num": 71,
+            "postal_code": 79
+        }
+    },
+    {
+        "_id": "user6",
+        "first_name": "user6",
+        "last_name": "user6",
+        "area": 6,
+        "department": 8,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user6",
+            "num": 89,
+            "postal_code": 92
+        }
+    },
+    {
+        "_id": "user7",
+        "first_name": "user7",
+        "last_name": "user7",
+        "area": 1,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user7",
+            "num": 67,
+            "postal_code": 69
+        }
+    },
+    {
+        "_id": "user8",
+        "first_name": "user8",
+        "last_name": "user8",
+        "area": 6,
+        "department": 9,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user8",
+            "num": 57,
+            "postal_code": 48
+        }
+    },
+    {
+        "_id": "user9",
+        "first_name": "user9",
+        "last_name": "user9",
+        "area": 10,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user9",
+            "num": 31,
+            "postal_code": 29
+        }
+    },
+    {
+        "_id": "user10",
+        "first_name": "user10",
+        "last_name": "user10",
+        "area": 10,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user10",
+            "num": 28,
+            "postal_code": 95
+        }
+    },
+    {
+        "_id": "user11",
+        "first_name": "user11",
+        "last_name": "user11",
+        "area": 9,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user11",
+            "num": 29,
+            "postal_code": 61
+        }
+    },
+    {
+        "_id": "user12",
+        "first_name": "user12",
+        "last_name": "user12",
+        "area": 10,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user12",
+            "num": 77,
+            "postal_code": 79
+        }
+    },
+    {
+        "_id": "user13",
+        "first_name": "user13",
+        "last_name": "user13",
+        "area": 7,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user13",
+            "num": 44,
+            "postal_code": 66
+        }
+    },
+    {
+        "_id": "user14",
+        "first_name": "user14",
+        "last_name": "user14",
+        "area": 2,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user14",
+            "num": 89,
+            "postal_code": 90
+        }
+    },
+    {
+        "_id": "user15",
+        "first_name": "user15",
+        "last_name": "user15",
+        "area": 2,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user15",
+            "num": 98,
+            "postal_code": 40
+        }
+    },
+    {
+        "_id": "user16",
+        "first_name": "user16",
+        "last_name": "user16",
+        "area": 7,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user16",
+            "num": 79,
+            "postal_code": 43
+        }
+    },
+    {
+        "_id": "user17",
+        "first_name": "user17",
+        "last_name": "user17",
+        "area": 7,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user17",
+            "num": 41,
+            "postal_code": 79
+        }
+    },
+    {
+        "_id": "user18",
+        "first_name": "user18",
+        "last_name": "user18",
+        "area": 2,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user18",
+            "num": 75,
+            "postal_code": 33
+        }
+    },
+    {
+        "_id": "user19",
+        "first_name": "user19",
+        "last_name": "user19",
+        "area": 1,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user19",
+            "num": 71,
+            "postal_code": 77
+        }
+    },
+    {
+        "_id": "user20",
+        "first_name": "user20",
+        "last_name": "user20",
+        "area": 10,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user20",
+            "num": 77,
+            "postal_code": 59
+        }
+    },
+    {
+        "_id": "user21",
+        "first_name": "user21",
+        "last_name": "user21",
+        "area": 1,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user21",
+            "num": 42,
+            "postal_code": 24
+        }
+    },
+    {
+        "_id": "user22",
+        "first_name": "user22",
+        "last_name": "user22",
+        "area": 8,
+        "department": 12,
+        "career": 3,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user22",
+            "num": 20,
+            "postal_code": 32
+        }
+    },
+    {
+        "_id": "user23",
+        "first_name": "user23",
+        "last_name": "user23",
+        "area": 6,
+        "department": 10,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user23",
+            "num": 65,
+            "postal_code": 33
+        }
+    },
+    {
+        "_id": "user24",
+        "first_name": "user24",
+        "last_name": "user24",
+        "area": 1,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user24",
+            "num": 89,
+            "postal_code": 52
+        }
+    },
+    {
+        "_id": "user25",
+        "first_name": "user25",
+        "last_name": "user25",
+        "area": 6,
+        "department": 11,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user25",
+            "num": 53,
+            "postal_code": 55
+        }
+    },
+    {
+        "_id": "user26",
+        "first_name": "user26",
+        "last_name": "user26",
+        "area": 3,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user26",
+            "num": 28,
+            "postal_code": 46
+        }
+    },
+    {
+        "_id": "user27",
+        "first_name": "user27",
+        "last_name": "user27",
+        "area": 9,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user27",
+            "num": 47,
+            "postal_code": 72
+        }
+    },
+    {
+        "_id": "user28",
+        "first_name": "user28",
+        "last_name": "user28",
+        "area": 2,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user28",
+            "num": 41,
+            "postal_code": 53
+        }
+    },
+    {
+        "_id": "user29",
+        "first_name": "user29",
+        "last_name": "user29",
+        "area": 1,
+        "department": 0,
+        "career": 0,
+        "contract": 1,
+        "b_day": {
+            "$date": "2021-08-23T00:00:00.000Z"
+        },
+        "address": {
+            "street": "user29",
+            "num": 35,
+            "postal_code": 67
+        }
+    }
+]

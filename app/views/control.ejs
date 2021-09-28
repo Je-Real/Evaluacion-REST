@@ -2,25 +2,39 @@
 <%- include('template/!head.ejs') %>
 
 <body class="sb-nav-fixed">
-    <%- include('template/navbar.ejs') %>
+<%- include('template/navbar.ejs') %>
 
     <div id="layoutSidenav">
-        <%- include('template/sidebar.ejs') %>
+    <%- include('template/sidebar.ejs') %>
 
         <div id="layoutSidenav_content">
             <main>
+                <div class="session-container">
+                    <input class="deletable" type="hidden" name="user" id="user"
+                        value="<%= session.user %>">
+                    <input class="deletable" type="hidden" name="name" id="name"
+                        value="<%= session.name %>">
+                    <input class="deletable" type="hidden" name="lvl" id="lvl"
+                        value="<%= session.lvl %>">
+                    
+                    <input class="deletable" type="hidden" name="s-area" id="s-area"
+                        value="<%= session.area %>">
+                    <input class="deletable" type="hidden" name="s-department" id="s-department"
+                        value="<%= session.department %>">
+                    <input class="deletable" type="hidden" name="s-career" id="s-career"
+                        value="<%= session.career %>">
+                </div>
+
                 <div class="container-fluid px-4">
                     <h1 class="display-1 text-center mt-4">Tablas</h1>
                     <div class="card mb-4 mt-4">
                         <div class="card-header d-flex">
-                            <i class="fas fa-table fa-2x me-1"></i>
-                            <h5>Datos</h5>
                         </div>
                         <div class="card-body">
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
-                                        <th>Código</th>
+                                        <th>ID</th>
                                         <th>Nombre</th>
                                         <th>Categoria</th>
                                         <th>Puesto</th>
@@ -29,21 +43,7 @@
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>2011/04/25</td>
-                                        <td class="justify-content-between px-md-4 d-flex">
-                                            <button type="button" class="btn btn-success mx-md-2 mx-1 p-1"><i class="fas fa-check-circle fa-2x"></i></button>
-                                            <button type="button" class="btn btn-warning mx-md-2 mx-1 p-1"><i class="fas fa-edit fa-2x"></i></button>
-                                            <button type="button" class="btn btn-danger mx-md-2 mx-1 p-1"><i class="fas fa-ban fa-2x"></i></button>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                <tbody id="table-body"></tbody>
                             </table>
                         </div>
                     </div>
@@ -55,8 +55,8 @@
     </div>
 
     <%- include('template/loading.ejs') %>
-
     <%- include('template/!scripts.ejs') %>
+    <script src="/js/control.js"></script>
 </body>
 
 </html>

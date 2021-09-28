@@ -3,7 +3,7 @@ const router = Router()
 
 const controllerIndex = require('../controllers/controllerInicio')
 const controllerLayoutStatic = require('../controllers/controllerEncuesta')
-const controllerTablas = require('../controllers/controllerTablas')
+const controllerControl = require('../controllers/controllerControl')
 const controllerReporteC = require('../controllers/controllerReporte')
 
 const controller404 = require('../controllers/error/controller404')
@@ -14,7 +14,7 @@ const controllerLogin = require('../controllers/session/controllerLogin')
 const controllerPassword = require('../controllers/session/controllerPassword')
 const controllerRegister = require('../controllers/session/controllerRegister')
 
-const controllerControl = require('../controllers/secret/controllerControl')
+//const controllerControl = require('../controllers/secret/controllerControl')
 
 
 router.get('/inicio', controllerIndex.root)
@@ -26,7 +26,8 @@ router.get('/reportes', controllerReporteC.root)
 router.get('/encuesta', controllerLayoutStatic.root)
       .post('/encuesta', controllerLayoutStatic.post)
       
-router.get('/tablas', controllerTablas.root)
+router.get('/control', controllerControl.root)
+      .get('/control/get', controllerControl.get)
 
 router.get('/registro', controllerRegister.root)
 

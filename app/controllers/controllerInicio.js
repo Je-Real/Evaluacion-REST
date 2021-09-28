@@ -1,15 +1,13 @@
 const modelUser = require('../models/modelUser')
 const modelUserInfo = require('../models/modelUserInfo')
+const crypto = require('crypto-js')
 
 // >>>>>>>>>>>>>>>>>>>>>> Index <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
     var session
-
-    if(!req.session.user && !req.session.lvl) {
-        // No session 😡
+    if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
-    } else {
-        // Session 🤑
+    } else { // Session 🤑
         session = req.session
     }
 
@@ -36,6 +34,10 @@ function search(req, res, next) {
             req.body.error = error
             next()
         })
+}
+
+function nRandom(min, max){
+    return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
 function show(req, res) {

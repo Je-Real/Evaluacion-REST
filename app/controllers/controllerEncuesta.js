@@ -3,11 +3,9 @@ const modelUserInfo = require('../models/modelUserInfo')
 
 // >>>>>>>>>>>>>>>>>>>>>> Encuesta static <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
-    if(!req.session.user && !req.session.lvl) {
-        // No session 😡
+    if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
-    } else {
-        // Session 🤑
+    } else { // Session 🤑
         session = req.session
     }
 

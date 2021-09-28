@@ -7,11 +7,9 @@ const crypto = require('crypto-js')
 async function root(req, res) {
     var session
 
-    if(!req.session.user && !req.session.lvl) {
-        // No session 😡
+    if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
-    } else {
-        // Session 🤑
+    } else { // Session 🤑
         session = req.session
     }
 
