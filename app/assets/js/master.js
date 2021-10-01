@@ -77,8 +77,8 @@ function toggleFloating(floating) {
 }
 
 function login() {
-    var i = document.getElementById('_id').value
-    var p = document.getElementById('pass').value
+    var i = $('#_id').val()
+    var p = $('#pass').val()
 
     $.ajax({
         type: 'POST',
@@ -97,9 +97,9 @@ function login() {
 
             if(result.status === 200){
                 toggleFloating(0)
-                setTimeout(() => {
-                    window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
-                }, 100) /* Change */
+                setCookie('user', result.data.user)
+
+                window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
             }
         },
         error: function (xhr, status, error) { 
@@ -118,9 +118,10 @@ function logout() {
             if(result.status === 200){
                 outSession(true)
                 showSnack(result.msg, 'success')
+                eatCookies()
                 setTimeout(() => {
                     window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
-                }, 3500)
+                }, 1500)
             } else {
                 showSnack('Error: '+result.msg, 'error')
             }

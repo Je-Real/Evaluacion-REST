@@ -31,13 +31,14 @@
                 aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <% if(session) { %>
-                        <li><a class="dropdown-item" href="">Perfil</a></li>
                         <% if(session.lvl <= 2) { %>
                             <li>
                                 <a class="dropdown-item" href="/registro/">Nuevo usuario</a>
                             </li>
-                            <% } %>
+                        <% } %>
+                        <% if(session.evaluation) { %>
                             <li><a class="dropdown-item" href="/encuesta/">Encuesta</a></li>
+                        <% } %>
                             <li><hr class="dropdown-divider" /></li>
                             <li><a class="dropdown-item" href="javascript:logout()">Cerrar sesión</a></li>
                             <% } else { %>

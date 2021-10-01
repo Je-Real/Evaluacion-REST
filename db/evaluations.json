@@ -16,7 +16,7 @@
         "_id": "user0",
         "area": 1,
         "department": 0,
-        "carreer": 0,
+        "career": 0,
         "records": {
             "2017": 84,
             "2018": 20,
@@ -29,7 +29,7 @@
         "_id": "user1",
         "area": 5,
         "department": 7,
-        "carreer": 0,
+        "career": 0,
         "records": {
             "2017": 95,
             "2018": 54,
@@ -42,7 +42,7 @@
         "_id": "user2",
         "area": 4,
         "department": 0,
-        "carreer": 0,
+        "career": 0,
         "records": {
             "2017": 27,
             "2018": 44,
@@ -55,7 +55,7 @@
         "_id": "user3",
         "area": 4,
         "department": 0,
-        "carreer": 0,
+        "career": 0,
         "records": {
             "2017": 92,
             "2018": 99,
@@ -68,7 +68,7 @@
         "_id": "user5",
         "area": 2,
         "department": 0,
-        "carreer": 0,
+        "career": 0,
         "records": {
             "2017": 80,
             "2018": 91,
@@ -81,7 +81,7 @@
         "_id": "user12",
         "area": 10,
         "department": 0,
-        "carreer": 0,
+        "career": 0,
         "records": {
             "2017": 36,
             "2018": 46,
@@ -94,7 +94,7 @@
         "_id": "user13",
         "area": 7,
         "department": 0,
-        "carreer": 0,
+        "career": 0,
         "records": {
             "2017": 33,
             "2018": 52,
@@ -107,7 +107,7 @@
         "_id": "user14",
         "area": 2,
         "department": 0,
-        "carreer": 0,
+        "career": 0,
         "records": {
             "2017": 44,
             "2018": 75,
@@ -120,7 +120,7 @@
         "_id": "user18",
         "area": 2,
         "department": 0,
-        "carreer": 0,
+        "career": 0,
         "records": {
             "2017": 72,
             "2018": 52,
@@ -133,7 +133,7 @@
         "_id": "user19",
         "area": 1,
         "department": 0,
-        "carreer": 0,
+        "career": 0,
         "records": {
             "2017": 22,
             "2018": 61,
@@ -146,7 +146,7 @@
         "_id": "user22",
         "area": 8,
         "department": 12,
-        "carreer": 3,
+        "career": 3,
         "records": {
             "2017": 83,
             "2018": 35,
@@ -159,7 +159,7 @@
         "_id": "user23",
         "area": 6,
         "department": 10,
-        "carreer": 0,
+        "career": 0,
         "records": {
             "2017": 70,
             "2018": 90,
@@ -172,7 +172,7 @@
         "_id": "user24",
         "area": 1,
         "department": 0,
-        "carreer": 0,
+        "career": 0,
         "records": {
             "2017": 30,
             "2018": 90,
@@ -185,7 +185,7 @@
         "_id": "user27",
         "area": 9,
         "department": 0,
-        "carreer": 0,
+        "career": 0,
         "records": {
             "2017": 30,
             "2018": 44,
@@ -198,7 +198,7 @@
         "_id": "user29",
         "area": 1,
         "department": 0,
-        "carreer": 0,
+        "career": 0,
         "records": {
             "2017": 91,
             "2018": 76,

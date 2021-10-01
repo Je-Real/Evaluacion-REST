@@ -61,7 +61,7 @@
                                     <div class="col-md-6">
                                         <div class="form-floating mb-3 mb-md-0">
                                             <select class="form-select" name="department" id="department"
-                                                aria-label="Selección" disabled>
+                                                aria-label="Selección">
                                                 <option id="dep-s" class="dep" value="0" selected>N/A</option>
                                                 <% for(var d in depa) { %>
                                                     <option class="dep" data-area="<%= depa[d]['area'] %>" value="<%= depa[d]['n'] %>"><%= depa[d]['desc'] %></option>
@@ -76,8 +76,8 @@
                                         <div class="form-floating">
                                             <select class="form-select" name="carrera" id="carrera"
                                                 aria-label="Selección" >
-                                                <option id="are-s" value="0" selected>-Selecciona área-</option>
-                                                <% for(var d in carrera) { %>
+                                                <option id="are-s" value="0" selected>-Selecciona carrera-</option>
+                                                <% for(var d in care) { %>
                                                     <option class="are" value="<%= carrera[d]['n'] %>"><%= carrera[d]['desc'] %></option>
                                                 <% } %>
                                             </select>

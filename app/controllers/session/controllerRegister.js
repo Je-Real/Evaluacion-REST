@@ -1,6 +1,9 @@
 const modelUser = require('../../models/modelUser')
 const modelUserInfo = require('../../models/modelUserInfo')
 const modelContract = require('../../models/modelContract')
+const modelArea = require('../../models/modelArea')
+const modelDepartment = require('../../models/modelDepartment')
+const modelCareer = require('../../models/modelCareer')
 const crypto = require('crypto-js')
 
 // >>>>>>>>>>>>>>>>>>>>>> Registration <<<<<<<<<<<<<<<<<<<<<<
@@ -14,11 +17,22 @@ async function root(req, res) {
     }
 
 	await modelContract.find({})
-    .then(data => {
-        contracts = data
-        return res.status(200).render('registro', {
-            contracts: contracts,
-            session: session
+    .then(async (dataC) => {
+		await modelArea.find({})
+    	.then(async (dataA) => {
+			await modelDepartment.find({})
+    		.then(async (dataD) => {
+				await modelCareer.find({})
+    			.then(async (dataCr) => {
+					return res.status(200).render('registro', {
+						contracts: dataC,
+						area: dataA,
+						depa: dataD,
+						care: dataCr,
+						session: session
+					})
+				})
+			})
         })
     })
     .catch((error) => {

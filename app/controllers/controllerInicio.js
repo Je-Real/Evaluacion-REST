@@ -1,7 +1,3 @@
-const modelUser = require('../models/modelUser')
-const modelUserInfo = require('../models/modelUserInfo')
-const crypto = require('crypto-js')
-
 // >>>>>>>>>>>>>>>>>>>>>> Index <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
     var session

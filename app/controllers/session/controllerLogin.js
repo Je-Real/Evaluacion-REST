@@ -50,6 +50,11 @@ async function logIn(req, res) {
 													//Response success for AJAX
 													return res.end(JSON.stringify({
 														msg: 'Sesión iniciada. Bienvenido '+dataUInfo[0].first_name+'.',
+														data: {
+															user: req.session.user,
+															name: req.session.name,
+															lvl: req.session.lvl,
+														},
 														status: 200,
 														noti: false
 													}))
