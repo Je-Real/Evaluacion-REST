@@ -32,22 +32,30 @@ body.sb-nav-fixed {
 	z-index: 1049;
 }
 
-#closeReg {
-	right: 1.5rem;
-	top: 1.5rem;
-}
-
 #layoutNavbar {
 	padding-bottom: 2rem;
 	padding-top: 2.2rem;
 }
 
 #load-b {
+	visibility: visible;
 	z-index: 1070;
 	top: 0;
 	bottom: 0;
 	left: 0;
 	right: 0;
+	opacity: 1;
+	-webkit-transition:opacity 0.3s;
+	transition:opacity 0.3s;
+}
+
+#load-b.fade {
+	opacity: 0;
+}
+
+#load-b.hidden {
+	z-index: -1000;
+	visibility: hidden;
 }
 
 #snackbar {
@@ -95,6 +103,16 @@ body.sb-nav-fixed {
 	.w-big-80 {
 		width: 80% !important;
 	}
+}
+
+.closeReg {
+	right: 1.5rem;
+	top: 1.5rem;
+	position: absolute;
+}
+
+.logo-3 {
+	max-height: 3rem;
 }
 
 .fs-1-5x {

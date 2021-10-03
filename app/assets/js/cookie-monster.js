@@ -1,15 +1,26 @@
-function setCookie(cname, cvalue, exmin) {
-	if(cname == undefined || cvalue == undefined) return console.log('Cookies jar empty')
-    exmin = (exmin != undefined) ? exmin : 1
+async function setCookie(cname, cvalue) {
+	if(cname == undefined || cvalue == undefined) {
+		console.error('Cookies save empty')
+		throw false
+	}
 
 	const d = new Date()
-	d.setTime(d.getTime() + exmin * 10 * 60 * 1000)
+	d.setTime(d.getTime() + 15 * 60 * 1000)
 	var expires = 'expires=' + d.toGMTString()
-	document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/'
+	try {
+		document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/'
+		return true
+	} catch (error) {
+		console.error(error)
+		throw false
+	}
 }
 
-function getCookie(cname) {
-	if (cname == undefined) return console.log('Cookies jar empty')
+async function getCookie(cname) {
+	if (cname == undefined) {
+		console.error('Cookies petition empty')
+		throw false
+	}
 
 	var name = cname + '='
 	var decodedCookie = decodeURIComponent(document.cookie)
@@ -23,21 +34,36 @@ function getCookie(cname) {
 			return c.substring(name.length, c.length)
 		}
 	}
+	throw false
 }
 
-function checkCookie(cname) {
+async function checkCookie(cname) {
 	if (cname == undefined) return console.log('Cookies jar empty')
+	var result
+	
+	await getCookie(cname)
+		.then(async (data) => {
+			if (data.length > 0) result = true
+			else result = false
+		})
+		.catch((error) => {
+			result = false
+			console.error(error)
+		})
 
-	var result = getCookie(cname)
-	if (result.length > 0) {
-		showSnack('Status: No', 'warning')
-	} else {
-		showSnack('Status: '+result, 'info')
-    }
+	if(result) return true
+	else throw false
 }
 
-function eatCookies() {
-	document.cookie.split(";").forEach(function(c) {
-		document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-	})
+async function eatCookies() {
+	try {
+		document.cookie.split(";").forEach(function(c) {
+			document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+		})
+		sessionStorage.clear()
+		return true
+	} catch(error) {
+		console.error(error)
+		throw false
+	}
 }

@@ -5,13 +5,49 @@ var tf = false,
     frameR = document.getElementById('floatingRegister'),
     backpanel = document.getElementById('backPanel'),
     glass = document.getElementById('layoutSidenav')
+    
+window.addEventListener('DOMContentLoaded', async(event) => {
+    /*const d = new Date()
+    var log_ = $('#layoutNavbar').attr('data-log')
+    var just_in_time = undefined
 
-window.addEventListener('DOMContentLoaded', event => {
-    setTimeout(() => {
-        $('#load-b').fadeOut(200)
+    if(!log_){
+        await getCookie(sessionStorage.getItem('user'))
+        .then((data) => {
+            var dataJSON = JSON.parse(data)
+            d.setTime(d.getTime())
+            var current = d.toGMTString()
+            var user = sessionStorage.getItem('user')
+            var pass = sessionStorage.getItem('pass')
+            var req_p = sessionStorage.getItem('requested-page')
+    
+            if(current <= dataJSON.expires) {
+                just_in_time = true
+                dataJSON.expires = current
+            }
+            else just_in_time = false
+    
+            if(just_in_time && log) {
+                eatCookies()
+                setCookie(user, dataJSON)
+            } else if(!just_in_time && !log) {
+                login(user, pass)
+                if(req_p.length) {
+                    sessionStorage.removeItem('requested-page')
+                    return window.location.href = req_p
+                }
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+    }*/
+
+    setTimeout(async () => {
+        await $('#load-b').addClass('fade')
         setTimeout(() => {
-            $('#load-b').remove()
-        }, 100)
+            $('#load-b').addClass('hidden')
+        }, 200)
     }, 200)
 
     setTimeout(() => {
@@ -76,9 +112,9 @@ function toggleFloating(floating) {
     }
 }
 
-function login() {
-    var i = $('#_id').val()
-    var p = $('#pass').val()
+function login(i, p) {
+    i = (i) ? i : $('#_id').val()
+    p = (p) ? p : $('#pass').val()
 
     $.ajax({
         type: 'POST',
@@ -87,7 +123,10 @@ function login() {
         data: JSON.stringify({ _id: i, pass: p }),
         dataType: 'json',
         async: true,
-        success: function(result){
+        success: async(result) => {
+            $('#load-b').removeClass('hidden')
+            $('#load-b').removeClass('fade')
+
             if(result.noti){
                 showSnack(result.msg, 'success')
             } else {
@@ -97,9 +136,15 @@ function login() {
 
             if(result.status === 200){
                 toggleFloating(0)
-                setCookie('user', result.data.user)
-
-                window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
+                await setCookie(result.data.user, JSON.stringify(result.data))
+                    .then(() => {
+                        /*sessionStorage.setItem('user', result.data.user)
+                        sessionStorage.setItem('pass', p)*/
+                        return window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
+                    })
+                    .catch((error) => {
+                        showSnack('Status: Cookies error')
+                    })
             }
         },
         error: function (xhr, status, error) { 
@@ -114,14 +159,17 @@ function logout() {
         url: 'http://localhost:3000/sesion/logout',
         dataType: 'json',
         async: true,
-        success: function(result){
+        success: async (result) => {
             if(result.status === 200){
                 outSession(true)
-                showSnack(result.msg, 'success')
-                eatCookies()
-                setTimeout(() => {
-                    window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
-                }, 1500)
+                $('#load-b').removeClass('hidden')
+                $('#load-b').removeClass('fade')
+                await eatCookies()
+                    .finally(() => {
+                        setTimeout(() => {
+                            window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
+                        }, 500)
+                    })
             } else {
                 showSnack('Error: '+result.msg, 'error')
             }

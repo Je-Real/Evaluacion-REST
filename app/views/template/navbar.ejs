@@ -1,4 +1,12 @@
 <!-- Navbar -->
+<div id="load-b" class="bg-light p-0 m-0 mx-auto flex-nowrap position-fixed d-flex show">
+    <div class="container h-100 d-flex">
+        <div class="m-auto">
+            <div class="spinner-border text-info"></div>
+        </div>
+    </div>
+</div>
+
 <div class="noti mx-auto w-25 d-flex flex-nowrap justify-content-center position-fixed">
     <div id="noti" class="container-fluid mt-5"></div>
 </div>
@@ -12,7 +20,7 @@
 
 <div id="backPanel" onclick="toggleFloating(0)" class="d-none w-100 h-100 position-fixed bg-dark-50"></div>
 
-<nav id="layoutNavbar" class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+<nav id="layoutNavbar" data-log=" <%= (session) ? true : false %> " class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
     <a class="navbar-brand ps-3" href="/inicio/">
         <img class="mx-auto d-block pt-1" src="/img/logo-utna.png" width="110px" alt="UTNA">
@@ -27,8 +35,12 @@
         <!-- Navbar-->
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-5">
             <li class="nav-item dropdown">
+                <% 
+                    var temp = '' 
+                    if(session){ temp = session.name } 
+                %>
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                aria-expanded="false"><i class="fas fa-user fa-fw"></i> <%= temp %> </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <% if(session) { %>
                         <% if(session.lvl <= 2) { %>

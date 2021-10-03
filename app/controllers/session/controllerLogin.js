@@ -40,6 +40,9 @@ async function logIn(req, res) {
 													req.session.department = dataUInfo[0].department
 													req.session.career = dataUInfo[0].career
 
+													date.setTime(date.getTime() + 15 * 60 * 1000)
+													var expires = date.toGMTString()
+
 													//Button evaluation
 													try { //true means it's available, false it's deleted
 														req.session.evaluation = (dataEval[0].records[year] == undefined) ? true : false
@@ -54,6 +57,7 @@ async function logIn(req, res) {
 															user: req.session.user,
 															name: req.session.name,
 															lvl: req.session.lvl,
+															expires: expires
 														},
 														status: 200,
 														noti: false

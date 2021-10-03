@@ -160,7 +160,6 @@
 
     <%- include('template/password.ejs') %>
     <%- include('template/login.ejs') %>
-    <%- include('template/loading.ejs') %>
 
     <%- include('template/!scripts.ejs') %>
     <script src="/js/registro.js"></script>
@@ -168,7 +167,5 @@
 
 </html>
 <% } else { %>
-    <script>
-        window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
-    </script>
+    <%- include('template/!handler.ejs') %>
 <% } %>
