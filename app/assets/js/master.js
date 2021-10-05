@@ -7,49 +7,25 @@ var tf = false,
     glass = document.getElementById('layoutSidenav')
     
 window.addEventListener('DOMContentLoaded', async(event) => {
-    /*const d = new Date()
-    var log_ = $('#layoutNavbar').attr('data-log')
-    var just_in_time = undefined
-
-    if(!log_){
-        await getCookie(sessionStorage.getItem('user'))
+    if($('#layoutNavbar').attr('data-log') === 'false') {
+        showSnack('Iniando sesión...', 'info')
+        await getCookie(0)
         .then((data) => {
-            var dataJSON = JSON.parse(data)
-            d.setTime(d.getTime())
-            var current = d.toGMTString()
-            var user = sessionStorage.getItem('user')
-            var pass = sessionStorage.getItem('pass')
-            var req_p = sessionStorage.getItem('requested-page')
-    
-            if(current <= dataJSON.expires) {
-                just_in_time = true
-                dataJSON.expires = current
-            }
-            else just_in_time = false
-    
-            if(just_in_time && log) {
-                eatCookies()
-                setCookie(user, dataJSON)
-            } else if(!just_in_time && !log) {
-                login(user, pass)
-                if(req_p.length) {
-                    sessionStorage.removeItem('requested-page')
-                    return window.location.href = req_p
-                }
-            }
+            if(data.length == 0) return
+            cookieData = JSON.parse(data)
+            return login(cookieData.user, cookieData.pass)
         })
         .catch((error) => {
-            console.error(error);
+            throw console.error('error: ',error)
         })
-    }*/
-
+    }
+    
     setTimeout(async () => {
         await $('#load-b').addClass('fade')
         setTimeout(() => {
             $('#load-b').addClass('hidden')
         }, 200)
     }, 200)
-
     setTimeout(() => {
         $('.deletable').remove() //Remove all the "deletable" elements after 1 sec
     }, 1000)
@@ -113,8 +89,12 @@ function toggleFloating(floating) {
 }
 
 function login(i, p) {
-    i = (i) ? i : $('#_id').val()
-    p = (p) ? p : $('#pass').val()
+    i = (i) ? i : (($('#_id').val()) ? $('#_id').val() : undefined)
+    p = (p) ? p : (($('#pass').val()) ? $('#pass').val() : undefined)
+
+    console.log('--'+i+' '+p);
+
+    if(i === undefined) return console.error('login failed!')
 
     $.ajax({
         type: 'POST',
@@ -136,10 +116,9 @@ function login(i, p) {
 
             if(result.status === 200){
                 toggleFloating(0)
+                result.data.pass = p
                 await setCookie(result.data.user, JSON.stringify(result.data))
                     .then(() => {
-                        /*sessionStorage.setItem('user', result.data.user)
-                        sessionStorage.setItem('pass', p)*/
                         return window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
                     })
                     .catch((error) => {

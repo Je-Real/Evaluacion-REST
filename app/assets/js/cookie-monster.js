@@ -5,7 +5,7 @@ async function setCookie(cname, cvalue) {
 	}
 
 	const d = new Date()
-	d.setTime(d.getTime() + 15 * 60 * 1000)
+	d.setTime(d.getTime() + 7*24*60*60*1000)
 	var expires = 'expires=' + d.toGMTString()
 	try {
 		document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/'
@@ -17,12 +17,11 @@ async function setCookie(cname, cvalue) {
 }
 
 async function getCookie(cname) {
-	if (cname == undefined) {
-		console.error('Cookies petition empty')
-		throw false
+	var name = cname + '='
+	if (cname == 0) {
+		return document.cookie.split('=')[1]
 	}
 
-	var name = cname + '='
 	var decodedCookie = decodeURIComponent(document.cookie)
 	var ca = decodedCookie.split(';')
 	for (var i = 0; i < ca.length; i++) {

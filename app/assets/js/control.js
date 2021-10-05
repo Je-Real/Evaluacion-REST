@@ -26,13 +26,12 @@ function getRecords() {
         data: JSON.stringify({ skip: skip, limit: limit }),
         dataType: 'json',
         async: true,
-        success: async function(result){
-            if(result.noti){
+        success: async(result) => {
+            /*if(result.noti){
                 await showSnack(result.msg, result.msgType)
-            }
+            }*/
 
             if(result.status === 200){
-                console.log(result.data[1])
                 await $('#table-body').html('')
 
                 for(var regInfo in result.data[1]) {
