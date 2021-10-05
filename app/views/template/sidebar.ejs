@@ -7,9 +7,7 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-home fa-2x"></i></div>
                     Inicio
                 </a>
-
-                <% if(session) {
-                    if(session.lvl) { %>
+                <% if(session) { %>
                         <div class="sb-sidenav-menu-heading green-border-t py-3">Reportes</div>
                         <a class="nav-link" href="/reportes/">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-line fa-2x"></i></div>
@@ -33,7 +31,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-door-open fa-2x"></i></div>
                             Cerrar sesión
                         </a>
-                <% } } else { %>
+                <% } else { %>
                     <div class="sb-sidenav-menu-heading orange-border-t py-3">Sesión</div>
                     <a class="nav-link" href="javascript:toggleFloating(1)">
                         <div class="sb-nav-link-icon"><i class="fas fa-user fa-2x"></i></div>

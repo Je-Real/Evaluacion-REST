@@ -6,7 +6,6 @@ const UserSchema = new mongoose.Schema({
     pass:{ type:String, required:true },
     last_conn:{ type:Date, default:Date.now(), required:true },
     created:{ type:Date, default:Date.now(), required:true },
-    level:{ type:Number, default:4 },
     enabled:{ type:Boolean, default:true }
 })
 

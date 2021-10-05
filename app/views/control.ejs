@@ -27,25 +27,19 @@
 
                 <div class="container-fluid px-4">
                     <h1 class="display-1 text-center mt-4">Tablas</h1>
-                    <div class="card mb-4 mt-4">
-                        <div class="card-header d-flex">
-                        </div>
-                        <div class="card-body">
-                            <table id="datatablesSimple">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nombre</th>
-                                        <th>Categoria</th>
-                                        <th>Puesto</th>
-                                        <th>Status</th>
-                                        <th>Fecha</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="table-body"></tbody>
-                            </table>
-                        </div>
+                    <div class="container d-flex justify-content-center">
+                        <table class="table-effect border-0 w-75 table caption-top flex-table" class="w-75">
+                            <thead>
+                                <tr class="border-0 flex-th">
+                                    <th class="border-0 border-end  flex-th">Usuario</th>
+                                    <th class="border-0 border-start flex-th">Nombre(s)</th>
+                                    <th class="border-0 border-start flex-th">Apellido(s)</th>
+                                    <th class="border-0 border-start flex-th">Status</th>
+                                    <th class="border-0 border-start flex-th">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="border-0" id="table-b"></tbody>
+                        </table>
                     </div>
                 </div>
             </main>

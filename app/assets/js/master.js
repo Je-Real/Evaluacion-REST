@@ -7,28 +7,40 @@ var tf = false,
     glass = document.getElementById('layoutSidenav')
     
 window.addEventListener('DOMContentLoaded', async(event) => {
+    var fade_away = true
+
     if($('#layoutNavbar').attr('data-log') === 'false') {
-        showSnack('Iniando sesión...', 'info')
         await getCookie(0)
         .then((data) => {
-            if(data.length == 0) return
-            cookieData = JSON.parse(data)
-            return login(cookieData.user, cookieData.pass)
+            fade_away = false
+            if(data != ''){
+                try {
+                    cookieData = JSON.parse(data)
+                    showSnack('Iniando sesión...', 'info')
+                    return login(cookieData.user, cookieData.pass)
+                } catch(error) {
+                    return console.error(error)
+                }
+            }
+            return fade_away = true
         })
         .catch((error) => {
-            throw console.error('error: ',error)
+            fade_away = true
+            throw console.error('error: '+error)
         })
-    }
+    } 
     
-    setTimeout(async () => {
-        await $('#load-b').addClass('fade')
-        setTimeout(() => {
-            $('#load-b').addClass('hidden')
+    if(fade_away) {
+        setTimeout(async() => {
+            await $('#load-b').addClass('fade')
+            setTimeout(() => {
+                $('#load-b').addClass('hidden')
+            }, 200)
         }, 200)
-    }, 200)
-    setTimeout(() => {
-        $('.deletable').remove() //Remove all the "deletable" elements after 1 sec
-    }, 1000)
+        setTimeout(async() => {
+            await $('.deletable').remove() //Remove all the "deletable" elements after 1 sec
+        }, 1000)
+    }
 })
 
 //Capture Enter key in inputs
@@ -92,8 +104,6 @@ function login(i, p) {
     i = (i) ? i : (($('#_id').val()) ? $('#_id').val() : undefined)
     p = (p) ? p : (($('#pass').val()) ? $('#pass').val() : undefined)
 
-    console.log('--'+i+' '+p);
-
     if(i === undefined) return console.error('login failed!')
 
     $.ajax({
@@ -104,9 +114,6 @@ function login(i, p) {
         dataType: 'json',
         async: true,
         success: async(result) => {
-            $('#load-b').removeClass('hidden')
-            $('#load-b').removeClass('fade')
-
             if(result.noti){
                 showSnack(result.msg, 'success')
             } else {
@@ -115,19 +122,22 @@ function login(i, p) {
             }
 
             if(result.status === 200){
+                $('#load-b').removeClass('hidden')
+                $('#load-b').removeClass('fade')
                 toggleFloating(0)
                 result.data.pass = p
                 await setCookie(result.data.user, JSON.stringify(result.data))
-                    .then(() => {
-                        return window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
-                    })
-                    .catch((error) => {
-                        showSnack('Status: Cookies error')
-                    })
+                .then(() => {
+                    return window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
+                })
+                .catch((error) => {
+                    showSnack('Status: Cookies error', 'warning')
+                })
             }
         },
-        error: function (xhr, status, error) { 
-            showSnack('Status:'+status+'. '+error, 'error')
+        error: async(xhr, status, error, result) => {
+            console.error('Login: '+error)
+            showSnack(result.msg, 'error')
         }
     })
 }

@@ -4,7 +4,6 @@
         "last_conn": {
             "$date": "2021-08-24T03:51:42.218Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX1+S1TXpfK2tKrmDKC5d62Z52h1/vnhG7ys="
     },
@@ -16,7 +15,6 @@
         "created": {
             "$date": "2021-09-09T00:49:40.764Z"
         },
-        "level": 0,
         "enabled": true,
         "pass": "U2FsdGVkX19Orf9sKU1lg/Qh6qv73yzUqe1usvPrSC8="
     },
@@ -28,7 +26,6 @@
         "created": {
             "$date": "2021-09-09T01:21:53.324Z"
         },
-        "level": 2,
         "enabled": true,
         "pass": "U2FsdGVkX18BzubhTACRmHaLLMB+XTxWaixoGADB4eM="
     },
@@ -40,7 +37,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX1/0VGWKtuxXZM0bUHC74DVKNJTw0WD21o0="
     },
@@ -52,7 +48,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX18+IWQx2Cb4NQdr98CQdDr8h6JWHXk91Uk="
     },
@@ -64,7 +59,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX19Sua/T9zCTHLFGNYTlRj7NM4whZgX+DpY="
     },
@@ -76,7 +70,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX18PIv56Q+4QrXwgT/mPcyxVW/tBNbFKGUQ="
     },
@@ -88,7 +81,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX18m6nYPae4MFUSa5NMlH0bKx08OatHvCeA="
     },
@@ -100,7 +92,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX1/slhav8HDMqOTEb7ugYMm+q6N1VwK89n4="
     },
@@ -112,7 +103,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX19CBXB18EEq5awbzYdpgopl1uHGgwzLZGQ="
     },
@@ -124,7 +114,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX1+odiEEtAb381cJxk+6lCP70dbjsRtMhUE="
     },
@@ -136,7 +125,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX19PeAgnw1AW/JV+Yq+ICUMEBGtuG4FWpTc="
     },
@@ -148,7 +136,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX1/kOIsPcHgFNlyg6r0b3IecIOWK3W1Obx4="
     },
@@ -160,7 +147,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX18Vr/WciayRZz8wThvEkgmthLnGmjXlGGg="
     },
@@ -172,7 +158,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX18bsNuKiAeKv5XsZH4VcnUSk2sm4gOWh+w="
     },
@@ -184,7 +169,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX18YlPT+YxEmihJI0I2j3m99YK5/opIzcI0="
     },
@@ -196,7 +180,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX18gm17cPuJEf8sT5BmoXRA4tNHFK6NXupI="
     },
@@ -208,7 +191,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX1+Eadp/Js9+jgfqKfb5PmWW/Y/RVHv8osQ="
     },
@@ -220,7 +202,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX19hLlyys0TS93aDuyxJLaJrSstwQrmqf+E="
     },
@@ -232,7 +213,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX1+K6bjMM4SHo0yWBIpdVI+Zw8+pHoS/BcI="
     },
@@ -244,7 +224,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX18HAavuQdFm1V1tLmAWQ1Wk+PHAwBrdmYA="
     },
@@ -256,7 +235,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX1+MCE7RdSR4u6rjIT00B0GwNlnGcjJOFdg="
     },
@@ -268,7 +246,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX187pozNZS2D37X4aqsUYhGa1opLS2AxuQk="
     },
@@ -280,7 +257,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX19sFHnxJTiSYoAm9CNaJcP0+N4VR9eOtFk="
     },
@@ -292,7 +268,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX1+YaKzrshlXR10+KazcEyyd+vNrMenK9kw="
     },
@@ -304,7 +279,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX19BBXJNoJUwyNWZjn5ZTW6EKmqQOueTsWs="
     },
@@ -316,7 +290,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX1/jm1ETqy6Wy9+70g/nAghxM+JaSn7SUYA="
     },
@@ -328,7 +301,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX19wv54MhlFO+BoWBBDDP3ls1nSUllLfaEg="
     },
@@ -340,7 +312,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX1+bsD1ro1ZyUTlSXRSw/NCdpYxcNV999t8="
     },
@@ -352,7 +323,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX1/iTN203WmtgucdX3RZb9Vtxd0VsHFu44I="
     },
@@ -364,7 +334,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX19Ep3SN06LPO1bpCMafZsFGCokwHo4FlKg="
     },
@@ -376,7 +345,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX1+02fpta2ZDAdbr9XZGWy0WiKGvTUQjdB4="
     },
@@ -388,7 +356,6 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX1+9XKMKKIhenVN9lZ39NhOhNXpWmqSB3k4="
     },
@@ -400,8 +367,308 @@
         "created": {
             "$date": "2021-09-09T01:24:41.751Z"
         },
-        "level": 4,
         "enabled": true,
         "pass": "U2FsdGVkX18juQAsMDbsEOUexjUlW5ORAwwIrD4YF3w="
-    }
+    },
+        {
+        "_id": "user30",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX1+2Ypu1HDb2h161OWLQ/p45bUxI43sbH1A="
+        },{
+        "_id": "user31",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX1/y+DwtwBN7MD2mPMUPSZJtI+WEus17vo0="
+        },{
+        "_id": "user32",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX1/B4lB0yK5u9CKHGvkaro8CSvth+WOze88="
+        },{
+        "_id": "user33",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX18h09Y2ObNlVkmN+Uq8Hx/N9BL7IESo8gI="
+        },{
+        "_id": "user34",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX1+OAyPZDV0tD9iGfZYN9na7qw/8noCmTVE="
+        },{
+        "_id": "user35",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX18DT9tiEnfZhNCJntY5JY5p+Iw0t46Vx/o="
+        },{
+        "_id": "user36",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX1/0WV75Y7XhMd9k3bT8dHbBOZkQUpP8MfY="
+        },{
+        "_id": "user37",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX18v3ZHB2Pbg39EeGvIKlFvZE3+z4ndfmgU="
+        },{
+        "_id": "user38",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX18yXUtAGw/0JP2mNkjwQjgl0VbUES89gsQ="
+        },{
+        "_id": "user39",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX1+2uYapKjpqFBFveVDqSoKzk7WkOCHpEbM="
+        },{
+        "_id": "user40",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX19iSPVebAKHteVypd3RIXtkqxMLIsGr7UQ="
+        },{
+        "_id": "user41",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX19LAn7Ec1gp+Hm1/wM133J0iuw/ykGqRBo="
+        },{
+        "_id": "user42",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX1/+/SPUPh6WC1Beu4sXpx3TVKf/TCc1HAo="
+        },{
+        "_id": "user43",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX1845PbkMxkspIio4baX2OZ2embk0vAXVfo="
+        },{
+        "_id": "user44",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX182vtNZVIQPpB9oWXAmZzInpAhML4ydvzc="
+        },{
+        "_id": "user45",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX1/C7QnOaoGMkQeH8hU91OYYyeOyGLxZkz8="
+        },{
+        "_id": "user46",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX1/Unx3BjJwG2vZggaSmhO/n2dtzxTUQHk4="
+        },{
+        "_id": "user47",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX1+o9wuyjZd02lRmPWHw5TAr0GkSSuG8MqY="
+        },{
+        "_id": "user48",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX19VK8fa8hrXeIgTtDPtpSeMB6cXM8RodH0="
+        },{
+        "_id": "user49",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX1/XYdXYRk4eEBnDqe4N2vkup2RqxU5GPiw="
+        },{
+        "_id": "user50",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX1/JVSzBcx3R66QevTOb5Jrea44eHcD1VxU="
+        },{
+        "_id": "user51",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX1/8OTcmyh/lemlsY4+KEccFF4+nYzPksgw="
+        },{
+        "_id": "user52",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX1910+cZMDGjq/ojNHMsAZsfaA7AlgOwpIo="
+        },{
+        "_id": "user53",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX1859It05Xh/zRMkTydiD6IV5UjbJFuP4Mc="
+        },{
+        "_id": "user54",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX18YbpnRw/dgC1NyYOznJOLwGMoG9PYXQ0Q="
+        },{
+        "_id": "user55",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX19REK8DwyDZlNy0p0hf6HGd31PjDWC+mQo="
+        },{
+        "_id": "user56",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX1/A0Vj0i4u6dzAd6wUYt3oWODsrDebiokw="
+        },{
+        "_id": "user57",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX1+WF2XVw1Oye0acHCjuReWNNaWwJVKXBBM="
+        },{
+        "_id": "user58",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX198uc3+SmySoXqsSRHetxyqhG4Y9obTQBE="
+        },{
+        "_id": "user59",
+        "last_conn": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "created": {
+            "$date": "2021-09-09T01:24:41.751Z"
+        },
+        "enabled": true,
+        "pass": "U2FsdGVkX18DBOKCYvhvzf1yEuzcPotSaehH0pZt77A="
+        }
 ]

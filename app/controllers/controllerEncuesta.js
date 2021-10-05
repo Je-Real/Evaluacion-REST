@@ -2,15 +2,28 @@ const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
 
 // >>>>>>>>>>>>>>>>>>>>>> Encuesta static <<<<<<<<<<<<<<<<<<<<<<
-function root(req, res) {
+async function root(req, res) {
     if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
     } else { // Session 🤑
         session = req.session
     }
 
+    var data
+    var lvl = (req.session.lvl >= 5) ? req.session.lvl : req.session.lvl+1
+
+    await modelUserInfo.find(
+        { level: lvl, area: req.session.area }
+    )
+    .then((dataInfo) => {
+        data = dataInfo
+    })
+    .catch((error) => {
+        console.error(error)
+    })
+
     //Encuesta static route
-    return res.status(200).render('encuesta', {session: session})
+    return res.status(200).render('encuesta', {session: session, eval: data})
 }
 
 async function post(req, res) {
@@ -219,14 +232,17 @@ async function post(req, res) {
         score += parseFloat(rec[r])
     }
 
+    //Round decimals
     var temp = Number((Math.abs(score) * 100).toPrecision(15))
     score = Math.round(temp) / 100 * Math.sign(score)
 
+    console.log('--'+JSON.stringify(req.body._id));
+
     await modelUserInfo.find({ _id: req.body._id })
-		.then(async (dataUI) => { //🟢
+		.then(async(dataUI) => { //🟢
             if(dataUI.length){
                 await modelEvaluation.find({ _id: req.body._id })
-                    .then(async (dataEval) => { //🟢
+                    .then(async(dataEval) => { //🟢
                         req.body.area = dataUI[0].area
                         req.body.department = dataUI[0].department
                         req.body.career = dataUI[0].career

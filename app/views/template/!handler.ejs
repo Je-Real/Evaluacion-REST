@@ -1,3 +1,4 @@
+<%- include('!scripts.ejs') %>
 <script>
     setCookie('requested-page', String(location.href))
     window.location.href = String(location.href).slice(0, 21+1)+"inicio/"

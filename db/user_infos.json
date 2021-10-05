@@ -3,6 +3,7 @@
         "_id": "user",
         "first_name": "user",
         "last_name": "user",
+        "level": 3,
         "area": 2,
         "department": 0,
         "career": 0,
@@ -20,6 +21,7 @@
         "_id": "admin",
         "first_name": "admin",
         "last_name": "admin",
+        "level": 0,
         "area": 1,
         "department": 0,
         "career": 0,
@@ -37,6 +39,7 @@
         "_id": "admin2",
         "first_name": "admin",
         "last_name": "admin",
+        "level": 2,
         "area": 2,
         "department": 0,
         "career": 0,
@@ -54,6 +57,7 @@
         "_id": "R181308558",
         "first_name": "Jeremy",
         "last_name": "Richarte",
+        "level": 3,
         "area": 8,
         "department": 15,
         "career": 8,
@@ -71,6 +75,7 @@
         "_id": "user0",
         "first_name": "user0",
         "last_name": "user0",
+        "level": 3,
         "area": 1,
         "department": 0,
         "career": 0,
@@ -88,6 +93,7 @@
         "_id": "user1",
         "first_name": "user1",
         "last_name": "user1",
+        "level": 3,
         "area": 5,
         "department": 7,
         "career": 0,
@@ -105,6 +111,7 @@
         "_id": "user2",
         "first_name": "user2",
         "last_name": "user2",
+        "level": 3,
         "area": 4,
         "department": 0,
         "career": 0,
@@ -122,6 +129,7 @@
         "_id": "user3",
         "first_name": "user3",
         "last_name": "user3",
+        "level": 3,
         "area": 4,
         "department": 0,
         "career": 0,
@@ -139,6 +147,7 @@
         "_id": "user4",
         "first_name": "user4",
         "last_name": "user4",
+        "level": 3,
         "area": 6,
         "department": 11,
         "career": 0,
@@ -156,6 +165,7 @@
         "_id": "user5",
         "first_name": "user5",
         "last_name": "user5",
+        "level": 3,
         "area": 2,
         "department": 0,
         "career": 0,
@@ -173,6 +183,7 @@
         "_id": "user6",
         "first_name": "user6",
         "last_name": "user6",
+        "level": 3,
         "area": 6,
         "department": 8,
         "career": 0,
@@ -190,6 +201,7 @@
         "_id": "user7",
         "first_name": "user7",
         "last_name": "user7",
+        "level": 3,
         "area": 1,
         "department": 0,
         "career": 0,
@@ -207,6 +219,7 @@
         "_id": "user8",
         "first_name": "user8",
         "last_name": "user8",
+        "level": 3,
         "area": 6,
         "department": 9,
         "career": 0,
@@ -224,6 +237,7 @@
         "_id": "user9",
         "first_name": "user9",
         "last_name": "user9",
+        "level": 3,
         "area": 10,
         "department": 0,
         "career": 0,
@@ -241,6 +255,7 @@
         "_id": "user10",
         "first_name": "user10",
         "last_name": "user10",
+        "level": 3,
         "area": 10,
         "department": 0,
         "career": 0,
@@ -258,6 +273,7 @@
         "_id": "user11",
         "first_name": "user11",
         "last_name": "user11",
+        "level": 3,
         "area": 9,
         "department": 0,
         "career": 0,
@@ -275,6 +291,7 @@
         "_id": "user12",
         "first_name": "user12",
         "last_name": "user12",
+        "level": 3,
         "area": 10,
         "department": 0,
         "career": 0,
@@ -292,6 +309,7 @@
         "_id": "user13",
         "first_name": "user13",
         "last_name": "user13",
+        "level": 3,
         "area": 7,
         "department": 0,
         "career": 0,
@@ -309,6 +327,7 @@
         "_id": "user14",
         "first_name": "user14",
         "last_name": "user14",
+        "level": 3,
         "area": 2,
         "department": 0,
         "career": 0,
@@ -326,6 +345,7 @@
         "_id": "user15",
         "first_name": "user15",
         "last_name": "user15",
+        "level": 3,
         "area": 2,
         "department": 0,
         "career": 0,
@@ -343,6 +363,7 @@
         "_id": "user16",
         "first_name": "user16",
         "last_name": "user16",
+        "level": 3,
         "area": 7,
         "department": 0,
         "career": 0,
@@ -360,6 +381,7 @@
         "_id": "user17",
         "first_name": "user17",
         "last_name": "user17",
+        "level": 3,
         "area": 7,
         "department": 0,
         "career": 0,
@@ -377,6 +399,7 @@
         "_id": "user18",
         "first_name": "user18",
         "last_name": "user18",
+        "level": 3,
         "area": 2,
         "department": 0,
         "career": 0,
@@ -394,6 +417,7 @@
         "_id": "user19",
         "first_name": "user19",
         "last_name": "user19",
+        "level": 3,
         "area": 1,
         "department": 0,
         "career": 0,
@@ -411,6 +435,7 @@
         "_id": "user20",
         "first_name": "user20",
         "last_name": "user20",
+        "level": 3,
         "area": 10,
         "department": 0,
         "career": 0,
@@ -428,6 +453,7 @@
         "_id": "user21",
         "first_name": "user21",
         "last_name": "user21",
+        "level": 3,
         "area": 1,
         "department": 0,
         "career": 0,
@@ -445,6 +471,7 @@
         "_id": "user22",
         "first_name": "user22",
         "last_name": "user22",
+        "level": 3,
         "area": 8,
         "department": 12,
         "career": 3,
@@ -462,6 +489,7 @@
         "_id": "user23",
         "first_name": "user23",
         "last_name": "user23",
+        "level": 3,
         "area": 6,
         "department": 10,
         "career": 0,
@@ -479,6 +507,7 @@
         "_id": "user24",
         "first_name": "user24",
         "last_name": "user24",
+        "level": 3,
         "area": 1,
         "department": 0,
         "career": 0,
@@ -496,6 +525,7 @@
         "_id": "user25",
         "first_name": "user25",
         "last_name": "user25",
+        "level": 3,
         "area": 6,
         "department": 11,
         "career": 0,
@@ -513,6 +543,7 @@
         "_id": "user26",
         "first_name": "user26",
         "last_name": "user26",
+        "level": 3,
         "area": 3,
         "department": 0,
         "career": 0,
@@ -530,6 +561,7 @@
         "_id": "user27",
         "first_name": "user27",
         "last_name": "user27",
+        "level": 3,
         "area": 9,
         "department": 0,
         "career": 0,
@@ -547,6 +579,7 @@
         "_id": "user28",
         "first_name": "user28",
         "last_name": "user28",
+        "level": 3,
         "area": 2,
         "department": 0,
         "career": 0,
@@ -564,6 +597,7 @@
         "_id": "user29",
         "first_name": "user29",
         "last_name": "user29",
+        "level": 3,
         "area": 1,
         "department": 0,
         "career": 0,
@@ -576,5 +610,545 @@
             "num": 35,
             "postal_code": 67
         }
-    }
+    },
+        {
+            "_id": "user30",
+            "first_name": "user30",
+            "last_name": "user30",
+            "level": 1,
+            "area": 3,
+            "department": 0,
+            "career": 0,
+            "contract": 3,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user30",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user31",
+            "first_name": "user31",
+            "last_name": "user31",
+            "level": 1,
+            "area": 3,
+            "department": 0,
+            "career": 0,
+            "contract": 1,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user31",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user32",
+            "first_name": "user32",
+            "last_name": "user32",
+            "level": 5,
+            "area": 8,
+            "department": 16,
+            "career": 10,
+            "contract": 1,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user32",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user33",
+            "first_name": "user33",
+            "last_name": "user33",
+            "level": 1,
+            "area": 9,
+            "department": 0,
+            "career": 0,
+            "contract": 3,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user33",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user34",
+            "first_name": "user34",
+            "last_name": "user34",
+            "level": 2,
+            "area": 5,
+            "department": 1,
+            "career": 0,
+            "contract": 1,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user34",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user35",
+            "first_name": "user35",
+            "last_name": "user35",
+            "level": 1,
+            "area": 10,
+            "department": 0,
+            "career": 0,
+            "contract": 3,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user35",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user36",
+            "first_name": "user36",
+            "last_name": "user36",
+            "level": 3,
+            "area": 6,
+            "department": 8,
+            "career": 0,
+            "contract": 3,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user36",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user37",
+            "first_name": "user37",
+            "last_name": "user37",
+            "level": 2,
+            "area": 5,
+            "department": 2,
+            "career": 0,
+            "contract": 2,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user37",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user38",
+            "first_name": "user38",
+            "last_name": "user38",
+            "level": 3,
+            "area": 5,
+            "department": 1,
+            "career": 0,
+            "contract": 1,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user38",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user39",
+            "first_name": "user39",
+            "last_name": "user39",
+            "level": 1,
+            "area": 10,
+            "department": 0,
+            "career": 0,
+            "contract": 2,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user39",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user40",
+            "first_name": "user40",
+            "last_name": "user40",
+            "level": 3,
+            "area": 5,
+            "department": 2,
+            "career": 0,
+            "contract": 1,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user40",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user41",
+            "first_name": "user41",
+            "last_name": "user41",
+            "level": 1,
+            "area": 1,
+            "department": 0,
+            "career": 0,
+            "contract": 2,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user41",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user42",
+            "first_name": "user42",
+            "last_name": "user42",
+            "level": 1,
+            "area": 10,
+            "department": 0,
+            "career": 0,
+            "contract": 1,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user42",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user43",
+            "first_name": "user43",
+            "last_name": "user43",
+            "level": 4,
+            "area": 8,
+            "department": 12,
+            "career": 2,
+            "contract": 3,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user43",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user44",
+            "first_name": "user44",
+            "last_name": "user44",
+            "level": 1,
+            "area": 7,
+            "department": 0,
+            "career": 0,
+            "contract": 3,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user44",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user45",
+            "first_name": "user45",
+            "last_name": "user45",
+            "level": 5,
+            "area": 8,
+            "department": 14,
+            "career": 7,
+            "contract": 1,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user45",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user46",
+            "first_name": "user46",
+            "last_name": "user46",
+            "level": 1,
+            "area": 2,
+            "department": 0,
+            "career": 0,
+            "contract": 3,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user46",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user47",
+            "first_name": "user47",
+            "last_name": "user47",
+            "level": 1,
+            "area": 3,
+            "department": 0,
+            "career": 0,
+            "contract": 1,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user47",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user48",
+            "first_name": "user48",
+            "last_name": "user48",
+            "level": 1,
+            "area": 7,
+            "department": 0,
+            "career": 0,
+            "contract": 2,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user48",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user49",
+            "first_name": "user49",
+            "last_name": "user49",
+            "level": 1,
+            "area": 9,
+            "department": 0,
+            "career": 0,
+            "contract": 1,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user49",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user50",
+            "first_name": "user50",
+            "last_name": "user50",
+            "level": 1,
+            "area": 7,
+            "department": 0,
+            "career": 0,
+            "contract": 3,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user50",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user51",
+            "first_name": "user51",
+            "last_name": "user51",
+            "level": 1,
+            "area": 10,
+            "department": 0,
+            "career": 0,
+            "contract": 1,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user51",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user52",
+            "first_name": "user52",
+            "last_name": "user52",
+            "level": 1,
+            "area": 2,
+            "department": 0,
+            "career": 0,
+            "contract": 2,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user52",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user53",
+            "first_name": "user53",
+            "last_name": "user53",
+            "level": 4,
+            "area": 8,
+            "department": 12,
+            "career": 2,
+            "contract": 3,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user53",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user54",
+            "first_name": "user54",
+            "last_name": "user54",
+            "level": 1,
+            "area": 2,
+            "department": 0,
+            "career": 0,
+            "contract": 2,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user54",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user55",
+            "first_name": "user55",
+            "last_name": "user55",
+            "level": 1,
+            "area": 3,
+            "department": 0,
+            "career": 0,
+            "contract": 2,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user55",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user56",
+            "first_name": "user56",
+            "last_name": "user56",
+            "level": 1,
+            "area": 4,
+            "department": 0,
+            "career": 0,
+            "contract": 1,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user56",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user57",
+            "first_name": "user57",
+            "last_name": "user57",
+            "level": 2,
+            "area": 5,
+            "department": 2,
+            "career": 0,
+            "contract": 3,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user57",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user58",
+            "first_name": "user58",
+            "last_name": "user58",
+            "level": 1,
+            "area": 7,
+            "department": 0,
+            "career": 0,
+            "contract": 1,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user58",
+                "num": 0,
+                "postal_code": 0
+            }
+        },
+        {
+            "_id": "user59",
+            "first_name": "user59",
+            "last_name": "user59",
+            "level": 3,
+            "area": 5,
+            "department": 4,
+            "career": 0,
+            "contract": 1,
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "user59",
+                "num": 0,
+                "postal_code": 0
+            }
+        }
 ]

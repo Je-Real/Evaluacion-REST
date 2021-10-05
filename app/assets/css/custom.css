@@ -434,7 +434,22 @@ input.super-sad:checked + svg {
 
 	box-shadow: 0 -0.3rem 0.8rem rgba(136, 255, 0, 0.322);
 }
-/* Encuesta */
+
+.card.card-option {
+	cursor: pointer;
+}
+
+.card.card-option.selected {
+	box-shadow: 0 0.7rem 1.5rem rgba(0,0,0,.175) !important;
+	transition: all 0.25s;
+}
+
+.card.card-option.selected .card-header {
+	background-color: #39d3f1;
+	box-shadow: 0 -0.2rem 1.5rem rgba(117,240,220,0.75);
+	transition: all 0.25s;
+}
+/* Tables */
 
 .shadow-sm, .shadow-lg {
 	transition: all 0.25s;
@@ -442,4 +457,8 @@ input.super-sad:checked + svg {
 
 .shadow-sm:hover {
 	box-shadow: 0 0.7rem 1.5rem rgba(0,0,0,.175) !important;
+}
+
+.table-effect {
+	transition: all ease-in-out 0.25s;
 }

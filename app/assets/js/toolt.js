@@ -1,4 +1,6 @@
-var still_hover, msg, x, y, w, h
+var still_hover, msg,
+    x, y,
+    w, h
 
 $(document).ready(() => {
     $('.h-toolt').mousemove((e) => {

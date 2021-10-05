@@ -19,7 +19,11 @@ async function setCookie(cname, cvalue) {
 async function getCookie(cname) {
 	var name = cname + '='
 	if (cname == 0) {
-		return document.cookie.split('=')[1]
+		var cookie
+		if(document.cookie.indexOf(';') > 0) cookie = document.cookie.split('=')[1].split(';')[0]
+		else cookie = document.cookie.split('=')[1]
+		if(cookie === undefined) cookie = ''
+		return cookie
 	}
 
 	var decodedCookie = decodeURIComponent(document.cookie)

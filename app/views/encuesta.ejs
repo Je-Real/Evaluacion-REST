@@ -13,45 +13,56 @@
                     <h1 class="display-2 text-center my-5">Encuesta</h1>
 
                     <div class="container-fluid my-5">
-                        <div class="card w-md-25 mx-auto mb-4 shadow-sm border-0">
-                            <div class="card-header border-0 d-flex justify-content-center"></div>
-                            <div class="card-body chart-display doughnut">
-                                <div class="row text-center">
-                                    <div class="col-12">
-                                        <p class="mx-2 mb-1 fs-5 text-card">
-                                            <span class="fw-bold">Nombre:</span> <%= session.name %>
-                                        </p>
-                                    </div>
-                                    <div class="col-12">
-                                        <p class="mx-2 mb-1 fs-5 text-card">
-                                            <span class="fw-bold">Área:</span> <%= session.area %>
-                                        </p>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <% if(session.department > 0) { %>
+                        <div class="d-flex flex-wrap justify-content-center">
+                            <% for(var person in eval) { %>
+                            <div id="<%= eval[person]._id %>" data-id="<%= eval[person]._id %>" 
+                                class="card card-option w-md-25 mx-2 mb-4 shadow-sm border-0">
+                                <div class="card-header border-0 d-flex justify-content-center"></div>
+                                <div class="card-body">
+                                    <div class="row text-center">
+                                        <div class="col-12">
                                             <p class="mx-2 mb-1 fs-5 text-card">
-                                                <span class="fw-bold">Departamento:</span> <%= session.department %></p>
-                                    <div class="col-12 col-md-6">
-                                            <p class="mx-2 mb-1 fs-5 text-card">
-                                                <span class="fw-bold">Carrera:</span> <%= session.career %>
+                                                <span id="<%= eval[person]._id %>-fname" data-fname="<%= eval[person].first_name %>"
+                                                    class="fw-bold">Nombre:</span> <%= eval[person].first_name %>
                                             </p>
-                                        <% } %>
+                                        </div>
+                                        <div class="col-12">
+                                            <p class="mx-2 mb-1 fs-5 text-card">
+                                                <span id="<%= eval[person]._id %>-area" data-info="<%= eval[person].area %>"
+                                                    class="fw-bold">Área:</span> <%= eval[person].area %>
+                                            </p>
+                                        </div>
+                                        <div class="col-12">
+                                            <p class="mx-2 mb-1 fs-5 text-card">
+                                                <span id="<%= eval[person]._id %>-depa" data-info="<%= eval[person].department %>"
+                                                    class="fw-bold">Departamento:</span> <%= eval[person].department %></p>
+                                            <div class="col-12">
+                                                <p class="mx-2 mb-1 fs-5 text-card">
+                                                    <span id="<%= eval[person]._id %>-care" data-info="<%= eval[person].career %>"
+                                                        class="fw-bold">Carrera:</span> <%= eval[person].career %>
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer border-0 small text-muted"></div>
+                            <% } %>
                         </div>
-                    </div>
 
 
                     <div class="container-fluid mt-4">
                         <form method="POST" name="f_survey" id="f_survey">
-                            <input type="hidden" name="lvl" id="lvl" value="<%= session.lvl %>">
                             <input type="hidden" name="user" id="user" value="<%= session.user %>">
+                            <input type="hidden" name="lvl" id="lvl" value="<%= session.lvl %>">
+                            
+                            <input type="hidden" name="userObj" id="userObj" value="">
+                            <input type="hidden" name="areaObj" id="areaObj" value="">
+                            <input type="hidden" name="depaObj" id="depaObj" value="">
+                            <input type="hidden" name="careObj" id="careObj" value="">
 
                             <div class="row">
                                 <!-- class="table-responsive" -->
-                                <table class="border-0 table caption-top flex-table border-0">
+                                <table class="border-0 table caption-top flex-table">
                                     <tr class="border-0 table-header deactivated light" id="P-I">
                                         <th class="border-0" scope="col">
                                             <p class="m-0 px-4 text-justify">

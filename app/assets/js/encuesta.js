@@ -1,4 +1,4 @@
-var _id, lvl
+var _id, lvl, card, gr
 
 $(document).ready(() => {
     _id = $('#user').val()
@@ -83,6 +83,23 @@ $(document).ready(() => {
     })
 })
 
+$('.card.card-option').click((e, self) => {
+    $('.card.card-option').removeClass('selected')
+    $('.card.card-option:hover').addClass('selected')
+    
+    $('#userObj').val($('.card.card-option.selected').attr('data-id'))
+
+    $('#areaObj').val($(`#${$('#userObj').val()}-area`).attr('data-info'))
+    $('#depaObj').val($(`#${$('#userObj').val()}-depa`).attr('data-info'))
+    $('#careObj').val($(`#${$('#userObj').val()}-care`).attr('data-info'))
+
+    $('#f_survey')[0].reset()
+    if($('.table-header').hasClass('activated')) {
+        $('.table-header').removeClass('activated')
+        $('.table-header').addClass('deactivated')
+    } 
+})
+
 function postSurvey() {
     var grades = {
         p_1: $('input[name="P-I"]:checked'),
@@ -111,11 +128,7 @@ function postSurvey() {
         url: 'http://localhost:3000/encuesta',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify({
-            _id: _id,
-            lvl: lvl,
-            area: -1,
-            department: -1,
-            career:-1,
+            _id: $('#userObj').val(),
             records: grades
         }),
         dataType: 'json',
