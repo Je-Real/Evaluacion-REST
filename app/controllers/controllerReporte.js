@@ -19,7 +19,7 @@ async function root(req, res) {
         session = req.session
     }
 
-    if(req.session.lvl <= 2){
+    if(req.session.lvl <= 0){
         var area, department
         var getter /* Ex: getter.eval[num_doc].field */
 
@@ -67,9 +67,10 @@ async function root(req, res) {
 }
 
 async function get(req, res) {
-    if(req.session.lvl > 2){ //Normal user request
-        await modelEvaluation.find({ _id: req.body._id })
-            .then(data => { //🟢
+    if(req.session.lvl > 0){ //Normal user request
+        await modelEvaluation.find({ area: req.session.area })
+            .then((data) => { //🟢
+                console.log('into')
                 return res.end(JSON.stringify({
                     data: data,
                     msg: 'Datos obtenidos.',
@@ -77,7 +78,8 @@ async function get(req, res) {
                     noti: true
                 }))
             })
-            .catch(error => { //🔴
+            .catch((error) => { //🔴
+                console.error(error)
                 return res.end(JSON.stringify({
                     msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
                     status: 404,
@@ -85,11 +87,12 @@ async function get(req, res) {
                     error: error
                 }))
             })
-    } else if(req.session.lvl <= 2) { //Administrative user request
+    } else { //Administrative user request
         if(req.body.area && req.body.department){
             //console.log('Admin request (Double) (Reporte)')
             await modelEvaluation.find({ area: req.body.area, department: req.body.department })
-                .then(data => { //🟢
+                .then((data) => { //🟢
+                    console.log('into')
                     return res.end(JSON.stringify({
                         data: data,
                         msg: 'Datos obtenidos.',
@@ -97,7 +100,8 @@ async function get(req, res) {
                         noti: true
                     }))
                 })
-                .catch(error => { //🔴
+                .catch((error) => { //🔴
+                    console.error(error)
                     return res.end(JSON.stringify({
                         msg: 'No se encontraron datos.',
                         status: 404,
@@ -108,7 +112,8 @@ async function get(req, res) {
         } else {
             //console.log('User request (Simple) (Reporte)')
             await modelEvaluation.find({ area: req.body.area })
-                .then(data => { //🟢
+                .then((data) => { //🟢
+                    console.log('into')
                     return res.end(JSON.stringify({
                         data: data,
                         msg: 'Datos obtenidos.',
@@ -116,7 +121,8 @@ async function get(req, res) {
                         noti: true
                     }))
                 })
-                .catch(error => { //🔴
+                .catch((error) => { //🔴
+                    console.error(error)
                     return res.end(JSON.stringify({
                         msg: 'No se encontraron datos.',
                         status: 404,

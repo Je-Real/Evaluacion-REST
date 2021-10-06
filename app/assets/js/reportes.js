@@ -9,7 +9,7 @@ $(document).ready(() => {
 
 	displayCharts(false)
 
-	if(lvl > 2){
+	if(lvl > 0){
 		setTimeout(() => {
 			dataGetter(true)
         }, 800)
@@ -48,7 +48,7 @@ function displayCharts(bool){
 	}
 
 	if(showCharts){
-		if(lvl <= 2) {
+		if(lvl <= 0) {
 			$('.chart-display.doughnut').html(`
 				<canvas id="doughnutChart" width="100%" height="40"></canvas>
 			`)

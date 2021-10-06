@@ -19,11 +19,16 @@ async function setCookie(cname, cvalue) {
 async function getCookie(cname) {
 	var name = cname + '='
 	if (cname == 0) {
-		var cookie
-		if(document.cookie.indexOf(';') > 0) cookie = document.cookie.split('=')[1].split(';')[0]
-		else cookie = document.cookie.split('=')[1]
-		if(cookie === undefined) cookie = ''
-		return cookie
+		var cookieSession, cookieGoTo, ini
+
+		ini = [document.cookie.search('{'), (document.cookie.search('}'))+1]
+		cookieSession = document.cookie.slice(ini[0], ini[1])
+
+		await getCookie('requested-page')
+		.then((data) => { cookieGoTo = data })
+		.catch((error) => { cookieGoTo = undefined })
+
+		return [cookieSession, cookieGoTo]
 	}
 
 	var decodedCookie = decodeURIComponent(document.cookie)

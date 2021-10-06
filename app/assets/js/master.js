@@ -11,13 +11,25 @@ window.addEventListener('DOMContentLoaded', async(event) => {
 
     if($('#layoutNavbar').attr('data-log') === 'false') {
         await getCookie(0)
-        .then((data) => {
+        .then(async(data) => {
             fade_away = false
-            if(data != ''){
+            if(data[0] != '' || data[0] == undefined) {
                 try {
-                    cookieData = JSON.parse(data)
+                    cookieData = JSON.parse(data[0])
                     showSnack('Iniando sesión...', 'info')
-                    return login(cookieData.user, cookieData.pass)
+                    login(cookieData.user, cookieData.pass)
+
+                    if(data[1] != undefined) {
+                        await setCookie('requested-page', undefined)
+                        .then(() => {
+                            setTimeout(() => {
+                                window.location.href = data[1]
+                            }, 2500)
+                        })
+                        .catch((error) => {
+                            return console.error(error)
+                        })
+                    }
                 } catch(error) {
                     return console.error(error)
                 }
