@@ -3,24 +3,24 @@ const modelUserInfo = require('../models/modelUserInfo')
 
 // >>>>>>>>>>>>>>>>>>>>>> Encuesta static <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
+    var data, eval = undefined
+    var lvl = (req.session.lvl >= 5) ? req.session.lvl : req.session.lvl+1
+
     if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
     } else { // Session 🤑
         session = req.session
+        await modelUserInfo.find(
+            { level: parseInt(lvl), area: req.session.area }
+        )
+        .then((dataInfo) => {
+            data = dataInfo
+        })
+        .catch((error) => {
+            console.error(error)
+        })
     }
 
-    var data
-    var lvl = (req.session.lvl >= 5) ? req.session.lvl : req.session.lvl+1
-
-    await modelUserInfo.find(
-        { level: lvl, area: req.session.area }
-    )
-    .then((dataInfo) => {
-        data = dataInfo
-    })
-    .catch((error) => {
-        console.error(error)
-    })
 
     //Encuesta static route
     return res.status(200).render('encuesta', {session: session, eval: data})

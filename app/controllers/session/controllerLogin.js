@@ -43,7 +43,7 @@ async function logIn(req, res) {
 							} catch(error) {
 								req.session.evaluation = true
 							}
-												
+
 							//Response success for AJAX
 							return res.end(JSON.stringify({
 								msg: 'Sesión iniciada. Bienvenido '+dataUInfo[0].first_name+'.',

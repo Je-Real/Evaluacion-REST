@@ -27,7 +27,6 @@ router.get('/encuesta', controllerLayoutStatic.root)
       .post('/encuesta', controllerLayoutStatic.post)
       
 router.get('/control', controllerControl.root)
-      .get('/control/get', controllerControl.get)
 
 router.get('/registro', controllerRegister.root)
 

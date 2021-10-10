@@ -31,14 +31,41 @@
                         <table class="table-effect border-0 w-75 table caption-top flex-table" class="w-75">
                             <thead>
                                 <tr class="border-0 flex-th">
-                                    <th class="border-0 border-end  flex-th">Usuario</th>
-                                    <th class="border-0 border-start flex-th">Nombre(s)</th>
-                                    <th class="border-0 border-start flex-th">Apellido(s)</th>
-                                    <th class="border-0 border-start flex-th">Status</th>
-                                    <th class="border-0 border-start flex-th">Acciones</th>
+                                    <th class="border-0 border-bottom border-end flex-th">Usuario</th>
+                                    <th class="border-0 border-bottom border-start flex-th">Nombre(s)</th>
+                                    <th class="border-0 border-bottom border-start flex-th">Apellido(s)</th>
+                                    <th class="border-0 border-bottom border-start flex-th">Status</th>
+                                    <th class="border-0 border-bottom border-start flex-th">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody class="border-0" id="table-b"></tbody>
+                            <tbody class="border-0" id="table-b">
+                                <% if(records != false) { 
+                                    for(var record in records) { %>
+                                    <tr id="<%= records[record]._id %>" class="i-info" data-status="<%= records[record].area %>">
+                                        <td class="border-0 border-end text-center"><%= records[record]._id %></td>
+                                        <td class="border-0 border-start text-center"><%= records[record].first_name %></td>
+                                        <td class="border-0 border-start text-center"><%= records[record].last_name %></td>
+                                        <td class="border-0 border-start text-center i-status"></td>
+                                        <td class="border-0 border-start text-center justify-content-center px-md-4 d-flex">
+                                            <% if(records[record].area == 0) { %>
+                                            <button type="button" class="btn btn-info mx-md-2 mx-1 p-1 h-toolt">
+                                                <i class="text-white fas fa-plus-circle fa-2x toolt-txt"
+                                                    data-text="Realizar encuesta para <%= records[record].first_name %>"></i>
+                                            </button>
+                                            <% } else { %>
+                                            <p class="fs-5 text-ghost">N/A</p>
+                                            <% } %>
+                                        </td>
+                                    </tr>
+                                <% } } else { %>
+                                <td id="empty" colspan="5" class="border-0 text-center">
+                                    <div class="text-center">
+                                        <i class="fas fa-ghost icon-ghost f-vScreen-15 my-3 text-black-15"></i>
+                                        <p class="my-2 text-ghost fs-4">No hay datos para mostrar</p>
+                                    </div>
+                                </td>
+                                <% } %>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -49,7 +76,6 @@
     </div>
 
     <%- include('template/!scripts.ejs') %>
-    <script src="/js/control.js"></script>
 </body>
 
 </html>

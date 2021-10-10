@@ -187,7 +187,7 @@ function password() {
 
 function showSnack(msg, status) {
     var bgColor
-    var id = Math.random().toString(16).substr(2, 8)
+    var id = Math.random().toString(16).substring(2, 8)
 
     switch(status) {
         case 'success':

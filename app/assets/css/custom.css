@@ -451,6 +451,41 @@ input.super-sad:checked + svg {
 }
 /* Tables */
 
+/* Control */
+
+.i-info {
+	background: rgba(0, 0, 0, 0);
+	transition: all 0.3s;
+}
+
+.i-info:hover {
+	background: #e26d2a4f;
+	box-shadow: 0px 1px 35px -7px #e26d2a4f;
+}
+
+.i-info[data-status="1"]:hover {
+	background: #a5e22a70;
+	box-shadow: 0px 1px 35px -7px #a5e22a70;
+}
+
+.i-info .i-status {
+	background: #e26d2a48;
+}
+
+.i-info .i-status::before {
+	content: 'No realizado';
+}
+
+.i-info[data-status="1"] .i-status {
+	background: #a5e22a70;
+}
+
+.i-info[data-status="1"] .i-status::before {
+	content: 'Realizado';
+}
+
+/* Control */
+
 .shadow-sm, .shadow-lg {
 	transition: all 0.25s;
 }
