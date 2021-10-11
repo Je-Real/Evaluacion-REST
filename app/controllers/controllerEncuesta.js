@@ -3,27 +3,82 @@ const modelUserInfo = require('../models/modelUserInfo')
 
 // >>>>>>>>>>>>>>>>>>>>>> Encuesta static <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
-    var data, eval = undefined
-    var lvl = (req.session.lvl >= 5) ? req.session.lvl : req.session.lvl+1
+    var idGetter = [], arr1 = [], arr2 = [], records = [], date =  new Date(),
+        lvl = (req.session.lvl >= 5) ? req.session.lvl : req.session.lvl+1,
+        area = req.session.area,
+        depa = req.session.department
 
     if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
     } else { // Session 🤑
         session = req.session
+
         await modelUserInfo.find(
-            { level: parseInt(lvl), area: req.session.area }
+            { level: parseInt(lvl), area: parseInt(area) },
+            { _id:1, first_name:1, last_name:1 }
         )
-        .then((dataInfo) => {
-            data = dataInfo
+        .then(async(dataInfo) => {
+            var search = {}
+            if(req.session.lvl <= 1) search.area = area
+            else {
+                search.area = parseInt(area)
+                search.department = parseInt(depa)
+            }
+    
+            await modelEvaluation.find(search, { _id:1, records:1 })
+            .then((dataEval) => {
+                //Get all the info from subordinates
+                for(let i in dataInfo) {
+                    arr1[i] = dataInfo[i]['_id']
+                }
+                /**
+                 * Get all the subordinates evaluations and
+                 * and compare if there is no evaluation for the current year
+                 */
+                for(let j in dataEval) {
+                    if(dataEval[j][date.getFullYear()] == undefined) {
+                        arr2[j] = dataEval[j]['_id']
+                    }
+                }
+
+                //Filter the ids that haven't evaluations for the current year
+                idGetter = arr1.filter(d => !arr2.includes(d))
+
+                /**
+                 * Compare each item and get the user info that
+                 * haven't evaluations for the current year
+                 */
+                for(let k in arr1) {
+                    for(let l in idGetter) {
+                        if(idGetter[l] == arr1[k]) {
+                            records[k] = dataInfo[k]
+                            console.log(`Gotten: ${records[k]}`)
+                            break
+                        }
+                    }
+                }
+
+                //Get rid of the possible empty items in the records
+                records = records.filter(async(noEmpty) => {
+                    return noEmpty
+                })
+            })
+            .catch((error) => {
+                console.error(error)
+                records = false
+            })
         })
         .catch((error) => {
             console.error(error)
+            records = false
         })
     }
 
-
     //Encuesta static route
-    return res.status(200).render('encuesta', {session: session, eval: data})
+    return res.status(200).render('encuesta', {
+        session: session,
+        records: records
+    })
 }
 
 async function post(req, res) {

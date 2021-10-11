@@ -14,32 +14,32 @@
 
                     <div class="container-fluid my-5">
                         <div class="d-flex flex-wrap justify-content-center">
-                            <% for(var person in eval) { %>
-                            <div id="<%= eval[person]._id %>" data-id="<%= eval[person]._id %>" 
+                            <% for(var person in records) { %>
+                            <div id="<%= records[person]._id %>" data-id="<%= records[person]._id %>" 
                                 class="card card-option w-md-25 mx-2 mb-4 shadow-sm border-0">
                                 <div class="card-header border-0 d-flex justify-content-center"></div>
                                 <div class="card-body">
                                     <div class="row text-center">
                                         <div class="col-12">
                                             <p class="mx-2 mb-1 fs-5 text-card">
-                                                <span id="<%= eval[person]._id %>-fname" data-fname="<%= eval[person].first_name %>"
-                                                    class="fw-bold">Nombre:</span> <%= eval[person].first_name %>
+                                                <span id="<%= records[person]._id %>-fname" data-fname="<%= records[person].first_name %>"
+                                                    class="fw-bold">Nombre:</span> <%= records[person].first_name %>
                                             </p>
                                         </div>
                                         <div class="col-12">
                                             <p class="mx-2 mb-1 fs-5 text-card">
-                                                <span id="<%= eval[person]._id %>-area" data-info="<%= eval[person].area %>"
-                                                    class="fw-bold">Área:</span> <%= eval[person].area %>
+                                                <span id="<%= records[person]._id %>-area" data-info="<%= records[person].area %>"
+                                                    class="fw-bold">Área:</span> <%= records[person].area %>
                                             </p>
                                         </div>
                                         <div class="col-12">
                                             <p class="mx-2 mb-1 fs-5 text-card">
-                                                <span id="<%= eval[person]._id %>-depa" data-info="<%= eval[person].department %>"
-                                                    class="fw-bold">Departamento:</span> <%= eval[person].department %></p>
+                                                <span id="<%= records[person]._id %>-depa" data-info="<%= records[person].department %>"
+                                                    class="fw-bold">Departamento:</span> <%= records[person].department %></p>
                                             <div class="col-12">
                                                 <p class="mx-2 mb-1 fs-5 text-card">
-                                                    <span id="<%= eval[person]._id %>-care" data-info="<%= eval[person].career %>"
-                                                        class="fw-bold">Carrera:</span> <%= eval[person].career %>
+                                                    <span id="<%= records[person]._id %>-care" data-info="<%= records[person].career %>"
+                                                        class="fw-bold">Carrera:</span> <%= records[person].career %>
                                                 </p>
                                             </div>
                                         </div>

@@ -12,6 +12,7 @@ async function root(req, res) {
         session = null
     } else { // Session 🤑
         session = req.session
+
         await modelUserInfo.find(
             { level: parseInt(lvl), area: parseInt(area) },
             { _id:1, first_name:1, last_name:1, area:1 }
@@ -47,7 +48,6 @@ async function root(req, res) {
             records = false
         })
     }
-
 
     //Control route
     return res.status(200).render('control', { 
