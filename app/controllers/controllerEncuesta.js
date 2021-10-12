@@ -52,7 +52,6 @@ async function root(req, res) {
                     for(let l in idGetter) {
                         if(idGetter[l] == arr1[k]) {
                             records[k] = dataInfo[k]
-                            console.log(`Gotten: ${records[k]}`)
                             break
                         }
                     }

@@ -19,6 +19,12 @@ async function logIn(req, res) {
 					noti: false
 				}))
 			}
+			//Users that have session tokens in browser cookies
+			if(typeof req.body.pass === 'object') {
+				req.body.pass = crypto.AES.decrypt(req.body.pass.token, req.body._id)
+				req.body.pass = req.body.pass.toString(crypto.enc.Utf8)
+			}
+
 			//Encryption
 			var compare = crypto.AES.decrypt(dataUser[0].pass, req.body._id)
 
@@ -36,6 +42,26 @@ async function logIn(req, res) {
 							req.session.area = dataUInfo[0].area
 							req.session.department = dataUInfo[0].department
 							req.session.career = dataUInfo[0].career
+							
+							//How to manipulate front-end cookies in back-end
+							/*var ini = [req.headers.cookie.search('{'), (req.headers.cookie.search('}'))+1]
+							var rest = [
+								req.headers.cookie.slice(0, ini[0]),
+								req.headers.cookie.slice(ini[1], req.headers.cookie.length)
+							]
+							var obj = JSON.parse(req.headers.cookie.slice(ini[0], ini[1]))
+							obj.pass = dataUser[0].pass
+							obj = JSON.stringify(obj)
+
+							req.headers.cookie = rest[0]+obj+rest[1]
+							for(let header in req.rawHeaders) {
+								if(req.rawHeaders[header].search('user=') != -1) {
+									req.rawHeaders[header] = obj
+								}
+							}
+
+							console.log(req.rawHeaders)
+							console.log(req.headers.cookie)*/
 
 							//Button evaluation
 							try { //true means it's available, false it's deleted
@@ -44,11 +70,13 @@ async function logIn(req, res) {
 								req.session.evaluation = true
 							}
 
+							console.log('Iniciada sesion')
 							//Response success for AJAX
 							return res.end(JSON.stringify({
 								msg: 'Sesión iniciada. Bienvenido '+dataUInfo[0].first_name+'.',
 								data: {
 									user: req.session.user,
+									pass: {token: dataUser[0].pass},
 									name: req.session.name,
 									lvl: req.session.lvl
 								},

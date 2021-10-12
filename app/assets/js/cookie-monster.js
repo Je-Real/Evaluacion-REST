@@ -17,12 +17,12 @@ async function setCookie(cname, cvalue) {
 }
 
 async function getCookie(cname) {
-	var name = cname + '='
 	if (cname == 0) {
-		var cookieSession, cookieGoTo, ini
+		var cookieSession, cookieGoTo
 
-		ini = [document.cookie.search('{'), (document.cookie.search('}'))+1]
-		cookieSession = document.cookie.slice(ini[0], ini[1])
+		await getCookie('user')
+		.then((data) => { cookieSession = data })
+		.catch((error) => { cookieSession = undefined })
 
 		await getCookie('requested-page')
 		.then((data) => { cookieGoTo = data })
@@ -31,6 +31,7 @@ async function getCookie(cname) {
 		return [cookieSession, cookieGoTo]
 	}
 
+	var name = cname + '='
 	var decodedCookie = decodeURIComponent(document.cookie)
 	var ca = decodedCookie.split(';')
 	for (var i = 0; i < ca.length; i++) {

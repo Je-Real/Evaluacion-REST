@@ -13,7 +13,8 @@ window.addEventListener('DOMContentLoaded', async(event) => {
         await getCookie(0)
         .then(async(data) => {
             fade_away = false
-            if(data[0] != '' || data[0] == undefined) {
+            console.log(data[0])
+            if(data[0] != '' && data[0] != undefined) {
                 try {
                     cookieData = JSON.parse(data[0])
                     showSnack('Iniando sesión...', 'info')
@@ -137,8 +138,7 @@ function login(i, p) {
                 $('#load-b').removeClass('hidden')
                 $('#load-b').removeClass('fade')
                 toggleFloating(0)
-                result.data.pass = p
-                await setCookie(result.data.user, JSON.stringify(result.data))
+                await setCookie('user', JSON.stringify(result.data))
                 .then(() => {
                     return window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
                 })
