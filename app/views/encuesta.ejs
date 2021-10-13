@@ -10,7 +10,7 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <% console.log(records.length > 0) { %>
+                    <% if(records.length > 0) { %>
                     <h1 class="display-2 text-center my-5">Encuesta</h1>
 
                     <div class="container-fluid my-5">
@@ -733,6 +733,23 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                    <% } else { %>
+                    <div class="my-e-void d-flex flex-nowrap justify-content-center">
+                        <div class="container ">
+                            <div class="row">
+                                <h1 class="fs-1 text-center text-ghost">No hay nadie para evaluar</h1>
+                            </div>
+                            <div class="row">
+                                <div class="text-center">
+                                    <i class="fas fa-search f-vScreen-15 my-3 text-black-15"></i>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <p class="fs-4 px-5 text-center text-black-50">Intentemos regresar aqui de nuevo dentro de un rato</p>
+                            </div>
+
+                        </div>
                     </div>
                     <% } %>
                 </div>

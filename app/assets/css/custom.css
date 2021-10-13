@@ -229,6 +229,10 @@ body.sb-nav-fixed {
 	color: rgba(0,0,0,0.15);
 }
 
+.text-black-25 {
+	color: rgba(0,0,0,0.25);
+}
+
 .text-ghost {
 	font-style: italic;
     font-variant: all-petite-caps;
@@ -496,4 +500,8 @@ input.super-sad:checked + svg {
 
 .table-effect {
 	transition: all ease-in-out 0.25s;
+}
+
+.my-e-void {
+	padding: 26vh 0;
 }
