@@ -48,7 +48,7 @@
                                         <td class="border-0 border-start text-center i-status"></td>
                                         <td class="border-0 border-start text-center justify-content-center px-md-4 d-flex">
                                             <% if(records[record].area == 0) { %>
-                                            <button type="button" class="btn btn-info mx-md-2 mx-1 p-1 h-toolt">
+                                            <button type="button" onclick="go('<%= records[record]._id %>')" class="btn btn-info mx-md-2 mx-1 p-1 h-toolt">
                                                 <i class="text-white fas fa-plus-circle fa-2x toolt-txt"
                                                     data-text="Realizar encuesta para <%= records[record].first_name %>"></i>
                                             </button>
@@ -76,6 +76,7 @@
     </div>
 
     <%- include('template/!scripts.ejs') %>
+    <script src="/js/control.js"></script>
 </body>
 
 </html>

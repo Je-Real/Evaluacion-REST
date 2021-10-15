@@ -70,7 +70,6 @@ async function get(req, res) {
     if(req.session.lvl > 0){ //Normal user request
         await modelEvaluation.find({ area: req.session.area })
             .then((data) => { //🟢
-                console.log('into')
                 return res.end(JSON.stringify({
                     data: data,
                     msg: 'Datos obtenidos.',
@@ -92,7 +91,6 @@ async function get(req, res) {
             //console.log('Admin request (Double) (Reporte)')
             await modelEvaluation.find({ area: req.body.area, department: req.body.department })
                 .then((data) => { //🟢
-                    console.log('into')
                     return res.end(JSON.stringify({
                         data: data,
                         msg: 'Datos obtenidos.',
@@ -113,7 +111,6 @@ async function get(req, res) {
             //console.log('User request (Simple) (Reporte)')
             await modelEvaluation.find({ area: req.body.area })
                 .then((data) => { //🟢
-                    console.log('into')
                     return res.end(JSON.stringify({
                         data: data,
                         msg: 'Datos obtenidos.',
