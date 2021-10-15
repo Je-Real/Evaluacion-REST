@@ -505,3 +505,21 @@ input.super-sad:checked + svg {
 .my-e-void {
 	padding: 26vh 0;
 }
+
+.top-desing {
+	margin: 0 0 7rem 0;
+}
+
+.top-desing>* {
+	position: absolute;
+	z-index: -1;
+    width: 100%;
+    left: 0;
+	height: 250px;
+	overflow: visible;
+}
+
+.top-desing .waves-design {
+	background-image: url(../img/svg/waves.svg);
+	background-repeat: no-repeat;
+}
