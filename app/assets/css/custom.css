@@ -90,6 +90,18 @@ body.sb-nav-fixed {
 	width: 80%
 }
 
+.w-75 {
+	width: 75%
+}
+
+.w-50 {
+	width: 50%
+}
+
+.w-25 {
+	width: 25%
+}
+
 @media (max-width: 768px) {
 	.w-sm-100 {
 		width: 100% !important;

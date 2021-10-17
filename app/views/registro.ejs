@@ -41,7 +41,7 @@
                                         <div class="form-floating">
                                             <input class="form-control" name="_id-r" id="_id_r"
                                                 type="text" placeholder="." />
-                                            <label for="_id_r">Usuario</label>
+                                            <label for="_id_r">Nuevo usuario</label>
                                         </div>
                                     </div>
                                 </div>
@@ -74,14 +74,14 @@
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <select class="form-select" name="carrera" id="carrera"
+                                            <select class="form-select" name="career" id="career"
                                                 aria-label="Selección" >
-                                                <option id="are-s" value="0" selected>-Selecciona carrera-</option>
+                                                <option id="car-s" class="car" value="0" selected>N/A</option>
                                                 <% for(var d in care) { %>
-                                                    <option class="are" value="<%= carrera[d]['n'] %>"><%= carrera[d]['desc'] %></option>
+                                                    <option class="car" data-depa="<%= care[d]['department'] %>" value="<%= care[d]['n'] %>"><%= care[d]['desc'] %></option>
                                                 <% } %>
                                             </select>
-                                            <label for="carrera">Carrera</label>
+                                            <label for="career">Carrera</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -94,6 +94,30 @@
                                                 <% } %>
                                             </select>
                                             <label for="contract">Contrato</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <select class="form-select" name="lvl" id="lvl"
+                                                aria-label="Selección" >
+                                                <option id="lvl-s" value="0" selected>-Selecciona nivel-</option>
+                                                <option class="lvl-s lvl-1" value="1">Administrativo</option>
+                                                <option class="lvl-s lvl-1" value="2">Sub administrativo</option>
+                                                <option class="lvl-s lvl-2" value="3">Director</option>
+                                                <option class="lvl-s lvl-2" value="4">Sub director</option>
+                                                <option class="lvl-s lvl-3" value="5">Docente</option>
+                                            </select>
+                                            <label for="lvl">Nivel</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3 mb-md-0">
+                                            <input class="form-control" name="manager" id="manager"
+                                                type="text" placeholder="." disabled/>
+                                            <label for="manager">Manager</label>
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +165,7 @@
                     
                                 <div class="mt-4 mb-0">
                                     <div class="row mt-5">
-                                        <button class="mx-auto w-50 btn btn-primary btn-block" type="button" onclick="register()">Registrar</button>
+                                        <button id="submit" class="mx-auto w-50 w-md-25 btn btn-primary btn-block" type="button" onclick="register()">Registrar</button>
                                     </div>
                                 </div>
                             </form>
