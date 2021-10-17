@@ -1,13 +1,36 @@
-var _id, lvl, card, gr
+function listView() {
+    $('.card.card-option').removeClass('w-md-25 mb-4').addClass('w-100 w-lg-75 mb-2')
+    $('.mode').removeClass('card-mode').addClass('list-mode')
+    $('.card-body').addClass('pt-1 pb-2')
+    $('.card-body>.row').removeClass('text-center')
+    $('.columns.row div').removeClass('col-12').addClass('col-lg-3 col-6')
 
-$(document).ready(() => {
-    _id = $('#user').val()
-    lvl = $('#lvl').val()
+    $('#card').addClass('btn-secondary').removeClass('btn-on')
+    $('#list').removeClass('btn-secondary').addClass('btn-on')
+}
 
-    $('#user').remove()
-    $('#lvl').remove()
+function cardView() {
+    $('.card.card-option').removeClass('w-100 w-lg-75 mb-2').addClass('w-md-25 mb-4')
+    $('.mode').removeClass('list-mode').addClass('card-mode')
+    $('.card-body').removeClass('pt-1 pb-2')
+    $('.card-body>.row').addClass('text-center')
+    $('.columns.row div').removeClass('col-lg-3 col-6').addClass('col-12')
 
-    $('input[type="radio"]').click(function(){
+    $('#list').addClass('btn-secondary').removeClass('btn-on')
+    $('#card').removeClass('btn-secondary').addClass('btn-on')
+}
+
+$(document).ready(async() => {
+    await getCookie('USelected')
+    .then((data) => {
+        selectObjective(data)
+        setCookie('USelected', '')
+    })
+    .catch((error) => {
+        console.error('Error (No selected!):', error)
+    })
+
+    $('input[type="radio"]').click(() => {
         var active_V = 0
         var active_VI = 0
 
@@ -83,22 +106,30 @@ $(document).ready(() => {
     })
 })
 
-$('.card.card-option').click((e, self) => {
-    $('.card.card-option').removeClass('selected')
-    $('.card.card-option:hover').addClass('selected')
-    
-    $('#userObj').val($('.card.card-option.selected').attr('data-id'))
+$('.card.card-option').click(() => {selectObjective(true)})
 
-    $('#areaObj').val($(`#${$('#userObj').val()}-area`).attr('data-info'))
-    $('#depaObj').val($(`#${$('#userObj').val()}-depa`).attr('data-info'))
-    $('#careObj').val($(`#${$('#userObj').val()}-care`).attr('data-info'))
+function selectObjective(hover) {
+    if(hover.length==0) return
 
     $('#f_survey')[0].reset()
     if($('.table-header').hasClass('activated')) {
-        $('.table-header').removeClass('activated')
-        $('.table-header').addClass('deactivated')
-    } 
-})
+        $('.table-header').removeClass('activated').addClass('deactivated')
+    }
+    
+    $('.card.card-option').removeClass('selected')
+    if(hover === true) {
+        $('.card.card-option:hover').addClass('selected')
+    } else {
+            $(`div#${hover}`).addClass('selected')
+    }
+        
+    var s = $('.card.card-option.selected').attr('data-id')
+        
+    $('#userObj').val(s)
+    $('#areaObj').val($(`#${s}-area`).attr('data-info'))
+    $('#depaObj').val($(`#${s}-depa`).attr('data-info'))
+    $('#careObj').val($(`#${s}-care`).attr('data-info'))
+}
 
 function postSurvey() {
     var grades = {
@@ -133,7 +164,7 @@ function postSurvey() {
         }),
         dataType: 'json',
         async: true,
-        success: function(result){
+        success:(result) => {
             if(result.noti) showSnack(result.msg, result.resType)
 
             if(result.status === 200){

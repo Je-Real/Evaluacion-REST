@@ -8,7 +8,7 @@ async function setCookie(cname, cvalue) {
 	d.setTime(d.getTime() + 7*24*60*60*1000)
 	var expires = 'expires=' + d.toGMTString()
 	try {
-		document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/'
+		document.cookie = cname+'='+cvalue+';expires='+expires+';path=/'
 		return true
 	} catch (error) {
 		console.error(error)
@@ -17,7 +17,7 @@ async function setCookie(cname, cvalue) {
 }
 
 async function getCookie(cname) {
-	if (cname == 0) {
+	if (cname === 0) {
 		var cookieSession, cookieGoTo
 
 		await getCookie('user')
@@ -32,15 +32,14 @@ async function getCookie(cname) {
 	}
 
 	var name = cname + '='
-	var decodedCookie = decodeURIComponent(document.cookie)
-	var ca = decodedCookie.split(';')
-	for (var i = 0; i < ca.length; i++) {
-		var c = ca[i]
-		while (c.charAt(0) == ' ') {
-			c = c.substring(1)
+	var cookieJar = document.cookie.split(';')
+	for (var i = 0; i < cookieJar.length; i++) {
+		var cookie = cookieJar[i]
+		while (cookie.charAt(0) == ' ') {
+			cookie = cookie.substring(1)
 		}
-		if (c.indexOf(name) == 0) {
-			return c.substring(name.length, c.length)
+		if (cookie.indexOf(name) == 0) {
+			return cookie.substring(name.length, cookie.length)
 		}
 	}
 	throw false
@@ -67,9 +66,11 @@ async function checkCookie(cname) {
 async function eatCookies() {
 	try {
 		document.cookie.split(";").forEach(function(c) {
-			document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+			document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/")
 		})
+		console.log('cleared: '+ document.cookie)
 		sessionStorage.clear()
+		localStorage.clear()
 		return true
 	} catch(error) {
 		console.error(error)

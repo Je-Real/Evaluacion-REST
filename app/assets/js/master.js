@@ -6,14 +6,13 @@ var tf = false,
     backpanel = document.getElementById('backPanel'),
     glass = document.getElementById('layoutSidenav')
     
-window.addEventListener('DOMContentLoaded', async(event) => {
+$(document).ready(async() => {
     var fade_away = true
 
     if($('#layoutNavbar').attr('data-log') === 'false') {
         await getCookie(0)
         .then(async(data) => {
             fade_away = false
-            console.log(data[0])
             if(data[0] != '' && data[0] != undefined) {
                 try {
                     cookieData = JSON.parse(data[0])
@@ -41,7 +40,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
             fade_away = true
             throw console.error('error: '+error)
         })
-    } 
+    }
     
     if(fade_away) {
         setTimeout(async() => {

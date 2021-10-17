@@ -78,6 +78,18 @@ body.sb-nav-fixed {
 	animation: fadein 0.5s, fadeout 0.5s 2.5s;*/
 }
 
+.w-100 {
+	width: 100%
+}
+
+.w-90 {
+	width: 90%
+}
+
+.w-80 {
+	width: 80%
+}
+
 @media (max-width: 768px) {
 	.w-sm-100 {
 		width: 100% !important;
@@ -88,6 +100,21 @@ body.sb-nav-fixed {
 }
 
 @media (min-width: 768px) {
+	.w-sm-90 {
+		width: 90% !important;
+	}
+	.w-sm-80 {
+		width: 80% !important;
+	}
+}
+
+@media (min-width: 768px) {
+	.w-md-90 {
+		width: 90% !important;
+	}
+	.w-md-80 {
+		width: 80% !important;
+	}
 	.w-md-25 {
 		width: 25% !important;
 	}
@@ -95,6 +122,24 @@ body.sb-nav-fixed {
 		width: 50% !important;
 	}
 	.w-md-75 {
+		width: 75% !important;
+	}
+}
+
+@media (min-width: 992px) { /*lg*/
+	.w-lg-90 {
+		width: 90% !important;
+	}
+	.w-lg-80 {
+		width: 80% !important;
+	}
+	.w-lg-25 {
+		width: 25% !important;
+	}
+	.w-lg-50 {
+		width: 50% !important;
+	}
+	.w-lg-75 {
 		width: 75% !important;
 	}
 }
@@ -246,6 +291,14 @@ body.sb-nav-fixed {
 	animation: ghost-anim 4s ease-in-out infinite;
 }
 
+.btn.btn-on {
+	color: rgb(36, 36, 36);
+    background-color: #3fe698;
+    border-color: #3fe698;
+	-webkit-box-shadow: 0px 0px 20px -4px #17FF72; 
+	box-shadow: 0px 0px 20px -4px #17FF72;
+}
+
 @-webkit-keyframes ghost-anim {
 	0% {
 		top: -7px;
@@ -274,6 +327,39 @@ body.sb-nav-fixed {
 	font-family: 'Dosis', sans-serif;
 }
 
+.shadow-sm, .shadow-lg {
+	transition: all 0.25s;
+}
+
+.shadow-sm:hover {
+	box-shadow: 0 0.7rem 1.5rem rgba(0,0,0,.175) !important;
+}
+
+.table-effect {
+	transition: all ease-in-out 0.25s;
+}
+
+.my-e-void {
+	padding: 26vh 0;
+}
+
+.top-desing {
+	margin: 0 0 7rem 0;
+}
+
+.top-desing>* {
+	position: absolute;
+	z-index: -1;
+    width: 100%;
+    left: 0;
+	height: 250px;
+	overflow: visible;
+}
+
+.top-desing .waves-design {
+	background-image: url(../img/svg/waves.svg);
+	background-repeat: no-repeat;
+}
 
 /* Control */
 .dataTable-selector {
@@ -339,6 +425,15 @@ body.sb-nav-fixed {
 /* Tooltip */
 
 /* Encuesta */
+.row.list-mode .card-header {
+    width: 1rem;
+	border-radius: calc(.25rem - 1px) 0 0 calc(.25rem - 1px);
+}
+
+.row.list-mode .card-body {
+    width: auto
+}
+
 #radios label {
 	position: relative;
 }
@@ -454,9 +549,9 @@ input.super-sad:checked + svg {
 	transition: all 0.25s;
 }
 /* Tables */
+/* Encuesta */
 
 /* Control */
-
 .i-info {
 	background: rgba(0, 0, 0, 0);
 	transition: all 0.3s;
@@ -487,39 +582,4 @@ input.super-sad:checked + svg {
 .i-info[data-status="1"] .i-status::before {
 	content: 'Realizado';
 }
-
 /* Control */
-
-.shadow-sm, .shadow-lg {
-	transition: all 0.25s;
-}
-
-.shadow-sm:hover {
-	box-shadow: 0 0.7rem 1.5rem rgba(0,0,0,.175) !important;
-}
-
-.table-effect {
-	transition: all ease-in-out 0.25s;
-}
-
-.my-e-void {
-	padding: 26vh 0;
-}
-
-.top-desing {
-	margin: 0 0 7rem 0;
-}
-
-.top-desing>* {
-	position: absolute;
-	z-index: -1;
-    width: 100%;
-    left: 0;
-	height: 250px;
-	overflow: visible;
-}
-
-.top-desing .waves-design {
-	background-image: url(../img/svg/waves.svg);
-	background-repeat: no-repeat;
-}

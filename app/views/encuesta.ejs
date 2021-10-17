@@ -9,38 +9,44 @@
 
         <div id="layoutSidenav_content">
             <main>
-                <div class="container-fluid px-4">
+                <div class="container-fluid px-5">
                     <% if(records.length > 0) { %>
                     <h1 class="display-2 text-center my-5">Encuesta</h1>
 
                     <div class="container-fluid my-5">
+                        <div id="btnContainer" class="mb-5 text-end me-5">
+                            <button id="list" class="mx-1 btn btn-view btn-secondary" onclick="listView()"><i class="fa fa-bars"></i> Lista</button> 
+                            <button id="card" class="mx-1 btn btn-view btn-on" onclick="cardView()"><i class="fa fa-th-large"></i> Tarjetas</button>
+                          </div>
                         <div class="d-flex flex-wrap justify-content-center">
                             <% for(var person in records) { %>
                             <div id="<%= records[person]._id %>" data-id="<%= records[person]._id %>" 
-                                class="card card-option w-md-25 mx-2 mb-4 shadow-sm border-0">
-                                <div class="card-header border-0 d-flex justify-content-center"></div>
-                                <div class="card-body">
-                                    <div class="row text-center">
-                                        <div class="col-12">
-                                            <p class="mx-2 mb-1 fs-5 text-card">
-                                                <span id="<%= records[person]._id %>-fname" data-fname="<%= records[person].first_name %>"
-                                                    class="fw-bold">Nombre:</span> <%= records[person].first_name %>
-                                            </p>
-                                        </div>
-                                        <div class="col-12">
-                                            <p class="mx-2 mb-1 fs-5 text-card">
-                                                <span id="<%= records[person]._id %>-area" data-info="<%= records[person].area %>"
-                                                    class="fw-bold">Área:</span> <%= records[person].area %>
-                                            </p>
-                                        </div>
-                                        <div class="col-12">
-                                            <p class="mx-2 mb-1 fs-5 text-card">
-                                                <span id="<%= records[person]._id %>-depa" data-info="<%= records[person].department %>"
-                                                    class="fw-bold">Departamento:</span> <%= records[person].department %></p>
+                                class="container card card-option w-md-25 mx-2 mb-4 shadow-sm border-0">
+                                <div class="row mode card-mode">
+                                    <div class="card-header border-0 d-flex justify-content-center"></div>
+                                    <div class="card-body">
+                                        <div class="columns row text-center">
+                                            <div class="col-12">
+                                                <p class="mx-2 mb-1 fs-5 text-card">
+                                                    <span id="<%= records[person]._id %>-fname" data-fname="<%= records[person].first_name %>"
+                                                        class="fw-bold">Nombre: </span><%= records[person].first_name %>
+                                                </p>
+                                            </div>
+                                            <div class="col-12">
+                                                <p class="mx-2 mb-1 fs-5 text-card">
+                                                    <span id="<%= records[person]._id %>-area" data-info="<%= records[person].area %>"
+                                                        class="fw-bold">Área: </span><%= records[person].area %>
+                                                </p>
+                                            </div>
+                                            <div class="col-12">
+                                                <p class="mx-2 mb-1 fs-5 text-card">
+                                                    <span id="<%= records[person]._id %>-depa" data-info="<%= records[person].department %>"
+                                                        class="fw-bold">Departamento: </span><%= records[person].department %></p>
+                                            </div>
                                             <div class="col-12">
                                                 <p class="mx-2 mb-1 fs-5 text-card">
                                                     <span id="<%= records[person]._id %>-care" data-info="<%= records[person].career %>"
-                                                        class="fw-bold">Carrera:</span> <%= records[person].career %>
+                                                        class="fw-bold">Carrera: </span><%= records[person].career %>
                                                 </p>
                                             </div>
                                         </div>
@@ -50,12 +56,8 @@
                             <% } %>
                         </div>
 
-
                     <div class="container-fluid mt-4">
-                        <form method="POST" name="f_survey" id="f_survey">
-                            <input type="hidden" name="user" id="user" value="<%= session.user %>">
-                            <input type="hidden" name="lvl" id="lvl" value="<%= session.lvl %>">
-                            
+                        <form method="POST" name="f_survey" id="f_survey">                            
                             <input type="hidden" name="userObj" id="userObj" value="">
                             <input type="hidden" name="areaObj" id="areaObj" value="">
                             <input type="hidden" name="depaObj" id="depaObj" value="">
