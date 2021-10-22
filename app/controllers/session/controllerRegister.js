@@ -103,7 +103,16 @@ async function signIn(req, res) {
 	//NEVER place a return outside the catch
 }
 
+// ********************************** nedeed to be finished
+async function getManager(req, res) {
+	await modelUserInfo.find({ _id: req.body._id })
+	.then((data) => {
+		
+	})
+}
+
 module.exports = {
 	root,
 	signIn,
+	getManager,
 }

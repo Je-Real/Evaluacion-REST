@@ -28,13 +28,15 @@ $('#area').change(() => {
 		//If in the area does not exist any departments
 		$('#dep-s').text('N/A').removeClass('d-none').prop('selected', true)
 		$('#department').prop('disabled', true)
-        $('#contract').prop('disabled', true)
+        levels(0, 0)
 	} else {
-		//Else 🟢
+        //Else 🟢
 		$('#dep-s').text('-Selecciona carrera-').removeClass('d-none').prop('selected', true)
 		$('#department').prop('disabled', false)
-        $('#contract').prop('disabled', false)
 	}
+
+    if(parseInt($('#area').val()) != 0) $('#contract').prop('disabled', false)
+    else $('#contract').prop('disabled', true)
     levels(1, $('#area').val())
 })
 
@@ -61,14 +63,16 @@ $('#career').change(() => {
     levels(3, $('#career').val())
 })
 
-function levels(lvl, val) {
+function levels(lvlShown, val) {
     var lvl_temp = lvl_s 
 
-    lvl_s = (parseInt(val)===0 && parseInt(lvl)<=1)
-        ? 0 : ((parseInt(val)===0 && parseInt(lvl)===2)
-            ? 1 : ((parseInt(val)===0 && parseInt(lvl)===3)
-                ? 2 : ((parseInt(val)>0 && parseInt(lvl)!=lvl_s)
-                    ? parseInt(lvl) : lvl_s)))
+    if(parseInt(val)===0) {
+        lvl_s = (parseInt(lvlShown)<=1) //If the level is less than 1, show nothing
+            ? 0 : ((parseInt(lvlShown)===2) //Or else if level is 2, show Director and Subdirector levels
+                ? 1 : ((parseInt(lvlShown)===3) //Or else if level is 3, show Docent level
+                    ? 2 : ((parseInt(val)>0 && parseInt(lvlShown)!=lvl_s) //If the select isn't empty and level isn't equal as selected
+                        ? parseInt(lvlShown) : lvl_s))) //Then set the new value if it's true or else it won't change
+    }
 
     if(lvl_temp != lvl_s) {
         $('#lvl').prop('disabled', false)

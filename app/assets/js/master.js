@@ -1,3 +1,7 @@
+
+//Production mode
+//'use strict'
+
 var tf = false,
     tr = false,
     frameL = document.getElementById('floatingLogin'),
@@ -15,7 +19,7 @@ $(document).ready(async() => {
             fade_away = false
             if(data[0] != '' && data[0] != undefined) {
                 try {
-                    cookieData = JSON.parse(data[0])
+                    var cookieData = JSON.parse(data[0])
                     showSnack('Iniando sesión...', 'info')
                     login(cookieData.user, cookieData.pass)
 
