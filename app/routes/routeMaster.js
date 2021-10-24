@@ -16,36 +16,37 @@ const controllerRegister = require('../controllers/session/controllerRegister')
 
 //const controllerControl = require('../controllers/secret/controllerControl')
 
-
+// Index
 router.get('/inicio', controllerIndex.root)
       .get('/inicio/test', controllerIndex.test)
-      
+
+// Reports
 router.get('/reportes', controllerReporteC.root)
       .post('/reportes/get', controllerReporteC.get)
 
+// Survey
 router.get('/encuesta', controllerLayoutStatic.root)
       .post('/encuesta', controllerLayoutStatic.post)
-      
+
+// Control panel
 router.get('/control', controllerControl.root)
 
+// Register
 router.get('/registro', controllerRegister.root)
+      .get('/registro/manager', controllerRegister.getManager)
 
-      
+// Recovery password
 router.get('/password', controllerPassword.root)
-      
+
+// Users
 router.post('/sesion/nuevo-usuario', controllerRegister.signIn)
       .post('/sesion/login', controllerLogin.logIn)
       .get('/sesion/logout', controllerLogin.logOut)
 
-
+// Errors
 router.get('/error/401', controller401.root)
-      
-router.get('/error/404', controller404.root)
-
+router.get('**', controller404.root)
 router.get('/error/500', controller500.root)
-
-
-router.get('/control', controllerControl.root)
 
 
 module.exports = router

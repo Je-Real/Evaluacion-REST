@@ -99,35 +99,35 @@ function generatorRex() {
         pass = crypto.AES.encrypt(user, user).toString()
 
         userer = userer + `{
-"_id": "${user}",
-"last_conn": {
-    "$date": "2021-09-09T01:24:41.751Z"
-},
-"created": {
-    "$date": "2021-09-09T01:24:41.751Z"
-},
-"enabled": true,
-"pass": "${pass}"
-},`
+            "_id": "${user}",
+            "last_conn": {
+                "$date": "2021-09-09T01:24:41.751Z"
+            },
+            "created": {
+                "$date": "2021-09-09T01:24:41.751Z"
+            },
+            "enabled": true,
+            "pass": "${pass}"
+            },`
 
-        inforer = inforer +`{
-"_id": "${user}",
-"first_name": "${user}",
-"last_name": "${user}",
-"level": ${lvl},
-"area": ${area},
-"department": ${depa},
-"career": ${care},
-"contract": ${cont},
-"b_day": {
-    "$date": "2021-08-23T00:00:00.000Z"
-},
-"address": {
-    "street": "${user}",
-    "num": 0,
-    "postal_code": 0
-}
-},`
+                    inforer = inforer +`{
+            "_id": "${user}",
+            "first_name": "${user}",
+            "last_name": "${user}",
+            "level": ${lvl},
+            "area": ${area},
+            "department": ${depa},
+            "career": ${care},
+            "contract": ${cont},
+            "b_day": {
+                "$date": "2021-08-23T00:00:00.000Z"
+            },
+            "address": {
+                "street": "${user}",
+                "num": 0,
+                "postal_code": 0
+            }
+        },`
     }
 
     console.log('');

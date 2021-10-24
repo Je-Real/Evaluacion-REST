@@ -103,11 +103,59 @@ async function signIn(req, res) {
 	//NEVER place a return outside the catch
 }
 
-// ********************************** nedeed to be finished
 async function getManager(req, res) {
-	await modelUserInfo.find({ _id: req.body._id })
-	.then((data) => {
-		
+	var search
+
+	if(parseInt(req.query.level)-1 == 0) {
+		search = { level: parseInt(req.query.level)-1 }
+	} else if(req.query.department > 0) {
+		search = {
+			area: parseInt(req.query.area),
+			level: parseInt(req.query.level)-1
+		}
+	} else if(req.query.career > 0) {
+		search = {
+			area: parseInt(req.query.area),
+			department: parseInt(req.query.department),
+			level: parseInt(req.query.level)-1
+		}
+	} else {
+		search = {
+			area: parseInt(req.query.area),
+			department: parseInt(req.query.department),
+			career: parseInt(req.query.career),
+			level: parseInt(req.query.level)-1
+		}
+	}
+
+	console.log(search);
+	
+	await modelUserInfo.find(search)
+	.then((data) => { //🟢
+		var info = []
+
+		for(i in data) {
+			info[i] = {
+				_id: data[i]._id,
+				level: data[i].level,
+				first_name: data[i].first_name,
+				last_name: data[i].last_name
+			}
+		}
+
+		return res.end(JSON.stringify({
+			data: info,
+			status: 200,
+			noti: true
+		}))
+	})
+	.catch((error) => { //if error 🤬
+		console.log('Error:',error)
+		return res.end(JSON.stringify({
+			msg: 'Error en servidor.',
+			status: 500,
+			noti: true
+		}))
 	})
 }
 
