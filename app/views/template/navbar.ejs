@@ -40,7 +40,7 @@
                 aria-expanded="false"><i class="fas fa-user fa-fw"></i> <%= temp %> </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <% if(session) { %>
-                        <% if(session.lvl <= 2) { %>
+                        <% if(session.lvl <= 3) { %>
                             <li>
                                 <a class="dropdown-item" href="/registro/">Nuevo usuario</a>
                             </li>

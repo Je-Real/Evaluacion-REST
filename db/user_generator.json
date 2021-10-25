@@ -1,0 +1,266 @@
+[
+    {
+        "first_name": "María Angélica",
+        "last_name": "Martínez Díaz",
+        "level": 1,
+        "area": 1,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Angelica",
+        "last_name": "Zavala Martínez",
+        "level": 2,
+        "area": 1,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Alfredo",
+        "last_name": "Cárdenas",
+        "level": 2,
+        "area": 1,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Ma. Elizabeth",
+        "last_name": "Almeida Salazar",
+        "level": 2,
+        "area": 1,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Martha Guadalupe",
+        "last_name": "Díaz Venegas",
+        "level": 2,
+        "area": 1,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Ángel Eduardo",
+        "last_name": "Zamora Acevedo",
+        "level": 2,
+        "area": 1,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Eduardo de",
+        "last_name": "Anda López",
+        "level": 2,
+        "area": 1,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Eduardo",
+        "last_name": "Sotres Ramos",
+        "level": 2,
+        "area": 7,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Jorge Enrique",
+        "last_name": "Uria Adame",
+        "level": 2,
+        "area": 6,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Rebeca Inés",
+        "last_name": "Rodríguez Beltrán",
+        "level": 2,
+        "area": 5,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Armando Jare",
+        "last_name": "Bernal Pérez",
+        "level": 2,
+        "area": 1,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Blanca Haydee",
+        "last_name": "Hernández Gallardo",
+        "level": 2,
+        "area": 3,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Diana Verónica",
+        "last_name": "Rodríguez Escobedo",
+        "level": 3,
+        "area": 1,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Christian ",
+        "last_name": "Hernández Duque Díaz de León",
+        "level": 3,
+        "area": 1,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Ernesto",
+        "last_name": "Díaz Romero",
+        "level": 3,
+        "area": 1,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Maribel",
+        "last_name": "Dávila Rodríguez",
+        "level": 3,
+        "area": 1,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Yolanda",
+        "last_name": "Velasco De Luna",
+        "level": 3,
+        "area": 1,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "José de Jesús",
+        "last_name": "Báez Puebla",
+        "level": 3,
+        "area": 1,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Verónica Ivett",
+        "last_name": "González Gutiérrez",
+        "level": 3,
+        "area": 4,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Claudia Mónica",
+        "last_name": "Medina Badillo",
+        "level": 4,
+        "area": 4,
+        "department": 0,
+        "career": 0
+    },
+    {
+        "first_name": "Ernesto",
+        "last_name": "Macías Gómez",
+        "level": 3,
+        "area": 5,
+        "department": 6,
+        "career": 0
+    },
+    {
+        "first_name": "Claudia",
+        "last_name": "Prieto Macías",
+        "level": 3,
+        "area": 5,
+        "department": 1,
+        "career": 0
+    },
+    {
+        "first_name": "Felipe de Jesús",
+        "last_name": "Ocampo Rangel",
+        "level": 3,
+        "area": 5,
+        "department": 2,
+        "career": 0
+    },
+    {
+        "first_name": "Christian Fabiola",
+        "last_name": "Quiroz Puentes",
+        "level": 3,
+        "area": 5,
+        "department": 1,
+        "career": 0
+    },
+    {
+        "first_name": "Ma. Del Refugio",
+        "last_name": "Martínez Hernández",
+        "level": 3,
+        "area": 5,
+        "department": 3,
+        "career": 0
+    },
+    {
+        "first_name": "Francisca",
+        "last_name": "Herrera Castañón",
+        "level": 5,
+        "area": 5,
+        "department": 1,
+        "career": 0
+    },
+    {
+        "first_name": "Perla Cecilia",
+        "last_name": "Bustos Estrada",
+        "level": 5,
+        "area": 5,
+        "department": 1,
+        "career": 0
+    },
+    {
+        "first_name": "Ana Evelia",
+        "last_name": "Sánchez García",
+        "level": 5,
+        "area": 5,
+        "department": 1,
+        "career": 0
+    },
+    {
+        "first_name": "Nelly Jocabeth",
+        "last_name": "Herrera Hernández",
+        "level": 5,
+        "area": 5,
+        "department": 1,
+        "career": 0
+    },
+    {
+        "first_name": "César Omar",
+        "last_name": "Elias Díaz",
+        "level": 5,
+        "area": 5,
+        "department": 1,
+        "career": 0
+    },
+    {
+        "first_name": "Soraila Edith",
+        "last_name": "Covarrubias Rodríguez",
+        "level": 5,
+        "area": 5,
+        "department": 1,
+        "career": 0
+    },
+    {
+        "first_name": "Karla Noemí",
+        "last_name": "García Cisneros",
+        "level": 5,
+        "area": 5,
+        "department": 1,
+        "career": 0
+    },
+    {
+        "first_name": "Delia",
+        "last_name": "Castañón Mata",
+        "level": 5,
+        "area": 5,
+        "department": 1,
+        "career": 0
+    }
+]

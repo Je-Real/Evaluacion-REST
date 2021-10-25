@@ -4,7 +4,7 @@ const modelUserInfo = require('../models/modelUserInfo')
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
     var session, records = false
-    var lvl = (req.session.lvl >= 5) ? req.session.lvl : req.session.lvl+1,
+    var lvl = req.session.lvl+1,
         area = req.session.area,
         depa = req.session.department
     

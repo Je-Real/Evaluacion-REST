@@ -14,7 +14,7 @@ const controllerLogin = require('../controllers/session/controllerLogin')
 const controllerPassword = require('../controllers/session/controllerPassword')
 const controllerRegister = require('../controllers/session/controllerRegister')
 
-//const controllerControl = require('../controllers/secret/controllerControl')
+const controllerUserGenerator = require('../controllers/secret/controllerUserGenerator')
 
 // Index
 router.get('/inicio', controllerIndex.root)
@@ -43,10 +43,12 @@ router.post('/sesion/nuevo-usuario', controllerRegister.signIn)
       .post('/sesion/login', controllerLogin.logIn)
       .get('/sesion/logout', controllerLogin.logOut)
 
-// Errors
-router.get('/error/401', controller401.root)
-router.get('**', controller404.root)
-router.get('/error/500', controller500.root)
+//Shhh... it's a secret🤐
+router.get('/secret/user-generator', controllerUserGenerator.root)
 
+// Errors handlers (Always keep this at the end)
+router.get('**', controller404.root)
+router.get('/error/401', controller401.root)
+router.get('/error/500', controller500.root)
 
 module.exports = router

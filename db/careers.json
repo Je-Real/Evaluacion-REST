@@ -1,77 +1,44 @@
 [{
-  "_id": {
-    "$oid": "614eb4482513c028a6f47b49"
-  },
   "n": 1,
   "department": 12,
   "desc": "1 carrera"
 },{
-  "_id": {
-    "$oid": "614eb4482513c028a6f47b4a"
-  },
   "n": 2,
   "department": 12,
   "desc": "2 carrera"
 },{
-  "_id": {
-    "$oid": "614eb4482513c028a6f47b4b"
-  },
   "n": 3,
   "department": 12,
   "desc": "3 carrera"
 },{
-  "_id": {
-    "$oid": "614eb4482513c028a6f47b4c"
-  },
   "n": 4,
   "department": 13,
   "desc": "4 carrera"
 },{
-  "_id": {
-    "$oid": "614eb4482513c028a6f47b4d"
-  },
   "n": 5,
   "department": 13,
   "desc": "5 carrera"
 },{
-  "_id": {
-    "$oid": "614eb4482513c028a6f47b4e"
-  },
   "n": 6,
   "department": 14,
   "desc": "6 carrera"
 },{
-  "_id": {
-    "$oid": "614eb4482513c028a6f47b4f"
-  },
   "n": 7,
   "department": 14,
   "desc": "7 carrera"
 },{
-  "_id": {
-    "$oid": "614eb4482513c028a6f47b50"
-  },
   "n": 8,
   "department": 15,
   "desc": "8 carrera"
 },{
-  "_id": {
-    "$oid": "614eb4482513c028a6f47b51"
-  },
   "n": 9,
   "department": 15,
   "desc": "9 carrera"
 },{
-  "_id": {
-    "$oid": "614eb4482513c028a6f47b52"
-  },
   "n": 10,
   "department": 16,
   "desc": "10 carrera"
 },{
-  "_id": {
-    "$oid": "614eb4482513c028a6f47b53"
-  },
   "n": 11,
   "department": 16,
   "desc": "11 carrera"

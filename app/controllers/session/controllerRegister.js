@@ -65,21 +65,21 @@ async function signIn(req, res) {
 			new modelUserInfo(req.body).save()
 			.then(() => { //🟢
 				new modelUser(req.body).save()
-					.then(() => { //🟢
-						return res.end(JSON.stringify({
-							msg: '¡Registrado correctamente!',
-							status: 200,
-							noti: true
-						}))
-					})
-					.catch((error) => { //🔴
-						console.log(error)
-						return res.end(JSON.stringify({
-							msg: 'No se puede registrar usuario.\r\nIntentalo más tarde.',
-							status: 500,
-							noti: true
-						}))
-					})
+				.then(() => { //🟢
+					return res.end(JSON.stringify({
+						msg: '¡Registrado correctamente!',
+						status: 200,
+						noti: true
+					}))
+				})
+				.catch((error) => { //🔴
+					console.log(error)
+					return res.end(JSON.stringify({
+						msg: 'No se puede registrar usuario.\r\nIntentalo más tarde.',
+						status: 500,
+						noti: true
+					}))
+				})
 			})
 			.catch((error) => { //🔴
 				console.log(error)

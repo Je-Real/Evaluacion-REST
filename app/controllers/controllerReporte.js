@@ -19,7 +19,7 @@ async function root(req, res) {
         session = req.session
     }
 
-    if(req.session.lvl <= 0){
+    if(req.session.lvl <= 1){
         var area, department
         var getter /* Ex: getter.eval[num_doc].field */
 
@@ -67,7 +67,7 @@ async function root(req, res) {
 }
 
 async function get(req, res) {
-    if(req.session.lvl > 0){ //Normal user request
+    if(req.session.lvl > 1){ //Non Rector user request
         await modelEvaluation.find({ area: req.session.area })
             .then((data) => { //🟢
                 return res.end(JSON.stringify({
