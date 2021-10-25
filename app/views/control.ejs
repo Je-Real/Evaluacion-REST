@@ -27,8 +27,8 @@
 
                 <div class="container-fluid px-4">
                     <h1 class="display-1 text-center mt-4">Tablas</h1>
-                    <div class="container d-flex justify-content-center">
-                        <table class="table-effect border-0 w-75 table caption-top flex-table" class="w-75">
+                    <div class="container w-lg-75 w-90 mx-auto">
+                        <table class="paginator table-effect border-0 table caption-top flex-table" class="w-75">
                             <thead>
                                 <tr class="border-0 flex-th">
                                     <th class="border-0 border-bottom border-end flex-th">Usuario</th>
@@ -46,9 +46,10 @@
                                         <td class="border-0 border-start text-center"><%= records[record].first_name %></td>
                                         <td class="border-0 border-start text-center"><%= records[record].last_name %></td>
                                         <td class="border-0 border-start text-center i-status"></td>
-                                        <td class="border-0 border-start text-center justify-content-center px-md-4 d-flex">
+                                        <td class="border-0 border-start d-flex justify-content-center h-100">
                                             <% if(records[record].area == 0) { %>
-                                            <button type="button" onclick="go('<%= records[record]._id %>')" class="btn btn-info mx-md-2 mx-1 p-1 h-toolt">
+                                            <button title="go-to-survey" type="button" 
+                                                onclick="go('<%= records[record]._id %>')" class="btn btn-info mx-md-2 my-auto mx-1 p-1 h-toolt">
                                                 <i class="text-white fas fa-plus-circle fa-2x toolt-txt"
                                                     data-text="Realizar encuesta para <%= records[record].first_name %>"></i>
                                             </button>
@@ -77,6 +78,64 @@
 
     <%- include('template/!scripts.ejs') %>
     <script src="/js/control.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('.paginator').after('<div id="pag-ctrl"></div>');
+            var rowsShown = 4;
+            var rowsTotal = $('.paginator tbody tr').length;
+            var numPages = rowsTotal/rowsShown;
+            for(i = 0;i < numPages;i++) {
+                var pageNum = i + 1;
+                $('#pag-ctrl').append('<a href="#" rel="'+i+'">'+pageNum+'</a> ');
+            }
+            $('.paginator tbody tr').hide();
+            $('.paginator tbody tr').slice(0, rowsShown).show();
+            $('#pag-ctrl a:first').addClass('active');
+            $('#pag-ctrl a').bind('click', function(){
+
+                $('#pag-ctrl a').removeClass('active');
+                $(this).addClass('active');
+                var currPage = $(this).attr('rel');
+                var startItem = currPage * rowsShown;
+                var endItem = startItem + rowsShown;
+                $('.paginator tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).
+                        css('display','table-row').animate({opacity:1}, 300);
+            });
+        });
+
+        //$(document).ready(function(){
+        //    $('.paginator').after(`
+        //        <div id="pag-ctrl" class="pagination mx-auto">
+        //            <a href="#" rel="prev">&laquo;</a>
+        //            <a href="#" rel="next">&raquo;</a>
+        //        </div>
+        //    `)
+        //    var rowsShown = 4
+        //    var rowsTotal = $('.paginator tbody tr').length
+        //    var numPages = rowsTotal/rowsShown
+//
+        //    for(i=0; i<numPages; i++) {
+        //        $('#pag-ctrl a[rel="next"]').before(`<a href="#" rel="${i}">${i+1}</a>`)
+        //    }
+//
+        //    $('.paginator tbody tr').hide()
+        //    $('.paginator tbody tr').slice(0, rowsShown).show()
+        //    $('#pag-ctrl a[rel="prev"]').addClass('blocked')
+        //    $('#pag-ctrl a[rel="0"]').addClass('active')
+//
+        //    $('#pag-ctrl a').bind('click', () => {
+        //        $('#pag-ctrl a').removeClass('active')
+        //        $(this).addClass('active')
+        //        var currPage = $(this).attr('rel')
+        //        console.log(currPage);
+        //        var startItem = currPage * rowsShown
+        //        var endItem = startItem + rowsShown
+        //        $('.paginator tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).
+        //        css('display','table-row').animate({opacity:1}, 300)
+        //    })
+        //})
+    </script>
 </body>
 
 </html>
