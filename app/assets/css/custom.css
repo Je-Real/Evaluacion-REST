@@ -638,7 +638,7 @@ input.super-sad:checked + svg {
 
 .pagination a.blocked {
 	cursor: not-allowed;
-	color: #bbbbbb;
+	opacity: 0;
 }
 
 .pagination a:hover:not(.active, .blocked) {
