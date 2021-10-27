@@ -644,6 +644,10 @@ input.super-sad:checked + svg {
 .pagination a:hover:not(.active, .blocked) {
 	background-color: #ececec;
 }
+
+.pag-cont .rows-quantity {
+	width: 7rem;
+}
 /* Pagination */
 
 /* Secret */

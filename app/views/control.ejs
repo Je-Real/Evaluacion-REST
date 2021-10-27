@@ -26,17 +26,9 @@
                 </div>
 
                 <div class="container-fluid px-4">
-                    <h1 class="display-1 text-center mt-4">Tablas</h1>
+                    <h1 class="display-1 text-center mt-4">Control</h1>
                     <div class="container w-lg-75 w-90 mx-auto">
-                        <div class="form-control">
-                            <select name="rows" id="rows">
-                                <option value="5">5</option>
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="30">30</option>
-                            </select>
-                        </div>
-                        <table class="paginator table-effect border-0 table caption-top flex-table" class="w-75">
+                        <table class="paginator table-effect border-0 table caption-top flex-table">
                             <thead>
                                 <tr class="border-0 flex-th">
                                     <th class="border-0 border-bottom border-end flex-th">Usuario</th>
@@ -86,38 +78,6 @@
 
     <%- include('template/!scripts.ejs') %>
     <script src="/js/control.js"></script>
-
-    <script>
-        $(document).ready(function(){
-            $('.paginator').before()
-            $('.paginator').after(
-                '<div id="pag-ctrl" class="pagination mx-auto">'+
-                '<a href="#" rel="prev">&laquo;</a>'+
-                '<a href="#" rel="next">&raquo;</a>'+
-                '</div>'
-            )
-            var rows = 4
-            var rowsTotal = $('.paginator tbody tr').length
-            var numPages = rowsTotal/rows
-            for(i = 0;i < numPages;i++) {
-                $('#pag-ctrl a[rel="next"]').before('<a href="#" rel="'+i+'">'+(i + 1)+'</a> ')
-            }
-            $('.paginator tbody tr').hide()
-            $('.paginator tbody tr').slice(0, rows).show()
-            $('#pag-ctrl a[rel="prev"]').addClass('blocked')
-            $('#pag-ctrl a[rel="0"]').addClass('active')
-            
-            $('#pag-ctrl a').bind('click', function(){
-                $('#pag-ctrl a').removeClass('active')
-                $(this).addClass('active')
-                var currPage = $(this).attr('rel')
-                var startItem = currPage * rows
-                var endItem = startItem + rows
-                $('.paginator tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).
-                    css('display','table-row').animate({opacity:1}, 300)
-            })
-        })
-    </script>
 </body>
 
 </html>
