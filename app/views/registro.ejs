@@ -9,12 +9,8 @@
 
         <div id="layoutSidenav_content">
             <div class="container">
-                <div class="row mt-4">
-                    <div class="col-3"></div>
-                    <div class="col-6">
-                        <h1 class="display-3 text-center mt-3 mb-5">Registro de Nuevo Personal</h1>
-                    </div>
-                    <div class="col-3"></div>
+                <div class="dynamic-title">
+                    <h1 class="display-3 text-center mt-3 mb-5">Registro de Nuevo Personal</h1>
                 </div>
             </div>
 
@@ -180,11 +176,6 @@
             <%- include('template/!footer.ejs') %>
         </div>
     </div>
-
-    <div class="spinner-border text-info"></div>
-
-    <%- include('template/password.ejs') %>
-    <%- include('template/login.ejs') %>
 
     <%- include('template/!scripts.ejs') %>
     <script src="/js/registro.js"></script>

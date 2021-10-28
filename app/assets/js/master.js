@@ -1,5 +1,5 @@
 
-//Production mode
+// 👇 Production mode
 //'use strict'
 
 var tf = false,
@@ -78,18 +78,19 @@ function outSession(clicked) {
 function toggleFloating(floating) {
     if(tf || floating === 0) {
         try { frameL.className = frameL.className.replace('d-flex', 'd-none') }
-        catch { console.log('No se encontro Frame Login') }
+        catch { console.log('Skiping Frame Login') }
         try { frameP.className = frameP.className.replace('d-flex', 'd-none') }
-        catch { console.log('No se encontro Frame Password') }
+        catch { console.log('Skiping Frame Password') }
         try {
             backpanel.className = backpanel.className.replace('blur-on', 'blur-off')
             backpanel.className = backpanel.className.replace('d-block', 'd-none')
         }
-        catch { console.log('No se encontro Background Panel') }
+        catch { console.log('Skiping Background Panel') }
         glass.className = ''
     } else {
-        if(floating === 1){
-            frameP.className = frameP.className.replace('d-flex', 'd-none')
+        if (floating === 1) {
+            try { frameP.className = frameP.className.replace('d-flex', 'd-none') }
+            catch { console.log('Skiping Frame Password') }
             frameL.className = frameL.className.replace('d-none', 'd-flex')
             backpanel.className = backpanel.className.replace('d-none', 'd-block')
             backpanel.className = backpanel.className.replace('blur-off', 'blur-on')
@@ -100,9 +101,10 @@ function toggleFloating(floating) {
                 glass.className = 'blur-on position-fixed'
             }
             $('#_id').focus()
-        } else {
+        } else if (floating === 2) {
             frameL.className = frameL.className.replace('d-flex', 'd-none')
-            frameP.className = frameP.className.replace('d-none', 'd-flex')
+            try { frameP.className = frameP.className.replace('d-none', 'd-flex') }
+            catch { console.log('Skiping Frame Password') }
             backpanel.className = backpanel.className.replace('d-none', 'd-block')
             backpanel.className = backpanel.className.replace('blur-off', 'blur-on')
 
@@ -138,8 +140,7 @@ function login(i, p) {
             }
 
             if(result.status === 200){
-                $('#load-b').removeClass('hidden')
-                $('#load-b').removeClass('fade')
+                $('#load-b').removeClass('hidden fade')
                 toggleFloating(0)
                 await setCookie('user', JSON.stringify(result.data))
                 .then(() => {
@@ -166,8 +167,7 @@ function logout() {
         success: async (result) => {
             if(result.status === 200){
                 outSession(true)
-                $('#load-b').removeClass('hidden')
-                $('#load-b').removeClass('fade')
+                $('#load-b').removeClass('hidden fade')
                 await eatCookies()
                     .finally(() => {
                         setTimeout(() => {
@@ -184,6 +184,6 @@ function logout() {
     })
 }
 
-function password() {
+function resetPsw() {
     console.log('Reemplazar')
 }

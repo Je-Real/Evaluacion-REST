@@ -7,7 +7,7 @@ const modelDepartment = require('../models/modelDepartment')
 async function root(req, res) {
     var date = new Date()
     var hour = date.getHours()
-    var s
+    var s, session
 
     if(hour >= 5 && hour <= 12) { s = 'Buen dia' } 
     else if (hour > 12 && hour <= 19) { s = 'Buenas tardes' }

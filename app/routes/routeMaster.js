@@ -11,7 +11,7 @@ const controller401 = require('../controllers/error/controller401')
 const controller500 = require('../controllers/error/controller500')
 
 const controllerLogin = require('../controllers/session/controllerLogin')
-const controllerPassword = require('../controllers/session/controllerPassword')
+const controllerResetPsw = require('../controllers/session/controllerResetPsw')
 const controllerRegister = require('../controllers/session/controllerRegister')
 
 const controllerUserGenerator = require('../controllers/secret/controllerUserGenerator')
@@ -36,7 +36,7 @@ router.get('/registro', controllerRegister.root)
       .get('/registro/manager', controllerRegister.getManager)
 
 // Recovery password
-router.get('/password', controllerPassword.root)
+router.post('/reset-psw', controllerResetPsw.reset)
 
 // Users
 router.post('/sesion/nuevo-usuario', controllerRegister.signIn)

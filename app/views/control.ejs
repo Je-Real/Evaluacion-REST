@@ -26,7 +26,10 @@
                 </div>
 
                 <div class="container-fluid px-4">
-                    <h1 class="display-1 text-center mt-4">Control</h1>
+                    <div class="dynamic-title">
+                        <h1 class="display-1 text-center py-4">Control</h1>
+                    </div>
+
                     <div class="container w-lg-75 w-90 mx-auto">
                         <table class="paginator table-effect border-0 table caption-top flex-table">
                             <thead>
@@ -48,13 +51,13 @@
                                         <td class="border-0 border-start text-center i-status"></td>
                                         <td class="border-0 border-start d-flex justify-content-center h-100">
                                             <% if(records[record].area == 0) { %>
-                                            <button title="go-to-survey" type="button" 
-                                                onclick="go('<%= records[record]._id %>')" class="btn btn-info mx-md-2 my-auto mx-1 p-1 h-toolt">
-                                                <i class="text-white fas fa-plus-circle fa-2x toolt-txt"
-                                                    data-text="Realizar encuesta para <%= records[record].first_name %>"></i>
-                                            </button>
+                                                <button type="button" onclick="go('<%= records[record]._id %>')" 
+                                                    class="btn btn-info mx-md-2 my-auto mx-1 p-1 h-toolt">
+                                                    <i class="text-white fas fa-plus-circle fa-2x toolt-txt"
+                                                        data-text="Realizar encuesta para <%= records[record].first_name %>"></i>
+                                                </button>
                                             <% } else { %>
-                                            <div class="fs-5 text-ghost">N/A</div>
+                                                <div class="fs-5 text-ghost">N/A</div>
                                             <% } %>
                                         </td>
                                     </tr>

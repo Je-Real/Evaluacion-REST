@@ -3,6 +3,7 @@ const modelUserInfo = require('../models/modelUserInfo')
 
 // >>>>>>>>>>>>>>>>>>>>>> Encuesta static <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
+    var session
     var idGetter = [], arr1 = [], arr2 = [], records = [], date =  new Date(),
         lvl = req.session.lvl+1,
         area = req.session.area,

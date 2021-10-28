@@ -4,7 +4,7 @@ $(document).ready(function(){
     //$('.paginator').before()
     $('.paginator').after(`
         <div class="pag-cont d-flex justify-content-md-between">
-            <div id="pag-ctrl" class="pagination">
+            <div id="pag-ctrl" class="pagination my-auto">
                 <a href="#" rel="prev">&laquo;</a>
                 <a href="#" rel="next">&raquo;</a>
             </div>
