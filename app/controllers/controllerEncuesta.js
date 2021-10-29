@@ -291,8 +291,6 @@ async function post(req, res) {
     var temp = Number((Math.abs(score) * 100).toPrecision(15))
     score = Math.round(temp) / 100 * Math.sign(score)
 
-    console.log('--'+JSON.stringify(req.body._id));
-
     await modelUserInfo.find({ _id: req.body._id })
 		.then(async(dataUI) => { //🟢
             if(dataUI.length){

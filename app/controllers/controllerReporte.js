@@ -67,26 +67,28 @@ async function root(req, res) {
 }
 
 async function get(req, res) {
-    if(req.session.lvl > 1){ //Non Rector user request
+    
+    var search = (req.body.area) ? { area: req.body.area } :
+    
         await modelEvaluation.find({ area: req.session.area })
-            .then((data) => { //🟢
-                return res.end(JSON.stringify({
-                    data: data,
-                    msg: 'Datos obtenidos.',
-                    status: 200,
-                    noti: true
-                }))
-            })
-            .catch((error) => { //🔴
-                console.error(error)
-                return res.end(JSON.stringify({
-                    msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
-                    status: 404,
-                    noti: true,
-                    error: error
-                }))
-            })
-    } else { //Administrative user request
+        .then((data) => { //🟢
+            return res.end(JSON.stringify({
+                data: data,
+                msg: 'Datos obtenidos.',
+                status: 200,
+                noti: true
+            }))
+        })
+        .catch((error) => { //🔴
+            console.error(error)
+            return res.end(JSON.stringify({
+                msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
+                status: 404,
+                noti: true,
+                error: error
+            }))
+        })
+
         if(req.body.area && req.body.department){
             //console.log('Admin request (Double) (Reporte)')
             await modelEvaluation.find({ area: req.body.area, department: req.body.department })
@@ -128,7 +130,6 @@ async function get(req, res) {
                     }))
                 })
         }
-    }
 }
 
 module.exports = {

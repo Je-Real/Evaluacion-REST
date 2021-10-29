@@ -3244,19 +3244,19 @@ fieldset:disabled .btn {
 
 .btn-success {
 	color: #fff;
-	background-color: #198754;
-	border-color: #198754;
+	background-color: #56ce96;
+	border-color: #56ce96;
 }
 .btn-success:hover {
 	color: #fff;
-	background-color: #157347;
-	border-color: #146c43;
+	background-color: #41a174;
+	border-color: #41a174;
 }
 .btn-check:focus + .btn-success,
 .btn-success:focus {
 	color: #fff;
-	background-color: #157347;
-	border-color: #146c43;
+	background-color: #24cc7e;
+	border-color: #41a174;
 	box-shadow: 0 0 0 0.25rem rgba(60, 153, 110, 0.5);
 }
 .btn-check:checked + .btn-success,
@@ -3265,8 +3265,8 @@ fieldset:disabled .btn {
 .btn-success.active,
 .show > .btn-success.dropdown-toggle {
 	color: #fff;
-	background-color: #146c43;
-	border-color: #13653f;
+	background-color: #41a174;
+	border-color: #41a174;
 }
 .btn-check:checked + .btn-success:focus,
 .btn-check:active + .btn-success:focus,

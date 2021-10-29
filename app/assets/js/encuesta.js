@@ -82,7 +82,7 @@ $(document).ready(async() => {
             $('#P-V').removeClass('activated')
             $('#P-V').addClass('deactivated')
         }
-        
+
         if($('input[name="P-IX"]:checked').val()) { active_VI++ } 
         else { active_VI+-1 }
         if($('input[name="P-X"]:checked').val()) { active_VI++ } 
@@ -115,16 +115,16 @@ function selectObjective(hover) {
     if($('.table-header').hasClass('activated')) {
         $('.table-header').removeClass('activated').addClass('deactivated')
     }
-    
+
     $('.card.card-option').removeClass('selected')
     if(hover === true) {
         $('.card.card-option:hover').addClass('selected')
     } else {
             $(`div#${hover}`).addClass('selected')
     }
-        
+
     var s = $('.card.card-option.selected').attr('data-id')
-        
+
     $('#userObj').val(s)
     $('#areaObj').val($(`#${s}-area`).attr('data-info'))
     $('#depaObj').val($(`#${s}-depa`).attr('data-info'))
@@ -169,7 +169,7 @@ function postSurvey() {
 
             if(result.status === 200){
                 setTimeout(() => {
-                    window.location.href = String(location.href).slice(0, 21+1)+"reportes/"
+                    window.location.href = String(location.href).slice(0, 21+1)+"control/"
                 }, 1500)
             }
         },

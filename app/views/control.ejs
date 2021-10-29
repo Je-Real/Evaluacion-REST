@@ -57,7 +57,11 @@
                                                         data-text="Realizar encuesta para <%= records[record].first_name %>"></i>
                                                 </button>
                                             <% } else { %>
-                                                <div class="fs-5 text-ghost">N/A</div>
+                                                <button type="button" 
+                                                    class="btn btn-success mx-md-2 my-auto mx-1 p-1 h-toolt">
+                                                    <i class="text-white fas fa-chart-line fa-2x toolt-txt"
+                                                        data-text="Ver registros de <%= records[record].first_name %>"></i>
+                                                </button>
                                             <% } %>
                                         </td>
                                     </tr>

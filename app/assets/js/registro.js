@@ -173,10 +173,6 @@ async function register() {
     })
 }
 
-/**
- * Hacer funcion AJAX para busqueda automatica de Manager
- * dependiendo el nivel del nuevo usuario
- */
 function getManager(lvl_sel) {
     $('.mgr-s').remove()
     if(lvl_sel === false) {
@@ -203,6 +199,7 @@ function getManager(lvl_sel) {
         success: (result) => {
             if(result.status === 200){
                 if(result.data.length > 0){
+
                     for(info in result.data) {
                         $("#manager").append(
                             `<option class="mgr-s mgr-${info}" value="${info+1}">
@@ -218,6 +215,7 @@ function getManager(lvl_sel) {
                 } else {
                     $("#manager").prop('disabled', true)
                     $('#mgr-s').text('N/A').removeClass('d-none').prop('selected', true)
+                    showSnack('No se encontro manager.\r\nError del servidor.', 'error')
                 }
             }
         },
