@@ -7,7 +7,7 @@ base.connect()
 
 app.listen(CONFIG.PORT, function(error) {
     if(error) return console.log(error)
-    console.log("Server's Port: " + `\x1b[36m%s\x1b[0m`, `${CONFIG.PORT}\n`)
+    console.log(`\x1b[35m[server]\x1b[34m Running App on Port: \x1b[36m${CONFIG.PORT}\x1b[0m \n`)
 })
 
 app.use(morgan('dev'))

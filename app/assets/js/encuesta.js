@@ -1,25 +1,3 @@
-function listView() {
-    $('.card.card-option').removeClass('w-md-25 mb-4').addClass('w-100 w-lg-75 mb-2')
-    $('.mode').removeClass('card-mode').addClass('list-mode')
-    $('.card-body').addClass('pt-1 pb-2')
-    $('.card-body>.row').removeClass('text-center')
-    $('.columns.row div').removeClass('col-12').addClass('col-lg-3 col-6')
-
-    $('#card').addClass('btn-secondary').removeClass('btn-on')
-    $('#list').removeClass('btn-secondary').addClass('btn-on')
-}
-
-function cardView() {
-    $('.card.card-option').removeClass('w-100 w-lg-75 mb-2').addClass('w-md-25 mb-4')
-    $('.mode').removeClass('list-mode').addClass('card-mode')
-    $('.card-body').removeClass('pt-1 pb-2')
-    $('.card-body>.row').addClass('text-center')
-    $('.columns.row div').removeClass('col-lg-3 col-6').addClass('col-12')
-
-    $('#list').addClass('btn-secondary').removeClass('btn-on')
-    $('#card').removeClass('btn-secondary').addClass('btn-on')
-}
-
 $(document).ready(async() => {
     await getCookie('USelected')
     .then((data) => {
@@ -108,6 +86,28 @@ $(document).ready(async() => {
 
 $('.card.card-option').click(() => {selectObjective(true)})
 
+function listView() {
+    $('.card.card-option').removeClass('w-md-25 mb-4').addClass('w-100 w-lg-75 mb-2')
+    $('.mode').removeClass('card-mode').addClass('list-mode')
+    $('.card-body').addClass('pt-1 pb-2')
+    $('.card-body>.row').removeClass('text-center')
+    $('.columns.row div').removeClass('col-12').addClass('col-lg-3 col-6')
+
+    $('#card').addClass('btn-secondary').removeClass('btn-on')
+    $('#list').removeClass('btn-secondary').addClass('btn-on')
+}
+
+function cardView() {
+    $('.card.card-option').removeClass('w-100 w-lg-75 mb-2').addClass('w-md-25 mb-4')
+    $('.mode').removeClass('list-mode').addClass('card-mode')
+    $('.card-body').removeClass('pt-1 pb-2')
+    $('.card-body>.row').addClass('text-center')
+    $('.columns.row div').removeClass('col-lg-3 col-6').addClass('col-12')
+
+    $('#list').addClass('btn-secondary').removeClass('btn-on')
+    $('#card').removeClass('btn-secondary').addClass('btn-on')
+}
+
 function selectObjective(hover) {
     if(hover.length==0) return
 
@@ -154,14 +154,18 @@ function postSurvey() {
         grades[grade] = parseInt(grades[grade].val())
     }
 
+    var packed = {
+        _id: $('#userObj').val(),
+        records: grades
+    }
+
+    return console.log(packed);
+    
     $.ajax({
         type: 'POST',
         url: 'http://localhost:3000/encuesta',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({
-            _id: $('#userObj').val(),
-            records: grades
-        }),
+        data: packed,
         dataType: 'json',
         async: true,
         success:(result) => {

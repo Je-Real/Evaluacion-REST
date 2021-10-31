@@ -1,13 +1,42 @@
 const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
+const modelArea = require('../models/modelArea')
+const modelDepartment = require('../models/modelDepartment')
+const modelCareer = require('../models/modelCareer')
 
 // >>>>>>>>>>>>>>>>>>>>>> Encuesta static <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
-    var session
-    var idGetter = [], arr1 = [], arr2 = [], records = [], date =  new Date(),
-        lvl = req.session.lvl+1,
-        area = req.session.area,
-        depa = req.session.department
+    var session, search = {}, allAreas, allDeps, allCareers,
+        idGetter = [], arr1 = [], arr2 = [], userData = [], date =  new Date()
+        
+    if (req.session.lvl == 1) search.level = parseInt(req.session.lvl)+1 
+    else {
+        search.level = parseInt(req.session.lvl)+1 
+        if (req.session.area) search.area = req.session.area
+        if (req.session.department) search.department = req.session.department
+    }
+
+    /*
+    model.aggregate([
+        {
+            match({ n: { $lt: 5 } })
+        },
+        {
+            $lookup: {
+                from: "areas",
+                pipeline: [
+                    { $project: { _id: 0, n: 0 } }
+                ],
+                localField: "area",
+                foreignField: "n",
+                as: "area",
+            }
+        },
+        { 
+            $project: { _id: 0 }
+        }
+    ])
+    */
 
     if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
@@ -15,19 +44,13 @@ async function root(req, res) {
         session = req.session
 
         await modelUserInfo.find(
-            { level: parseInt(lvl), area: parseInt(area) },
-            { _id:1, first_name:1, last_name:1 }
+            search,
+            { _id:1, first_name:1, last_name:1, area: 1, department: 1, career: 1 }
         )
         .then(async(dataInfo) => {
-            var search = {}
-            if(req.session.lvl <= 1) search.area = area
-            else {
-                search.area = parseInt(area)
-                search.department = parseInt(depa)
-            }
-    
             await modelEvaluation.find(search, { _id:1, records:1 })
-            .then((dataEval) => {
+            .then(async(dataEval) => {
+                console.log(dataEval);
                 //Get all the info from subordinates
                 for(let i in dataInfo) {
                     arr1[i] = dataInfo[i]['_id']
@@ -42,42 +65,61 @@ async function root(req, res) {
                     }
                 }
 
-                //Filter the ids that haven't evaluations for the current year
+                /*console.log(arr2);
+
+                var asArray = Object.entries(dataEval);
+                var filtered = asArray.filter(([key, value]) => typeof value === 'undefined');
+
+                console.log(Object.fromEntries(filtered));*/
+
+                //Filter the ids that have no evaluations for the current year
                 idGetter = arr1.filter(d => !arr2.includes(d))
+
+                await modelArea.find({}) // Get all areas in DB
+                .then((data) => allAreas = data)
+                .catch(() => allArea = null)
+
+                await modelDepartment.find({}) // Get all departments in DB
+                .then((data) => allDeps = data)
+                .catch(() => allDeps = null)
+                
+                await modelCareer.find({}) // Get all careers in DB
+                .then((data) => allCareers = data)
+                .catch(() => allCareers = null)
 
                 /**
                  * Compare each item and get the user info that
-                 * haven't evaluations for the current year
+                 * have no evaluations for the current year
                  */
                 for(let k in arr1) {
                     for(let l in idGetter) {
                         if(idGetter[l] == arr1[k]) {
-                            records[k] = dataInfo[k]
+                            userData[k] = dataInfo[k]
                             break
                         }
                     }
                 }
 
-                //Get rid of the possible empty items in the records
-                records = records.filter(async(noEmpty) => {
+                //Get rid of the possible empty items in the userData
+                userData = userData.filter(async(noEmpty) => {
                     return noEmpty
                 })
             })
             .catch((error) => {
                 console.error(error)
-                records = false
+                userData = false
             })
         })
         .catch((error) => {
             console.error(error)
-            records = false
+            userData = false
         })
     }
 
     //Encuesta static route
     return res.status(200).render('encuesta', {
         session: session,
-        records: records
+        userData: userData
     })
 }
 
