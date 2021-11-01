@@ -16,28 +16,6 @@ async function root(req, res) {
         if (req.session.department) search.department = req.session.department
     }
 
-    /*
-    model.aggregate([
-        {
-            match({ n: { $lt: 5 } })
-        },
-        {
-            $lookup: {
-                from: "areas",
-                pipeline: [
-                    { $project: { _id: 0, n: 0 } }
-                ],
-                localField: "area",
-                foreignField: "n",
-                as: "area",
-            }
-        },
-        { 
-            $project: { _id: 0 }
-        }
-    ])
-    */
-
     if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
     } else { // Session 🤑

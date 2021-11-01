@@ -8,7 +8,7 @@
     <%- include('template/sidebar.ejs') %>
 
         <div id="layoutSidenav_content">
-            <main>
+            <main class="mb-5">
                 <div class="container-fluid px-4">
                     <div class="container">
                         <div class="dynamic-title mt-4 mb-0 vw-50">
@@ -47,7 +47,6 @@
                                         value="<%= session.career %>">
             
                                     <div class="">
-                                        <% if(session.lvl <= 1) { %>
                                         <form method="GET" name="f-rep" id="f-rep" autocomplete="off">                                        
                                             <div class="card border-0 shadow-sm">
                                                 <div class="card-header border-0 border-0 d-flex justify-content-center">
@@ -57,9 +56,9 @@
                                                     
                                                 <div class="card-body">
                                                     <div class="container p-0">
-                                                        <div class="row my-2">
+                                                        <div class="row">
                                                             <h6>Área:</h6>
-                                                            <div class="form-floating mb-4">
+                                                            <div class="form-floating">
                                                                 <select class="form-select" name="area" id="area" aria-label="Selección">
                                                                     <option id="are-s" value="0" selected>-Selecciona área-</option>
                                                                     <% for(var d in area) { %>
@@ -70,9 +69,10 @@
                                                                 </select>
                                                                 <label for="area">Área</label>
                                                             </div>
-                                                                                            
+
+                                                            <% if (depa.length > 0) { %>
                                                             <h6>Departamento:</h6>
-                                                            <div class="form-floating">
+                                                            <div class="form-floating my-4">
                                                                 <select class="form-select" name="department" id="department" aria-label="Selección" disabled>
                                                                     <option id="dep-s" class="dep" value="0" selected>N/A</option>
                                                                     <% for(var d in depa) { %>
@@ -83,12 +83,27 @@
                                                                 </select>
                                                                 <label for="department">Departamento</label>
                                                             </div>
+                                                            <% } %>
+                                                            
+                                                            <% if (care.length > 0) { %>
+                                                            <h6>Carrera:</h6>
+                                                            <div class="form-floating">
+                                                                <select class="form-select" name="career" id="career" aria-label="Selección" disabled>
+                                                                    <option id="car-s" class="car" value="0" selected>N/A</option>
+                                                                    <% for(var d in care) { %>
+                                                                        <option class="car" data-depa="<%= care[d]['department'] %>" value="<%= care[d]['n'] %>">
+                                                                            <%= care[d]['desc'] %>
+                                                                        </option>
+                                                                    <% } %>
+                                                                </select>
+                                                                <label for="career">Carrera</label>
+                                                            </div>
+                                                            <% } %>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </form>
-                                        <% } %>
 
                                         <div class="d-flex justify-content-center my-4">
                                             <button class="btn btn-info" onclick="pdfReport()">Descargar Reporte</button>
@@ -107,7 +122,6 @@
                                 </div>
 
                                 <div class="row h-100">
-                                    <% if(session.lvl <= 1) { %>
                                     <div class="col-0 col-lg-3"></div>
                                     <div class="col-12 col-lg-6">
                                         <div class="card mb-4 shadow-sm border-0">
@@ -122,7 +136,6 @@
                                         </div>
                                     </div>
                                     <div class="col-0 col-lg-3"></div>
-                                    <% } %>
 
                                     <div class="col-12 col-lg-6">
                                         <div class="card mb-4 shadow-sm border-0">
