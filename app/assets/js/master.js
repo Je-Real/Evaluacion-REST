@@ -7,7 +7,6 @@ var tf = false,
     frameL = document.getElementById('floatingLogin'),
     frameP = document.getElementById('floatingPass'),
     frameR = document.getElementById('floatingRegister'),
-    backpanel = document.getElementById('backPanel'),
     glass = document.getElementById('layoutSidenav')
     
 $(document).ready(async() => {
@@ -57,6 +56,61 @@ $(document).ready(async() => {
             await $('.deletable').remove() //Remove all the "deletable" elements after 1 sec
         }, 1000)
     }
+
+    /* select with effect
+    $('select.dropdown').each(function() {
+        var dropdown = $('<div/>').addClass('dropdown selectDropdown')
+    
+        $(this).wrap(dropdown)
+    
+        var label = $('<span/>').text($(this).attr('placeholder')).insertAfter($(this))
+        var list = $('<ul/>')
+    
+        $(this).find('option').each(function() {
+            list.append($('<li/>').append($('<a/>').text($(this).text())))
+        })
+    
+        list.insertAfter($(this))
+    
+        if($(this).find('option:selected').length) {
+            label.text($(this).find('option:selected').text())
+            list.find('li:contains(' + $(this).find('option:selected').text() + ')').addClass('active')
+            $(this).parent().addClass('filled')
+        }
+    
+    })
+    
+    $(document).on('click touch', '.selectDropdown ul li a', function(e) {
+        e.preventDefault()
+        var dropdown = $(this).parent().parent().parent()
+        var active = $(this).parent().hasClass('active')
+        var label = active ? dropdown.find('select').attr('placeholder') : $(this).text()
+    
+        dropdown.find('option').prop('selected', false)
+        dropdown.find('ul li').removeClass('active')
+    
+        dropdown.toggleClass('filled', !active)
+        dropdown.children('span').text(label)
+    
+        if(!active) {
+            dropdown.find('option:contains(' + $(this).text() + ')').prop('selected', true)
+            $(this).parent().addClass('active')
+        }
+    
+        dropdown.removeClass('open')
+    })
+    
+    $('.dropdown > span').on('click touch', function(e) {
+        var self = $(this).parent()
+        self.toggleClass('open')
+    })
+    
+    $(document).on('click touch', function(e) {
+        var dropdown = $('.dropdown')
+        if(dropdown !== e.target && !dropdown.has(e.target).length) {
+            dropdown.removeClass('open')
+        }
+    })*/
 })
 
 //Capture Enter key in inputs
@@ -76,50 +130,44 @@ function outSession(clicked) {
 }
 
 function toggleFloating(floating) {
-    if(tf || floating === 0) {
-        try { frameL.className = frameL.className.replace('d-flex', 'd-none') }
+    if (tf || floating === 0) {
+        try { frameL.className = frameL.className.replace('block', 'none') }
         catch { console.log('Skiping Frame Login') }
-        try { frameP.className = frameP.className.replace('d-flex', 'd-none') }
+        try { frameP.className = frameP.className.replace('block', 'none') }
         catch { console.log('Skiping Frame Password') }
-        try {
-            backpanel.className = backpanel.className.replace('blur-on', 'blur-off')
-            backpanel.className = backpanel.className.replace('d-block', 'd-none')
-        }
-        catch { console.log('Skiping Background Panel') }
+
         glass.className = ''
     } else {
         if (floating === 1) {
-            try { frameP.className = frameP.className.replace('d-flex', 'd-none') }
+            try { frameL.className = frameL.className.replace('none', 'block') }
+            catch { console.log('Skiping Frame Login') }
+            try { frameP.className = frameP.className.replace('block', 'none') }
             catch { console.log('Skiping Frame Password') }
-            frameL.className = frameL.className.replace('d-none', 'd-flex')
-            backpanel.className = backpanel.className.replace('d-none', 'd-block')
-            backpanel.className = backpanel.className.replace('blur-off', 'blur-on')
 
-            if(glass.className == 'blur-off'){
+            if (glass.className == 'blur-off') 
                 glass.className = glass.className.replace('blur-off', 'blur-on')
-            } else {
-                glass.className = 'blur-on position-fixed'
-            }
-            $('#_id').focus()
+            else 
+                glass.className = 'blur-on'
+
+            $('#_id-txt').focus()
         } else if (floating === 2) {
-            frameL.className = frameL.className.replace('d-flex', 'd-none')
-            try { frameP.className = frameP.className.replace('d-none', 'd-flex') }
+            try { frameL.className = frameL.className.replace('block', 'none') }
+            catch { console.log('Skiping Frame Login') }
+            try { frameP.className = frameP.className.replace('none', 'block') }
             catch { console.log('Skiping Frame Password') }
-            backpanel.className = backpanel.className.replace('d-none', 'd-block')
-            backpanel.className = backpanel.className.replace('blur-off', 'blur-on')
 
-            if(glass.className == 'blur-off'){
+            if (glass.className == 'blur-off')
                 glass.className = glass.className.replace('blur-off', 'blur-on')
-            } else {
+            else
                 glass.className = 'blur-on position-fixed'
-            }
-            $('#_id_u').focus()
+
+            $('#_id-u-txt').focus()
         }
     }
 }
 
 function login(i, p) {
-    i = (i) ? i : (($('#_id').val()) ? $('#_id').val() : undefined)
+    i = (i) ? i : (($('#_id-txt').val()) ? $('#_id-txt').val() : undefined)
     p = (p) ? p : (($('#pass').val()) ? $('#pass').val() : undefined)
 
     if(i === undefined) return console.error('login failed!')

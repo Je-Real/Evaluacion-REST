@@ -11,52 +11,40 @@
     <div id="noti" class="container-fluid mt-5"></div>
 </div>
 
-<div id="toolt">
-    <p></p>
-</div>
+<div id="toolt"><p></p></div>
 
-<div id="backPanel" onclick="toggleFloating(0)" class="d-none w-100 h-100 position-fixed bg-dark-50"></div>
-
-<nav id="layoutNavbar" data-log="<%= (session) ? true : false %>" class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+<nav id="layoutNavbar" data-log="<%= (session) ? true : false %>"
+    class="sb-topnav navbar navbar-expand navbar-dark bg-dark text-end">
     <!-- Navbar Brand-->
     <a class="navbar-brand ps-3" href="/inicio/">
         <img class="mx-auto d-block pt-1" src="/img/logo-utna.png" width="110px" alt="UTNA">
     </a>
+
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
         class="fas fa-bars"></i></button>
-        <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            
-        </form>
-        <!-- Navbar-->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-5">
-            <li class="nav-item dropdown">
-                <% 
-                    var temp = '' 
-                    if(session){ temp = session.name } 
-                %>
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false"><i class="fas fa-user fa-fw"></i> <%= temp %> </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <% if(session) { %>
-                        <% if(session.lvl <= 3) { %>
-                            <li>
-                                <a class="dropdown-item" href="/registro/">Nuevo usuario</a>
-                            </li>
-                        <% } %>
-                        <% if(session.evaluation) { %>
-                            <li><a class="dropdown-item" href="/encuesta/">Encuesta</a></li>
-                        <% } %>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="javascript:logout()">Cerrar sesión</a></li>
-                            <% } else { %>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:toggleFloating(1)">Iniciar sesión</a>
-                                </li>
-                                <% } %>
-                            </ul>
-                        </li>
-                    </ul>
+
+    <!-- Navbar Search-->
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></form>
+
+    <!-- Navbar-->
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-5">
+        <li class="nav-item dropdown">
+            <% var temp = (session) ? temp = session.name : '' %>
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false"><i class="fas fa-user fa-fw"></i> <%= temp %></a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <% if(session) {
+                    if(session.lvl <= 3) { %>
+                    <li><a class="dropdown-item" href="/registro/">Nuevo usuario</a></li>
+                    <% } %>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" href="javascript:logout()">Cerrar sesión</a></li>
+                <% } else { %>
+                    <li><a class="dropdown-item" href="javascript:toggleFloating(1)">Iniciar sesión</a></li>
+                <% } %>
+            </ul>
+        </li>
+    </ul>
 </nav>
 <!-- Navbar -->

@@ -158,8 +158,6 @@ function postSurvey() {
         _id: $('#userObj').val(),
         records: grades
     }
-
-    return console.log(packed);
     
     $.ajax({
         type: 'POST',

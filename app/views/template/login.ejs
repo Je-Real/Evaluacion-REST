@@ -1,4 +1,4 @@
-<div id="floatingLogin" class="animate__animated d-none floating mx-auto w-md-50 flex-nowrap justify-content-center position-fixed">
+<div id="floatingLogin" class="none floating mx-auto w-md-50 flex-nowrap justify-content-center position-fixed">
     <div class="card limit w-100 mx-md-5 w-md-100 shadow-lg border-0 rounded-lg">
         <div class="card-header">
             <h3 class="text-center font-weight-light my-4">Login</h3>
@@ -10,9 +10,9 @@
         <div class="card-body">
             <form method="POST" name="f_login" id="f_login">
                 <div class="form-floating mb-3">
-                    <input class="form-control" autocomplete="on" name="_id" id="_id" type="text" onkeypress="onEnterHandler(event)"
+                    <input class="form-control" autocomplete="on" id="_id-txt" type="text" onkeypress="onEnterHandler(event)"
                         placeholder="." required />
-                    <label for="_id">Usuario</label>
+                    <label for="_id-txt">Usuario</label>
                 </div>
                 <div class="form-floating mb-3">
                     <input class="form-control" autocomplete="on" name="pass" id="pass" type="password"
