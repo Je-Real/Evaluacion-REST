@@ -298,9 +298,7 @@ async function post(req, res) {
 
     await modelUserInfo.find({ _id: req.body._id }, { _id: 1 })
 	.then(async(dataUI) => { //🟢
-        console.log('search completed');
         if(dataUI.length){
-            console.log('enter user info');
             await modelEvaluation.find({ _id: req.body._id })
             .then(async(dataEval) => { //🟢
                 req.body.records = {}
@@ -328,7 +326,7 @@ async function post(req, res) {
                         }))
                     })
                     .catch((error) => { //🔴
-                        console.log(error)
+                        console.error(error)
                         return res.end(JSON.stringify({
                             msg: 'Imposible registrar resultados.\r\nIntentalo más tarde.',
                             resType: 'error',
@@ -339,7 +337,7 @@ async function post(req, res) {
                 }
             })
             .catch((error) => { //🔴
-                console.log(error)
+                console.error(error)
                     return res.end(JSON.stringify({
                         msg: 'Imposible registrar resultados.\r\nIntentalo más tarde.',
                         resType: 'error',
@@ -348,7 +346,7 @@ async function post(req, res) {
                     }))
             })
         } else {
-            console.log('Eyo error here!')
+            console.error('Eyo error here!')
             return res.end(JSON.stringify({
                 msg: '¿¡No existe el usuario actual!?.\r\n¿¿¿Cómo lo lograste???',
                 resType: 'error',
@@ -358,7 +356,7 @@ async function post(req, res) {
         }
 	})
 	.catch((error) => { //🔴
-		console.log(error)
+		console.error(error)
 		return res.end(JSON.stringify({
 			msg: '¿¡No existe el usuario actual!?.\r\n¿¿¿Cómo lo lograste???',
             resType: 'error',

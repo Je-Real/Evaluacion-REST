@@ -10,8 +10,6 @@ async function root(req, res) {
     } else { // Session 🤑
         session = req.session
 
-        console.log(req.session.user);
-
         await modelUserInfo.aggregate([
             { $match: { manager: req.session.user } },
             {
@@ -48,8 +46,6 @@ async function root(req, res) {
             const date = new Date()
             var year = String(date.getFullYear())
             records = dataInfo
-
-            console.log(records);
 
             for(let i in records) {
                 try {
