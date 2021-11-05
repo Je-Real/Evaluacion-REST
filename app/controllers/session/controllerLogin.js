@@ -8,6 +8,8 @@ async function logIn(req, res) {
 	const date = new Date()
 	const year = date.getFullYear()
 
+	req.body._id = String(req.body._id).toUpperCase()
+
 	//LogIn validator
 	await modelUser.find({ _id: req.body._id })
 	.then((dataUser) => {
@@ -30,7 +32,7 @@ async function logIn(req, res) {
 
 			if (compare.toString(crypto.enc.Utf8) === req.body.pass) { //🟢
 				modelUser.updateOne({ user: req.body._id }, { last_conn: Date.now() })
-				.then((data) => {
+				.then(() => {
 					modelUserInfo.find({ _id: req.body._id })
 					.then((dataUInfo) => {
 						modelEvaluation.find({ _id: req.body._id })
@@ -151,5 +153,5 @@ async function logOut(req, res) {
 
 module.exports = {
 	logIn,
-	logOut,
+	logOut
 }

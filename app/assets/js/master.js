@@ -131,17 +131,17 @@ function outSession(clicked) {
 
 function toggleFloating(floating) {
     if (tf || floating === 0) {
-        try { frameL.className = frameL.className.replace('block', 'none') }
+        try { frameL.className = frameL.className.replace('show', 'hide') }
         catch { console.log('Skiping Frame Login') }
-        try { frameP.className = frameP.className.replace('block', 'none') }
+        try { frameP.className = frameP.className.replace('show', 'hide') }
         catch { console.log('Skiping Frame Password') }
 
         glass.className = ''
     } else {
         if (floating === 1) {
-            try { frameL.className = frameL.className.replace('none', 'block') }
+            try { frameL.className = frameL.className.replace('hide', 'show') }
             catch { console.log('Skiping Frame Login') }
-            try { frameP.className = frameP.className.replace('block', 'none') }
+            try { frameP.className = frameP.className.replace('show', 'hide') }
             catch { console.log('Skiping Frame Password') }
 
             if (glass.className == 'blur-off') 
@@ -151,9 +151,9 @@ function toggleFloating(floating) {
 
             $('#_id-txt').focus()
         } else if (floating === 2) {
-            try { frameL.className = frameL.className.replace('block', 'none') }
+            try { frameL.className = frameL.className.replace('show', 'hide') }
             catch { console.log('Skiping Frame Login') }
-            try { frameP.className = frameP.className.replace('none', 'block') }
+            try { frameP.className = frameP.className.replace('hide', 'show') }
             catch { console.log('Skiping Frame Password') }
 
             if (glass.className == 'blur-off')
@@ -166,17 +166,17 @@ function toggleFloating(floating) {
     }
 }
 
-function login(i, p) {
-    i = (i) ? i : (($('#_id-txt').val()) ? $('#_id-txt').val() : undefined)
+function login(u, p) {
+    u = (u) ? u : (($('#_id-txt').val()) ? $('#_id-txt').val() : undefined)
     p = (p) ? p : (($('#pass').val()) ? $('#pass').val() : undefined)
 
-    if(i === undefined) return console.error('login failed!')
+    if(u === undefined) return console.error('login failed!')
 
     $.ajax({
         type: 'POST',
         url: 'http://localhost:3000/sesion/login',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({ _id: i, pass: p }),
+        data: JSON.stringify({ _id: u, pass: p }),
         dataType: 'json',
         async: true,
         success: async(result) => {

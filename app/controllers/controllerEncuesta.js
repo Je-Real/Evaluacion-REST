@@ -33,7 +33,7 @@ async function root(req, res) {
                 for(let i in dataInfo) {
                     arr1[i] = dataInfo[i]['_id']
                 }
-                /**
+                /*
                  * Get all the subordinates evaluations and
                  * and compare if there is no evaluation for the current year
                  */
@@ -65,7 +65,7 @@ async function root(req, res) {
                 .then((data) => allCareers = data)
                 .catch(() => allCareers = null)
 
-                /**
+                /*
                  * Compare each item and get the user info that
                  * have no evaluations for the current year
                  */
@@ -311,97 +311,69 @@ async function post(req, res) {
     var temp = Number((Math.abs(score) * 100).toPrecision(15))
     score = Math.round(temp) / 100 * Math.sign(score)
 
-    await modelUserInfo.find({ _id: req.body._id })
-		.then(async(dataUI) => { //🟢
-            if(dataUI.length){
-                await modelEvaluation.find({ _id: req.body._id })
-                    .then(async(dataEval) => { //🟢
-                        req.body.area = dataUI[0].area
-                        req.body.department = dataUI[0].department
-                        req.body.career = dataUI[0].career
-
-                        if(dataEval.length){
-                            req.body.records = {}
-                            req.body.records = dataEval.records
-                            if(req.body.records[year] != undefined){
-                                return res.end(JSON.stringify({
-                                    msg: '¿¡Ya existe una evaluacion en este año!?\r\n¿Cómo lograste acceder de nuevo...?',
-                                    resType: 'error',
-                                    status: 500,
-                                    noti: true
-                                }))
-                            }
-                            req.body.records[year] = score
+    await modelUserInfo.find({ _id: req.body._id }, { _id: 1 })
+	.then(async(dataUI) => { //🟢
+        if(dataUI.length){
+            await modelEvaluation.find({ _id: req.body._id })
+            .then(async(dataEval) => { //🟢
+                req.body.records = {}
+                if(dataEval.records[year] != undefined){
+                    return res.end(JSON.stringify({
+                        msg: '¿¡Ya existe una evaluacion en este año!?\r\n¿Cómo lograste acceder de nuevo...?',
+                        resType: 'error',
+                        status: 500,
+                        noti: true
+                    }))
+                }
+                req.body.records[year] = score
         
-                            await new modelEvaluation(req.body).save()
-                                .then(() => { //🟢
-                                    return res.end(JSON.stringify({
-                                        msg: '¡Encuesta registrada satisfactoriamente!',
-                                        resType: 'success',
-                                        status: 200,
-                                        noti: true
-                                    }))
-                                })
-                                .catch((error) => { //🔴
-                                    console.log(error)
-                                    return res.end(JSON.stringify({
-                                        msg: 'Imposible registrar resultados.\r\nIntentalo más tarde.',
-                                        resType: 'error',
-                                        status: 500,
-                                        noti: true
-                                    }))
-                                })
-                        }
-                        req.body.records = {}
-                        req.body.records[year] = score
-                        
-                        await new modelEvaluation(req.body).save()
-                            .then(() => { //🟢
-                                return res.end(JSON.stringify({
-                                    msg: '¡Encuesta registrada satisfactoriamente!',
-                                    resType: 'success',
-                                    status: 200,
-                                    noti: true
-                                }))
-                            })
-                            .catch((error) => { //🔴
-                                console.log(error)
-                                return res.end(JSON.stringify({
-                                    msg: 'Imposible registrar resultados.\r\nIntentalo más tarde.',
-                                    resType: 'error',
-                                    status: 500,
-                                    noti: true
-                                }))
-                            })
-                    })
-                    .catch((error) => { //🔴
-                        console.log(error)
-                            return res.end(JSON.stringify({
-                                msg: 'Imposible registrar resultados.\r\nIntentalo más tarde.',
-                                resType: 'error',
-                                status: 500,
-                                noti: true
-                            }))
-                    })
-            } else {
-                console.log('Eyo error here!')
-                return res.end(JSON.stringify({
-                    msg: '¿¡No existe el usuario actual!?.\r\n¿¿¿Cómo lo lograste???',
-                    resType: 'error',
-                    status: 500,
-                    noti: true
-                }))
-            }
-		})
-		.catch((error) => { //🔴
-			console.log(error)
-			return res.end(JSON.stringify({
-				msg: '¿¡No existe el usuario actual!?.\r\n¿¿¿Cómo lo lograste???',
+                await new modelEvaluation(req.body).save()
+                .then(() => { //🟢
+                    return res.end(JSON.stringify({
+                        msg: '¡Encuesta registrada satisfactoriamente!',
+                        resType: 'success',
+                        status: 200,
+                        noti: true
+                    }))
+                })
+                .catch((error) => { //🔴
+                    console.log(error)
+                    return res.end(JSON.stringify({
+                        msg: 'Imposible registrar resultados.\r\nIntentalo más tarde.',
+                        resType: 'error',
+                        status: 500,
+                        noti: true
+                    }))
+                })
+            })
+            .catch((error) => { //🔴
+                console.log(error)
+                    return res.end(JSON.stringify({
+                        msg: 'Imposible registrar resultados.\r\nIntentalo más tarde.',
+                        resType: 'error',
+                        status: 500,
+                        noti: true
+                    }))
+            })
+        } else {
+            console.log('Eyo error here!')
+            return res.end(JSON.stringify({
+                msg: '¿¡No existe el usuario actual!?.\r\n¿¿¿Cómo lo lograste???',
                 resType: 'error',
-				status: 500,
-				noti: true
-			}))
-		})
+                status: 500,
+                noti: true
+            }))
+        }
+	})
+	.catch((error) => { //🔴
+		console.log(error)
+		return res.end(JSON.stringify({
+			msg: '¿¡No existe el usuario actual!?.\r\n¿¿¿Cómo lo lograste???',
+            resType: 'error',
+			status: 500,
+			noti: true
+		}))
+	})
 }
 
 module.exports = {

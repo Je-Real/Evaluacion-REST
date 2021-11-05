@@ -8,7 +8,8 @@ async function root(req, res) {
         s, session,
         area = [],
         department = [],
-        career = []
+        career = [],
+        options = [{}, {}]
 
 
     if(hour >= 5 && hour <= 12) { s = 'Buen dia' } 
@@ -19,8 +20,6 @@ async function root(req, res) {
         session = null
     } else { // Session 🤑
         session = req.session
-
-        var options = [{}, {}]
             
         if (session.lvl > 1) {
             if (session.area > 0) {

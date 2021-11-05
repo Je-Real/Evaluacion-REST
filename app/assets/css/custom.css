@@ -76,12 +76,12 @@ h1, h2, h3, h4, h5, h6 {
 	animation: fadein 0.5s, fadeout 0.5s 2.5s;*/
 }
 
-.floating.none {
+.floating.hide {
 	display: none;
 }
 
-.floating.block {
-	animation: appear 0.4s ease-in;
+.floating.show {
+	animation: appear 0.25s ease-in;
 	display: flex;
 	width: min-content;
 	height: min-content;
