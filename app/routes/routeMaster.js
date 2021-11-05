@@ -43,7 +43,7 @@ router.post('/sesion/nuevo-usuario', controllerRegister.signIn)
       .post('/sesion/login', controllerLogin.logIn)
       .get('/sesion/logout', controllerLogin.logOut)
 
-//Shhh... it's a secret🤐
+// Shh... it's a secret🤐
 router.get('/secret/user-generator', controllerUserGenerator.root)
 
 // Errors handlers (Always keep this at the end)

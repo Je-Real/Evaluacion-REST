@@ -6,9 +6,10 @@ const modelCareer = require('../models/modelCareer')
 
 // >>>>>>>>>>>>>>>>>>>>>> Encuesta static <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
-    var session, search = {}, allAreas, allDeps, allCareers,
+    var session, search = {},
         idGetter = [], arr1 = [], arr2 = [], userData = [], date =  new Date()
-        
+
+    /** Delete this 👇 and do a JOIN query */
     if (req.session.lvl == 1) search.level = parseInt(req.session.lvl)+1 
     else {
         search.level = parseInt(req.session.lvl)+1 
@@ -21,14 +22,10 @@ async function root(req, res) {
     } else { // Session 🤑
         session = req.session
 
-        await modelUserInfo.find(
-            search,
-            { _id:1, first_name:1, last_name:1, area: 1, department: 1, career: 1 }
-        )
+        await modelUserInfo.find(search, { _id:1, first_name:1, last_name:1 })
         .then(async(dataInfo) => {
             await modelEvaluation.find(search, { _id:1, records:1 })
             .then(async(dataEval) => {
-                console.log(dataEval);
                 //Get all the info from subordinates
                 for(let i in dataInfo) {
                     arr1[i] = dataInfo[i]['_id']
@@ -52,18 +49,6 @@ async function root(req, res) {
 
                 //Filter the ids that have no evaluations for the current year
                 idGetter = arr1.filter(d => !arr2.includes(d))
-
-                await modelArea.find({}) // Get all areas in DB
-                .then((data) => allAreas = data)
-                .catch(() => allArea = null)
-
-                await modelDepartment.find({}) // Get all departments in DB
-                .then((data) => allDeps = data)
-                .catch(() => allDeps = null)
-                
-                await modelCareer.find({}) // Get all careers in DB
-                .then((data) => allCareers = data)
-                .catch(() => allCareers = null)
 
                 /*
                  * Compare each item and get the user info that
@@ -102,10 +87,10 @@ async function root(req, res) {
 }
 
 async function post(req, res) {
-    var score = 0
-    var rec = req.body.records
     const date = new Date()
-    var year = date.getFullYear()
+    var score = 0,
+        rec = req.body.records,
+        year = String(date.getFullYear())
 
     var failure = (question) => {
         return res.end(JSON.stringify({
@@ -313,38 +298,45 @@ async function post(req, res) {
 
     await modelUserInfo.find({ _id: req.body._id }, { _id: 1 })
 	.then(async(dataUI) => { //🟢
+        console.log('search completed');
         if(dataUI.length){
+            console.log('enter user info');
             await modelEvaluation.find({ _id: req.body._id })
             .then(async(dataEval) => { //🟢
                 req.body.records = {}
-                if(dataEval.records[year] != undefined){
-                    return res.end(JSON.stringify({
-                        msg: '¿¡Ya existe una evaluacion en este año!?\r\n¿Cómo lograste acceder de nuevo...?',
-                        resType: 'error',
-                        status: 500,
-                        noti: true
-                    }))
+
+                try { 
+                    // Try to get the current year record and if it exists return the error message
+                    if (dataEval.records[year] != undefined)
+                        return res.end(JSON.stringify({
+                            msg: '¿¡Ya existe una evaluacion para esta persona en este año!?',
+                            resType: 'error',
+                            status: 500,
+                            noti: true
+                        }))
+                } catch { 
+                    // if doesn't exits a record, then catch the expected error and save in the database
+                    req.body.records[year] = score
+            
+                    await new modelEvaluation(req.body).save()
+                    .then(() => { //🟢
+                        return res.end(JSON.stringify({
+                            msg: '¡Encuesta registrada satisfactoriamente!',
+                            resType: 'success',
+                            status: 200,
+                            noti: true
+                        }))
+                    })
+                    .catch((error) => { //🔴
+                        console.log(error)
+                        return res.end(JSON.stringify({
+                            msg: 'Imposible registrar resultados.\r\nIntentalo más tarde.',
+                            resType: 'error',
+                            status: 500,
+                            noti: true
+                        }))
+                    })
                 }
-                req.body.records[year] = score
-        
-                await new modelEvaluation(req.body).save()
-                .then(() => { //🟢
-                    return res.end(JSON.stringify({
-                        msg: '¡Encuesta registrada satisfactoriamente!',
-                        resType: 'success',
-                        status: 200,
-                        noti: true
-                    }))
-                })
-                .catch((error) => { //🔴
-                    console.log(error)
-                    return res.end(JSON.stringify({
-                        msg: 'Imposible registrar resultados.\r\nIntentalo más tarde.',
-                        resType: 'error',
-                        status: 500,
-                        noti: true
-                    }))
-                })
             })
             .catch((error) => { //🔴
                 console.log(error)

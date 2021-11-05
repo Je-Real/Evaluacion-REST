@@ -91,7 +91,7 @@ function listView() {
     $('.mode').removeClass('card-mode').addClass('list-mode')
     $('.card-body').addClass('pt-1 pb-2')
     $('.card-body>.row').removeClass('text-center')
-    $('.columns.row div').removeClass('col-12').addClass('col-lg-3 col-6')
+    $('.items.row div').removeClass('col-12').addClass('col-md col-6')
 
     $('#card').addClass('btn-secondary').removeClass('btn-on')
     $('#list').removeClass('btn-secondary').addClass('btn-on')
@@ -102,7 +102,7 @@ function cardView() {
     $('.mode').removeClass('list-mode').addClass('card-mode')
     $('.card-body').removeClass('pt-1 pb-2')
     $('.card-body>.row').addClass('text-center')
-    $('.columns.row div').removeClass('col-lg-3 col-6').addClass('col-12')
+    $('.items.row div').removeClass('col-lg-3 col-6').addClass('col-12')
 
     $('#list').addClass('btn-secondary').removeClass('btn-on')
     $('#card').removeClass('btn-secondary').addClass('btn-on')
@@ -112,23 +112,16 @@ function selectObjective(hover) {
     if(hover.length==0) return
 
     $('#f_survey')[0].reset()
-    if($('.table-header').hasClass('activated')) {
+    if($('.table-header').hasClass('activated'))
         $('.table-header').removeClass('activated').addClass('deactivated')
-    }
 
     $('.card.card-option').removeClass('selected')
-    if(hover === true) {
+    if(hover === true)
         $('.card.card-option:hover').addClass('selected')
-    } else {
-            $(`div#${hover}`).addClass('selected')
-    }
+    else 
+        $(`div#${hover}`).addClass('selected')
 
-    var s = $('.card.card-option.selected').attr('data-id')
-
-    $('#userObj').val(s)
-    $('#areaObj').val($(`#${s}-area`).attr('data-info'))
-    $('#depaObj').val($(`#${s}-depa`).attr('data-info'))
-    $('#careObj').val($(`#${s}-care`).attr('data-info'))
+    $('#userObj').val($('.card.card-option.selected').attr('data-id'))
 }
 
 function postSurvey() {
@@ -163,7 +156,7 @@ function postSurvey() {
         type: 'POST',
         url: 'http://localhost:3000/encuesta',
         contentType: 'application/json; charset=utf-8',
-        data: packed,
+        data: JSON.stringify(packed),
         dataType: 'json',
         async: true,
         success:(result) => {
@@ -176,7 +169,7 @@ function postSurvey() {
             }
         },
         error: function (xhr, status, error) { 
-            showSnack('Status:'+status+'. '+error, 'error')
+            showSnack('Status: '+status+'. '+error, 'error')
         }
     })
 }

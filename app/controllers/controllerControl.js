@@ -4,44 +4,61 @@ const modelUserInfo = require('../models/modelUserInfo')
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
     var session, records = false
-    var lvl = req.session.lvl+1,
-        area = req.session.area,
-        depa = req.session.department
     
     if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
     } else { // Session 🤑
         session = req.session
 
-        await modelUserInfo.find(
-            { level: parseInt(lvl), area: parseInt(area) },
-            { _id:1, first_name:1, last_name:1, area:1 }
-        )
-        .then(async(dataInfo) => {
-            var search = {}
-            if(req.session.lvl <= 1) search.area = area
-            else {
-                search.area = parseInt(area)
-                search.department = parseInt(depa)
-            }
-    
-            await modelEvaluation.find(search, { _id:1, records:1 })
-            .then((dataEval) => {
-                for(let i=0; i<dataInfo.length; i++) {
-                    dataInfo[i]['area'] = false
-                    for(let j=0; j<dataEval.length; j++) {
-                        if(dataInfo[i]['_id'] == dataEval[j]['_id']) {
-                            dataInfo[i]['area'] = true
-                            break
-                        }
-                    }
+        console.log(req.session.user);
+
+        await modelUserInfo.aggregate([
+            { $match: { manager: req.session.user } },
+            {
+                $lookup: {
+                    from: "evaluations",
+                    pipeline: [
+                        { $project: { records: 1, _id: 0 } }
+                    ],
+                    localField: "_id",
+                    foreignField: "_id",
+                    as: "eval",
                 }
-                records = dataInfo
-            })
-            .catch((error) => {
-                console.error(error)
-                records = false
-            })
+            },
+            {
+                $replaceRoot: {
+                    newRoot: {
+                        $mergeObjects: [
+                            { $arrayElemAt: [ "$eval", 0 ] }, "$$ROOT"
+                        ]
+                    } 
+                }
+            },
+            {
+                $unset: [
+                    "level", "area",
+                    "department", "career",
+                    "contract", "b_day",
+                    "address", "manager",
+                    "eval"
+                ]
+            }
+        ])
+        .then(async(dataInfo) => {
+            const date = new Date()
+            var year = String(date.getFullYear())
+            records = dataInfo
+
+            console.log(records);
+
+            for(let i in records) {
+                try {
+                    if (records[i]['records'][year] != undefined)
+                        records[i]['records'] = 1
+                } catch {
+                    records[i]['records'] = 0        
+                }
+            }
         })
         .catch((error) => {
             console.error(error)

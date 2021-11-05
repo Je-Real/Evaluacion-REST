@@ -181,6 +181,7 @@ h1, h2, h3, h4, h5, h6 {
 	}
 }
 
+/* md & greater */
 @media (min-width: 768px) {
 	.w-md-90 {
 		width: 90% !important;
@@ -196,6 +197,9 @@ h1, h2, h3, h4, h5, h6 {
 	}
 	.w-md-75 {
 		width: 75% !important;
+	}
+	.col-md {
+		flex: 1 0 0%;
 	}
 }
 
