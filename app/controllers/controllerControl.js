@@ -1,26 +1,23 @@
-const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
 
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
     var session, records = false
     
-    if(!req.session.user && !req.session.lvl) { // No session 😡
+    if (!req.session.user && !req.session.lvl) { // No session 😡
         session = null
     } else { // Session 🤑
         session = req.session
-        
+
         await modelUserInfo.aggregate([
-            { $match: { manager: 'R000' } },
-            {
+            { $match: { manager: req.session.user } }, {
                 $lookup: {
                     from: "evaluations",
                     localField: "_id",
                     foreignField: "_id",
                     as: "eval",
                 }
-            },
-            {
+            }, {
                 $replaceRoot: {
                     newRoot: {
                         $mergeObjects: [
@@ -28,8 +25,7 @@ async function root(req, res) {
                         ]
                     } 
                 }
-            },
-            {
+            }, {
                 $unset: [
                     "level", "area",
                     "department", "career",
@@ -46,7 +42,7 @@ async function root(req, res) {
                 personas
             records = dataInfo
 
-            for(let i in records) {                
+            for (let i in records) {                
                 try {
                     if (records[i]['records'][year] != undefined) {
                         records[i]['records'] = 1

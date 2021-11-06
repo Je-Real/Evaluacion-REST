@@ -1,5 +1,5 @@
 async function setCookie(cname, cvalue) {
-	if(cname == undefined || cvalue == undefined) {
+	if (cname == undefined || cvalue == undefined) {
 		console.error('Cookies save empty')
 		throw false
 	}
@@ -59,13 +59,13 @@ async function checkCookie(cname) {
 			console.error(error)
 		})
 
-	if(result) return true
+	if (result) return true
 	else throw false
 }
 
 async function eatCookies() {
 	try {
-		document.cookie.split(";").forEach(function(c) {
+		document.cookie.split(";").forEach((c) => {
 			document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/")
 		})
 		console.log('cleared: '+ document.cookie)

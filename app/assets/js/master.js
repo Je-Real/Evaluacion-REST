@@ -12,17 +12,17 @@ var tf = false,
 $(document).ready(async() => {
     var fade_away = true
 
-    if($('#layoutNavbar').attr('data-log') === 'false') {
+    if ($('#layoutNavbar').attr('data-log') === 'false') {
         await getCookie(0)
         .then(async(data) => {
             fade_away = false
-            if(data[0] != '' && data[0] != undefined) {
+            if (data[0] != '' && data[0] != undefined) {
                 try {
                     var cookieData = JSON.parse(data[0])
                     showSnack('Iniando sesión...', 'info')
                     login(cookieData.user, cookieData.pass)
 
-                    if(data[1] != undefined) {
+                    if (data[1] != undefined) {
                         await setCookie('requested-page', undefined)
                         .then(() => {
                             setTimeout(() => {
@@ -45,7 +45,7 @@ $(document).ready(async() => {
         })
     }
     
-    if(fade_away) {
+    if (fade_away) {
         setTimeout(async() => {
             await $('#load-b').addClass('fade')
             setTimeout(() => {
@@ -72,7 +72,7 @@ $(document).ready(async() => {
     
         list.insertAfter($(this))
     
-        if($(this).find('option:selected').length) {
+        if ($(this).find('option:selected').length) {
             label.text($(this).find('option:selected').text())
             list.find('li:contains(' + $(this).find('option:selected').text() + ')').addClass('active')
             $(this).parent().addClass('filled')
@@ -92,7 +92,7 @@ $(document).ready(async() => {
         dropdown.toggleClass('filled', !active)
         dropdown.children('span').text(label)
     
-        if(!active) {
+        if (!active) {
             dropdown.find('option:contains(' + $(this).text() + ')').prop('selected', true)
             $(this).parent().addClass('active')
         }
@@ -107,7 +107,7 @@ $(document).ready(async() => {
     
     $(document).on('click touch', function(e) {
         var dropdown = $('.dropdown')
-        if(dropdown !== e.target && !dropdown.has(e.target).length) {
+        if (dropdown !== e.target && !dropdown.has(e.target).length) {
             dropdown.removeClass('open')
         }
     })*/
@@ -116,13 +116,13 @@ $(document).ready(async() => {
 //Capture Enter key in inputs
 function onEnterHandler(event) {
     var code = event.which || event.keyCode
-    if(code === 13){
+    if (code === 13) {
       login()
     }
 }
 
 function outSession(clicked) {
-    if(clicked) {
+    if (clicked) {
         setTimeout(() => {
             window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
         }, 2500)
@@ -170,7 +170,7 @@ function login(u, p) {
     u = (u) ? u : (($('#_id-txt').val()) ? $('#_id-txt').val() : undefined)
     p = (p) ? p : (($('#pass').val()) ? $('#pass').val() : undefined)
 
-    if(u === undefined) return console.error('login failed!')
+    if (u === undefined) return console.error('login failed!')
 
     $.ajax({
         type: 'POST',
@@ -180,21 +180,21 @@ function login(u, p) {
         dataType: 'json',
         async: true,
         success: async(result) => {
-            if(result.noti){
+            if (result.noti) {
                 showSnack(result.msg, 'success')
             } else {
                 $('#loginMsg').addClass('text-danger')
                 $('#loginMsg').html(result.msg)
             }
 
-            if(result.status === 200){
+            if (result.status === 200) {
                 $('#load-b').removeClass('hidden fade')
                 toggleFloating(0)
                 await setCookie('user', JSON.stringify(result.data))
                 .then(() => {
                     return window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
                 })
-                .catch((error) => {
+                .catch(() => {
                     showSnack('Status: Cookies error', 'warning')
                 })
             }
@@ -212,8 +212,8 @@ function logout() {
         url: 'http://localhost:3000/sesion/logout',
         dataType: 'json',
         async: true,
-        success: async (result) => {
-            if(result.status === 200){
+        success: async(result) => {
+            if (result.status === 200) {
                 outSession(true)
                 $('#load-b').removeClass('hidden fade')
                 await eatCookies()
@@ -223,15 +223,20 @@ function logout() {
                         }, 500)
                     })
             } else {
-                showSnack('Error: '+result.msg, 'error')
+                showSnack(`Error: ${result.msg}`, 'error')
             }
         },
-        error: function (xhr, status, error) { 
-            showSnack('Status:'+status+'. '+error, 'error')
+        error: async(xhr, status, error) => { 
+            showSnack(`Status: ${status}. Error: ${error}`, 'error')
         }
     })
 }
 
 function resetPsw() {
     console.log('Reemplazar')
+}
+
+function go(where) {
+    setCookie('USelected', where)
+    window.location.href = String(location.href).slice(0, 21+1)+"encuesta/"
 }

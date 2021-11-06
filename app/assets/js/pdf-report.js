@@ -27,7 +27,7 @@ async function pdfReport() {
     doc.setFontSize(25)
     doc.text(w*0.09, h*0.13, 'Reporte')
 
-    if(lvl <= 4){
+    if (lvl <= 4) {
         canvas = document.getElementById('doughnutChart')
         canvasImg = canvas.toDataURL()
         spacing = h*0.25 + h*0.05

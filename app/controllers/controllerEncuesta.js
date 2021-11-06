@@ -17,7 +17,7 @@ async function root(req, res) {
         if (req.session.department) search.department = req.session.department
     }
 
-    if(!req.session.user && !req.session.lvl) { // No session 😡
+    if (!req.session.user && !req.session.lvl) { // No session 😡
         session = null
     } else { // Session 🤑
         session = req.session
@@ -35,7 +35,7 @@ async function root(req, res) {
                  * and compare if there is no evaluation for the current year
                  */
                 for(let j in dataEval) {
-                    if(dataEval[j][date.getFullYear()] == undefined) {
+                    if (dataEval[j][date.getFullYear()] == undefined) {
                         arr2[j] = dataEval[j]['_id']
                     }
                 }
@@ -56,7 +56,7 @@ async function root(req, res) {
                  */
                 for(let k in arr1) {
                     for(let l in idGetter) {
-                        if(idGetter[l] == arr1[k]) {
+                        if (idGetter[l] == arr1[k]) {
                             userData[k] = dataInfo[k]
                             break
                         }
@@ -288,7 +288,7 @@ async function post(req, res) {
             return failure('p_11')
     }
 
-    for(var r in rec){
+    for(var r in rec) {
         score += parseFloat(rec[r])
     }
 
@@ -298,7 +298,7 @@ async function post(req, res) {
 
     await modelUserInfo.find({ _id: req.body._id }, { _id: 1 })
 	.then(async(dataUI) => { //🟢
-        if(dataUI.length){
+        if (dataUI.length) {
             await modelEvaluation.find({ _id: req.body._id })
             .then(async(dataEval) => { //🟢
                 req.body.records = {}

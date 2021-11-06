@@ -1,6 +1,4 @@
-var rows
-
-$(document).ready(function(){
+$(document).ready(() => {
     //$('.paginator').before()
     $('.paginator').after(`
         <div class="pag-cont d-flex justify-content-md-between px-md-4">
@@ -32,39 +30,36 @@ $(document).ready(function(){
     paginator()
     
     $('#rows').change(() => {
-        console.log('yeah')
-        if (parseInt($('#rows').val()) != rows)
-            paginator()
+        if (parseInt($('#rows').val()) != rows) paginator()
     })
 })
 
 function paginator() {
     $('.row-temp').remove()
 
-    rows = parseInt($('#rows').val())
-    var rowsTotal = $('.paginator tbody tr').length
-    var numPages = rowsTotal/rows
-    for(i=0; i<numPages; i++) {
-        $('#pag-ctrl a[rel="next"]').before('<a class="row-temp" href="#" rel="'+i+'">'+(i + 1)+'</a> ')
+    var rows = parseInt($('#rows').val()),
+        rowsTotal = $('.paginator .pag-item').length,
+        numPages = rowsTotal/rows
+    
+    for (i=0; i<numPages; i++) {
+        $('#pag-ctrl a[rel="next"]').before(`<a class="row-temp" href="#" rel="${i}">${(i+1)}</a>`)
     }
-    $('.paginator tbody tr').hide()
-    $('.paginator tbody tr').slice(0, rows).show()
+
+    $('.paginator .pag-item').hide()
+    $('.paginator .pag-item').slice(0, rows).show()
     $('#pag-ctrl a[rel="prev"]').addClass('blocked')
     $('#pag-ctrl a[rel="0"]').addClass('active')
     $('#reg-total').text(rowsTotal)
     
-    $('#pag-ctrl a').bind('click', function(){
+    $('#pag-ctrl a').bind('click', function() {
         $('#pag-ctrl a').removeClass('active')
         $(this).addClass('active')
-        var currPage = $(this).attr('rel')
-        var startItem = currPage * rows
-        var endItem = startItem + rows
-        $('.paginator tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).
-            css('display','table-row').animate({opacity:1}, 300)
-    })
-}
 
-function go(where) {
-    setCookie('USelected', where)
-    window.location.href = String(location.href).slice(0, 21+1)+"encuesta/"
+        var currPage = $(this).attr('rel'),
+            startItem = currPage * rows,
+            endItem = startItem + rows
+
+        $('.paginator .pag-item').css('opacity','0.0').hide().slice(startItem, endItem)
+            .css('display','table-row').animate({opacity:1}, 300)
+    })
 }

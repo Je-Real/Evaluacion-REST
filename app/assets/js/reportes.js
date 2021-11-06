@@ -9,7 +9,7 @@ $(document).ready(() => {
 
 	displayCharts(false)
 
-	if(lvl > 0){
+	if (lvl > 0) {
 		setTimeout(() => {
 			dataGetter(true)
         }, 800)
@@ -63,12 +63,12 @@ $('.form-select').change(() => {
 	dataGetter(false)
 })
 
-function displayCharts(bool){
+function displayCharts(bool) {
 	if (showCharts != bool) showCharts = bool
 	else return
 
 	if (showCharts) {
-		if(lvl <= 0) {
+		if (lvl <= 0) {
 			$('.chart-display.doughnut').html(`
 				<canvas id="doughnutChart" width="100%" height="40"></canvas>
 			`)
@@ -99,7 +99,7 @@ function dataGetter(auto) {
 		packed,
 		user = $('#user').val()
 
-	if(!auto) {
+	if (!auto) {
 		area = parseInt($('#area').val())
 		depart = (parseInt($('#department').val()) > 0) ? parseInt($('#department').val()) : null
 		career = (parseInt($('#career').val()) > 0) ? parseInt($('#career').val()) : null

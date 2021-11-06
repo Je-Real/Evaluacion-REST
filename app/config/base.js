@@ -7,8 +7,8 @@ module.exports = {
     //Set a null connection
     connection:null,
     //Try to connect to db
-    connect: function() {
-        if(this.connection) {
+    connect: () => {
+        if (this.connection) {
             return this.connect
         }
         // useCreateIndex is caused by adding two models into a controller

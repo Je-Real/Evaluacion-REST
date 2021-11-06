@@ -9,7 +9,7 @@ async function root(req, res) {
     var session,
         booya = []
     
-    if(!req.session.user && !req.session.lvl) { // No session 😡
+    if (!req.session.user && !req.session.lvl) { // No session 😡
         session = null
     } else { // Session 🤑
         session = req.session
@@ -22,7 +22,7 @@ async function root(req, res) {
         rawData = JSON.parse(data)
     })
 
-    if(typeof rawData != 'undefined') {
+    if (typeof rawData != 'undefined') {
         await generatorFixed(rawData)
         .then((data) => {
             booya = data
@@ -123,8 +123,8 @@ async function generatorFixed(params) {
     }
 }
 
-function nRandom(min, max){
-    if(min >= max) throw console.log('Minimo y maximo invertidos!')
+function nRandom(min, max) {
+    if (min >= max) throw console.log('Minimo y maximo invertidos!')
         return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
@@ -184,15 +184,15 @@ function generatorRex(params) {
         }
 
         cont = nRandom(1, 3)
-        if(i == 30-1) endHandler = ']'
+        if (i == 30-1) endHandler = ']'
 
         //si area no tiene depa entonces es nivel 1 (no depa no care)
         //si area tiene dapa entonces hay nivel 2 (si depa no care)
         //si depa no tiene carrera entonces hay nivel 3 (si depa no care)
         //si depa tiene carrera entonces hay niveles 4 y 5 (si depa si care)
 
-        if(depa == 0 && care == 0) lvl = 1
-        else if(depa > 0 && care == 0) lvl = nRandom(2, 3)
+        if (depa == 0 && care == 0) lvl = 1
+        else if (depa > 0 && care == 0) lvl = nRandom(2, 3)
         else lvl = nRandom(4, 5)
         
         user = 'user'+(i+30)
@@ -240,7 +240,7 @@ function generatorRex(params) {
     //Search route promise
     modelEval.find(consulta)
     .then(eval => {
-        if(!eval.length) {
+        if (!eval.length) {
             return next()
         }
         req.body.eval = eval

@@ -36,7 +36,7 @@ function showSnack(msg, status) {
     )
     $(`#${id}`).addClass('animate__fadeIn')
 
-	setTimeout(function() {
+	setTimeout(() => {
         hideSnack(id)
 	}, 3000)
 }
@@ -44,7 +44,7 @@ function showSnack(msg, status) {
 function hideSnack(id) {
     $(`#${id}`).removeClass('animate__fadeIn')
     $(`#${id}`).addClass('animate__fadeOut')
-	setTimeout(function() {
+	setTimeout(() => {
         $(`#${id}`).remove()
     }, 1000)
 }

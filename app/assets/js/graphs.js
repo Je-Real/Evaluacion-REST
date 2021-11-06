@@ -14,7 +14,7 @@ const brColor = [
 ]
 
 function doughnutChart(labels, data, colors) {
-    if(labels.length && data.length){
+    if (labels.length && data.length) {
         var ctx = document.getElementById("doughnutChart").getContext("2d")
         var doughnutChart = new Chart(ctx, {
             type: "doughnut",
@@ -36,7 +36,7 @@ function doughnutChart(labels, data, colors) {
 }
 
 function barChart(labels, data, colors) {
-    if(labels.length && data.length){
+    if (labels.length && data.length) {
         var ctx = document.getElementById("barChart").getContext("2d")
         var barChart = new Chart(ctx, {
             type: "bar",
@@ -65,7 +65,7 @@ function barChart(labels, data, colors) {
 }
 
 function lineChart(labels, data, colors) {
-    if(labels.length && data.length){
+    if (labels.length && data.length) {
         var ctx = document.getElementById("lineChart").getContext("2d")
         var lineChart = new Chart(ctx, {
             type: "line",

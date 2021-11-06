@@ -14,7 +14,7 @@ async function logIn(req, res) {
 	await modelUser.find({ _id: req.body._id })
 	.then((dataUser) => {
 		if (dataUser.length > 0) { //if dataUser 👍
-			if(!dataUser[0].enabled) {
+			if (!dataUser[0].enabled) {
 				return res.end(JSON.stringify({
 					msg: 'El usuario o contraseña no coinciden.', 
 					status: 404,
@@ -22,7 +22,7 @@ async function logIn(req, res) {
 				}))
 			}
 			//Users that have session tokens in browser cookies
-			if(typeof req.body.pass === 'object') {
+			if (typeof req.body.pass === 'object') {
 				req.body.pass = crypto.AES.decrypt(req.body.pass.token, req.body._id)
 				req.body.pass = req.body.pass.toString(crypto.enc.Utf8)
 			}
@@ -57,7 +57,7 @@ async function logIn(req, res) {
 
 							req.headers.cookie = rest[0]+obj+rest[1]
 							for(let header in req.rawHeaders) {
-								if(req.rawHeaders[header].search('user=') != -1) {
+								if (req.rawHeaders[header].search('user=') != -1) {
 									req.rawHeaders[header] = obj
 								}
 							}
@@ -136,7 +136,7 @@ async function logOut(req, res) {
 	//🍪🚫
 	req.session.destroy()
 	
-	if(req.session == null) {
+	if (req.session == null) {
 		return res.end(JSON.stringify({
 			msg: 'Sesión finalizada.', 
 			status: 200,

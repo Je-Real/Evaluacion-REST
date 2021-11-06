@@ -7,13 +7,13 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-home fa-2x"></i></div>
                     Inicio
                 </a>
-                <% if(session) { %>
+                <% if (session) { %>
                         <div class="sb-sidenav-menu-heading green-border-t py-3">Reportes</div>
                         <a class="nav-link" href="/reportes/">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-line fa-2x"></i></div>
                             Reporte
                         </a>
-                        <% if(session.lvl <= 4) { %>
+                        <% if (session.lvl <= 4) { %>
                             <a class="nav-link" href="/control/">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table fa-2x"></i></div>
                                 Tabla Control
@@ -21,7 +21,7 @@
                         <% } %>
 
                         <div class="sb-sidenav-menu-heading orange-border-t py-3">Acciones</div>
-                        <% if(session.evaluation) { %>
+                        <% if (session.evaluation) { %>
                             <a class="nav-link" href="/encuesta/">
                                 <div class="sb-nav-link-icon"><i class="fas fa-pen-alt fa-2x"></i></div>
                                 Encuesta

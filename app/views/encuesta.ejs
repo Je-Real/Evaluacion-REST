@@ -1,4 +1,4 @@
-<% if(session) { %>
+<% if (session) { %>
 <%- include('template/!head.ejs') %>
 
 <body class="sb-nav-fixed">
@@ -10,7 +10,7 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-5">
-                    <% if(userData.length > 0) { %>
+                    <% if (userData.length > 0) { %>
                     <div class="dynamic-title">
                         <h1 class="display-2 text-center py-4">Encuesta</h1>
                     </div>
@@ -20,10 +20,10 @@
                             <button id="list" class="mx-1 btn btn-view btn-secondary" onclick="listView()"><i class="fa fa-bars"></i> Lista</button> 
                             <button id="card" class="mx-1 btn btn-view btn-on" onclick="cardView()"><i class="fa fa-th-large"></i> Tarjetas</button>
                           </div>
-                        <div class="d-flex flex-wrap justify-content-center">
+                        <div class="d-flex flex-wrap justify-content-center paginator">
                             <% for(var person in userData) { %>
                             <div id="<%= userData[person]._id %>" data-id="<%= userData[person]._id %>" 
-                                class="container card card-option w-md-25 mx-2 mb-4 shadow-sm border-0">
+                                class="container pag-item card card-option w-md-25 mx-2 mb-4 shadow-sm border-0">
                                 <div class="row mode card-mode">
                                     <div class="card-header border-0 d-flex justify-content-center"></div>
                                     <div class="card-body">
@@ -760,6 +760,7 @@
 
     <%- include('template/!scripts.ejs') %>
     <script src="/js/encuesta.js"></script>
+    <script src="/js/paginator.js"></script>
 </body>
 
 </html>

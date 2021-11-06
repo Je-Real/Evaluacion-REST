@@ -10,7 +10,7 @@ const crypto = require('crypto-js')
 async function root(req, res) {
     var session
 
-    if(!req.session.user && !req.session.lvl) { // No session 😡
+    if (!req.session.user && !req.session.lvl) { // No session 😡
         session = null
     } else { // Session 🤑
         session = req.session
@@ -106,14 +106,14 @@ async function signIn(req, res) {
 async function getManager(req, res) {
 	var search
 
-	if(parseInt(req.query.level) == 1) {
+	if (parseInt(req.query.level) == 1) {
 		search = { level: parseInt(req.query.level) }
-	} else if(req.query.department > 0) {
+	} else if (req.query.department > 0) {
 		search = {
 			area: parseInt(req.query.area),
 			level: parseInt(req.query.level)
 		}
-	} else if(req.query.career > 0) {
+	} else if (req.query.career > 0) {
 		search = {
 			area: parseInt(req.query.area),
 			department: parseInt(req.query.department),

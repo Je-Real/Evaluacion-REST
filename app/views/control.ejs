@@ -1,4 +1,4 @@
-<% if(session) { %>
+<% if (session) { %>
 <%- include('template/!head.ejs') %>
 
 <body class="sb-nav-fixed">
@@ -42,15 +42,15 @@
                                 </tr>
                             </thead>
                             <tbody class="border-0" id="table-b">
-                                <% if(records != false) { 
+                                <% if (records != false) {
                                     for(var record in records) { %>
-                                    <tr id="<%= records[record]['_id'] %>" class="i-info" data-status="<%= records[record]['records'] %>">
+                                    <tr id="<%= records[record]['_id'] %>" class="i-info pag-item" data-status="<%= records[record]['records'] %>">
                                         <td class="border-0 border-end text-center"><%= records[record]['_id'] %></td>
                                         <td class="border-0 border-start text-center"><%= records[record]['first_name'] %></td>
                                         <td class="border-0 border-start text-center"><%= records[record]['last_name'] %></td>
                                         <td class="border-0 border-start text-center i-status"></td>
                                         <td class="border-0 border-start d-flex justify-content-center h-100">
-                                            <% if(records[record]['records'] == 0) { %>
+                                            <% if (records[record]['records'] == 0) { %>
                                                 <button type="button" onclick="go('<%= records[record][`_id`] %>')"
                                                     class="btn btn-info mx-md-2 my-auto mx-1 p-1 h-toolt">
                                                     <i class="text-white fas fa-plus-circle fa-2x toolt-txt"
@@ -84,7 +84,7 @@
     </div>
 
     <%- include('template/!scripts.ejs') %>
-    <script src="/js/control.js"></script>
+    <script src="/js/paginator.js"></script>
 </body>
 
 </html>
