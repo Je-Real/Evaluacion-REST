@@ -9,15 +9,12 @@ async function root(req, res) {
         session = null
     } else { // Session 🤑
         session = req.session
-
+        
         await modelUserInfo.aggregate([
-            { $match: { manager: req.session.user } },
+            { $match: { manager: 'R000' } },
             {
                 $lookup: {
                     from: "evaluations",
-                    pipeline: [
-                        { $project: { records: 1, _id: 0 } }
-                    ],
                     localField: "_id",
                     foreignField: "_id",
                     as: "eval",
@@ -44,17 +41,25 @@ async function root(req, res) {
         ])
         .then(async(dataInfo) => {
             const date = new Date()
-            var year = String(date.getFullYear())
+            var year = String(date.getFullYear()),
+                prom,
+                personas
             records = dataInfo
 
-            for(let i in records) {
+            for(let i in records) {                
                 try {
-                    if (records[i]['records'][year] != undefined)
+                    if (records[i]['records'][year] != undefined) {
                         records[i]['records'] = 1
+
+                        personas++
+                        prom += records[i]['records'][year]
+                    }
                 } catch {
                     records[i]['records'] = 0        
                 }
             }
+            var result = prom/personas
+            console.log('Result '+result); 
         })
         .catch((error) => {
             console.error(error)
