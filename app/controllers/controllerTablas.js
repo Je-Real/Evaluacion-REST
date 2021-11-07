@@ -8,7 +8,10 @@ function root(req, res) {
     }
 
     //Tablas route
-    return res.status(200).render('tablas', {session: session})
+    return res.status(200).render('tablas', {
+        tittle_page: 'UTNA - Tablas',
+        session: session
+    })
 }
 
 module.exports = {

@@ -1,12 +1,12 @@
 const { jsPDF } = window.jspdf
 const doc = new jsPDF()
 
-var d = new Date().toLocaleDateString('es')
 
 async function pdfReport() {
     const w = 210
     const h = 297
-    var spacing = 0,
+    var dateLocal = new Date().toLocaleDateString('es'),
+        spacing = 0,
         canvas, canvasImg,
         img = new Image()
     
@@ -14,7 +14,7 @@ async function pdfReport() {
 
     doc.setFontSize(11)
     doc.text(w*0.1, h*0.05, 'Usuario: '+user)
-    doc.text(w*0.775, h*0.05, d)
+    doc.text(w*0.775, h*0.05, dateLocal)
     doc.addImage(await img, 'PNG', w*0.4, h*0.01, 40, 20)
 
     doc.setLineWidth(3)
@@ -42,5 +42,5 @@ async function pdfReport() {
     canvasImg = canvas.toDataURL()
     doc.addImage(canvasImg, 'PNG', w*0.5, spacing+h*0.15, 80, 70)
     
-    await doc.save('reporte_'+user+'-'+d+'.pdf')
+    await doc.save('reporte_'+user+'-'+dateLocal+'.pdf')
 }

@@ -22,11 +22,9 @@ async function root(req, res) {
         session = req.session
             
         if (session.lvl > 1) {
-            if (session.area > 0) {
-                options[0] = { n: session.area }
-                if (session.department > 0) {
-                    options[1] = { n: session.department }
-                }
+            options[0] = { n: session.area }
+            if (session.department > 0) {
+                options[1] = { n: session.department }
             }
         }
     
@@ -54,8 +52,7 @@ async function root(req, res) {
             }, { $project: { _id: 0 } }
         ]) // Get all areas in DB
         .then((data) => { //🟢
-            /*
-             * We get as result a JSON like this
+            /* We get as result a JSON like this
              *  { 
              *      n: 0,  << Area number >>
              *      desc: 'Area 0',  << Area name >>
@@ -106,6 +103,7 @@ async function root(req, res) {
 
     //Reportes route
     return res.status(200).render('reportes', {
+        tittle_page: 'UTNA - Reportes',
         session: session,
         care: career,
         depa: department,
@@ -116,7 +114,7 @@ async function root(req, res) {
 }
 
 async function get(req, res) {
-    var search = {}
+    var search = {}, empty = false
 
     if (req.body.area > 0) {
         search.area = req.body.area
@@ -124,18 +122,51 @@ async function get(req, res) {
             search.department = req.body.department
             if (req.body.career > 0) search.career = req.body.career
         }
+    } else {
+        empty = '[Report] Empty/Auto query'
     }
-    else return res.end(JSON.stringify({
-        msg: '(Empty || Auto)',
-        status: 404,
-        log: true
-    }))
 
-    await modelEvaluation.find(search)
+    await modelEvaluation.aggregate([
+        {
+            $lookup: {
+                from: "user_infos",
+                pipeline: [
+                    { $match : search },
+                    {
+                        $project: {
+                            first_name: 1,
+                            last_name: 1,
+                            area: 1,
+                            department: 1,
+                            career: 1,
+                        }
+                    }
+                ],
+                localField: "_id",
+                foreignField: "_id",
+                as: "info",
+            }
+        }, {
+            $replaceRoot: {
+                newRoot: {
+                    $mergeObjects: [
+                        { $arrayElemAt: [ "$info", 0 ] }, "$$ROOT"
+                    ]
+                } 
+            }
+        }, { $project: { info: 0, __v: 0 } }
+    ])
     .then((data) => { //🟢
         return res.end(JSON.stringify({
-            data: data,
+            data: {
+                total: 66,
+                log: {
+                    years: [2010, 2020],
+                    records: [90, 66]
+                }
+            },
             msg: 'Datos obtenidos.',
+            console: empty,
             status: 200,
             noti: true
         }))

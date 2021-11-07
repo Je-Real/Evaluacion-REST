@@ -10,7 +10,10 @@ async function root(req, res) {
     }
 
     //Inicio route
-    return res.status(200).render('inicio', {session: session})
+    return res.status(200).render('inicio', {
+        tittle_page: 'UTNA - Inicio',
+        session: session
+    })
 }
 
 function search(req, res, next) {

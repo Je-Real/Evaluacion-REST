@@ -11400,7 +11400,7 @@ body {
 	}
 
 	.sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
-		transform: translateX(-225px);
+		transform: translateX(-160px);
 	}
 	.sb-sidenav-toggled #layoutSidenav #layoutSidenav_content {
 		margin-left: -225px;

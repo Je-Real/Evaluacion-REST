@@ -5,7 +5,7 @@ $(document).ready(async() => {
         setCookie('USelected', '')
     })
     .catch((error) => {
-        console.error('Error (No selected!):', error)
+        console.log('[Survey] No user selected!:', error)
     })
 
     $('input[type="radio"]').click(() => {

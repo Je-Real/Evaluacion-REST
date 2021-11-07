@@ -1,6 +1,7 @@
 
 // 👇 Production mode
 //'use strict'
+const d = new Date()
 
 var tf = false,
     tr = false,
@@ -8,7 +9,7 @@ var tf = false,
     frameP = document.getElementById('floatingPass'),
     frameR = document.getElementById('floatingRegister'),
     glass = document.getElementById('layoutSidenav')
-    
+
 $(document).ready(async() => {
     var fade_away = true
 

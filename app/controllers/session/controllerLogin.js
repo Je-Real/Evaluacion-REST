@@ -6,7 +6,7 @@ const crypto = require('crypto-js')
 // >>>>>>>>>>>>>>>>>>>>>> Login <<<<<<<<<<<<<<<<<<<<<<
 async function logIn(req, res) {
 	const date = new Date()
-	const year = date.getFullYear()
+	var year = date.getFullYear()
 
 	req.body._id = String(req.body._id).toUpperCase()
 

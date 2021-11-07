@@ -4,9 +4,9 @@ const modelUserInfo = require('../models/modelUserInfo')
 async function root(req, res) {
     var session, records = false
     
-    if (!req.session.user && !req.session.lvl) { // No session 😡
+    if (!req.session.user && !req.session.lvl) // No session 😡
         session = null
-    } else { // Session 🤑
+    else { // Session 🤑
         session = req.session
 
         await modelUserInfo.aggregate([
@@ -55,7 +55,8 @@ async function root(req, res) {
                 }
             }
             var result = prom/personas
-            console.log('Result '+result); 
+
+            // ---------------- console.log('Result '+result); 
         })
         .catch((error) => {
             console.error(error)
@@ -64,7 +65,8 @@ async function root(req, res) {
     }
 
     //Control route
-    return res.status(200).render('control', { 
+    return res.status(200).render('control', {
+        tittle_page: 'UTNA - Control',
         session: session,
         records: records
     })

@@ -20,7 +20,7 @@
                             <button id="list" class="mx-1 btn btn-view btn-secondary" onclick="listView()"><i class="fa fa-bars"></i> Lista</button> 
                             <button id="card" class="mx-1 btn btn-view btn-on" onclick="cardView()"><i class="fa fa-th-large"></i> Tarjetas</button>
                           </div>
-                        <div class="d-flex flex-wrap justify-content-center paginator">
+                        <div class="d-flex flex-wrap justify-content-center paginator" data-rows-shown="3, 6, 9, 12">
                             <% for(var person in userData) { %>
                             <div id="<%= userData[person]._id %>" data-id="<%= userData[person]._id %>" 
                                 class="container pag-item card card-option w-md-25 mx-2 mb-4 shadow-sm border-0">

@@ -20,146 +20,71 @@
                                 <% } %>
                             </h1>
                         </div>
+
+                        <!--h2 class="display-6 text-center mb-5" data-time="<%= hour %>">
+                            <%= s %>, <%= session.name %>
+                        </h2-->
+                        <div class="d-flex justify-content-center my-4">
+                            <button class="btn btn-info" onclick="pdfReport()">Descargar Reporte</button>
+                        </div>
                     </div>
 
-                    <div class="row my-4 mx-auto"> 
-                        <div class="col-12 col-md-4">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="">
-                                        <h2 class="display-6 text-center mb-5" data-time="<%= hour %>">
-                                            <%= s %>, <%= session.name %>
-                                        </h2>
-                                    </div>
-                                    
-                                    <input class="deletable" type="hidden" name="user" id="user"
-                                        value="<%= session.user %>">
-                                    <input class="deletable" type="hidden" name="name" id="name"
-                                        value="<%= session.name %>">
-                                    <input class="deletable" type="hidden" name="lvl" id="lvl"
-                                        value="<%= session.lvl %>">
-                                    
-                                    <input class="deletable" type="hidden" name="s-area" id="s-area"
-                                        value="<%= session.area %>">
-                                    <input class="deletable" type="hidden" name="s-department" id="s-department"
-                                        value="<%= session.department %>">
-                                    <input class="deletable" type="hidden" name="s-career" id="s-career"
-                                        value="<%= session.career %>">
-            
-                                    <div class="">
-                                        <form method="GET" name="f-rep" id="f-rep" autocomplete="off">                                        
-                                            <div class="card border-0 shadow-sm">
-                                                <div class="card-header border-0 border-0 d-flex justify-content-center">
-                                                    <i class="fas fa-sliders-h fa-2x me-1"></i>
-                                                    <h5 class="mx-3">Selección de filtros</h5>
-                                                </div>
-                                                    
-                                                <div class="card-body">
-                                                    <div class="container p-0">
-                                                        <div class="row">
-                                                            <h6>Área:</h6>
-                                                            <div class="form-floating">
-                                                                <select class="form-select" name="area" id="area" aria-label="Selección">
-                                                                    <option id="are-s" value="0" selected>-Selecciona área-</option>
-                                                                    <% for(var d in area) { %>
-                                                                        <option class="are" value="<%= area[d]['n'] %>"> 
-                                                                            <%= area[d]['desc'] %> 
-                                                                        </option>
-                                                                    <% } %>
-                                                                </select>
-                                                                <label for="area">Área</label>
-                                                            </div>
-
-                                                            <% if (depa.length > 0) { %>
-                                                            <h6>Departamento:</h6>
-                                                            <div class="form-floating my-4">
-                                                                <select class="form-select" name="department" id="department" aria-label="Selección" disabled>
-                                                                    <option id="dep-s" class="dep" value="0" selected>N/A</option>
-                                                                    <% for(var d in depa) { %>
-                                                                        <option class="dep" data-area="<%= depa[d]['area'] %>" value="<%= depa[d]['n'] %>">
-                                                                            <%= depa[d]['desc'] %>
-                                                                        </option>
-                                                                    <% } %>
-                                                                </select>
-                                                                <label for="department">Departamento</label>
-                                                            </div>
-                                                            <% } %>
-                                                            
-                                                            <% if (care.length > 0) { %>
-                                                            <h6>Carrera:</h6>
-                                                            <div class="form-floating">
-                                                                <select class="form-select" name="career" id="career" aria-label="Selección" disabled>
-                                                                    <option id="car-s" class="car" value="0" selected>N/A</option>
-                                                                    <% for(var d in care) { %>
-                                                                        <option class="car" data-depa="<%= care[d]['department'] %>" value="<%= care[d]['n'] %>">
-                                                                            <%= care[d]['desc'] %>
-                                                                        </option>
-                                                                    <% } %>
-                                                                </select>
-                                                                <label for="career">Carrera</label>
-                                                            </div>
-                                                            <% } %>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                    <div class="row my-4 mx-auto">
+                        <div class="col-6">
+                            <div class="row px-5">
+                                <div class="col-12 px-5">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12 mt-4">
+                                                <h5 class="text-center display-6">AREA</h5>
                                             </div>
-                                        </form>
-
-                                        <div class="d-flex justify-content-center my-4">
-                                            <button class="btn btn-info" onclick="pdfReport()">Descargar Reporte</button>
+                                        </div>
+                                        <div class="row px-5 mx-3 canvas-container semiDoughnutChart">
+                                            <canvas id="semiDoughnutChart-0" width="100%" height="100%"></canvas>
+                                        </div>
+                                        <div class="row canvas-container barsChart">
+                                            <canvas id="barsChart-0" width="100%" height="50%"></canvas>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div id="report" class="col-12 col-md-8">
-                            <div class="container h-100">
-                                <div id="element-handler" class="row">
-                                    <div class="col-12 mt-4">
-                                        <h5 class="text-center display-6">Registros</h5>
+                                <div class="col-md-6 col-12 mx-auto my-1">
+                                    <div class="form-floating">
+                                        <select class="form-select" name="area" id="area" aria-label="Selección">
+                                            <option id="are-s" value="0" selected>-Selecciona área-</option>
+                                            <% for(var d in area) { %>
+                                                <option class="are" value="<%= area[d]['n'] %>"> 
+                                                    <%= area[d]['desc'] %> 
+                                                </option>
+                                            <% } %>
+                                        </select>
+                                        <label for="area">Área</label>
                                     </div>
                                 </div>
-
-                                <div class="row h-100">
-                                    <div class="col-0 col-lg-3"></div>
-                                    <div class="col-12 col-lg-6">
-                                        <div class="card mb-4 shadow-sm border-0">
-                                            <div class="card-header border-0 d-flex justify-content-center">
-                                                <i class="fas fa-chart-pie fa-2x me-1"></i>
-                                                <h5>Desempeño por años</h5>
-                                            </div>
-                                            <div class="card-body chart-display doughnut">
-                                                <canvas id="doughnutChart" width="100%" height="40"></canvas>
-                                            </div>
-                                            <div class="card-footer border-0 small text-muted"></div>
-                                        </div>
+                                <div class="col-md-6 col-12 mx-auto my-1">
+                                    <div class="form-floating">
+                                        <select class="form-select" name="department" id="department" aria-label="Selección" disabled>
+                                            <option id="dep-s" class="dep" value="0" selected>-Selecciona departamento-</option>
+                                            <% for(var d in depa) { %>
+                                                <option class="dep" data-area="<%= depa[d]['area'] %>" value="<%= depa[d]['n'] %>">
+                                                    <%= depa[d]['desc'] %>
+                                                </option>
+                                            <% } %>
+                                        </select>
+                                        <label for="department">Departamento</label>
                                     </div>
-                                    <div class="col-0 col-lg-3"></div>
-
-                                    <div class="col-12 col-lg-6">
-                                        <div class="card mb-4 shadow-sm border-0">
-                                            <div class="card-header border-0 d-flex justify-content-center">
-                                                <i class="fas fa-chart-bar fa-2x me-1"></i>
-                                                <h5>Desempeño por años</h5>
-                                            </div>
-                                            <div class="card-body chart-display bar">
-                                                <canvas id="barChart" width="100%" height="75%"></canvas>
-                                            </div>
-                                            <div class="card-footer border-0 small text-muted"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6">
-                                        <div class="card mb-4 shadow-sm border-0">
-                                            <div class="card-header border-0 d-flex justify-content-center">
-                                                <i class="fas fa-chart-area fa-2x me-1"></i>
-                                                <h5>Desempeño por años</h5>
-                                            </div>
-                                            <div class="card-body chart-display line">
-                                                <canvas id="lineChart" width="100%" height="75%"></canvas>
-                                            </div>
-                                            <div class="card-footer border-0 small text-muted"></div>
-                                        </div>
+                                </div>
+                                <div class="col-md-6 col-12 mx-auto my-1">
+                                    <div class="form-floating">
+                                        <select class="form-select" name="career" id="career" aria-label="Selección" disabled>
+                                            <option id="car-s" class="car" value="0" selected>-Selecciona carrera-</option>
+                                            <% for(var d in care) { %>
+                                                <option class="car" data-depa="<%= care[d]['department'] %>" value="<%= care[d]['n'] %>">
+                                                    <%= care[d]['desc'] %>
+                                                </option>
+                                            <% } %>
+                                        </select>
+                                        <label for="career">Carrera</label>
                                     </div>
                                 </div>
                             </div>

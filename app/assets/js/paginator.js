@@ -1,5 +1,24 @@
+var arr_rows
+
 $(document).ready(() => {
-    //$('.paginator').before()
+    var y, arr_rows, rows_shown = ''
+
+    $('.paginator').before(`<div id="pag"></div>`)
+
+    y = document.querySelector('#pag').getBoundingClientRect().y
+    document.querySelector('#pag').style['top'] = (y - 225) + 'px'
+
+    try {
+        arr_rows = document.querySelector('.paginator').getAttribute('data-rows-shown').split(',')
+    } catch {
+        throw console.error('No data-rows-shown listed in .paginator!')
+    }
+
+    for (let i in arr_rows) {
+        var sel = (parseInt(arr_rows[i]) >= 4 && parseInt(arr_rows[i]) <= 6) ? 'selected' : ''
+        rows_shown += `<option value="${parseInt(arr_rows[i])}" ${sel}>${parseInt(arr_rows[i])}</option>`
+    }
+
     $('.paginator').after(`
         <div class="pag-cont d-flex justify-content-md-between px-md-4">
             <div id="pag-ctrl" class="pagination my-auto">
@@ -15,11 +34,9 @@ $(document).ready(() => {
                 </div class="d-flex">
                 <div class="rows-quantity">
                     <div class="form-floating">
-                        <select name="rows" id="rows" class="form-select ps-4" title="Rows-quantity" aria-label="Selección" >
-                            <option value="5" selected>5</option>
-                            <option value="10">10</option>
-                            <option value="15">15</option>
-                            <option value="20">20</option>
+                        <select name="rows" id="rows" class="form-select ps-4"
+                            title="Rows-quantity" aria-label="Selección">
+                            ${rows_shown}
                         </select>
                         <label for="rows">Filas</label>
                     </div>
@@ -42,11 +59,9 @@ function paginator() {
         numPages = rowsTotal/rows
     
     for (i=0; i<numPages; i++) {
-        $('#pag-ctrl a[rel="next"]').before(`<a class="row-temp" href="#" rel="${i}">${(i+1)}</a>`)
+        $('#pag-ctrl a[rel="next"]').before(`<a class="row-temp" href="#pag" rel="${i}">${(i+1)}</a>`)
     }
 
-    $('.paginator .pag-item').hide()
-    $('.paginator .pag-item').slice(0, rows).show()
     $('#pag-ctrl a[rel="prev"]').addClass('blocked')
     $('#pag-ctrl a[rel="0"]').addClass('active')
     $('#reg-total').text(rowsTotal)
@@ -59,7 +74,17 @@ function paginator() {
             startItem = currPage * rows,
             endItem = startItem + rows
 
-        $('.paginator .pag-item').css('opacity','0.0').hide().slice(startItem, endItem)
-            .css('display','table-row').animate({opacity:1}, 300)
+        try {
+            $('.paginator tr.pag-item').css('opacity','0.0').hide().slice(startItem, endItem)
+                .animate({opacity:1}, 300).css('display','table-row')
+        } catch { }
+
+        try {
+            $('.paginator div.pag-item').css('opacity','0.0').hide().slice(startItem, endItem)
+                .animate({opacity:1}, 300).css('display','block')
+        } catch { }
     })
+
+    $('.paginator .pag-item').hide()
+    $('.paginator .pag-item').slice(0, rows).show()
 }

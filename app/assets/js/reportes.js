@@ -1,19 +1,25 @@
 var lvl, rec, showCharts, showRegs = 5
-const date = new Date()
-const year = parseInt(date.getFullYear()) - (showRegs-1)
+
+var year = parseInt(d.getFullYear()) - (showRegs-1)
 
 $(document).ready(() => {
 	$('.dep').addClass('d-none') //Hide department options
 	$('#department').prop('disabled', true) //Disable dropdown for department
 	lvl = parseInt($('#lvl').val())
 
+	
+	Array.prototype.forEach.call(document.querySelectorAll('.canvas-container canvas'), (node) => {
+		node.classList.add('d-none')
+	})
+	document.querySelector('.canvas-container.semiDoughnutChart').innerHTML += `<div class="text-center d-block ghost-container">
+		<i class="fas fa-ghost icon-ghost f-vScreen-15 my-3 text-black-15"></i>
+		<p class="my-2 text-ghost">No hay datos para mostrar</p>
+	</div>`
 	displayCharts(false)
 
-	if (lvl > 0) {
-		setTimeout(() => {
-			dataGetter(true)
-        }, 800)
-	}
+	setTimeout(() => {
+		dataGetter(true)
+    }, 150)
 })
 
 $('#area').change(() => {
@@ -68,24 +74,34 @@ function displayCharts(bool) {
 	else return
 
 	if (showCharts) {
-		if (lvl <= 0) {
-			$('.chart-display.doughnut').html(`
-				<canvas id="doughnutChart" width="100%" height="40"></canvas>
-			`)
-		}
-		$('.chart-display.bar').html(`
-			<canvas id="barChart" width="100%" height="75%"></canvas>
-		`)
-		$('.chart-display.line').html(`
+		Array.prototype.forEach.call(document.querySelectorAll('.ghost-container'), (node) => {
+			if(node.classList.contains('d-block'))
+				node.classList.remove('d-block')
+			if(!node.classList.contains('d-none'))
+				node.classList.add('d-none')
+		})
+		Array.prototype.forEach.call(document.querySelectorAll('.canvas-container canvas, .canvas-container span'), (node) => {
+			if(node.classList.contains('d-none'))
+				node.classList.remove('d-none')
+			if(!node.classList.contains('d-block'))
+				node.classList.add('d-block')
+		})
+		/*$('.canvas-container.line').html(`
 			<canvas id="lineChart" width="100%" height="75%"></canvas>
-		`)
+		`)*/
 	} else {
-		$('.chart-display').html(`
-			<div class="text-center">
-				<i class="fas fa-ghost icon-ghost f-vScreen-15 my-3 text-black-15"></i>
-				<p class="my-2 text-ghost">No hay datos para mostrar</p>
-			</div>
-		`)
+		Array.prototype.forEach.call(document.querySelectorAll('.canvas-container canvas, .canvas-container span'), (node) => {
+			if(node.classList.contains('d-block'))
+				node.classList.remove('d-block')
+			if(!node.classList.contains('d-none'))
+				node.classList.add('d-none')
+		})
+		Array.prototype.forEach.call(document.querySelectorAll('.ghost-container'), (node) => {
+			if(node.classList.contains('d-none'))
+				node.classList.remove('d-none')
+			if(!node.classList.contains('d-block'))
+				node.classList.add('d-block')
+		})
 	}
 }
 
@@ -119,22 +135,19 @@ function dataGetter(auto) {
 			dataType: 'json',
 			async: true,
 			success: (result) => {
+				if (result.console) console.log(result.console)
+
 				if (result.status === 200) {
 					try {
-						var years = [], records = []
-	
-						for(let i = 0; i <= 4; i++) {
-							years.push(String(year+i))
-							rec = (result.data[0].records[year+i] > 0) ? result.data[0].records[year+i] : 0
-							records.push(rec)
-						}
-
+						semiDoughnutChart(result.data.total)
+						barChart(result.data.log.years, result.data.log.records)
+						//lineChart(years, records)
 						displayCharts(true)
-						doughnutChart(years, records)
-						barChart(years, records)
-						lineChart(years, records)
 					}
-					catch { displayCharts(false) }
+					catch (error) {
+						displayCharts(false)
+						console.error(error)
+					}
 				}
 				else {
 					if (result.log === true) return console.log(result.msg)
