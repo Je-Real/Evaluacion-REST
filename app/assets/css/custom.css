@@ -9,6 +9,10 @@ svg {
 	margin: 0;
 }
 
+path {
+	pointer-events: none;
+}
+
 th {
 	border: 0;
 }
@@ -88,8 +92,46 @@ h1, h2, h3, h4, h5, h6 {
 	height: 1px;
 }
 
+.top {
+	top: 0;
+}
+
+.start {
+	left: 0;
+}
+
+.end {
+	right: 0;
+}
+
+.bottom {
+	bottom: 0;
+}
+
+.pointer-event-none {
+	pointer-events: none;
+}
+
 .floating.hide {
 	display: none;
+}
+
+.bg-ligth-gray {
+	color: #2c2c2c;
+	background: #d4d4d4;
+	background: -moz-linear-gradient(125deg, #d4d4d4 0%, #cccccc8b 35%, #ffffff00 60%);
+	background: -webkit-linear-gradient(125deg, #d4d4d4 0%, #cccccc8b 35%, #ffffff00 60%);
+	background: linear-gradient(125deg, #d4d4d4 0%, #cccccc8b 35%, #ffffff00 60%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d4d4d4",endColorstr="#ffffff",GradientType=1);
+}
+
+.btn {
+	border: none;
+}
+
+.btn:hover {
+	-webkit-box-shadow: 0px 4px 30px -10px rgba(0,0,0,0.66); 
+	box-shadow: 0px 4px 30px -10px rgba(0,0,0,0.66);
 }
 
 .floating.show {
@@ -109,71 +151,43 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* >>  W i d t h  << */
-.w-100 {
-	width: 100%;
-}
+.w-100 { width: 100%; }
 
-.w-90 {
-	width: 90%;
-}
+.w-90 { width: 90%; }
 
-.w-80 {
-	width: 80%;
-}
+.w-80 { width: 80%; }
 
-.w-75 {
-	width: 75%;
-}
+.w-75 { width: 75%; }
 
-.w-50 {
-	width: 50%;
-}
+.w-50 { width: 50%; }
 
-.w-25 {
-	width: 25%;
-}
+.w-40 { width: 40%; }
+
+.w-30 { width: 30% }
+
+.w-25 { width: 25%; }
 
 /* >>  V i r t u a l   H e i g h t  << */
-.vh-100 {
-	height: 100vh !important;
-}
+.vh-100 { height: 100vh !important; }
 
-.vh-85 {
-	height: 85vh !important;
-}
+.vh-85 { height: 85vh !important; }
 
-.vh-75 {
-	height: 75vh !important;
-}
+.vh-75 { height: 75vh !important; }
 
-.vh-50 {
-	height: 50vh !important;
-}
+.vh-50 { height: 50vh !important; }
 
-.vh-25 {
-	height: 25vh !important;
-}
+.vh-25 { height: 25vh !important; }
 
 /* >>  V i r t u a l   W i d t h  << */
-.vw-100 {
-	width: 100vw !important;
-}
+.vw-100 { width: 100vw !important; }
 
-.vw-85 {
-	width: 85vw !important;
-}
+.vw-85 { width: 85vw !important; }
 
-.vw-75 {
-	width: 75vw !important;
-}
+.vw-75 { width: 75vw !important; }
 
-.vw-50 {
-	width: 50vw !important;
-}
+.vw-50 { width: 50vw !important; }
 
-.vw-25 {
-	width: 25vw !important;
-}
+.vw-25 { width: 25vw !important; }
 
 @media (max-width: 768px) {
 	.w-sm-100 {
@@ -195,20 +209,23 @@ h1, h2, h3, h4, h5, h6 {
 
 /* md & greater */
 @media (min-width: 768px) {
-	.w-md-90 {
-		width: 90% !important;
-	}
-	.w-md-80 {
-		width: 80% !important;
-	}
 	.w-md-25 {
 		width: 25% !important;
+	}
+	.w-md-30 {
+		width: 30% !important;
 	}
 	.w-md-50 {
 		width: 50% !important;
 	}
 	.w-md-75 {
 		width: 75% !important;
+	}
+	.w-md-90 {
+		width: 90% !important;
+	}
+	.w-md-80 {
+		width: 80% !important;
 	}
 	.col-md {
 		flex: 1 0 0%;
@@ -217,20 +234,23 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (min-width: 992px) {
 	/*lg*/
-	.w-lg-90 {
-		width: 90% !important;
-	}
-	.w-lg-80 {
-		width: 80% !important;
-	}
 	.w-lg-25 {
 		width: 25% !important;
+	}
+	.w-lg-30 {
+		width: 30% !important;
 	}
 	.w-lg-50 {
 		width: 50% !important;
 	}
 	.w-lg-75 {
 		width: 75% !important;
+	}
+	.w-lg-90 {
+		width: 90% !important;
+	}
+	.w-lg-80 {
+		width: 80% !important;
 	}
 }
 
@@ -422,6 +442,18 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 1rem 1.5rem;
 }
 
+.mt-6 {
+	margin-top: 4.5rem;
+}
+
+.ms-6 {
+	margin-left: 4.5rem;
+}
+
+.mb-6 {
+	margin-bottom: 4.5rem;
+}
+
 .mt-10 , .my-10 {
 	margin-top: 10rem;
 }
@@ -506,6 +538,15 @@ h1, h2, h3, h4, h5, h6 {
 	margin-bottom: 4rem;
 }
 
+.dynamic-title.inverse {
+	-webkit-border-radius: 5px 0 0 175px;
+	-moz-border-radius: 5px 0 0 175px;
+	border-radius: 5px 0 0 175px;
+
+	-webkit-box-shadow: 6rem 1.1rem 30px -10px #fff, 15rem -1.9rem 29px 0px #fff, -2rem 3px 26px -11px #00000066;
+	box-shadow: 6rem 1.1rem 30px -10px #fff, 15rem -1.9rem 29px 0px #fff, -2rem 3px 26px -11px #00000066;
+}
+
 .dynamic-title-front {
 	-webkit-border-radius: 175px 0 175px 0;
 	-moz-border-radius: 175px 0 175px 0;
@@ -519,6 +560,16 @@ h1, h2, h3, h4, h5, h6 {
 	margin-bottom: 4rem;
 }
 
+.rot-20>svg {
+	transform: rotate(0deg);
+	transition: all 0.2s;
+}
+
+.rot-20.move>svg {
+	transform: rotate(90deg);
+}
+
+/* Reportes */
 .canvas-container.semiDoughnutChart span {
 	font-family: 'Oswald', sans-serif;
 	font-size: calc(2vh + 1.25rem);
@@ -531,6 +582,23 @@ h1, h2, h3, h4, h5, h6 {
 	pointer-events: none;
 	animation: appear 0.9s;
 }
+
+.add-canvas>.btn {
+	margin: -20vh 0 0 -10vw;
+}
+
+.btn-download:hover {
+	color: #077232;
+}
+
+.btn-add-panel:hover {
+	color: #946218;
+}
+
+.config-menu {
+	z-index: 2;
+}
+/* Reportes */
 
 /* Control */
 .dataTable-selector {

@@ -66,7 +66,7 @@ async function root(req, res) {
 
     //Control route
     return res.status(200).render('control', {
-        tittle_page: 'UTNA - Control',
+        title_page: 'UTNA - Control',
         session: session,
         records: records
     })

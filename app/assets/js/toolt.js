@@ -1,17 +1,10 @@
-var still_hover, msg, t_id,
+var still_hover, msg,
     x, y,
     w, h
+    
+window.addEventListener('DOMContentLoaded', mainToolTip())
 
-$(document).ready(async() => {
-    var tooltList = document.getElementsByClassName('h-toolt')
-    if ($('.h-toolt').html() != undefined) {
-        for(let i=0; i<tooltList.length; i++) {
-            tooltList[i].id = Math.random().toString(16).substring(2, 10)
-        }
-    } else {
-        return
-    }
-
+async function mainToolTip() {
     await $('.h-toolt').mousemove(async(e) => {
         x = e.pageX
 		y = e.pageY
@@ -40,4 +33,4 @@ $(document).ready(async() => {
         $(`#toolt`).removeClass('show')
         still_hover = false
 	})
-})
+}

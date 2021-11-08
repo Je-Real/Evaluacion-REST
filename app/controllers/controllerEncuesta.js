@@ -81,7 +81,7 @@ async function root(req, res) {
 
     //Encuesta static route
     return res.status(200).render('encuesta', {
-        tittle_page: 'UTNA - Encuesta',
+        title_page: 'UTNA - Encuesta',
         session: session,
         userData: userData
     })

@@ -572,6 +572,7 @@ progress {
 	margin-top: 3rem;
 	background-color: #212529;
 	color: #fff;
+	z-index: 10;
 }
 
 .footer-copyright {

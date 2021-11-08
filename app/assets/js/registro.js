@@ -5,7 +5,7 @@ var firstName, lastName,
     a = null, d = 0, c = 0,
     lvl_s = 0
 
-$(document).ready(async() => {
+window.addEventListener('DOMContentLoaded', async(event) => {
     $('.dep').addClass('d-none') //Hide department options
 	$('#department').prop('disabled', true) //Disable dropdown for department
 

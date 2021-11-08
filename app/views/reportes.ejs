@@ -8,7 +8,7 @@
     <%- include('template/sidebar.ejs') %>
 
         <div id="layoutSidenav_content">
-            <main class="mb-5">
+            <main class="mb-3">
                 <div class="container-fluid px-4">
                     <div class="container">
                         <div class="dynamic-title mt-4 mb-0 vw-50">
@@ -20,71 +20,112 @@
                                 <% } %>
                             </h1>
                         </div>
+                    </div>
+                </div>
+            </main>
 
-                        <!--h2 class="display-6 text-center mb-5" data-time="<%= hour %>">
-                            <%= s %>, <%= session.name %>
-                        </h2-->
-                        <div class="d-flex justify-content-center my-4">
-                            <button class="btn btn-info" onclick="pdfReport()">Descargar Reporte</button>
+            <main class="mb-5 bg-ligth-gray">
+                    <div class="row w-90 my-3 me-5 ms-4 pe-5">
+                        <div class="w-auto d-flex">
+                            <h2 class="display-6 text-center my-auto" data-time="<%= hour %>">
+                                <%= s %>, <%= session.name %>
+                            </h2>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex justify-content-end my-4 pe-5">
+                                <button id="pdfReport" class="btn btn-download text-center d-flex flex-column mx-3">
+                                    <span class="w-100">
+                                        <i class="fas fa-file-download fa-3x"></i>
+                                    </span>
+                                    <span class="w-100 mt-2">
+                                        Descargar Reporte
+                                    </span>
+                                </button>
+                                <button id="addPanel" class="btn btn-add-panel text-center d-flex flex-column mx-3">
+                                    <span class="w-100">
+                                        <i class="fas fa-plus fa-3x"></i>
+                                    </span>
+                                    <span class="w-100 mt-2">
+                                        Agregar panel
+                                    </span>
+                                </button>
+                            </div>
                         </div>
                     </div>
+            </main>
 
-                    <div class="row my-4 mx-auto">
-                        <div class="col-6">
-                            <div class="row px-5">
-                                <div class="col-12 px-5">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-12 mt-4">
-                                                <h5 class="text-center display-6">AREA</h5>
+            <main class="mb-5">
+                <div class="container-fluid px-4">
+                    <div id="panelContainer" class="row my-4 mx-auto justify-content-center"> <!-- Row div container for the report panels -->
+                        <div class="col-6 panel" data-id="0">
+                            <div class="shadow-lg rounded-2">
+                                <div class="row justify-content-end">
+                                    <button data-id="0"
+                                        class="btn canvas-config m-0 me-5 mt-4 p-1 w-auto position-absolute h-toolt rot-20">
+                                        <i class="fas fa-cog fa-2x toolt-txt pointer-event-none" data-text="Desplegar opciones para este panel"></i>
+                                    </button>
+                                    <div data-id="0"
+                                        class="config-menu d-none position-absolute w-md-30 w-40 bg-light rounded-2 shadow-sm py-3 mt-6 me-5">
+                                        <div class="container m-0 p-0">
+                                            <div class="row">
+                                                <div class="col-md-6 col-12 mx-auto my-1">
+                                                    <div class="form-floating">
+                                                        <select class="form-select area" name="area" data-id="0" aria-label="Selección">
+                                                            <option class="are-s" value="0" selected>Personal a cargo</option>
+                                                            <% for(var d in area) { %>
+                                                                <option class="are" value="<%= area[d]['n'] %>"> 
+                                                                    <%= area[d]['desc'] %> 
+                                                                </option>
+                                                            <% } %>
+                                                        </select>
+                                                        <label for="area">Área</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12 mx-auto my-1">
+                                                    <div class="form-floating">
+                                                        <select class="form-select department" name="department" data-id="0" aria-label="Selección" disabled>
+                                                            <option class="dep-s" value="0" selected>-Selecciona departamento-</option>
+                                                            <% for(var d in depa) { %>
+                                                                <option class="dep" data-area="<%= depa[d]['area'] %>" value="<%= depa[d]['n'] %>">
+                                                                    <%= depa[d]['desc'] %>
+                                                                </option>
+                                                            <% } %>
+                                                        </select>
+                                                        <label for="department">Departamento</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12 mx-auto my-1">
+                                                    <div class="form-floating">
+                                                        <select class="form-select career" name="career" data-id="0" aria-label="Selección" disabled>
+                                                            <option class="car-s" value="0" selected>-Selecciona carrera-</option>
+                                                            <% for(var d in care) { %>
+                                                                <option class="car" data-depa="<%= care[d]['department'] %>" value="<%= care[d]['n'] %>">
+                                                                    <%= care[d]['desc'] %>
+                                                                </option>
+                                                            <% } %>
+                                                        </select>
+                                                        <label for="career">Carrera</label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="row px-5 mx-3 canvas-container semiDoughnutChart">
-                                            <canvas id="semiDoughnutChart-0" width="100%" height="100%"></canvas>
+                                    </div>
+                                </div>
+                                <div class="row px-5 pb-3">
+                                    <div class="col-12 px-5">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-12 mt-4">
+                                                    <h5 id="title-card" class="text-center display-6 text-uppercase">Personal a cargo</h5>
+                                                </div>
+                                            </div>
+                                            <div class="row px-5 mx-3 canvas-container semiDoughnutChart" data-id="0">
+                                                <canvas id="semiDoughnutChart-0" width="100%" height="100%"></canvas>
+                                            </div>
+                                            <div class="row canvas-container barsChart">
+                                                <canvas id="barsChart-0" width="100%" height="50%"></canvas>
+                                            </div>
                                         </div>
-                                        <div class="row canvas-container barsChart">
-                                            <canvas id="barsChart-0" width="100%" height="50%"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 col-12 mx-auto my-1">
-                                    <div class="form-floating">
-                                        <select class="form-select" name="area" id="area" aria-label="Selección">
-                                            <option id="are-s" value="0" selected>-Selecciona área-</option>
-                                            <% for(var d in area) { %>
-                                                <option class="are" value="<%= area[d]['n'] %>"> 
-                                                    <%= area[d]['desc'] %> 
-                                                </option>
-                                            <% } %>
-                                        </select>
-                                        <label for="area">Área</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12 mx-auto my-1">
-                                    <div class="form-floating">
-                                        <select class="form-select" name="department" id="department" aria-label="Selección" disabled>
-                                            <option id="dep-s" class="dep" value="0" selected>-Selecciona departamento-</option>
-                                            <% for(var d in depa) { %>
-                                                <option class="dep" data-area="<%= depa[d]['area'] %>" value="<%= depa[d]['n'] %>">
-                                                    <%= depa[d]['desc'] %>
-                                                </option>
-                                            <% } %>
-                                        </select>
-                                        <label for="department">Departamento</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12 mx-auto my-1">
-                                    <div class="form-floating">
-                                        <select class="form-select" name="career" id="career" aria-label="Selección" disabled>
-                                            <option id="car-s" class="car" value="0" selected>-Selecciona carrera-</option>
-                                            <% for(var d in care) { %>
-                                                <option class="car" data-depa="<%= care[d]['department'] %>" value="<%= care[d]['n'] %>">
-                                                    <%= care[d]['desc'] %>
-                                                </option>
-                                            <% } %>
-                                        </select>
-                                        <label for="career">Carrera</label>
                                     </div>
                                 </div>
                             </div>

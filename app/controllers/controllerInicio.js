@@ -11,7 +11,7 @@ async function root(req, res) {
 
     //Inicio route
     return res.status(200).render('inicio', {
-        tittle_page: 'UTNA - Inicio',
+        title_page: 'UTNA - Inicio',
         session: session
     })
 }

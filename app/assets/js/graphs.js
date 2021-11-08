@@ -13,7 +13,8 @@ const fgColorDefault = [
 	"rgba(153, 102, 255, 1)",
 ]
 
-var canvas, ctx, chart, width, height, gradient
+var canvas, width, height, gradient,
+	dChart, bChart, lChart
 
 function getGradient(ctx, chartArea) {
 	const chartWidth = chartArea.right - chartArea.left
@@ -36,10 +37,13 @@ function semiDoughnutChart(data, id, colors) {
 	if (data > 0 && data <= 100) {
 		id = (id == undefined) ? 'semiDoughnutChart-0' : id
 
+		if (dChart != undefined)
+			dChart.destroy()
+
 		canvas = document.getElementById(id)
 
-		ctx = canvas.getContext('2d');
-		chart = new Chart(ctx, {
+		var ctx = canvas.getContext('2d');
+		dChart = new Chart(ctx, {
 			type: 'doughnut',
 			data: {
 				labels: ['total', 'empty'],
@@ -86,14 +90,15 @@ function barChart(labels, data, id, colors) {
 	if (labels.length && data.length) {
 		var bgColor, fgColor
 
-		console.log(labels);
+		if (bChart != undefined)
+			bChart.destroy()
 		
 		bgColor = (colors != undefined && colors.length == 5) ? colors : bgColorDefault
 		fgColor = (colors != undefined && colors.length == 5) ? colors : fgColorDefault
-		id = (id == undefined) ? 'semiDoughnutChart-0' : id
+		id = (id == undefined) ? 'barsChart-0' : id
 		
-		ctx = document.getElementById("barsChart-0").getContext("2d")
-		chart = new Chart(ctx, {
+		var ctx = document.getElementById(id).getContext("2d")
+		bChart = new Chart(ctx, {
 			type: "bar",
 			data: {
 				labels: labels, //Years labels
@@ -149,8 +154,11 @@ function barChart(labels, data, id, colors) {
 
 function lineChart(labels, data, colors) {
 	if (labels.length && data.length) {
+		if (lChart != undefined)
+			lChart.destroy()
+
 		ctx = document.getElementById("lineChart").getContext("2d")
-		chart = new Chart(ctx, {
+		lChart = new Chart(ctx, {
 			type: "line",
 			data: {
 				labels: labels, //Years labels

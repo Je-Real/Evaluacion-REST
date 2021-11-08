@@ -1,4 +1,4 @@
 // Call the dataTables jQuery plugin
-$(document).ready(() => {
-  $('#dataTable').DataTable();
-});
+window.addEventListener('DOMContentLoaded', async(event) => {
+  $('#dataTable').DataTable()
+})

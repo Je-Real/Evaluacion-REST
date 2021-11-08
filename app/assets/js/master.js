@@ -10,7 +10,7 @@ var tf = false,
     frameR = document.getElementById('floatingRegister'),
     glass = document.getElementById('layoutSidenav')
 
-$(document).ready(async() => {
+    window.addEventListener('DOMContentLoaded', async(event) => {
     var fade_away = true
 
     if ($('#layoutNavbar').attr('data-log') === 'false') {

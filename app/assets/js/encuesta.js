@@ -1,4 +1,4 @@
-$(document).ready(async() => {
+window.addEventListener('DOMContentLoaded', async(event) => {
     await getCookie('USelected')
     .then((data) => {
         selectObjective(data)

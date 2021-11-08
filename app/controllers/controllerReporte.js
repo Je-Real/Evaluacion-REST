@@ -103,7 +103,7 @@ async function root(req, res) {
 
     //Reportes route
     return res.status(200).render('reportes', {
-        tittle_page: 'UTNA - Reportes',
+        title_page: 'UTNA - Reportes',
         session: session,
         care: career,
         depa: department,
