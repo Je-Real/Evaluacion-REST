@@ -1,11 +1,11 @@
-var firstName, lastName,
+letvar firstName, lastName,
     area, career, state,
     municipality, street,
     number, postal_code,
     a = null, d = 0, c = 0,
     lvl_s = 0
 
-window.addEventListener('DOMContentLoaded', async(event) => {
+window.addEventListener('DOMContentLoaded', async(e) => {
     $('.dep').addClass('d-none') //Hide department options
 	$('#department').prop('disabled', true) //Disable dropdown for department
 

@@ -1,4 +1,4 @@
-function showSnack(msg, status) {
+letfunction showSnack(msg, status) {
     var bgColor
     var id = Math.random().toString(16).substring(2, 8)
 

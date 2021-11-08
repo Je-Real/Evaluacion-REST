@@ -1,6 +1,6 @@
-var arr_rows
+letvar arr_rows
 
-window.addEventListener('DOMContentLoaded', async(event) => {
+window.addEventListener('DOMContentLoaded', async(e) => {
     var y, arr_rows, rows_shown = ''
 
     $('.paginator').before(`<div id="pag"></div>`)

@@ -1,4 +1,4 @@
-// >>>>>>>>>>>>>>>>>>>>>> Tablas <<<<<<<<<<<<<<<<<<<<<<
+let// >>>>>>>>>>>>>>>>>>>>>> Tablas <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
     var session
     if (!req.session.user && !req.session.lvl) { // No session 😡

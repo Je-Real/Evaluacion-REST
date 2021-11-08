@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', async(event) => {
+window.addEventListener('DOMContentLoaded', async(e) => {
     await getCookie('USelected')
     .then((data) => {
         selectObjective(data)
@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
     })
 
     $('input[type="radio"]').click(() => {
-        var active_V = 0,
+        let active_V = 0,
             active_VI = 0
 
         if ($('input[name="P-I"]:checked').val()) {
@@ -125,7 +125,7 @@ function selectObjective(hover) {
 }
 
 function postSurvey() {
-    var grades = {
+    let grades = {
         p_1: $('input[name="P-I"]:checked'),
         p_2: $('input[name="P-II"]:checked'),
         p_3: $('input[name="P-III"]:checked'),
@@ -146,7 +146,7 @@ function postSurvey() {
         grades[grade] = parseInt(grades[grade].val())
     }
 
-    var packed = {
+    let packed = {
         _id: $('#userObj').val(),
         records: grades
     }

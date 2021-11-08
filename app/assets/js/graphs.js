@@ -1,4 +1,4 @@
-const bgColorDefault = [
+letconst bgColorDefault = [
 	"rgba(255, 99, 132, 0.65)",
 	"rgba(54, 162, 235, 0.65)",
 	"rgba(255, 206, 86, 0.65)",

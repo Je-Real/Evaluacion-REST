@@ -1,4 +1,4 @@
-const crypto = require('crypto-js')
+letconst crypto = require('crypto-js')
 const path = require('path');
 const fs = require('fs')
 

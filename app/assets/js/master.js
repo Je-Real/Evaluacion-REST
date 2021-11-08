@@ -3,15 +3,28 @@
 //'use strict'
 const d = new Date()
 
-var tf = false,
+let tf = false,
     tr = false,
     frameL = document.getElementById('floatingLogin'),
     frameP = document.getElementById('floatingPass'),
     frameR = document.getElementById('floatingRegister'),
     glass = document.getElementById('layoutSidenav')
 
-    window.addEventListener('DOMContentLoaded', async(event) => {
-    var fade_away = true
+window.addEventListener('DOMContentLoaded', async(e) => {
+    const sidebarToggle = document.body.querySelector('#sidebarToggle')
+    if (sidebarToggle) {
+        // Uncomment Below to persist sidebar toggle between refreshes
+        // if (sessionStorage.getItem('sb|sidebar-toggle') === 'true') {
+        //     document.body.classList.toggle('sb-sidenav-toggled')
+        // }
+        sidebarToggle.addEventListener('click', (e) => {
+            e.preventDefault()
+            document.body.classList.toggle('sb-sidenav-toggled')
+            sessionStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'))
+        })
+    }
+
+    let fade_away = true
 
     if ($('#layoutNavbar').attr('data-log') === 'false') {
         await getCookie(0)
@@ -19,7 +32,7 @@ var tf = false,
             fade_away = false
             if (data[0] != '' && data[0] != undefined) {
                 try {
-                    var cookieData = JSON.parse(data[0])
+                    let cookieData = JSON.parse(data[0])
                     showSnack('Iniando sesión...', 'info')
                     login(cookieData.user, cookieData.pass)
 
@@ -60,12 +73,12 @@ var tf = false,
 
     /* select with effect
     $('select.dropdown').each(function() {
-        var dropdown = $('<div/>').addClass('dropdown selectDropdown')
+        let dropdown = $('<div/>').addClass('dropdown selectDropdown')
     
         $(this).wrap(dropdown)
     
-        var label = $('<span/>').text($(this).attr('placeholder')).insertAfter($(this))
-        var list = $('<ul/>')
+        let label = $('<span/>').text($(this).attr('placeholder')).insertAfter($(this))
+        let list = $('<ul/>')
     
         $(this).find('option').each(function() {
             list.append($('<li/>').append($('<a/>').text($(this).text())))
@@ -83,9 +96,9 @@ var tf = false,
     
     $(document).on('click touch', '.selectDropdown ul li a', function(e) {
         e.preventDefault()
-        var dropdown = $(this).parent().parent().parent()
-        var active = $(this).parent().hasClass('active')
-        var label = active ? dropdown.find('select').attr('placeholder') : $(this).text()
+        let dropdown = $(this).parent().parent().parent()
+        let active = $(this).parent().hasClass('active')
+        let label = active ? dropdown.find('select').attr('placeholder') : $(this).text()
     
         dropdown.find('option').prop('selected', false)
         dropdown.find('ul li').removeClass('active')
@@ -102,12 +115,12 @@ var tf = false,
     })
     
     $('.dropdown > span').on('click touch', function(e) {
-        var self = $(this).parent()
+        let self = $(this).parent()
         self.toggleClass('open')
     })
     
     $(document).on('click touch', function(e) {
-        var dropdown = $('.dropdown')
+        let dropdown = $('.dropdown')
         if (dropdown !== e.target && !dropdown.has(e.target).length) {
             dropdown.removeClass('open')
         }
@@ -116,7 +129,7 @@ var tf = false,
 
 //Capture Enter key in inputs
 function onEnterHandler(event) {
-    var code = event.which || event.keyCode
+    let code = event.which || event.keyCode
     if (code === 13) {
       login()
     }

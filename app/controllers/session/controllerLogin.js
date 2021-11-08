@@ -1,4 +1,4 @@
-const modelUser = require('../../models/modelUser')
+letconst modelUser = require('../../models/modelUser')
 const modelUserInfo = require('../../models/modelUserInfo')
 const modelEvaluation = require('../../models/modelEvaluation')
 const crypto = require('crypto-js')
