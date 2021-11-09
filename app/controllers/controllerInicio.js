@@ -1,4 +1,4 @@
-letconst crypto = require('crypto-js')
+const crypto = require('crypto-js')
 
 // >>>>>>>>>>>>>>>>>>>>>> Index <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {

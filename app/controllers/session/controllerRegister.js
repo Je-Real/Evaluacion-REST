@@ -1,4 +1,4 @@
-letconst modelUser = require('../../models/modelUser')
+const modelUser = require('../../models/modelUser')
 const modelUserInfo = require('../../models/modelUserInfo')
 const modelContract = require('../../models/modelContract')
 const modelArea = require('../../models/modelArea')

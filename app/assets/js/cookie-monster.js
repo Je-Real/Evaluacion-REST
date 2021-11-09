@@ -1,4 +1,4 @@
-letasync function setCookie(cname, cvalue) {
+async function setCookie(cname, cvalue) {
 	if (cname == undefined || cvalue == undefined) {
 		console.error('Cookies save empty')
 		throw false

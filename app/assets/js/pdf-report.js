@@ -1,4 +1,4 @@
-letconst { jsPDF } = window.jspdf
+const { jsPDF } = window.jspdf
 const doc = new jsPDF()
 
 try {

@@ -1,4 +1,4 @@
-letfunction copyInfo(info) {
+function copyInfo(info) {
     var copyText
 
     if (info === 1) copyText = $('#data-user-infos').text().trim()

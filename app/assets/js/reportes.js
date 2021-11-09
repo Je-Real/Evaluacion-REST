@@ -6,7 +6,7 @@ const config = (e) => {
 let lvl, rec, showCharts, toCopy,
 	showRegs = 5, year = parseInt(d.getFullYear()) - (showRegs-1)
 
-window.addEventListener('DOMContentLoaded', async(e) => {
+window.addEventListener('DOMContentLoaded', async(event) => {
 	$('.dep').addClass('d-none') //Hide department options
 	$('#department').prop('disabled', true) //Disable dropdown for department
 	lvl = parseInt($('#lvl').val())
@@ -168,7 +168,7 @@ function dataGetter(auto) {
 
 	//                                                           ------------  MODIFY  --------------
 	//Get reports
-	let area = 0,
+	var area = 0,
 	depart = null,
 	career = null,
 	packed,

@@ -1,4 +1,4 @@
-letconst modelEvaluation = require('../models/modelEvaluation')
+const modelEvaluation = require('../models/modelEvaluation')
 const modelArea = require('../models/modelArea')
 
 // >>>>>>>>>>>>>>>>>>>>>> Reportes <<<<<<<<<<<<<<<<<<<<<<

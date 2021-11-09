@@ -21,7 +21,7 @@
                             <button id="card" class="mx-1 btn btn-view btn-on" onclick="cardView()"><i class="fa fa-th-large"></i> Tarjetas</button>
                           </div>
                         <div class="d-flex flex-wrap justify-content-center paginator" data-rows-shown="3, 6, 9, 12">
-                            <% for(let person in userData) { %>
+                            <% for(var person in userData) { %>
                             <div id="<%= userData[person]._id %>" data-id="<%= userData[person]._id %>" 
                                 class="container pag-item card card-option w-md-25 mx-2 mb-4 shadow-sm border-0">
                                 <div class="row mode card-mode">
@@ -714,7 +714,7 @@
                                                 <label class="m-0 h-toolt" for="XI-4">
                                                     <div class="tooltip-tb radio">
                                                         <input type="radio" name="P-XI" class="super-happy" id="XI-4" value="4" />
-                                                        <i class="far fa-laugh-beam fa-3x toolt-txt" data-text="Se esfuerza por elelet los estándares 
+                                                        <i class="far fa-laugh-beam fa-3x toolt-txt" data-text="Se esfuerza por elevar los estándares 
                                                             en su labor diaria su actitud es claramente proactiva en beneficio total de su área y de 
                                                             la institución.">
                                                         </i>

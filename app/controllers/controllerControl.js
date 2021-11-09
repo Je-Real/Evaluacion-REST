@@ -1,4 +1,4 @@
-letconst modelUserInfo = require('../models/modelUserInfo')
+const modelUserInfo = require('../models/modelUserInfo')
 
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
