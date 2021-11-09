@@ -5,13 +5,17 @@ window.addEventListener('DOMContentLoaded', async(e) => {
 
     $('.paginator').before(`<div id="pag"></div>`)
 
-    y = document.querySelector('#pag').getBoundingClientRect().y
-    document.querySelector('#pag').style['top'] = (y - 225) + 'px'
+    try {
+        y = document.querySelector('#pag').getBoundingClientRect().y
+        document.querySelector('#pag').style['top'] = (y - 225) + 'px'
+    } catch (error) {
+        return console.error('[Paginator] No se encontro #pag')
+    }
 
     try {
         arr_rows = document.querySelector('.paginator').getAttribute('data-rows-shown').split(',')
     } catch {
-        throw console.error('No data-rows-shown listed in .paginator!')
+        return console.error('No data-rows-shown listed in .paginator!')
     }
 
     for (let i in arr_rows) {

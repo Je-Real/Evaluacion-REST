@@ -26,76 +26,41 @@ async function root(req, res) {
 
         await modelUserInfo.aggregate([
             { $match: { manager: req.session.user } }, {
-                        $lookup: {
-                            from: "evaluations",
-                            pipeline: [ { $project: { _id: 0, __v: 0 } } ],
-                            localField: "_id",
-                            foreignField: "_id",
-                            as: "eval",
-                        }
-                    }, {
-                        $replaceRoot: {
-                            newRoot: {
-                                $mergeObjects: [
-                                    { $arrayElemAt: [ "$eval", 0 ] }, "$$ROOT"
-                                ]
-                            } 
-                        }
-                    }, {
-                        $unset: [
-                            "level",
-                            "contract", "b_day",
-                            "address", "manager",
-                            "eval"
+                $lookup: {
+                    from: "evaluations",
+                    pipeline: [ { $project: { _id: 0, __v: 0 } } ],
+                    localField: "_id",
+                    foreignField: "_id",
+                    as: "eval",
+                }
+            }, {
+                $replaceRoot: {
+                    newRoot: {
+                        $mergeObjects: [
+                            { $arrayElemAt: [ "$eval", 0 ] }, "$$ROOT"
                         ]
-                    }
-        ]).then(async(dataEval) => {
-                //Get all the info from subordinates
-                for(let i in dataInfo) {
-                    arr1[i] = dataInfo[i]['_id']
+                    } 
                 }
-                /*
-                 * Get all the subordinates evaluations and
-                 * and compare if there is no evaluation for the current year
-                 */
-                for(let j in dataEval) {
-                    if (dataEval[j][date.getFullYear()] == undefined) {
-                        arr2[j] = dataEval[j]['_id']
-                    }
-                }
+            }, {
+                $unset: [
+                    "level", "contract",
+                    "b_day", "address",
+                    "manager", "eval"
+                ]
+            }
+        ]).then(async(data) => {
+            //Top tier query filter by 0s 🥶😎👌
+            userData = Array.prototype.forEach.call()
+            Object.fromEntries(Object.entries(data).filter(([,info]) => 
+                (!('records' in info)) ? true : ( (!(String(new Date().getFullYear()) in info.records)) ? true : false )
+            ))
 
-                /*console.log(arr2);
-
-                let asArray = Object.entries(dataEval);
-                let filtered = asArray.filter(([key, value]) => typeof value === 'undefined');
-
-                console.log(Object.fromEntries(filtered));*/
-
-                //Filter the ids that have no evaluations for the current year
-                idGetter = arr1.filter(d => !arr2.includes(d))
-
-                /*
-                 * Compare each item and get the user info that
-                 * have no evaluations for the current year
-                 */
-                for(let k in arr1) {
-                    for(let l in idGetter) {
-                        if (idGetter[l] == arr1[k]) {
-                            userData[k] = dataInfo[k]
-                            break
-                        }
-                    }
-                }
-
-                //Get rid of the possible empty items in the userData
-                userData = userData.filter(async(noEmpty) => {
-                    return noEmpty
-                })
-            })
-            .catch((error) => {
-                console.error(error)
-                userData = false
-            })
+            console.log(userData)
+        })
+        .catch((error) => {
+            console.error(error)
+            userData = false
+        })
     }
 
     //Encuesta static route
