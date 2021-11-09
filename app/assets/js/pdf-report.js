@@ -5,7 +5,7 @@ try {
     document.getElementById('pdfReport').addEventListener('click', async() => {
         const w = 210
         const h = 297
-        var dateLocal = new Date().toLocaleDateString('es'),
+        let dateLocal = new Date().toLocaleDateString('es'),
             spacing = 0,
             canvas, canvasImg,
             img = new Image()

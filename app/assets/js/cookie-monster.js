@@ -6,7 +6,7 @@ async function setCookie(cname, cvalue) {
 
 	d.setTime(d.getTime() + 7*24*60*60*1000)
 	
-	var expires = 'expires=' + d.toGMTString()
+	let expires = 'expires=' + d.toGMTString()
 	try {
 		document.cookie = cname+'='+cvalue+';expires='+expires+';path=/'
 		return true
@@ -18,7 +18,7 @@ async function setCookie(cname, cvalue) {
 
 async function getCookie(cname) {
 	if (cname === 0) {
-		var cookieSession, cookieGoTo
+		let cookieSession, cookieGoTo
 
 		await getCookie('user')
 		.then((data) => { cookieSession = data })
@@ -31,10 +31,10 @@ async function getCookie(cname) {
 		return [cookieSession, cookieGoTo]
 	}
 
-	var name = cname + '='
-	var cookieJar = document.cookie.split(';')
-	for (var i = 0; i < cookieJar.length; i++) {
-		var cookie = cookieJar[i]
+	let name = cname + '='
+	let cookieJar = document.cookie.split(';')
+	for (let i = 0; i < cookieJar.length; i++) {
+		let cookie = cookieJar[i]
 		while (cookie.charAt(0) == ' ') {
 			cookie = cookie.substring(1)
 		}
@@ -47,7 +47,7 @@ async function getCookie(cname) {
 
 async function checkCookie(cname) {
 	if (cname == undefined) return console.log('Cookies jar empty')
-	var result
+	let result
 	
 	await getCookie(cname)
 		.then(async (data) => {

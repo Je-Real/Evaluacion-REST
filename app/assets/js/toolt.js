@@ -1,4 +1,4 @@
-var still_hover, msg,
+let still_hover, msg,
     x, y,
     w, h
     

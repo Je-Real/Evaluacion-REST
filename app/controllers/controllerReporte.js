@@ -3,7 +3,7 @@ const modelArea = require('../models/modelArea')
 
 // >>>>>>>>>>>>>>>>>>>>>> Reportes <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
-    var date = new Date(),
+    let date = new Date(),
         hour = date.getHours(),
         s, session,
         area = [],
@@ -114,7 +114,7 @@ async function root(req, res) {
 }
 
 async function get(req, res) {
-    var search = {}, empty = false
+    let search = {}, empty = false
 
     if (req.body.area > 0) {
         search.area = req.body.area

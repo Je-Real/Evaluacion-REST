@@ -8,7 +8,7 @@ const crypto = require('crypto-js')
 
 // >>>>>>>>>>>>>>>>>>>>>> Registration <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
-    var session
+    let session
 
     if (!req.session.user && !req.session.lvl) { // No session 😡
         session = null
@@ -104,7 +104,7 @@ async function signIn(req, res) {
 }
 
 async function getManager(req, res) {
-	var search
+	let search
 
 	if (parseInt(req.query.level) == 1) {
 		search = { level: parseInt(req.query.level) }
@@ -130,7 +130,7 @@ async function getManager(req, res) {
 	
 	await modelUserInfo.find(search)
 	.then((data) => { //🟢
-		var info = []
+		let info = []
 
 		for(i in data) {
 			info[i] = {

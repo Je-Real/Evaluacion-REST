@@ -2,11 +2,11 @@ const crypto = require('crypto-js')
 const path = require('path');
 const fs = require('fs')
 
-var rawData
+let rawData
 
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
-    var session,
+    let session,
         booya = []
     
     if (!req.session.user && !req.session.lvl) { // No session 😡
@@ -49,28 +49,28 @@ async function root(req, res) {
 
 
 async function generatorFixed(params) {
-    var area
-    var depa
-    var care
-    var lvl
-    var user
-    var pass
-    var fn
-    var ls
-    var userer = []
-    var inforer = []
+    let area
+    let depa
+    let care
+    let lvl
+    let user
+    let pass
+    let fn
+    let ls
+    let userer = []
+    let inforer = []
 
     const d = new Date();
     
-    var year = d.getFullYear();
-    var month = (d.getMonth()+1 < 10 && String(d.getMonth()+1).length < 2) ? '0'+d.getMonth()+1 : d.getMonth()+1;
-    var day = (d.getDate() < 10 && String(d.getDate()+1).length < 2) ? '0'+d.getDate()+1 : d.getDate()+1;
+    let year = d.getFullYear();
+    let month = (d.getMonth()+1 < 10 && String(d.getMonth()+1).length < 2) ? '0'+d.getMonth()+1 : d.getMonth()+1;
+    let day = (d.getDate() < 10 && String(d.getDate()+1).length < 2) ? '0'+d.getDate()+1 : d.getDate()+1;
 
-    var hour = (d.getHours() < 10 && String(d.getHours()+1).length < 2) ? '0'+d.getHours() : d.getHours();
-    var minutes = (d.getMinutes() < 10 && String(d.getMinutes()+1).length < 2) ? '0'+d.getMinutes() : d.getMinutes();
-    var seconds = (d.getSeconds() < 10 && String(d.getSeconds()+1).length < 2) ? '0'+d.getSeconds() : d.getSeconds();
+    let hour = (d.getHours() < 10 && String(d.getHours()+1).length < 2) ? '0'+d.getHours() : d.getHours();
+    let minutes = (d.getMinutes() < 10 && String(d.getMinutes()+1).length < 2) ? '0'+d.getMinutes() : d.getMinutes();
+    let seconds = (d.getSeconds() < 10 && String(d.getSeconds()+1).length < 2) ? '0'+d.getSeconds() : d.getSeconds();
 
-    var date = year+'-'+month+'-'+day+'T'+hour+':'+minutes+':'+seconds+':000Z'
+    let date = year+'-'+month+'-'+day+'T'+hour+':'+minutes+':'+seconds+':000Z'
 
     try {
         // Fixed generator
@@ -129,21 +129,21 @@ function nRandom(min, max) {
 }
 
 function generatorRex(params) {
-    var area
-    var depa
-    var care
-    var lvl
-    var user
-    var pass
-    var fn
-    var ls
-    var userer = '['
-    var inforer = '['
+    let area
+    let depa
+    let care
+    let lvl
+    let user
+    let pass
+    let fn
+    let ls
+    let userer = '['
+    let inforer = '['
 
-    var endHandler = ','
+    let endHandler = ','
 
     //Random Generator
-    for(var i = 0; i < 30; i++) {
+    for(let i = 0; i < 30; i++) {
         area = nRandom(1, 10)
         switch (area) {
             case 5:
@@ -233,7 +233,7 @@ function generatorRex(params) {
 
 /*function search(req, res, next) {
     //Variable for a bunch of information to search
-    var consulta = {}
+    let consulta = {}
     //Save the value with its key
     consulta[req.params.key] = req.params.value
     

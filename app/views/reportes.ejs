@@ -72,7 +72,7 @@
                                                     <div class="form-floating">
                                                         <select class="form-select area" name="area" data-id="0" aria-label="Selección">
                                                             <option class="are-s" value="0" selected>Personal a cargo</option>
-                                                            <% for(var d in area) { %>
+                                                            <% for(let d in area) { %>
                                                                 <option class="are" value="<%= area[d]['n'] %>"> 
                                                                     <%= area[d]['desc'] %> 
                                                                 </option>
@@ -85,7 +85,7 @@
                                                     <div class="form-floating">
                                                         <select class="form-select department" name="department" data-id="0" aria-label="Selección" disabled>
                                                             <option class="dep-s" value="0" selected>-Selecciona departamento-</option>
-                                                            <% for(var d in depa) { %>
+                                                            <% for(let d in depa) { %>
                                                                 <option class="dep" data-area="<%= depa[d]['area'] %>" value="<%= depa[d]['n'] %>">
                                                                     <%= depa[d]['desc'] %>
                                                                 </option>
@@ -98,7 +98,7 @@
                                                     <div class="form-floating">
                                                         <select class="form-select career" name="career" data-id="0" aria-label="Selección" disabled>
                                                             <option class="car-s" value="0" selected>-Selecciona carrera-</option>
-                                                            <% for(var d in care) { %>
+                                                            <% for(let d in care) { %>
                                                                 <option class="car" data-depa="<%= care[d]['department'] %>" value="<%= care[d]['n'] %>">
                                                                     <%= care[d]['desc'] %>
                                                                 </option>

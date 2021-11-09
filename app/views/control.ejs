@@ -43,7 +43,7 @@
                             </thead>
                             <tbody class="border-0" id="table-b">
                                 <% if (records != false) {
-                                    for(var record in records) { %>
+                                    for(let record in records) { %>
                                     <tr id="<%= records[record]['_id'] %>" class="i-info pag-item" data-status="<%= records[record]['records'] %>">
                                         <td class="border-0 border-end text-center"><%= records[record]['_id'] %></td>
                                         <td class="border-0 border-start text-center"><%= records[record]['first_name'] %></td>

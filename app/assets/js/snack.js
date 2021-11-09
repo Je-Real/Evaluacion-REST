@@ -1,6 +1,6 @@
 function showSnack(msg, status) {
-    var bgColor
-    var id = Math.random().toString(16).substring(2, 8)
+    let bgColor
+    let id = Math.random().toString(16).substring(2, 8)
 
     switch(status) {
         case 'success':

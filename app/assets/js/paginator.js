@@ -1,7 +1,7 @@
-var arr_rows
+let arr_rows
 
-window.addEventListener('DOMContentLoaded', async(event) => {
-    var y, arr_rows, rows_shown = ''
+window.addEventListener('DOMContentLoaded', async(e) => {
+    let y, arr_rows, rows_shown = ''
 
     $('.paginator').before(`<div id="pag"></div>`)
 
@@ -15,7 +15,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
     }
 
     for (let i in arr_rows) {
-        var sel = (parseInt(arr_rows[i]) >= 4 && parseInt(arr_rows[i]) <= 6) ? 'selected' : ''
+        let sel = (parseInt(arr_rows[i]) >= 4 && parseInt(arr_rows[i]) <= 6) ? 'selected' : ''
         rows_shown += `<option value="${parseInt(arr_rows[i])}" ${sel}>${parseInt(arr_rows[i])}</option>`
     }
 
@@ -54,7 +54,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
 function paginator() {
     $('.row-temp').remove()
 
-    var rows = parseInt($('#rows').val()),
+    let rows = parseInt($('#rows').val()),
         rowsTotal = $('.paginator .pag-item').length,
         numPages = rowsTotal/rows
     
@@ -70,7 +70,7 @@ function paginator() {
         $('#pag-ctrl a').removeClass('active')
         $(this).addClass('active')
 
-        var currPage = $(this).attr('rel'),
+        let currPage = $(this).attr('rel'),
             startItem = currPage * rows,
             endItem = startItem + rows
 

@@ -2,7 +2,7 @@ const crypto = require('crypto-js')
 
 // >>>>>>>>>>>>>>>>>>>>>> Index <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
-    var session
+    let session
     if (!req.session.user && !req.session.lvl) { // No session 😡
         session = null
     } else { // Session 🤑
@@ -18,7 +18,7 @@ async function root(req, res) {
 
 function search(req, res, next) {
     //Variable for a bunch of information to search
-    var consulta = {}
+    let consulta = {}
     //Save the value with its key
     consulta[req.params.key] = req.params.value
 
@@ -41,7 +41,7 @@ function show(req, res) {
     if (req.body.error) return res.status(500).send({ error })
     if (!req.body.eval) return res.status(404).send({ message: 'No se encontraron datos.' })
 
-    var evalObj = req.body.eval
+    let evalObj = req.body.eval
     return res.status(200).send({ evalObj })
 }
 

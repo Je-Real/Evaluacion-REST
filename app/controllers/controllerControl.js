@@ -2,7 +2,7 @@ const modelUserInfo = require('../models/modelUserInfo')
 
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
-    var session, records = false
+    let session, records = false
     
     if (!req.session.user && !req.session.lvl) // No session 😡
         session = null
@@ -37,7 +37,7 @@ async function root(req, res) {
         ])
         .then(async(dataInfo) => {
             const date = new Date()
-            var year = String(date.getFullYear()),
+            let year = String(date.getFullYear()),
                 prom,
                 personas
             records = dataInfo
@@ -54,7 +54,7 @@ async function root(req, res) {
                     records[i]['records'] = 0        
                 }
             }
-            var result = prom/personas
+            let result = prom/personas
 
             // ---------------- console.log('Result '+result); 
         })

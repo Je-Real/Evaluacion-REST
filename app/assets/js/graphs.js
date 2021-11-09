@@ -13,7 +13,7 @@ const fgColorDefault = [
 	"rgba(153, 102, 255, 1)",
 ]
 
-var canvas, width, height, gradient,
+let canvas, width, height, gradient,
 	dChart, bChart, lChart
 
 function getGradient(ctx, chartArea) {
@@ -42,7 +42,7 @@ function semiDoughnutChart(data, id, colors) {
 
 		canvas = document.getElementById(id)
 
-		var ctx = canvas.getContext('2d');
+		let ctx = canvas.getContext('2d');
 		dChart = new Chart(ctx, {
 			type: 'doughnut',
 			data: {
@@ -77,7 +77,7 @@ function semiDoughnutChart(data, id, colors) {
 			}
 		})
 
-		var newSpan = document.createElement('span')
+		let newSpan = document.createElement('span')
 		newSpan.innerHTML = data+'%'
 		canvas.parentNode.insertBefore(newSpan, canvas.nextSibling)
 		
@@ -88,7 +88,7 @@ function semiDoughnutChart(data, id, colors) {
 
 function barChart(labels, data, id, colors) {
 	if (labels.length && data.length) {
-		var bgColor, fgColor
+		let bgColor, fgColor
 
 		if (bChart != undefined)
 			bChart.destroy()
@@ -97,7 +97,7 @@ function barChart(labels, data, id, colors) {
 		fgColor = (colors != undefined && colors.length == 5) ? colors : fgColorDefault
 		id = (id == undefined) ? 'barsChart-0' : id
 		
-		var ctx = document.getElementById(id).getContext("2d")
+		let ctx = document.getElementById(id).getContext("2d")
 		bChart = new Chart(ctx, {
 			type: "bar",
 			data: {

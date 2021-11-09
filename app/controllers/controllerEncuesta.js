@@ -6,7 +6,7 @@ const modelCareer = require('../models/modelCareer')
 
 // >>>>>>>>>>>>>>>>>>>>>> Encuesta static <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
-    var session, search = {},
+    let session, search = {},
         idGetter = [], arr1 = [], arr2 = [], userData = [], date =  new Date()
 
     /** Delete this 👇 and do a JOIN query */
@@ -22,10 +22,34 @@ async function root(req, res) {
     } else { // Session 🤑
         session = req.session
 
-        await modelUserInfo.find(search, { _id:1, first_name:1, last_name:1 })
-        .then(async(dataInfo) => {
-            await modelEvaluation.find(search, { _id:1, records:1 })
-            .then(async(dataEval) => {
+        /*  --------------------- Modifiy ------------------------   */
+
+        await modelUserInfo.aggregate([
+            { $match: { manager: req.session.user } }, {
+                        $lookup: {
+                            from: "evaluations",
+                            pipeline: [ { $project: { _id: 0, __v: 0 } } ],
+                            localField: "_id",
+                            foreignField: "_id",
+                            as: "eval",
+                        }
+                    }, {
+                        $replaceRoot: {
+                            newRoot: {
+                                $mergeObjects: [
+                                    { $arrayElemAt: [ "$eval", 0 ] }, "$$ROOT"
+                                ]
+                            } 
+                        }
+                    }, {
+                        $unset: [
+                            "level",
+                            "contract", "b_day",
+                            "address", "manager",
+                            "eval"
+                        ]
+                    }
+        ]).then(async(dataEval) => {
                 //Get all the info from subordinates
                 for(let i in dataInfo) {
                     arr1[i] = dataInfo[i]['_id']
@@ -42,8 +66,8 @@ async function root(req, res) {
 
                 /*console.log(arr2);
 
-                var asArray = Object.entries(dataEval);
-                var filtered = asArray.filter(([key, value]) => typeof value === 'undefined');
+                let asArray = Object.entries(dataEval);
+                let filtered = asArray.filter(([key, value]) => typeof value === 'undefined');
 
                 console.log(Object.fromEntries(filtered));*/
 
@@ -72,11 +96,6 @@ async function root(req, res) {
                 console.error(error)
                 userData = false
             })
-        })
-        .catch((error) => {
-            console.error(error)
-            userData = false
-        })
     }
 
     //Encuesta static route
@@ -89,11 +108,11 @@ async function root(req, res) {
 
 async function post(req, res) {
     const date = new Date()
-    var score = 0,
+    let score = 0,
         rec = req.body.records,
         year = String(date.getFullYear())
 
-    var failure = (question) => {
+    let failure = (question) => {
         return res.end(JSON.stringify({
             msg: 'Error: No se obtuvo calificacion de ' + question,
             resType: 'error',
@@ -289,12 +308,12 @@ async function post(req, res) {
             return failure('p_11')
     }
 
-    for(var r in rec) {
+    for(let r in rec) {
         score += parseFloat(rec[r])
     }
 
     //Round decimals
-    var temp = Number((Math.abs(score) * 100).toPrecision(15))
+    let temp = Number((Math.abs(score) * 100).toPrecision(15))
     score = Math.round(temp) / 100 * Math.sign(score)
 
     await modelUserInfo.find({ _id: req.body._id }, { _id: 1 })

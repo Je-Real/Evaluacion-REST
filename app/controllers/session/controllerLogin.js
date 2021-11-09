@@ -6,7 +6,7 @@ const crypto = require('crypto-js')
 // >>>>>>>>>>>>>>>>>>>>>> Login <<<<<<<<<<<<<<<<<<<<<<
 async function logIn(req, res) {
 	const date = new Date()
-	var year = date.getFullYear()
+	let year = date.getFullYear()
 
 	req.body._id = String(req.body._id).toUpperCase()
 
@@ -28,7 +28,7 @@ async function logIn(req, res) {
 			}
 
 			//Encryption
-			var compare = crypto.AES.decrypt(dataUser[0].pass, req.body._id)
+			let compare = crypto.AES.decrypt(dataUser[0].pass, req.body._id)
 
 			if (compare.toString(crypto.enc.Utf8) === req.body.pass) { //🟢
 				modelUser.updateOne({ user: req.body._id }, { last_conn: Date.now() })
@@ -46,12 +46,12 @@ async function logIn(req, res) {
 							req.session.career = dataUInfo[0].career
 							
 							//How to manipulate front-end cookies in back-end
-							/*var ini = [req.headers.cookie.search('{'), (req.headers.cookie.search('}'))+1]
-							var rest = [
+							/*let ini = [req.headers.cookie.search('{'), (req.headers.cookie.search('}'))+1]
+							let rest = [
 								req.headers.cookie.slice(0, ini[0]),
 								req.headers.cookie.slice(ini[1], req.headers.cookie.length)
 							]
-							var obj = JSON.parse(req.headers.cookie.slice(ini[0], ini[1]))
+							let obj = JSON.parse(req.headers.cookie.slice(ini[0], ini[1]))
 							obj.pass = dataUser[0].pass
 							obj = JSON.stringify(obj)
 

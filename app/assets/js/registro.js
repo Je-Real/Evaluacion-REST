@@ -1,11 +1,11 @@
-var firstName, lastName,
+let firstName, lastName,
     area, career, state,
     municipality, street,
     number, postal_code,
     a = null, d = 0, c = 0,
     lvl_s = 0
 
-window.addEventListener('DOMContentLoaded', async(event) => {
+window.addEventListener('DOMContentLoaded', async(e) => {
     $('.dep').addClass('d-none') //Hide department options
 	$('#department').prop('disabled', true) //Disable dropdown for department
 
@@ -23,7 +23,7 @@ $('#area').change(() => {
 	$('.dep').addClass('d-none') ////Hide again all department options
 
 	//And show all departments the ones that match with the area selected
-	var affected = $(`.dep[data-area='${parseInt($('#area').val())}']`).removeClass('d-none')
+	let affected = $(`.dep[data-area='${parseInt($('#area').val())}']`).removeClass('d-none')
 
 	if (affected.length == 0) {
 		//If in the area does not exist any departments
@@ -52,7 +52,7 @@ $('#department').change(() => {
 	$('.car').addClass('d-none') ////Hide again all department options
 
 	//And show all departments the ones that match with the area selected
-	var affected = $(`.car[data-depa='${parseInt($('#department').val())}']`).removeClass('d-none')
+	let affected = $(`.car[data-depa='${parseInt($('#department').val())}']`).removeClass('d-none')
 
 	if (affected.length == 0) {
 		//If in the area does not exist any departments
@@ -91,7 +91,7 @@ $('#lvl').change(() => {
 })
 
 function levels(lvlShown, val) {
-    var lvl_temp = lvl_s
+    let lvl_temp = lvl_s
 
     lvl_s = (parseInt(val)===0 && parseInt(lvlShown)<=1) //If the level is less than 1, show nothing
         ? 0 : ((parseInt(val)===0 && parseInt(lvlShown)===2) //Or else if level is 2, show Director and Subdirector levels
@@ -138,7 +138,7 @@ function addressGetter() {
 }
 
 async function register() {
-    var packed = JSON.stringify({ 
+    let packed = JSON.stringify({ 
         _id: $('#_id_r').val(), 
         pass: $('#pass_r').val(),
         first_name: $('#first_name').val(),
@@ -182,7 +182,7 @@ function getManager(lvl_sel) {
         return
     }
 
-    var packed = {
+    let packed = {
         area: parseInt($('#area').val()),
         department: parseInt($('#department').val()),
         career: parseInt($('#career').val()),
