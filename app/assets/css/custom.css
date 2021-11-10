@@ -108,6 +108,10 @@ h1, h2, h3, h4, h5, h6 {
 	bottom: 0;
 }
 
+.fs-7 {
+	font-size: 0.8rem;
+}
+
 .pointer-event-none {
 	pointer-events: none;
 }

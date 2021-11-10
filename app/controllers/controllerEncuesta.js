@@ -1,13 +1,11 @@
 const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
-const modelArea = require('../models/modelArea')
-const modelDepartment = require('../models/modelDepartment')
-const modelCareer = require('../models/modelCareer')
 
+const d = new Date()
 // >>>>>>>>>>>>>>>>>>>>>> Encuesta static <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
-    let session, search = {},
-        idGetter = [], arr1 = [], arr2 = [], userData = [], date =  new Date()
+    let session, year = d.getFullYear(), search = {},
+        idGetter = [], arr1 = [], arr2 = [], userData = []
 
     /** Delete this 👇 and do a JOIN query */
     if (req.session.lvl == 1) search.level = parseInt(req.session.lvl)+1 
@@ -34,28 +32,76 @@ async function root(req, res) {
                     as: "eval",
                 }
             }, {
+                $lookup: {
+                    from: "areas",
+                    pipeline: [ { $unset: ["_id", "n"] } ],
+                    localField: "area",
+                    foreignField: "n",
+                    as: "area",
+                }
+            }, {
+                $lookup: {
+                    from: "departments",
+                    pipeline: [ { $unset: ["_id", "n", "area"]} ],
+                    localField: "department",
+                    foreignField: "n",
+                    as: "department",
+                }
+            }, {
+                $lookup: {
+                    from: "careers",
+                    pipeline: [ { $unset: ["_id", "n", "department"]} ],
+                    localField: "careers",
+                    foreignField: "n",
+                    as: "career",
+                }
+            }, {
                 $replaceRoot: {
                     newRoot: {
                         $mergeObjects: [
-                            { $arrayElemAt: [ "$eval", 0 ] }, "$$ROOT"
+                            { $arrayElemAt: [ "$eval", 0 ] },
+                            "$$ROOT"
                         ]
-                    } 
+                    }
                 }
             }, {
-                $unset: [
-                    "level", "contract",
-                    "b_day", "address",
-                    "manager", "eval"
-                ]
+                $project: {
+                    first_name: 1,
+                    last_name: 1,
+                    last_name: 1,
+                    records: 1,
+                    area: {
+                        $cond: {
+                           if: { $eq: [ [], "$area" ] },
+                           then: "$$REMOVE",
+                           else: { $arrayElemAt: ["$area.desc", 0] }
+                        }
+                    },
+                    department: {
+                        $cond: {
+                           if: { $eq: [ [], "$department" ] },
+                           then: "$$REMOVE",
+                           else: { $arrayElemAt: ["$department.desc", 0] }
+                        }
+                    },
+                    career: {
+                        $cond: {
+                           if: { $eq: [ [], "$career" ] },
+                           then: "$$REMOVE",
+                           else: { $arrayElemAt: ["$career.desc", 0] }
+                        }
+                    },
+                }
             }
         ]).then(async(data) => {
             //Top tier query filter by 0s 🥶😎👌
-            userData = Array.prototype.forEach.call()
-            Object.fromEntries(Object.entries(data).filter(([,info]) => 
-                (!('records' in info)) ? true : ( (!(String(new Date().getFullYear()) in info.records)) ? true : false )
-            ))
-
-            console.log(userData)
+            //Get all the users that doesn't have a evaluation in the current year
+            Object.entries(data).filter(([,info], i) => {
+                userData.push((!('records' in info))
+                    ? info : ((!(String(new Date().getFullYear()) in info.records))
+                        ? info : null)
+                )
+            })
         })
         .catch((error) => {
             console.error(error)
@@ -72,10 +118,9 @@ async function root(req, res) {
 }
 
 async function post(req, res) {
-    const date = new Date()
     let score = 0,
         rec = req.body.records,
-        year = String(date.getFullYear())
+        year = String(d.getFullYear())
 
     let failure = (question) => {
         return res.end(JSON.stringify({

@@ -102,7 +102,7 @@ function cardView() {
     $('.mode').removeClass('list-mode').addClass('card-mode')
     $('.card-body').removeClass('pt-1 pb-2')
     $('.card-body>.row').addClass('text-center')
-    $('.items.row div').removeClass('col-lg-3 col-6').addClass('col-12')
+    $('.items.row div').removeClass('col-lg-3 col-6').addClass('col-lg-6 col-12')
 
     $('#list').addClass('btn-secondary').removeClass('btn-on')
     $('#card').removeClass('btn-secondary').addClass('btn-on')

@@ -21,38 +21,37 @@
                             <button id="card" class="mx-1 btn btn-view btn-on" onclick="cardView()"><i class="fa fa-th-large"></i> Tarjetas</button>
                           </div>
                         <div class="d-flex flex-wrap justify-content-center paginator" data-rows-shown="3, 6, 9, 12">
-                            <% for(let user in userData) { %>
+                            <% for(let user in userData) { if (userData[user] != null) { %>
                             <div id="<%= userData[user]._id %>" data-id="<%= userData[user]._id %>" 
                                 class="container pag-item card card-option w-md-25 mx-2 mb-4 shadow-sm border-0">
                                 <div class="row mode card-mode">
                                     <div class="card-header border-0 d-flex justify-content-center"></div>
-                                    <div class="card-body">
+                                    <div class="card-body px-1">
                                         <div class="items row text-center">
-                                            <div class="col-12">
-                                                <p class="mx-2 mb-1 fs-5 text-card">
-                                                    <span id="<%= userData[user]._id %>-fname" data-fname="<%= userData[user].first_name %>"
-                                                        class="fw-bold">Nombre: </span><%= userData[user].first_name %></p>
+                                            <div class="col-lg-6 col-12 px-1">
+                                                <p class="mx-2 mb-1 fs-5 text-card" id="<%= userData[user]._id %>-fname"
+                                                    data-fname="<%= userData[user].first_name %>"><%= userData[user].first_name %> <%= userData[user].last_name %></p>
                                             </div>
-                                            <div class="col-12">
-                                                <p class="mx-2 mb-1 fs-5 text-card">
-                                                    <span id="<%= userData[user]._id %>-area" data-info="<%= userData[user].area %>"
-                                                        class="fw-bold">Área: </span><%= userData[user].area %></p>
+                                            <div class="col-lg-6 col-12 px-1">
+                                                <p class="mx-2 mb-1 fs-5 text-card" id="<%= userData[user]._id %>-area"
+                                                    data-info="<%= userData[user].area %>"><%= userData[user].area %></p>
                                             </div>
-                                            <div class="col-12">
-                                                <p class="mx-2 mb-1 fs-5 text-card">
-                                                    <span id="<%= userData[user]._id %>-depa" data-info="<%= userData[user].department %>"
-                                                        class="fw-bold">Departamento: </span><%= userData[user].department %></p>
+                                            <% if ("department" in userData[user]) { %>
+                                            <div class="col-lg-6 col-12 px-1">
+                                                <p class="mx-2 mb-1 fs-5 text-card" id="<%= userData[user]._id %>-depa"
+                                                    data-info="<%= userData[user].department %>"><%= userData[user].department %></p>
                                             </div>
-                                            <div class="col-12">
-                                                <p class="mx-2 mb-1 fs-5 text-card">
-                                                    <span id="<%= userData[user]._id %>-care" data-info="<%= userData[user].career %>"
-                                                        class="fw-bold">Carrera: </span><%= userData[user].career %></p>
+                                            <% } if ("career" in userData[user]) { %>
+                                            <div class="col-lg-6 col-12 px-1">
+                                                <p class="mx-2 mb-1 fs-5 text-card" id="<%= userData[user]._id %>-care"
+                                                    data-info="<%= userData[user].career %>"><%= userData[user].career %></p>
                                             </div>
+                                            <% } %>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <% } %>
+                            <% } } %>
                         </div>
 
                     <div class="container-fluid mt-4">
