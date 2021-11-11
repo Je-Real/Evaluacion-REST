@@ -33,60 +33,64 @@ function getGradient(ctx, chartArea) {
 	return gradient
 }
 
-function semiDoughnutChart(data, id, colors) {
+function semiDoughnutChart(id, data, colors) {
 	if (data > 0 && data <= 100) {
-		id = (id == undefined) ? 'semiDoughnutChart-0' : id
+		id = 'semiDoughnutChart-'+id
 
 		if (dChart != undefined)
 			dChart.destroy()
 
-		canvas = document.getElementById(id)
-
-		let ctx = canvas.getContext('2d');
-		dChart = new Chart(ctx, {
-			type: 'doughnut',
-			data: {
-				labels: ['total', 'empty'],
-				datasets: [{
-					label: 'Promedio Total',
-					data: [data, (100-data)],
-					backgroundColor: [
-						'rgb(99, 255, 132)',
-						'rgb(230, 230, 230)',
-					],
-					circumference: 180,
-					rotation: 270,
-					hoverOffset: 4,
-					cutout: '70%',
-				},]
-			},
-			options: {
-				aspectRatio: 2,
-				plugins: {
-					tooltip: {
-						enabled: false,
-					},
-					legend: {
-						display: false
-					},
-					title: {
-						display: true,
-						text: 'Promedio Total'
-					}
+		try {
+			canvas = document.getElementById(id)
+			let ctx = canvas.getContext('2d');
+			dChart = new Chart(ctx, {
+				type: 'doughnut',
+				data: {
+					labels: ['total', 'empty'],
+					datasets: [{
+						label: 'Promedio Total',
+						data: [data, (100-data)],
+						backgroundColor: [
+							'rgb(99, 255, 132)',
+							'rgb(230, 230, 230)',
+						],
+						circumference: 180,
+						rotation: 270,
+						hoverOffset: 4,
+						cutout: '70%',
+					},]
 				},
-			}
-		})
+				options: {
+					aspectRatio: 2,
+					plugins: {
+						tooltip: {
+							enabled: false,
+						},
+						legend: {
+							display: false
+						},
+						title: {
+							display: true,
+							text: 'Promedio Total'
+						}
+					},
+				}
+			})
 
-		let newSpan = document.createElement('span')
-		newSpan.innerHTML = data+'%'
-		canvas.parentNode.insertBefore(newSpan, canvas.nextSibling)
-		
-		return console.log("Loaded semi doughnut!")
+			let newSpan = document.createElement('span')
+			newSpan.innerHTML = data+'%'
+			canvas.parentNode.insertBefore(newSpan, canvas.nextSibling)
+			
+			return console.log("Loaded semi doughnut!")
+		} catch (error) {
+			console.error("Error in Bars.")
+			return console.error(error)
+		}
 	}
 	console.warn("Semi doughnut without data")
 }
 
-function barChart(labels, data, id, colors) {
+function barChart(id, labels, data, colors) {
 	if (labels.length && data.length) {
 		let bgColor, fgColor
 
@@ -95,64 +99,69 @@ function barChart(labels, data, id, colors) {
 		
 		bgColor = (colors != undefined && colors.length == 5) ? colors : bgColorDefault
 		fgColor = (colors != undefined && colors.length == 5) ? colors : fgColorDefault
-		id = (id == undefined) ? 'barsChart-0' : id
+		id = 'barsChart-'+id
 		
-		let ctx = document.getElementById(id).getContext("2d")
-		bChart = new Chart(ctx, {
-			type: "bar",
-			data: {
-				labels: labels, //Years labels
-				datasets: [{
-					label: "Puntuación",
-					data: data, //Records' data
-					backgroundColor: bgColor,
-					borderColor: fgColor,
-					borderWidth: 2,
-				}],
-			},
-			plugins: [ChartDataLabels],
-			options: {
-				legend: {
-					display: false,
-					labels: {
-						fontSize: 20,
-						fontColor: '#595d6e',
-					}
+		try {
+			let ctx = document.getElementById('barsChart-0').getContext("2d")
+			bChart = new Chart(ctx, {
+				type: "bar",
+				data: {
+					labels: labels, //Years labels
+					datasets: [{
+						label: "Puntuación",
+						data: data, //Records' data
+						backgroundColor: bgColor,
+						borderColor: fgColor,
+						borderWidth: 2,
+					}],
 				},
-				scales: {
-					y: {
-						beginAtZero: true,
-						min: 0,
-						max: 100
-					}
-				},
-				plugins: {
-					tooltip: {
-						enabled: false
+				plugins: [ChartDataLabels],
+				options: {
+					legend: {
+						display: false,
+						labels: {
+							fontSize: 20,
+							fontColor: '#595d6e',
+						}
 					},
-					datalabels: {
-						formatter: (value, ctx) => {
-							return ctx.chart.data.datasets[0].data[ctx.dataIndex]+'%'
+					scales: {
+						y: {
+							beginAtZero: true,
+							min: 0,
+							max: 100
+						}
+					},
+					plugins: {
+						tooltip: {
+							enabled: false
 						},
-						color: '#fff',
-						backgroundColor: '#404040',
-						padding: {
-							top: 3,
-							right: 5,
-							bottom: 1,
-							left: 5
-						},
+						datalabels: {
+							formatter: (value, ctx) => {
+								return ctx.chart.data.datasets[0].data[ctx.dataIndex]+'%'
+							},
+							color: '#fff',
+							backgroundColor: '#404040',
+							padding: {
+								top: 3,
+								right: 5,
+								bottom: 1,
+								left: 5
+							},
+						}
 					}
 				}
-			}
-		})
-
-		return console.log("Loaded bars!")
+			})
+			return console.log("Loaded bars!")
+		} catch (error) {
+			console.error("Error in Bars.")
+			return console.error(error)
+		}
+			
 	}
 	console.warn("Bars without data")
 }
 
-function lineChart(labels, data, colors) {
+function lineChart(id, labels, data, colors) {
 	if (labels.length && data.length) {
 		if (lChart != undefined)
 			lChart.destroy()

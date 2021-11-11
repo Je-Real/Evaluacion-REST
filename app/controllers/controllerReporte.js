@@ -1,10 +1,10 @@
 const modelEvaluation = require('../models/modelEvaluation')
 const modelArea = require('../models/modelArea')
+const d = new Date()
 
 // >>>>>>>>>>>>>>>>>>>>>> Reportes <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
-    let date = new Date(),
-        hour = date.getHours(),
+    let hour = d.getHours(),
         s, session,
         area = [],
         department = [],
@@ -114,7 +114,8 @@ async function root(req, res) {
 }
 
 async function get(req, res) {
-    let search = {}, empty = false
+    let search = {}, empty = false,
+        year = d.getFullYear()
 
     if (req.body.area > 0) {
         search.area = req.body.area
@@ -157,12 +158,39 @@ async function get(req, res) {
         }, { $project: { info: 0, __v: 0 } }
     ])
     .then((data) => { //🟢
+        let average = 0, sum = 0
+            years = [],
+            records =  [],
+            histSum =  [0, 0, 0, 0, 0],
+            counter =  [0, 0, 0, 0, 0]
+
+        for (let i=0; i<5; i++) {
+            let currYear = String(parseInt(year)-(4-i))
+
+            years[i] = currYear
+            for (let j in data) {
+                if (String(currYear) in data[j].records) {
+                    histSum[i] += data[j].records[String(currYear)]
+                    counter[i]++
+                }
+            }
+        }
+        for (let i in histSum) {
+            records[i] = (histSum[i] === 0 || counter[i] === 0)
+                ? 0 : histSum[i] / counter[i]++
+        }
+
+        sum = records.reduce(function (accumVar, curVal) {
+            return accumVar + curVal
+        }, 0)
+        average = parseFloat((sum/data.length).toFixed(1))
+
         return res.end(JSON.stringify({
             data: {
-                total: 66,
+                total: average,
                 log: {
-                    years: [2010, 2020],
-                    records: [90, 66]
+                    years: years,
+                    records: records
                 }
             },
             msg: 'Datos obtenidos.',
