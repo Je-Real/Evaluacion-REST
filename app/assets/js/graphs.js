@@ -80,6 +80,7 @@ function semiDoughnutChart(id, data, colors) {
 			let newSpan = document.createElement('span')
 			newSpan.innerHTML = data+'%'
 			canvas.parentNode.insertBefore(newSpan, canvas.nextSibling)
+			canvas = null
 			
 			return console.log('Loaded semi doughnut!')
 		} catch (error) {
@@ -151,6 +152,7 @@ function barChart(id, labels, data, colors) {
 					}
 				}
 			})
+			canvas = null
 			return console.log('Loaded bars!')
 		} catch (error) {
 			console.error('Error in Bars.')
@@ -207,6 +209,7 @@ function lineChart(id, labels, data, colors) {
 				},
 			},
 		})
+		canvas = null
 		return console.log('Loaded line!')
 	}
 	console.warn('Line without data')
