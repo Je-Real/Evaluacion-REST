@@ -3,8 +3,8 @@ const router = Router()
 
 const controllerIndex = require('../controllers/controllerInicio')
 const controllerLayoutStatic = require('../controllers/controllerEncuesta')
-const controllerControl = require('../controllers/controllerControl')
-const controllerReporteC = require('../controllers/controllerReporte')
+const controllerTabla = require('../controllers/controllerTabla')
+const controllerMetricas = require('../controllers/controllerMetricas')
 
 const controller404 = require('../controllers/error/controller404')
 const controller401 = require('../controllers/error/controller401')
@@ -21,15 +21,15 @@ router.get('/inicio', controllerIndex.root)
       .get('/inicio/test', controllerIndex.test)
 
 // Reports
-router.get('/reportes', controllerReporteC.root)
-      .post('/reportes/get', controllerReporteC.get)
+router.get('/metricas', controllerMetricas.root)
+      .post('/metricas', controllerMetricas.data)
 
 // Survey
 router.get('/encuesta', controllerLayoutStatic.root)
       .post('/encuesta', controllerLayoutStatic.post)
 
 // Control panel
-router.get('/control', controllerControl.root)
+router.get('/tabla', controllerTabla.root)
 
 // Register
 router.get('/registro', controllerRegister.root)

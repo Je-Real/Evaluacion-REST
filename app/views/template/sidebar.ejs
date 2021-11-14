@@ -8,15 +8,15 @@
                     Inicio
                 </a>
                 <% if (session) { %>
-                        <div class="sb-sidenav-menu-heading green-border-t py-3">Reportes</div>
-                        <a class="nav-link" href="/reportes/">
+                        <div class="sb-sidenav-menu-heading green-border-t py-3">Estatus</div>
+                        <a class="nav-link" href="/metricas/">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-line fa-2x"></i></div>
-                            Reporte
+                            Metricas
                         </a>
                         <% if (session.lvl <= 4) { %>
-                            <a class="nav-link" href="/control/">
+                            <a class="nav-link" href="/tabla/">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table fa-2x"></i></div>
-                                Tabla Control
+                                Tabla Reporte
                             </a>
                         <% } %>
 

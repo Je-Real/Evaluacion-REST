@@ -2,9 +2,44 @@
 // 👇 Production mode
 //'use strict'
 const d = new Date()
+const style = {
+    base: [
+        "color: #fff",
+        "background-color: #292929",
+        "padding: 2px 4px",
+        "border-radius: 2px"
+    ],
+    error: [
+        "color: #eee",
+        "background-color: #ed416c"
+    ],
+    success: [
+        "background-color: #4caa24"
+    ],
+    warning: [
+        "background-color: #b08210"
+    ],
+    info: [
+        "background-color: #0f87ae"
+    ],
+    pink: [
+        "background-color: #8a3e98"
+    ],
+    cian: [
+        "background-color: #189a84"
+    ],
+    light: [
+        "color: #1e1e1e",
+        "background-color: #d3d3d3"
+    ],
+}
+const log = (text, styleTypes = []) => {
+    let options = style.base.join(';') + ';';
+    options += styleTypes.join(';'); // Add any additional styles
+    console.log(`%c${text}`, options);
+}
 
-let tf = false,
-    tr = false,
+let tf = false, tr = false,
     frameL = document.getElementById('floatingLogin'),
     frameP = document.getElementById('floatingPass'),
     frameR = document.getElementById('floatingRegister'),
@@ -71,62 +106,35 @@ window.addEventListener('DOMContentLoaded', async(e) => {
             await $('.deletable').remove() //Remove all the "deletable" elements after 1 sec
         }, 1000)
     }
-
-    /* select with effect
-    $('select.dropdown').each(function() {
-        let dropdown = $('<div/>').addClass('dropdown selectDropdown')
-    
-        $(this).wrap(dropdown)
-    
-        let label = $('<span/>').text($(this).attr('placeholder')).insertAfter($(this))
-        let list = $('<ul/>')
-    
-        $(this).find('option').each(function() {
-            list.append($('<li/>').append($('<a/>').text($(this).text())))
-        })
-    
-        list.insertAfter($(this))
-    
-        if ($(this).find('option:selected').length) {
-            label.text($(this).find('option:selected').text())
-            list.find('li:contains(' + $(this).find('option:selected').text() + ')').addClass('active')
-            $(this).parent().addClass('filled')
-        }
-    
-    })
-    
-    $(document).on('click touch', '.selectDropdown ul li a', function(e) {
-        e.preventDefault()
-        let dropdown = $(this).parent().parent().parent()
-        let active = $(this).parent().hasClass('active')
-        let label = active ? dropdown.find('select').attr('placeholder') : $(this).text()
-    
-        dropdown.find('option').prop('selected', false)
-        dropdown.find('ul li').removeClass('active')
-    
-        dropdown.toggleClass('filled', !active)
-        dropdown.children('span').text(label)
-    
-        if (!active) {
-            dropdown.find('option:contains(' + $(this).text() + ')').prop('selected', true)
-            $(this).parent().addClass('active')
-        }
-    
-        dropdown.removeClass('open')
-    })
-    
-    $('.dropdown > span').on('click touch', function(e) {
-        let self = $(this).parent()
-        self.toggleClass('open')
-    })
-    
-    $(document).on('click touch', function(e) {
-        let dropdown = $('.dropdown')
-        if (dropdown !== e.target && !dropdown.has(e.target).length) {
-            dropdown.removeClass('open')
-        }
-    })*/
 })
+
+async function eventAssigner(element, event, funcEvent) {
+	try {
+		Array.prototype.forEach.call(
+			document.querySelectorAll(element),
+			(node) => {
+				node.addEventListener(event, funcEvent)
+		})
+		return true
+	} catch (error) {
+		console.error(error)
+		throw false
+	}
+}
+
+async function eventUnassigner(element, event, funcEvent) {
+	try {
+		Array.prototype.forEach.call(
+			document.querySelectorAll(element),
+			(node) => {
+				node.removeEventListener(event, funcEvent)
+		})
+		return true
+	} catch (error) {
+		console.error(error)
+		throw false
+	}
+}
 
 function darkMode() {
     $('body').addClass('dark')
@@ -259,7 +267,7 @@ function resetPsw() {
     console.log('Reemplazar')
 }
 
-function go(where) {
-    setCookie('USelected', where)
+function go(place) {
+    setCookie('USelected', place)
     window.location.href = String(location.href).slice(0, 21+1)+"encuesta/"
 }

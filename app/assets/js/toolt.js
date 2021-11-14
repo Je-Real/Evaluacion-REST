@@ -2,7 +2,7 @@ let still_hover, msg,
     x, y,
     w, h
     
-window.addEventListener('DOMContentLoaded', mainToolTip())
+window.addEventListener('load', mainToolTip())
 
 async function mainToolTip() {
     await $('.h-toolt').mousemove(async(e) => {

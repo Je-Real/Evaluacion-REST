@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', async(e) => {
+window.addEventListener('load', async(e) => {
     await getCookie('USelected')
     .then((data) => {
         selectObjective(data)
@@ -163,7 +163,7 @@ function postSurvey() {
 
             if (result.status === 200) {
                 setTimeout(() => {
-                    window.location.href = String(location.href).slice(0, 21+1)+"control/"
+                    window.location.href = String(location.href).slice(0, 21+1)+"tabla/"
                 }, 1500)
             }
         },

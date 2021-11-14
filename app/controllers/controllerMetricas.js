@@ -102,8 +102,8 @@ async function root(req, res) {
     }
 
     //Reportes route
-    return res.status(200).render('reportes', {
-        title_page: 'UTNA - Reportes',
+    return res.status(200).render('metricas', {
+        title_page: 'UTNA - Metricas',
         session: session,
         care: career,
         depa: department,
@@ -113,8 +113,8 @@ async function root(req, res) {
     })
 }
 
-async function get(req, res) {
-    let search = {}, empty = false,
+function data(req, res) {
+    let search = { manager: req.session.user }, empty = false, sumTemp,
         year = d.getFullYear()
 
     if (req.body.area > 0) {
@@ -127,7 +127,7 @@ async function get(req, res) {
         empty = '[Report] Empty/Auto query'
     }
 
-    await modelEvaluation.aggregate([
+    modelEvaluation.aggregate([
         {
             $lookup: {
                 from: "user_infos",
@@ -155,36 +155,43 @@ async function get(req, res) {
                     ]
                 } 
             }
-        }, { $project: { info: 0, __v: 0 } }
-    ])
-    .then((data) => { //🟢
-        let average = 0, sum = 0
-            years = [],
-            records =  [],
-            histSum =  [0, 0, 0, 0, 0],
-            counter =  [0, 0, 0, 0, 0]
-
-        for (let i=0; i<5; i++) {
-            let currYear = String(parseInt(year)-(4-i))
-
-            years[i] = currYear
-            for (let j in data) {
-                if (String(currYear) in data[j].records) {
-                    histSum[i] += data[j].records[String(currYear)]
-                    counter[i]++
-                }
+        }, { 
+            $project: {
+                _id : { $cond: { if: { $eq: [ "$info", [] ] }, then: '$$REMOVE', else: '$_id' } },
+                records : { $cond: { if: { $eq: [ "$info", [] ] }, then: '$$REMOVE', else: '$records' } },
+                first_name : { $cond: { if: { $and: [ { $eq: [ "$info", [] ] }, { $ne: ['$first_name', null] } ] }, then: '$$REMOVE', else: '$first_name' } },
+                last_name : { $cond: { if: { $and: [ { $eq: [ "$info", [] ] }, { $ne: ['$last_name', null] } ] }, then: '$$REMOVE', else: '$last_name' } },
+                area : { $cond: { if: { $and: [ { $eq: [ "$info", [] ] }, { $ne: ['$area', null] } ] }, then: '$$REMOVE', else: '$area' } },
+                department : { $cond: { if: { $and: [ { $eq: [ "$info", [] ] }, { $ne: ['$department', null] } ] }, then: '$$REMOVE', else: '$department' } },
+                career : { $cond: { if: { $and: [ { $eq: [ "$info", [] ] }, { $ne: ['$career', null] } ] }, then: '$$REMOVE', else: '$career' } },
             }
         }
-        for (let i in histSum) {
-            records[i] = (histSum[i] === 0 || counter[i] === 0)
-                ? 0 : histSum[i] / counter[i]++
+    ])
+    .then((data) => { //🟢
+        let average = 0, sumTemp = 0,
+            years = [], records =  [],
+            histCounter =  [[0, 0, 0, 0, 0],[0, 0, 0, 0, 0]]
+    
+        for (let i=0; i<5; i++) {
+            let currYear = String(parseInt(year)-(4-i))
+        
+            years[i] = currYear
+            for (let j in data) {
+                if ('records' in data[j]) {
+                    if (String(currYear) in data[j].records) {
+                        histCounter[0][i] += data[j].records[String(currYear)]
+                        histCounter[1][i]++
+                    }
+                }
+            }
+            histCounter[0][i] = parseFloat((histCounter[0][i]).toFixed(2))
+            
+            records[i] = (histCounter[0][i] === 0 || histCounter[1][i] === 0)
+                ? 0 : parseFloat((histCounter[0][i] / histCounter[1][i]).toFixed(1))
+            sumTemp += records[i]
         }
-
-        sum = records.reduce(function (accumVar, curVal) {
-            return accumVar + curVal
-        }, 0)
-        average = parseFloat((sum/data.length).toFixed(1))
-
+        average = parseFloat((sumTemp / 5).toFixed(1))
+    
         return res.end(JSON.stringify({
             data: {
                 total: average,
@@ -193,10 +200,8 @@ async function get(req, res) {
                     records: records
                 }
             },
-            msg: 'Datos obtenidos.',
             console: empty,
             status: 200,
-            noti: true
         }))
     })
     .catch((error) => { //🔴
@@ -205,12 +210,14 @@ async function get(req, res) {
             msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
             status: 404,
             noti: true,
+            notiType: 'error',
             error: error
         }))
     })
 }
 
+
 module.exports = {
     root,
-    get
+    data
 }

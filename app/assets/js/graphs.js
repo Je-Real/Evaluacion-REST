@@ -19,7 +19,7 @@ let canvas, width, height, gradient,
 function getGradient(ctx, chartArea) {
 	const chartWidth = chartArea.right - chartArea.left
 	const chartHeight = chartArea.bottom - chartArea.top
-	if (gradient === null || width !== chartWidth || height !== chartHeight) {
+	if (gradient === null || width != chartWidth || height != chartHeight) {
 		// Create the gradient because this is either the first render
 		// or the size of the chart has changed
 		width = chartWidth
@@ -35,14 +35,14 @@ function getGradient(ctx, chartArea) {
 
 function semiDoughnutChart(id, data, colors) {
 	if (data > 0 && data <= 100) {
-		let dCanvasId = 'semiDoughnutChart-'+id
+		let span
 
 		if (dChart[id] != undefined)
 			dChart[id].destroy()
 
 		try {
-			canvas = document.getElementById(dCanvasId)
-			let ctx = canvas.getContext('2d');
+			canvas = document.querySelector(`.panel[data-id="${id}"] .semiDoughnutChart canvas`)
+			let ctx = canvas.getContext('2d')
 			dChart[id] = new Chart(ctx, {
 				type: 'doughnut',
 				data: {
@@ -77,18 +77,22 @@ function semiDoughnutChart(id, data, colors) {
 				}
 			})
 
-			let newSpan = document.createElement('span')
-			newSpan.innerHTML = data+'%'
-			canvas.parentNode.insertBefore(newSpan, canvas.nextSibling)
+			if (canvas.nextElementSibling.nodeName === 'SPAN') {
+				span = canvas.nextElementSibling
+			} else {
+				span = document.createElement('span')
+				canvas.parentNode.insertBefore(span, canvas.nextSibling)
+			}
+			span.innerHTML = data+'%'
 			canvas = null
 			
-			return console.log('Loaded semi doughnut!')
+			return log('[Graphs] Loaded Semi doughnut!', style.success)
 		} catch (error) {
-			console.error('Error in Bars.')
+			log('[Graphs] Error in Semi doughnut', style.error)
 			return console.error(error)
 		}
 	}
-	console.warn('Semi doughnut without data')
+	console.warn('[Graphs] Semi doughnut without data')
 }
 
 function barChart(id, labels, data, colors) {
@@ -100,10 +104,9 @@ function barChart(id, labels, data, colors) {
 		
 		bgColor = (colors != undefined && colors.length == 5) ? colors : bgColorDefault
 		fgColor = (colors != undefined && colors.length == 5) ? colors : fgColorDefault
-		let bCanvasId = 'barsChart-'+id
 		
 		try {
-			let ctx = document.getElementById(bCanvasId).getContext('2d')
+			let ctx = document.querySelector(`.panel[data-id="${id}"] .barsChart canvas`).getContext('2d')
 			bChart[id] = new Chart(ctx, {
 				type: 'bar',
 				data: {
@@ -153,24 +156,22 @@ function barChart(id, labels, data, colors) {
 				}
 			})
 			canvas = null
-			return console.log('Loaded bars!')
+			return log('[Graphs] Loaded Bars!', style.success)
 		} catch (error) {
-			console.error('Error in Bars.')
+			log('[Graphs] Error in Bars', style.error)
 			return console.error(error)
 		}
 			
 	}
-	console.warn('Bars without data')
+	console.warn('[Graphs] Bars without data')
 }
 
 function lineChart(id, labels, data, colors) {
 	if (labels.length && data.length) {
 		if (lChart[id] != undefined)
 			lChart[id].destroy()
-		
-		let lCanvasId = 'lineChart-'+id
 
-		ctx = document.getElementById(lCanvasId).getContext('2d')
+		ctx = document.querySelector(`div[data-id="${id}"] .lineChart canvas`).getContext('2d')
 		lChart[id] = new Chart(ctx, {
 			type: 'line',
 			data: {
@@ -210,7 +211,7 @@ function lineChart(id, labels, data, colors) {
 			},
 		})
 		canvas = null
-		return console.log('Loaded line!')
+		return log('[Graphs] Loaded line!', style.success)
 	}
-	console.warn('Line without data')
+	log('[Graphs] Line without data', style.warning)
 }

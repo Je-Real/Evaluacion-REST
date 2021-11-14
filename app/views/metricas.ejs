@@ -60,17 +60,15 @@
                         <div class="col-6 panel my-3" data-id="0">
                             <div class="shadow-lg rounded-2">
                                 <div class="row justify-content-end">
-                                    <button data-id="0"
-                                        class="btn canvas-config m-0 me-5 mt-4 p-1 w-auto position-absolute h-toolt rot-20">
+                                    <button class="btn canvas-config m-0 me-5 mt-4 p-1 w-auto position-absolute h-toolt rot-20">
                                         <i class="fas fa-cog fa-2x toolt-txt pointer-event-none" data-text="Desplegar opciones para este panel"></i>
                                     </button>
-                                    <div data-id="0"
-                                        class="config-menu d-none position-absolute w-md-30 w-40 bg-light rounded-2 shadow-sm py-3 mt-6 me-5">
+                                    <div class="config-menu d-none position-absolute w-md-30 w-40 bg-light rounded-2 shadow-sm py-3 mt-6 me-5">
                                         <div class="container m-0 p-0">
                                             <div class="row">
                                                 <div class="col-md-6 col-12 mx-auto my-1">
                                                     <div class="form-floating">
-                                                        <select class="form-select area" name="area" data-id="0" aria-label="Selección">
+                                                        <select class="form-select area" name="area" aria-label="Selección">
                                                             <option class="are-s" value="0" selected>Personal a cargo</option>
                                                             <% for(let d in area) { %>
                                                                 <option class="are" value="<%= area[d]['n'] %>"> 
@@ -83,7 +81,7 @@
                                                 </div>
                                                 <div class="col-md-6 col-12 mx-auto my-1">
                                                     <div class="form-floating">
-                                                        <select class="form-select department" name="department" data-id="0" aria-label="Selección" disabled>
+                                                        <select class="form-select department" name="department" aria-label="Selección" disabled>
                                                             <option class="dep-s" value="0" selected>-Selecciona departamento-</option>
                                                             <% for(let d in depa) { %>
                                                                 <option class="dep" data-area="<%= depa[d]['area'] %>" value="<%= depa[d]['n'] %>">
@@ -96,7 +94,7 @@
                                                 </div>
                                                 <div class="col-md-6 col-12 mx-auto my-1">
                                                     <div class="form-floating">
-                                                        <select class="form-select career" name="career" data-id="0" aria-label="Selección" disabled>
+                                                        <select class="form-select career" name="career" aria-label="Selección" disabled>
                                                             <option class="car-s" value="0" selected>-Selecciona carrera-</option>
                                                             <% for(let d in care) { %>
                                                                 <option class="car" data-depa="<%= care[d]['department'] %>" value="<%= care[d]['n'] %>">
@@ -119,10 +117,10 @@
                                                     <h5 id="title-card" class="text-center display-6 text-uppercase">Personal a cargo</h5>
                                                 </div>
                                             </div>
-                                            <div class="row px-5 mx-3 canvas-container semiDoughnutChart" data-id="0">
+                                            <div class="row px-5 mx-3 canvas-container semiDoughnutChart">
                                                 <canvas id="semiDoughnutChart-0" width="100%" height="100%"></canvas>
                                             </div>
-                                            <div class="row canvas-container barsChart" data-id="0">
+                                            <div class="row canvas-container barsChart">
                                                 <canvas id="barsChart-0" width="100%" height="50%"></canvas>
                                             </div>
                                         </div>
@@ -139,7 +137,7 @@
     </div>
 
     <%- include('template/!scripts.ejs') %>
-    <script src="/js/reportes.js"></script>
+    <script src="/js/metricas.js"></script>
     <script src="/js/pdf-report.js"></script>
 </body>
 
