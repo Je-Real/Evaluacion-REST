@@ -2,7 +2,7 @@ let firstName, lastName,
     area, career, state,
     municipality, street,
     number, postal_code,
-    a = null, d = 0, c = 0,
+    aa = null, dd = 0, cc = 0,
     lvl_s = 0
 
 window.addEventListener('load', async(e) => {
@@ -14,6 +14,8 @@ window.addEventListener('load', async(e) => {
 
     $('#contract').prop('disabled', true) //Disable dropdown for contracts
     $('#lvl').prop('disabled', true) //Disable dropdown for levels
+
+    eventAssigner('#submit', 'click', register).catch((error) => {return console.error(error)})
 
     levels(0, 0)
 })
@@ -71,16 +73,16 @@ $('#career').change(() => {
 })
 
 $('#area, #department, #career').change(() => {
-    if (a === null) {
-        a = $('#area').val()
-        d = $('#department').val()
-        c = $('#career').val()
+    if (aa === null) {
+        aa = $('#area').val()
+        dd = $('#department').val()
+        cc = $('#career').val()
         return
     }
-    if (a != $('#area').val() || d != $('#department').val() || c != $('#career').val()) {
-        a = $('#area').val()
-        d = $('#department').val()
-        c = $('#career').val()
+    if (aa != $('#area').val() || dd != $('#department').val() || cc != $('#career').val()) {
+        aa = $('#area').val()
+        dd = $('#department').val()
+        cc = $('#career').val()
 
         getManager(false)
     }
@@ -137,7 +139,7 @@ function addressGetter() {
     }
 }
 
-async function register() {
+const register = async() => {
     let packed = JSON.stringify({ 
         _id: $('#_id_r').val(), 
         pass: $('#pass_r').val(),

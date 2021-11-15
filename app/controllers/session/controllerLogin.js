@@ -40,12 +40,13 @@ async function logIn(req, res) {
 							//Server 🍪🍪🍪
 							req.session.user = req.body._id
 							req.session.lvl = dataUInfo[0].level
-							req.session.name = dataUInfo[0].first_name
+							req.session.first_name = dataUInfo[0].first_name
+							req.session.last_name = dataUInfo[0].last_name
 							req.session.area = dataUInfo[0].area
 							req.session.department = dataUInfo[0].department
 							req.session.career = dataUInfo[0].career
 							
-							//How to manipulate front-end cookies in back-end
+							//How to manipulate front-end cookies in back-end (------Doesn't work at all------)
 							/*let ini = [req.headers.cookie.search('{'), (req.headers.cookie.search('}'))+1]
 							let rest = [
 								req.headers.cookie.slice(0, ini[0]),
@@ -72,13 +73,13 @@ async function logIn(req, res) {
 								req.session.evaluation = true
 							}
 							
-							//Response success for AJAX
+							//Response success for Asynchronous request
 							return res.end(JSON.stringify({
 								msg: 'Sesión iniciada. Bienvenido '+dataUInfo[0].first_name+'.',
 								data: {
 									user: req.session.user,
 									pass: {token: dataUser[0].pass},
-									name: req.session.name,
+									name: req.session.first_name,
 									lvl: req.session.lvl
 								},
 								status: 200,
@@ -87,6 +88,7 @@ async function logIn(req, res) {
 						})
 						.catch((error) => {
 							console.log(error)
+							//Response error for Asynchronous request 
 							return res.end(JSON.stringify({
 								msg: 'Error de búsqueda de usuario. Intenta de nuevo mas tarde.', 
 								status: 404,

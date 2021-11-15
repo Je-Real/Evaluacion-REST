@@ -1,5 +1,5 @@
 let rec, showCharts, clone, idSelect = 0,
-	showRegs = 5, year = parseInt(d.getFullYear()) - (showRegs-1)
+	showRegs = 5, year = parseInt(dd.getFullYear()) - (showRegs-1)
 
 window.addEventListener('load', async(e) => {
 	$('.dep').addClass('d-none') //Hide department options
@@ -17,6 +17,7 @@ window.addEventListener('load', async(e) => {
 		<p class="my-2 text-ghost">No hay datos para mostrar</p>
 	</div>`
 	clone = document.querySelector('.panel:last-of-type').cloneNode(true)
+	document.querySelector('.panel[data-id="0"] .canvas-remove').remove()
 	
 	displayCharts(false)
 	
@@ -29,8 +30,18 @@ window.addEventListener('load', async(e) => {
 })
 
 const config = (e) => {
-	e.target.classList.toggle('move')
-	document.querySelector(`.panel[data-id="${e.target.parentNode.parentNode.parentNode.getAttribute('data-id')}"] .config-menu`)
+	let tgt = e.target, idConfig
+	tgt.classList.toggle('move')
+
+	while (tgt.parentNode) {
+        tgt = tgt.parentNode
+        if (tgt.getAttribute('data-id') != undefined) {
+            idConfig = parseInt(tgt.getAttribute('data-id'))
+            break
+        }
+    }
+
+	document.querySelector(`.panel[data-id="${idConfig}"] .config-menu`)
 		.classList.toggle('d-none')
 }
 
@@ -42,17 +53,17 @@ function areaSelect() {
 	let affected = $(`.panel[data-id="${idSelect}"] .department .dep[data-area='${parseInt($(`.panel[data-id="${idSelect}"] .area`).val())}']`)
 		.removeClass('d-none')
 
-	if (affected.length == 0) {
-		//If in the area does not exist any departments
+	if (affected.length) {
+		//If in the area exists departments
+		$(`.panel[data-id="${idSelect}"] .department .dep-s`).text('-Selecciona departamento-').removeClass('d-none')
+		.prop('selected', true)
+		$(`.panel[data-id="${idSelect}"] .department`).prop('disabled', false)
+	} else {
+		//Else 🟢
 		$(`.panel[data-id="${idSelect}"] .department .dep-s`).text('N/A').removeClass('d-none').prop('selected', true)
 		$(`.panel[data-id="${idSelect}"] .department`).prop('disabled', true)
 		$(`.panel[data-id="${idSelect}"] .career .car-s`).text('N/A').removeClass('d-none').prop('selected', true)
 		$(`.panel[data-id="${idSelect}"] .career`).prop('disabled', true)
-	} else {
-		//Else 🟢
-		$(`.panel[data-id="${idSelect}"] .department .dep-s`).text('-Selecciona departamento-').removeClass('d-none')
-			.prop('selected', true)
-		$(`.panel[data-id="${idSelect}"] .department`).prop('disabled', false)
 	}
 }
 
@@ -65,15 +76,15 @@ function depaSelect() {
 	let affected = $(`.panel[data-id="${idSelect}"] .career .car[data-depa='${parseInt($(`.panel[data-id="${idSelect}"] .department`).val())}']`)
 		.removeClass('d-none')
 
-	if (affected.length == 0) {
-		//If in the area does not exist any departments
-		$(`.panel[data-id="${idSelect}"] .career .car-s`).text('N/A').removeClass('d-none').prop('selected', true)
-		$(`.panel[data-id="${idSelect}"] .career`).prop('disabled', true)
+	if (affected.length) {
+		//If in the area exists any departments
+		$(`.panel[data-id="${idSelect}"] .career .car-s`).text('-Selecciona departamento-').removeClass('d-none')
+		.prop('selected', true)
+		$(`.panel[data-id="${idSelect}"] .career`).prop('disabled', false)
 	} else {
 		//Else 🟢
-		$(`.panel[data-id="${idSelect}"] .career .car-s`).text('-Selecciona departamento-').removeClass('d-none')
-			.prop('selected', true)
-		$(`.panel[data-id="${idSelect}"] .career`).prop('disabled', false)
+		$(`.panel[data-id="${idSelect}"] .career .car-s`).text('N/A').removeClass('d-none').prop('selected', true)
+		$(`.panel[data-id="${idSelect}"] .career`).prop('disabled', true)
 	}
 }
 
@@ -82,7 +93,7 @@ function careSelect() {
 }
 
 const formSelect = (e) => {
-	let tgt = e.target
+	let tgt = e.target, canvasTitle
 
 	while (tgt.parentNode) {
         tgt = tgt.parentNode
@@ -92,17 +103,34 @@ const formSelect = (e) => {
         }
     }
 
-	if (e.target.classList.contains('area')) areaSelect()
-	else if (e.target.classList.contains('department')) depaSelect()
-	else if (e.target.classList.contains('career')) careSelect()
+	canvasTitle = document.querySelector(`.panel[data-id="${idSelect}"] .canvasTitle`)
+
+	if (e.target.classList.contains('area')) {
+		areaSelect()
+		if (document.querySelector(`.panel[data-id="${idSelect}"] .department`).selectedIndex == 0 &&
+			document.querySelector(`.panel[data-id="${idSelect}"] .career`).selectedIndex == 0)
+			canvasTitle.innerHTML = e.target.options[e.target.selectedIndex].innerHTML
+	}
+	else if (e.target.classList.contains('department')) {
+		depaSelect()
+		if (document.querySelector(`.panel[data-id="${idSelect}"] .career`).selectedIndex == 0)
+			canvasTitle.innerHTML = e.target.options[e.target.selectedIndex].innerHTML
+	}
+	else if (e.target.classList.contains('career')) {
+		careSelect()
+		canvasTitle.innerHTML = e.target.options[e.target.selectedIndex].innerHTML
+	}
 	else return false
+
 
 	getData(false)
 }
 
 const addPanel = () => {
 	idSelect = parseInt(document.querySelector('.panel:last-of-type').getAttribute('data-id'))+1
-	if (idSelect < 4) {
+	let panelsDisplayed = parseInt(document.querySelectorAll('.panel').length)
+
+	if (panelsDisplayed <= 4) {
 		clone.setAttribute('data-id', String(idSelect))
 		document.getElementById('panelContainer').appendChild(clone)
 	
@@ -116,11 +144,30 @@ const addPanel = () => {
 	}
 }
 
+const deletePanel = (e) => {
+	let tgt = e.target, idDeletable
+
+	while (tgt.parentNode) {
+        tgt = tgt.parentNode
+        if (tgt.getAttribute('data-id') != undefined) {
+            idDeletable = parseInt(tgt.getAttribute('data-id'))
+            break
+        }
+    }
+
+	if (idDeletable != 0) {
+		document.querySelector(`.panel[data-id="${idDeletable}"]`).remove()
+	}
+	else showSnack('No puedes eliminar el panel principal 😡', 'error')
+}
+
 function buttonListeners() {
 	eventUnassigner('.canvas-config', 'click', config).catch((error) => {return console.error(error)})
+	eventUnassigner('.canvas-remove', 'click', deletePanel).catch((error) => {return console.error(error)})
 	eventUnassigner('.form-select', 'change', formSelect).catch((error) => {return console.error(error)})
-
+	
 	eventAssigner('.canvas-config', 'click', config).catch((error) => {return console.error(error)})
+	eventAssigner('.canvas-remove', 'click', deletePanel).catch((error) => {return console.error(error)})
 	eventAssigner('.form-select', 'change', formSelect).catch((error) => {return console.error(error)})
 }
 
@@ -207,6 +254,7 @@ async function getData(auto) {
         },
         error: (xhr, status, error) => {
             showSnack('Status: '+status+'. '+error, 'error')
+			canvasId = undefined
         }
     })
 }
