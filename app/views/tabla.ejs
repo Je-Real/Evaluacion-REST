@@ -54,13 +54,13 @@
                                                 <button type="button" onclick="go('<%= records[record][`_id`] %>')"
                                                     class="btn btn-info mx-md-2 my-auto mx-1 p-1 h-toolt">
                                                     <i class="text-white fas fa-plus-circle fa-2x toolt-txt"
-                                                        data-text="Realizar encuesta para <%= records[record]['first_name'] %>"></i>
+                                                        data-text="Realizar evaluacion para <%= records[record]['first_name'] %>"></i>
                                                 </button>
                                             <% } else { %>
                                                 <button type="button" 
-                                                    class="btn btn-success mx-md-2 my-auto mx-1 p-1 h-toolt">
+                                                    class="btn btn-success pe-none mx-md-2 my-auto mx-1 p-1 h-toolt">
                                                     <i class="text-white fas fa-chart-line fa-2x toolt-txt"
-                                                        data-text="Ver registros de <%= records[record]['first_name'] %>"></i>
+                                                        data-text="Ya se ha realizado evaluación a <%= records[record]['first_name'] %>"></i>
                                                 </button>
                                             <% } %>
                                         </td>

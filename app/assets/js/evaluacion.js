@@ -1,11 +1,18 @@
 window.addEventListener('load', async(e) => {
+
+    if (localStorage.getItem('paginator-card-view') === 'true') {
+        cardView()
+    } else {
+        listView()
+    }
+
     await getCookie('USelected')
     .then((data) => {
         selectObjective(data)
         setCookie('USelected', '')
     })
     .catch((error) => {
-        console.log('[Survey] No user selected!:', error)
+        log('[Survey] User selected!:'+error, style.warning)
     })
 
     $('input[type="radio"]').click(() => {
@@ -95,6 +102,7 @@ function listView() {
 
     $('#card').addClass('btn-secondary').removeClass('btn-on')
     $('#list').removeClass('btn-secondary').addClass('btn-on')
+    localStorage.setItem('paginator-card-view', 'false')
 }
 
 function cardView() {
@@ -106,6 +114,7 @@ function cardView() {
 
     $('#list').addClass('btn-secondary').removeClass('btn-on')
     $('#card').removeClass('btn-secondary').addClass('btn-on')
+    localStorage.setItem('paginator-card-view', 'true')
 }
 
 function selectObjective(hover) {
@@ -125,6 +134,9 @@ function selectObjective(hover) {
 }
 
 function postSurvey() {
+    if ($('#userObj').val() == '')
+        return showSnack('Debes seleccionar a alguien para evaluar', 'warning')
+    
     let grades = {
         p_1: $('input[name="P-I"]:checked'),
         p_2: $('input[name="P-II"]:checked'),
@@ -140,9 +152,8 @@ function postSurvey() {
     }
 
     for (let grade in grades) {
-        //console.log(`${grade} = ${grades[grade].val()}`)
         if (grades[grade].val() == undefined)
-            return showSnack('¡Aun no se puede enviar!<br/>Debes completar la encuesta', 'warning')
+            return showSnack('¡Aun no se puede enviar!<br/>Debes completar la evaluacion', 'warning')
         grades[grade] = parseInt(grades[grade].val())
     }
 
@@ -153,7 +164,7 @@ function postSurvey() {
     
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:3000/encuesta',
+        url: 'http://localhost:3000/evaluacion',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(packed),
         dataType: 'json',

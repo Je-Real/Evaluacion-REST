@@ -92,6 +92,30 @@ h1, h2, h3, h4, h5, h6 {
 	height: 1px;
 }
 
+@-webkit-keyframes ghost-anim {
+	0% { top: -7px; }
+	50% { top: 10px; }
+	100% { top: -7px; }
+}
+
+@keyframes ghost-anim {
+	0% { top: -7px; }
+	50% { top: 10px; }
+	100% { top: -7px; }
+}
+
+@keyframes appear {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+@keyframes blink {
+	0% { opacity: 0.3; }
+	40% { opacity: 1; }
+	60% { opacity: 1; }
+	100% { opacity: 0.3; }
+}
+
 .top {
 	top: 0;
 }
@@ -143,15 +167,6 @@ h1, h2, h3, h4, h5, h6 {
 	display: flex;
 	width: min-content;
 	height: min-content;
-}
-
-@keyframes appear {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
 }
 
 /* >>  W i d t h  << */
@@ -466,30 +481,6 @@ h1, h2, h3, h4, h5, h6 {
 	margin-bottom: 10rem;
 }
 
-@-webkit-keyframes ghost-anim {
-	0% {
-		top: -7px;
-	}
-	50% {
-		top: 10px;
-	}
-	100% {
-		top: -7px;
-	}
-}
-
-@keyframes ghost-anim {
-	0% {
-		top: -7px;
-	}
-	50% {
-		top: 10px;
-	}
-	100% {
-		top: -7px;
-	}
-}
-
 .text-card {
 	font-family: "Dosis", sans-serif;
 }
@@ -571,6 +562,15 @@ h1, h2, h3, h4, h5, h6 {
 
 .rot-20.move>svg {
 	transform: rotate(90deg);
+}
+
+.blink {
+	animation: blink 5s ease-in-out infinite;
+}
+
+.force-disabled {
+	pointer-events: none;
+	opacity: 0.5;
 }
 
 /* Reportes */
@@ -667,7 +667,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 /* Tooltip */
 
-/* Encuesta */
+/* Evaluacion */
 .row.list-mode .card-header {
 	width: 1rem;
 	border-radius: calc(0.25rem - 1px) 0 0 calc(0.25rem - 1px);
@@ -792,7 +792,7 @@ input.super-sad:checked + svg {
 	transition: all 0.25s;
 }
 /* Tables */
-/* Encuesta */
+/* Evaluacion */
 
 /* Control */
 .i-info {

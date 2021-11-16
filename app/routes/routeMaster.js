@@ -2,7 +2,7 @@ const { Router } = require('express')
 const router = Router()
 
 const controllerIndex = require('../controllers/controllerInicio')
-const controllerLayoutStatic = require('../controllers/controllerEncuesta')
+const controllerLayoutStatic = require('../controllers/controllerEvaluacion')
 const controllerTabla = require('../controllers/controllerTabla')
 const controllerMetricas = require('../controllers/controllerMetricas')
 
@@ -25,8 +25,8 @@ router.get('/metricas', controllerMetricas.root)
       .post('/metricas', controllerMetricas.data)
 
 // Survey
-router.get('/encuesta', controllerLayoutStatic.root)
-      .post('/encuesta', controllerLayoutStatic.post)
+router.get('/evaluacion', controllerLayoutStatic.root)
+      .post('/evaluacion', controllerLayoutStatic.post)
 
 // Control panel
 router.get('/tabla', controllerTabla.root)

@@ -12,14 +12,25 @@
                 <div class="container-fluid px-5">
                     <% if (userData.length > 0) { %>
                     <div class="dynamic-title">
-                        <h1 class="display-2 text-center py-4">Encuesta</h1>
+                        <h1 class="display-2 text-center py-4">Evaluacion</h1>
+                    </div>
+
+                    <div class="help-bar bg-light w-100 rounded-3">
+                        <div class="d-flex justify-content-center">
+                            <div class="w-50 text-center d-inline-flex my-2">
+                                <i class="fas ms-auto me-2 my-auto fa-question-circle fa-2x blink"></i>
+                                <p class="fs-5 me-auto ms-2 my-2">
+                                    Haz clic sobre uno de los recuadros de abajo para seleccionar a alguien para evaluar su desempeño.
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="container-fluid my-5">
                         <div id="btnContainer" class="mb-5 text-end me-5">
                             <button id="list" class="mx-1 btn btn-view btn-secondary" onclick="listView()"><i class="fa fa-bars"></i> Lista</button> 
                             <button id="card" class="mx-1 btn btn-view btn-on" onclick="cardView()"><i class="fa fa-th-large"></i> Tarjetas</button>
-                          </div>
+                        </div>
                         <div class="d-flex flex-wrap justify-content-center paginator" data-rows-shown="3, 6, 9, 12">
                             <% for(let user in userData) { if (userData[user] != null) { %>
                             <div id="<%= userData[user]._id %>" data-id="<%= userData[user]._id %>" 
@@ -54,8 +65,21 @@
                             </div>
                             <% } } %>
                         </div>
+                    </div>
 
-                    <div class="container-fluid mt-4">
+                    <div class="help-bar bg-dark text-light w-100 rounded-3">
+                        <div class="d-flex justify-content-center">
+                            <div class="w-50 text-center d-inline-flex my-2">
+                                <i class="fas ms-auto me-2 my-auto fa-info-circle fa-2x blink"></i>
+                                <p class="fs-5 me-auto ms-2 my-2">
+                                    <span class="fw-bold me-1">Hey! Aquí un tip:</span> Coloca tu cursor sobre las opciones
+                                    de cadapregunta un momento para saber más acerca de como estas calificando.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid my-4 force-disabled">
                         <form method="POST" name="f_survey" id="f_survey">                            
                             <input type="hidden" name="userObj" id="userObj" value="">
 
@@ -759,7 +783,7 @@
 
 
     <%- include('template/!scripts.ejs') %>
-    <script src="/js/encuesta.js"></script>
+    <script src="/js/evaluacion.js"></script>
     <script src="/js/paginator.js"></script>
 </body>
 

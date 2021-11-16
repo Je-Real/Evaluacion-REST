@@ -1,6 +1,7 @@
 
 // 👇 Production mode
-//'use strict'
+'use strict'
+
 const d = new Date()
 const style = {
     base: [
@@ -49,14 +50,13 @@ window.addEventListener('DOMContentLoaded', async(e) => {
     // Toggle the side navigation
     const sidebarToggle = document.body.querySelector('#sidebarToggle')
     if (sidebarToggle) {
-        // Uncomment Below to persist sidebar toggle between refreshes
-        // if (sessionStorage.getItem('sb|sidebar-toggle') === 'true') {
-        //     document.body.classList.toggle('sb-sidenav-toggled')
-        // }
+        if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
+            document.body.classList.toggle('sb-sidenav-toggled')
+        }
         sidebarToggle.addEventListener('click', event => {
             event.preventDefault()
             document.body.classList.toggle('sb-sidenav-toggled')
-            sessionStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'))
+            localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'))
         })
     }
 
@@ -269,5 +269,5 @@ function resetPsw() {
 
 function go(place) {
     setCookie('USelected', place)
-    window.location.href = String(location.href).slice(0, 21+1)+"encuesta/"
+    window.location.href = String(location.href).slice(0, 21+1)+"evaluacion/"
 }

@@ -5,37 +5,43 @@
                 <div class="sidebar-top-p top-border-b" data-color="#e29e20"></div>
                 <a class="nav-link" href="/inicio/">
                     <div class="sb-nav-link-icon"><i class="fas fa-home fa-2x"></i></div>
-                    Inicio
+                    <span class="sb-nav-link-text">Inicio</span>
                 </a>
                 <% if (session) { %>
-                        <div class="sb-sidenav-menu-heading green-border-t py-3">Estatus</div>
+                        <div class="sb-sidenav-menu-heading green-border-t py-3">
+                            <span class="sb-nav-link-text">Estatus</span>
+                        </div>
+
                         <a class="nav-link" href="/metricas/">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-line fa-2x"></i></div>
-                            Metricas
+                            <span class="sb-nav-link-text">Metricas</span>
                         </a>
                         <% if (session.lvl <= 4) { %>
                             <a class="nav-link" href="/tabla/">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table fa-2x"></i></div>
-                                Tabla Reporte
+                                <span class="sb-nav-link-text">Tabla Reporte</span>
                             </a>
                         <% } %>
 
-                        <div class="sb-sidenav-menu-heading orange-border-t py-3">Acciones</div>
+                        <div class="sb-sidenav-menu-heading orange-border-t py-3">
+                            <span class="sb-nav-link-text">Acciones</span>
+                        </div>
+                        
                         <% if (session.evaluation) { %>
-                            <a class="nav-link" href="/encuesta/">
+                            <a class="nav-link" href="/evaluacion/">
                                 <div class="sb-nav-link-icon"><i class="fas fa-pen-alt fa-2x"></i></div>
-                                Encuesta
+                                <span class="sb-nav-link-text">Evaluacion</span>
                             </a>
                         <% } %>
                         <a class="nav-link" href="javascript:logout()">
                             <div class="sb-nav-link-icon"><i class="fas fa-door-open fa-2x"></i></div>
-                            Cerrar sesión
+                            <span class="sb-nav-link-text">Cerrar sesión</span>
                         </a>
                 <% } else { %>
                     <div class="sb-sidenav-menu-heading orange-border-t py-3">Sesión</div>
                     <a class="nav-link" href="javascript:toggleFloating(1)">
                         <div class="sb-nav-link-icon"><i class="fas fa-user fa-2x"></i></div>
-                        Iniciar sesión
+                        <span class="sb-nav-link-text">Iniciar sesión</span>
                     </a>
                 <% } %>
             </div>

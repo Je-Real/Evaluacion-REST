@@ -1,5 +1,5 @@
 let rec, showCharts, clone, idSelect = 0,
-	showRegs = 5, year = parseInt(dd.getFullYear()) - (showRegs-1)
+	showRegs = 5, year = parseInt(d.getFullYear()) - (showRegs-1)
 
 window.addEventListener('load', async(e) => {
 	$('.dep').addClass('d-none') //Hide department options

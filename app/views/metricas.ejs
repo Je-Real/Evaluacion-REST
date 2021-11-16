@@ -24,33 +24,49 @@
             </main>
 
             <main class="mb-5 bg-ligth-gray">
-                    <div class="row w-90 my-3 me-5 ms-4 pe-5">
-                        <div class="w-auto d-flex">
-                            <h2 class="display-6 text-center my-auto" data-time="<%= hour %>">
-                                <%= s %>, <%= session.first_name %>
-                            </h2>
+                <div class="row w-90 my-3 me-5 ms-4 pe-5">
+                    <div class="w-auto d-flex">
+                        <h2 class="display-6 text-center my-auto" data-time="<%= hour %>">
+                            <%= s %>, <%= session.first_name %>
+                        </h2>
+                    </div>
+                    <div class="col">
+                        <div class="d-flex justify-content-end my-4 pe-5">
+                            <button id="pdfGenerate" class="btn btn-download text-center d-flex flex-column mx-3">
+                                <span class="w-100">
+                                    <i class="fas fa-file-download fa-3x"></i>
+                                </span>
+                                <span class="w-100 mt-2">
+                                    Descargar Reporte
+                                </span>
+                            </button>
+                            <button id="addPanel" class="btn btn-add-panel text-center d-flex flex-column mx-3">
+                                <span class="w-100">
+                                    <i class="fas fa-plus fa-3x"></i>
+                                </span>
+                                <span class="w-100 mt-2">
+                                    Agregar panel
+                                </span>
+                            </button>
                         </div>
-                        <div class="col">
-                            <div class="d-flex justify-content-end my-4 pe-5">
-                                <button id="pdfGenerate" class="btn btn-download text-center d-flex flex-column mx-3">
-                                    <span class="w-100">
-                                        <i class="fas fa-file-download fa-3x"></i>
-                                    </span>
-                                    <span class="w-100 mt-2">
-                                        Descargar Reporte
-                                    </span>
-                                </button>
-                                <button id="addPanel" class="btn btn-add-panel text-center d-flex flex-column mx-3">
-                                    <span class="w-100">
-                                        <i class="fas fa-plus fa-3x"></i>
-                                    </span>
-                                    <span class="w-100 mt-2">
-                                        Agregar panel
-                                    </span>
-                                </button>
+                    </div>
+                </div>
+            </main>
+            
+            <main>
+                <div class="container-fluid px-4">
+                    <div class="help-bar bg-dark text-light w-100 rounded-3">
+                        <div class="d-flex justify-content-center">
+                            <div class="w-50 text-center d-inline-flex my-2">
+                                <i class="fas ms-auto me-2 my-auto fa-info-circle fa-2x blink"></i>
+                                <p class="fs-5 me-auto ms-2 my-2">
+                                    <span class="fw-bold me-1">Pequeño tip:</span> Si deseas comparar áreas y demás,
+                                        basta con solo agregar un nuevo panel y configurar lo que quieres ver. ¡Sencillísimo!
+                                </p>
                             </div>
                         </div>
                     </div>
+                </div>
             </main>
 
             <main class="mb-5">

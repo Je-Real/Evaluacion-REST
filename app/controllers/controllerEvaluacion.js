@@ -2,7 +2,7 @@ const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
 
 const d = new Date()
-// >>>>>>>>>>>>>>>>>>>>>> Encuesta static <<<<<<<<<<<<<<<<<<<<<<
+// >>>>>>>>>>>>>>>>>>>>>> Evaluacion static <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
     let session, year = d.getFullYear(), search = {},
         idGetter = [], arr1 = [], arr2 = [], userData = []
@@ -109,15 +109,16 @@ async function root(req, res) {
         })
     }
 
-    //Encuesta static route
-    return res.status(200).render('encuesta', {
-        title_page: 'UTNA - Encuesta',
+    //Evaluacion static route
+    return res.status(200).render('evaluacion', {
+        title_page: 'UTNA - Evaluacion',
         session: session,
         userData: userData
     })
 }
 
 async function post(req, res) {
+
     let score = 0,
         rec = req.body.records,
         year = String(d.getFullYear())
@@ -349,7 +350,7 @@ async function post(req, res) {
                     await new modelEvaluation(req.body).save()
                     .then(() => { //🟢
                         return res.end(JSON.stringify({
-                            msg: '¡Encuesta registrada satisfactoriamente!',
+                            msg: '¡Evaluacion registrada satisfactoriamente!',
                             resType: 'success',
                             status: 200,
                             noti: true
@@ -378,7 +379,7 @@ async function post(req, res) {
         } else {
             console.error('Eyo error here!')
             return res.end(JSON.stringify({
-                msg: '¿¡No existe el usuario actual!?.\r\n¿¿¿Cómo lo lograste???',
+                msg: '¿¡No existe el usuario seleccionado!?',
                 resType: 'error',
                 status: 500,
                 noti: true
@@ -388,7 +389,7 @@ async function post(req, res) {
 	.catch((error) => { //🔴
 		console.error(error)
 		return res.end(JSON.stringify({
-			msg: '¿¡No existe el usuario actual!?.\r\n¿¿¿Cómo lo lograste???',
+			msg: '¿¡No existe el usuario actual!?\r\n¿¿¿Cómo lo lograste???',
             resType: 'error',
 			status: 500,
 			noti: true
