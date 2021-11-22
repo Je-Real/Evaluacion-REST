@@ -10,7 +10,7 @@ const crypto = require('crypto-js')
 async function root(req, res) {
     let session
 
-    if (!req.session.user && !req.session.lvl) { // No session 😡
+    if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
     } else { // Session 🤑
         session = req.session
@@ -48,7 +48,7 @@ async function signIn(req, res) {
 	//SignIn validator
 	await modelUser.find({ _id: req.body._id })
 	.then((dataUser) => {
-		if (dataUser.length) { //if data 👍
+		if(dataUser.length) { //if data 👍
 			return res.end(JSON.stringify({
 				msg: '¡Ya existe usuario con ese id!',
 				status: 500,
@@ -109,14 +109,14 @@ async function signIn(req, res) {
 async function getManager(req, res) {
 	let search
 
-	if (parseInt(req.query.level) == 1) {
+	if(parseInt(req.query.level) == 1) {
 		search = { level: parseInt(req.query.level) }
-	} else if (req.query.department > 0) {
+	} else if(req.query.department > 0) {
 		search = {
 			area: parseInt(req.query.area),
 			level: parseInt(req.query.level)
 		}
-	} else if (req.query.career > 0) {
+	} else if(req.query.career > 0) {
 		search = {
 			area: parseInt(req.query.area),
 			department: parseInt(req.query.department),

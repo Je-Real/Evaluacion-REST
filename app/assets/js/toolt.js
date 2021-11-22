@@ -16,13 +16,13 @@ async function mainToolTip() {
     })
 
 	await $('.h-toolt').hover(async(e) => {
-        if (still_hover != $('.h-toolt').hover()) {
+        if(still_hover != $('.h-toolt').hover()) {
             msg = $('.h-toolt:hover .toolt-txt').attr('data-text')
             await $('#toolt p').html(msg)
             still_hover = true
             
             await setTimeout(() => {
-                if (still_hover) {
+                if(still_hover) {
                     $('#toolt').addClass('show')
                 }
             }, 800)

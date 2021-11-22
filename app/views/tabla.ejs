@@ -1,4 +1,4 @@
-<% if (session) { %>
+<% if(session) { %>
 <%- include('template/!head.ejs') %>
 
 <body class="sb-nav-fixed">
@@ -8,7 +8,7 @@
     <%- include('template/sidebar.ejs') %>
 
         <div id="layoutSidenav_content">
-            <main class="mb-5">
+            <div class="mb-5">
                 <div class="session-container">
                     <input class="deletable" type="hidden" name="user" id="user"
                         value="<%= session.user %>">
@@ -26,12 +26,12 @@
                 </div>
 
                 <div class="container-fluid px-4">
-                    <div class="dynamic-title">
+                    <div class="dynamic-title vw-80 vw-lg-50">
                         <h1 class="display-1 text-center py-4">Control</h1>
                     </div>
 
-                    <div class="container w-lg-75 w-90 mx-auto">
-                        <table class="paginator table-effect border-0 table caption-top flex-table" data-rows-shown="5, 10, 15">
+                    <div class="container w-lg-75 w-90 mx-auto table-responsive">
+                        <table class="paginator table-effect border-0 table caption-top flex-table table align-middle" data-rows-shown="5, 10, 15">
                             <thead>
                                 <tr class="border-0 flex-th">
                                     <th class="border-0 border-bottom border-end flex-th">Usuario</th>
@@ -42,7 +42,7 @@
                                 </tr>
                             </thead>
                             <tbody class="border-0" id="table-b">
-                                <% if (records != false) {
+                                <% if(records != false) {
                                     for(let record in records) { %>
                                     <tr id="<%= records[record]['_id'] %>" class="i-info pag-item" data-status="<%= records[record]['records'] %>">
                                         <td class="border-0 border-end text-center"><%= records[record]['_id'] %></td>
@@ -50,10 +50,10 @@
                                         <td class="border-0 border-start text-center"><%= records[record]['last_name'] %></td>
                                         <td class="border-0 border-start text-center i-status"></td>
                                         <td class="border-0 border-start d-flex justify-content-center h-100">
-                                            <% if (records[record]['records'] == 0) { %>
-                                                <button type="button" onclick="go('<%= records[record][`_id`] %>')"
-                                                    class="btn btn-info mx-md-2 my-auto mx-1 p-1 h-toolt">
-                                                    <i class="text-white fas fa-plus-circle fa-2x toolt-txt"
+                                            <% if(records[record]['records'] == 0) { %>
+                                                <button type="button"
+                                                    class="btn btn-info evaluate mx-md-2 my-auto mx-1 p-1 h-toolt">
+                                                    <i class="text-white pe-none fas fa-plus-circle fa-2x toolt-txt"
                                                         data-text="Realizar evaluacion para <%= records[record]['first_name'] %>"></i>
                                                 </button>
                                             <% } else { %>
@@ -77,7 +77,7 @@
                         </table>
                     </div>
                 </div>
-            </main>
+            </div>
 
             <%- include('template/!footer.ejs') %>
         </div>
@@ -85,6 +85,7 @@
 
     <%- include('template/!scripts.ejs') %>
     <script src="/js/paginator.js"></script>
+    <script src="/js/tabla.js"></script>
 </body>
 
 </html>

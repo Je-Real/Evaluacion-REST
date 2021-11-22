@@ -5,7 +5,7 @@ const crypto = require('crypto-js')
 async function reset(req, res) {
 	await modelUser.find({ _id: req.body._id })
 	.then((dataUser) => {
-		if (dataUser.length) { //if data 👍
+		if(dataUser.length) { //if data 👍
             //Encryption
 			dataUser.pass = crypto.AES.encrypt(req.body.pass, req.body._id).toString()
 

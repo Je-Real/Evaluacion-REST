@@ -1,7 +1,7 @@
 // >>>>>>>>>>>>>>>>>>>>>> Error 404 <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {//Error 404 route
     let session
-    if (!req.session.user && !req.session.lvl) // No session 😡
+    if(!req.session.user && !req.session.lvl) // No session 😡
         session = null
     else // Session 🤑
         session = req.session

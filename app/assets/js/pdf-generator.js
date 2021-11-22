@@ -47,16 +47,16 @@ try {
 			 *  > Unique column margin = w * 0.3
 			 */
 
-			if (node.querySelector('.ghost-container').classList.contains('d-none')) {
+			if(node.querySelector('.ghost-container').classList.contains('d-none')) {
 				index++ // Manual index, first loop is 1
 				spacing = (index <= 2) ? h*0.21 : h*0.57 // Spacing below semi doughnut
 				/* Check whether is posible to enter the next loop
 				 * else then center the canvas group */
-				if (index+1 <= lienzosLength || index === 2 || index === 4) { 
+				if(index+1 <= lienzosLength || index === 2 || index === 4) { 
 					/* If the current index is divisible by 2 then the canvas group
 					 * will be placed in the second column
 					 * else, the canvas group will be placed in the first column */
-					if (index % 2 === 0) columnSwitch = w*0.5
+					if(index % 2 === 0) columnSwitch = w*0.5
 					else columnSwitch = w*0.1
 				} else columnSwitch = w*0.3
 	

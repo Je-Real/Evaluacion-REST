@@ -19,7 +19,7 @@ let canvas, width, height, gradient,
 function getGradient(ctx, chartArea) {
 	const chartWidth = chartArea.right - chartArea.left
 	const chartHeight = chartArea.bottom - chartArea.top
-	if (gradient === null || width != chartWidth || height != chartHeight) {
+	if(gradient === null || width != chartWidth || height != chartHeight) {
 		// Create the gradient because this is either the first render
 		// or the size of the chart has changed
 		width = chartWidth
@@ -34,10 +34,10 @@ function getGradient(ctx, chartArea) {
 }
 
 function semiDoughnutChart(id, data, colors) {
-	if (data > 0 && data <= 100) {
+	if(data > 0 && data <= 100) {
 		let span
 
-		if (dChart[id] != undefined)
+		if(dChart[id] != undefined)
 			dChart[id].destroy()
 
 		try {
@@ -77,7 +77,7 @@ function semiDoughnutChart(id, data, colors) {
 				}
 			})
 
-			if (canvas.nextElementSibling.nodeName === 'SPAN') {
+			if(canvas.nextElementSibling.nodeName === 'SPAN') {
 				span = canvas.nextElementSibling
 			} else {
 				span = document.createElement('span')
@@ -96,10 +96,10 @@ function semiDoughnutChart(id, data, colors) {
 }
 
 function barChart(id, labels, data, colors) {
-	if (labels.length && data.length) {
+	if(labels.length && data.length) {
 		let bgColor, fgColor
 
-		if (bChart[id] != undefined)
+		if(bChart[id] != undefined)
 			bChart[id].destroy()
 		
 		bgColor = (colors != undefined && colors.length == 5) ? colors : bgColorDefault
@@ -167,8 +167,8 @@ function barChart(id, labels, data, colors) {
 }
 
 function lineChart(id, labels, data, colors) {
-	if (labels.length && data.length) {
-		if (lChart[id] != undefined)
+	if(labels.length && data.length) {
+		if(lChart[id] != undefined)
 			lChart[id].destroy()
 
 		ctx = document.querySelector(`div[data-id="${id}"] .lineChart canvas`).getContext('2d')
@@ -187,7 +187,7 @@ function lineChart(id, labels, data, colors) {
 							const chart = context.chart
 							const { ctx, chartArea } = chart
 
-							if (!chartArea) {
+							if(!chartArea) {
 								// This case happens on initial chart load
 								return null
 							}

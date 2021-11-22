@@ -1,5 +1,5 @@
 async function setCookie(cname, cvalue) {
-	if (cname == undefined || cvalue == undefined) {
+	if(cname == undefined || cvalue == undefined) {
 		console.error('Cookies save empty')
 		throw false
 	}
@@ -17,7 +17,7 @@ async function setCookie(cname, cvalue) {
 }
 
 async function getCookie(cname) {
-	if (cname === 0) {
+	if(cname === 0) {
 		let cookieSession, cookieGoTo
 
 		await getCookie('user')
@@ -33,12 +33,12 @@ async function getCookie(cname) {
 
 	let name = cname + '='
 	let cookieJar = document.cookie.split(';')
-	for (let i = 0; i < cookieJar.length; i++) {
+	for(let i = 0; i < cookieJar.length; i++) {
 		let cookie = cookieJar[i]
-		while (cookie.charAt(0) == ' ') {
+		while(cookie.charAt(0) == ' ') {
 			cookie = cookie.substring(1)
 		}
-		if (cookie.indexOf(name) == 0) {
+		if(cookie.indexOf(name) == 0) {
 			return cookie.substring(name.length, cookie.length)
 		}
 	}
@@ -46,12 +46,12 @@ async function getCookie(cname) {
 }
 
 async function checkCookie(cname) {
-	if (cname == undefined) return console.log('Cookies jar empty')
+	if(cname == undefined) return console.log('Cookies jar empty')
 	let result
 	
 	await getCookie(cname)
 		.then(async (data) => {
-			if (data.length > 0) result = true
+			if(data.length > 0) result = true
 			else result = false
 		})
 		.catch((error) => {
@@ -59,7 +59,7 @@ async function checkCookie(cname) {
 			console.error(error)
 		})
 
-	if (result) return true
+	if(result) return true
 	else throw false
 }
 

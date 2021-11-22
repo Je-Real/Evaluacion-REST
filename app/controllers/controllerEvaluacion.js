@@ -8,14 +8,14 @@ async function root(req, res) {
         idGetter = [], arr1 = [], arr2 = [], userData = []
 
     /** Delete this 👇 and do a JOIN query */
-    if (req.session.lvl == 1) search.level = parseInt(req.session.lvl)+1 
+    if(req.session.lvl == 1) search.level = parseInt(req.session.lvl)+1 
     else {
         search.level = parseInt(req.session.lvl)+1 
-        if (req.session.area) search.area = req.session.area
-        if (req.session.department) search.department = req.session.department
+        if(req.session.area) search.area = req.session.area
+        if(req.session.department) search.department = req.session.department
     }
 
-    if (!req.session.user && !req.session.lvl) { // No session 😡
+    if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
     } else { // Session 🤑
         session = req.session
@@ -329,14 +329,14 @@ async function post(req, res) {
 
     await modelUserInfo.find({ _id: req.body._id }, { _id: 1 })
 	.then(async(dataUI) => { //🟢
-        if (dataUI.length) {
+        if(dataUI.length) {
             await modelEvaluation.find({ _id: req.body._id })
             .then(async(dataEval) => { //🟢
                 req.body.records = {}
 
                 try { 
                     // Try to get the current year record and if it exists return the error message
-                    if (dataEval.records[year] != undefined)
+                    if(dataEval.records[year] != undefined)
                         return res.end(JSON.stringify({
                             msg: '¿¡Ya existe una evaluacion para esta persona en este año!?',
                             resType: 'error',

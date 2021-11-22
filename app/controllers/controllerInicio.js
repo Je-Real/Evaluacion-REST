@@ -3,7 +3,7 @@ const crypto = require('crypto-js')
 // >>>>>>>>>>>>>>>>>>>>>> Index <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
     let session
-    if (!req.session.user && !req.session.lvl) { // No session 😡
+    if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
     } else { // Session 🤑
         session = req.session
@@ -25,7 +25,7 @@ function search(req, res, next) {
     //Search route promise
     modelEval.find(consulta)
         .then(eval => {
-            if (!eval.length) {
+            if(!eval.length) {
                 return next()
             }
             req.body.eval = eval
@@ -38,8 +38,8 @@ function search(req, res, next) {
 }
 
 function show(req, res) {
-    if (req.body.error) return res.status(500).send({ error })
-    if (!req.body.eval) return res.status(404).send({ message: 'No se encontraron datos.' })
+    if(req.body.error) return res.status(500).send({ error })
+    if(!req.body.eval) return res.status(404).send({ message: 'No se encontraron datos.' })
 
     let evalObj = req.body.eval
     return res.status(200).send({ evalObj })

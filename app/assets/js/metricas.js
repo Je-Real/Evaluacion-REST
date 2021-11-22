@@ -33,9 +33,9 @@ const config = (e) => {
 	let tgt = e.target, idConfig
 	tgt.classList.toggle('move')
 
-	while (tgt.parentNode) {
+	while(tgt.parentNode) {
         tgt = tgt.parentNode
-        if (tgt.getAttribute('data-id') != undefined) {
+        if(tgt.getAttribute('data-id') != undefined) {
             idConfig = parseInt(tgt.getAttribute('data-id'))
             break
         }
@@ -53,7 +53,7 @@ function areaSelect() {
 	let affected = $(`.panel[data-id="${idSelect}"] .department .dep[data-area='${parseInt($(`.panel[data-id="${idSelect}"] .area`).val())}']`)
 		.removeClass('d-none')
 
-	if (affected.length) {
+	if(affected.length) {
 		//If in the area exists departments
 		$(`.panel[data-id="${idSelect}"] .department .dep-s`).text('-Selecciona departamento-').removeClass('d-none')
 		.prop('selected', true)
@@ -76,7 +76,7 @@ function depaSelect() {
 	let affected = $(`.panel[data-id="${idSelect}"] .career .car[data-depa='${parseInt($(`.panel[data-id="${idSelect}"] .department`).val())}']`)
 		.removeClass('d-none')
 
-	if (affected.length) {
+	if(affected.length) {
 		//If in the area exists any departments
 		$(`.panel[data-id="${idSelect}"] .career .car-s`).text('-Selecciona departamento-').removeClass('d-none')
 		.prop('selected', true)
@@ -95,9 +95,9 @@ function careSelect() {
 const formSelect = (e) => {
 	let tgt = e.target, canvasTitle
 
-	while (tgt.parentNode) {
+	while(tgt.parentNode) {
         tgt = tgt.parentNode
-        if (tgt.getAttribute('data-id') != undefined) {
+        if(tgt.getAttribute('data-id') != undefined) {
             idSelect = parseInt(tgt.getAttribute('data-id'))
             break
         }
@@ -105,18 +105,18 @@ const formSelect = (e) => {
 
 	canvasTitle = document.querySelector(`.panel[data-id="${idSelect}"] .canvasTitle`)
 
-	if (e.target.classList.contains('area')) {
+	if(e.target.classList.contains('area')) {
 		areaSelect()
-		if (document.querySelector(`.panel[data-id="${idSelect}"] .department`).selectedIndex == 0 &&
+		if(document.querySelector(`.panel[data-id="${idSelect}"] .department`).selectedIndex == 0 &&
 			document.querySelector(`.panel[data-id="${idSelect}"] .career`).selectedIndex == 0)
 			canvasTitle.innerHTML = e.target.options[e.target.selectedIndex].innerHTML
 	}
-	else if (e.target.classList.contains('department')) {
+	else if(e.target.classList.contains('department')) {
 		depaSelect()
-		if (document.querySelector(`.panel[data-id="${idSelect}"] .career`).selectedIndex == 0)
+		if(document.querySelector(`.panel[data-id="${idSelect}"] .career`).selectedIndex == 0)
 			canvasTitle.innerHTML = e.target.options[e.target.selectedIndex].innerHTML
 	}
-	else if (e.target.classList.contains('career')) {
+	else if(e.target.classList.contains('career')) {
 		careSelect()
 		canvasTitle.innerHTML = e.target.options[e.target.selectedIndex].innerHTML
 	}
@@ -130,7 +130,7 @@ const addPanel = () => {
 	idSelect = parseInt(document.querySelector('.panel:last-of-type').getAttribute('data-id'))+1
 	let panelsDisplayed = parseInt(document.querySelectorAll('.panel').length)
 
-	if (panelsDisplayed <= 4) {
+	if(panelsDisplayed <= 4) {
 		clone.setAttribute('data-id', String(idSelect))
 		document.getElementById('panelContainer').appendChild(clone)
 	
@@ -147,15 +147,15 @@ const addPanel = () => {
 const deletePanel = (e) => {
 	let tgt = e.target, idDeletable
 
-	while (tgt.parentNode) {
+	while(tgt.parentNode) {
         tgt = tgt.parentNode
-        if (tgt.getAttribute('data-id') != undefined) {
+        if(tgt.getAttribute('data-id') != undefined) {
             idDeletable = parseInt(tgt.getAttribute('data-id'))
             break
         }
     }
 
-	if (idDeletable != 0) {
+	if(idDeletable != 0) {
 		document.querySelector(`.panel[data-id="${idDeletable}"]`).remove()
 	}
 	else showSnack('No puedes eliminar el panel principal 😡', 'error')
@@ -172,10 +172,10 @@ function buttonListeners() {
 }
 
 function displayCharts(show) {
-	if (showCharts != show) showCharts = show
+	if(showCharts != show) showCharts = show
 	else return
 
-	if (showCharts && idSelect != -1) {
+	if(showCharts && idSelect != -1) {
 		Array.prototype.forEach.call(
 			document.querySelectorAll(`.panel[data-id="${idSelect}"] .ghost-container`),
 			(node) => {
@@ -214,7 +214,7 @@ async function getData(auto) {
 	let packed = {}
 		//user = $('.user').val()
 	
-	if (auto === false) {
+	if(auto === false) {
 		packed.area = parseInt($(`.panel[data-id="${idSelect}"] .area`).val())
 		packed.depart = (parseInt($(`.panel[data-id="${idSelect}"] .department`).val()) > 0) ? parseInt($(`.panel[data-id="${idSelect}"] .department`).val()) : null
 		packed.career = (parseInt($(`.panel[data-id="${idSelect}"] .career`).val()) > 0) ? parseInt($(`.panel[data-id="${idSelect}"] .career`).val()) : null
@@ -222,18 +222,18 @@ async function getData(auto) {
 
     await $.ajax({
         type: 'POST',
-        url: 'http://localhost:3000/metricas',
+        url: 'http://localhost:666/metricas',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(packed),
         dataType: 'json',
         async: true,
         success: (result) => {
-            if (result.console) log(result.console, style.warning)
+            if(result.console) log(result.console, style.warning)
 
-			if (result.noti) showSnack(result.msg, result.notiType)
+			if(result.noti) showSnack(result.msg, result.notiType)
 
-			if (result.status === 200) {
-				if (result.data.total != 0 && result.data.log.records != 0) {
+			if(result.status === 200) {
+				if(result.data.total != 0 && result.data.log.records != 0) {
 					try {						
 						semiDoughnutChart(idSelect, result.data.total)
 						barChart(idSelect, result.data.log.years, result.data.log.records)
@@ -248,7 +248,7 @@ async function getData(auto) {
 				} else displayCharts(false)
 			}
 			else {
-				if (result.log === true) return log('[Report] '+result.msg, style.error)
+				if(result.log === true) return log('[Report] '+result.msg, style.error)
 			}
 			canvasId = undefined
         },

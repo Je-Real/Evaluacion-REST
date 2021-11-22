@@ -49,8 +49,8 @@ let tf = false, tr = false,
 window.addEventListener('DOMContentLoaded', async(e) => {
     // Toggle the side navigation
     const sidebarToggle = document.body.querySelector('#sidebarToggle')
-    if (sidebarToggle) {
-        if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
+    if(sidebarToggle) {
+        if(localStorage.getItem('sb|sidebar-toggle') === 'true') {
             document.body.classList.toggle('sb-sidenav-toggled')
         }
         sidebarToggle.addEventListener('click', event => {
@@ -62,21 +62,21 @@ window.addEventListener('DOMContentLoaded', async(e) => {
 
     let fade_away = true
 
-    if ($('#layoutNavbar').attr('data-log') === 'false') {
+    if($('#layoutNavbar').attr('data-log') === 'false') {
         await getCookie(0)
         .then(async(data) => {
             fade_away = false
-            if (data[0] != '' && data[0] != undefined) {
+            if(data[0] != '' && data[0] != undefined) {
                 try {
                     let cookieData = JSON.parse(data[0])
                     showSnack('Iniando sesión...', 'info')
                     login(cookieData.user, cookieData.pass)
 
-                    if (data[1] != undefined) {
+                    if(data[1] != undefined) {
                         await setCookie('requested-page', undefined)
                         .then(() => {
                             setTimeout(() => {
-                                window.location.href = data[1]
+                                go(data[1])
                             }, 2500)
                         })
                         .catch((error) => {
@@ -95,7 +95,7 @@ window.addEventListener('DOMContentLoaded', async(e) => {
         })
     }
     
-    if (fade_away) {
+    if(fade_away) {
         setTimeout(async() => {
             await $('#load-b').addClass('fade')
             setTimeout(() => {
@@ -138,7 +138,7 @@ async function eventUnassigner(element, event, funcEvent) {
 
 function darkMode() {
     $('body').addClass('dark')
-    if ($('*').hasClass('bg-light')) {
+    if($('*').hasClass('bg-light')) {
         $('*').removeClass('bg-light')
         $('*').addClass('bg-dark')
     }
@@ -147,21 +147,21 @@ function darkMode() {
 //Capture Enter key in inputs
 function onEnterHandler(e) {
     let code = e.which || e.keyCode
-    if (code === 13) {
+    if(code === 13) {
       login()
     }
 }
 
 function outSession(clicked) {
-    if (clicked) {
+    if(clicked) {
         setTimeout(() => {
-            window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
+            go("inicio/")
         }, 2500)
     }
 }
 
 function toggleFloating(floating) {
-    if (tf || floating === 0) {
+    if(tf || floating === 0) {
         try { frameL.className = frameL.className.replace('show', 'hide') }
         catch { console.log('Skiping Frame Login') }
         try { frameP.className = frameP.className.replace('show', 'hide') }
@@ -169,25 +169,25 @@ function toggleFloating(floating) {
 
         glass.className = ''
     } else {
-        if (floating === 1) {
+        if(floating === 1) {
             try { frameL.className = frameL.className.replace('hide', 'show') }
             catch { console.log('Skiping Frame Login') }
             try { frameP.className = frameP.className.replace('show', 'hide') }
             catch { console.log('Skiping Frame Password') }
 
-            if (glass.className == 'blur-off') 
+            if(glass.className == 'blur-off') 
                 glass.className = glass.className.replace('blur-off', 'blur-on')
             else 
                 glass.className = 'blur-on'
 
             $('#_id-txt').focus()
-        } else if (floating === 2) {
+        } else if(floating === 2) {
             try { frameL.className = frameL.className.replace('show', 'hide') }
             catch { console.log('Skiping Frame Login') }
             try { frameP.className = frameP.className.replace('hide', 'show') }
             catch { console.log('Skiping Frame Password') }
 
-            if (glass.className == 'blur-off')
+            if(glass.className == 'blur-off')
                 glass.className = glass.className.replace('blur-off', 'blur-on')
             else
                 glass.className = 'blur-on position-fixed'
@@ -201,29 +201,29 @@ function login(u, p) {
     u = (u) ? u : (($('#_id-txt').val()) ? $('#_id-txt').val() : undefined)
     p = (p) ? p : (($('#pass').val()) ? $('#pass').val() : undefined)
 
-    if (u === undefined) return console.error('login failed!')
+    if(u === undefined) return console.error('login failed!')
 
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:3000/sesion/login',
+        url: 'http://localhost:666/sesion/login',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify({ _id: u, pass: p }),
         dataType: 'json',
         async: true,
         success: async(result) => {
-            if (result.noti) {
+            if(result.noti) {
                 showSnack(result.msg, 'success')
             } else {
                 $('#loginMsg').addClass('text-danger')
                 $('#loginMsg').html(result.msg)
             }
 
-            if (result.status === 200) {
+            if(result.status === 200) {
                 $('#load-b').removeClass('hidden fade')
                 toggleFloating(0)
                 await setCookie('user', JSON.stringify(result.data))
                 .then(() => {
-                    return window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
+                    return go("inicio/")
                 })
                 .catch(() => {
                     showSnack('Status: Cookies error', 'warning')
@@ -240,17 +240,17 @@ function login(u, p) {
 function logout() {
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:3000/sesion/logout',
+        url: 'http://localhost:666/sesion/logout',
         dataType: 'json',
         async: true,
         success: async(result) => {
-            if (result.status === 200) {
+            if(result.status === 200) {
                 outSession(true)
                 $('#load-b').removeClass('hidden fade')
                 await eatCookies()
                     .finally(() => {
                         setTimeout(() => {
-                            window.location.href = String(location.href).slice(0, 21+1)+"inicio/"
+                            go("inicio/")
                         }, 500)
                     })
             } else {
@@ -263,11 +263,7 @@ function logout() {
     })
 }
 
-function resetPsw() {
-    console.log('Reemplazar')
-}
-
 function go(place) {
-    setCookie('USelected', place)
-    window.location.href = String(location.href).slice(0, 21+1)+"evaluacion/"
+    setCookie('go-to', place)
+    window.location.href = String(location.href).slice(0, 20+1)+place
 }

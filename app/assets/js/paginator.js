@@ -18,7 +18,7 @@ window.addEventListener('load', async(e) => {
         return console.error('No data-rows-shown listed in .paginator!')
     }
 
-    for (let i in arr_rows) {
+    for(let i in arr_rows) {
         let sel = (parseInt(arr_rows[i]) >= 4 && parseInt(arr_rows[i]) <= 6) ? 'selected' : ''
         rows_shown += `<option value="${parseInt(arr_rows[i])}" ${sel}>${parseInt(arr_rows[i])}</option>`
     }
@@ -26,8 +26,8 @@ window.addEventListener('load', async(e) => {
     $('.paginator').after(`
         <div class="pag-cont d-flex justify-content-md-between px-md-4">
             <div id="pag-ctrl" class="pagination my-auto">
-                <a href="#" rel="prev">&laquo;</a>
-                <a href="#" rel="next">&raquo;</a>
+                <a  rel="prev">&laquo;</a>
+                <a  rel="next">&raquo;</a>
             </div>
 
             <div class="d-flex">
@@ -51,7 +51,7 @@ window.addEventListener('load', async(e) => {
     paginator()
     
     $('#rows').change(() => {
-        if (parseInt($('#rows').val()) != rows) paginator()
+        if(parseInt($('#rows').val()) != rows) paginator()
     })
 })
 
@@ -62,7 +62,7 @@ function paginator() {
         rowsTotal = $('.paginator .pag-item').length,
         numPages = rowsTotal/rows
     
-    for (i=0; i<numPages; i++) {
+    for(i=0; i<numPages; i++) {
         $('#pag-ctrl a[rel="next"]').before(`<a class="row-temp" href="#pag" rel="${i}">${(i+1)}</a>`)
     }
 

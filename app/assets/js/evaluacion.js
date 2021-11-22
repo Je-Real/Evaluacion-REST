@@ -1,6 +1,6 @@
 window.addEventListener('load', async(e) => {
 
-    if (localStorage.getItem('paginator-card-view') === 'true') {
+    if(localStorage.getItem('paginator-card-view') === 'true') {
         cardView()
     } else {
         listView()
@@ -9,6 +9,7 @@ window.addEventListener('load', async(e) => {
     await getCookie('USelected')
     .then((data) => {
         selectObjective(data)
+        log('[Survey] User selected!:'+data, style.info)
         setCookie('USelected', '')
     })
     .catch((error) => {
@@ -19,7 +20,7 @@ window.addEventListener('load', async(e) => {
         let active_V = 0,
             active_VI = 0
 
-        if ($('input[name="P-I"]:checked').val()) {
+        if($('input[name="P-I"]:checked').val()) {
             $('#P-I').removeClass('deactivated')
             $('#P-I').addClass('activated')
         } else {
@@ -27,7 +28,7 @@ window.addEventListener('load', async(e) => {
             $('#P-I').addClass('deactivated')
         }
 
-        if ($('input[name="P-II"]:checked').val()) {
+        if($('input[name="P-II"]:checked').val()) {
             $('#P-II').removeClass('deactivated')
             $('#P-II').addClass('activated')
         } else {
@@ -35,7 +36,7 @@ window.addEventListener('load', async(e) => {
             $('#P-II').addClass('deactivated')
         }
         
-        if ($('input[name="P-III"]:checked').val()) {
+        if($('input[name="P-III"]:checked').val()) {
             $('#P-III').removeClass('deactivated')
             $('#P-III').addClass('activated')
         } else {
@@ -43,7 +44,7 @@ window.addEventListener('load', async(e) => {
             $('#P-III').addClass('deactivated')
         }
         
-        if ($('input[name="P-IV"]:checked').val()) {
+        if($('input[name="P-IV"]:checked').val()) {
             $('#P-IV').removeClass('deactivated')
             $('#P-IV').addClass('activated')
         } else {
@@ -51,16 +52,16 @@ window.addEventListener('load', async(e) => {
             $('#P-IV').addClass('deactivated')
         }
 
-        if ($('input[name="P-V"]:checked').val()) { active_V++ } 
+        if($('input[name="P-V"]:checked').val()) { active_V++ } 
         else { active_V+-1 }
-        if ($('input[name="P-VI"]:checked').val()) { active_V++ } 
+        if($('input[name="P-VI"]:checked').val()) { active_V++ } 
         else { active_V+-1 }
-        if ($('input[name="P-VII"]:checked').val()) { active_V++ } 
+        if($('input[name="P-VII"]:checked').val()) { active_V++ } 
         else { active_V+-1 }
-        if ($('input[name="P-VIII"]:checked').val()) { active_V++ } 
+        if($('input[name="P-VIII"]:checked').val()) { active_V++ } 
         else { active_V+-1 }
 
-        if (active_V == 4) {
+        if(active_V == 4) {
             $('#P-V').removeClass('deactivated')
             $('#P-V').addClass('activated')
         } else {
@@ -68,12 +69,12 @@ window.addEventListener('load', async(e) => {
             $('#P-V').addClass('deactivated')
         }
 
-        if ($('input[name="P-IX"]:checked').val()) { active_VI++ } 
+        if($('input[name="P-IX"]:checked').val()) { active_VI++ } 
         else { active_VI+-1 }
-        if ($('input[name="P-X"]:checked').val()) { active_VI++ } 
+        if($('input[name="P-X"]:checked').val()) { active_VI++ } 
         else { active_VI+-1 }
 
-        if (active_VI == 2) {
+        if(active_VI == 2) {
             $('#P-VI').removeClass('deactivated')
             $('#P-VI').addClass('activated')
         } else {
@@ -81,7 +82,7 @@ window.addEventListener('load', async(e) => {
             $('#P-VI').addClass('deactivated')
         }
 
-        if ($('input[name="P-XI"]:checked').val()) {
+        if($('input[name="P-XI"]:checked').val()) {
             $('#P-VII').removeClass('deactivated')
             $('#P-VII').addClass('activated')
         } else {
@@ -118,23 +119,25 @@ function cardView() {
 }
 
 function selectObjective(hover) {
-    if (hover.length==0) return
+    if(hover.length==0) return
 
     $('#f_survey')[0].reset()
     if ($('.table-header').hasClass('activated'))
         $('.table-header').removeClass('activated').addClass('deactivated')
 
     $('.card.card-option').removeClass('selected')
-    if (hover === true)
+    if(hover === true)
         $('.card.card-option:hover').addClass('selected')
     else 
         $(`div#${hover}`).addClass('selected')
 
     $('#userObj').val($('.card.card-option.selected').attr('data-id'))
+    $('.force-disabled').removeClass('force-disabled').addClass('force-enabled')
+    log('[Survey] User selected!:'+$('#userObj').val(), style.info)
 }
 
 function postSurvey() {
-    if ($('#userObj').val() == '')
+    if($('#userObj').val() == '')
         return showSnack('Debes seleccionar a alguien para evaluar', 'warning')
     
     let grades = {
@@ -151,8 +154,8 @@ function postSurvey() {
         p_11: $('input[name="P-XI"]:checked')
     }
 
-    for (let grade in grades) {
-        if (grades[grade].val() == undefined)
+    for(let grade in grades) {
+        if(grades[grade].val() == undefined)
             return showSnack('¡Aun no se puede enviar!<br/>Debes completar la evaluacion', 'warning')
         grades[grade] = parseInt(grades[grade].val())
     }
@@ -164,17 +167,17 @@ function postSurvey() {
     
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:3000/evaluacion',
+        url: 'http://localhost:666/evaluacion',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(packed),
         dataType: 'json',
         async: true,
         success:(result) => {
-            if (result.noti) showSnack(result.msg, result.resType)
+            if(result.noti) showSnack(result.msg, result.resType)
 
-            if (result.status === 200) {
+            if(result.status === 200) {
                 setTimeout(() => {
-                    window.location.href = String(location.href).slice(0, 21+1)+"tabla/"
+                    go("tabla/")
                 }, 1500)
             }
         },

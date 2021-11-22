@@ -12,18 +12,18 @@ async function root(req, res) {
         options = [{}, {}]
 
 
-    if (hour >= 5 && hour <= 12) { s = 'Buen dia' } 
-    else if (hour > 12 && hour <= 19) { s = 'Buenas tardes' }
+    if(hour >= 5 && hour <= 12) { s = 'Buen dia' } 
+    else if(hour > 12 && hour <= 19) { s = 'Buenas tardes' }
     else { s = 'Buenas noches' }
 
-    if (!req.session.user && !req.session.lvl) { // No session 😡
+    if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
     } else { // Session 🤑
         session = req.session
             
-        if (session.lvl > 1) {
+        if(session.lvl > 1) {
             options[0] = { n: session.area }
-            if (session.department > 0) {
+            if(session.department > 0) {
                 options[1] = { n: session.department }
             }
         }
@@ -71,20 +71,20 @@ async function root(req, res) {
              *  }
              */
     
-            for (let i in data) {
+            for(let i in data) {
                 area[i] = {
                     n: data[i]['n'],
                     desc: data[i]['desc']
                 }
-                if (data[i]['departments'] != undefined) {
-                    for (let j in data[i]['departments']) {
+                if(data[i]['departments'] != undefined) {
+                    for(let j in data[i]['departments']) {
                         department.push({
                             n: data[i]['departments'][j]['n'],
                             area: data[i]['n'],
                             desc: data[i]['departments'][j]['desc']
                         })
-                        if (data[i]['departments'] != undefined) {
-                            for (let k in data[i]['departments'][j]['careers']) {
+                        if(data[i]['departments'] != undefined) {
+                            for(let k in data[i]['departments'][j]['careers']) {
                                 career.push({
                                     n: data[i]['departments'][j]['careers'][k]['n'],
                                     department: data[i]['departments'][j]['n'],
@@ -117,11 +117,11 @@ function data(req, res) {
     let search = { manager: req.session.user }, empty = false, sumTemp,
         year = d.getFullYear()
 
-    if (req.body.area > 0) {
+    if(req.body.area > 0) {
         search.area = req.body.area
-        if (req.body.department > 0) {
+        if(req.body.department > 0) {
             search.department = req.body.department
-            if (req.body.career > 0) search.career = req.body.career
+            if(req.body.career > 0) search.career = req.body.career
         }
     } else {
         empty = '[Report] Empty/Auto query'
@@ -172,13 +172,13 @@ function data(req, res) {
             years = [], records =  [],
             histCounter =  [[0, 0, 0, 0, 0],[0, 0, 0, 0, 0]]
     
-        for (let i=0; i<5; i++) {
+        for(let i=0; i<5; i++) {
             let currYear = String(parseInt(year)-(4-i))
         
             years[i] = currYear
-            for (let j in data) {
-                if ('records' in data[j]) {
-                    if (String(currYear) in data[j].records) {
+            for(let j in data) {
+                if('records' in data[j]) {
+                    if(String(currYear) in data[j].records) {
                         histCounter[0][i] += data[j].records[String(currYear)]
                         histCounter[1][i]++
                     }

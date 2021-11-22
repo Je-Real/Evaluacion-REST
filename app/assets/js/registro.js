@@ -27,7 +27,7 @@ $('#area').change(() => {
 	//And show all departments the ones that match with the area selected
 	let affected = $(`.dep[data-area='${parseInt($('#area').val())}']`).removeClass('d-none')
 
-	if (affected.length == 0) {
+	if(affected.length == 0) {
 		//If in the area does not exist any departments
 		$('#dep-s').text('N/A').removeClass('d-none').prop('selected', true)
 		$('#department').prop('disabled', true)
@@ -38,7 +38,7 @@ $('#area').change(() => {
 		$('#department').prop('disabled', false)
 	}
 
-    if (parseInt($('#area').val()) != 0) {
+    if(parseInt($('#area').val()) != 0) {
         $('#contract').prop('disabled', false)
         $('#ct-s').text('-Selecciona carrera-')
     }
@@ -56,7 +56,7 @@ $('#department').change(() => {
 	//And show all departments the ones that match with the area selected
 	let affected = $(`.car[data-depa='${parseInt($('#department').val())}']`).removeClass('d-none')
 
-	if (affected.length == 0) {
+	if(affected.length == 0) {
 		//If in the area does not exist any departments
 		$('#car-s').text('N/A').removeClass('d-none').prop('selected', true)
 		$('#career').prop('disabled', true)
@@ -73,13 +73,13 @@ $('#career').change(() => {
 })
 
 $('#area, #department, #career').change(() => {
-    if (aa === null) {
+    if(aa === null) {
         aa = $('#area').val()
         dd = $('#department').val()
         cc = $('#career').val()
         return
     }
-    if (aa != $('#area').val() || dd != $('#department').val() || cc != $('#career').val()) {
+    if(aa != $('#area').val() || dd != $('#department').val() || cc != $('#career').val()) {
         aa = $('#area').val()
         dd = $('#department').val()
         cc = $('#career').val()
@@ -101,16 +101,16 @@ function levels(lvlShown, val) {
                 ? 2 : ((parseInt(val)>0 && parseInt(lvlShown)!=lvl_s) //If the select isn't empty and level isn't equal as selected
                     ? parseInt(lvlShown) : lvl_s))) //Then set the new value if it's true or else it won't change
 
-    if (lvl_temp != lvl_s) {
+    if(lvl_temp != lvl_s) {
         $('#lvl').prop('disabled', false)
         $('.lvl-s').addClass('d-none')
         $('#lvl-s').text('-Selecciona nivel-').prop('selected', true)
 
-        if (lvl_s === 1) {
+        if(lvl_s === 1) {
             $('.lvl-s.lvl-1').removeClass('d-none')
-        } else if (lvl_s === 2) {
+        } else if(lvl_s === 2) {
             $('.lvl-s.lvl-2').removeClass('d-none')
-        } else if (lvl_s === 3) {
+        } else if(lvl_s === 3) {
             $('.lvl-s.lvl-3').removeClass('d-none')
         } else {
             $('#lvl').prop('disabled', true)
@@ -133,7 +133,7 @@ function addressGetter() {
     /*document.getElementById('address').value = 
         String(street+' #'+number+', '+postal_code+', '+municipality+', '+state)*/
     
-    if ( firstName.length && lastName.length && area.length && career.length && state.length &&
+    if( firstName.length && lastName.length && area.length && career.length && state.length &&
         municipality.length && street.length && number.length && postal_code.length) {
             $('#submit').prop('disabled', false)
     }
@@ -157,7 +157,7 @@ const register = async() => {
 
     await $.ajax({
         type: 'POST',
-        url: 'http://localhost:3000/sesion/nuevo-usuario',
+        url: 'http://localhost:666/sesion/nuevo-usuario',
         contentType: 'application/json; charset=utf-8',
         data: packed,
         dataType: 'json',
@@ -165,7 +165,7 @@ const register = async() => {
         success: (result) => {
             showSnack(result.msg, 'success')
 
-            if (result.status === 200) {
+            if(result.status === 200) {
                 document.getElementById("f-reg").reset()
             }
         },
@@ -177,7 +177,7 @@ const register = async() => {
 
 function getManager(lvl_sel) {
     $('.mgr-s').remove()
-    if (lvl_sel === false) {
+    if(lvl_sel === false) {
         $("#manager").prop('disabled', true)
         $('#mgr-s').removeClass('d-none').prop('selected', true)
         $('#lvl-s').prop('selected', true)
@@ -193,14 +193,14 @@ function getManager(lvl_sel) {
 
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:3000/registro/manager',
+        url: 'http://localhost:666/registro/manager',
         contentType: 'application/json; charset=utf-8',
         data: packed,
         dataType: 'json',
         async: true,
         success: (result) => {
-            if (result.status === 200) {
-                if (result.data.length > 0) {
+            if(result.status === 200) {
+                if(result.data.length > 0) {
 
                     for(info in result.data) {
                         $("#manager").append(
