@@ -40,6 +40,20 @@ const log = (text, styleTypes = []) => {
     console.log(`%c${text}`, options);
 }
 
+const changeLang = () => {
+    let btnChecked = document.body.querySelector('#btn-lang').checked
+    
+    if(btnChecked) localStorage.setItem('lang', 'en')
+    else localStorage.setItem('lang', 'es')
+
+    setTimeout(async() => {
+        await $('#load-b').removeClass('hidden').addClass('show')
+        setTimeout(() => {
+            window.location.href = String(location.href)
+        }, 200)
+    }, 200)
+}
+
 let tf = false, tr = false,
     frameL = document.getElementById('floatingLogin'),
     frameP = document.getElementById('floatingPass'),
@@ -47,6 +61,23 @@ let tf = false, tr = false,
     glass = document.getElementById('layoutSidenav')
 
 window.addEventListener('DOMContentLoaded', async(e) => {
+    if(localStorage.getItem('lang') === 'en') {
+        document.querySelector('html').setAttribute('lang', 'en')
+        Array.prototype.forEach.call(
+			document.querySelectorAll('*[data-lang="es"]'),
+			(node) => { node.remove() }
+        )
+        document.body.querySelector('#btn-lang').checked = true
+    } else {
+        document.querySelector('html').setAttribute('lang', 'es')
+        Array.prototype.forEach.call(
+			document.querySelectorAll('*[data-lang="en"]'),
+			(node) => { node.remove() }
+        )
+    }
+
+    eventAssigner('#btn-lang', 'change', changeLang)
+
     // Toggle the side navigation
     const sidebarToggle = document.body.querySelector('#sidebarToggle')
     if(sidebarToggle) {
@@ -108,12 +139,12 @@ window.addEventListener('DOMContentLoaded', async(e) => {
     }
 })
 
-async function eventAssigner(element, event, funcEvent) {
+async function eventAssigner(elementSelector, eventClass, funcEvent) {
 	try {
 		Array.prototype.forEach.call(
-			document.querySelectorAll(element),
+			document.querySelectorAll(elementSelector),
 			(node) => {
-				node.addEventListener(event, funcEvent)
+				node.addEventListener(eventClass, funcEvent)
 		})
 		return true
 	} catch (error) {
@@ -122,12 +153,12 @@ async function eventAssigner(element, event, funcEvent) {
 	}
 }
 
-async function eventUnassigner(element, event, funcEvent) {
+async function eventUnassigner(elementSelector, eventClass, funcEvent) {
 	try {
 		Array.prototype.forEach.call(
-			document.querySelectorAll(element),
+			document.querySelectorAll(elementSelector),
 			(node) => {
-				node.removeEventListener(event, funcEvent)
+				node.removeEventListener(eventClass, funcEvent)
 		})
 		return true
 	} catch (error) {

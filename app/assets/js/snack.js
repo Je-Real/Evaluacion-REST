@@ -24,7 +24,7 @@ function showSnack(msg, status) {
             break
     }
 
-	$('#noti').append(
+	$('#snackCont').append(
         `<div id="${id}" class="row d-block animate__animated">
             <div class="p-0 my-1 toast show">
                 <div class="toast-header ${bgColor} text-light">

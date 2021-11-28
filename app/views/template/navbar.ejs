@@ -1,3 +1,10 @@
+<noscript>
+    <h1>
+        <span data-lang="es">Por favor activa Javascript en tu navegador</span>
+        <span data-lang="en">Please enable Javascript in your browser</span>
+    </h1>
+</noscript>
+
 <!-- Navbar -->
 <div id="load-b" class="bg-light p-0 m-0 mx-auto flex-nowrap position-fixed d-flex show">
     <div class="container h-100 d-flex">
@@ -7,8 +14,8 @@
     </div>
 </div>
 
-<div class="noti mx-auto w-25 d-flex flex-nowrap justify-content-center position-fixed">
-    <div id="noti" class="container-fluid mt-5"></div>
+<div class="snack mx-auto w-25 d-flex flex-nowrap justify-content-center position-fixed">
+    <div id="snackCont" class="container-fluid mt-5"></div>
 </div>
 
 <div id="toolt"><p></p></div>
@@ -32,16 +39,30 @@
         <li class="nav-item dropdown">
             <% let temp = (session) ? session.first_name : '' %>
             <a class="nav-link dropdown-toggle" id="navbarDropdown"  role="button" data-bs-toggle="dropdown"
-                aria-expanded="false"><i class="fas fa-user fa-fw"></i> <%= temp %></a>
+                aria-expanded="false"><i class="fas fa-user fa-fw"></i><%= temp %></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                
+                <li><div class="container ps-3">
+                    <span data-lang="es">Lenguaje</span><span data-lang="en">Language</span>
+                    <div class="button b2 mt-2 mb-2" id="button-17">
+                        <input id="btn-lang" type="checkbox" class="checkbox">
+                            <div class="knobs"><span></span></div>
+                        <div class="layer"></div>
+                    </div>
+                </div></li>
+                
                 <% if(session) {
-                    if(session.lvl <= 3) { %>
-                    <li><a class="dropdown-item" href="/registro/">Nuevo usuario</a></li>
-                    <% } %>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="javascript:logout()">Cerrar sesión</a></li>
+                    /*if(session.lvl <= 1) { %>
+                    <!--li><a class="dropdown-item" href="/registro/"><span data-lang="es">Nuevo usuario</span></a></li-->
+                    <!--li><hr class="dropdown-divider" /></li-->
+                    <% }*/ %>
+                    <li><a class="dropdown-item" href="javascript:logout()">
+                        <span data-lang="es">Cerrar sesión</span><span data-lang="en">Logout</span>
+                    </a></li>
                 <% } else { %>
-                    <li><a class="dropdown-item" href="javascript:toggleFloating(1)">Iniciar sesión</a></li>
+                    <li><a class="dropdown-item" href="javascript:toggleFloating(1)">
+                        <span data-lang="es">Iniciar sesión</span><span data-lang="en">Login</span>
+                    </a></li>
                 <% } %>
             </ul>
         </li>

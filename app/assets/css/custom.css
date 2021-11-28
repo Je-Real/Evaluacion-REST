@@ -116,8 +116,9 @@ h1, h2, h3, h4, h5, h6 {
 	100% { opacity: 0.3; }
 }
 
-@media (max-width: 991px) {
-	
+@keyframes fillUp {
+	0% { box-shadow: 0px 0 0 0 #00000000; }
+	100% { box-shadow: 0px 10rem 0 45vw #000000e3; }
 }
 
 .top {
@@ -144,10 +145,6 @@ h1, h2, h3, h4, h5, h6 {
 	pointer-events: none;
 }
 
-.floating.hide {
-	display: none;
-}
-
 .bg-ligth-gray {
 	color: #2c2c2c;
 	background: #d4d4d4;
@@ -157,20 +154,42 @@ h1, h2, h3, h4, h5, h6 {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d4d4d4",endColorstr="#ffffff",GradientType=1);
 }
 
-.btn {
-	border: none;
-}
+.btn { border: none; }
 
 .btn:hover {
 	-webkit-box-shadow: 0px 4px 30px -10px rgba(0,0,0,0.66); 
 	box-shadow: 0px 4px 30px -10px rgba(0,0,0,0.66);
 }
 
-.floating.show {
-	animation: appear 0.25s ease-in;
-	display: flex;
+.floating {
+	z-index: 1050;
+	text-align: -webkit-center;
 	width: min-content;
 	height: min-content;
+	top: 7rem;
+	left: 0;
+	right: 0;
+	display: none;
+	transition: opacity 0.2s;
+}
+
+.floating.show {
+	opacity: 1;
+	display: flex;
+}
+
+.floating.hide {
+	opacity: 0;
+	display: none;
+}
+
+.floating > .card.limit {
+	max-width: 32rem;
+	box-shadow: 0px 0 0 0 #00000000;
+}
+
+.show.floating > .card.limit {
+	animation: fillUp 0.75s ease forwards;
 }
 
 /* >>  W i d t h  << */
@@ -288,29 +307,11 @@ h1, h2, h3, h4, h5, h6 {
 	text-align: justify;
 }
 
-.close-pill {
-	max-width: 7rem;
-	width: 6rem;
-	min-width: 4rem;
-}
-
-.floating {
-	z-index: 1050;
-	top: 7rem;
-	left: 0;
-	right: 0;
-	text-align: -webkit-center;
-}
-
-.noti {
+.snack {
 	z-index: 1055;
 	left: 0;
 	right: 0;
 	text-align: -webkit-center;
-}
-
-.floating > .card.limit {
-	max-width: 32rem;
 }
 
 .bg-dark-50 {
@@ -1075,3 +1076,121 @@ select.slc-drpdwn {
 	-webkit-appearance: none;
 }
 /* Select Dropdown */
+
+/* Button Language - https://codepen.io/himalayasingh/pen/EdVzNL */
+/* Button 17 */
+.toggle-button-cover
+{
+    position: relative;
+    height: 140px;
+    box-sizing: border-box;
+}
+
+.button-cover
+{
+    height: 100px;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.button-cover, .knobs, .layer
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.button
+{
+    position: relative;
+    top: 50%;
+    width: 7rem;
+    height: 36px;
+    padding: 0;
+    margin: -20px auto 0 auto;
+    overflow: hidden;
+}
+
+.button.r, .button.r .layer
+{
+    border-radius: 100px;
+}
+
+.button.b2
+{
+    border-radius: 2px;
+}
+
+.checkbox
+{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.knobs
+{
+    z-index: 2;
+}
+
+.layer
+{
+    width: 100%;
+    background-color: #ebf7fc;
+    transition: 0.3s ease all;
+    z-index: 1;
+}
+
+#button-17 .knobs:before, #button-17 .knobs span {
+    position: absolute;
+    top: 4px;
+    left: 5%;
+    width: 20px;
+    height: 10px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    padding: 9px 4px;
+}
+
+#button-17 .knobs:before {
+    transition: 0.3s ease all, left 0.5s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+    z-index: 2;
+}
+
+#button-17 .knobs span {
+    background-color: #03A9F4;
+    border-radius: 2px;
+    transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+    z-index: 1;
+    height: 79%;
+    width: 45%;
+}
+
+#button-17 .checkbox:checked + .knobs:before {
+    content: 'English';
+    left: 52%;
+}
+
+#button-17 .checkbox:not(:checked) + .knobs:before {
+    content: 'Español';
+    left: 6%;
+}
+
+#button-17 .checkbox:checked + .knobs span {
+    left: 50%;
+    background-color: #F44336;
+}
+
+#button-17 .checkbox:checked ~ .layer {
+    background-color: #fcebeb;
+}

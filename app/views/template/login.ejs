@@ -1,7 +1,7 @@
 <div id="floatingLogin" class="hide floating mx-auto w-90 w-lg-50 flex-nowrap justify-content-center position-fixed">
-    <div class="card limit w-100 mx-md-5 w-md-100 shadow-lg border-0 rounded-lg">
+    <div class="card limit w-100 mx-md-5 w-md-100 border-0 rounded-lg">
         <div class="card-header">
-            <h3 class="text-center font-weight-light my-4">Login</h3>
+            <h3 class="text-center font-weight-light my-4"><span data-lang="es">Iniciar Sesión</span><span data-lang="en">Login</span></h3>
             <button class="btn btn-danger closeReg h3 m-0 p-1 w-auto position-absolute" 
                 onclick="toggleFloating(0)">
                 <i class="fas fa-times-circle fa-2x"></i>
@@ -12,12 +12,12 @@
                 <div class="form-floating mb-3">
                     <input class="form-control" autocomplete="on" id="_id-txt" type="text" onkeypress="onEnterHandler(event)"
                         placeholder="." required />
-                    <label for="_id-txt">Usuario</label>
+                    <label for="_id-txt"><span data-lang="es">Usuario</span><span data-lang="en">User</span></label>
                 </div>
                 <div class="form-floating mb-3">
                     <input class="form-control" autocomplete="on" name="pass" id="pass" type="password"
                         onkeypress="onEnterHandler(event)" placeholder="." autocomplete="current-password" required />
-                    <label for="pass">Contraseña</label>
+                    <label for="pass"><span data-lang="es">Contraseña</span><span data-lang="en">Password</span></label>
                 </div>
                 <!--div class="form-check mb-3">
                     <input class="form-check-input" name="rememberPass" id="rememberPass" type="checkbox" value="" />
@@ -30,7 +30,9 @@
                             <p><a class="small" href="javascript:toggleFloating(2)">Reestablece tu contraseña</a></p>
                         </div-->
                         <div class="col-12">
-                            <button class="btn py-2 btn-primary" type="button" onclick="login()">Iniciar Sesión</button>
+                            <button class="btn py-2 btn-primary" type="button" onclick="login()">
+                                <span data-lang="es">Iniciar Sesión</span><span data-lang="es">Login</span>
+                            </button>
                         </div>
                     </div>
                 </div>
