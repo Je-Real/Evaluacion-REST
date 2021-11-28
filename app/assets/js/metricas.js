@@ -1,5 +1,6 @@
 let rec, showCharts, clone, idSelect = 0,
-	showRegs = 5, year = parseInt(d.getFullYear()) - (showRegs-1)
+	showRegs = 5, year = parseInt(d.getFullYear()) - (showRegs-1),
+	subSelected
 
 window.addEventListener('load', async(e) => {
 	$('.dep').addClass('d-none') //Hide department options
@@ -45,6 +46,11 @@ const config = (e) => {
 		.classList.toggle('d-none')
 }
 
+function emptySubordinate() {
+	$(`.panel[data-id="${idSelect}"] .sub-s`).prop('selected', true)
+	subSelected = null
+}
+
 function areaSelect() {
 	$(`.panel[data-id="${idSelect}"] .department .dep-s`).addClass('d-none') //Hide default option
 	$(`.panel[data-id="${idSelect}"] .department .dep`).addClass('d-none') ////Hide again all department options
@@ -55,16 +61,18 @@ function areaSelect() {
 
 	if(affected.length) {
 		//If in the area exists departments
-		$(`.panel[data-id="${idSelect}"] .department .dep-s`).text('-Selecciona departamento-').removeClass('d-none')
-		.prop('selected', true)
+		$(`.panel[data-id="${idSelect}"] .department .dep-s`).text('-Selecciona departamento-')
+			.removeClass('d-none').prop('selected', true)
 		$(`.panel[data-id="${idSelect}"] .department`).prop('disabled', false)
 	} else {
 		//Else 🟢
-		$(`.panel[data-id="${idSelect}"] .department .dep-s`).text('N/A').removeClass('d-none').prop('selected', true)
+		$(`.panel[data-id="${idSelect}"] .department .dep-s`).text('N/A').removeClass('d-none')
+			.prop('selected', true)
 		$(`.panel[data-id="${idSelect}"] .department`).prop('disabled', true)
-		$(`.panel[data-id="${idSelect}"] .career .car-s`).text('N/A').removeClass('d-none').prop('selected', true)
-		$(`.panel[data-id="${idSelect}"] .career`).prop('disabled', true)
 	}
+	$(`.panel[data-id="${idSelect}"] .career .car-s`).text('N/A').removeClass('d-none')
+		.prop('selected', true)
+	$(`.panel[data-id="${idSelect}"] .career`).prop('disabled', true)
 }
 
 function depaSelect() {
@@ -78,12 +86,13 @@ function depaSelect() {
 
 	if(affected.length) {
 		//If in the area exists any departments
-		$(`.panel[data-id="${idSelect}"] .career .car-s`).text('-Selecciona departamento-').removeClass('d-none')
-		.prop('selected', true)
+		$(`.panel[data-id="${idSelect}"] .career .car-s`).text('-Selecciona departamento-')
+			.removeClass('d-none').prop('selected', true)
 		$(`.panel[data-id="${idSelect}"] .career`).prop('disabled', false)
 	} else {
 		//Else 🟢
-		$(`.panel[data-id="${idSelect}"] .career .car-s`).text('N/A').removeClass('d-none').prop('selected', true)
+		$(`.panel[data-id="${idSelect}"] .career .car-s`).text('N/A').removeClass('d-none')
+			.prop('selected', true)
 		$(`.panel[data-id="${idSelect}"] .career`).prop('disabled', true)
 	}
 }
@@ -93,6 +102,7 @@ function careSelect() {
 }
 
 const formSelect = (e) => {
+	const target = e.target
 	let tgt = e.target, canvasTitle
 
 	while(tgt.parentNode) {
@@ -105,23 +115,35 @@ const formSelect = (e) => {
 
 	canvasTitle = document.querySelector(`.panel[data-id="${idSelect}"] .canvasTitle`)
 
-	if(e.target.classList.contains('area')) {
+	if(target.classList.contains('subordinates')) {
+		subSelected = target.options[target.selectedIndex]
+
+		if(target.selectedIndex > 0) {
+			let nameArray = ((subSelected.innerHTML).trim()).split(' ')
+			nameArray.length = parseInt((nameArray.length / 2)+0.5)
+			canvasTitle.innerHTML = nameArray.join(' ')
+		} else
+		canvasTitle.innerHTML = 'PERSONAL A CARGO'
+	}
+	else if(target.classList.contains('area')) {
 		areaSelect()
+		emptySubordinate()
 		if(document.querySelector(`.panel[data-id="${idSelect}"] .department`).selectedIndex == 0 &&
 			document.querySelector(`.panel[data-id="${idSelect}"] .career`).selectedIndex == 0)
-			canvasTitle.innerHTML = e.target.options[e.target.selectedIndex].innerHTML
+			canvasTitle.innerHTML = target.options[target.selectedIndex].innerHTML
 	}
-	else if(e.target.classList.contains('department')) {
+	else if(target.classList.contains('department')) {
 		depaSelect()
+		emptySubordinate()
 		if(document.querySelector(`.panel[data-id="${idSelect}"] .career`).selectedIndex == 0)
-			canvasTitle.innerHTML = e.target.options[e.target.selectedIndex].innerHTML
+			canvasTitle.innerHTML = target.options[target.selectedIndex].innerHTML
 	}
-	else if(e.target.classList.contains('career')) {
+	else if(target.classList.contains('career')) {
 		careSelect()
-		canvasTitle.innerHTML = e.target.options[e.target.selectedIndex].innerHTML
+		emptySubordinate()
+		canvasTitle.innerHTML = target.options[target.selectedIndex].innerHTML
 	}
 	else return false
-
 
 	getData(false)
 }
@@ -211,12 +233,15 @@ function displayCharts(show) {
 async function getData(auto) {
     auto = (typeof auto == 'undefined') ? true : auto
 
-	let packed = {}
-		//user = $('.user').val()
-	
+	let packed = {
+		auto: auto
+	}
 	if(auto === false) {
+		if(subSelected != undefined)
+			packed._id = (parseInt(subSelected.getAttribute('data-index')) > 0) ? subSelected.getAttribute('value') : null
+		console.log(subSelected)
 		packed.area = parseInt($(`.panel[data-id="${idSelect}"] .area`).val())
-		packed.depart = (parseInt($(`.panel[data-id="${idSelect}"] .department`).val()) > 0) ? parseInt($(`.panel[data-id="${idSelect}"] .department`).val()) : null
+		packed.department = (parseInt($(`.panel[data-id="${idSelect}"] .department`).val()) > 0) ? parseInt($(`.panel[data-id="${idSelect}"] .department`).val()) : null
 		packed.career = (parseInt($(`.panel[data-id="${idSelect}"] .career`).val()) > 0) ? parseInt($(`.panel[data-id="${idSelect}"] .career`).val()) : null
 	}
 
@@ -233,8 +258,29 @@ async function getData(auto) {
 			if(result.noti) showSnack(result.msg, result.notiType)
 
 			if(result.status === 200) {
+				if (result.data.subordinates != null) {
+					$(`.panel[data-id="${idSelect}"] .subordinates .sub`).remove()
+					$(`.panel[data-id="${idSelect}"] .subordinates .sub-s`).prop('selected', true)
+					if(result.data.subordinates.length > 0) {
+						$(`.panel[data-id="${idSelect}"] .subordinates`).prop('disabled', false)
+						$(`.panel[data-id="${idSelect}"] .subordinates .sub-s`).text('-Selecciona personal-')
+						for (let i in result.data.subordinates) {
+							$(`.panel[data-id="${idSelect}"] .subordinates`).append(
+								`<option class="sub" data-index="${parseInt(i)+1}"`+
+								`value="${result.data.subordinates[i]['_id']}">`+
+								`${result.data.subordinates[i]['first_name']} `+
+								`${result.data.subordinates[i]['last_name']}`+
+								`</option>`
+							)
+						}
+					} else {
+						$(`.panel[data-id="${idSelect}"] .subordinates`).prop('disabled', true)
+						$(`.panel[data-id="${idSelect}"] .subordinates .sub-s`).text('Sin registros')
+					}
+				}
+
 				if(result.data.total != 0 && result.data.log.records != 0) {
-					try {						
+					try {
 						semiDoughnutChart(idSelect, result.data.total)
 						barChart(idSelect, result.data.log.years, result.data.log.records)
 						//lineChart(years, records)

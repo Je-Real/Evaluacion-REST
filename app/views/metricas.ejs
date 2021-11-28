@@ -101,6 +101,19 @@
                                                 </div>
                                                 <div class="col-md-6 col-12 mx-auto my-1">
                                                     <div class="form-floating">
+                                                        <select class="form-select subordinates" id="sel-subordinates" name="sel-subordinates" aria-label="Selección">
+                                                            <option class="sub-s" data-index="0" value="0" selected>-Selecciona personal-</option>
+                                                            <% for(let d in subordinates) { %>
+                                                                <option class="sub" data-index="<%= parseInt(d)+1 %>" value="<%= subordinates[d]['_id'] %>"> 
+                                                                    <%= subordinates[d]['first_name'] %> <%= subordinates[d]['last_name'] %>
+                                                                </option>
+                                                            <% } %>
+                                                        </select>
+                                                        <label for="sel-subordinates">Personal</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12 mx-auto my-1">
+                                                    <div class="form-floating">
                                                         <select class="form-select department" id="sel-department" name="sel-department" aria-label="Selección" disabled>
                                                             <option class="dep-s" value="0" selected>-Selecciona departamento-</option>
                                                             <% for(let d in depa) { %>

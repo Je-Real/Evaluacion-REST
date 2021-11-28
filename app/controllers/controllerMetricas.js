@@ -1,4 +1,5 @@
 const modelEvaluation = require('../models/modelEvaluation')
+const modelUserInfo = require('../models/modelUserInfo')
 const modelArea = require('../models/modelArea')
 const d = new Date()
 
@@ -9,8 +10,8 @@ async function root(req, res) {
         area = [],
         department = [],
         career = [],
-        options = [{}, {}]
-
+        subordinates = [],
+        options = [{}, {}, {}]
 
     if(hour >= 5 && hour <= 12) { s = 'Buen dia' } 
     else if(hour > 12 && hour <= 19) { s = 'Buenas tardes' }
@@ -20,23 +21,97 @@ async function root(req, res) {
         session = null
     } else { // Session 🤑
         session = req.session
-            
-        if(session.lvl > 1) {
-            options[0] = { n: session.area }
-            if(session.department > 0) {
-                options[1] = { n: session.department }
-            }
-        }
-    
+
+        /**
+         * The code below only obtains data belonging to the user in session,
+         * it isn't very useful if you have to compare areas or departments
+         * without being an level 1 user 😅😞
+         */
+
+        /*await modelUserInfo.aggregate([
+            { $match: {
+                $and: [
+                    { $or: [
+                        {"_id": session.user},
+                        {"manager": session.user},
+                    ] },
+                    { "area": {$ne: 0} }
+                ]
+            } },
+            { $project: { 'area': 1 } },
+            { $group: { '_id': '$area' } },
+            { $project: { 
+                    'n': '$_id', 
+                    '_id': '$Remove'
+            } }
+        ])
+        .then((dataAreas) => {
+            options[0] = dataAreas // Get all the areas (Manager and subordinates)
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+        
+        await modelUserInfo.aggregate([
+            { $match: {
+                $and: [
+                    { $or: [
+                        {"_id": session.user},
+                        {"manager": session.user},
+                    ] },
+                    { "department": {$ne: 0} }
+                ]
+            } },
+            { $project: { 'department': 1 } },
+            { $group: { '_id': '$department' } },
+            { $project: { 
+                    'n': '$_id', 
+                    '_id': '$Remove'
+            } }
+        ])
+        .then((dataDepartments) => {
+            if(dataDepartments.length)
+                options[1] = dataDepartments // Get manager and subordinates departments
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+        
+        await modelUserInfo.aggregate([
+            { $match: {
+                $and: [
+                    { $or: [
+                        {"_id": session.user},
+                        {"manager": session.user},
+                    ] },
+                    { "career": {$ne: 0} }
+                ]
+            } },
+            { $project: { 'career': 1 } },
+            { $group: { '_id': '$career' } },
+            { $project: { 
+                    'n': '$_id', 
+                    '_id': '$Remove'
+            } }
+        ])
+        .then((dataCareers) => {
+            if(dataCareers.length)
+                options[2] = dataCareers // Get manager and subordinates departments
+        })
+        .catch((error) => {
+            console.error(error)
+        })*/
+
         await modelArea.aggregate([
-            { $match: options[0] }, {
+            { $match: /*(options[0].length) ? { $or: options[0] } :*/ {} }, {
                 $lookup: {
                     from: "departments",
                     pipeline: [
-                        { $match: options[1] }, {
+                        { $match: /*(options[1].length) ? { $or: options[1] } :*/ {} }, {
                             $lookup: {
                                 from: "careers",
                                 pipeline: [
+                                    { $match: /*(options[2].length) ? { $or: options[2] } :*/ {} },
                                     { $project: { _id: 0, department: 0 } }
                                 ],
                                 localField: "n",
@@ -51,16 +126,26 @@ async function root(req, res) {
                 }
             }, { $project: { _id: 0 } }
         ]) // Get all areas in DB
-        .then((data) => { //🟢
+        .then((dataInfo) => { //🟢
             /* We get as result a JSON like this
+             *  { 
+         *  { 
              *  { 
              *      n: 0,  << Area number >>
              *      desc: 'Area 0',  << Area name >>
              *      departments: [ 
+         *      departments: [ 
+             *      departments: [ 
+             *          { 
+         *          { 
              *          { 
              *              n: 1,  << Department number >>
              *              desc: 'Dep 1',  << Department name >>
              *              careers: [ 
+         *              careers: [ 
+             *              careers: [ 
+             *                  { 
+         *                  { 
              *                  { 
              *                      n: 2,  << Career number >>
              *                      desc: 'Career 2'  << Career name >>
@@ -71,24 +156,24 @@ async function root(req, res) {
              *  }
              */
     
-            for(let i in data) {
+            for(let i in dataInfo) {
                 area[i] = {
-                    n: data[i]['n'],
-                    desc: data[i]['desc']
+                    n: dataInfo[i]['n'],
+                    desc: dataInfo[i]['desc']
                 }
-                if(data[i]['departments'] != undefined) {
-                    for(let j in data[i]['departments']) {
+                if(dataInfo[i]['departments'] != undefined) {
+                    for(let j in dataInfo[i]['departments']) {
                         department.push({
-                            n: data[i]['departments'][j]['n'],
-                            area: data[i]['n'],
-                            desc: data[i]['departments'][j]['desc']
+                            n: dataInfo[i]['departments'][j]['n'],
+                            area: dataInfo[i]['n'],
+                            desc: dataInfo[i]['departments'][j]['desc']
                         })
-                        if(data[i]['departments'] != undefined) {
-                            for(let k in data[i]['departments'][j]['careers']) {
+                        if(dataInfo[i]['departments'] != undefined) {
+                            for(let k in dataInfo[i]['departments'][j]['careers']) {
                                 career.push({
-                                    n: data[i]['departments'][j]['careers'][k]['n'],
-                                    department: data[i]['departments'][j]['n'],
-                                    desc: data[i]['departments'][j]['careers'][k]['desc']
+                                    n: dataInfo[i]['departments'][j]['careers'][k]['n'],
+                                    department: dataInfo[i]['departments'][j]['n'],
+                                    desc: dataInfo[i]['departments'][j]['careers'][k]['desc']
                                 })
                             }
                         }
@@ -108,52 +193,51 @@ async function root(req, res) {
         care: career,
         depa: department,
         area: area,
+        subordinates: subordinates,
         hour: hour,
         s: s
     })
 }
 
 function data(req, res) {
-    let search = { manager: req.session.user }, empty = false, sumTemp,
+    let search = {}, sumTemp,
         year = d.getFullYear()
-
-    if(req.body.area > 0) {
+        
+    if(req.body._id != null && (req.body._id).trim() != '') {
+        search._id = (req.body._id).trim()
+        if(req.session.lvl > 1)
+            search.manager = req.session.user
+    } else if(req.body.area > 0) {
         search.area = req.body.area
-        if(req.body.department > 0) {
+        if(req.body.department != null && req.body.department > 0) {
             search.department = req.body.department
-            if(req.body.career > 0) search.career = req.body.career
+            if(req.body.career != null && req.body.career > 0) search.career = req.body.career
         }
-    } else {
-        empty = '[Report] Empty/Auto query'
+    }
+    else {
+        search.manager = req.session.user
     }
 
     modelEvaluation.aggregate([
-        {
-            $lookup: {
-                from: "user_infos",
-                pipeline: [
-                    { $match : search },
-                    {
-                        $project: {
-                            first_name: 1,
-                            last_name: 1,
-                            area: 1,
-                            department: 1,
-                            career: 1,
-                        }
-                    }
-                ],
-                localField: "_id",
-                foreignField: "_id",
-                as: "info",
-            }
-        }, {
+        { $lookup: {
+            from: "user_infos",
+            pipeline: [
+                { $match : search },
+                { $project: {
+                        first_name: 1,
+                        last_name: 1,
+                } }
+            ],
+            localField: "_id",
+            foreignField: "_id",
+            as: "info",
+        } }, {
             $replaceRoot: {
                 newRoot: {
                     $mergeObjects: [
                         { $arrayElemAt: [ "$info", 0 ] }, "$$ROOT"
                     ]
-                } 
+                }
             }
         }, { 
             $project: {
@@ -161,16 +245,34 @@ function data(req, res) {
                 records : { $cond: { if: { $eq: [ "$info", [] ] }, then: '$$REMOVE', else: '$records' } },
                 first_name : { $cond: { if: { $and: [ { $eq: [ "$info", [] ] }, { $ne: ['$first_name', null] } ] }, then: '$$REMOVE', else: '$first_name' } },
                 last_name : { $cond: { if: { $and: [ { $eq: [ "$info", [] ] }, { $ne: ['$last_name', null] } ] }, then: '$$REMOVE', else: '$last_name' } },
-                area : { $cond: { if: { $and: [ { $eq: [ "$info", [] ] }, { $ne: ['$area', null] } ] }, then: '$$REMOVE', else: '$area' } },
-                department : { $cond: { if: { $and: [ { $eq: [ "$info", [] ] }, { $ne: ['$department', null] } ] }, then: '$$REMOVE', else: '$department' } },
-                career : { $cond: { if: { $and: [ { $eq: [ "$info", [] ] }, { $ne: ['$career', null] } ] }, then: '$$REMOVE', else: '$career' } },
+                //Get field directly from array = fieldExample: { $arrayElemAt: [ "$fieldExample.fieldInside", 0 ] }
             }
         }
     ])
-    .then((data) => { //🟢
+    .then(async (data) => { //🟢
+        // filter empty objects
+        data = data.filter(value => Object.keys(value).length !== 0)
+
         let average = 0, sumTemp = 0,
-            years = [], records =  [],
+            years = [], records =  [], subordinates = [],
             histCounter =  [[0, 0, 0, 0, 0],[0, 0, 0, 0, 0]]
+
+        if(req.body._id == null || req.body._id == undefined)
+            await modelUserInfo.aggregate([
+                { $match: search },
+                { $project: {
+                    _id: 1,
+                    first_name: 1,
+                    last_name: 1,
+                } },
+            ])
+            .then((dataSubs) => {
+                subordinates = dataSubs // Get all the subordinates
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+        else subordinates = null
     
         for(let i=0; i<5; i++) {
             let currYear = String(parseInt(year)-(4-i))
@@ -198,9 +300,9 @@ function data(req, res) {
                 log: {
                     years: years,
                     records: records
-                }
+                },
+                subordinates: subordinates
             },
-            console: empty,
             status: 200,
         }))
     })
