@@ -12,7 +12,7 @@
                 <div class="container-fluid px-5">
                     <% if(userData.length > 0) { %>
                     <div class="dynamic-title vw-80 vw-lg-50">
-                        <h1 class="display-2 text-center py-4">Evaluacion</h1>
+                        <h1 class="display-2 text-center py-4">Evaluación</h1>
                     </div>
 
                     <div class="help-bar bg-light w-100 rounded-3">
@@ -20,7 +20,12 @@
                             <div class="w-80 w-md-50 text-center d-inline-flex my-2">
                                 <i class="fas ms-auto me-2 my-auto fa-question-circle fa-2x blink"></i>
                                 <p class="fs-5 me-auto ms-2 my-2">
-                                    Haz clic sobre uno de los recuadros de abajo para seleccionar a alguien para evaluar su desempeño.
+                                    <span data-lang="es">
+                                        Haz clic sobre uno de los recuadros de abajo para seleccionar a alguien para evaluar su desempeño.
+                                    </span>
+                                    <span data-lang="en">
+                                        Click on one of the boxes below to select someone to evaluate their performance.
+                                    </span>
                                 </p>
                             </div>
                         </div>
@@ -28,8 +33,12 @@
 
                     <div class="container-fluid my-5">
                         <div id="btnContainer" class="mb-5 text-md-end text-center me-md-5">
-                            <button id="list" class="mx-1 btn btn-view btn-secondary" onclick="listView()"><i class="fa fa-bars"></i> Lista</button> 
-                            <button id="card" class="mx-1 btn btn-view btn-on" onclick="cardView()"><i class="fa fa-th-large"></i> Tarjetas</button>
+                            <button id="list" class="mx-1 btn btn-view btn-secondary" onclick="listView()">
+                                <i class="fa fa-bars"></i> <span data-lang="es">Lista</span><span data-lang="en">List</span>
+                            </button> 
+                            <button id="card" class="mx-1 btn btn-view btn-on" onclick="cardView()">
+                                <i class="fa fa-th-large"></i> <span data-lang="es">Tarjetas</span><span data-lang="en">Grid</span>
+                            </button>
                         </div>
                         <div class="d-flex flex-wrap justify-content-center paginator" data-rows-shown="3, 6, 9, 12">
                             <% for(let user in userData) { if(userData[user] != null) { %>
@@ -72,8 +81,15 @@
                             <div class="w-80 w-md-50 text-center d-inline-flex my-2">
                                 <i class="fas ms-auto me-2 my-auto fa-info-circle fa-2x blink"></i>
                                 <p class="fs-5 me-auto ms-2 my-2">
-                                    <span class="fw-bold me-1">Hey! Aquí un tip:</span> Coloca tu cursor sobre las opciones
-                                    de cada pregunta un momento para saber más acerca de como estas calificando.
+                                    <span data-lang="es">
+                                        <span class="fw-bold me-1">Hey! Aquí un tip:</span> Coloca tu cursor sobre las opciones
+                                        de cada pregunta un momento para saber más acerca de como estas calificando.
+                                    </span>
+                                    <span data-lang="en">
+                                        <span class="fw-bold me-1">Hey, here's a tip:</span> Hover your cursor over the options
+                                        for each question for a moment of each question for a moment to learn more about how you 
+                                        are grading.
+                                    </span>
                                 </p>
                             </div>
                         </div>
