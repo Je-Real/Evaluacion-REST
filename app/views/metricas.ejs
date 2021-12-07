@@ -17,7 +17,9 @@
                 <div class="container-fluid px-4">
                     <div class="container">
                         <div class="dynamic-title mt-4 mb-0 vw-80 vw-lg-50">
-                            <h1 class="display-3 text-center pt-3 pb-5">Metricas</h1>
+                            <h1 class="display-3 text-center pt-3 pb-5">
+                                <span class="lang" data-lang="es">Metricas</span><span class="lang" data-lang="en">Metrics</span>
+                            </h1>
                         </div>
                     </div>
                 </div>
@@ -27,7 +29,7 @@
                 <div class="row w-100 w-lg-90 my-3">
                     <div class="w-auto d-flex ms-2 me-lg-5 ms-lg-4 pe-lg-5">
                         <h2 class="display-6 text-center my-auto" data-time="<%= hour %>">
-                            <%= s %>, <%= session.first_name %>
+                            <%= salutation %>
                         </h2>
                     </div>
                     <div class="col">
@@ -37,7 +39,9 @@
                                     <i class="fas fa-file-download fa-3x"></i>
                                 </span>
                                 <span class="w-100 mt-2">
-                                    Descargar Reporte
+                                    <span class="lang" data-lang="es">Descargar Reporte</span>
+                                    <span class="lang" data-lang="en">Download Report</span>
+                                    
                                 </span>
                             </button>
                             <button id="addPanel" class="btn btn-add-panel text-center d-flex flex-column mx-3">
@@ -45,7 +49,8 @@
                                     <i class="fas fa-plus fa-3x"></i>
                                 </span>
                                 <span class="w-100 mt-2">
-                                    Agregar panel
+                                    <span class="lang" data-lang="es">Agregar panel</span>
+                                    <span class="lang" data-lang="en">Add Panel</span>
                                 </span>
                             </button>
                         </div>
@@ -60,8 +65,14 @@
                             <div class="w-80 w-md-50 text-center d-inline-flex my-2">
                                 <i class="fas ms-auto me-2 my-auto fa-info-circle fa-2x blink"></i>
                                 <p class="fs-5 me-auto ms-2 my-2">
-                                    <span class="fw-bold me-1">Pequeño tip:</span> Si deseas comparar áreas y demás,
+                                    <span class="lang" data-lang="es">
+                                        <span class="fw-bold me-1">Pequeño tip:</span> Si deseas comparar áreas y demás,
                                         basta con solo agregar un nuevo panel y configurar lo que quieres ver. ¡Sencillísimo!
+                                    </span>
+                                    <span class="lang" data-lang="en">
+                                        <span class="fw-bold me-1">Little tip:</span> If you want to compare areas and so on, 
+                                        just add a new panel and configure what you want to see. Very simple!
+                                    </span>
                                 </p>
                             </div>
                         </div>
@@ -89,53 +100,69 @@
                                                 <div class="col-md-6 col-12 mx-auto my-1">
                                                     <div class="form-floating">
                                                         <select class="form-select area" id="sel-area" name="sel-area" aria-label="Selección">
-                                                            <option class="are-s" value="0" selected>Personal a cargo</option>
+                                                            <option class="are-s" value="0" data-lang="es" selected>Personal a cargo</option>
+                                                            <option class="are-s" value="0" data-lang="en" selected>Personnel in charge</option>
                                                             <% for(let d in area) { %>
                                                                 <option class="are" value="<%= area[d]['n'] %>"> 
                                                                     <%= area[d]['desc'] %> 
                                                                 </option>
                                                             <% } %>
                                                         </select>
-                                                        <label for="sel-area">Área</label>
+                                                        <label for="sel-area">
+                                                            <span class="lang" data-lang="es">Área</span>
+                                                            <span class="lang" data-lang="en">Area</span>
+                                                        </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-12 mx-auto my-1">
                                                     <div class="form-floating">
                                                         <select class="form-select subordinates" id="sel-subordinates" name="sel-subordinates" aria-label="Selección">
-                                                            <option class="sub-s" data-index="0" value="0" selected>-Selecciona personal-</option>
+                                                            <option class="sub-s" data-index="0" value="0" selected data-lang="es">-Selecciona personal-</option>
+                                                            <option class="sub-s" data-index="0" value="0" selected data-lang="en">-Select personnel-</option>
                                                             <% for(let d in subordinates) { %>
                                                                 <option class="sub" data-index="<%= parseInt(d)+1 %>" value="<%= subordinates[d]['_id'] %>"> 
                                                                     <%= subordinates[d]['first_name'] %> <%= subordinates[d]['last_name'] %>
                                                                 </option>
                                                             <% } %>
                                                         </select>
-                                                        <label for="sel-subordinates">Personal</label>
+                                                        <label for="sel-subordinates">
+                                                            <span class="lang" data-lang="es">Personal</span>
+                                                            <span class="lang" data-lang="en">Personnel</span>
+                                                        </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-12 mx-auto my-1">
                                                     <div class="form-floating">
                                                         <select class="form-select department" id="sel-department" name="sel-department" aria-label="Selección" disabled>
-                                                            <option class="dep-s" value="0" selected>-Selecciona departamento-</option>
+                                                            <option class="dep-s" value="0" selected data-lang="es">-Selecciona departamento-</option>
+                                                            <option class="dep-s" value="0" selected data-lang="en">-Select department-</option>
                                                             <% for(let d in depa) { %>
                                                                 <option class="dep" data-area="<%= depa[d]['area'] %>" value="<%= depa[d]['n'] %>">
                                                                     <%= depa[d]['desc'] %>
                                                                 </option>
                                                             <% } %>
                                                         </select>
-                                                        <label for="sel-department">Departamento</label>
+                                                        <label for="sel-department">
+                                                            <span class="lang" data-lang="es">Departamento</span>
+                                                            <span class="lang" data-lang="en">Department</span>
+                                                        </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-12 mx-auto my-1">
                                                     <div class="form-floating">
                                                         <select class="form-select career" id="sel-career" name="sel-career" aria-label="Selección" disabled>
-                                                            <option class="car-s" value="0" selected>-Selecciona carrera-</option>
+                                                            <option class="car-s" value="0" selected data-lang="es">-Selecciona carrera-</option>
+                                                            <option class="car-s" value="0" selected data-lang="en">-Select career-</option>
                                                             <% for(let d in care) { %>
                                                                 <option class="car" data-depa="<%= care[d]['department'] %>" value="<%= care[d]['n'] %>">
                                                                     <%= care[d]['desc'] %>
                                                                 </option>
                                                             <% } %>
                                                         </select>
-                                                        <label for="sel-career">Carrera</label>
+                                                        <label for="sel-career">
+                                                            <span class="lang" data-lang="es">Carrera</span>
+                                                            <span class="lang" data-lang="en">Career</span>
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -147,7 +174,10 @@
                                         <div class="lienzos container">
                                             <div class="row">
                                                 <div class="col-12 mt-4">
-                                                    <h5 class="text-center display-6 text-uppercase canvasTitle">Personal a cargo</h5>
+                                                    <h5 class="text-center display-6 text-uppercase canvasTitle">
+                                                        <span class="lang" data-lang="es">Personal a cargo</span>
+                                                        <span class="lang" data-lang="en">Personnel</span>
+                                                    </h5>
                                                 </div>
                                             </div>
                                             <div class="row px-5 mx-3 canvas-container semiDoughnutChart">

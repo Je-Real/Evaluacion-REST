@@ -205,7 +205,7 @@ function displayCharts(show) {
 				node.classList.toggle('d-none', true)
 		})
 		Array.prototype.forEach.call(
-			document.querySelectorAll(`.panel[data-id="${idSelect}"] canvas, .panel[data-id="${idSelect}"] span`),
+			document.querySelectorAll(`.panel[data-id="${idSelect}"] canvas, .panel[data-id="${idSelect}"] span:not(.lang)`),
 			(node) => {
 				node.classList.toggle('d-none', false)
 				node.classList.toggle('d-block', true)
@@ -214,7 +214,7 @@ function displayCharts(show) {
 		log(`[Report] Shown Panel ${idSelect}`, style.cian)
 	} else {
 		Array.prototype.forEach.call(
-			document.querySelectorAll(`.panel[data-id="${idSelect}"] canvas, .panel[data-id="${idSelect}"] span`),
+			document.querySelectorAll(`.panel[data-id="${idSelect}"] canvas, .panel[data-id="${idSelect}"] span:not(.lang)`),
 			(node) => {
 				node.classList.toggle('d-block', false)
 				node.classList.toggle('d-none', true)
@@ -239,7 +239,6 @@ async function getData(auto) {
 	if(auto === false) {
 		if(subSelected != undefined)
 			packed._id = (parseInt(subSelected.getAttribute('data-index')) > 0) ? subSelected.getAttribute('value') : null
-		console.log(subSelected)
 		packed.area = parseInt($(`.panel[data-id="${idSelect}"] .area`).val())
 		packed.department = (parseInt($(`.panel[data-id="${idSelect}"] .department`).val()) > 0) ? parseInt($(`.panel[data-id="${idSelect}"] .department`).val()) : null
 		packed.career = (parseInt($(`.panel[data-id="${idSelect}"] .career`).val()) > 0) ? parseInt($(`.panel[data-id="${idSelect}"] .career`).val()) : null

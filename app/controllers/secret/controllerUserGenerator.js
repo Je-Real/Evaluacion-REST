@@ -1,7 +1,8 @@
 const crypto = require('crypto-js')
-const path = require('path');
+const path = require('path')
 const fs = require('fs')
 
+const d = new Date();
 let rawData
 
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
@@ -32,6 +33,7 @@ async function root(req, res) {
                 session: session,
                 users: booya[0],
                 userInfos: booya[1],
+                title_page: 'UTNA - Evaluacion',
             })
         })
         .catch((error) => {
@@ -40,8 +42,9 @@ async function root(req, res) {
             //Root route
             return res.status(200).render('secret/userGenerator', {
                 session: session,
-                users: 'No data',
-                userInfos: 'No data',
+                users: ['No data'],
+                userInfos: ['No data'],
+                title_page: 'UTNA - Evaluacion',
             })
         })
     }
@@ -49,39 +52,39 @@ async function root(req, res) {
 
 
 async function generatorFixed(params) {
-    let area
-    let depa
-    let care
-    let lvl
-    let user
-    let pass
-    let fn
-    let ls
-    let userer = []
-    let inforer = []
-
-    const d = new Date();
+    let area, depa, care,
+        lvl, user, pass,
+        mana, fn, ls, note = null,
+        userer = [], inforer = [],
+        year = d.getFullYear(),
+        month = (d.getMonth()+1 < 10 && String(d.getMonth()+1).length < 2) ? '0'+d.getMonth()+1 : d.getMonth()+1,
+        day = (d.getDate() < 10 && String(d.getDate()+1).length < 2) ? '0'+d.getDate()+1 : d.getDate()+1,
+        hour = (d.getHours() < 10 && String(d.getHours()+1).length < 2) ? '0'+d.getHours() : d.getHours(),
+        minutes = (d.getMinutes() < 10 && String(d.getMinutes()+1).length < 2) ? '0'+d.getMinutes() : d.getMinutes(),
+        seconds = (d.getSeconds() < 10 && String(d.getSeconds()+1).length < 2) ? '0'+d.getSeconds() : d.getSeconds(),
+        date = year+'-'+month+'-'+day+'T'+hour+':'+minutes+':'+seconds+':000Z'
+        
     
-    let year = d.getFullYear();
-    let month = (d.getMonth()+1 < 10 && String(d.getMonth()+1).length < 2) ? '0'+d.getMonth()+1 : d.getMonth()+1;
-    let day = (d.getDate() < 10 && String(d.getDate()+1).length < 2) ? '0'+d.getDate()+1 : d.getDate()+1;
-
-    let hour = (d.getHours() < 10 && String(d.getHours()+1).length < 2) ? '0'+d.getHours() : d.getHours();
-    let minutes = (d.getMinutes() < 10 && String(d.getMinutes()+1).length < 2) ? '0'+d.getMinutes() : d.getMinutes();
-    let seconds = (d.getSeconds() < 10 && String(d.getSeconds()+1).length < 2) ? '0'+d.getSeconds() : d.getSeconds();
-
-    let date = year+'-'+month+'-'+day+'T'+hour+':'+minutes+':'+seconds+':000Z'
-
     try {
         // Fixed generator
         for(i in params) {
-            area = params[i].area
-            depa = params[i].department
-            care = params[i].career
-            lvl = params[i].level
-
-            fn = params[i].first_name
-            ls = params[i].last_name
+            
+            if((typeof params[i].level == 'number') &&
+                (typeof params[i].area == 'number') &&
+                (typeof params[i].department == 'number')) {
+                mana = params[i].manager
+                
+                area = params[i].area
+                depa = params[i].department
+                care = params[i].career
+                lvl = params[i].level
+    
+                fn = params[i].first_name
+                ls = params[i].last_name
+                
+                if('note' in params[i]) note = params[i].note
+                else note = null
+            } else throw params[i]
 
             user = 'R00'+(i)
             pass = crypto.AES.encrypt(user, user).toString()
@@ -107,6 +110,7 @@ async function generatorFixed(params) {
                 department: depa,
                 career: care,
                 contract: 1,
+                manager: mana,
                 b_day: {
                     $date: "2000-03-14T00:00:00.000Z"
                 },
@@ -115,7 +119,10 @@ async function generatorFixed(params) {
                     num: 0,
                     postal_code: 0
                 }
-            }            
+            }
+            if(note != null) {
+                inforer[i].note = note
+            }
         }
         return [userer, inforer]
     } catch (error) {
@@ -129,18 +136,12 @@ function nRandom(min, max) {
 }
 
 function generatorRex(params) {
-    let area
-    let depa
-    let care
-    let lvl
-    let user
-    let pass
-    let fn
-    let ls
-    let userer = '['
-    let inforer = '['
-
-    let endHandler = ','
+    let area, depa, care,
+        lvl, user, pass,
+        fn, ls, mana,
+        userer = '[',
+        inforer = '[',
+        endHandler = ','
 
     //Random Generator
     for(let i = 0; i < 30; i++) {
@@ -219,6 +220,7 @@ function generatorRex(params) {
             "department": ${depa},
             "career": ${care},
             "contract": ${cont},
+            "manager": ${mana},
             "b_day": {
                 "$date": "2021-08-23T00:00:00.000Z"
             },

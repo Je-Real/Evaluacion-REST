@@ -6,21 +6,24 @@ const d = new Date()
 // >>>>>>>>>>>>>>>>>>>>>> Reportes <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
     let hour = d.getHours(),
-        s, session,
+        salutation, session,
         area = [],
         department = [],
         career = [],
         subordinates = [],
         options = [{}, {}, {}]
 
-    if(hour >= 5 && hour <= 12) { s = 'Buen dia' } 
-    else if(hour > 12 && hour <= 19) { s = 'Buenas tardes' }
-    else { s = 'Buenas noches' }
-
     if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
     } else { // Session 🤑
         session = req.session
+
+        if(hour >= 5 && hour <= 12) 
+            salutation = `Buen día, ${session.first_name}`
+        else if(hour > 12 && hour <= 19)
+            salutation = `Buenas tardes, ${session.first_name}`
+        else 
+            salutation = `Buenas noches, ${session.first_name}`
 
         /**
          * The code below only obtains data belonging to the user in session,
@@ -195,7 +198,7 @@ async function root(req, res) {
         area: area,
         subordinates: subordinates,
         hour: hour,
-        s: s
+        salutation: salutation
     })
 }
 

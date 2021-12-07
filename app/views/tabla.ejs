@@ -27,18 +27,36 @@
 
                 <div class="container-fluid px-4">
                     <div class="dynamic-title vw-80 vw-lg-50">
-                        <h1 class="display-1 text-center py-4">Control</h1>
+                        <h1 class="display-1 text-center py-4">
+                            <span class="lang" data-lang="es">Control</span>
+                            <span class="lang" data-lang="en">Control</span>
+                        </h1>
                     </div>
 
                     <div class="container w-lg-75 w-90 mx-auto table-responsive">
                         <table class="paginator table-effect border-0 table caption-top flex-table table align-middle" data-rows-shown="5, 10, 15">
                             <thead>
                                 <tr class="border-0 flex-th">
-                                    <th class="border-0 border-bottom border-end flex-th">Usuario</th>
-                                    <th class="border-0 border-bottom border-start flex-th">Nombre(s)</th>
-                                    <th class="border-0 border-bottom border-start flex-th">Apellido(s)</th>
-                                    <th class="border-0 border-bottom border-start flex-th">Status</th>
-                                    <th class="border-0 border-bottom border-start flex-th">Acciones</th>
+                                    <th class="border-0 border-bottom border-end flex-th">
+                                        <span class="lang" data-lang="es">Usuario</span>
+                                        <span class="lang" data-lang="en">User</span>
+                                    </th>
+                                    <th class="border-0 border-bottom border-start flex-th">
+                                        <span class="lang" data-lang="es">Nombre(s)</span>
+                                        <span class="lang" data-lang="en">First Name</span>
+                                    </th>
+                                    <th class="border-0 border-bottom border-start flex-th">
+                                        <span class="lang" data-lang="es">Apellido(s)</span>
+                                        <span class="lang" data-lang="en">Last Name</span>
+                                    </th>
+                                    <th class="border-0 border-bottom border-start flex-th">
+                                        <span class="lang" data-lang="es">Estatus</span>
+                                        <span class="lang" data-lang="en">Status</span>
+                                    </th>
+                                    <th class="border-0 border-bottom border-start flex-th">
+                                        <span class="lang" data-lang="es">Acciones</span>
+                                        <span class="lang" data-lang="en">Actions</span>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody class="border-0" id="table-b">
@@ -59,7 +77,7 @@
                                             <% } else { %>
                                                 <button type="button" 
                                                     class="btn btn-success pe-none mx-md-2 my-auto mx-1 p-1 h-toolt">
-                                                    <i class="text-white fas fa-chart-line fa-2x toolt-txt"
+                                                    <i class="text-white fas fa-check fa-2x toolt-txt"
                                                         data-text="Ya se ha realizado evaluación a <%= records[record]['first_name'] %>"></i>
                                                 </button>
                                             <% } %>
@@ -69,7 +87,10 @@
                                 <td id="empty" colspan="5" class="border-0 text-center">
                                     <div class="text-center">
                                         <i class="fas fa-ghost icon-ghost f-vScreen-15 my-3 text-black-15"></i>
-                                        <p class="my-2 text-ghost fs-4">No hay datos para mostrar</p>
+                                        <p class="my-2 text-ghost fs-4">
+                                            <span class="lang" data-lang="es">No hay datos para mostrar</span>
+                                            <span class="lang" data-lang="en">No records to show</span>
+                                        </p>
                                     </div>
                                 </td>
                                 <% } %>
