@@ -74,7 +74,7 @@ async function AJAJ(url, method, data, onSuccess, onError) {
     .catch(error => onError(error))
 }
 
-async function eventAssigner(selector, eventClass, funcEvent) {
+async function eventAssigner(selector, eventClass, funcEvent ) {
 	try {
 		Array.prototype.forEach.call(
 			$a(selector),
@@ -155,7 +155,7 @@ window.addEventListener('DOMContentLoaded', async(e) => {
                     let cookieData = JSON.parse(data[0])
                     showSnack(
                         (lang == 0) ? 'Iniciando sesión...' : 'Logging in...',
-                        (lang == 0) ? 'Inicio de sesión' : 'Log in', 'info'
+                        (lang == 0) ? 'Inicio de sesión' : 'Log in', SNACK.info
                     )
                     login(cookieData.user, cookieData.pass)
 
@@ -248,7 +248,7 @@ function login(u, p) {
         showSnack(
             (lang == 0) ? 'Revisa los campos de inicio de sesión, por favor'
                         : 'Check the session fields, please',
-            null, 'error'
+            null, SNACK.error
         )
     else
         AJAJ(
@@ -259,7 +259,7 @@ function login(u, p) {
                 if(result.noti) {
                     showSnack(
                         result.msg,
-                        null, 'success'
+                        null, SNACK.success
                     )
                 } else {
                     $e('#loginMsg').classList.add('text-danger')
@@ -276,7 +276,7 @@ function login(u, p) {
                     .catch(() => {
                         showSnack(
                             (lang == 0) ? 'Falla de Cookies' : 'Cookies failure',
-                            null, 'warning'
+                            null, SNACK.warning
                         )
                     })
                 }
@@ -303,7 +303,7 @@ function logout() {
             } else {
                 showSnack(
                     `Error: ${result.msg}`,
-                    null, 'error'
+                    null, SNACK.error
                 )
             }
         },

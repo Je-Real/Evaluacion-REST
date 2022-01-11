@@ -10,8 +10,7 @@ async function root(req, res) {
         area = [],
         department = [],
         career = [],
-        subordinates = [],
-        options = [{}, {}, {}]
+        subordinates = []
 
     if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
@@ -95,6 +94,21 @@ async function root(req, res) {
             }
         })
         .catch((error) => { //🔴
+            console.error(error)
+        })
+
+        await modelUserInfo.aggregate([ // Subordinates by default
+            { $match: {manager: session.user} },
+            { $project: {
+                _id: 1,
+                first_name: 1,
+                last_name: 1,
+            } },
+        ])
+        .then((dataSubs) => {
+            subordinates = dataSubs // Get all the subordinates
+        })
+        .catch((error) => {
             console.error(error)
         })
     }

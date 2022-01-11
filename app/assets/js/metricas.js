@@ -3,16 +3,13 @@ let rec, showCharts, clone, idSelect = 0,
 	subSelected, compareAll = false
 
 window.addEventListener('load', async(e) => {
-	$('.dep').addClass('d-none') //Hide department options
-	$('.department').prop('disabled', true) //Disable dropdown for department
-	$('.car').addClass('d-none') //Hide department options
-	$('.career').prop('disabled', true) //Disable dropdown for department
+	$a('.dep').forEach(node => node.classList.add('d-none')) // Hide department options
+	$a('.department').forEach(node => node.disabled = true) // Disable dropdown for department
+	$a('.car').forEach(node => node.classList.add('d-none')) // Hide department options
+	$a('.career').forEach(node => node.disabled = true) // Disable dropdown for department
 	
-	Array.prototype.forEach.call(
-		document.querySelectorAll('.canvas-container canvas'),
-		(node) => {
-			node.classList.add('d-none')
-	})
+	$a('.canvas-container canvas').forEach(node => node.classList.add('d-none'))
+	
 	document.querySelector('.canvas-container.semiDoughnutChart').innerHTML += `<div class="text-center d-block ghost-container">
 		<i class="fas fa-ghost icon-ghost f-vScreen-15 my-3 text-black-15"></i>
 		<p class="my-2 text-ghost">No hay datos para mostrar</p>
@@ -47,58 +44,84 @@ const config = (e) => {
 }
 
 function emptySubordinate() {
-	$(`.panel[data-id="${idSelect}"] .sub-s`).prop('selected', true)
+	$e(`.panel[data-id="${idSelect}"] .sub-s`).selected = true
 	subSelected = null
 }
 
 function areaSelect() {
-	$(`.panel[data-id="${idSelect}"] .department .dep-s`).addClass('d-none') //Hide default option
-	$(`.panel[data-id="${idSelect}"] .department .dep`).addClass('d-none') ////Hide again all department options
+	$e(`.panel[data-id="${idSelect}"] .department .dep-s`).classList.add('d-none') //Hide default option
+	$e(`.panel[data-id="${idSelect}"] .department .dep`).classList.add('d-none') ////Hide again all department options
 
 	//And show all departments the ones that match with the area selected
-	let affected = $(`.panel[data-id="${idSelect}"] .department .dep[data-area='${parseInt($(`.panel[data-id="${idSelect}"] .area`).val())}']`)
-		.removeClass('d-none')
+	let areaIndex = $e(`.panel[data-id="${idSelect}"] .area`)
+		[$e(`.panel[data-id="${idSelect}"] .area`).selectedIndex].getAttribute('value'),
+		affected = $a(`.panel[data-id="${idSelect}"] .department .dep[data-area="${parseInt(areaIndex)}"]`)
 
-	if(affected.length) {
-		//If in the area exists departments
-		$(`.panel[data-id="${idSelect}"] .department .dep-s`).text('-Selecciona departamento-')
-			.removeClass('d-none').prop('selected', true)
-		$(`.panel[data-id="${idSelect}"] .department`).prop('disabled', false)
+	if(affected.length) { //If in the area exists departments
+		$e(`.panel[data-id="${idSelect}"] .department .dep-s`).innerHTML = (lang == 0) 
+																			? '-Selecciona departamento-'
+																			: '-Select department-'
+		$e(`.panel[data-id="${idSelect}"] .department .dep-s`).classList.remove('d-none')
+		$e(`.panel[data-id="${idSelect}"] .department .dep-s`).selected = true
+		$e(`.panel[data-id="${idSelect}"] .department`).disabled = false
+
+		affected.forEach(node => {
+			node.classList.remove('d-none')
+		})
 	} else {
 		//Else 🟢
-		$(`.panel[data-id="${idSelect}"] .department .dep-s`).text('N/A').removeClass('d-none')
-			.prop('selected', true)
-		$(`.panel[data-id="${idSelect}"] .department`).prop('disabled', true)
+		$e(`.panel[data-id="${idSelect}"] .department .dep-s`).innerHTML = 'N/A'
+		$e(`.panel[data-id="${idSelect}"] .department .dep-s`).classList.remove('d-none')
+		$e(`.panel[data-id="${idSelect}"] .department .dep-s`).selected = true
+		$e(`.panel[data-id="${idSelect}"] .department`).disabled = true
+		$a(`.panel[data-id="${idSelect}"] .department .dep`).forEach(node => {
+			node.classList.add('d-none')
+		})
 	}
-	$(`.panel[data-id="${idSelect}"] .career .car-s`).text('N/A').removeClass('d-none')
-		.prop('selected', true)
-	$(`.panel[data-id="${idSelect}"] .career`).prop('disabled', true)
+	$e(`.panel[data-id="${idSelect}"] .career .car-s`).innerHTML = 'N/A'
+	$e(`.panel[data-id="${idSelect}"] .career .car-s`).classList.remove('d-none')
+	$e(`.panel[data-id="${idSelect}"] .career .car-s`).selected = true
+	$e(`.panel[data-id="${idSelect}"] .career`).disabled = true
+	$a(`.panel[data-id="${idSelect}"] .career .car`).forEach(node => {
+		node.classList.add('d-none')
+	})
 }
 
 function depaSelect() {
-	$(`.panel[data-id="${idSelect}"] .department .dep-s`).addClass('d-none') //Hide default option
-	$(`.panel[data-id="${idSelect}"] .career .car-s`).addClass('d-none') //Hide default option
-	$(`.panel[data-id="${idSelect}"] .career .car`).addClass('d-none') ////Hide again all career options
+	$e(`.panel[data-id="${idSelect}"] .department .dep-s`).classList.add('d-none') //Hide default option
+	$e(`.panel[data-id="${idSelect}"] .career .car-s`).classList.add('d-none') //Hide default option
+	$e(`.panel[data-id="${idSelect}"] .career .car`).classList.add('d-none') ////Hide again all career options
 
 	//And show all departments the ones that match with the area selected
-	let affected = $(`.panel[data-id="${idSelect}"] .career .car[data-depa='${parseInt($(`.panel[data-id="${idSelect}"] .department`).val())}']`)
-		.removeClass('d-none')
+	let depaIndex = $e(`.panel[data-id="${idSelect}"] .department`)
+		[$e(`.panel[data-id="${idSelect}"] .department`).selectedIndex].getAttribute('value'),
+		affected = $a(`.panel[data-id="${idSelect}"] .career .car[data-depa='${parseInt(depaIndex)}']`)
 
 	if(affected.length) {
 		//If in the area exists any departments
-		$(`.panel[data-id="${idSelect}"] .career .car-s`).text('-Selecciona departamento-')
-			.removeClass('d-none').prop('selected', true)
-		$(`.panel[data-id="${idSelect}"] .career`).prop('disabled', false)
+		$e(`.panel[data-id="${idSelect}"] .career .car-s`).innerHTML = (lang == 0) 
+																		? '-Selecciona departamento-'
+																		: '-Select department-'
+		$e(`.panel[data-id="${idSelect}"] .career .car-s`).classList.remove('d-none')
+		$e(`.panel[data-id="${idSelect}"] .career .car-s`).selected = true
+		$e(`.panel[data-id="${idSelect}"] .career`).disabled = false
+		affected.forEach(node => {
+			node.classList.remove('d-none')
+		})
 	} else {
 		//Else 🟢
-		$(`.panel[data-id="${idSelect}"] .career .car-s`).text('N/A').removeClass('d-none')
-			.prop('selected', true)
-		$(`.panel[data-id="${idSelect}"] .career`).prop('disabled', true)
+		$e(`.panel[data-id="${idSelect}"] .career .car-s`).innerHTML = 'N/A'
+		$e(`.panel[data-id="${idSelect}"] .career .car-s`).classList.remove('d-none')
+		$e(`.panel[data-id="${idSelect}"] .career .car-s`).selected = true
+		$e(`.panel[data-id="${idSelect}"] .career`).disabled = true
+		$a(`.panel[data-id="${idSelect}"] .career .car`).forEach(node => {
+			node.classList.add('d-none')
+		})
 	}
 }
 
 function careSelect() {
-	$(`.panel[data-id="${idSelect}"] .career .car-s`).addClass('d-none') //Hide default option
+	$e(`.panel[data-id="${idSelect}"] .career .car-s`).classList.add('d-none') //Hide default option
 }
 
 const formSelect = (e) => {
@@ -155,8 +178,7 @@ const addPanel = () => {
 	if(compareAll) {
 		showSnack(
 			(lang == 0) ? 'Comparar todas las areas' : 'Compare all areas',
-			null,
-			'info'
+			null, SNACK.info
 		)
 	} else {
 		if(panelsDisplayed < 4 && !compareAll) {
@@ -171,7 +193,7 @@ const addPanel = () => {
 		} else
 			showSnack(
 				(lang == 0) ? 'El limite son 4 paneles' : 'The limit is 4 panels',
-				null, 'warning'
+				null, SNACK.warning
 			)
 	}
 }
@@ -193,7 +215,7 @@ const deletePanel = (e) => {
 	else showSnack(
 		(lang == 0) ? 'No puedes eliminar el panel principal 😡'
 					: 'You cannot delete the main panel 😡',
-		null, 'error'
+		null, SNACK.error
 	)
 }
 
@@ -253,36 +275,43 @@ async function getData(auto) {
 	if(auto === false) {
 		if(subSelected != undefined)
 			packed._id = (parseInt(subSelected.getAttribute('data-index')) > 0) ? subSelected.getAttribute('value') : null
-		packed.area = parseInt($(`.panel[data-id="${idSelect}"] .area`).val())
-		packed.department = (parseInt($(`.panel[data-id="${idSelect}"] .department`).val()) > 0) ? parseInt($(`.panel[data-id="${idSelect}"] .department`).val()) : null
-		packed.career = (parseInt($(`.panel[data-id="${idSelect}"] .career`).val()) > 0) ? parseInt($(`.panel[data-id="${idSelect}"] .career`).val()) : null
+		packed.area = parseInt($e(`.panel[data-id="${idSelect}"] .area`)[$e(`.panel[data-id="${idSelect}"] .area`).selectedIndex].getAttribute('value'))
+		packed.department = (parseInt($e(`.panel[data-id="${idSelect}"] .department`)[$e(`.panel[data-id="${idSelect}"] .department`).selectedIndex].getAttribute('value')) > 0)
+				? parseInt($e(`.panel[data-id="${idSelect}"] .department`)[$e(`.panel[data-id="${idSelect}"] .department`).selectedIndex].getAttribute('value'))
+				: null
+		packed.career = (parseInt($e(`.panel[data-id="${idSelect}"] .career`)[$e(`.panel[data-id="${idSelect}"] .career`).selectedIndex].getAttribute('value')) > 0)
+				? parseInt($e(`.panel[data-id="${idSelect}"] .career`)[$e(`.panel[data-id="${idSelect}"] .career`).selectedIndex].getAttribute('value'))
+				: null
 	}
 
-    await $.ajax({
-        type: 'POST',
-        url: 'http://localhost:999/metricas',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(packed),
-        dataType: 'json',
-        async: true,
-        success: (result) => {
+    await AJAJ(
+		'http://localhost:999/metricas',
+		'POST',
+		packed,
+		(result) => {
             if(result.console) log(result.console, STYLE.warning)
 
 			if(result.noti) showSnack(
 				result.msg, 
-				null, result.notiType
+				null, SNACK.info
 			)
 
 			if(result.status === 200) {
 				if (result.data.subordinates != null) {
-					$(`.panel[data-id="${idSelect}"] .subordinates .sub`).remove()
-					$(`.panel[data-id="${idSelect}"] .subordinates .sub-s`).prop('selected', true)
+					console.log(idSelect)
+					$a(`.panel[data-id="${idSelect}"] .subordinates .sub`).forEach(node => {
+						node.remove()
+					})
+					$e(`.panel[data-id="${idSelect}"] .subordinates .sub-s`).selected = true
 					if(result.data.subordinates.length > 0) {
-						$(`.panel[data-id="${idSelect}"] .subordinates`).prop('disabled', false)
-						$(`.panel[data-id="${idSelect}"] .subordinates .sub-s`).text('-Selecciona personal-')
+						$e(`.panel[data-id="${idSelect}"] .subordinates`).disabled = false
+						$e(`.panel[data-id="${idSelect}"] .subordinates .sub-s`).innerHTML = (lang == 0)
+																							  ? '-Selecciona personal-'
+																							  : '-Select personnel-'
+																							  
 						for (let i in result.data.subordinates) {
-							$(`.panel[data-id="${idSelect}"] .subordinates`).append(
-								`<option class="sub" data-index="${parseInt(i)+1}"`+
+							$e(`.panel[data-id="${idSelect}"] .subordinates`).insertAdjacentHTML(
+								'beforeend', `<option class="sub" data-index="${parseInt(i)+1}"`+
 								`value="${result.data.subordinates[i]['_id']}">`+
 								`${result.data.subordinates[i]['first_name']} `+
 								`${result.data.subordinates[i]['last_name']}`+
@@ -290,8 +319,8 @@ async function getData(auto) {
 							)
 						}
 					} else {
-						$(`.panel[data-id="${idSelect}"] .subordinates`).prop('disabled', true)
-						$(`.panel[data-id="${idSelect}"] .subordinates .sub-s`).text('Sin registros')
+						$e(`.panel[data-id="${idSelect}"] .subordinates`).disabled = true
+						$e(`.panel[data-id="${idSelect}"] .subordinates .sub-s`).innerHTML = 'Sin registros'
 					}
 				}
 
@@ -314,12 +343,10 @@ async function getData(auto) {
 			}
 			canvasId = undefined
         },
-        error: (xhr, status, error) => {
-            showSnack(
-				'Status: '+status+'. '+error, 
-				null, 'error'
-			)
+		(error) => {
+			showSnack('Error '+error, null, SNACK.error)
+			console.error(error)
 			canvasId = undefined
-        }
-    })
+		} 
+	)
 }

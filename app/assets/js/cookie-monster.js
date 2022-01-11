@@ -46,7 +46,7 @@ async function getCookie(cname) {
 }
 
 async function checkCookie(cname) {
-	if(cname == undefined) return console.log('Cookies jar empty')
+	if(cname == undefined) return showSnack(`Cookie ${cname} empty`, 'Cookie-Monster', SNACK.error)
 	let result
 	
 	await getCookie(cname)

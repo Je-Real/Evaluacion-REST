@@ -43,7 +43,7 @@
                                 <i class="fa fa-th-large"></i> <span data-lang="es">Tarjetas</span><span data-lang="en">Grid</span>
                             </button>
                         </div>
-                        <div class="d-flex flex-wrap justify-content-center paginator" data-rows-shown="3, 6, 9, 12">
+                        <div class="paginator d-flex flex-wrap justify-content-center" data-rows-shown="3, 6, 9, 12">
                             <% for(let user in userData) { if(userData[user] != null) { %>
                             <div id="<%= userData[user]._id %>" data-id="<%= userData[user]._id %>" 
                                 class="container pag-item card card-option w-md-25 mx-2 mb-4 shadow-sm border-0">
@@ -760,7 +760,7 @@
                                             <td class="border-0" scope="row">
                                                 <div class="d-flex">
                                                     <p class="m-0 px-4 text-justify pe-1">
-                                                        <span class="lang" data-lang="es">11. Evalua la actitud</span>
+                                                        <span class="lang" data-lang="es">11. Evalúa la actitud</span>
                                                         <span class="lang" data-lang="en">11. Evaluate the attitude</span>
                                                     </p>
                                                 </div>

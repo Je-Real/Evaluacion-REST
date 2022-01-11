@@ -1,4 +1,78 @@
 window.addEventListener('load', async(e) => {
+    let inputClick = () => {
+        let active_V = 0,
+            active_VI = 0
+
+        if($e('input[name="P-I"]:checked').value) {
+            $e('#P-I').removeClass('deactivated')
+            $e('#P-I').addClass('activated')
+        } else {
+            $e('#P-I').removeClass('activated')
+            $e('#P-I').addClass('deactivated')
+        }
+
+        if($e('input[name="P-II"]:checked').value) {
+            $e('#P-II').removeClass('deactivated')
+            $e('#P-II').addClass('activated')
+        } else {
+            $e('#P-II').removeClass('activated')
+            $e('#P-II').addClass('deactivated')
+        }
+        
+        if($e('input[name="P-III"]:checked').value) {
+            $e('#P-III').removeClass('deactivated')
+            $e('#P-III').addClass('activated')
+        } else {
+            $e('#P-III').removeClass('activated')
+            $e('#P-III').addClass('deactivated')
+        }
+        
+        if($e('input[name="P-IV"]:checked').value) {
+            $e('#P-IV').removeClass('deactivated')
+            $e('#P-IV').addClass('activated')
+        } else {
+            $e('#P-IV').removeClass('activated')
+            $e('#P-IV').addClass('deactivated')
+        }
+
+        if($e('input[name="P-V"]:checked').value) { active_V++ } 
+        else { active_V+-1 }
+        if($e('input[name="P-VI"]:checked').value) { active_V++ } 
+        else { active_V+-1 }
+        if($e('input[name="P-VII"]:checked').value) { active_V++ } 
+        else { active_V+-1 }
+        if($e('input[name="P-VIII"]:checked').value) { active_V++ } 
+        else { active_V+-1 }
+
+        if(active_V == 4) {
+            $e('#P-V').removeClass('deactivated')
+            $e('#P-V').addClass('activated')
+        } else {
+            $e('#P-V').removeClass('activated')
+            $e('#P-V').addClass('deactivated')
+        }
+
+        if($e('input[name="P-IX"]:checked').value) { active_VI++ } 
+        else { active_VI+-1 }
+        if($e('input[name="P-X"]:checked').value) { active_VI++ } 
+        else { active_VI+-1 }
+
+        if(active_VI == 2) {
+            $e('#P-VI').removeClass('deactivated')
+            $e('#P-VI').addClass('activated')
+        } else {
+            $e('#P-VI').removeClass('activated')
+            $e('#P-VI').addClass('deactivated')
+        }
+
+        if($e('input[name="P-XI"]:checked').value) {
+            $e('#P-VII').removeClass('deactivated')
+            $e('#P-VII').addClass('activated')
+        } else {
+            $e('#P-VII').removeClass('activated')
+            $e('#P-VII').addClass('deactivated')
+        }
+    }
 
     if(localStorage.getItem('paginator-card-view') === 'true') {
         cardView()
@@ -16,177 +90,132 @@ window.addEventListener('load', async(e) => {
         log('[Survey] User selected!:'+error, STYLE.warning)
     })
 
-    $('input[type="radio"]').click(() => {
-        let active_V = 0,
-            active_VI = 0
-
-        if($('input[name="P-I"]:checked').val()) {
-            $('#P-I').removeClass('deactivated')
-            $('#P-I').addClass('activated')
-        } else {
-            $('#P-I').removeClass('activated')
-            $('#P-I').addClass('deactivated')
-        }
-
-        if($('input[name="P-II"]:checked').val()) {
-            $('#P-II').removeClass('deactivated')
-            $('#P-II').addClass('activated')
-        } else {
-            $('#P-II').removeClass('activated')
-            $('#P-II').addClass('deactivated')
-        }
-        
-        if($('input[name="P-III"]:checked').val()) {
-            $('#P-III').removeClass('deactivated')
-            $('#P-III').addClass('activated')
-        } else {
-            $('#P-III').removeClass('activated')
-            $('#P-III').addClass('deactivated')
-        }
-        
-        if($('input[name="P-IV"]:checked').val()) {
-            $('#P-IV').removeClass('deactivated')
-            $('#P-IV').addClass('activated')
-        } else {
-            $('#P-IV').removeClass('activated')
-            $('#P-IV').addClass('deactivated')
-        }
-
-        if($('input[name="P-V"]:checked').val()) { active_V++ } 
-        else { active_V+-1 }
-        if($('input[name="P-VI"]:checked').val()) { active_V++ } 
-        else { active_V+-1 }
-        if($('input[name="P-VII"]:checked').val()) { active_V++ } 
-        else { active_V+-1 }
-        if($('input[name="P-VIII"]:checked').val()) { active_V++ } 
-        else { active_V+-1 }
-
-        if(active_V == 4) {
-            $('#P-V').removeClass('deactivated')
-            $('#P-V').addClass('activated')
-        } else {
-            $('#P-V').removeClass('activated')
-            $('#P-V').addClass('deactivated')
-        }
-
-        if($('input[name="P-IX"]:checked').val()) { active_VI++ } 
-        else { active_VI+-1 }
-        if($('input[name="P-X"]:checked').val()) { active_VI++ } 
-        else { active_VI+-1 }
-
-        if(active_VI == 2) {
-            $('#P-VI').removeClass('deactivated')
-            $('#P-VI').addClass('activated')
-        } else {
-            $('#P-VI').removeClass('activated')
-            $('#P-VI').addClass('deactivated')
-        }
-
-        if($('input[name="P-XI"]:checked').val()) {
-            $('#P-VII').removeClass('deactivated')
-            $('#P-VII').addClass('activated')
-        } else {
-            $('#P-VII').removeClass('activated')
-            $('#P-VII').addClass('deactivated')
-        }
-    })
+    eventAssigner('input[type="radio"]', 'onclick', inputClick)
 })
 
-$('.card.card-option').click(() => {selectObjective(true)})
+let slctOjb = () => selectObjective(true)
+eventAssigner('.card.card-option', 'click', slctOjb)
 
 function listView() {
-    $('.card.card-option').removeClass('w-md-25 mb-4').addClass('w-100 w-lg-75 mb-2')
-    $('.mode').removeClass('card-mode').addClass('list-mode')
-    $('.card-body').addClass('pt-1 pb-2')
-    $('.card-body>.row').removeClass('text-center')
-    $('.items.row div').removeClass('col-12').addClass('col-md col-6')
+    $a('.card.card-option').forEach(node => {
+        node.classList.remove('w-md-25', 'mb-4')
+        node.classList.add('w-100', 'w-lg-75', 'mb-2')
+    })
+    $a('.mode').forEach(node => {
+        node.classList.remove('card-mode')
+        node.classList.add('list-mode')
+    })
+    $a('.card-body').forEach(node => {
+        node.classList.add('pt-1', 'pb-2')
+    })
+    $a('.card-body>.row').forEach(node => {
+        node.classList.remove('text-center')
+    })
+    $a('.items.row div').forEach(node => {
+        node.classList.remove('col-12')
+        node.classList.add('col-md', 'col-6')
+    })
 
-    $('#card').addClass('btn-secondary').removeClass('btn-on')
-    $('#list').removeClass('btn-secondary').addClass('btn-on')
+    $e('#card').classList.replace('btn-on', 'btn-secondary')
+    $e('#list').classList.replace('btn-secondary', 'btn-on')
     localStorage.setItem('paginator-card-view', 'false')
 }
 
 function cardView() {
-    $('.card.card-option').removeClass('w-100 w-lg-75 mb-2').addClass('w-md-25 mb-4')
-    $('.mode').removeClass('list-mode').addClass('card-mode')
-    $('.card-body').removeClass('pt-1 pb-2')
-    $('.card-body>.row').addClass('text-center')
-    $('.items.row div').removeClass('col-lg-3 col-6').addClass('col-lg-6 col-12')
+    $a('.card.card-option').forEach(node => {
+        node.classList.add('w-md-25', 'mb-4')
+        node.classList.remove('w-100', 'w-lg-75', 'mb-2')
+    })
+    $a('.mode').forEach(node => {
+        node.classList.add('card-mode')
+        node.classList.remove('list-mode')
+    })
+    $a('.card-body').forEach(node => {
+        node.classList.remove('pt-1', 'pb-2')
+    })
+    $a('.card-body>.row').forEach(node => {
+        node.classList.add('text-center')
+    })
+    $a('.items.row div').forEach(node => {
+        node.classList.add('col-12')
+        node.classList.remove('col-md', 'col-6')
+    })
 
-    $('#list').addClass('btn-secondary').removeClass('btn-on')
-    $('#card').removeClass('btn-secondary').addClass('btn-on')
+    $e('#list').classList.replace('btn-on', 'btn-secondary')
+    $e('#card').classList.replace('btn-secondary', 'btn-on')
     localStorage.setItem('paginator-card-view', 'true')
 }
 
 function selectObjective(hover) {
-    if(hover.length==0) return
+    if(hover.length == 0) return
 
-    $('#f_survey')[0].reset()
-    if ($('.table-header').hasClass('activated'))
-        $('.table-header').removeClass('activated').addClass('deactivated')
+    $e('#f_survey')[0].reset()
+    $a('.table-header').forEach(node => 
+        node.classList.replace('activated', 'deactivated')
+    )
 
-    $('.card.card-option').removeClass('selected')
+    $a('.card.card-option').forEach(node =>
+        node.classList.remove('selected')
+    )
     if(hover === true)
-        $('.card.card-option:hover').addClass('selected')
+        $a('.card.card-option:hover').forEach(node =>
+            node.classList.add('selected')
+        )
     else 
-        $(`div#${hover}`).addClass('selected')
+        $e(`div#${hover}`).classList.add('selected')
 
-    $('#userObj').val($('.card.card-option.selected').attr('data-id'))
-    $('.force-disabled').removeClass('force-disabled').addClass('force-enabled')
-    log('[Survey] User selected!:'+$('#userObj').val(), STYLE.info)
+    $e('#userObj').value = $e('.card.card-option.selected').attr('data-id')
+    $a('.force-disabled').forEach(node => {
+        node.classList.replace('force-disabled', 'force-enabled')
+    })
+    log('[Survey] User selected!:'+$e('#userObj').value, STYLE.info)
 }
 
 function postSurvey() {
-    if($('#userObj').val() == '')
+    if(String($e('#userObj').value).length <= 0)
         return showSnack(
             (lang == 0) ? 'Debes seleccionar a alguien para evaluar'
                         : 'You must select someone to evaluate',
-            null, 'warning'
+            null, SNACK.warning
         )
     
     let grades = {
-        p_1: $('input[name="P-I"]:checked'),
-        p_2: $('input[name="P-II"]:checked'),
-        p_3: $('input[name="P-III"]:checked'),
-        p_4: $('input[name="P-IV"]:checked'),
-        p_5: $('input[name="P-V"]:checked'),
-        p_6: $('input[name="P-VI"]:checked'),
-        p_7: $('input[name="P-VII"]:checked'),
-        p_8: $('input[name="P-VIII"]:checked'),
-        p_9: $('input[name="P-IX"]:checked'),
-        p_10: $('input[name="P-X"]:checked'),
-        p_11: $('input[name="P-XI"]:checked')
+        p_1: $e('input[name="P-I"]:checked'),
+        p_2: $e('input[name="P-II"]:checked'),
+        p_3: $e('input[name="P-III"]:checked'),
+        p_4: $e('input[name="P-IV"]:checked'),
+        p_5: $e('input[name="P-V"]:checked'),
+        p_6: $e('input[name="P-VI"]:checked'),
+        p_7: $e('input[name="P-VII"]:checked'),
+        p_8: $e('input[name="P-VIII"]:checked'),
+        p_9: $e('input[name="P-IX"]:checked'),
+        p_10: $e('input[name="P-X"]:checked'),
+        p_11: $e('input[name="P-XI"]:checked')
     }
 
     for(let grade in grades) {
-        if(grades[grade].val() == undefined)
+        if(grades[grade].value == undefined)
             return showSnack(
                 (lang == 0) ? '¡Aun no se puede enviar!<br/>Debes completar la evaluación'
                             : 'Cannot be sent yet!<br/>You must complete the evaluation.',
-                null, 'warning'
+                null, SNACK.warning
             )
-        grades[grade] = parseInt(grades[grade].val())
+        grades[grade] = parseInt(grades[grade].value)
     }
 
     let packed = {
-        _id: $('#userObj').val(),
+        _id: $e('#userObj').value,
         records: grades
     }
     
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:999/evaluacion',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(packed),
-        dataType: 'json',
-        async: true,
-        success:(result) => {
-            if(result.noti) showSnack(result.msg, null, result.resType)
-
-            if(result.status === 200) setTimeout(() => go("tabla/"), 1500)
+    AJAJ(
+        'http://localhost:999/evaluacion',
+        'POST',
+        packed,
+        (result) => {
+            if(result.noti) showSnack(result.msg, null, SNACK.info)
+            if(result.status === 200) setTimeout(() => go("inicio/"), 1500)
         },
-        error: (xhr, status, error) => { 
-            showSnack(`Status: ${status}. Error: ${error}`, null, 'error')
-        }
-    })
+        (error) => showSnack(`Error: ${error}`, null, SNACK.error)
+    )
 }

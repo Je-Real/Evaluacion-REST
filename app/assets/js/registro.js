@@ -7,89 +7,89 @@ let firstName, lastName,
 
 window.addEventListener('load', async(e) => {
     $('.dep').addClass('d-none') //Hide department options
-	$('#department').prop('disabled', true) //Disable dropdown for department
+	$e('#department').prop('disabled', true) //Disable dropdown for department
 
     $('.car').addClass('d-none') //Hide department options
-	$('#career').prop('disabled', true) //Disable dropdown for careers
+	$e('#career').prop('disabled', true) //Disable dropdown for careers
 
-    $('#contract').prop('disabled', true) //Disable dropdown for contracts
-    $('#lvl').prop('disabled', true) //Disable dropdown for levels
+    $e('#contract').prop('disabled', true) //Disable dropdown for contracts
+    $e('#lvl').prop('disabled', true) //Disable dropdown for levels
 
     eventAssigner('#submit', 'click', register).catch((error) => {return console.error(error)})
 
     levels(0, 0)
 })
 
-$('#area').change(() => {
-    $('#dep-s').addClass('d-none') //Hide default option
+$e('#area').change(() => {
+    $e('#dep-s').addClass('d-none') //Hide default option
 	$('.dep').addClass('d-none') ////Hide again all department options
 
 	//And show all departments the ones that match with the area selected
-	let affected = $(`.dep[data-area='${parseInt($('#area').val())}']`).removeClass('d-none')
+	let affected = $(`.dep[data-area='${parseInt($e('#area').value)}']`).removeClass('d-none')
 
 	if(affected.length == 0) {
 		//If in the area does not exist any departments
-		$('#dep-s').text('N/A').removeClass('d-none').prop('selected', true)
-		$('#department').prop('disabled', true)
+		$e('#dep-s').text('N/A').removeClass('d-none').prop('selected', true)
+		$e('#department').prop('disabled', true)
         levels(0, 0)
 	} else {
         //Else 🟢
-		$('#dep-s').text('-Selecciona carrera-').removeClass('d-none').prop('selected', true)
-		$('#department').prop('disabled', false)
+		$e('#dep-s').text('-Selecciona carrera-').removeClass('d-none').prop('selected', true)
+		$e('#department').prop('disabled', false)
 	}
 
-    if(parseInt($('#area').val()) != 0) {
-        $('#contract').prop('disabled', false)
-        $('#ct-s').text('-Selecciona carrera-')
+    if(parseInt($e('#area').value) != 0) {
+        $e('#contract').prop('disabled', false)
+        $e('#ct-s').text('-Selecciona carrera-')
     }
     else {
-        $('#contract').prop('disabled', true)
-        $('#ct-s').text('N/A')
+        $e('#contract').prop('disabled', true)
+        $e('#ct-s').text('N/A')
     }
-    levels(1, $('#area').val())
+    levels(1, $e('#area').value)
 })
 
-$('#department').change(() => {
-	$('#car-s').addClass('d-none') //Hide default option
+$e('#department').change(() => {
+	$e('#car-s').addClass('d-none') //Hide default option
 	$('.car').addClass('d-none') ////Hide again all department options
 
 	//And show all departments the ones that match with the area selected
-	let affected = $(`.car[data-depa='${parseInt($('#department').val())}']`).removeClass('d-none')
+	let affected = $(`.car[data-depa='${parseInt($e('#department').value)}']`).removeClass('d-none')
 
 	if(affected.length == 0) {
 		//If in the area does not exist any departments
-		$('#car-s').text('N/A').removeClass('d-none').prop('selected', true)
-		$('#career').prop('disabled', true)
+		$e('#car-s').text('N/A').removeClass('d-none').prop('selected', true)
+		$e('#career').prop('disabled', true)
 	} else {
 		//Else 🟢
-		$('#car-s').text('-Selecciona departamento-').removeClass('d-none').prop('selected', true)
-		$('#career').prop('disabled', false)
+		$e('#car-s').text('-Selecciona departamento-').removeClass('d-none').prop('selected', true)
+		$e('#career').prop('disabled', false)
 	}
-    levels(2, $('#department').val())
+    levels(2, $e('#department').value)
 })
 
-$('#career').change(() => {
-    levels(3, $('#career').val())
+$e('#career').change(() => {
+    levels(3, $e('#career').value)
 })
 
-$('#area, #department, #career').change(() => {
+$e('#area, #department, #career').change(() => {
     if(aa === null) {
-        aa = $('#area').val()
-        dd = $('#department').val()
-        cc = $('#career').val()
+        aa = $e('#area').value
+        dd = $e('#department').value
+        cc = $e('#career').value
         return
     }
-    if(aa != $('#area').val() || dd != $('#department').val() || cc != $('#career').val()) {
-        aa = $('#area').val()
-        dd = $('#department').val()
-        cc = $('#career').val()
+    if(aa != $e('#area').value || dd != $e('#department').value || cc != $e('#career').value) {
+        aa = $e('#area').value
+        dd = $e('#department').value
+        cc = $e('#career').value
 
         getManager(false)
     }
 })
 
-$('#lvl').change(() => {
-    getManager($('#lvl').val())
+$e('#lvl').change(() => {
+    getManager($e('#lvl').value)
 })
 
 function levels(lvlShown, val) {
@@ -102,9 +102,9 @@ function levels(lvlShown, val) {
                     ? parseInt(lvlShown) : lvl_s))) //Then set the new value if it's true or else it won't change
 
     if(lvl_temp != lvl_s) {
-        $('#lvl').prop('disabled', false)
+        $e('#lvl').prop('disabled', false)
         $('.lvl-s').addClass('d-none')
-        $('#lvl-s').text('-Selecciona nivel-').prop('selected', true)
+        $e('#lvl-s').text('-Selecciona nivel-').prop('selected', true)
 
         if(lvl_s === 1) {
             $('.lvl-s.lvl-1').removeClass('d-none')
@@ -113,46 +113,46 @@ function levels(lvlShown, val) {
         } else if(lvl_s === 3) {
             $('.lvl-s.lvl-3').removeClass('d-none')
         } else {
-            $('#lvl').prop('disabled', true)
-            $('#lvl-s').text('N/A').prop('selected', true)
+            $e('#lvl').prop('disabled', true)
+            $e('#lvl-s').text('N/A').prop('selected', true)
         }
     }
 }
 
 function addressGetter() {
-    firstName = String($('#first_name').val()).trim()
-    lastName = String($('#last_name').val()).trim()
-    area = $('#area').val()
-    career = $('#career').val()
-    state = String($('#state').val()).trim()
-    municipality = String($('#municipality').val()).trim()
-    street = String($('#street').val()).trim()
-    number = String($('#number').val()).trim()
-    postal_code = String($('#postal_code').val()).trim()
+    firstName = String($e('#first_name').value).trim()
+    lastName = String($e('#last_name').value).trim()
+    area = $e('#area').value
+    career = $e('#career').value
+    state = String($e('#state').value).trim()
+    municipality = String($e('#municipality').value).trim()
+    street = String($e('#street').value).trim()
+    number = String($e('#number').value).trim()
+    postal_code = String($e('#postal_code').value).trim()
     
     /*document.getElementById('address').value = 
         String(street+' #'+number+', '+postal_code+', '+municipality+', '+state)*/
     
     if( firstName.length && lastName.length && area.length && career.length && state.length &&
         municipality.length && street.length && number.length && postal_code.length) {
-            $('#submit').prop('disabled', false)
+            $e('#submit').prop('disabled', false)
     }
 }
 
 const register = async() => {
     let packed = JSON.stringify({ 
-        _id: $('#_id_r').val(), 
-        pass: $('#pass_r').val(),
-        first_name: $('#first_name').val(),
-        last_name: $('#last_name').val(),
-        area: $('#area').val(),
-        department: $('#department').val(),
-        career: $('#career').val(),
-        contract: $('#contract').val(),
-        street: $('#street').val(),
-        num: $('#num').val(),
-        postal_code: $('#postal_code').val(),
-        b_day: $('#b_day').val()
+        _id: $e('#_id_r').value, 
+        pass: $e('#pass_r').value,
+        first_name: $e('#first_name').value,
+        last_name: $e('#last_name').value,
+        area: $e('#area').value,
+        department: $e('#department').value,
+        career: $e('#career').value,
+        contract: $e('#contract').value,
+        street: $e('#street').value,
+        num: $e('#num').value,
+        postal_code: $e('#postal_code').value,
+        b_day: $e('#b_day').value
     })
 
     await $.ajax({
@@ -165,7 +165,7 @@ const register = async() => {
         success: (result) => {
             showSnack(
                 result.msg,
-                null, 'success'
+                null, SNACK.success
             )
 
             if(result.status === 200) {
@@ -175,7 +175,7 @@ const register = async() => {
         error: (xhr, status, error) => {
             showSnack(
                 'Status: '+status+'. '+error,
-                null, 'error'
+                null, SNACK.error
             )
         }
     })
@@ -185,15 +185,15 @@ function getManager(lvl_sel) {
     $('.mgr-s').remove()
     if(lvl_sel === false) {
         $("#manager").prop('disabled', true)
-        $('#mgr-s').removeClass('d-none').prop('selected', true)
-        $('#lvl-s').prop('selected', true)
+        $e('#mgr-s').removeClass('d-none').prop('selected', true)
+        $e('#lvl-s').prop('selected', true)
         return
     }
 
     let packed = {
-        area: parseInt($('#area').val()),
-        department: parseInt($('#department').val()),
-        career: parseInt($('#career').val()),
+        area: parseInt($e('#area').value),
+        department: parseInt($e('#department').value),
+        career: parseInt($e('#career').value),
         level: parseInt(lvl_sel)
     }
 
@@ -216,17 +216,17 @@ function getManager(lvl_sel) {
                             </option>`
                         )
                     }
-                    $('#mgr-s').addClass('d-none')
+                    $e('#mgr-s').addClass('d-none')
                     $('.mgr-s.mgr-0').prop('selected', true)
     
                     $("#manager").prop('disabled', false)
                 } else {
                     $("#manager").prop('disabled', true)
-                    $('#mgr-s').text('N/A').removeClass('d-none').prop('selected', true)
+                    $e('#mgr-s').text('N/A').removeClass('d-none').prop('selected', true)
                     showSnack(
                         (lang == 0) ? 'No se encontró manager. <br/>Error del servidor.'
                                     : 'No manager found. <br/> Server error.',
-                        null, 'error'
+                        null, SNACK.error
                     )
                 }
             }
@@ -234,7 +234,7 @@ function getManager(lvl_sel) {
         error: (xhr, status, error) => {
             showSnack(
                 'Status: '+status+'. '+error,
-                null, 'error'
+                null, SNACK.error
             )
         }
     })

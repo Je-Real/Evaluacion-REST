@@ -3,7 +3,9 @@ let arr_rows
 window.addEventListener('load', async(e) => {
     let y, arr_rows, rows_shown = ''
 
-    $('.paginator').before(`<div id="pag"></div>`)
+    $a('.paginator').forEach(node => {
+        node.insertAdjacentHTML('beforebegin', `<div id="pag"></div>`)
+    })
 
     try {
         y = document.querySelector('#pag').getBoundingClientRect().y
@@ -23,8 +25,8 @@ window.addEventListener('load', async(e) => {
         rows_shown += `<option value="${parseInt(arr_rows[i])}" ${sel}>${parseInt(arr_rows[i])}</option>`
     }
 
-    $('.paginator').after(`
-        <div class="pag-cont d-flex justify-content-md-between px-md-4">
+    $a('.paginator').forEach(node => {
+        node.insertAdjacentHTML('afterend', `<div class="pag-cont d-flex justify-content-md-between px-md-4">
             <div id="pag-ctrl" class="pagination my-auto">
                 <a  rel="prev">&laquo;</a>
                 <a  rel="next">&raquo;</a>
@@ -46,49 +48,86 @@ window.addEventListener('load', async(e) => {
                     </div>
                 </div>
             </div>
-        </div>
-    `)
+        </div>`)
+    })
     paginator()
     
-    $('#rows').change(() => {
-        if(parseInt($('#rows').val()) != rows) paginator()
-    })
+    const rows = () => {
+        if(parseInt($e('#rows').value) != rows) paginator()
+    }
+    eventAssigner('#rows', 'onchange', rows)
 })
 
 function paginator() {
-    $('.row-temp').remove()
+    $a('.row-temp').forEach(node => node.remove())
 
-    let rows = parseInt($('#rows').val()),
-        rowsTotal = $('.paginator .pag-item').length,
+    let rows = parseInt($e('#rows').value),
+        rowsTotal = $a('.paginator .pag-item').length,
         numPages = rowsTotal/rows
     
     for(i=0; i<numPages; i++) {
-        $('#pag-ctrl a[rel="next"]').before(`<a class="row-temp" href="#pag" rel="${i}">${(i+1)}</a>`)
+        $e('#pag-ctrl a[rel="next"]').insertAdjacentElement(
+            'beforebegin', `<a class="row-temp" href="#pag" rel="${i}">${(i+1)}</a>`
+        )
     }
 
-    $('#pag-ctrl a[rel="prev"]').addClass('blocked')
-    $('#pag-ctrl a[rel="0"]').addClass('active')
-    $('#reg-total').text(rowsTotal)
+    $e('#pag-ctrl a[rel="prev"]').classList.add('blocked')
+    $e('#pag-ctrl a[rel="0"]').classList.add('active')
+    $e('#reg-total').innerHTML = rowsTotal
     
-    $('#pag-ctrl a').bind('click', function() {
-        $('#pag-ctrl a').removeClass('active')
-        $(this).addClass('active')
+    const pagCTRL = (e) => {
+        $e('#pag-ctrl a').classList.remove('active')
+        $e(e.target).classList.add('active')
 
-        let currPage = $(this).attr('rel'),
+        let currPage = $e(e.target).getAttribute('rel'),
             startItem = currPage * rows,
             endItem = startItem + rows
 
         try {
-            $('.paginator tr.pag-item').css('opacity','0.0').hide().slice(startItem, endItem)
-                .animate({opacity:1}, 300).css('display','table-row')
+            $a('.paginator tr.pag-item').forEach(node => { // Then apply them all the styles for hide 
+                node.style.opacity = 0
+                node.style.visibility = 'hide'
+                node.style.display = 'none'
+            })
+
+            Array.prototype.slice.call( // Split the selected items in the table (from, to)
+                $a('.paginator tr.pag-item'),
+                startItem, endItem
+            ).forEach(node => { // Then apply them all the styles for hide 
+                node.style.opacity = 1
+                node.style.visibility = 'visible'
+                node.style.display = 'table-row'
+            })
         } catch { }
 
         try {
-            $('.paginator div.pag-item').css('opacity','0.0').hide().slice(startItem, endItem)
-                .animate({opacity:1}, 300).css('display','block')
-        } catch { }
-    })
+            $a('.paginator div.pag-item').forEach(node => { // Then apply them all the styles for hide 
+                node.style.opacity = 0
+                node.style.visibility = 'hide'
+                node.style.display = 'none'
+            })
 
-    $('.paginator .pag-item').hide()
-    $('.paginator .pag-item').slice(0, rows).show()
+            Array.prototype.slice.call( // Split the selected items in the table (from, to)
+                $a('.paginator div.pag-item'),
+                startItem, endItem
+            ).forEach(node => { // Then apply them all the styles for hide 
+                node.style.opacity = 1
+                node.style.visibility = 'visible'
+                node.style.display = ''
+            })
+        } catch { }
+    }
+    eventAssigner('#pag-ctrl a', 'onclick', )
+
+    $a('.paginator .pag-item').forEach(node => {
+        node.style.visibility = 0
+        node.style.display = 'none'
+    })
+    Array.prototype.slice.call( // Split the selected items in the table (from, to)
+        $a('.paginator div.pag-item'),
+        0, rows
+    ).forEach(node => { // Then apply them all the styles for hide 
+        node.style.opacity = 1
+        node.style.display = ''
+    })
 }

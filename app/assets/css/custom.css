@@ -161,17 +161,17 @@ h1, h2, h3, h4, h5, h6 {
 	box-shadow: 0px 4px 30px -10px rgba(0,0,0,0.66);
 }
 
-.fade {
-	transition: all 0.2s;
+.fade-anim {
+	transition: all ease-in-out 0.2s;
 }
 
-.fade.fade-appear {
+.fade-anim.fade-anim-appear {
 	opacity: 1;
 	visibility: visible;
 	display: inherit;
 }
 
-.fade.fade-disappear {
+.fade-anim.fade-anim-disappear {
 	opacity: 0;
 	visibility: hidden;
 	display: none;
