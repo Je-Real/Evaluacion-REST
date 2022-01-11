@@ -2,7 +2,7 @@ const crypto = require('crypto-js')
 const path = require('path')
 const fs = require('fs')
 
-const d = new Date();
+const DATE = new Date();
 let rawData
 
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
@@ -56,12 +56,12 @@ async function generatorFixed(params) {
         lvl, user, pass,
         mana, fn, ls, note = null,
         userer = [], inforer = [],
-        year = d.getFullYear(),
-        month = (d.getMonth()+1 < 10 && String(d.getMonth()+1).length < 2) ? '0'+d.getMonth()+1 : d.getMonth()+1,
-        day = (d.getDate() < 10 && String(d.getDate()+1).length < 2) ? '0'+d.getDate()+1 : d.getDate()+1,
-        hour = (d.getHours() < 10 && String(d.getHours()+1).length < 2) ? '0'+d.getHours() : d.getHours(),
-        minutes = (d.getMinutes() < 10 && String(d.getMinutes()+1).length < 2) ? '0'+d.getMinutes() : d.getMinutes(),
-        seconds = (d.getSeconds() < 10 && String(d.getSeconds()+1).length < 2) ? '0'+d.getSeconds() : d.getSeconds(),
+        year = DATE.getFullYear(),
+        month = (DATE.getMonth()+1 < 10 && String(DATE.getMonth()+1).length < 2) ? '0'+DATE.getMonth()+1 : DATE.getMonth()+1,
+        day = (DATE.getDate() < 10 && String(DATE.getDate()+1).length < 2) ? '0'+DATE.getDate()+1 : DATE.getDate()+1,
+        hour = (DATE.getHours() < 10 && String(DATE.getHours()+1).length < 2) ? '0'+DATE.getHours() : DATE.getHours(),
+        minutes = (DATE.getMinutes() < 10 && String(DATE.getMinutes()+1).length < 2) ? '0'+DATE.getMinutes() : DATE.getMinutes(),
+        seconds = (DATE.getSeconds() < 10 && String(DATE.getSeconds()+1).length < 2) ? '0'+DATE.getSeconds() : DATE.getSeconds(),
         date = year+'-'+month+'-'+day+'T'+hour+':'+minutes+':'+seconds+':000Z'
         
     

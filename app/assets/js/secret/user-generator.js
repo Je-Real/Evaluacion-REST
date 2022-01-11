@@ -6,5 +6,8 @@ function copyInfo(info) {
     else return
 
 	navigator.clipboard.writeText(copyText)
-	showSnack('Texto copiado', 'info')
+	showSnack(
+        (lang == 0) ? 'Texto copiado' : 'Text copied',
+        null, 'info'
+    )
 }

@@ -4,9 +4,9 @@ async function setCookie(cname, cvalue) {
 		throw false
 	}
 
-	d.setTime(d.getTime() + 7*24*60*60*1000)
+	DATE.setTime(DATE.getTime() + 7*24*60*60*1000)
 	
-	let expires = 'expires=' + d.toGMTString()
+	let expires = 'expires=' + DATE.toGMTString()
 	try {
 		document.cookie = cname+'='+cvalue+';expires='+expires+';path=/'
 		return true

@@ -1,9 +1,8 @@
-
 // 👇 Production mode
 'use strict'
 
-const d = new Date()
-const style = {
+const DATE = new Date()
+const STYLE = {
     base: [
         "color: #fff",
         "background-color: #292929",
@@ -34,44 +33,98 @@ const style = {
         "background-color: #d3d3d3"
     ],
 }
+
+const $e = (selector) => (typeof selector == 'string') ? document.querySelector(selector) : null
+const $a = (selector) => (typeof selector == 'string') ? document.querySelectorAll(selector) : null
+
 const log = (text, styleTypes = []) => {
-    let options = style.base.join(';') + ';';
+    let options = STYLE.base.join(';') + ';';
     options += styleTypes.join(';'); // Add any additional styles
     console.log(`%c${text}`, options);
 }
 
 const changeLang = () => {
-    let btnChecked = document.body.querySelector('#btn-lang').checked
+    let btnChecked = $e('body').querySelector('#btn-lang').checked
     
     if(btnChecked) localStorage.setItem('lang', 'en')
     else localStorage.setItem('lang', 'es')
 
     setTimeout(async() => {
-        await $('#load-b').removeClass('hidden').addClass('show')
+        $e('#load-b').classList.replace('hidden', 'show')
         setTimeout(() => {
             window.location.href = String(location.href)
         }, 200)
     }, 200)
 }
 
+async function AJAJ(url, method, data, onSuccess, onError) {
+    method = method.toUpperCase()
+    
+    const REQ_PARAMS = (method === 'POST')
+        ? {
+            method: method,
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        }
+        : undefined
+
+    return await fetch(url, REQ_PARAMS)
+    .then(res => res.json())
+    .then(data => onSuccess(data))
+    .catch(error => onError(error))
+}
+
+async function eventAssigner(selector, eventClass, funcEvent) {
+	try {
+		Array.prototype.forEach.call(
+			$a(selector),
+			(node) => {
+				node.addEventListener(eventClass, funcEvent)
+		})
+		return true
+	} catch (error) {
+		console.error(error)
+		throw false
+	}
+}
+
+async function eventUnassigner(selector, eventClass, funcEvent) {
+	try {
+		Array.prototype.forEach.call(
+			$a(selector),
+			(node) => {
+				node.removeEventListener(eventClass, funcEvent)
+		})
+		return true
+	} catch (error) {
+		console.error(error)
+		throw false
+	}
+}
+
 let tf = false, tr = false,
-    frameL = document.getElementById('floatingLogin'),
-    frameP = document.getElementById('floatingPass'),
-    frameR = document.getElementById('floatingRegister'),
-    glass = document.getElementById('layoutSidenav')
+    frameL = $e('#floatingLogin'),
+    frameP = $e('#floatingPass'),
+    frameR = $e('#floatingRegister'),
+    glass = $e('#layoutSidenav'),
+    lang = null
 
 window.addEventListener('DOMContentLoaded', async(e) => {
     if(localStorage.getItem('lang') === 'en') {
-        document.querySelector('html').setAttribute('lang', 'en')
+        lang = 1
+        $e('html').setAttribute('lang', 'en')
+
         Array.prototype.forEach.call(
-			document.querySelectorAll('*[data-lang="es"]'),
+			$a('*[data-lang="es"]'),
 			(node) => { node.remove() }
         )
         document.body.querySelector('#btn-lang').checked = true
     } else {
-        document.querySelector('html').setAttribute('lang', 'es')
+        lang = 0
+        $e('html').setAttribute('lang', 'es')
+
         Array.prototype.forEach.call(
-			document.querySelectorAll('*[data-lang="en"]'),
+			$a('*[data-lang="en"]'),
 			(node) => { node.remove() }
         )
     }
@@ -79,39 +132,40 @@ window.addEventListener('DOMContentLoaded', async(e) => {
     eventAssigner('#btn-lang', 'change', changeLang)
 
     // Toggle the side navigation
-    const sidebarToggle = document.body.querySelector('#sidebarToggle')
+    const sidebarToggle = $e('#sidebarToggle')
     if(sidebarToggle) {
         if(localStorage.getItem('sb|sidebar-toggle') === 'true') {
-            document.body.classList.toggle('sb-sidenav-toggled')
+            $e('body').classList.toggle('sb-sidenav-toggled')
         }
         sidebarToggle.addEventListener('click', event => {
             event.preventDefault()
-            document.body.classList.toggle('sb-sidenav-toggled')
-            localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'))
+            $e('body').classList.toggle('sb-sidenav-toggled')
+            localStorage.setItem('sb|sidebar-toggle', $e('body').classList.contains('sb-sidenav-toggled'))
         })
     }
 
     let fade_away = true
 
-    if($('#layoutNavbar').attr('data-log') === 'false') {
+    if($e('#layoutNavbar').getAttribute('data-log') === 'false') {
         await getCookie(0)
         .then(async(data) => {
             fade_away = false
             if(data[0] != '' && data[0] != undefined) {
                 try {
                     let cookieData = JSON.parse(data[0])
-                    showSnack('Iniando sesión...', 'info')
+                    showSnack(
+                        (lang == 0) ? 'Iniciando sesión...' : 'Logging in...',
+                        (lang == 0) ? 'Inicio de sesión' : 'Log in', 'info'
+                    )
                     login(cookieData.user, cookieData.pass)
 
                     if(data[1] != undefined) {
                         await setCookie('requested-page', undefined)
                         .then(() => {
-                            setTimeout(() => {
-                                go(data[1])
-                            }, 2500)
+                            setTimeout(() => go(data[1]), 2500)
                         })
                         .catch((error) => {
-                            return console.error(error)
+                            return console.error('requested-page: '+error)
                         })
                     }
                 } catch(error) {
@@ -128,67 +182,25 @@ window.addEventListener('DOMContentLoaded', async(e) => {
     
     if(fade_away) {
         setTimeout(async() => {
-            await $('#load-b').addClass('fade')
+            await $e('#load-b').classList.add('fade')
             setTimeout(() => {
-                $('#load-b').addClass('hidden')
+                $e('#load-b').classList.add('hidden')
             }, 200)
         }, 200)
         setTimeout(async() => {
-            await $('.deletable').remove() //Remove all the "deletable" elements after 1 sec
+            await $a('.deletable').forEach((node) => {node.remove()}) //Remove all the "deletable" elements after 1 sec
         }, 1000)
     }
 })
 
-async function eventAssigner(elementSelector, eventClass, funcEvent) {
-	try {
-		Array.prototype.forEach.call(
-			document.querySelectorAll(elementSelector),
-			(node) => {
-				node.addEventListener(eventClass, funcEvent)
-		})
-		return true
-	} catch (error) {
-		console.error(error)
-		throw false
-	}
-}
-
-async function eventUnassigner(elementSelector, eventClass, funcEvent) {
-	try {
-		Array.prototype.forEach.call(
-			document.querySelectorAll(elementSelector),
-			(node) => {
-				node.removeEventListener(eventClass, funcEvent)
-		})
-		return true
-	} catch (error) {
-		console.error(error)
-		throw false
-	}
-}
-
-function darkMode() {
-    $('body').addClass('dark')
-    if($('*').hasClass('bg-light')) {
-        $('*').removeClass('bg-light')
-        $('*').addClass('bg-dark')
-    }
-}
-
 //Capture Enter key in inputs
 function onEnterHandler(e) {
     let code = e.which || e.keyCode
-    if(code === 13) {
-      login()
-    }
+    if(code === 13) login()
 }
 
 function outSession(clicked) {
-    if(clicked) {
-        setTimeout(() => {
-            go("inicio/")
-        }, 2500)
-    }
+    if(clicked) setTimeout(() => go("inicio/"), 2500)
 }
 
 function toggleFloating(floating) {
@@ -211,7 +223,7 @@ function toggleFloating(floating) {
             else 
                 glass.className = 'blur-on'
 
-            $('#_id-txt').focus()
+            $e('#_id-txt').focus()
         } else if(floating === 2) {
             try { frameL.className = frameL.className.replace('show', 'hide') }
             catch { console.log('Skiping Frame Login') }
@@ -223,61 +235,65 @@ function toggleFloating(floating) {
             else
                 glass.className = 'blur-on position-fixed'
 
-            $('#_id-u-txt').focus()
+            $e('#_id-u-txt').focus()
         }
     }
 }
 
 function login(u, p) {
-    u = (u) ? u : (($('#_id-txt').val()) ? $('#_id-txt').val() : undefined)
-    p = (p) ? p : (($('#pass').val()) ? $('#pass').val() : undefined)
+    u = (u) ? u : (($e('#_id-txt').value) ? $e('#_id-txt').value : null)
+    p = (p) ? p : (($e('#pass').value) ? $e('#pass').value : null)
 
-    if(u === undefined) return console.error('login failed!')
+    if(u == null || p == null)
+        showSnack(
+            (lang == 0) ? 'Revisa los campos de inicio de sesión, por favor'
+                        : 'Check the session fields, please',
+            null, 'error'
+        )
+    else
+        AJAJ(
+            'http://localhost:999/sesion/login',
+            'POST',
+            { _id: u, pass: p },
+            async(result) => {
+                if(result.noti) {
+                    showSnack(
+                        result.msg,
+                        null, 'success'
+                    )
+                } else {
+                    $e('#loginMsg').classList.add('text-danger')
+                    $e('#loginMsg').innerHTML = result.msg
+                }
 
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:666/sesion/login',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({ _id: u, pass: p }),
-        dataType: 'json',
-        async: true,
-        success: async(result) => {
-            if(result.noti) {
-                showSnack(result.msg, 'success')
-            } else {
-                $('#loginMsg').addClass('text-danger')
-                $('#loginMsg').html(result.msg)
-            }
-
-            if(result.status === 200) {
-                $('#load-b').removeClass('hidden fade')
-                toggleFloating(0)
-                await setCookie('user', JSON.stringify(result.data))
-                .then(() => {
-                    return go("inicio/")
-                })
-                .catch(() => {
-                    showSnack('Status: Cookies error', 'warning')
-                })
-            }
-        },
-        error: async(xhr, status, error, result) => {
-            console.error('Login: '+error)
-            showSnack(result.msg, 'error')
-        }
-    })
+                if(result.status === 200) {
+                    $e('#load-b').classList.remove('hidden', 'fade')
+                    toggleFloating(0)
+                    await setCookie('user', JSON.stringify(result.data))
+                    .then(() => {
+                        return go("inicio/")
+                    })
+                    .catch(() => {
+                        showSnack(
+                            (lang == 0) ? 'Falla de Cookies' : 'Cookies failure',
+                            null, 'warning'
+                        )
+                    })
+                }
+            },
+            async(error) => console.error('Log in: '+error)
+        )
 }
 
 function logout() {
-    $.ajax({
-        type: 'GET',
-        url: 'http://localhost:666/sesion/logout',
-        dataType: 'json',
-        async: true,
-        success: async(result) => {
+    AJAJ(
+        'http://localhost:999/sesion/logout',
+        'GET',
+        null,
+        async(result) => {
             if(result.status === 200) {
                 outSession(true)
-                $('#load-b').removeClass('hidden fade')
+                $e('#load-b').classList.remove('hidden', 'fade')
                 await eatCookies()
                     .finally(() => {
                         setTimeout(() => {
@@ -285,13 +301,14 @@ function logout() {
                         }, 500)
                     })
             } else {
-                showSnack(`Error: ${result.msg}`, 'error')
+                showSnack(
+                    `Error: ${result.msg}`,
+                    null, 'error'
+                )
             }
         },
-        error: async(xhr, status, error) => { 
-            showSnack(`Status: ${status}. Error: ${error}`, 'error')
-        }
-    })
+        async(error) => console.error('Log out: '+error)
+    )
 }
 
 function go(place) {

@@ -86,9 +86,9 @@ function semiDoughnutChart(id, data, colors) {
 			span.innerHTML = data+'%'
 			canvas = null
 			
-			return log('[Graphs] Loaded Semi doughnut!', style.success)
+			return log('[Graphs] Loaded Semi doughnut!', STYLE.success)
 		} catch (error) {
-			log('[Graphs] Error in Semi doughnut', style.error)
+			log('[Graphs] Error in Semi doughnut', STYLE.error)
 			return console.error(error)
 		}
 	}
@@ -156,9 +156,9 @@ function barChart(id, labels, data, colors) {
 				}
 			})
 			canvas = null
-			return log('[Graphs] Loaded Bars!', style.success)
+			return log('[Graphs] Loaded Bars!', STYLE.success)
 		} catch (error) {
-			log('[Graphs] Error in Bars', style.error)
+			log('[Graphs] Error in Bars', STYLE.error)
 			return console.error(error)
 		}
 			
@@ -211,7 +211,7 @@ function lineChart(id, labels, data, colors) {
 			},
 		})
 		canvas = null
-		return log('[Graphs] Loaded line!', style.success)
+		return log('[Graphs] Loaded line!', STYLE.success)
 	}
-	log('[Graphs] Line without data', style.warning)
+	log('[Graphs] Line without data', STYLE.warning)
 }

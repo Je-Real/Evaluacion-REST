@@ -1,4 +1,4 @@
-let still_hover, msg,
+/*let still_hover, msg,
     x, y,
     w, h
     
@@ -33,4 +33,49 @@ async function mainToolTip() {
         $(`#toolt`).removeClass('show')
         still_hover = false
 	})
+}*/
+
+let still_over = false,
+	msg, t_id,
+	x, y, w, h
+
+window.addEventListener("load", (e) => {
+	document.querySelector("body").classList.add("loaded")
+})
+
+window.addEventListener("DOMContentLoaded", (e) => {
+	let tooltList = document.querySelectorAll(".h-toolt")
+	    toolt = document.getElementById("toolt")
+
+	Array.prototype.forEach.call(tooltList, (node) => {
+		node.addEventListener("mousemove", mouseIn, false)
+		node.addEventListener("mouseover", mouseOver, false)
+		node.addEventListener("mouseout", mouseOut, false)
+	})
+})
+
+const mouseIn = async (e) => {
+	test = e.target
+	x = e.pageX
+	y = e.pageY
+	w = toolt.scrollWidth
+	h = toolt.scrollHeight
+
+	toolt.style.left = x - (w + 5) + "px"
+	toolt.style.top = y - (h + 10) + "px"
+}
+
+const mouseOver = async (e) => {
+	msg = e.target.getAttribute("toolt-txt").trim()
+	document.querySelector("#toolt p").innerHTML = msg
+	still_over = true
+
+	await setTimeout(() => {
+		if (still_over) toolt.classList.add("show")
+	}, 800)
+}
+
+const mouseOut = async (e) => {
+	toolt.classList.remove("show")
+	still_over = false
 }

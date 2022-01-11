@@ -157,20 +157,26 @@ const register = async() => {
 
     await $.ajax({
         type: 'POST',
-        url: 'http://localhost:666/sesion/nuevo-usuario',
+        url: 'http://localhost:999/sesion/nuevo-usuario',
         contentType: 'application/json; charset=utf-8',
         data: packed,
         dataType: 'json',
         async: true,
         success: (result) => {
-            showSnack(result.msg, 'success')
+            showSnack(
+                result.msg,
+                null, 'success'
+            )
 
             if(result.status === 200) {
                 document.getElementById("f-reg").reset()
             }
         },
         error: (xhr, status, error) => {
-            showSnack('Status: '+status+'. '+error, 'error')
+            showSnack(
+                'Status: '+status+'. '+error,
+                null, 'error'
+            )
         }
     })
 }
@@ -193,7 +199,7 @@ function getManager(lvl_sel) {
 
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:666/registro/manager',
+        url: 'http://localhost:999/registro/manager',
         contentType: 'application/json; charset=utf-8',
         data: packed,
         dataType: 'json',
@@ -217,12 +223,19 @@ function getManager(lvl_sel) {
                 } else {
                     $("#manager").prop('disabled', true)
                     $('#mgr-s').text('N/A').removeClass('d-none').prop('selected', true)
-                    showSnack('No se encontro manager.\r\nError del servidor.', 'error')
+                    showSnack(
+                        (lang == 0) ? 'No se encontró manager. <br/>Error del servidor.'
+                                    : 'No manager found. <br/> Server error.',
+                        null, 'error'
+                    )
                 }
             }
         },
         error: (xhr, status, error) => {
-            showSnack('Status: '+status+'. '+error, 'error')
+            showSnack(
+                'Status: '+status+'. '+error,
+                null, 'error'
+            )
         }
     })
 }

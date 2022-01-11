@@ -1,11 +1,11 @@
 const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
 const modelArea = require('../models/modelArea')
-const d = new Date()
+const DATE = new Date()
 
 // >>>>>>>>>>>>>>>>>>>>>> Reportes <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
-    let hour = d.getHours(),
+    let hour = DATE.getHours(),
         salutation, session,
         area = [],
         department = [],
@@ -24,86 +24,6 @@ async function root(req, res) {
             salutation = `Buenas tardes, ${session.first_name}`
         else 
             salutation = `Buenas noches, ${session.first_name}`
-
-        /**
-         * The code below only obtains data belonging to the user in session,
-         * it isn't very useful if you have to compare areas or departments
-         * without being an level 1 user 😅😞
-         */
-
-        /*await modelUserInfo.aggregate([
-            { $match: {
-                $and: [
-                    { $or: [
-                        {"_id": session.user},
-                        {"manager": session.user},
-                    ] },
-                    { "area": {$ne: 0} }
-                ]
-            } },
-            { $project: { 'area': 1 } },
-            { $group: { '_id': '$area' } },
-            { $project: { 
-                    'n': '$_id', 
-                    '_id': '$Remove'
-            } }
-        ])
-        .then((dataAreas) => {
-            options[0] = dataAreas // Get all the areas (Manager and subordinates)
-        })
-        .catch((error) => {
-            console.error(error)
-        })
-        
-        await modelUserInfo.aggregate([
-            { $match: {
-                $and: [
-                    { $or: [
-                        {"_id": session.user},
-                        {"manager": session.user},
-                    ] },
-                    { "department": {$ne: 0} }
-                ]
-            } },
-            { $project: { 'department': 1 } },
-            { $group: { '_id': '$department' } },
-            { $project: { 
-                    'n': '$_id', 
-                    '_id': '$Remove'
-            } }
-        ])
-        .then((dataDepartments) => {
-            if(dataDepartments.length)
-                options[1] = dataDepartments // Get manager and subordinates departments
-        })
-        .catch((error) => {
-            console.error(error)
-        })
-        
-        await modelUserInfo.aggregate([
-            { $match: {
-                $and: [
-                    { $or: [
-                        {"_id": session.user},
-                        {"manager": session.user},
-                    ] },
-                    { "career": {$ne: 0} }
-                ]
-            } },
-            { $project: { 'career': 1 } },
-            { $group: { '_id': '$career' } },
-            { $project: { 
-                    'n': '$_id', 
-                    '_id': '$Remove'
-            } }
-        ])
-        .then((dataCareers) => {
-            if(dataCareers.length)
-                options[2] = dataCareers // Get manager and subordinates departments
-        })
-        .catch((error) => {
-            console.error(error)
-        })*/
 
         await modelArea.aggregate([
             { $match: /*(options[0].length) ? { $or: options[0] } :*/ {} }, {
@@ -131,24 +51,14 @@ async function root(req, res) {
         ]) // Get all areas in DB
         .then((dataInfo) => { //🟢
             /* We get as result a JSON like this
-             *  { 
-         *  { 
-             *  { 
+             *  {
              *      n: 0,  << Area number >>
              *      desc: 'Area 0',  << Area name >>
              *      departments: [ 
-         *      departments: [ 
-             *      departments: [ 
-             *          { 
-         *          { 
              *          { 
              *              n: 1,  << Department number >>
              *              desc: 'Dep 1',  << Department name >>
              *              careers: [ 
-         *              careers: [ 
-             *              careers: [ 
-             *                  { 
-         *                  { 
              *                  { 
              *                      n: 2,  << Career number >>
              *                      desc: 'Career 2'  << Career name >>
@@ -204,7 +114,7 @@ async function root(req, res) {
 
 function data(req, res) {
     let search = {}, sumTemp,
-        year = d.getFullYear()
+        year = DATE.getFullYear()
         
     if(req.body._id != null && (req.body._id).trim() != '') {
         search._id = (req.body._id).trim()

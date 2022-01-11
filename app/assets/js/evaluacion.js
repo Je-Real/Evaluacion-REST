@@ -9,11 +9,11 @@ window.addEventListener('load', async(e) => {
     await getCookie('USelected')
     .then((data) => {
         selectObjective(data)
-        log('[Survey] User selected!:'+data, style.info)
+        log('[Survey] User selected!:'+data, STYLE.info)
         setCookie('USelected', '')
     })
     .catch((error) => {
-        log('[Survey] User selected!:'+error, style.warning)
+        log('[Survey] User selected!:'+error, STYLE.warning)
     })
 
     $('input[type="radio"]').click(() => {
@@ -133,12 +133,16 @@ function selectObjective(hover) {
 
     $('#userObj').val($('.card.card-option.selected').attr('data-id'))
     $('.force-disabled').removeClass('force-disabled').addClass('force-enabled')
-    log('[Survey] User selected!:'+$('#userObj').val(), style.info)
+    log('[Survey] User selected!:'+$('#userObj').val(), STYLE.info)
 }
 
 function postSurvey() {
     if($('#userObj').val() == '')
-        return showSnack('Debes seleccionar a alguien para evaluar', 'warning')
+        return showSnack(
+            (lang == 0) ? 'Debes seleccionar a alguien para evaluar'
+                        : 'You must select someone to evaluate',
+            null, 'warning'
+        )
     
     let grades = {
         p_1: $('input[name="P-I"]:checked'),
@@ -156,7 +160,11 @@ function postSurvey() {
 
     for(let grade in grades) {
         if(grades[grade].val() == undefined)
-            return showSnack('¡Aun no se puede enviar!<br/>Debes completar la evaluacion', 'warning')
+            return showSnack(
+                (lang == 0) ? '¡Aun no se puede enviar!<br/>Debes completar la evaluación'
+                            : 'Cannot be sent yet!<br/>You must complete the evaluation.',
+                null, 'warning'
+            )
         grades[grade] = parseInt(grades[grade].val())
     }
 
@@ -167,22 +175,18 @@ function postSurvey() {
     
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:666/evaluacion',
+        url: 'http://localhost:999/evaluacion',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(packed),
         dataType: 'json',
         async: true,
         success:(result) => {
-            if(result.noti) showSnack(result.msg, result.resType)
+            if(result.noti) showSnack(result.msg, null, result.resType)
 
-            if(result.status === 200) {
-                setTimeout(() => {
-                    go("tabla/")
-                }, 1500)
-            }
+            if(result.status === 200) setTimeout(() => go("tabla/"), 1500)
         },
         error: (xhr, status, error) => { 
-            showSnack(`Status: ${status}. Error: ${error}`, 'error')
+            showSnack(`Status: ${status}. Error: ${error}`, null, 'error')
         }
     })
 }

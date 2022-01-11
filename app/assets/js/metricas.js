@@ -1,6 +1,6 @@
 let rec, showCharts, clone, idSelect = 0,
-	showRegs = 5, year = parseInt(d.getFullYear()) - (showRegs-1),
-	subSelected
+	showRegs = 5, year = parseInt(DATE.getFullYear()) - (showRegs-1),
+	subSelected, compareAll = false
 
 window.addEventListener('load', async(e) => {
 	$('.dep').addClass('d-none') //Hide department options
@@ -152,17 +152,27 @@ const addPanel = () => {
 	idSelect = parseInt(document.querySelector('.panel:last-of-type').getAttribute('data-id'))+1
 	let panelsDisplayed = parseInt(document.querySelectorAll('.panel').length)
 
-	if(panelsDisplayed <= 4) {
-		clone.setAttribute('data-id', String(idSelect))
-		document.getElementById('panelContainer').appendChild(clone)
-	
-		displayCharts(false)
-		mainToolTip()
-		buttonListeners()
-		clone = document.querySelector('.panel:last-of-type').cloneNode(true)
-		idSelect = -1
+	if(compareAll) {
+		showSnack(
+			(lang == 0) ? 'Comparar todas las areas' : 'Compare all areas',
+			null,
+			'info'
+		)
 	} else {
-		showSnack('El limite son 4 paneles', 'warning')
+		if(panelsDisplayed < 4 && !compareAll) {
+			clone.setAttribute('data-id', String(idSelect))
+			document.getElementById('panelContainer').appendChild(clone)
+		
+			displayCharts(false)
+			mainToolTip()
+			buttonListeners()
+			clone = document.querySelector('.panel:last-of-type').cloneNode(true)
+			idSelect = -1
+		} else
+			showSnack(
+				(lang == 0) ? 'El limite son 4 paneles' : 'The limit is 4 panels',
+				null, 'warning'
+			)
 	}
 }
 
@@ -180,7 +190,11 @@ const deletePanel = (e) => {
 	if(idDeletable != 0) {
 		document.querySelector(`.panel[data-id="${idDeletable}"]`).remove()
 	}
-	else showSnack('No puedes eliminar el panel principal 😡', 'error')
+	else showSnack(
+		(lang == 0) ? 'No puedes eliminar el panel principal 😡'
+					: 'You cannot delete the main panel 😡',
+		null, 'error'
+	)
 }
 
 function buttonListeners() {
@@ -211,7 +225,7 @@ function displayCharts(show) {
 				node.classList.toggle('d-block', true)
 		})
 
-		log(`[Report] Shown Panel ${idSelect}`, style.cian)
+		log(`[Report] Shown Panel ${idSelect}`, STYLE.cian)
 	} else {
 		Array.prototype.forEach.call(
 			document.querySelectorAll(`.panel[data-id="${idSelect}"] canvas, .panel[data-id="${idSelect}"] span:not(.lang)`),
@@ -226,7 +240,7 @@ function displayCharts(show) {
 				node.classList.toggle('d-block', true)
 		})
 
-		log(`[Report] Hidden Panel ${idSelect}`, style.pink)
+		log(`[Report] Hidden Panel ${idSelect}`, STYLE.pink)
 	}
 }
 
@@ -246,15 +260,18 @@ async function getData(auto) {
 
     await $.ajax({
         type: 'POST',
-        url: 'http://localhost:666/metricas',
+        url: 'http://localhost:999/metricas',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(packed),
         dataType: 'json',
         async: true,
         success: (result) => {
-            if(result.console) log(result.console, style.warning)
+            if(result.console) log(result.console, STYLE.warning)
 
-			if(result.noti) showSnack(result.msg, result.notiType)
+			if(result.noti) showSnack(
+				result.msg, 
+				null, result.notiType
+			)
 
 			if(result.status === 200) {
 				if (result.data.subordinates != null) {
@@ -293,12 +310,15 @@ async function getData(auto) {
 				} else displayCharts(false)
 			}
 			else {
-				if(result.log === true) return log('[Report] '+result.msg, style.error)
+				if(result.log === true) return log('[Report] '+result.msg, STYLE.error)
 			}
 			canvasId = undefined
         },
         error: (xhr, status, error) => {
-            showSnack('Status: '+status+'. '+error, 'error')
+            showSnack(
+				'Status: '+status+'. '+error, 
+				null, 'error'
+			)
 			canvasId = undefined
         }
     })

@@ -116,7 +116,7 @@ h1, h2, h3, h4, h5, h6 {
 	100% { opacity: 0.3; }
 }
 
-@keyframes fillUp {
+@keyframes fill-up {
 	0% { box-shadow: 0px 0 0 0 #00000000; }
 	100% { box-shadow: 0px 10rem 0 45vw #000000e3; }
 }
@@ -161,6 +161,22 @@ h1, h2, h3, h4, h5, h6 {
 	box-shadow: 0px 4px 30px -10px rgba(0,0,0,0.66);
 }
 
+.fade {
+	transition: all 0.2s;
+}
+
+.fade.fade-appear {
+	opacity: 1;
+	visibility: visible;
+	display: inherit;
+}
+
+.fade.fade-disappear {
+	opacity: 0;
+	visibility: hidden;
+	display: none;
+}
+
 .floating {
 	z-index: 1050;
 	text-align: -webkit-center;
@@ -189,7 +205,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .show.floating > .card.limit {
-	animation: fillUp 0.75s ease forwards;
+	animation: fill-up 0.75s ease forwards;
 }
 
 /* >>  W i d t h  << */

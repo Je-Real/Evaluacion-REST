@@ -1,10 +1,10 @@
 const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
 
-const d = new Date()
+const DATE = new Date()
 // >>>>>>>>>>>>>>>>>>>>>> Evaluacion static <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
-    let session, year = d.getFullYear(), search = {},
+    let session, year = DATE.getFullYear(), search = {},
         idGetter = [], arr1 = [], arr2 = [], userData = []
 
     /** Delete this 👇 and do a JOIN query */
@@ -121,7 +121,7 @@ async function post(req, res) {
 
     let score = 0,
         rec = req.body.records,
-        year = String(d.getFullYear())
+        year = String(DATE.getFullYear())
 
     let failure = (question) => {
         return res.end(JSON.stringify({

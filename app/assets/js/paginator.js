@@ -7,7 +7,7 @@ window.addEventListener('load', async(e) => {
 
     try {
         y = document.querySelector('#pag').getBoundingClientRect().y
-        document.querySelector('#pag').style['top'] = (y - 225) + 'px'
+        document.querySelector('#pag').STYLE['top'] = (y - 225) + 'px'
     } catch (error) {
         return console.error('[Paginator] No se encontro #pag')
     }

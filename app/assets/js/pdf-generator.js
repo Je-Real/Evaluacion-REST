@@ -66,7 +66,7 @@ try {
 					' - Next loop: '+(index+1 <= lienzosLength || index === 2 || index === 4)+
 					' - Divisible?: '+(index % 2 === 0)+
 					' - Margin: '+columnSwitch,
-					style.cian
+					STYLE.cian
 				)*/
 	
 				doc.setFontSize(12)
@@ -91,7 +91,7 @@ try {
 				// canvasImg = canvas.toDataURL()
 				// doc.addImage(canvasImg, 'PNG', w*0.5, spacing+h*0.15, 80, 70)
 			} else {
-				log(`[PDF-Generator] Skipping empty panel(s)`, style.warning)
+				log(`[PDF-Generator] Skipping empty panel(s)`, STYLE.warning)
 			}
 		})
         // ---- Body ---- //
@@ -99,6 +99,6 @@ try {
         await doc.save('reporte_'+firstName.replace(' ', '_')+'-'+dateLocal+'.pdf')
     })
 } catch (error) {
-    log('[PDF-Generator] An error occurred while assigning event to PDF Generator', style.error)
+    log('[PDF-Generator] An error occurred while assigning event to PDF Generator', STYLE.error)
     console.error(error)
 }
