@@ -4,35 +4,35 @@ window.addEventListener('load', async(e) => {
             active_VI = 0
 
         if($e('input[name="P-I"]:checked').value) {
-            $e('#P-I').removeClass('deactivated')
-            $e('#P-I').addClass('activated')
+            $e('#P-I').classList.remove('deactivated')
+            $e('#P-I').classList.add('activated')
         } else {
-            $e('#P-I').removeClass('activated')
-            $e('#P-I').addClass('deactivated')
+            $e('#P-I').classList.remove('activated')
+            $e('#P-I').classList.add('deactivated')
         }
 
         if($e('input[name="P-II"]:checked').value) {
-            $e('#P-II').removeClass('deactivated')
-            $e('#P-II').addClass('activated')
+            $e('#P-II').classList.remove('deactivated')
+            $e('#P-II').classList.add('activated')
         } else {
-            $e('#P-II').removeClass('activated')
-            $e('#P-II').addClass('deactivated')
+            $e('#P-II').classList.remove('activated')
+            $e('#P-II').classList.add('deactivated')
         }
         
         if($e('input[name="P-III"]:checked').value) {
-            $e('#P-III').removeClass('deactivated')
-            $e('#P-III').addClass('activated')
+            $e('#P-III').classList.remove('deactivated')
+            $e('#P-III').classList.add('activated')
         } else {
-            $e('#P-III').removeClass('activated')
-            $e('#P-III').addClass('deactivated')
+            $e('#P-III').classList.remove('activated')
+            $e('#P-III').classList.add('deactivated')
         }
         
         if($e('input[name="P-IV"]:checked').value) {
-            $e('#P-IV').removeClass('deactivated')
-            $e('#P-IV').addClass('activated')
+            $e('#P-IV').classList.remove('deactivated')
+            $e('#P-IV').classList.add('activated')
         } else {
-            $e('#P-IV').removeClass('activated')
-            $e('#P-IV').addClass('deactivated')
+            $e('#P-IV').classList.remove('activated')
+            $e('#P-IV').classList.add('deactivated')
         }
 
         if($e('input[name="P-V"]:checked').value) { active_V++ } 
@@ -45,11 +45,11 @@ window.addEventListener('load', async(e) => {
         else { active_V+-1 }
 
         if(active_V == 4) {
-            $e('#P-V').removeClass('deactivated')
-            $e('#P-V').addClass('activated')
+            $e('#P-V').classList.remove('deactivated')
+            $e('#P-V').classList.add('activated')
         } else {
-            $e('#P-V').removeClass('activated')
-            $e('#P-V').addClass('deactivated')
+            $e('#P-V').classList.remove('activated')
+            $e('#P-V').classList.add('deactivated')
         }
 
         if($e('input[name="P-IX"]:checked').value) { active_VI++ } 
@@ -58,19 +58,19 @@ window.addEventListener('load', async(e) => {
         else { active_VI+-1 }
 
         if(active_VI == 2) {
-            $e('#P-VI').removeClass('deactivated')
-            $e('#P-VI').addClass('activated')
+            $e('#P-VI').classList.remove('deactivated')
+            $e('#P-VI').classList.add('activated')
         } else {
-            $e('#P-VI').removeClass('activated')
-            $e('#P-VI').addClass('deactivated')
+            $e('#P-VI').classList.remove('activated')
+            $e('#P-VI').classList.add('deactivated')
         }
 
         if($e('input[name="P-XI"]:checked').value) {
-            $e('#P-VII').removeClass('deactivated')
-            $e('#P-VII').addClass('activated')
+            $e('#P-VII').classList.remove('deactivated')
+            $e('#P-VII').classList.add('activated')
         } else {
-            $e('#P-VII').removeClass('activated')
-            $e('#P-VII').addClass('deactivated')
+            $e('#P-VII').classList.remove('activated')
+            $e('#P-VII').classList.add('deactivated')
         }
     }
 
@@ -164,7 +164,7 @@ function selectObjective(hover) {
     else 
         $e(`div#${hover}`).classList.add('selected')
 
-    $e('#userObj').value = $e('.card.card-option.selected').attr('data-id')
+    $e('#userObj').value = $e('.card.card-option.selected').getAttribute('data-id')
     $a('.force-disabled').forEach(node => {
         node.classList.replace('force-disabled', 'force-enabled')
     })

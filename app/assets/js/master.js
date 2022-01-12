@@ -58,20 +58,30 @@ const changeLang = () => {
 }
 
 async function AJAJ(url, method, data, onSuccess, onError) {
+    let REQ_PARAMS
     method = method.toUpperCase()
     
-    const REQ_PARAMS = (method === 'POST')
-        ? {
-            method: method,
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
-        }
-        : undefined
+    if(method === 'POST') {
+        if(typeof data == 'object') {
+            REQ_PARAMS = {
+                method: method,
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            }
 
-    return await fetch(url, REQ_PARAMS)
-    .then(res => res.json())
-    .then(data => onSuccess(data))
-    .catch(error => onError(error))
+            return await fetch(url, REQ_PARAMS)
+                .then(res => res.json())
+                .then(data => onSuccess(data))
+                .catch(error => onError(error, data))
+        } else
+            throw 'Error: Data sent is not an Object type'
+    } else if (method === 'GET') {
+        return await fetch(url)
+            .then(res => res.json())
+            .then(data => onSuccess(data))
+            .catch(error => onError(error, data))
+    } else
+        throw 'Error: Methods supported are "GET" and "POST"'
 }
 
 async function eventAssigner(selector, eventClass, funcEvent ) {

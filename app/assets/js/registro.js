@@ -5,91 +5,120 @@ let firstName, lastName,
     aa = null, dd = 0, cc = 0,
     lvl_s = 0
 
+let careerSelect, careerOptDef, careerOptions,
+    departmentSelect, departmentOptDef, departmentOptions,
+    areaSelect,
+    contractSelect
+
 window.addEventListener('load', async(e) => {
-    $('.dep').addClass('d-none') //Hide department options
-	$e('#department').prop('disabled', true) //Disable dropdown for department
+    departmentOptions.forEach(node => node.classList.add('d-none')) //Hide department options
+	departmentSelect.disabled = true //Disable dropdown for department
 
-    $('.car').addClass('d-none') //Hide department options
-	$e('#career').prop('disabled', true) //Disable dropdown for careers
+    careerOptions.forEach(node => node.classList.add('d-none')) //Hide department options
+	careerSelect.disabled = true //Disable dropdown for careers
 
-    $e('#contract').prop('disabled', true) //Disable dropdown for contracts
-    $e('#lvl').prop('disabled', true) //Disable dropdown for levels
+    contractSelect.disabled = true //Disable dropdown for contracts
+    $e('#lvl').disabled = true //Disable dropdown for levels
 
     eventAssigner('#submit', 'click', register).catch((error) => {return console.error(error)})
+
+    areaSelect = $e('#area')
+    
+    departmentSelect = $e('#department')
+    departmentOptDef = $e('#dep-s')
+    departmentOptions = $a('.dep')
+    
+    careerSelect = $e('#career')
+    careerOptDef = $e('#car-s')
+    careerOptions = $a('.car')
+
+    contractSelect = $e('#contract')
 
     levels(0, 0)
 })
 
-$e('#area').change(() => {
-    $e('#dep-s').addClass('d-none') //Hide default option
-	$('.dep').addClass('d-none') ////Hide again all department options
+areaSelect.onchange(() => {
+    departmentOptDef.classList.add('d-none') //Hide default option
+	departmentOptions.forEach(node => node.classList.add('d-none')) ////Hide again all department options
 
 	//And show all departments the ones that match with the area selected
-	let affected = $(`.dep[data-area='${parseInt($e('#area').value)}']`).removeClass('d-none')
+	let affected = $a(`.dep[data-area='${parseInt(areaSelect[areaSelect.selectedIndex].value)}']`)
 
 	if(affected.length == 0) {
 		//If in the area does not exist any departments
-		$e('#dep-s').text('N/A').removeClass('d-none').prop('selected', true)
-		$e('#department').prop('disabled', true)
+		departmentOptDef.innerHTML = 'N/A'
+		departmentOptDef.classList.remove('d-none')
+		departmentOptDef.selected = true
+		departmentSelect.disabled = true
         levels(0, 0)
 	} else {
         //Else 🟢
-		$e('#dep-s').text('-Selecciona carrera-').removeClass('d-none').prop('selected', true)
-		$e('#department').prop('disabled', false)
+		departmentOptDef.innerHTML = (lang == 0) ? '-Selecciona carrera-' : '-Select career-'
+		departmentOptDef.classList.remove('d-none')
+		departmentOptDef.selected = true
+		departmentSelect.disabled = false
+
+        affected.forEach(node => node.classList.remove('d-none'))
 	}
 
-    if(parseInt($e('#area').value) != 0) {
-        $e('#contract').prop('disabled', false)
-        $e('#ct-s').text('-Selecciona carrera-')
+    if(parseInt(areaSelect[areaSelect.selectedIndex].value) != 0) {
+        contractSelect.disabled = false
+        $e('#ct-s').innerHTML = (lang == 0) ? '-Selecciona carrera-' : '-Select career-'
     }
     else {
-        $e('#contract').prop('disabled', true)
-        $e('#ct-s').text('N/A')
+        contractSelect.disabled = true
+        $e('#ct-s').innerHTML = 'N/A'
     }
-    levels(1, $e('#area').value)
+    levels(1, areaSelect[areaSelect.selectedIndex].value)
 })
 
-$e('#department').change(() => {
-	$e('#car-s').addClass('d-none') //Hide default option
-	$('.car').addClass('d-none') ////Hide again all department options
+departmentSelect.onchange(() => {
+    let careerOptDef = $e('#car-s'),
+        careerSelect = careerSelect
+    careerOptDef.classList.add('d-none') //Hide default option
+	careerOptions.forEach(node => node.classList.add('d-none')) ////Hide again all department options
 
 	//And show all departments the ones that match with the area selected
-	let affected = $(`.car[data-depa='${parseInt($e('#department').value)}']`).removeClass('d-none')
+	let affected = $a(`.car[data-depa='${parseInt(departmentSelect[departmentSelect.selectedIndex].value)}']`)
 
 	if(affected.length == 0) {
 		//If in the area does not exist any departments
-		$e('#car-s').text('N/A').removeClass('d-none').prop('selected', true)
-		$e('#career').prop('disabled', true)
+		careerOptDef.innerHTML = 'N/A'
+		careerOptDef.classList.remove('d-none')
+		careerOptDef.selected = true
+		careerSelect.disabled = true
 	} else {
 		//Else 🟢
-		$e('#car-s').text('-Selecciona departamento-').removeClass('d-none').prop('selected', true)
-		$e('#career').prop('disabled', false)
+		careerOptDef.innerHTML = '-Selecciona departamento-'
+		careerOptDef.classList.remove('d-none')
+		careerOptDef.selected = true
+		careerSelect.disabled = false
+        affected.forEach(node => node.classList.remove('d-none'))
 	}
-    levels(2, $e('#department').value)
+    levels(2, departmentSelect[departmentSelect.selectedIndex].value)
 })
 
-$e('#career').change(() => {
-    levels(3, $e('#career').value)
+careerSelect.change(() => {
+    levels(3, careerSelect[careerSelect.selectedIndex].value)
 })
 
-$e('#area, #department, #career').change(() => {
-    if(aa === null) {
-        aa = $e('#area').value
-        dd = $e('#department').value
-        cc = $e('#career').value
-        return
-    }
-    if(aa != $e('#area').value || dd != $e('#department').value || cc != $e('#career').value) {
-        aa = $e('#area').value
-        dd = $e('#department').value
-        cc = $e('#career').value
-
-        getManager(false)
-    }
+$a('#area, #department, #career').forEach(node => {
+    node.onchange(() => {
+        if(aa != null)
+            if(aa != areaSelect[areaSelect.selectedIndex].value
+                || dd != departmentSelect[departmentSelect.selectedIndex].value
+                || cc != careerSelect[careerSelect.selectedIndex].value
+            ) {
+                aa = areaSelect[areaSelect.selectedIndex].value
+                dd = departmentSelect[departmentSelect.selectedIndex].value
+                cc = careerSelect[careerSelect.selectedIndex].value
+                getManager(false)
+            }
+    })
 })
 
-$e('#lvl').change(() => {
-    getManager($e('#lvl').value)
+$e('#lvl').onchange(() => {
+    getManager($e('#lvl')[$e('#lvl').selectedIndex].value)
 })
 
 function levels(lvlShown, val) {
@@ -102,19 +131,27 @@ function levels(lvlShown, val) {
                     ? parseInt(lvlShown) : lvl_s))) //Then set the new value if it's true or else it won't change
 
     if(lvl_temp != lvl_s) {
-        $e('#lvl').prop('disabled', false)
-        $('.lvl-s').addClass('d-none')
-        $e('#lvl-s').text('-Selecciona nivel-').prop('selected', true)
+        $e('#lvl').disabled = false
+        $a('.lvl-s').forEach(node => node.classList.add('d-none'))
+        $e('#lvl-s').innerHTML = (lang == 0) ? '-Selecciona nivel-' : '-Select level-'
+        $e('#lvl-s').selected = true
 
         if(lvl_s === 1) {
-            $('.lvl-s.lvl-1').removeClass('d-none')
+            $a('.lvl-s.lvl-1').forEach(node => {
+                node.classList.remove('d-none')
+            })
         } else if(lvl_s === 2) {
-            $('.lvl-s.lvl-2').removeClass('d-none')
+            $a('.lvl-s.lvl-2').forEach(node => {
+                node.classList.remove('d-none')
+            })
         } else if(lvl_s === 3) {
-            $('.lvl-s.lvl-3').removeClass('d-none')
+            $a('.lvl-s.lvl-3').forEach(node => {
+                node.classList.remove('d-none')
+            })
         } else {
-            $e('#lvl').prop('disabled', true)
-            $e('#lvl-s').text('N/A').prop('selected', true)
+            $e('#lvl').disabled = true
+            $e('#lvl-s').innerHTML = 'N/A'
+            $e('#lvl-s').selected = true
         }
     }
 }
@@ -122,8 +159,9 @@ function levels(lvlShown, val) {
 function addressGetter() {
     firstName = String($e('#first_name').value).trim()
     lastName = String($e('#last_name').value).trim()
-    area = $e('#area').value
-    career = $e('#career').value
+    area = areaSelect[areaSelect.selectedIndex].value
+    department = departmentSelect[departmentSelect.selectedIndex].value
+    career = careerSelect[careerSelect.selectedIndex].value
     state = String($e('#state').value).trim()
     municipality = String($e('#municipality').value).trim()
     street = String($e('#street').value).trim()
@@ -135,7 +173,7 @@ function addressGetter() {
     
     if( firstName.length && lastName.length && area.length && career.length && state.length &&
         municipality.length && street.length && number.length && postal_code.length) {
-            $e('#submit').prop('disabled', false)
+            $e('#submit').disabled = false
     }
 }
 
@@ -143,86 +181,75 @@ const register = async() => {
     let packed = JSON.stringify({ 
         _id: $e('#_id_r').value, 
         pass: $e('#pass_r').value,
-        first_name: $e('#first_name').value,
-        last_name: $e('#last_name').value,
-        area: $e('#area').value,
-        department: $e('#department').value,
-        career: $e('#career').value,
-        contract: $e('#contract').value,
-        street: $e('#street').value,
-        num: $e('#num').value,
-        postal_code: $e('#postal_code').value,
+        first_name: String($e('#first_name').value).trim(),
+        last_name: String($e('#last_name').value).trim(),
+        area: areaSelect[areaSelect.selectedIndex].value,
+        department: departmentSelect[departmentSelect.selectedIndex].value,
+        career: careerSelect[careerSelect.selectedIndex].value,
+        contract: contractSelect[contractSelect.selectedIndex].value,
+        street:String($e('#street').value).trim(),
+        num: String($e('#num').value).trim(),
+        postal_code: String($e('#postal_code').value).trim(),
         b_day: $e('#b_day').value
     })
 
-    await $.ajax({
-        type: 'POST',
-        url: 'http://localhost:999/sesion/nuevo-usuario',
-        contentType: 'application/json; charset=utf-8',
-        data: packed,
-        dataType: 'json',
-        async: true,
-        success: (result) => {
-            showSnack(
-                result.msg,
-                null, SNACK.success
-            )
-
-            if(result.status === 200) {
-                document.getElementById("f-reg").reset()
-            }
+    await AJAJ(
+        'http://localhost:999/sesion/nuevo-usuario',
+        'POST',
+        packed,
+        (result) => {
+            showSnack(result.msg, null, SNACK.success)
+            if(result.status === 200) $e('#f-reg').reset()
         },
-        error: (xhr, status, error) => {
-            showSnack(
-                'Status: '+status+'. '+error,
-                null, SNACK.error
-            )
+        (error) => {
+            showSnack('Error '+error, null, SNACK.error)
+            console.error(error)
         }
-    })
+    )
 }
 
 function getManager(lvl_sel) {
-    $('.mgr-s').remove()
+    $a('.mgr-s').forEach(node => node.remove())
     if(lvl_sel === false) {
-        $("#manager").prop('disabled', true)
-        $e('#mgr-s').removeClass('d-none').prop('selected', true)
-        $e('#lvl-s').prop('selected', true)
+        $e('#manager').disabled = true
+        $e('#mgr-s').className.remove('d-none')
+        $e('#mgr-s').selected = true
+        $e('#lvl-s').selected = true
         return
     }
 
     let packed = {
-        area: parseInt($e('#area').value),
-        department: parseInt($e('#department').value),
-        career: parseInt($e('#career').value),
+        area: areaSelect[areaSelect.selectedIndex].value,
+        department: departmentSelect[departmentSelect.selectedIndex].value,
+        career: careerSelect[careerSelect.selectedIndex].value,
         level: parseInt(lvl_sel)
     }
 
-    $.ajax({
-        type: 'GET',
-        url: 'http://localhost:999/registro/manager',
-        contentType: 'application/json; charset=utf-8',
-        data: packed,
-        dataType: 'json',
-        async: true,
-        success: (result) => {
+    AJAJ(
+        'http://localhost:999/registro/manager',
+        'GET',
+        packed,
+        (result) => {
             if(result.status === 200) {
                 if(result.data.length > 0) {
 
                     for(info in result.data) {
-                        $("#manager").append(
-                            `<option class="mgr-s mgr-${info}" value="${info+1}">
-                            ${(result.data[info].first_name).split(" ")[0]} 
+                        $e('#manager').insertAdjacentHTML('beforeend',
+                            `<option class='mgr-s mgr-${info}' value='${info+1}'>
+                            ${(result.data[info].first_name).split(' ')[0]} 
                             ${(result.data[info].last_name)}
                             </option>`
                         )
                     }
-                    $e('#mgr-s').addClass('d-none')
-                    $('.mgr-s.mgr-0').prop('selected', true)
+                    $e('#mgr-s').classList.add('d-none')
+                    $a('.mgr-s.mgr-0').forEach(node => node.selected = true)
     
-                    $("#manager").prop('disabled', false)
+                    $e('#manager').disabled = false
                 } else {
-                    $("#manager").prop('disabled', true)
-                    $e('#mgr-s').text('N/A').removeClass('d-none').prop('selected', true)
+                    $e('#manager').disabled = true
+                    $e('#mgr-s').innerHTML = 'N/A'
+                    $e('#mgr-s').classList.remove('d-none')
+                    $e('#mgr-s').selected = true
                     showSnack(
                         (lang == 0) ? 'No se encontró manager. <br/>Error del servidor.'
                                     : 'No manager found. <br/> Server error.',
@@ -231,11 +258,12 @@ function getManager(lvl_sel) {
                 }
             }
         },
-        error: (xhr, status, error) => {
+        (error, result) => {
             showSnack(
-                'Status: '+status+'. '+error,
+                'Status: '+result+'. '+error,
                 null, SNACK.error
             )
+            console.error(error)
         }
-    })
+    )
 }
