@@ -4,9 +4,15 @@ const modelUserInfo = require('../models/modelUserInfo')
 async function root(req, res) {
     let session, records = false
     
-    if(!req.session.user && !req.session.lvl) // No session 😡
+    if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
-    else { // Session 🤑
+        //Inicio route
+        
+        return res.status(200).render('inicio', {
+            title_page: 'UTNA - Inicio',
+            session: session
+        })
+    } else { // Session 🤑
         session = req.session
 
         await modelUserInfo.aggregate([

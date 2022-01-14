@@ -1,23 +1,23 @@
 let arr_rows
 
-window.addEventListener('load', async(e) => {
+window.addEventListener('load', (e) => {
     let y, arr_rows, rows_shown = ''
 
     $a('.paginator').forEach(node => {
-        node.insertAdjacentHTML('beforebegin', `<div id="pag"></div>`)
+        node.insertAdjacentHTML('beforebegin', '<div id="pag"></div>')
     })
 
     try {
-        y = document.querySelector('#pag').getBoundingClientRect().y
-        document.querySelector('#pag').STYLE['top'] = (y - 225) + 'px'
+        y = $e('#pag').getBoundingClientRect().y
+        $e('#pag').style.top = (y - 225) + 'px'
     } catch (error) {
-        return console.error('[Paginator] No se encontro #pag')
+        return console.error(error)
     }
 
     try {
-        arr_rows = document.querySelector('.paginator').getAttribute('data-rows-shown').split(',')
-    } catch {
-        return console.error('No data-rows-shown listed in .paginator!')
+        arr_rows = $e('.paginator').getAttribute('data-rows-shown').split(',')
+    } catch (error) {
+        return console.error(error)
     }
 
     for(let i in arr_rows) {
@@ -27,10 +27,7 @@ window.addEventListener('load', async(e) => {
 
     $a('.paginator').forEach(node => {
         node.insertAdjacentHTML('afterend', `<div class="pag-cont d-flex justify-content-md-between px-md-4">
-            <div id="pag-ctrl" class="pagination my-auto">
-                <a  rel="prev">&laquo;</a>
-                <a  rel="next">&raquo;</a>
-            </div>
+            <div id="pag-ctrl" class="pagination my-auto"></div>
 
             <div class="d-flex">
                 <div class="text-md-center me-3 d-flex">
@@ -66,12 +63,11 @@ function paginator() {
         numPages = rowsTotal/rows
     
     for(i=0; i<numPages; i++) {
-        $e('#pag-ctrl a[rel="next"]').insertAdjacentElement(
-            'beforebegin', `<a class="row-temp" href="#pag" rel="${i}">${(i+1)}</a>`
+        $e('#pag-ctrl').insertAdjacentHTML(
+            'beforeend', `<a class="row-temp" href="#pag" rel="${i}">${(i+1)}</a>`
         )
     }
 
-    $e('#pag-ctrl a[rel="prev"]').classList.add('blocked')
     $e('#pag-ctrl a[rel="0"]').classList.add('active')
     $e('#reg-total').innerHTML = rowsTotal
     
@@ -119,15 +115,15 @@ function paginator() {
     }
     eventAssigner('#pag-ctrl a', 'onclick', )
 
-    $a('.paginator .pag-item').forEach(node => {
-        node.style.visibility = 0
-        node.style.display = 'none'
+    /*$a('.paginator .pag-item').forEach(node => {
+        node.style.opacity = 1
+        node.style.display = 'table'
     })
     Array.prototype.slice.call( // Split the selected items in the table (from, to)
         $a('.paginator div.pag-item'),
         0, rows
     ).forEach(node => { // Then apply them all the styles for hide 
         node.style.opacity = 1
-        node.style.display = ''
-    })
+        node.style.display = 'table'
+    })*/
 }

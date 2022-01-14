@@ -15,6 +15,6 @@ const evaluateUser = (e) => {
 }
 
 window.addEventListener('load', async(e) => {	
-	eventAssigner('.evaluate', 'click', evaluateUser).catch((error) => {return console.error(error)})
+	eventAssigner('.evaluate', 'click', evaluateUser).catch((error) => console.error(error))
 })
 

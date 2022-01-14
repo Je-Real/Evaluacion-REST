@@ -6,10 +6,10 @@ try {
         const w = 210 // Total width in sheet
         const h = 297 // Total height in sheet
         let dateLocal = new Date().toLocaleDateString('es'),
-            firstName = document.getElementById('input_first_name').value,
-            lastName = document.getElementById('input_last_name').value,
-			lienzos = document.querySelectorAll('.lienzos'), 
-			lienzosLength = document.querySelectorAll('.lienzos .ghost-container:not(.d-block)').length,
+            firstName = $e('#input_first_name').value,
+            lastName = $e('#input_last_name').value,
+			lienzos = $a('.lienzos'), 
+			lienzosLength = $a('.lienzos .ghost-container:not(.d-block)').length,
             spacing = 0, bodyMS = w*0.105, bodyMT = h*0.16,
             img = new Image(), index = 0,
 			columnSwitch, canvasImg, canvasGetter

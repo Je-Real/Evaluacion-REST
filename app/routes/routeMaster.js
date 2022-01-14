@@ -6,18 +6,18 @@ const controllerLayoutStatic = require('../controllers/controllerEvaluacion')
 const controllerTabla = require('../controllers/controllerTabla')
 const controllerMetricas = require('../controllers/controllerMetricas')
 
-const controller404 = require('../controllers/error/controller404')
-const controller401 = require('../controllers/error/controller401')
-const controller500 = require('../controllers/error/controller500')
-
 const controllerLogin = require('../controllers/session/controllerLogin')
 const controllerResetPsw = require('../controllers/session/controllerResetPsw')
 const controllerRegister = require('../controllers/session/controllerRegister')
 
 const controllerUserGenerator = require('../controllers/secret/controllerUserGenerator')
 
+const controller404 = require('../controllers/error/controller404')
+const controller401 = require('../controllers/error/controller401')
+const controller500 = require('../controllers/error/controller500')
+
 // Index
-router.get('/inicio', controllerIndex.root)
+router.get('/inicio', controllerTabla.root)
       .get('/inicio/test', controllerIndex.test)
 
 // Reports
@@ -27,9 +27,6 @@ router.get('/metricas', controllerMetricas.root)
 // Survey
 router.get('/evaluacion', controllerLayoutStatic.root)
       .post('/evaluacion', controllerLayoutStatic.post)
-
-// Control panel
-router.get('/tabla', controllerTabla.root)
 
 // Register
 router.get('/registro', controllerRegister.root)
