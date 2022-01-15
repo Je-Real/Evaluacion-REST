@@ -1,4 +1,5 @@
 const modelUserInfo = require('../models/modelUserInfo')
+const DATE = new Date()
 
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
@@ -42,27 +43,18 @@ async function root(req, res) {
             }
         ])
         .then(async(dataInfo) => {
-            const date = new Date()
-            let year = String(date.getFullYear()),
-                prom,
-                personas
+            let year = String(DATE.getFullYear())
             records = dataInfo
-
-            for(let i in records) {                
-                try {
-                    if(records[i]['records'][year] != undefined) {
+            
+            for(let i in records) {
+                if('records' in records[i])
+                    if(year in records[i]['records'])
                         records[i]['records'] = 1
-
-                        personas++
-                        prom += records[i]['records'][year]
-                    }
-                } catch {
-                    records[i]['records'] = 0        
-                }
+                    else
+                        records[i]['records'] = 0
+                else 
+                    records[i]['records'] = 0
             }
-            let result = prom/personas
-
-            // ---------------- console.log('Result '+result); 
         })
         .catch((error) => {
             console.error(error)
@@ -72,7 +64,7 @@ async function root(req, res) {
 
     //Control route
     return res.status(200).render('tabla', {
-        title_page: 'UTNA - Tabla Reporte',
+        title_page: 'UTNA - Inicio',
         session: session,
         records: records
     })
