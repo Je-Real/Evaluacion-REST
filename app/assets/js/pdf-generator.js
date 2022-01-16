@@ -115,37 +115,79 @@ window.addEventListener('load', async(e) => {
 	if($e('#btn-personnel-eval-format') != undefined) {
 		let yAnchor
 
+		const rowWidth = _h*(0.9595 - 0.0405) // Row relative total width 272.943
+		const _rW = (percentage) => ((percentage * rowWidth) / 100) + _h*0.0405
+
 		$e('#btn-personnel-eval-format').addEventListener('click', async(e) => {
 			try {
-				// --- Table Structure [Page 1] --- //
+			// --- Table Structure [Page 1] --- //
 				docH.setLineWidth(0.35) // Line width
 				docH.setDrawColor(0, 0, 0) // Color
 
-				yAnchor = _w*0.0975
-
 				// ------------ Header ------------ //
-				docH.line(_h*0.0405, yAnchor, _h*0.9595, yAnchor) // Top line
-				docH.line(_h*0.0405, yAnchor, _h*0.0405, yAnchor + _w*0.093) // Left line
-				docH.line(_h*0.9595, yAnchor, _h*0.9595, yAnchor + _w*0.093) // Right line
-				docH.line(_h*0.0405, yAnchor + _w*0.093, _h*0.9595, yAnchor + _w*0.093) // Bottom line
+				yAnchor = _w*0.0975 // 20.475 mm
+				docH.line(_rW(0), yAnchor, _rW(100), yAnchor) // Top line
+				docH.line(_rW(0), yAnchor, _rW(0), yAnchor + _w*0.093) // Left line
+				docH.line(_rW(100), yAnchor, _rW(100), yAnchor + _w*0.093) // Right line
+				docH.line(_rW(0), yAnchor + _w*0.093, _rW(100), yAnchor + _w*0.093) // Bottom line
 				
-				docH.line(_h*0.0405 + 50, yAnchor, _h*0.0405 + 50, yAnchor + _w*0.093) // col 1
-				docH.line(_h*0.9595 - 50, yAnchor, _h*0.9595 - 50, yAnchor + _w*0.093) // col 3
+				docH.line(_rW(0) + 50, yAnchor, _rW(0) + 50, yAnchor + _w*0.093) // 1st - 2nd col
+				docH.line(_rW(100) - 50, yAnchor, _rW(100) - 50, yAnchor + _w*0.093) // 2nd - 3rd col
+				
+				await docH.addImage(img, 'PNG', _rW(0) + 5, yAnchor + 1.5, 41, 16.5) // Set logo
+				docH.setFontSize(12)
+				docH.text(100.925, 27.24, 'Universidad Tecnológica del Norte de Aguascalientes')
 
-				docH.line(_h*0.9595 - 50, yAnchor + _w*0.02325, _h*0.9595, yAnchor + _w*0.02325) // 1/4 row
-				docH.line(_h*0.0405 + 50, yAnchor + _w*0.0465, _h*0.9595, yAnchor + _w*0.0465) // 1/2 row
-				docH.line(_h*0.9595 - 50, yAnchor + _w*(0.0465 + 0.02325), _h*0.9595, yAnchor + _w*(0.0465 + 0.02325)) // 3/4 row
+				docH.line(_rW(100) - 50, yAnchor + _w*0.02325, _rW(100), yAnchor + _w*0.02325) // 1/4 rows
+				docH.line(_rW(0) + 50, yAnchor + _w*0.0465, _rW(100), yAnchor + _w*0.0465) // 2/4 rows
+				docH.line(_rW(100) - 50, yAnchor + _w*(0.0465 + 0.02325), _rW(100), yAnchor + _w*(0.0465 + 0.02325)) // 3/4 rows
 
-				yAnchor += _w*0.093 + _w*0.025
+
 
 				// ------------- Body ------------ //
-				docH.line(_h*0.0405, yAnchor, _h*0.0405, _w*0.845) // Left line
-				docH.line(_h*0.0405, yAnchor, _h*0.9595, yAnchor) // Top line
-				docH.line(_h*0.9595, yAnchor, _h*0.9595, _w*0.845) // Right line
-				docH.line(_h*0.0405, _w*0.845, _h*0.9595, _w*0.845) // Bottom line
-	
-				//await docH.addImage( img, 'PNG', w*0.4, h*0.0325, 40, 20) // Set logo
+				yAnchor += _w*0.093 + _w*0.025 // 45.255 mm
+				docH.line(_rW(0), yAnchor, _rW(0), _w*0.845) // Left line
+				docH.line(_rW(0), yAnchor, _rW(100), yAnchor) // Top line
+				docH.line(_rW(100), yAnchor, _rW(100), _w*0.845) // Right line
+				docH.line(_rW(0), _w*0.845, _rW(100), _w*0.845) // Bottom line
 				
+				docH.line(_rW(0), yAnchor += 9, _rW(100), yAnchor) // 1st row
+				docH.line(_rW(37.5), yAnchor, _rW(37.5), yAnchor - 9) // 1st - 2nd col
+				docH.line(_rW(59.5), yAnchor, _rW(59.5), yAnchor - 9) // 2nd - 3rd col
+				docH.line(_rW(100) - 50, yAnchor, _rW(100) - 50, yAnchor - 9) // 3rd - 4th col
+				
+				docH.line(_rW(0), yAnchor += 9, _rW(100), yAnchor) // 2nd row
+				docH.line(_rW(37.5), yAnchor, _rW(37.5), yAnchor - 9) // 1st - 2nd col
+				docH.line(_rW(59.5), yAnchor, _rW(59.5), yAnchor - 9) // 2nd - 3rd col
+				
+				docH.line(_rW(0), yAnchor += 11, _rW(100), yAnchor) // 3rd row
+				
+				docH.line(_rW(0), yAnchor += 11, _rW(100), yAnchor) // 3rd row
+				
+				docH.line(_rW(0), yAnchor += 4, _rW(100), yAnchor) // 4th row
+				docH.line(_rW(45), yAnchor - 4, _rW(45), _w*0.845) // Validation factors & Standards / category for performance evaluation col
+				docH.line(_rW(90), yAnchor - 4, _rW(90), _w*0.845) // Results col
+				
+				docH.line(_rW(20), yAnchor, _rW(20), _w*0.845) // 1st - 2nd col
+				docH.line(_rW(56.25), yAnchor, _rW(56.25), _w*0.845) // 2nd - 3rd col
+				docH.line(_rW(67.5), yAnchor, _rW(67.5), _w*0.845) // 3rd - 4th col
+				docH.line(_rW(78.75), yAnchor, _rW(78.75), _w*0.845) // 4th - 5th col
+
+				docH.line(_rW(0), yAnchor += 22, _rW(100), yAnchor) // 5th row
+				docH.line(_rW(45), yAnchor - 17, _rW(90), yAnchor - 17) // 5th row - top
+				docH.line(_rW(45), yAnchor - 5, _rW(90), yAnchor - 5) // 5th row - bottom
+				
+				docH.line(_rW(0), yAnchor += 22, _rW(100), yAnchor) // 6th row
+				docH.line(_rW(45), yAnchor - 17, _rW(90), yAnchor - 17) // 5th row - top
+				docH.line(_rW(45), yAnchor - 5, _rW(90), yAnchor - 5) // 5th row - bottom
+				
+				docH.line(_rW(0), yAnchor += 22, _rW(100), yAnchor) // 7th row
+				docH.line(_rW(45), yAnchor - 17, _rW(90), yAnchor - 17) // 5th row - top
+				docH.line(_rW(45), yAnchor - 5, _rW(90), yAnchor - 5) // 5th row - bottom
+				yAnchor += 22
+				docH.line(_rW(45), yAnchor - 17, _rW(90), yAnchor - 17) // 5th row - top
+				docH.line(_rW(45), yAnchor - 5, _rW(90), yAnchor - 5) // 5th row - bottom
+
 				// ---- Body ---- //
 	
 				await docH.save('formato_evaluacion_'+'GET_NAME'.replace(' ', '_')+'-'+dateLocal+'.pdf')
