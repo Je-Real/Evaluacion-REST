@@ -50,8 +50,8 @@
                                             <select class="form-select" name="area" id="area"
                                                 aria-label="Selección" >
                                                 <option id="are-s" value="0" selected>-Selecciona área-</option>
-                                                <% for(let DATE in area) { %>
-                                                    <option class="are" value="<%= area[d]['n'] %>"><%= area[d]['desc'] %></option>
+                                                <% for(let data in area) { %>
+                                                    <option class="are" value="<%= area[data]['n'] %>"><%= area[data]['desc'] %></option>
                                                 <% } %>
                                             </select>
                                             <label for="area">Área</label>
@@ -62,8 +62,8 @@
                                             <select class="form-select" name="department" id="department"
                                                 aria-label="Selección">
                                                 <option id="dep-s" class="dep" value="0" selected>N/A</option>
-                                                <% for(let DATE in depa) { %>
-                                                    <option class="dep" data-area="<%= depa[d]['area'] %>" value="<%= depa[d]['n'] %>"><%= depa[d]['desc'] %></option>
+                                                <% for(let data in depa) { %>
+                                                    <option class="dep" data-area="<%= depa[data]['area'] %>" value="<%= depa[data]['n'] %>"><%= depa[data]['desc'] %></option>
                                                 <% } %>
                                             </select>
                                             <label for="department">Departamento</label>
@@ -76,8 +76,8 @@
                                             <select class="form-select" name="career" id="career"
                                                 aria-label="Selección" >
                                                 <option id="car-s" class="car" value="0" selected>N/A</option>
-                                                <% for(let DATE in care) { %>
-                                                    <option class="car" data-depa="<%= care[d]['department'] %>" value="<%= care[d]['n'] %>"><%= care[d]['desc'] %></option>
+                                                <% for(let data in care) { %>
+                                                    <option class="car" data-depa="<%= care[data]['department'] %>" value="<%= care[data]['n'] %>"><%= care[data]['desc'] %></option>
                                                 <% } %>
                                             </select>
                                             <label for="career">Carrera</label>
@@ -88,8 +88,8 @@
                                             <select class="form-select" name="contract" id="contract"
                                                 aria-label="Selección" >
                                                 <option id="ct-s" selected>N/A</option>
-                                                <% for(let DATE in contracts) { %>
-                                                    <option class="ct-s" value="<%= contracts[d]['n'] %>"><%= contracts[d]['desc'] %></option>
+                                                <% for(let data in contracts) { %>
+                                                    <option class="ct-s" value="<%= contracts[data]['n'] %>"><%= contracts[data]['desc'] %></option>
                                                 <% } %>
                                             </select>
                                             <label for="contract">Contrato</label>

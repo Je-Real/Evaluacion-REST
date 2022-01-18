@@ -1,9 +1,4 @@
 //Import express & routes
-
-/* 
- * npm i express body-parser ejs mongoose morgan crypto-js express-session bower
- */
-
 const session = require("express-session")
 const express = require('express')
 const path = require('path')
@@ -21,7 +16,6 @@ app.use(express.json())
 
 //Use the folder assets for access to /css, /js, /img, etc.
 app.use(express.static(path.join(__dirname, 'assets')))
-app.use(express.static(path.join(__dirname, '../bower_components')))
 
 //Use sessions for users
 app.use(session({

@@ -18,6 +18,7 @@ const controller500 = require('../controllers/error/controller500')
 
 // Index
 router.get('/inicio', controllerTabla.root)
+      .get('/inicio/evaluation-pdf', controllerTabla.pdfEvalFormat)
       .get('/inicio/test', controllerIndex.test)
 
 // Reports

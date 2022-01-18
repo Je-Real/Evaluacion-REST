@@ -1,13 +1,16 @@
 const { jsPDF } = window.jspdf
 
-const docV = new jsPDF() // Vertical, unit millimeter, a4
-const docH = new jsPDF({ // Horizontal, unit millimeter, a4
+const docV = new jsPDF({ // Vertical, unit millimeter, letter
+	format: 'letter',
+})
+const docH = new jsPDF({ // Horizontal, unit millimeter, letter
+	format: 'letter',
 	orientation: "landscape"
 })
 
 const dateLocal = new Date().toLocaleDateString('es')
-const _w = 210 // Total mm width in sheet
-const _h = 297 // Total mm height in sheet
+const _w = 215.9 // Total mm width in sheet
+const _h = 279.4 // Total mm height in sheet
 
 let img = new Image()
 
@@ -113,14 +116,23 @@ window.addEventListener('load', async(e) => {
 	}
 
 	if($e('#btn-personnel-eval-format') != undefined) {
-		let yAnchor
-
 		const rowWidth = _h*(0.9595 - 0.0405) // Row relative total width 272.943
 		const _rW = (percentage) => ((percentage * rowWidth) / 100) + _h*0.0405
+		let src, ext
+
+		let yAnchor
 
 		$e('#btn-personnel-eval-format').addEventListener('click', async(e) => {
-			try {
-			// --- Table Structure [Page 1] --- //
+			AJAJ(
+				'http://localhost:999/inicio/evaluation-pdf',
+				'GET',
+				null,
+				(result) => showSnack(result.msg, 'PDF', SNACK.success),
+				(err) => console.error(err) 
+			)
+
+			/*try {
+				// --- Table Structure [Page 1] --- //
 				docH.setLineWidth(0.35) // Line width
 				docH.setDrawColor(0, 0, 0) // Color
 
@@ -135,14 +147,20 @@ window.addEventListener('load', async(e) => {
 				docH.line(_rW(100) - 50, yAnchor, _rW(100) - 50, yAnchor + _w*0.093) // 2nd - 3rd col
 				
 				await docH.addImage(img, 'PNG', _rW(0) + 5, yAnchor + 1.5, 41, 16.5) // Set logo
-				docH.setFontSize(12)
-				docH.text(100.925, 27.24, 'Universidad Tecnológica del Norte de Aguascalientes')
-
+				
 				docH.line(_rW(100) - 50, yAnchor + _w*0.02325, _rW(100), yAnchor + _w*0.02325) // 1/4 rows
 				docH.line(_rW(0) + 50, yAnchor + _w*0.0465, _rW(100), yAnchor + _w*0.0465) // 2/4 rows
 				docH.line(_rW(100) - 50, yAnchor + _w*(0.0465 + 0.02325), _rW(100), yAnchor + _w*(0.0465 + 0.02325)) // 3/4 rows
-
-
+				
+				docH.setFontSize(10)
+				docH.text(94, 27.3, 'UNIVERSIDAD TECNOLÓGICA DEL NORTE DE AGUASCALIENTES')
+				docH.text(93, (yAnchor + _w*0.093) - 4.2, 'FORMATO PARA LA EVALUACIÓN AL DESEMPEÑO DEL PERSONAL')
+				
+				docH.setFontSize(8)
+				docH.text(_rW(100) - 49.5, yAnchor + 3.5, 	'REVISIÓN: 3')
+				docH.text(_rW(100) - 49.5, yAnchor + 8.5, 	'CÓDIGO: FM-EDP-01/01')
+				docH.text(_rW(100) - 49.5, yAnchor + 13.25, 'REF. NORMATIVA: 6.2')
+				docH.text(_rW(100) - 49.5, yAnchor + 17.8, 	'HOJA 1 DE 3')
 
 				// ------------- Body ------------ //
 				yAnchor += _w*0.093 + _w*0.025 // 45.255 mm
@@ -186,7 +204,7 @@ window.addEventListener('load', async(e) => {
 				docH.line(_rW(45), yAnchor - 5, _rW(90), yAnchor - 5) // 5th row - bottom
 				yAnchor += 22
 				docH.line(_rW(45), yAnchor - 17, _rW(90), yAnchor - 17) // 5th row - top
-				docH.line(_rW(45), yAnchor - 5, _rW(90), yAnchor - 5) // 5th row - bottom
+				docH.line(_rW(45), _w*0.845 - 5, _rW(90), _w*0.845 - 5) // 5th row - bottom
 
 				// ---- Body ---- //
 	
@@ -194,7 +212,7 @@ window.addEventListener('load', async(e) => {
 			} catch (error) {
 				showSnack('An error occurred while assigning event to PDF Generator', 'PDF-Generator', SNACK.error)
 				console.error(error)
-			}
+			}*/
 		})
 	}
 })

@@ -72,7 +72,7 @@ async function AJAJ(url, method, data, onSuccess, onError) {
             return await fetch(url, REQ_PARAMS)
                 .then(res => res.json())
                 .then(data => onSuccess(data))
-                .catch(error => onError(error, data))
+                .catch(error => onError(error))
         } else
             throw 'Error: Data sent is not an Object type'
     } else if (method === 'GET') {
