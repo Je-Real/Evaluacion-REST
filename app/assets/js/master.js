@@ -57,7 +57,7 @@ const changeLang = () => {
     }, 200)
 }
 
-async function AJAJ(url, method, data, onSuccess, onError) {
+async function fetchTo(url = '', method = '', data = {}, onSuccess, onError) {
     let REQ_PARAMS
     method = method.toUpperCase()
     
@@ -79,9 +79,25 @@ async function AJAJ(url, method, data, onSuccess, onError) {
         return await fetch(url)
             .then(res => res.json())
             .then(data => onSuccess(data))
-            .catch(error => onError(error, data))
+            .catch(error => onError(error))
     } else
         throw 'Error: Methods supported are "GET" and "POST"'
+}
+
+const download = (path, filename) => {
+    // Create a new link
+    const anchor = document.createElement('a')
+    anchor.href = path
+    anchor.download = filename
+
+    // Append to the DOM
+    document.body.appendChild(anchor)
+
+    // Trigger `click` event
+    anchor.click()
+
+    // Remove element from DOM
+    document.body.removeChild(anchor)
 }
 
 async function eventAssigner(selector, eventClass, funcEvent ) {
@@ -261,7 +277,7 @@ function login(u, p) {
             null, SNACK.error
         )
     else
-        AJAJ(
+        fetchTo(
             'http://localhost:999/sesion/login',
             'POST',
             { _id: u, pass: p },
@@ -296,7 +312,7 @@ function login(u, p) {
 }
 
 function logout() {
-    AJAJ(
+    fetchTo(
         'http://localhost:999/sesion/logout',
         'GET',
         null,

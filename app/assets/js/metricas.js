@@ -284,7 +284,7 @@ async function getData(auto) {
 				: null
 	}
 
-    await AJAJ(
+    await fetchTo(
 		'http://localhost:999/metricas',
 		'POST',
 		packed,

@@ -208,7 +208,7 @@ function postSurvey() {
         records: grades
     }
     
-    AJAJ(
+    fetchTo(
         'http://localhost:999/evaluacion',
         'POST',
         packed,

@@ -27,24 +27,24 @@ async function root(req, res) {
         await modelArea.aggregate([
             { $match: /*(options[0].length) ? { $or: options[0] } :*/ {} }, {
                 $lookup: {
-                    from: "departments",
+                    from: 'departments',
                     pipeline: [
                         { $match: /*(options[1].length) ? { $or: options[1] } :*/ {} }, {
                             $lookup: {
-                                from: "careers",
+                                from: 'careers',
                                 pipeline: [
                                     { $match: /*(options[2].length) ? { $or: options[2] } :*/ {} },
                                     { $project: { _id: 0, department: 0 } }
                                 ],
-                                localField: "n",
-                                foreignField: "department",
-                                as: "careers",
+                                localField: 'n',
+                                foreignField: 'department',
+                                as: 'careers',
                             }
                         }, { $project: { _id: 0, area: 0 } }
                     ],
-                    localField: "n",
-                    foreignField: "area",
-                    as: "departments",
+                    localField: 'n',
+                    foreignField: 'area',
+                    as: 'departments',
                 }
             }, { $project: { _id: 0 } }
         ]) // Get all areas in DB
@@ -147,7 +147,7 @@ function data(req, res) {
 
     modelEvaluation.aggregate([
         { $lookup: {
-            from: "user_infos",
+            from: 'user_infos',
             pipeline: [
                 { $match : search },
                 { $project: {
@@ -155,24 +155,24 @@ function data(req, res) {
                         last_name: 1,
                 } }
             ],
-            localField: "_id",
-            foreignField: "_id",
-            as: "info",
+            localField: '_id',
+            foreignField: '_id',
+            as: 'info',
         } }, {
             $replaceRoot: {
                 newRoot: {
                     $mergeObjects: [
-                        { $arrayElemAt: [ "$info", 0 ] }, "$$ROOT"
+                        { $arrayElemAt: [ '$info', 0 ] }, '$$ROOT'
                     ]
                 }
             }
         }, { 
             $project: {
-                _id : { $cond: { if: { $eq: [ "$info", [] ] }, then: '$$REMOVE', else: '$_id' } },
-                records : { $cond: { if: { $eq: [ "$info", [] ] }, then: '$$REMOVE', else: '$records' } },
-                first_name : { $cond: { if: { $and: [ { $eq: [ "$info", [] ] }, { $ne: ['$first_name', null] } ] }, then: '$$REMOVE', else: '$first_name' } },
-                last_name : { $cond: { if: { $and: [ { $eq: [ "$info", [] ] }, { $ne: ['$last_name', null] } ] }, then: '$$REMOVE', else: '$last_name' } },
-                //Get field directly from array = fieldExample: { $arrayElemAt: [ "$fieldExample.fieldInside", 0 ] }
+                _id : { $cond: { if: { $eq: [ '$info', [] ] }, then: '$$REMOVE', else: '$_id' } },
+                records : { $cond: { if: { $eq: [ '$info', [] ] }, then: '$$REMOVE', else: '$records' } },
+                first_name : { $cond: { if: { $and: [ { $eq: [ '$info', [] ] }, { $ne: ['$first_name', null] } ] }, then: '$$REMOVE', else: '$first_name' } },
+                last_name : { $cond: { if: { $and: [ { $eq: [ '$info', [] ] }, { $ne: ['$last_name', null] } ] }, then: '$$REMOVE', else: '$last_name' } },
+                //Get field directly from array = fieldExample: { $arrayElemAt: [ '$fieldExample.fieldInside', 0 ] }
             }
         }
     ])

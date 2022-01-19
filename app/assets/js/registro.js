@@ -193,7 +193,7 @@ const register = async() => {
         b_day: $e('#b_day').value
     })
 
-    await AJAJ(
+    await fetchTo(
         'http://localhost:999/sesion/nuevo-usuario',
         'POST',
         packed,
@@ -225,7 +225,7 @@ function getManager(lvl_sel) {
         level: parseInt(lvl_sel)
     }
 
-    AJAJ(
+    fetchTo(
         'http://localhost:999/registro/manager',
         'GET',
         packed,

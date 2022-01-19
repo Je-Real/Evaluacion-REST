@@ -75,23 +75,124 @@ async function root(req, res) {
 }
 
 async function pdfEvalFormat(req, res) {
+    const userID = req.params.id
+
+    modelUserInfo.aggregate([
+        { $match: { _id: userID } }, {
+            $lookup: {
+                from: 'evaluations', 
+                pipeline: [ { $unset: ['_id'] } ], 
+                localField: '_id', 
+                foreignField: '_id', 
+                as: 'evaluations'
+            }
+        }, {
+            $lookup: {
+                from: 'user_infos', 
+                pipeline: [{
+                    $unset: [ 
+                        'level', 'b_day', 'address', 'manager', 
+                        'area', 'department', 'career', 'contract'
+                    ]
+                }],
+                localField: 'manager', 
+                foreignField: '_id', 
+                as: 'mngr_info'
+            }
+        }, {
+            $lookup: {
+                from: 'areas', 
+                pipeline: [
+                    { $unset: [ _id, 'n' ] },
+                    { $project: { area: '$desc' } }
+                ], 
+                localField: 'area', 
+                foreignField: 'n', 
+                as: 'area_'
+            }
+        }, {
+            $lookup: {
+                from: 'departments', 
+                pipeline: [
+                    { $unset: [ _id, 'n' ] },
+                    { $project: { department: '$desc' } }
+                ], 
+                localField: 'department', 
+                foreignField: 'n', 
+                as: 'department_'
+            }
+        }, {
+            $lookup: {
+                from: 'careers', 
+                pipeline: [
+                    { $unset: [ _id, 'n' ] },
+                    { $project: { career: '$desc' } }
+                ], 
+                localField: 'career', 
+                foreignField: 'n', 
+                as: 'career_'
+            }
+        }, {
+            $lookup: {
+                from: 'contracts', 
+                pipeline: [ 
+                    { $unset: [ _id, 'n' ] },
+                    { $project: { contract: '$desc' } }
+                ], 
+                localField: 'contract', 
+                foreignField: 'n', 
+                as: 'contract_'
+            }
+        }, {
+            $unset: [ 'area', 'department', 'career', 'contract' ]
+        }, {
+            $replaceRoot: {
+                newRoot: { 
+                    $mergeObjects: [
+                        { $arrayElemAt: [ '$area_', 0 ] },
+                        { $arrayElemAt: [ '$department_', 0 ] },
+                        { $arrayElemAt: [ '$career_', 0 ] },
+                        { $arrayElemAt: [ '$contract_', 0 ] },
+                        { $arrayElemAt: [ '$evaluations', 0 ] },
+                        '$$ROOT'
+                    ]
+                }
+            }
+        }, {
+            $set: { manager: { $arrayElemAt: [ '$mngr_info', 0 ] } }
+        }, {
+            $unset: [
+                'evaluations', 'mngr_info', 'area_',
+                'department_', 'career_', 'contract_',
+                'level', 'b_day', 'address'
+            ]
+        }
+    ])
+
+    /**
+     * TODO:
+     * Made promise for the above code and get the data
+     * Print the data in the sheet
+     * Get each result of the survey and store it in the data base 
+     */
+
     const doc = new pdf.Document({
         width:   792,
         height:  612
     })
-    let src = fs.readFileSync(path.join(__dirname, '../assets/templates/Formato-de-Evaluacion-1.pdf'))
-    const ext_1 = new pdf.ExternalDocument(src)
+    const ext_1 = new pdf.ExternalDocument(
+        fs.readFileSync(path.join(__dirname, '../assets/templates/Formato-de-Evaluacion-1.pdf'))
+    )
 
-    src = fs.readFileSync(path.join(__dirname, '../assets/templates/Formato-de-Evaluacion-3.pdf'))
-    const ext_3 = new pdf.ExternalDocument(src)
+    /*src = fs.readFileSync(path.join(__dirname, '../assets/templates/Formato-de-Evaluacion-3.pdf'))
+    const ext_3 = new pdf.ExternalDocument(src)*/
 
     let date_time = new Date(Date.now()),
-        dateFormated = String(date_time.getDate())+'/'+String(date_time.getMonth()+1)+'/'+String(date_time.getFullYear())
-
+        dateFormated = date_time.getDate()+'/'+(date_time.getMonth()+1)+'/'+date_time.getFullYear()
 
     try {
-        doc.pipe(fs.createWriteStream('output.pdf')) // Open output file
-
+        //doc.pipe(fs.createWriteStream(path.join(__dirname, '../exports/eval-format-output.pdf'))) // Open output file
+        
         doc.setTemplate(ext_1)
 
         doc.cell({ width: 0.3*pdf.cm, x: 22.7*pdf.cm, y: 18.98*pdf.cm }) // Current page
@@ -118,14 +219,15 @@ async function pdfEvalFormat(req, res) {
         doc.cell({ width: 2*pdf.cm, x: 20.8*pdf.cm, y: 16.55*pdf.cm }) // Average
             .text({ textAlign: 'center', fontSize: 8 }).add('999.0%')
         
-        
 
+        res.setHeader("Content-Disposition", "attachment; output.pdf")
+        await doc.pipe(res)
         await doc.end() // Close file
-
-        return res.end(JSON.stringify({
-            msg: 'Yeah',
-            status: 200,
-        }))
+            /*.then(() => {
+                //const rs = fs.createReadStream(path.join(__dirname, '../exports/eval-format-output.pdf'))
+                res.setHeader("Content-Disposition", "attachment; output.pdf")
+                doc.pipe(res)
+            })*/
     } catch (error) {
         console.error(error)
         return res.end(JSON.stringify({
@@ -133,7 +235,6 @@ async function pdfEvalFormat(req, res) {
             error: error
         }))
     }
-    
 }
 
 module.exports = {
