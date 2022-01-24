@@ -11,18 +11,18 @@
             <div class="mb-5">
                 <div class="session-container">
                     <input class="deletable" type="hidden" name="user" id="user"
-                        value="<%= session.user %>">
+                        value="<%= session.user%>">
                     <input class="deletable" type="hidden" name="name" id="name"
-                        value="<%= session.first_name %>">
+                        value="<%= session.first_name%>">
                     <input class="deletable" type="hidden" name="lvl" id="lvl"
-                        value="<%= session.lvl %>">
+                        value="<%= session.lvl%>">
                     
                     <input class="deletable" type="hidden" name="s-area" id="s-area"
-                        value="<%= session['area'] %>">
+                        value="<%= session['area']%>">
                     <input class="deletable" type="hidden" name="s-department" id="s-department"
-                        value="<%= session.department %>">
+                        value="<%= session.department%>">
                     <input class="deletable" type="hidden" name="s-career" id="s-career"
-                        value="<%= session.career %>">
+                        value="<%= session.career%>">
                 </div>
 
                 <div class="container-fluid px-4">
@@ -70,23 +70,25 @@
                             <tbody class="border-0" id="table-b">
                                 <% if(records != false) {
                                     for(let record in records) { %>
-                                    <tr id="<%= records[record]['_id'] %>" class="i-info pag-item" data-status="<%= records[record]['records'] %>">
-                                        <td class="border-0 border-end text-center"><%= records[record]['_id'] %></td>
-                                        <td class="border-0 border-start text-center"><%= records[record]['first_name'] %></td>
-                                        <td class="border-0 border-start text-center"><%= records[record]['last_name'] %></td>
+                                    <tr id="<%=records[record]['_id']%>" class="i-info pag-item" data-status="<%=records[record]['records']%>">
+                                        <td class="border-0 border-end text-center"><%=records[record]['_id'] %></td>
+                                        <td class="border-0 border-start text-center"><%=records[record]['first_name'] %></td>
+                                        <td class="border-0 border-start text-center"><%=records[record]['last_name'] %></td>
                                         <td class="border-0 border-start text-center i-status"></td>
                                         <td class="border-0 border-start d-flex justify-content-center h-100">
                                             <% if(records[record]['records'] == 0) { %>
                                                 <button type="button"
-                                                    class="btn btn-info evaluate mx-md-2 my-auto mx-1 p-1 h-toolt">
-                                                    <i class="text-white pe-none fas fa-plus-circle fa-2x toolt-txt"
-                                                        data-text="Realizar evaluacion para <%= records[record]['first_name'] %>"></i>
+                                                    class="btn btn-info evaluate mx-md-2 my-auto mx-1 p-1 tooltip-text"
+                                                    data-tooltip-es="Realizar evaluación para <%=records[record]['first_name']%> <%=records[record]['last_name']%>"
+                                                    data-tooltip-en="Perform evaluation for <%=records[record]['first_name']%> <%=records[record]['last_name']%>">
+                                                    <i class="text-white pe-none fas fa-plus-circle fa-2x MOVE-TXT-TOOLTIP"></i>
                                                 </button>
                                             <% } else { %>
                                                 <button type="button" 
-                                                    class="btn btn-success pe-none mx-md-2 my-auto mx-1 p-1 h-toolt">
-                                                    <i class="text-white fas fa-check fa-2x toolt-txt"
-                                                        data-text="Ya se ha realizado evaluación a <%= records[record]['first_name'] %>"></i>
+                                                    class="btn btn-success pe-none mx-md-2 my-auto mx-1 p-1 tooltip-text"
+                                                    data-tooltip-es=""="Ya se ha realizado evaluación a <%=records[record]['first_name']%> <%=records[record]['last_name']%>"
+                                                    data-tooltip-en="<%=records[record]['first_name']%> <%=records[record]['last_name']%> has already been evaluated">
+                                                    <i class="text-white fas fa-check fa-2x MOVE-TXT-TOOLTIP"></i>
                                                 </button>
                                             <% } %>
                                         </td>
@@ -113,8 +115,8 @@
     </div>
 
     <%- include('template/!scripts.ejs') %>
-    <script src="/js/paginator.js"></script>
-    <script src="/js/tabla.js"></script>
+    <script src="/js/page-inator.js"></script>
+    <script src="/js/ctrl-table.js"></script>
     <script src="/js/pdf-generator.js"></script>
 </body>
 

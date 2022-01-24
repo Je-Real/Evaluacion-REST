@@ -646,7 +646,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Control */
 
 /* Tooltip */
-#toolt {
+#tooltip {
 	pointer-events: none;
 	visibility: hidden;
 	opacity: 0;
@@ -660,12 +660,12 @@ h1, h2, h3, h4, h5, h6 {
 	transition: all 0.25s;
 }
 
-#toolt.show {
+#tooltip.show {
 	visibility: visible;
 	opacity: 1;
 }
 
-#toolt p {
+#tooltip p {
 	margin: 0.7rem 1.5rem 0.7rem 1.5rem;
 	z-index: 99;
 	max-width: 25vw;

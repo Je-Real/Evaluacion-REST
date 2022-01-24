@@ -1,11 +1,10 @@
 const { Router } = require('express')
 const router = Router()
-const fs = require('fs')
 
-const controllerIndex = require('../controllers/controllerInicio')
-const controllerLayoutStatic = require('../controllers/controllerEvaluacion')
-const controllerTabla = require('../controllers/controllerTabla')
-const controllerMetricas = require('../controllers/controllerMetricas')
+const controllerIndex = require('../controllers/controllerHome')
+const controllerLayoutStatic = require('../controllers/controllerEvaluation')
+const controllerCtrlTable = require('../controllers/controllerCtrlTable')
+const controllerMetrics = require('../controllers/controllerMetrics')
 
 const controllerLogin = require('../controllers/session/controllerLogin')
 const controllerResetPsw = require('../controllers/session/controllerResetPsw')
@@ -17,32 +16,32 @@ const controller404 = require('../controllers/error/controller404')
 const controller401 = require('../controllers/error/controller401')
 const controller500 = require('../controllers/error/controller500')
 
-router
+router //👇
 
 // Index
-.get('/inicio', controllerTabla.root)
-.get('/inicio/evaluation-pdf/:id', controllerTabla.pdfEvalFormat)
-.get('/inicio/test', controllerIndex.test)
+.get('/home', controllerCtrlTable.root)
+.get('/home/evaluation-pdf/:id', controllerCtrlTable.pdfEvalFormat)
+.get('/home/test', controllerIndex.test)
 
 // Reports
-.get('/metricas', controllerMetricas.root)
-.post('/metricas', controllerMetricas.data)
+.get('/metrics', controllerMetrics.root)
+.post('/metrics', controllerMetrics.data)
 
 // Survey
-.get('/evaluacion', controllerLayoutStatic.root)
-.post('/evaluacion', controllerLayoutStatic.post)
+.get('/evaluation', controllerLayoutStatic.root)
+.post('/evaluation', controllerLayoutStatic.post)
 
 // Register
-.get('/registro', controllerRegister.root)
-.get('/registro/manager', controllerRegister.getManager)
+.get('/register', controllerRegister.root)
+.get('/register/manager', controllerRegister.getManager)
 
 // Recovery password
 .post('/reset-psw', controllerResetPsw.reset)
 
 // Users
-.post('/sesion/nuevo-usuario', controllerRegister.signIn)
-.post('/sesion/login', controllerLogin.logIn)
-.get('/sesion/logout', controllerLogin.logOut)
+.post('/session/sign-in', controllerRegister.signIn)
+.post('/session/log-in', controllerLogin.logIn)
+.get('/session/log-out', controllerLogin.logOut)
 
 // Shh... it's a secret🤐
 .get('/secret/user-generator', controllerUserGenerator.root)

@@ -91,8 +91,9 @@
                                     </button>
                                 </div>
                                 <div class="row justify-content-end">
-                                    <button class="btn canvas-config m-0 me-5 mt-4 p-1 w-auto position-absolute h-toolt rot-20">
-                                        <i class="fas fa-cog fa-2x toolt-txt pointer-event-none" data-text="Desplegar opciones para este panel"></i>
+                                    <button class="btn canvas-config m-0 me-5 mt-4 p-1 w-auto position-absolute tooltip-text rot-20"
+                                        data-tooltip-es="Desplegar opciones para este panel">
+                                        <i class="fas fa-cog fa-2x MOVE-TXT-TOOLTIP pointer-event-none"></i>
                                     </button>
                                     <div class="config-menu d-none position-absolute w-md-30 w-40 bg-light rounded-2 shadow-sm py-3 mt-6 me-5">
                                         <div class="container m-0 p-0">
@@ -200,7 +201,7 @@
     </div>
 
     <%- include('template/!scripts.ejs') %>
-    <script src="/js/metricas.js"></script>
+    <script src="/js/metrics.js"></script>
     <script src="/js/pdf-generator.js"></script>
 </body>
 

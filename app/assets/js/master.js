@@ -52,7 +52,7 @@ const changeLang = () => {
     setTimeout(async() => {
         $e('#load-b').classList.replace('hidden', 'show')
         setTimeout(() => {
-            window.location.href = String(location.href)
+            window.location.reload(false)
         }, 200)
     }, 200)
 }
@@ -226,7 +226,7 @@ function onEnterHandler(e) {
 }
 
 function outSession(clicked) {
-    if(clicked) setTimeout(() => go("inicio/"), 2500)
+    if(clicked) setTimeout(() => go("home/"), 2500)
 }
 
 function toggleFloating(floating) {
@@ -278,7 +278,7 @@ function login(u, p) {
         )
     else
         fetchTo(
-            'http://localhost:999/sesion/login',
+            'http://localhost:999/session/log-in',
             'POST',
             { _id: u, pass: p },
             async(result) => {
@@ -297,7 +297,7 @@ function login(u, p) {
                     toggleFloating(0)
                     await setCookie('user', JSON.stringify(result.data))
                     .then(() => {
-                        return go("inicio/")
+                        return go("home/")
                     })
                     .catch(() => {
                         showSnack(
@@ -313,7 +313,7 @@ function login(u, p) {
 
 function logout() {
     fetchTo(
-        'http://localhost:999/sesion/logout',
+        'http://localhost:999/session/log-out',
         'GET',
         null,
         async(result) => {
@@ -323,7 +323,7 @@ function logout() {
                 await eatCookies()
                     .finally(() => {
                         setTimeout(() => {
-                            go("inicio/")
+                            go("home/")
                         }, 500)
                     })
             } else {
