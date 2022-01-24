@@ -1,7 +1,6 @@
 const { Router } = require('express')
 const router = Router()
 
-const controllerIndex = require('../controllers/controllerHome')
 const controllerLayoutStatic = require('../controllers/controllerEvaluation')
 const controllerCtrlTable = require('../controllers/controllerCtrlTable')
 const controllerMetrics = require('../controllers/controllerMetrics')
@@ -15,6 +14,8 @@ const controllerUserGenerator = require('../controllers/secret/controllerUserGen
 const controller404 = require('../controllers/error/controller404')
 const controller401 = require('../controllers/error/controller401')
 const controller500 = require('../controllers/error/controller500')
+
+const controllerIndex = require('../controllers/controllerHome') //Only for test
 
 router //👇
 

@@ -114,7 +114,7 @@ async function root(req, res) {
     }
 
     //Reportes route
-    return res.status(200).render('metricas', {
+    return res.status(200).render('metrics', {
         title_page: 'UTNA - Metricas',
         session: session,
         care: career,

@@ -13,7 +13,7 @@ async function root(req, res) {
         session = null
         //Inicio route
         
-        return res.status(200).render('inicio', {
+        return res.status(200).render('home', {
             title_page: 'UTNA - Inicio',
             session: session
         })
@@ -67,7 +67,7 @@ async function root(req, res) {
     }
 
     //Control route
-    return res.status(200).render('tabla', {
+    return res.status(200).render('ctrl_table', {
         title_page: 'UTNA - Inicio',
         session: session,
         records: records

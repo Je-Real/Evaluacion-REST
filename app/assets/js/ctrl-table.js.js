@@ -11,7 +11,7 @@ const evaluateUser = (e) => {
     }
 
     setCookie('USelected', idUserSelected)
-    go('evaluacion/')
+    go('evaluation/')
 }
 
 window.addEventListener('load', async(e) => {	

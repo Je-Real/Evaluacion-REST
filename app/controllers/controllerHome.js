@@ -1,19 +1,3 @@
-// >>>>>>>>>>>>>>>>>>>>>> Index <<<<<<<<<<<<<<<<<<<<<<
-async function root(req, res) {
-    let session
-    if(!req.session.user && !req.session.lvl) { // No session 😡
-        session = null
-    } else { // Session 🤑
-        session = req.session
-    }
-
-    //Inicio route
-    return res.status(200).render('inicio', {
-        title_page: 'UTNA - Inicio',
-        session: session
-    })
-}
-
 function search(req, res, next) {
     //Variable for a bunch of information to search
     let consulta = {}
@@ -49,7 +33,6 @@ function test(req, res) {
 }
 
 module.exports = {
-    root,
     search,
     show,
     test

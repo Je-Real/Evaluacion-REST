@@ -24,7 +24,7 @@ async function root(req, res) {
     		.then(async (dataD) => {
 				await modelCareer.find({})
     			.then(async (dataCr) => {
-					return res.status(200).render('registro', {
+					return res.status(200).render('register', {
 						title_page: 'UTNA - Registro',
 						contracts: dataC,
 						area: dataA,
@@ -38,7 +38,7 @@ async function root(req, res) {
     })
     .catch((error) => {
         console.log(error)
-        return res.status(200).render('registro', {
+        return res.status(200).render('register', {
 			session: session
 		})
     })

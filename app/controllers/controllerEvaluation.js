@@ -101,7 +101,7 @@ async function root(req, res) {
     }
 
     //Evaluacion static route
-    return res.status(200).render('evaluacion', {
+    return res.status(200).render('evaluation', {
         title_page: 'UTNA - Evaluacion',
         session: session,
         userData: userData
