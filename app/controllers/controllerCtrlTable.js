@@ -4,6 +4,9 @@ const path = require('path')
 
 const modelUserInfo = require('../models/modelUserInfo')
 const DATE = new Date()
+const year = String(DATE.getFullYear())
+
+const weighting = require('../controllers/controllerEvaluation').weighting
 
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
@@ -47,7 +50,6 @@ async function root(req, res) {
             }
         ])
         .then(async(dataInfo) => {
-            let year = String(DATE.getFullYear())
             records = dataInfo
             
             for(let i in records) {
@@ -77,7 +79,7 @@ async function root(req, res) {
 async function pdfEvalFormat(req, res) {
     const userID = req.params.id
 
-    modelUserInfo.aggregate([
+    await modelUserInfo.aggregate([
         { $match: { _id: userID } }, {
             $lookup: {
                 from: 'evaluations', 
@@ -168,6 +170,133 @@ async function pdfEvalFormat(req, res) {
             ]
         }
     ])
+    .then(async([data]) => {
+        if(data != undefined) {
+            /**
+             * Example of data to retrieve
+                [
+                  {
+                    _id: 'ID',
+                    first_name: 'NAME',
+                    last_name: 'NAME',
+                    area: 'AREA',
+                    department (?): 'DEPARTMENT',
+                    career (?): 'CAREER',
+                    contract: 'CONTRACT',
+                    records: { '2022': { score: 100, answers: [ ..11 positions.. ] } },
+                    manager: {
+                      _id: 'MANAGER ID',
+                      first_name: 'MANAGER NAME',
+                      last_name: 'MANAGER NAME'
+                    }
+                  }
+                ]
+             */
+
+            const doc = new pdf.Document({
+                width:   792,
+                height:  612
+            })
+            const ext_1 = new pdf.ExternalDocument(
+                fs.readFileSync(path.join(__dirname, '../assets/templates/formato-evaluacion-1.pdf'))
+            )
+            const ext_2 = new pdf.ExternalDocument(
+                fs.readFileSync(path.join(__dirname, '../assets/templates/formato-evaluacion-2.pdf'))
+            )
+            const ext_3 = new pdf.ExternalDocument(
+                fs.readFileSync(path.join(__dirname, '../assets/templates/formato-evaluacion-3.pdf'))
+            )
+        
+            let date_time = new Date(Date.now()),
+                dateFormated = date_time.getDate()+'/'+(date_time.getMonth()+1)+'/'+date_time.getFullYear(),
+                answers = data.records[year].answers,
+                yAnchor, xAnchor, total = 0, tempScore
+
+            const printAnswers = (numFactor, yMargin = 2, result = false) => {
+                if(numFactor > 0) {                    
+                    doc.cell({ width: 2.95*pdf.cm, x: xAnchor+((answers[numFactor-1]-1)*2.95*pdf.cm), y: yAnchor -= yMargin*pdf.cm })
+                    .text({ textAlign: 'center', fontSize: 7 }).add('X')
+                    
+                    tempScore = weighting(numFactor, answers[numFactor-1])
+                    total += tempScore
+                    
+                    doc.cell({ width: 2.95*pdf.cm, x: xAnchor+((answers[numFactor-1]-1)*2.95*pdf.cm), y: yAnchor - 0.6*pdf.cm })
+                    .text({ textAlign: 'center', fontSize: 7 }).add(tempScore+'%')
+    
+                    if(result)
+                        doc.cell({ width: 1.25*pdf.cm, x: 25.5*pdf.cm, y: yAnchor - 0.6*pdf.cm })
+                        .text({ textAlign: 'center', fontSize: 7 }).add(tempScore+'%') // Result
+                }
+            }
+        
+            try {
+                // --------------------------- Page 1 --------------------------- //
+                doc.setTemplate(ext_1) 
+                doc.cell({ width: 8*pdf.cm, x: 2*pdf.cm, y: 17.25*pdf.cm }) // Name
+                .text({ textAlign: 'center', fontSize: 7 }).add(data.first_name+' '+data.last_name)
+                
+                doc.cell({ width: 3.2*pdf.cm, x: 11.4*pdf.cm, y: 17.25*pdf.cm }) // Position
+                .text({ textAlign: 'center', fontSize: 7 }).add(data.area)
+                
+                doc.cell({ width: 2*pdf.cm, x: 18.5*pdf.cm, y: 17.25*pdf.cm }) // Employee number
+                .text({ textAlign: 'center', fontSize: 7 }).add(data._id)
+                
+                doc.cell({ width: 2.5*pdf.cm, x: 22.25*pdf.cm, y: 17.15*pdf.cm }) // Date
+                .text({ textAlign: 'center', fontSize: 7 }).add(dateFormated)
+                
+                doc.cell({ width: 7.5*pdf.cm, x: 2.5*pdf.cm, y: 16.45*pdf.cm }) // Department
+                .text({ textAlign: 'center', fontSize: 7 }).add(data.area)
+                
+                doc.cell({ width: 4.3*pdf.cm, x: 11.3*pdf.cm, y: 16.45*pdf.cm }) // Category
+                .text({ textAlign: 'center', fontSize: 7 }).add(data.contract)
+                
+                yAnchor = 13.5*pdf.cm + 2*pdf.cm
+                xAnchor = 13.1*pdf.cm
+
+                printAnswers(1, 2.03, true)
+                printAnswers(2, 2.03, true)
+                printAnswers(3, 2.03, true)
+                printAnswers(4, 2.03, true)
+
+                // --------------------------- Page 1 --------------------------- //
+                doc.cell({ width: 2.5*pdf.cm, x: 22.25*pdf.cm, y: 17.15*pdf.cm }) // Date
+                .text({ textAlign: 'center', fontSize: 7 }).add(dateFormated)
+
+                // --------------------------- Page 1 --------------------------- //
+                
+                // --------------------------- Page 2 --------------------------- //
+                doc.setTemplate(ext_2)
+                
+                // --------------------------- Page 2 --------------------------- //
+                
+                // --------------------------- Page 3 --------------------------- //
+                doc.setTemplate(ext_3)
+                
+                // --------------------------- Page 3 --------------------------- //
+            } catch (error) {
+                console.error(error)
+                await doc.end() // Close file
+                return res.end(null)
+            }
+
+            res.setHeader("Content-Disposition", "attachment; output.pdf")
+            await doc.pipe(res)
+            await doc.end() // Close file
+        } else {
+            console.error('No data')
+            return res.end(JSON.stringify({
+                status: 404,
+                error: 'No data'
+            }))
+        }
+    })
+    .catch(error => {
+        console.error(error)
+        return res.end(JSON.stringify({
+            status: 500,
+            error: error
+        }))
+    })
 
     /**
      * TODO:
@@ -175,66 +304,6 @@ async function pdfEvalFormat(req, res) {
      * Print the data in the sheet
      * Get each result of the survey and store it in the data base 
      */
-
-    const doc = new pdf.Document({
-        width:   792,
-        height:  612
-    })
-    const ext_1 = new pdf.ExternalDocument(
-        fs.readFileSync(path.join(__dirname, '../assets/templates/Formato-de-Evaluacion-1.pdf'))
-    )
-
-    /*src = fs.readFileSync(path.join(__dirname, '../assets/templates/Formato-de-Evaluacion-3.pdf'))
-    const ext_3 = new pdf.ExternalDocument(src)*/
-
-    let date_time = new Date(Date.now()),
-        dateFormated = date_time.getDate()+'/'+(date_time.getMonth()+1)+'/'+date_time.getFullYear()
-
-    try {
-        //doc.pipe(fs.createWriteStream(path.join(__dirname, '../exports/eval-format-output.pdf'))) // Open output file
-        
-        doc.setTemplate(ext_1)
-
-        doc.cell({ width: 0.3*pdf.cm, x: 22.7*pdf.cm, y: 18.98*pdf.cm }) // Current page
-            .text({ fontSize: 8 }).add('1')
-
-        doc.cell({ width: 5.5*pdf.cm, x: 3.75*pdf.cm, y: 17.5*pdf.cm }) // Name
-            .text({ textAlign: 'center', fontSize: 8 }).add('Jeremy Oswald Richarte Bernal')
-        
-        doc.cell({ width: 4.3*pdf.cm, x: 11.3*pdf.cm, y: 17.5*pdf.cm }) // Position
-            .text({ textAlign: 'center', fontSize: 8 }).add('prueba')
-        
-        doc.cell({ width: 2*pdf.cm, x: 19.5*pdf.cm, y: 17.5*pdf.cm }) // Employee number
-            .text({ textAlign: 'center', fontSize: 8 }).add('143')
-        
-        doc.cell({ width: 4.3*pdf.cm, x: 22.8*pdf.cm, y: 17.5*pdf.cm }) // Date
-            .text({ textAlign: 'center', fontSize: 8 }).add(dateFormated)
-        
-        doc.cell({ width: 5*pdf.cm, x: 4.3*pdf.cm, y: 16.6*pdf.cm }) // Department
-            .text({ textAlign: 'center', fontSize: 8 }).add('Dirección Académica de Administración y Contaduría')
-        
-        doc.cell({ width: 4.3*pdf.cm, x: 11.3*pdf.cm, y: 16.55*pdf.cm }) // Category
-            .text({ textAlign: 'center', fontSize: 8 }).add('Confianza')
-        
-        doc.cell({ width: 2*pdf.cm, x: 20.8*pdf.cm, y: 16.55*pdf.cm }) // Average
-            .text({ textAlign: 'center', fontSize: 8 }).add('999.0%')
-        
-
-        res.setHeader("Content-Disposition", "attachment; output.pdf")
-        await doc.pipe(res)
-        await doc.end() // Close file
-            /*.then(() => {
-                //const rs = fs.createReadStream(path.join(__dirname, '../exports/eval-format-output.pdf'))
-                res.setHeader("Content-Disposition", "attachment; output.pdf")
-                doc.pipe(res)
-            })*/
-    } catch (error) {
-        console.error(error)
-        return res.end(JSON.stringify({
-            status: 500,
-            error: error
-        }))
-    }
 }
 
 module.exports = {

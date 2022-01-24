@@ -112,211 +112,28 @@ async function post(req, res) {
     let score = 0,
         rec = req.body.records,
         year = String(DATE.getFullYear()),
-        answers = [],
-        failure = (question) => {
-            return res.end(JSON.stringify({
-                msg: 'Error: No se obtuvo calificacion de ' + question,
-                resType: 'error',
-                noti: true,
-                status: 500,
-            }))
+        answers = []
+
+    for(let answer in rec) {
+        if(rec[answer] >= 1 && rec[answer] <= 4)
+            answers.push(rec[answer])
+        else {
+            failure(`${answer}`)
+            break
         }
-
-        for(let answer in rec) {
-            if(rec[answer] >= 1 && rec[answer] <= 4)
-                answers.push(rec[answer])
-            else {
-                failure(`${answer}`)
-                break
-            }
-        }
-
-    switch (rec.p_1) {
-        case 4:
-            rec.p_1 = 25
-            break;
-        case 3:
-            rec.p_1 = 17.5
-            break;
-        case 2:
-            rec.p_1 = 12.5
-            break;
-        case 1:
-            rec.p_1 = 7.5
-            break;
-        default:
-            return failure('p_1')
     }
 
-    switch (rec.p_2) {
-        case 4:
-            rec.p_2 = 20
-            break;
-        case 3:
-            rec.p_2 = 15
-            break;
-        case 2:
-            rec.p_2 = 10
-            break;
-        case 1:
-            rec.p_2 = 5
-            break;
-        default:
-            return failure('p_2')
-    }
-
-    switch (rec.p_3) {
-        case 4:
-            rec.p_3 = 15
-            break;
-        case 3:
-            rec.p_3 = 12.5
-            break;
-        case 2:
-            rec.p_3 = 7.5
-            break;
-        case 1:
-            rec.p_3 = 2.5
-            break;
-        default:
-            return failure('p_3')
-    }
-
-    switch (rec.p_4) {
-        case 4:
-            rec.p_4 = 10
-            break;
-        case 3:
-            rec.p_4 = 8.3
-            break;
-        case 2:
-            rec.p_4 = 5
-            break;
-        case 1:
-            rec.p_4 = 1.6
-            break;
-        default:
-            return failure('p_4')
-    }
-
-    switch (rec.p_5) {
-        case 4:
-            rec.p_5 = 2.5
-            break;
-        case 3:
-            rec.p_5 = 2.075
-            break;
-        case 2:
-            rec.p_5 = 1.25
-            break;
-        case 1:
-            rec.p_5 = 0.4
-            break;
-        default:
-            return failure('p_5')
-    }
-
-    switch (rec.p_6) {
-        case 4:
-            rec.p_6 = 2.5
-            break;
-        case 3:
-            rec.p_6 = 2.075
-            break;
-        case 2:
-            rec.p_6 = 1.25
-            break;
-        case 1:
-            rec.p_6 = 0.4
-            break;
-        default:
-            return failure('p_6')
-    }
-
-    switch (rec.p_7) {
-        case 4:
-            rec.p_7 = 2.5
-            break;
-        case 3:
-            rec.p_7 = 2.075
-            break;
-        case 2:
-            rec.p_7 = 1.25
-            break;
-        case 1:
-            rec.p_7 = 0.4
-            break;
-        default:
-            return failure('p_7')
-    }
-
-    switch (rec.p_8) {
-        case 4:
-            rec.p_8 = 2.5
-            break;
-        case 3:
-            rec.p_8 = 2.075
-            break;
-        case 2:
-            rec.p_8 = 1.25
-            break;
-        case 1:
-            rec.p_8 = 0.4
-            break;
-        default:
-            return failure('p_8')
-    }
-
-    switch (rec.p_9) {
-        case 4:
-            rec.p_9 = 5
-            break;
-        case 3:
-            rec.p_9 = 3.75
-            break;
-        case 2:
-            rec.p_9 = 2.5
-            break;
-        case 1:
-            rec.p_9 = 1.25
-            break;
-        default:
-            return failure('p_9')
-    }
-    
-    switch (rec.p_10) {
-        case 4:
-            rec.p_10 = 5
-            break;
-        case 3:
-            rec.p_10 = 3.75
-            break;
-        case 2:
-            rec.p_10 = 2.5
-            break;
-        case 1:
-            rec.p_10 = 1.25
-            break;
-        default:
-            return failure('p_10')
-    }
-    
-    switch (rec.p_11) {
-        case 4:
-            rec.p_11 = 10
-            break;
-        case 3:
-            rec.p_11 = 7.5
-            break;
-        case 2:
-            rec.p_11 = 5
-            break;
-        case 1:
-            rec.p_11 = 2.5
-            break;
-        default:
-            return failure('p_11')
-    }
+    rec.p_1 = weighting(1, rec.p_1)
+    rec.p_2 = weighting(2, rec.p_2)
+    rec.p_3 = weighting(3, rec.p_3)
+    rec.p_4 = weighting(4, rec.p_4)
+    rec.p_5 = weighting(5, rec.p_5)
+    rec.p_6 = weighting(6, rec.p_6)
+    rec.p_7 = weighting(7, rec.p_7)
+    rec.p_8 = weighting(8, rec.p_8)
+    rec.p_9 = weighting(9, rec.p_9)
+    rec.p_10 = weighting(10, rec.p_10)
+    rec.p_11 = weighting(11, rec.p_11)
 
     for(let r in rec) {
         score += parseFloat(rec[r])
@@ -396,7 +213,176 @@ async function post(req, res) {
 	})
 }
 
+function weighting(numAnswer, answer) {
+    let failure = (question) => { return {
+        msg: 'Error: No se obtuvo calificacion de ' + question,
+        resType: 'error',
+        noti: true,
+        status: 500,
+    }}
+
+    switch (parseInt(numAnswer)) {
+        case 1:
+            switch (answer) {
+                case 4:
+                    return 25
+                case 3:
+                    return 17.5
+                case 2:
+                    return 12.5
+                case 1:
+                    return 7.5
+                default:
+                    return failure('question-'+numAnswer)
+            }
+        
+        case 2:
+            switch (answer) {
+                case 4:
+                    return 20
+                case 3:
+                    return 15
+                case 2:
+                    return 10
+                case 1:
+                    return 5
+                default:
+                    return failure('question-'+numAnswer)
+            }
+        
+        case 3:
+            switch (answer) {
+                case 4:
+                    return 15
+                case 3:
+                    return 12.5
+                case 2:
+                    return 7.5
+                case 1:
+                    return 2.5
+                default:
+                    return failure('question-'+numAnswer)
+            }
+        
+        case 4:
+            switch (answer) {
+                case 4:
+                    return 10
+                case 3:
+                    return 8.3
+                case 2:
+                    return 5
+                case 1:
+                    return 1.6
+                default:
+                    return failure('question-'+numAnswer)
+            }
+        
+        case 5:
+            switch (answer) {
+                case 4:
+                    return 2.5
+                case 3:
+                    return 2.075
+                case 2:
+                    return 1.25
+                case 1:
+                    return 0.4
+                default:
+                    return failure('question-'+numAnswer)
+            }
+        
+        case 6:
+            switch (answer) {
+                case 4:
+                    return 2.5
+                case 3:
+                    return 2.075
+                case 2:
+                    return 1.25
+                case 1:
+                    return 0.4
+                default:
+                    return failure('question-'+numAnswer)
+            }
+        
+        case 7:
+            switch (answer) {
+                case 4:
+                    return 2.5
+                case 3:
+                    return 2.075
+                case 2:
+                    return 1.25
+                case 1:
+                    return 0.4
+                default:
+                    return failure('question-'+numAnswer)
+            }
+        
+        case 8:
+            switch (answer) {
+                case 4:
+                    return 2.5
+                case 3:
+                    return 2.075
+                case 2:
+                    return 1.25
+                case 1:
+                    return 0.4
+                default:
+                    return failure('question-'+numAnswer)
+            }
+        
+        case 9:
+            switch (answer) {
+                case 4:
+                    return 5
+                case 3:
+                    return 3.75
+                case 2:
+                    return 2.5
+                case 1:
+                    return 1.25
+                default:
+                    return failure('question-'+numAnswer)
+            }
+        
+        case 10:
+            switch (answer) {
+                case 4:
+                    return 5
+                case 3:
+                    return 3.75
+                case 2:
+                    return 2.5
+                case 1:
+                    return 1.25
+                default:
+                    return failure('question-'+numAnswer)
+            }
+        
+        case 11:
+            switch (answer) {
+                case 4:
+                    return 10
+                case 3:
+                    return 7.5
+                case 2:
+                    return 5
+                case 1:
+                    return 2.5
+                default:
+                    return failure('question-'+numAnswer)
+            }
+    
+        default:
+            return failure('no question')
+    }
+}
+
 module.exports = {
     root,
-    post
+    post,
+    weighting
 }
