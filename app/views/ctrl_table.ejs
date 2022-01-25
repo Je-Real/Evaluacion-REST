@@ -37,10 +37,6 @@
                         </p>
                     </div>
 
-                    <div class="container">
-                        <button id="btn-personnel-eval-format" class="btn btn-warning">Formato</button>
-                    </div>
-
                     <div class="container w-lg-75 w-90 mx-auto table-responsive">
                         <table class="paginator table-effect border-0 table caption-top flex-table table align-middle" data-rows-shown="5, 10, 15">
                             <thead>
@@ -81,14 +77,14 @@
                                                     class="btn btn-info evaluate mx-md-2 my-auto mx-1 p-1 tooltip-text"
                                                     data-tooltip-es="Realizar evaluación para <%=records[record]['first_name']%> <%=records[record]['last_name']%>"
                                                     data-tooltip-en="Perform evaluation for <%=records[record]['first_name']%> <%=records[record]['last_name']%>">
-                                                    <i class="text-white pe-none fas fa-plus-circle fa-2x MOVE-TXT-TOOLTIP"></i>
+                                                    <i class="text-white pe-none fas fa-plus-circle fa-2x"></i>
                                                 </button>
                                             <% } else { %>
                                                 <button type="button" 
-                                                    class="btn btn-success pe-none mx-md-2 my-auto mx-1 p-1 tooltip-text"
-                                                    data-tooltip-es=""="Ya se ha realizado evaluación a <%=records[record]['first_name']%> <%=records[record]['last_name']%>"
-                                                    data-tooltip-en="<%=records[record]['first_name']%> <%=records[record]['last_name']%> has already been evaluated">
-                                                    <i class="text-white fas fa-check fa-2x MOVE-TXT-TOOLTIP"></i>
+                                                    class="btn btn-success generate-pdf mx-md-2 my-auto mx-1 p-1 tooltip-text"
+                                                    data-tooltip-es="Generar formato de evaluación para <%=records[record]['first_name']%> <%=records[record]['last_name']%>"
+                                                    data-tooltip-en="Generate evaluation format for <%=records[record]['first_name']%> <%=records[record]['last_name']%>">
+                                                    <i class="text-white pe-none mx-1 fas fa-file-pdf fa-2x"></i>
                                                 </button>
                                             <% } %>
                                         </td>

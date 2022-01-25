@@ -3,10 +3,9 @@ const fs = require('fs')
 const path = require('path')
 
 const modelUserInfo = require('../models/modelUserInfo')
+const weighting = require('../controllers/controllerEvaluation').weighting
 const DATE = new Date()
 const year = String(DATE.getFullYear())
-
-const weighting = require('../controllers/controllerEvaluation').weighting
 
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
@@ -226,10 +225,14 @@ async function pdfEvalFormat(req, res) {
                     if(result)
                         doc.cell({ width: 1.25*pdf.cm, x: 25.5*pdf.cm, y: yAnchor - 0.6*pdf.cm })
                         .text({ textAlign: 'center', fontSize: 7 }).add(tempScore+'%') // Result
+                    
+                    return tempScore
                 }
             }
         
             try {
+                let evalFactorSum
+
                 // --------------------------- Page 1 --------------------------- //
                 doc.setTemplate(ext_1) 
                 doc.cell({ width: 8*pdf.cm, x: 2*pdf.cm, y: 17.25*pdf.cm }) // Name
@@ -250,27 +253,62 @@ async function pdfEvalFormat(req, res) {
                 doc.cell({ width: 4.3*pdf.cm, x: 11.3*pdf.cm, y: 16.45*pdf.cm }) // Category
                 .text({ textAlign: 'center', fontSize: 7 }).add(data.contract)
                 
-                yAnchor = 13.5*pdf.cm + 2*pdf.cm
-                xAnchor = 13.1*pdf.cm
+                doc.cell({ width: 1.3*pdf.cm, x: 16.9*pdf.cm, y: 16.45*pdf.cm }) // Average
+                .text({ textAlign: 'center', fontSize: 7 }).add(data.records[year].score+'%')
+                
+                yAnchor = 13.5*pdf.cm + 2*pdf.cm // Added 2cm because de function iteration
+                xAnchor = 13.1*pdf.cm            // Guide for the first column (for all pages)
 
-                printAnswers(1, 2.03, true)
-                printAnswers(2, 2.03, true)
-                printAnswers(3, 2.03, true)
-                printAnswers(4, 2.03, true)
-
-                // --------------------------- Page 1 --------------------------- //
-                doc.cell({ width: 2.5*pdf.cm, x: 22.25*pdf.cm, y: 17.15*pdf.cm }) // Date
-                .text({ textAlign: 'center', fontSize: 7 }).add(dateFormated)
-
+                printAnswers(1, 2.03, true) // Evaluation Factor 1
+                printAnswers(2, 2.03, true) // Evaluation Factor 2
+                printAnswers(3, 2.03, true) // Evaluation Factor 3
+                printAnswers(4, 2.03, true) // Evaluation Factor 4
+                
                 // --------------------------- Page 1 --------------------------- //
                 
                 // --------------------------- Page 2 --------------------------- //
                 doc.setTemplate(ext_2)
                 
+                yAnchor = 16.4*pdf.cm + 1.5*pdf.cm
+                evalFactorSum = printAnswers(5, 1.5, false) // Evaluation Factor 5-1
+                evalFactorSum += printAnswers(6, 1.5, false) // Evaluation Factor 5-2
+                evalFactorSum += printAnswers(7, 1.5, false) // Evaluation Factor 5-3
+                evalFactorSum += printAnswers(8, 1.45, false) // Evaluation Factor 5-4
+
+                doc.cell({ width: 1.25*pdf.cm, x: 25.5*pdf.cm, y: yAnchor - 1.1*pdf.cm })
+                .text({ textAlign: 'center', fontSize: 7 }).add(evalFactorSum+'%') // Result
+                
+                yAnchor = 9.5*pdf.cm + 1.5*pdf.cm
+                evalFactorSum = printAnswers(9, 1.5, false) // Evaluation Factor 6-1
+                evalFactorSum += printAnswers(10, 1.6, false) // Evaluation Factor 6-2
+
+                doc.cell({ width: 1.25*pdf.cm, x: 25.5*pdf.cm, y: yAnchor - 1.1*pdf.cm })
+                .text({ textAlign: 'center', fontSize: 7 }).add(evalFactorSum+'%') // Result
+                
                 // --------------------------- Page 2 --------------------------- //
                 
                 // --------------------------- Page 3 --------------------------- //
                 doc.setTemplate(ext_3)
+
+                yAnchor = 16.35*pdf.cm + 1.6*pdf.cm
+                evalFactorSum = printAnswers(11, 1.6, false) // Evaluation Factor 7-1
+                evalFactorSum += printAnswers(12, 1.5, false) // Evaluation Factor 7-2
+                evalFactorSum += printAnswers(13, 1.4, false) // Evaluation Factor 7-3
+                evalFactorSum += printAnswers(14, 2.15, false) // Evaluation Factor 7-4
+
+                doc.cell({ width: 1.25*pdf.cm, x: 25.5*pdf.cm, y: yAnchor - 1.1*pdf.cm })
+                .text({ textAlign: 'center', fontSize: 7 }).add(evalFactorSum+'%') // Result
+                doc.cell({ width: 1.25*pdf.cm, x: 25.5*pdf.cm, y: yAnchor - 1.65*pdf.cm })
+                .text({ textAlign: 'center', fontSize: 7 }).add(total+'%') // Total
+
+                doc.cell({ width: 4*pdf.cm, x: 1.7*pdf.cm, y: 6.15*pdf.cm })
+                .text({ textAlign: 'left', fontSize: 7 })
+                .add(req.session.first_name+' '+req.session.last_name) // Name Evaluator
+
+                doc.cell({ width: 4*pdf.cm, x: 1.7*pdf.cm, y: 5.55*pdf.cm })
+                .text({ textAlign: 'left', fontSize: 7 })
+                .add((req.session.career) ? req.session.career : 
+                    ((req.session.department) ? req.session.department: req.session.area )) // Position
                 
                 // --------------------------- Page 3 --------------------------- //
             } catch (error) {

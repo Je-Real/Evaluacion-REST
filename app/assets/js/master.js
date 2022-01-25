@@ -57,6 +57,18 @@ const changeLang = () => {
     }, 200)
 }
 
+async function upperAttrIterator(target, attributeName) {
+    try{
+        while(target.parentNode) {
+            target = target.parentNode
+            if(target.getAttribute(attributeName) != undefined)
+                return target.getAttribute(attributeName)
+        }
+        log(`Couldn't find attribute ${attributeName} in parentsNodes of ${target}`, STYLE.error)
+        return null
+    } catch (e) { throw e }
+}
+
 async function fetchTo(url = '', method = '', data = {}, onSuccess, onError) {
     let REQ_PARAMS
     method = method.toUpperCase()
@@ -109,8 +121,7 @@ async function eventAssigner(selector, eventClass, funcEvent ) {
 		})
 		return true
 	} catch (error) {
-		console.error(error)
-		throw false
+		throw error
 	}
 }
 

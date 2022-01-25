@@ -118,8 +118,7 @@ async function post(req, res) {
         if(rec[answer] >= 1 && rec[answer] <= 4)
             answers.push(rec[answer])
         else {
-            failure(`${answer}`)
-            break
+            return console.log(`Error: No se obtuvo calificacion de ${answer}`)
         }
     }
 
@@ -134,6 +133,9 @@ async function post(req, res) {
     rec.p_9 = weighting(9, rec.p_9)
     rec.p_10 = weighting(10, rec.p_10)
     rec.p_11 = weighting(11, rec.p_11)
+    rec.p_12 = weighting(11, rec.p_12)
+    rec.p_13 = weighting(11, rec.p_13)
+    rec.p_14 = weighting(11, rec.p_14)
 
     for(let r in rec) {
         score += parseFloat(rec[r])
@@ -148,23 +150,25 @@ async function post(req, res) {
         if(dataUI.length) {
             await modelEvaluation.findOne({ _id: req.body._id })
             .then(async(dataEval) => { //🟢
-                if(dataEval.length) {
+                let insert
+
+                if(dataEval != null) {
+                    insert = dataEval
                     // If a evaluation exits in the current year, return the error message
-                    if(year in dataEval.records)
+                    if(year in insert.records)
                         return res.end(JSON.stringify({
                             msg: '¿¡Ya existe una evaluacion para esta persona en este año!?',
                             resType: 'error',
                             status: 500,
                             noti: true
                         }))
+                    insert.records[year] = { score: score, answers: answers }
+                } else {
+                    insert = { _id: req.body._id, records: {} }
+                    insert.records[year] = { score: score, answers: answers }
                 }
 
-                dataEval.records[year] = {
-                    score: score,
-                    answers: answers
-                }
-
-                await new modelEvaluation(dataEval).save()
+                await new modelEvaluation(insert).save()
                 .then(() => { //🟢
                     return res.end(JSON.stringify({
                         msg: '¡Evaluacion registrada satisfactoriamente!',
@@ -365,13 +369,55 @@ function weighting(numAnswer, answer) {
         case 11:
             switch (answer) {
                 case 4:
-                    return 10
-                case 3:
-                    return 7.5
-                case 2:
-                    return 5
-                case 1:
                     return 2.5
+                case 3:
+                    return 1.5
+                case 2:
+                    return 1
+                case 1:
+                    return 0.5
+                default:
+                    return failure('question-'+numAnswer)
+            }
+        
+        case 12:
+            switch (answer) {
+                case 4:
+                    return 2.5
+                case 3:
+                    return 1.5
+                case 2:
+                    return 1
+                case 1:
+                    return 0.5
+                default:
+                    return failure('question-'+numAnswer)
+            }
+        
+        case 13:
+            switch (answer) {
+                case 4:
+                    return 2.5
+                case 3:
+                    return 1.5
+                case 2:
+                    return 1
+                case 1:
+                    return 0.5
+                default:
+                    return failure('question-'+numAnswer)
+            }
+        
+        case 14:
+            switch (answer) {
+                case 4:
+                    return 2.5
+                case 3:
+                    return 1.5
+                case 2:
+                    return 1
+                case 1:
+                    return 0.5
                 default:
                     return failure('question-'+numAnswer)
             }

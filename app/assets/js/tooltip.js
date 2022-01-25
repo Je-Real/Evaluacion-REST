@@ -37,7 +37,7 @@ const mouseOver = async (e) => {
 	$e('#tooltip p').innerHTML = msg
 	still_over = true
 
-	await setTimeout(() => {
+	setTimeout(() => {
 		if (still_over) tooltip.classList.add('show')
 	}, 800)
 }
