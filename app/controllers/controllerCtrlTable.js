@@ -239,7 +239,9 @@ async function pdfEvalFormat(req, res) {
                 .text({ textAlign: 'center', fontSize: 7 }).add(data.first_name+' '+data.last_name)
                 
                 doc.cell({ width: 3.2*pdf.cm, x: 11.4*pdf.cm, y: 17.25*pdf.cm }) // Position
-                .text({ textAlign: 'center', fontSize: 7 }).add(data.area)
+                .text({ textAlign: 'center', fontSize: 7 }).add(
+                    (data.career) ? data.career: ((data.department) ? data.department : data.area)
+                )
                 
                 doc.cell({ width: 2*pdf.cm, x: 18.5*pdf.cm, y: 17.25*pdf.cm }) // Employee number
                 .text({ textAlign: 'center', fontSize: 7 }).add(data._id)
@@ -248,7 +250,7 @@ async function pdfEvalFormat(req, res) {
                 .text({ textAlign: 'center', fontSize: 7 }).add(dateFormated)
                 
                 doc.cell({ width: 7.5*pdf.cm, x: 2.5*pdf.cm, y: 16.45*pdf.cm }) // Department
-                .text({ textAlign: 'center', fontSize: 7 }).add(data.area)
+                .text({ textAlign: 'center', fontSize: 7 }).add((data.department) ? data.department : data.area)
                 
                 doc.cell({ width: 4.3*pdf.cm, x: 11.3*pdf.cm, y: 16.45*pdf.cm }) // Category
                 .text({ textAlign: 'center', fontSize: 7 }).add(data.contract)
@@ -305,10 +307,11 @@ async function pdfEvalFormat(req, res) {
                 .text({ textAlign: 'left', fontSize: 7 })
                 .add(req.session.first_name+' '+req.session.last_name) // Name Evaluator
 
-                doc.cell({ width: 4*pdf.cm, x: 1.7*pdf.cm, y: 5.55*pdf.cm })
+                doc.cell({ width: 4*pdf.cm, x: 1.7*pdf.cm, y: 5.55*pdf.cm }) // Position
                 .text({ textAlign: 'left', fontSize: 7 })
-                .add((req.session.career) ? req.session.career : 
-                    ((req.session.department) ? req.session.department: req.session.area )) // Position
+                .add(
+                    (data.career) ? data.career: ((data.department) ? data.department : data.area)
+                ) 
                 
                 // --------------------------- Page 3 --------------------------- //
             } catch (error) {

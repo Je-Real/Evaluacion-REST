@@ -11,16 +11,16 @@ const evaluateUser = (e) => {
 
 const pdfFormatEval = (e) => {
     upperAttrIterator(e.target, 'id')
-    .then(res => {
-        if(res != null) {
-            fetch('http://localhost:999/home/evaluation-pdf/'+res)
+    .then(id => {
+        if(id != null) {
+            fetch('http://localhost:999/home/evaluation-pdf/'+id)
                 .then(async res => await res.arrayBuffer()) // response data to array buffer
                 .then(data => {
                     if(data == null || data == undefined)
                         return showSnack('Server error', null, SNACK.error)
                     const blob = new Blob([data]) // Create a Blob object
                     const url = URL.createObjectURL(blob) // Create an object URL
-                    download(url, 'eval-format-output.pdf') // Download file
+                    download(url, (lang == 0) ? `formato-evaluacion-${id}.pdf` : `evaluation-format-${id}.pdf`) // Download file
                     URL.revokeObjectURL(url) // Release the object URL
                 })
                 .catch(err => {
