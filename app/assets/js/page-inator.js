@@ -52,15 +52,15 @@ window.addEventListener('load', (e) => {
     const rows = () => {
         if(parseInt($e('#rows').value) != rows) paginator()
     }
-    eventAssigner('#rows', 'onchange', rows)
+    eventAssigner('#rows', 'change', rows)
 })
 
 function paginator() {
     $a('.row-temp').forEach(node => node.remove())
 
+    const items = $a('.paginator .pag-item')
     let rows = parseInt($e('#rows').value),
-        rowsTotal = $a('.paginator .pag-item').length,
-        numPages = rowsTotal/rows
+        numPages = items.length/rows
     
     for(i=0; i<numPages; i++) {
         $e('#pag-ctrl').insertAdjacentHTML(
@@ -69,13 +69,13 @@ function paginator() {
     }
 
     $e('#pag-ctrl a[rel="0"]').classList.add('active')
-    $e('#reg-total').innerHTML = rowsTotal
+    $e('#reg-total').innerHTML = items.length
     
     const pagCTRL = (e) => {
-        $e('#pag-ctrl a').classList.remove('active')
-        $e(e.target).classList.add('active')
+        $a('#pag-ctrl a').forEach(node => node.classList.remove('active'))
+        e.target.classList.add('active')
 
-        let currPage = $e(e.target).getAttribute('rel'),
+        let currPage = e.target.getAttribute('rel'),
             startItem = currPage * rows,
             endItem = startItem + rows
 
@@ -113,17 +113,8 @@ function paginator() {
             })
         } catch { }
     }
-    eventAssigner('#pag-ctrl a', 'onclick', )
 
-    /*$a('.paginator .pag-item').forEach(node => {
-        node.style.opacity = 1
-        node.style.display = 'table'
-    })
-    Array.prototype.slice.call( // Split the selected items in the table (from, to)
-        $a('.paginator div.pag-item'),
-        0, rows
-    ).forEach(node => { // Then apply them all the styles for hide 
-        node.style.opacity = 1
-        node.style.display = 'table'
-    })*/
+    eventAssigner('#pag-ctrl a', 'click', pagCTRL)
+
+    pagCTRL({target: $e('#pag-ctrl a')})
 }
