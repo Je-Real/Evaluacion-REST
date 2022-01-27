@@ -177,60 +177,65 @@ function data(req, res) {
         }
     ])
     .then(async (data) => { //🟢
-        // filter empty objects
-        data = data.filter(value => Object.keys(value).length !== 0)
-
-        let average = 0, sumTemp = 0,
-            years = [], records =  [], subordinates = [],
-            histCounter =  [[0, 0, 0, 0, 0],[0, 0, 0, 0, 0]]
-
-        if(req.body._id == null || req.body._id == undefined)
-            await modelUserInfo.aggregate([
-                { $match: search },
-                { $project: {
-                    _id: 1,
-                    first_name: 1,
-                    last_name: 1,
-                } },
-            ])
-            .then((dataSubs) => {
-                subordinates = dataSubs // Get all the subordinates
-            })
-            .catch((error) => {
-                console.error(error)
-            })
-        else subordinates = null
+        if(data) {
+            // filter empty objects
+            data = data.filter(value => Object.keys(value).length !== 0)
     
-        for(let i=0; i<5; i++) {
-            let currYear = String(parseInt(year)-(4-i))
+            let average = 0, sumTemp = 0,
+                years = [], records =  [], subordinates = [],
+                histCounter =  [[0, 0, 0, 0, 0],[0, 0, 0, 0, 0]]
+    
+            if(req.body._id == null || req.body._id == undefined)
+                await modelUserInfo.aggregate([
+                    { $match: search },
+                    { $project: {
+                        _id: 1,
+                        first_name: 1,
+                        last_name: 1,
+                    } },
+                ])
+                .then((dataSubs) => {
+                    subordinates = dataSubs // Get all the subordinates
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
+            else subordinates = null
         
-            years[i] = currYear
-            for(let j in data) {
-                if('records' in data[j]) {
-                    if(String(currYear) in data[j].records) {
-                        histCounter[0][i] += data[j].records[String(currYear)]
-                        histCounter[1][i]++
+            for(let i=0; i<5; i++) {
+                let currYear = String(parseInt(year)-(4-i))
+            
+                years[i] = currYear
+                for(let j in data) {
+                    if('records' in data[j]) {
+                        if(String(currYear) in data[j].records) {
+                            histCounter[0][i] += data[j].records[String(currYear)].score
+                            histCounter[1][i]++
+                        }
                     }
                 }
+                histCounter[0][i] = parseFloat((histCounter[0][i])).toFixed(2)
+                
+                records[i] = (histCounter[0][i] === 0 || histCounter[1][i] === 0)
+                    ? 0 : parseFloat((histCounter[0][i] / histCounter[1][i]).toFixed(1))
+                sumTemp += records[i]
             }
-            histCounter[0][i] = parseFloat((histCounter[0][i]).toFixed(2))
-            
-            records[i] = (histCounter[0][i] === 0 || histCounter[1][i] === 0)
-                ? 0 : parseFloat((histCounter[0][i] / histCounter[1][i]).toFixed(1))
-            sumTemp += records[i]
-        }
-        average = parseFloat((sumTemp / 5).toFixed(1))
-    
-        return res.end(JSON.stringify({
-            data: {
-                total: average,
-                log: {
-                    years: years,
-                    records: records
+            average = parseFloat((sumTemp / 5).toFixed(1))
+        
+            return res.end(JSON.stringify({
+                data: {
+                    total: average,
+                    log: {
+                        years: years,
+                        records: records
+                    },
+                    subordinates: subordinates
                 },
-                subordinates: subordinates
-            },
-            status: 200,
+                status: 200,
+            }))
+        } else return res.end(JSON.stringify({
+            data: null,
+            status: 404,
         }))
     })
     .catch((error) => { //🔴
