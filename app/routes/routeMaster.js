@@ -27,6 +27,7 @@ router //👇
 // Reports
 .get('/metrics', controllerMetrics.root)
 .post('/metrics', controllerMetrics.data)
+.post('/metrics/all', controllerMetrics.getAllOf)
 
 // Survey
 .get('/evaluation', controllerLayoutStatic.root)

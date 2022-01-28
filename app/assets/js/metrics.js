@@ -25,6 +25,75 @@ window.addEventListener('load', async(e) => {
 	setTimeout(() => {
 		getData(true)
     }, 150)
+
+	fetchTo(
+		'http://localhost:999/metrics/all',
+		'POST',
+		{ search: 'area' },
+		(result) => {
+			if(result.status === 200) {
+				return console.log(result.data)
+
+				if (result.data.subordinates != null) {
+					console.log(idSelect)
+					$a(`.panel[data-id="${idSelect}"] .subordinates .sub`).forEach(node => {
+						node.remove()
+					})
+					$e(`.panel[data-id="${idSelect}"] .subordinates .sub-s`).selected = true
+					if(result.data.subordinates.length > 0) {
+						$e(`.panel[data-id="${idSelect}"] .subordinates`).disabled = false
+						$e(`.panel[data-id="${idSelect}"] .subordinates .sub-s`).innerHTML = (lang == 0)
+																							  ? '-Selecciona personal-'
+																							  : '-Select personnel-'
+																							  
+						for (let i in result.data.subordinates) {
+							$e(`.panel[data-id="${idSelect}"] .subordinates`).insertAdjacentHTML(
+								'beforeend', `<option class="sub" data-index="${parseInt(i)+1}"`+
+								`value="${result.data.subordinates[i]['_id']}">`+
+								`${result.data.subordinates[i]['first_name']} `+
+								`${result.data.subordinates[i]['last_name']}`+
+								`</option>`
+							)
+						}
+					} else {
+						$e(`.panel[data-id="${idSelect}"] .subordinates`).disabled = true
+						$e(`.panel[data-id="${idSelect}"] .subordinates .sub-s`).innerHTML = 'Sin registros'
+					}
+				}
+
+				if(result.data.total != 0 && result.data.log.records != 0) {
+					try {
+						let lineLabels = []
+						for(let i in result.data.log.years) {
+							lineLabels.push(
+								[
+									result.data.log.years[i],
+									(result.data.log.records[i] > 0 || result.data.log.records[i] != false)
+									? result.data.log.records[i] + '%'
+									: 'N/A'
+								]
+								)
+						}
+
+						semiDoughnutChart(idSelect, result.data.total)
+						lineChart(idSelect, lineLabels, result.data.log.records)
+						displayCharts(true)
+						idSelect = -1
+					}
+					catch (error) {
+						displayCharts(false)
+						console.error(error)
+					}
+				} else displayCharts(false)
+			}
+		},
+		(error) => {
+			showSnack('Error '+error, null, SNACK.error)
+			console.error(error)
+		}
+	)
+
+	//$e('#allDirections')
 })
 
 const config = (e) => {

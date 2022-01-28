@@ -1,101 +1,67 @@
 window.addEventListener('load', async(e) => {
-    const inputClick = () => {
-        let active_V = 0,
-            active_VI = 0,
-            active_VII = 0
-        
-        try {
-            if($e('input[name="P-I"]:checked').value) {
-                $e('#P-I').classList.remove('deactivated')
-                $e('#P-I').classList.add('activated')
-            } else {
-                $e('#P-I').classList.remove('activated')
-                $e('#P-I').classList.add('deactivated')
-            }
-        } catch (e) {}
+    let radioFields = { length: 0 },
+        activeSec_5 = [0, 4], // 0 filled (initialized) out of 4 radio buttons in total inside 5th section
+        activeSec_6 = [0, 2], // 0 filled (initialized) out of 2 radio buttons in total inside 6th section
+        activeSec_7 = [0, 4] // and so on...
 
-        try {
-            if($e('input[name="P-II"]:checked').value) {
-                $e('#P-II').classList.remove('deactivated')
-                $e('#P-II').classList.add('activated')
-            } else {
-                $e('#P-II').classList.remove('activated')
-                $e('#P-II').classList.add('deactivated')
-            }
-        } catch (e) {}
-    
-        try {
-            if($e('input[name="P-III"]:checked').value) {
-                $e('#P-III').classList.remove('deactivated')
-                $e('#P-III').classList.add('activated')
-            } else {
-                $e('#P-III').classList.remove('activated')
-                $e('#P-III').classList.add('deactivated')
-            }
-        } catch (e) {}
+    $e('#btn-send').disabled = true
+
+    const inputClick = (e) => {
+        let tgt = e.target
+
         
-        try {
-            if($e('input[name="P-IV"]:checked').value) {
-                $e('#P-IV').classList.remove('deactivated')
-                $e('#P-IV').classList.add('activated')
-            } else {
-                $e('#P-IV').classList.remove('activated')
-                $e('#P-IV').classList.add('deactivated')
-            }
-        } catch (e) {}
-    
-        try {
-            if($e('input[name="P-V"]:checked').value) { active_V++ } 
-            else { active_V+-1 }
-            if($e('input[name="P-VI"]:checked').value) { active_V++ } 
-            else { active_V+-1 }
-            if($e('input[name="P-VII"]:checked').value) { active_V++ } 
-            else { active_V+-1 }
-            if($e('input[name="P-VIII"]:checked').value) { active_V++ } 
-            else { active_V+-1 }
+        radioFields[tgt.name] = parseInt(tgt.value)
+        radioFields.length++
+
+        if(parseInt(tgt.name.split('_')[1]) > 0 && parseInt(tgt.name.split('_')[1]) <= 4)
+            $e('#P-'+tgt.name.split('_')[1]).classList.replace('deactivated', 'activated')
+        else {
+            switch (parseInt(tgt.name.split('_')[1])) {
+                case 5:
+                    activeSec_5[0]++
+                    break
+                case 6:
+                    activeSec_5[0]++
+                    break
+                case 7:
+                    activeSec_5[0]++
+                    break
+                case 8:
+                    activeSec_5[0]++
+                    break
+                
+                case 9:
+                    activeSec_6[0]++
+                    break
+                case 10:
+                    activeSec_6[0]++
+                    break
+                
+                case 11:
+                    activeSec_7[0]++
+                    break
+                case 12:
+                    activeSec_7[0]++
+                    break
+                case 13:
+                    activeSec_7[0]++
+                    break
+                case 14:
+                    activeSec_7[0]++
+                    break
             
-            if(active_V == 4) {
-                $e('#P-V').classList.remove('deactivated')
-                $e('#P-V').classList.add('activated')
-            } else {
-                $e('#P-V').classList.remove('activated')
-                $e('#P-V').classList.add('deactivated')
+                default:
+                    console.error('Not found a value for the following element:')
+                    console.error(tgt)
+                    break;
             }
-        } catch (e) {}
+        }
 
-        try {
-            if($e('input[name="P-IX"]:checked').value) { active_VI++ } 
-            else { active_VI+-1 }
-            if($e('input[name="P-X"]:checked').value) { active_VI++ } 
-            else { active_VI+-1 }
-        
-            if(active_VI == 2) {
-                $e('#P-VI').classList.remove('deactivated')
-                $e('#P-VI').classList.add('activated')
-            } else {
-                $e('#P-VI').classList.remove('activated')
-                $e('#P-VI').classList.add('deactivated')
-            }
-        } catch (e) {}
+        if(activeSec_5[0] === activeSec_5[1]) $e('#P-5').classList.replace('deactivated', 'activated')
+        if(activeSec_6[0] === activeSec_6[1]) $e('#P-6').classList.replace('deactivated', 'activated')
+        if(activeSec_7[0] === activeSec_7[1]) $e('#P-7').classList.replace('deactivated', 'activated')
 
-        try {
-            if($e('input[name="P-XI"]:checked').value) { active_VII++ } 
-            else { active_VII+-1 }
-            if($e('input[name="P-XII"]:checked').value) { active_VII++ } 
-            else { active_VII+-1 }
-            if($e('input[name="P-XIII"]:checked').value) { active_VII++ } 
-            else { active_VII+-1 }
-            if($e('input[name="P-XIV"]:checked').value) { active_VII++ } 
-            else { active_VII+-1 }
-            
-            if(active_VII == 4) {
-                $e('#P-VII').classList.remove('deactivated')
-                $e('#P-VII').classList.add('activated')
-            } else {
-                $e('#P-VII').classList.remove('activated')
-                $e('#P-VII').classList.add('deactivated')
-            }
-        } catch (e) {}
+        if(radioFields.length === 14) $e('#btn-send').disabled = false
     }
 
     const slctOjb = () => selectObjective(true)
@@ -119,6 +85,7 @@ window.addEventListener('load', async(e) => {
 
     eventAssigner('#btn-send', 'click', () => {
         let id
+        delete radioFields.length
 
         if(String($e('#userObj').value).length <= 0)
             return showSnack(
@@ -127,36 +94,21 @@ window.addEventListener('load', async(e) => {
                 null, SNACK.warning
             )
         else id = $e('#userObj').value
-        
-        let scores = {
-            p_1: parseInt($e('input[name="P-I"]:checked').value),
-            p_2: parseInt($e('input[name="P-II"]:checked').value),
-            p_3: parseInt($e('input[name="P-III"]:checked').value),
-            p_4: parseInt($e('input[name="P-IV"]:checked').value),
-            p_5: parseInt($e('input[name="P-V"]:checked').value),
-            p_6: parseInt($e('input[name="P-VI"]:checked').value),
-            p_7: parseInt($e('input[name="P-VII"]:checked').value),
-            p_8: parseInt($e('input[name="P-VIII"]:checked').value),
-            p_9: parseInt($e('input[name="P-IX"]:checked').value),
-            p_10: parseInt($e('input[name="P-X"]:checked').value),
-            p_11: parseInt($e('input[name="P-XI"]:checked').value),
-            p_12: parseInt($e('input[name="P-XII"]:checked').value),
-            p_13: parseInt($e('input[name="P-XIII"]:checked').value),
-            p_14: parseInt($e('input[name="P-XIV"]:checked').value),
-        }
 
-        for(let score in scores) {
-            if(scores[score] == undefined || scores[score] == null || scores[score] == 0)
+        for(let score in radioFields) {
+            if(radioFields[score] == undefined || radioFields[score] == null || radioFields[score] == 0) {
+                console.log(radioFields[score])
                 return showSnack(
-                    (lang == 0) ? '¡Aun no se puede enviar!<br/>Debes completar la evaluación'
-                                : 'Cannot be sent yet!<br/>You must complete the evaluation.',
+                    (lang == 0) ? '¡Aun no se puede enviar!<br/>Debes completar la evaluación! Falta '+score
+                                : 'Cannot be sent yet!<br/>You must complete the evaluation. Remain '+score,
                     null, SNACK.warning
                 )
+            }
         }
     
         let packed = {
             _id: id,
-            records: scores
+            records: radioFields
         }
         
         fetchTo(
@@ -167,6 +119,12 @@ window.addEventListener('load', async(e) => {
                 if(result.noti && result.status === 200) {
                     showSnack(result.msg, null, SNACK.success)
                     setTimeout(window.location.reload(false), 1500)
+
+                    /**TODO: If page without reloading */
+                    radioFields = { length: 0 }
+                    activeSec_5 = [0, 4]
+                    activeSec_6 = [0, 2]
+                    activeSec_7 = [0, 4]
                 }
                 else showSnack(result.msg, null, SNACK.error)
             },
@@ -227,6 +185,11 @@ function cardView() {
 
 function selectObjective(hover) {
     if(hover.length == 0) return
+
+    radioFields = { length: 0 }
+    activeSec_5 = [0, 4]
+    activeSec_6 = [0, 2]
+    activeSec_7 = [0, 4]
 
     $e('#f_survey').reset()
     $a('.table-header').forEach(node => 

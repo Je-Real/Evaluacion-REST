@@ -2,6 +2,7 @@ const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
 const modelArea = require('../models/modelArea')
 const DATE = new Date()
+const currYear = String(DATE.getFullYear())
 
 // >>>>>>>>>>>>>>>>>>>>>> Reportes <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
@@ -250,8 +251,68 @@ function data(req, res) {
     })
 }
 
+function getAllOf(req, res) {
+    let search = {}
+    search['records.'+currYear] = { $exists: true }
+
+    console.log(search)
+    console.log('$records.'+currYear+'.'+req.body.search)
+
+    modelEvaluation.aggregate([
+        { $match: search }, {
+            $group: {
+                _id: `$records.${currYear}.${req.body.search}`, // "area" || "department" || "career"
+                total: { $sum: `$records.${currYear}.score` },
+                length: { $sum: 1 }
+            }
+        }, {
+            $lookup: {
+                from: 'areas',
+                pipeline: [
+                    { $set: { area: '$desc' } },
+                    { $unset: ['n', '_id', 'desc'] }
+                ],
+                localField: '_id',
+                foreignField: 'n',
+                as: 'area_',
+            }
+        }, {
+            $replaceRoot: {
+                newRoot: {
+                    $mergeObjects: [
+                        { $arrayElemAt: ['$area_', 0] },
+                        '$$ROOT',
+                    ]
+                }
+            }
+        }, { $unset: ['_id', 'area_'] }
+    ])
+    .then(data => {
+
+        console.log(data)
+
+        if(data.length) {
+    
+            return res.end(JSON.stringify({
+                data: data,
+                status: 200
+            }))
+        }
+    })
+    .catch((error) => { //🔴
+        console.error(error)
+        return res.end(JSON.stringify({
+            msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
+            status: 404,
+            noti: true,
+            notiType: 'error',
+            error: error
+        }))
+    })
+}
 
 module.exports = {
     root,
-    data
+    data,
+    getAllOf
 }

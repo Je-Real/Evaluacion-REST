@@ -2,6 +2,8 @@ const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
 
 const DATE = new Date()
+const currYear = String(DATE.getFullYear())
+
 // >>>>>>>>>>>>>>>>>>>>>> Evaluacion static <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
     let session, userData = []
@@ -10,8 +12,6 @@ async function root(req, res) {
         session = null
     } else { // Session 🤑
         session = req.session
-
-        /*  --------------------- Modifiy ------------------------   */
 
         await modelUserInfo.aggregate([
             { $match: { manager: req.session.user } }, {
@@ -89,7 +89,7 @@ async function root(req, res) {
             //Get all the users that doesn't have a evaluation in the current year
             Object.entries(data).filter(([,info], i) => {
                 userData.push((!('records' in info))
-                    ? info : ((!(String(new Date().getFullYear()) in info.records))
+                    ? info : ((!(currYear in info.records))
                         ? info : null)
                 )
             })
@@ -111,7 +111,6 @@ async function root(req, res) {
 async function post(req, res) {
     let score = 0,
         rec = req.body.records,
-        year = String(DATE.getFullYear()),
         answers = []
 
     for(let answer in rec) {
@@ -122,20 +121,20 @@ async function post(req, res) {
         }
     }
 
-    rec.p_1 = weighting(1, rec.p_1)
-    rec.p_2 = weighting(2, rec.p_2)
-    rec.p_3 = weighting(3, rec.p_3)
-    rec.p_4 = weighting(4, rec.p_4)
-    rec.p_5 = weighting(5, rec.p_5)
-    rec.p_6 = weighting(6, rec.p_6)
-    rec.p_7 = weighting(7, rec.p_7)
-    rec.p_8 = weighting(8, rec.p_8)
-    rec.p_9 = weighting(9, rec.p_9)
-    rec.p_10 = weighting(10, rec.p_10)
-    rec.p_11 = weighting(11, rec.p_11)
-    rec.p_12 = weighting(11, rec.p_12)
-    rec.p_13 = weighting(11, rec.p_13)
-    rec.p_14 = weighting(11, rec.p_14)
+    rec.r_1 = weighting(1, rec.r_1)
+    rec.r_2 = weighting(2, rec.r_2)
+    rec.r_3 = weighting(3, rec.r_3)
+    rec.r_4 = weighting(4, rec.r_4)
+    rec.r_5 = weighting(5, rec.r_5)
+    rec.r_6 = weighting(6, rec.r_6)
+    rec.r_7 = weighting(7, rec.r_7)
+    rec.r_8 = weighting(8, rec.r_8)
+    rec.r_9 = weighting(9, rec.r_9)
+    rec.r_10 = weighting(10, rec.r_10)
+    rec.r_11 = weighting(11, rec.r_11)
+    rec.r_12 = weighting(11, rec.r_12)
+    rec.r_13 = weighting(11, rec.r_13)
+    rec.r_14 = weighting(11, rec.r_14)
 
     for(let r in rec) {
         score += parseFloat(rec[r])
@@ -145,29 +144,32 @@ async function post(req, res) {
     let temp = Number((Math.abs(score) * 100).toPrecision(15))
     score = Math.round(temp) / 100 * Math.sign(score)
 
-    await modelUserInfo.find({ _id: req.body._id }, { _id: 1 })
-	.then(async(dataUI) => { //🟢
-        if(dataUI.length) {
-            await modelEvaluation.findOne({ _id: req.body._id })
+    await modelUserInfo.find({ _id: req.body._id }, { _id: 1, area: 1, department: 1, career: 1 })
+	.then(async(dataUInfo) => { //🟢
+        if(dataUInfo.length) {
+            await modelEvaluation.find({ _id: req.body._id })
             .then(async(dataEval) => { //🟢
                 let insert
 
-                if(dataEval != null) {
-                    insert = dataEval
+                if(dataEval.length) {
+                    insert = dataEval[0]
                     // If a evaluation exits in the current year, return the error message
-                    if(year in insert.records)
-                        return res.end(JSON.stringify({
-                            msg: '¿¡Ya existe una evaluacion para esta persona en este año!?',
-                            resType: 'error',
-                            status: 500,
-                            noti: true
-                        }))
-                    insert.records[year] = { score: score, answers: answers }
-                } else {
+                    if(currYear in insert.records)
+                    return res.end(JSON.stringify({
+                        msg: '¿¡Ya existe una evaluacion para esta persona en este año!?',
+                        resType: 'error',
+                        status: 500,
+                        noti: true
+                    }))
+                } else
                     insert = { _id: req.body._id, records: {} }
-                    insert.records[year] = { score: score, answers: answers }
-                }
 
+                insert.records[currYear] = { score: score, answers: answers }
+                insert.records[currYear].area = dataUInfo[0].area
+                if(dataUInfo[0].department != null) insert.records[currYear].department = dataUInfo[0].department
+                if(dataUInfo[0].career != null) insert.records[currYear].career = dataUInfo[0].career
+                    
+                
                 await new modelEvaluation(insert).save()
                 .then(() => { //🟢
                     return res.end(JSON.stringify({
@@ -197,7 +199,8 @@ async function post(req, res) {
                     }))
             })
         } else {
-            console.error('Eyo error here!')
+            console.log(dataUInfo)
+            console.error('No length in user info search!')
             return res.end(JSON.stringify({
                 msg: '¿¡No existe el usuario seleccionado!?',
                 resType: 'error',
