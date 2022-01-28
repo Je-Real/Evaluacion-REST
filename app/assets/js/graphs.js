@@ -41,7 +41,7 @@ function semiDoughnutChart(id, data, colors) {
 			dChart[id].destroy()
 
 		try {
-			canvas = document.querySelector(`.panel[data-id="${id}"] .semiDoughnutChart canvas`)
+			canvas = $e(`.panel[data-id="${id}"] .semiDoughnutChart canvas`)
 			let ctx = canvas.getContext('2d')
 			dChart[id] = new Chart(ctx, {
 				type: 'doughnut',
@@ -106,7 +106,7 @@ function barChart(id, labels, data, colors) {
 		fgColor = (colors != undefined && colors.length == 5) ? colors : fgColorDefault
 		
 		try {
-			let ctx = document.querySelector(`.panel[data-id="${id}"] .barsChart canvas`).getContext('2d')
+			let ctx = $e(`.panel[data-id="${id}"] .barsChart canvas`).getContext('2d')
 			bChart[id] = new Chart(ctx, {
 				type: 'bar',
 				data: {
@@ -121,13 +121,6 @@ function barChart(id, labels, data, colors) {
 				},
 				plugins: [ChartDataLabels],
 				options: {
-					legend: {
-						display: false,
-						labels: {
-							fontSize: 20,
-							fontColor: '#595d6e',
-						}
-					},
 					scales: {
 						y: {
 							beginAtZero: true,
@@ -138,6 +131,9 @@ function barChart(id, labels, data, colors) {
 					plugins: {
 						tooltip: {
 							enabled: false
+						},
+						legend: {
+							display: false
 						},
 						datalabels: {
 							formatter: (value, ctx) => {
@@ -171,7 +167,7 @@ function lineChart(id, labels, data, colors) {
 		if(lChart[id] != undefined)
 			lChart[id].destroy()
 
-		ctx = document.querySelector(`div[data-id="${id}"] .lineChart canvas`).getContext('2d')
+		let ctx = $e(`.panel[data-id="${id}"] .barsChart canvas`).getContext('2d')
 		lChart[id] = new Chart(ctx, {
 			type: 'line',
 			data: {
@@ -201,13 +197,21 @@ function lineChart(id, labels, data, colors) {
 				scales: {
 					y: {
 						beginAtZero: true,
+						min: 0,
+						max: 100,
+						ticks: {
+							stepSize: 20
+						}
+					}
+				},
+				plugins: {
+					legend: {
+						display: false
 					},
-				},
-				interaction: {
-					mode: 'nearest',
-					axis: 'x',
-					intersect: false,
-				},
+					tooltip: {
+						enabled: false
+					}
+				}
 			},
 		})
 		canvas = null

@@ -247,7 +247,7 @@ function displayCharts(show) {
 				node.classList.toggle('d-block', true)
 		})
 
-		log(`[Report] Shown Panel ${idSelect}`, STYLE.cian)
+		log(`[Metrics] Shown Panel ${idSelect}`, STYLE.cian)
 	} else {
 		Array.prototype.forEach.call(
 			document.querySelectorAll(`.panel[data-id="${idSelect}"] canvas, .panel[data-id="${idSelect}"] span:not(.lang)`),
@@ -262,7 +262,7 @@ function displayCharts(show) {
 				node.classList.toggle('d-block', true)
 		})
 
-		log(`[Report] Hidden Panel ${idSelect}`, STYLE.pink)
+		log(`[Metrics] Hidden Panel ${idSelect}`, STYLE.pink)
 	}
 }
 
@@ -326,9 +326,20 @@ async function getData(auto) {
 
 				if(result.data.total != 0 && result.data.log.records != 0) {
 					try {
+						let lineLabels = []
+						for(let i in result.data.log.years) {
+							lineLabels.push(
+								[
+									result.data.log.years[i],
+									(result.data.log.records[i] > 0 || result.data.log.records[i] != false)
+									? result.data.log.records[i] + '%'
+									: 'N/A'
+								]
+								)
+						}
+
 						semiDoughnutChart(idSelect, result.data.total)
-						barChart(idSelect, result.data.log.years, result.data.log.records)
-						//lineChart(years, records)
+						lineChart(idSelect, lineLabels, result.data.log.records)
 						displayCharts(true)
 						idSelect = -1
 					}
@@ -339,7 +350,7 @@ async function getData(auto) {
 				} else displayCharts(false)
 			}
 			else {
-				if(result.log === true) return log('[Report] '+result.msg, STYLE.error)
+				if(result.log === true) return log('[Metrics] '+result.msg, STYLE.error)
 			}
 			canvasId = undefined
         },
