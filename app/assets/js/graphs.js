@@ -34,11 +34,9 @@ function getGradient(ctx, chartArea) {
 }
 
 function semiDoughnutChart(id, data, colors) {
-	if(data > 0 && data <= 100) {
+	if((data > 0 && data <= 100)) {
+		if(dChart[id] != undefined) dChart[id].destroy()
 		let span
-
-		if(dChart[id] != undefined)
-			dChart[id].destroy()
 
 		try {
 			canvas = $e(`.panel[data-id="${id}"] .semiDoughnutChart canvas`)
@@ -83,30 +81,37 @@ function semiDoughnutChart(id, data, colors) {
 				span = document.createElement('span')
 				canvas.parentNode.insertBefore(span, canvas.nextSibling)
 			}
+			
 			span.innerHTML = data+'%'
 			canvas = null
 			
-			return log('[Graphs] Loaded Semi doughnut!', STYLE.success)
+			log('[Graphs] Loaded Semi doughnut!', STYLE.success)
+			return true
 		} catch (error) {
 			log('[Graphs] Error in Semi doughnut', STYLE.error)
-			return console.error(error)
+			console.error(error)
+			return false
 		}
+	} else if (data === null) {
+		console.warn('[Graphs] Semi doughnut without data')
+		return null
 	}
-	console.warn('[Graphs] Semi doughnut without data')
+	log('[Graphs] Error in Semi doughnut', STYLE.error)
+	console.error(id)
+	console.error(data)
 }
 
 function barChart(id, labels, data, colors) {
 	if(labels.length && data.length) {
+		if(bChart[id] != undefined) bChart[id].destroy()
 		let bgColor, fgColor
-
-		if(bChart[id] != undefined)
-			bChart[id].destroy()
 		
 		bgColor = (colors != undefined && colors.length == 5) ? colors : bgColorDefault
 		fgColor = (colors != undefined && colors.length == 5) ? colors : fgColorDefault
 		
 		try {
-			let ctx = $e(`.panel[data-id="${id}"] .barsChart canvas`).getContext('2d')
+			canvas = $e(id)
+			let ctx = canvas.getContext('2d')
 			bChart[id] = new Chart(ctx, {
 				type: 'bar',
 				data: {
@@ -157,65 +162,72 @@ function barChart(id, labels, data, colors) {
 			log('[Graphs] Error in Bars', STYLE.error)
 			return console.error(error)
 		}
-			
 	}
 	console.warn('[Graphs] Bars without data')
 }
 
 function lineChart(id, labels, data, colors) {
 	if(labels.length && data.length) {
-		if(lChart[id] != undefined)
-			lChart[id].destroy()
+		if(lChart[id] != undefined) lChart[id].destroy()
 
-		let ctx = $e(`.panel[data-id="${id}"] .barsChart canvas`).getContext('2d')
-		lChart[id] = new Chart(ctx, {
-			type: 'line',
-			data: {
-				labels: labels, //Years labels
-				datasets: [
-					{
-						label: 'Puntuación',
-						data: data, //Records' data
-						cubicInterpolationMode: 'monotone',
-						fill: false,
-						tension: 0.4,
-						borderColor: (context) => {
-							const chart = context.chart
-							const { ctx, chartArea } = chart
+		try {
+			canvas = $e(`.panel[data-id="${id}"] .barsChart canvas`)
+			let ctx = canvas.getContext('2d')
+			lChart[id] = new Chart(ctx, {
+				type: 'line',
+				data: {
+					labels: labels, //Years labels
+					datasets: [
+						{
+							label: 'Puntuación',
+							data: data, //Records' data
+							cubicInterpolationMode: 'monotone',
+							fill: false,
+							tension: 0.4,
+							borderColor: (context) => {
+								const chart = context.chart
+								const { ctx, chartArea } = chart
 
-							if(!chartArea) {
-								// This case happens on initial chart load
-								return null
-							}
-							return getGradient(ctx, chartArea)
+								if(!chartArea) {
+									// This case happens on initial chart load
+									return null
+								}
+								return getGradient(ctx, chartArea)
+							},
+							borderWidth: 3,
 						},
-						borderWidth: 3,
+					],
+				},
+				options: {
+					scales: {
+						y: {
+							beginAtZero: true,
+							min: 0,
+							max: 100,
+							ticks: {
+								stepSize: 20
+							}
+						}
 					},
-				],
-			},
-			options: {
-				scales: {
-					y: {
-						beginAtZero: true,
-						min: 0,
-						max: 100,
-						ticks: {
-							stepSize: 20
+					plugins: {
+						legend: {
+							display: false
+						},
+						tooltip: {
+							enabled: false
 						}
 					}
 				},
-				plugins: {
-					legend: {
-						display: false
-					},
-					tooltip: {
-						enabled: false
-					}
-				}
-			},
-		})
-		canvas = null
-		return log('[Graphs] Loaded line!', STYLE.success)
+			})
+			canvas = null
+			log('[Graphs] Loaded line!', STYLE.success)
+			return true
+		} catch (error) {
+			log('[Graphs] Error in line graph', STYLE.error)
+			console.error(error)
+			return false
+		}
 	}
 	log('[Graphs] Line without data', STYLE.warning)
+	return null
 }

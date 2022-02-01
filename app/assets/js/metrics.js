@@ -17,7 +17,7 @@ window.addEventListener('load', async(e) => {
 	clone = document.querySelector('.panel:last-of-type').cloneNode(true)
 	document.querySelector('.panel[data-id="0"] .canvas-remove').remove()
 	
-	displayCharts(false)
+	displayCharts(false, idSelect)
 	
 	eventAssigner('#addPanel', 'click', addPanel).catch((error) => {return console.error(error)})
 	buttonListeners()
@@ -32,59 +32,30 @@ window.addEventListener('load', async(e) => {
 		{ search: 'area' },
 		(result) => {
 			if(result.status === 200) {
-				return console.log(result.data)
 
-				if (result.data.subordinates != null) {
-					console.log(idSelect)
-					$a(`.panel[data-id="${idSelect}"] .subordinates .sub`).forEach(node => {
-						node.remove()
-					})
-					$e(`.panel[data-id="${idSelect}"] .subordinates .sub-s`).selected = true
-					if(result.data.subordinates.length > 0) {
-						$e(`.panel[data-id="${idSelect}"] .subordinates`).disabled = false
-						$e(`.panel[data-id="${idSelect}"] .subordinates .sub-s`).innerHTML = (lang == 0)
-																							  ? '-Selecciona personal-'
-																							  : '-Select personnel-'
-																							  
-						for (let i in result.data.subordinates) {
-							$e(`.panel[data-id="${idSelect}"] .subordinates`).insertAdjacentHTML(
-								'beforeend', `<option class="sub" data-index="${parseInt(i)+1}"`+
-								`value="${result.data.subordinates[i]['_id']}">`+
-								`${result.data.subordinates[i]['first_name']} `+
-								`${result.data.subordinates[i]['last_name']}`+
-								`</option>`
-							)
-						}
-					} else {
-						$e(`.panel[data-id="${idSelect}"] .subordinates`).disabled = true
-						$e(`.panel[data-id="${idSelect}"] .subordinates .sub-s`).innerHTML = 'Sin registros'
+				// TODO: Selector for bar chart with the following options: areas, departments, career
+
+				if(result.data.length) {
+					let barLabels = [],
+						barData = []
+
+					for(let i in result.data) {
+						barLabels.push(result.data[i].area)
+						barData.push(
+							(typeof result.data[i].total === 'number')
+							? (result.data[i].total / result.data[i].length).toFixed(2)
+							: 0
+						)
 					}
-				}
 
-				if(result.data.total != 0 && result.data.log.records != 0) {
 					try {
-						let lineLabels = []
-						for(let i in result.data.log.years) {
-							lineLabels.push(
-								[
-									result.data.log.years[i],
-									(result.data.log.records[i] > 0 || result.data.log.records[i] != false)
-									? result.data.log.records[i] + '%'
-									: 'N/A'
-								]
-								)
-						}
-
-						semiDoughnutChart(idSelect, result.data.total)
-						lineChart(idSelect, lineLabels, result.data.log.records)
-						displayCharts(true)
-						idSelect = -1
+						barChart('#bars canvas', barLabels, barData)
+						displayCharts(true, '#bars canvas')
 					}
 					catch (error) {
-						displayCharts(false)
 						console.error(error)
 					}
-				} else displayCharts(false)
+				}
 			}
 		},
 		(error) => {
@@ -92,9 +63,47 @@ window.addEventListener('load', async(e) => {
 			console.error(error)
 		}
 	)
-
-	//$e('#allDirections')
 })
+
+function displayCharts(show, idElement) {
+	if(typeof idElement === 'number') {
+		if(showCharts != show) showCharts = show
+		else return
+
+		if(showCharts && idElement != -1) {
+			$a(`.panel[data-id="${idElement}"] .ghost-container`).forEach(
+				(node) => {
+					node.classList.toggle('d-block', false)
+					node.classList.toggle('d-none', true)
+			})
+			$a(`.panel[data-id="${idElement}"] canvas, .panel[data-id="${idElement}"] span:not(.lang)`).forEach(
+				(node) => {
+					node.classList.toggle('d-none', false)
+					node.classList.toggle('d-block', true)
+			})
+	
+			log(`[Metrics] Shown Panel ${idElement}`, STYLE.cian)
+		} else {
+			$a(`.panel[data-id="${idElement}"] canvas, .panel[data-id="${idElement}"] span:not(.lang)`).forEach(
+				(node) => {
+					node.classList.toggle('d-block', false)
+					node.classList.toggle('d-none', true)
+			})
+			$a(`.panel[data-id="${idElement}"] .ghost-container`).forEach(
+				(node) => {
+					node.classList.toggle('d-none', false)
+					node.classList.toggle('d-block', true)
+			})
+	
+			log(`[Metrics] Hidden Panel ${idElement}`, STYLE.pink)
+		}
+	} else {
+		if(show)
+			$e(idElement).classList.replace('d-none', 'd-block')
+		else
+			$e(idElement).classList.replace('d-block', 'd-none')
+	}
+}
 
 const config = (e) => {
 	let tgt = e.target, idConfig
@@ -254,7 +263,7 @@ const addPanel = () => {
 			clone.setAttribute('data-id', String(idSelect))
 			document.getElementById('panelContainer').appendChild(clone)
 		
-			displayCharts(false)
+			displayCharts(false, idSelect)
 			mainToolTip()
 			buttonListeners()
 			clone = document.querySelector('.panel:last-of-type').cloneNode(true)
@@ -298,43 +307,6 @@ function buttonListeners() {
 	eventAssigner('.form-select', 'change', formSelect).catch((error) => {return console.error(error)})
 }
 
-function displayCharts(show) {
-	if(showCharts != show) showCharts = show
-	else return
-
-	if(showCharts && idSelect != -1) {
-		Array.prototype.forEach.call(
-			document.querySelectorAll(`.panel[data-id="${idSelect}"] .ghost-container`),
-			(node) => {
-				node.classList.toggle('d-block', false)
-				node.classList.toggle('d-none', true)
-		})
-		Array.prototype.forEach.call(
-			document.querySelectorAll(`.panel[data-id="${idSelect}"] canvas, .panel[data-id="${idSelect}"] span:not(.lang)`),
-			(node) => {
-				node.classList.toggle('d-none', false)
-				node.classList.toggle('d-block', true)
-		})
-
-		log(`[Metrics] Shown Panel ${idSelect}`, STYLE.cian)
-	} else {
-		Array.prototype.forEach.call(
-			document.querySelectorAll(`.panel[data-id="${idSelect}"] canvas, .panel[data-id="${idSelect}"] span:not(.lang)`),
-			(node) => {
-				node.classList.toggle('d-block', false)
-				node.classList.toggle('d-none', true)
-		})
-		Array.prototype.forEach.call(
-			document.querySelectorAll(`.panel[data-id="${idSelect}"] .ghost-container`),
-			(node) => {
-				node.classList.toggle('d-none', false)
-				node.classList.toggle('d-block', true)
-		})
-
-		log(`[Metrics] Hidden Panel ${idSelect}`, STYLE.pink)
-	}
-}
-
 async function getData(auto) {
     auto = (typeof auto == 'undefined') ? true : auto
 
@@ -367,7 +339,6 @@ async function getData(auto) {
 
 			if(result.status === 200) {
 				if (result.data.subordinates != null) {
-					console.log(idSelect)
 					$a(`.panel[data-id="${idSelect}"] .subordinates .sub`).forEach(node => {
 						node.remove()
 					})
@@ -397,26 +368,25 @@ async function getData(auto) {
 					try {
 						let lineLabels = []
 						for(let i in result.data.log.years) {
-							lineLabels.push(
-								[
+							lineLabels.push([
 									result.data.log.years[i],
 									(result.data.log.records[i] > 0 || result.data.log.records[i] != false)
 									? result.data.log.records[i] + '%'
 									: 'N/A'
-								]
-								)
+							])
 						}
 
 						semiDoughnutChart(idSelect, result.data.total)
 						lineChart(idSelect, lineLabels, result.data.log.records)
-						displayCharts(true)
+						displayCharts(true, idSelect)
+						
 						idSelect = -1
 					}
 					catch (error) {
-						displayCharts(false)
+						displayCharts(false, idSelect)
 						console.error(error)
 					}
-				} else displayCharts(false)
+				} else displayCharts(false, idSelect)
 			}
 			else {
 				if(result.log === true) return log('[Metrics] '+result.msg, STYLE.error)

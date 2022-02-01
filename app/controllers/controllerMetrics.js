@@ -184,7 +184,8 @@ function data(req, res) {
     
             let average = 0, sumTemp = 0,
                 years = [], records =  [], subordinates = [],
-                histCounter =  [[0, 0, 0, 0, 0],[0, 0, 0, 0, 0]]
+                histCounter =  [[0, 0, 0, 0, 0],[0, 0, 0, 0, 0]],
+                divideBy = 0
     
             if(req.body._id == null || req.body._id == undefined)
                 await modelUserInfo.aggregate([
@@ -220,12 +221,15 @@ function data(req, res) {
                 records[i] = (histCounter[0][i] === 0 || histCounter[1][i] === 0)
                     ? 0 : parseFloat((histCounter[0][i] / histCounter[1][i]).toFixed(1))
                 sumTemp += records[i]
+                
+                if(records[i] != 0) divideBy++
             }
-            average = parseFloat((sumTemp / 5).toFixed(1))
+            // Get average just for only for years with evaluations
+            average = parseFloat((sumTemp / divideBy).toFixed(1))
         
             return res.end(JSON.stringify({
                 data: {
-                    total: average,
+                    total: (average === NaN) ? null : average,
                     log: {
                         years: years,
                         records: records
@@ -254,9 +258,6 @@ function data(req, res) {
 function getAllOf(req, res) {
     let search = {}
     search['records.'+currYear] = { $exists: true }
-
-    console.log(search)
-    console.log('$records.'+currYear+'.'+req.body.search)
 
     modelEvaluation.aggregate([
         { $match: search }, {
@@ -288,11 +289,7 @@ function getAllOf(req, res) {
         }, { $unset: ['_id', 'area_'] }
     ])
     .then(data => {
-
-        console.log(data)
-
         if(data.length) {
-    
             return res.end(JSON.stringify({
                 data: data,
                 status: 200

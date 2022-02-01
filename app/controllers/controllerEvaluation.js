@@ -2,7 +2,7 @@ const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
 
 const DATE = new Date()
-const currYear = String(DATE.getFullYear())
+const currYear = '2020' //String(DATE.getFullYear())
 
 // >>>>>>>>>>>>>>>>>>>>>> Evaluacion static <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {

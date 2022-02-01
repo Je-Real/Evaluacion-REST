@@ -305,6 +305,10 @@ h1, h2, h3, h4, h5, h6 {
 	.w-big-80 { width: 80% !important; }
 }
 
+.align-self-center {
+	align-self: center;
+}
+
 .closeReg {
 	right: 1.5rem;
 	top: 1.5rem;
