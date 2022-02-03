@@ -126,6 +126,7 @@ function barChart(id, labels, data, colors) {
 				},
 				plugins: [ChartDataLabels],
 				options: {
+					indexAxis: 'y',
 					scales: {
 						y: {
 							beginAtZero: true,

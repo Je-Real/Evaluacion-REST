@@ -2,47 +2,31 @@ let rec, showCharts, clone, idSelect = 0,
 	showRegs = 5, year = parseInt(DATE.getFullYear()) - (showRegs-1),
 	subSelected, compareAll = false
 
-window.addEventListener('load', async(e) => {
-	$a('.dep').forEach(node => node.classList.add('d-none')) // Hide department options
-	$a('.department').forEach(node => node.disabled = true) // Disable dropdown for department
-	$a('.car').forEach(node => node.classList.add('d-none')) // Hide department options
-	$a('.career').forEach(node => node.disabled = true) // Disable dropdown for department
-	
-	$a('.canvas-container canvas').forEach(node => node.classList.add('d-none'))
-	
-	document.querySelector('.canvas-container.semiDoughnutChart').innerHTML += `<div class="text-center d-block ghost-container">
-		<i class="fas fa-ghost icon-ghost f-vScreen-15 my-3 text-black-15"></i>
-		<p class="my-2 text-ghost">No hay datos para mostrar</p>
-	</div>`
-	clone = document.querySelector('.panel:last-of-type').cloneNode(true)
-	document.querySelector('.panel[data-id="0"] .canvas-remove').remove()
-	
-	displayCharts(false, idSelect)
-	
-	eventAssigner('#addPanel', 'click', addPanel).catch((error) => {return console.error(error)})
-	buttonListeners()
-	
-	setTimeout(() => {
-		getData(true)
-    }, 150)
+const barChartSearch = () => {
+	let toSearch = $e('#sel-bar-chart')[$e('#sel-bar-chart').selectedIndex].value
 
 	fetchTo(
 		'http://localhost:999/metrics/all',
 		'POST',
-		{ search: 'area' },
+		{ search: toSearch },
 		(result) => {
+			if(result.noti === true) {
+				showSnack(result.msg, null, SNACK[result.notiType])
+			}
+
 			if(result.status === 200) {
-
-				// TODO: Selector for bar chart with the following options: areas, departments, career
-
 				if(result.data.length) {
 					let barLabels = [],
 						barData = []
 
 					for(let i in result.data) {
-						barLabels.push(result.data[i].area)
+						barLabels.push(result.data[i].desc)
 						barData.push(
-							(typeof result.data[i].total === 'number')
+							(
+								typeof result.data[i].total === 'number' 
+								&& (result.data[i].total != 0
+								&& result.data[i].length != 0)
+							)
 							? (result.data[i].total / result.data[i].length).toFixed(2)
 							: 0
 						)
@@ -63,6 +47,33 @@ window.addEventListener('load', async(e) => {
 			console.error(error)
 		}
 	)
+}
+
+window.addEventListener('load', async(e) => {
+	$a('.dep').forEach(node => node.classList.add('d-none')) // Hide department options
+	$a('.department').forEach(node => node.disabled = true) // Disable dropdown for department
+	$a('.car').forEach(node => node.classList.add('d-none')) // Hide department options
+	$a('.career').forEach(node => node.disabled = true) // Disable dropdown for department
+	
+	$a('.canvas-container canvas').forEach(node => node.classList.add('d-none'))
+	
+	document.querySelector('.canvas-container.semiDoughnutChart').innerHTML += `<div class="text-center d-block ghost-container">
+		<i class="fas fa-ghost icon-ghost f-vScreen-15 my-3 text-black-15"></i>
+		<p class="my-2 text-ghost">No hay datos para mostrar</p>
+	</div>`
+	clone = document.querySelector('.panel:last-of-type').cloneNode(true)
+	document.querySelector('.panel[data-id="0"] .canvas-remove').remove()
+	
+	displayCharts(false, idSelect)
+	barChartSearch()
+	
+	eventAssigner('#addPanel', 'click', addPanel).catch((error) => {return console.error(error)})
+	eventAssigner('#sel-bar-chart', 'change', barChartSearch).catch((error) => {return console.error(error)})
+	buttonListeners()
+	
+	setTimeout(() => {
+		getData(true)
+    }, 150)
 })
 
 function displayCharts(show, idElement) {
@@ -300,11 +311,11 @@ const deletePanel = (e) => {
 function buttonListeners() {
 	eventUnassigner('.canvas-config', 'click', config).catch((error) => {return console.error(error)})
 	eventUnassigner('.canvas-remove', 'click', deletePanel).catch((error) => {return console.error(error)})
-	eventUnassigner('.form-select', 'change', formSelect).catch((error) => {return console.error(error)})
+	eventUnassigner('.form-select:not(#sel-bar-chart)', 'change', formSelect).catch((error) => {return console.error(error)})
 	
 	eventAssigner('.canvas-config', 'click', config).catch((error) => {return console.error(error)})
 	eventAssigner('.canvas-remove', 'click', deletePanel).catch((error) => {return console.error(error)})
-	eventAssigner('.form-select', 'change', formSelect).catch((error) => {return console.error(error)})
+	eventAssigner('.form-select:not(#sel-bar-chart)', 'change', formSelect).catch((error) => {return console.error(error)})
 }
 
 async function getData(auto) {

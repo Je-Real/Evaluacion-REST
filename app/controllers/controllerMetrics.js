@@ -1,6 +1,9 @@
 const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
 const modelArea = require('../models/modelArea')
+const modelDepartment = require('../models/modelDepartment')
+const modelCareer = require('../models/modelCareer')
+
 const DATE = new Date()
 const currYear = String(DATE.getFullYear())
 
@@ -256,56 +259,110 @@ function data(req, res) {
 }
 
 function getAllOf(req, res) {
-    let search = {}
-    search['records.'+currYear] = { $exists: true }
+    let search = {}, uAggregate
 
-    modelEvaluation.aggregate([
-        { $match: search }, {
-            $group: {
-                _id: `$records.${currYear}.${req.body.search}`, // "area" || "department" || "career"
-                total: { $sum: `$records.${currYear}.score` },
-                length: { $sum: 1 }
-            }
-        }, {
+    search['records.'+currYear] = { $exists: true }
+    uAggregate = [
+        { 
             $lookup: {
-                from: 'areas',
+                from: 'evaluations',
                 pipeline: [
-                    { $set: { area: '$desc' } },
-                    { $unset: ['n', '_id', 'desc'] }
+                    { $match: search },
+                    { $group: {
+                        _id: `$records.${currYear}.${req.body.search}`,
+                        total: { $sum: `$records.${currYear}.score` },
+                        length: { $sum: 1 }
+                    } },
+                    { $lookup: {
+                        from: `${req.body.search}s`,
+                        pipeline: [ { $unset: ['n', '_id', 'desc'] } ],
+                        localField: '_id',
+                        foreignField: 'n',
+                        as: `${req.body.search}_`
+                    } },
+                    { $replaceRoot: {
+                        newRoot: {
+                            $mergeObjects: [
+                                { $arrayElemAt: [`$${req.body.search}_`, 0] },
+                                '$$ROOT'
+                            ]
+                        }
+                    } },
+                    { $unset: [`${req.body.search}_`] }
                 ],
-                localField: '_id',
-                foreignField: 'n',
-                as: 'area_',
+                localField: 'n',
+                foreignField: `records.${currYear}.${req.body.search}`,
+                as: '_avg'
             }
         }, {
             $replaceRoot: {
                 newRoot: {
-                    $mergeObjects: [
-                        { $arrayElemAt: ['$area_', 0] },
-                        '$$ROOT',
+                    $mergeObjects: [ 
+                        { $arrayElemAt: ['$_avg', 0] },
+                        '$$ROOT'
                     ]
                 }
             }
-        }, { $unset: ['_id', 'area_'] }
-    ])
-    .then(data => {
-        if(data.length) {
-            return res.end(JSON.stringify({
-                data: data,
-                status: 200
-            }))
+        }, {
+            $set: {
+                total: {
+                    $cond: [
+                        { $ifNull: ['$total', false] },
+                        '$total',
+                        0
+                    ]
+                },
+                length: {
+                    $cond: [
+                        { $ifNull: ['$length', false] },
+                        '$length',
+                        0
+                    ]
+                },
+                _id: '$n'
+            }
         }
-    })
-    .catch((error) => { //🔴
-        console.error(error)
+    ]
+
+    const failure = () => {
         return res.end(JSON.stringify({
-            msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
+            msg: 'La búsqueda no coincide dentro de los parámetros.',
             status: 404,
             noti: true,
-            notiType: 'error',
-            error: error
+            notiType: 'error'
         }))
-    })
+    }
+
+    const success = (data) => {
+        return res.end(JSON.stringify({
+            data: data,
+            status: 200
+        }))
+    }
+    
+    switch (req.body.search) {
+        case 'area':
+            uAggregate.push({ $unset: ['_avg', 'n'] })
+            modelArea.aggregate(uAggregate)
+            .then(data => success(data))
+            .catch(error => { console.log(error); failure() })
+            break
+        case 'department':
+            uAggregate.push({ $unset: ['_avg', 'n', 'area'] })
+            modelDepartment.aggregate(uAggregate)
+            .then(data => success(data))
+            .catch(error => { console.log(error); failure() })
+            break
+        case 'career':
+            uAggregate.push({ $unset: ['_avg', 'n', 'department'] })
+            modelCareer.aggregate(uAggregate)
+            .then(data => success(data))
+            .catch(error => { console.log(error); failure() })
+            break
+        default:
+            failure()
+            break
+    }
 }
 
 module.exports = {
