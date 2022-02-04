@@ -586,15 +586,31 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Reportes */
+#bars canvas {
+	max-height: 425px;
+}
+
+.canvas-container.semiDoughnutChart canvas {
+	max-height: 200px;
+}
+
+.canvas-container.lineChart canvas {
+	min-height: 150px;
+	min-width: 285px;
+}
+
+.canvas-container {
+	min-height: 150px;
+	height: max-content;
+}
+
 .canvas-container.semiDoughnutChart span {
 	font-family: 'Oswald', sans-serif;
-	font-size: 250%;
+	font-size: 180%;
 	text-align: center;
 	text-decoration: underline;
-
-	margin-top: -17%;
-    height: max-content;
-
+	margin-top: -65px;
+	height: max-content;
 	pointer-events: none;
 	animation: appear 0.9s;
 }
@@ -613,6 +629,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .config-menu {
 	z-index: 2;
+	background-color: #9b9b9e;
 }
 /* Reportes */
 

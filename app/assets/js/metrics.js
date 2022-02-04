@@ -382,8 +382,8 @@ async function getData(auto) {
 							lineLabels.push([
 									result.data.log.years[i],
 									(result.data.log.records[i] > 0 || result.data.log.records[i] != false)
-									? result.data.log.records[i] + '%'
-									: 'N/A'
+									? '[ ' + result.data.log.records[i] + '% ]'
+									: '[ N/A ]'
 							])
 						}
 

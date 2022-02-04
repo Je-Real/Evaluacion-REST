@@ -7,7 +7,7 @@
     <div id="layoutSidenav">
     <%- include('template/sidebar.ejs') %>
 
-        <div id="layoutSidenav_content" class="">
+        <div id="layoutSidenav_content" >
             <div class="mb-5">
                 <div class="session-container">
                     <input class="deletable" type="hidden" name="user" id="user"
@@ -63,6 +63,7 @@
                                     </th>
                                 </tr>
                             </thead>
+
                             <tbody class="border-0" id="table-b">
                                 <% if(records != false) {
                                     for(let record in records) { %>
@@ -72,12 +73,25 @@
                                         <td class="border-0 border-start text-center"><%=records[record]['last_name'] %></td>
                                         <td class="border-0 border-start text-center i-status"></td>
                                         <td class="border-0 border-start d-flex justify-content-center h-100">
-                                            <% if(records[record]['records'] == 0) { %>
+                                            <% if(records[record]['records'] == -1) { %>
+                                                <button type="button"
+                                                    class="btn btn-secondary enable-eval mx-md-2 my-auto mx-1 p-1 tooltip-text"
+                                                    data-tooltip-es="Realizar evaluación para <%=records[record]['first_name']%> <%=records[record]['last_name']%>"
+                                                    data-tooltip-en="Perform evaluation for <%=records[record]['first_name']%> <%=records[record]['last_name']%>">
+                                                    <i class="text-white pe-none fas fa-plus-circle fa-2x"></i>
+                                                </button>
+                                            <% } if(records[record]['records'] == 0) { %>
                                                 <button type="button"
                                                     class="btn btn-info evaluate mx-md-2 my-auto mx-1 p-1 tooltip-text"
                                                     data-tooltip-es="Realizar evaluación para <%=records[record]['first_name']%> <%=records[record]['last_name']%>"
                                                     data-tooltip-en="Perform evaluation for <%=records[record]['first_name']%> <%=records[record]['last_name']%>">
                                                     <i class="text-white pe-none fas fa-plus-circle fa-2x"></i>
+                                                </button>
+                                                <button type="button"
+                                                    class="btn btn-danger disable-eval mx-md-2 my-auto mx-1 p-1 tooltip-text"
+                                                    data-tooltip-es="Desactivar la evaluación esta vez para <%=records[record]['first_name']%> <%=records[record]['last_name']%>"
+                                                    data-tooltip-en="Disable this current year evaluation for <%=records[record]['first_name']%> <%=records[record]['last_name']%>">
+                                                    <i class="text-white pe-none fas fa-times-circle fa-2x"></i>
                                                 </button>
                                             <% } else { %>
                                                 <button type="button" 

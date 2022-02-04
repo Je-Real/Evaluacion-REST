@@ -172,7 +172,7 @@ function lineChart(id, labels, data, colors) {
 		if(lChart[id] != undefined) lChart[id].destroy()
 
 		try {
-			canvas = $e(`.panel[data-id="${id}"] .barsChart canvas`)
+			canvas = $e(`.panel[data-id="${id}"] .lineChart canvas`)
 			let ctx = canvas.getContext('2d')
 			lChart[id] = new Chart(ctx, {
 				type: 'line',

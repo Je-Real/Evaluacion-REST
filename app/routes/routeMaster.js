@@ -22,6 +22,7 @@ router //👇
 // Index
 .get('/home', controllerCtrlTable.root)
 .get('/home/evaluation-pdf/:id', controllerCtrlTable.pdfEvalFormat)
+.get('/home/manage-user/:id', controllerCtrlTable.manageUserEvaluation)
 .get('/home/test', controllerIndex.test)
 
 // Reports

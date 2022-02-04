@@ -5,11 +5,11 @@ const path = require('path')
 const modelUserInfo = require('../models/modelUserInfo')
 const weighting = require('../controllers/controllerEvaluation').weighting
 const DATE = new Date()
-const year = String(DATE.getFullYear())
+const currYear = String(DATE.getFullYear())
 
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
-    let session, records = false
+    let session, data = false
     
     if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
@@ -22,57 +22,77 @@ async function root(req, res) {
     } else { // Session 🤑
         session = req.session
 
+        /** Search all subordinates and obtain whether
+         * each has current year evaluations or not */
         await modelUserInfo.aggregate([
-            { $match: { manager: req.session.user } }, {
+            { $match: { 
+                manager: req.session.user,
+                disabled: { $exists: false }
+            } }, {
                 $lookup: {
-                    from: "evaluations",
-                    localField: "_id",
-                    foreignField: "_id",
-                    as: "eval",
+                    from: 'evaluations',
+                    pipeline: [{
+                        $set: {
+                            records: {
+                            $cond: [
+                                { $ifNull: [`$records.${currYear}`, false] }, // If records[current year] is not null (if exists)
+                                { $cond: [
+                                    { $ifNull: [`$records.${currYear}.disabled`, false] }, // If disable is not null (if exists)
+                                    -1, // user disabled
+                                    1 // user with an evaluation already done
+                                ]},
+                                0 // Else, no evaluation found
+                            ]
+                            }
+                        }
+                    }],
+                    localField: '_id',
+                    foreignField: '_id',
+                    as: 'eval_'
                 }
             }, {
                 $replaceRoot: {
                     newRoot: {
                         $mergeObjects: [
-                            { $arrayElemAt: [ "$eval", 0 ] }, "$$ROOT"
+                            { $arrayElemAt: [ '$eval_', 0 ] }, '$$ROOT'
                         ]
-                    } 
+                    }
+                }
+            }, {
+                $set: {
+                    records: {
+                        $cond: [
+                            { $ifNull: ['$records', true] },
+                            '$records',
+                            0,
+                        ]
+                    }
                 }
             }, {
                 $unset: [
-                    "level", "area",
-                    "department", "career",
-                    "contract", "b_day",
-                    "address", "manager",
-                    "eval"
+                    'level', 'area',
+                    'department', 'career',
+                    'contract', 'b_day',
+                    'address', 'manager',
+                    'eval_'
                 ]
             }
         ])
-        .then(async(dataInfo) => {
-            records = dataInfo
-            
-            for(let i in records) {
-                if('records' in records[i])
-                    if(year in records[i]['records'])
-                        records[i]['records'] = 1
-                    else
-                        records[i]['records'] = 0
-                else 
-                    records[i]['records'] = 0
-            }
+        .then(dataInfo => {
+            data = dataInfo
         })
-        .catch((error) => {
+        .catch(error => {
             console.error(error)
-            records = false
+            data = false
+        })
+        .finally(() => {
+            return res.status(200).render('ctrl_table', {
+                title_page: 'UTNA - Inicio',
+                session: session,
+                records: data
+            })
         })
     }
-
-    //Control route
-    return res.status(200).render('ctrl_table', {
-        title_page: 'UTNA - Inicio',
-        session: session,
-        records: records
-    })
 }
 
 async function pdfEvalFormat(req, res) {
@@ -208,7 +228,7 @@ async function pdfEvalFormat(req, res) {
         
             let date_time = new Date(Date.now()),
                 dateFormated = date_time.getDate()+'/'+(date_time.getMonth()+1)+'/'+date_time.getFullYear(),
-                answers = data.records[year].answers,
+                answers = data.records[currYear].answers,
                 yAnchor, xAnchor, total = 0, tempScore
 
             const printAnswers = (numFactor, yMargin = 2, result = false) => {
@@ -256,7 +276,7 @@ async function pdfEvalFormat(req, res) {
                 .text({ textAlign: 'center', fontSize: 7 }).add(data.contract)
                 
                 doc.cell({ width: 1.3*pdf.cm, x: 16.9*pdf.cm, y: 16.45*pdf.cm }) // Average
-                .text({ textAlign: 'center', fontSize: 7 }).add(data.records[year].score+'%')
+                .text({ textAlign: 'center', fontSize: 7 }).add(data.records[currYear].score+'%')
                 
                 yAnchor = 13.5*pdf.cm + 2*pdf.cm // Added 2cm because de function iteration
                 xAnchor = 13.1*pdf.cm            // Guide for the first column (for all pages)
@@ -338,16 +358,22 @@ async function pdfEvalFormat(req, res) {
             error: error
         }))
     })
+}
 
-    /**
-     * TODO:
-     * Made promise for the above code and get the data
-     * Print the data in the sheet
-     * Get each result of the survey and store it in the data base 
-     */
+async function manageUserEvaluation(req, res) {
+    const userID = req.params.id
+    console.log(req.body)
+    console.log('------------------------')
+    console.log(req.params)
+    console.log('------------------------')
+    console.log(req)
+
+    //TODO: Function for modify in the evaluations & user_infos collections the state "disable"
+
 }
 
 module.exports = {
     root,
-    pdfEvalFormat
+    pdfEvalFormat,
+    manageUserEvaluation
 }

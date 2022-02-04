@@ -9,6 +9,34 @@ const evaluateUser = (e) => {
     .catch(err => console.log(err))
 }
 
+const disableUser = (e) => {
+    upperAttrIterator(e.target, 'id')
+    .then(res => {
+        if(res != null) {
+            fetchTo(
+                'http://localhost:999/home/manage-user/'+id,
+                'GET',
+                { reqType: 'disable' },
+                async (result) => {
+                    if(result.status === 200) {
+                        
+                    }
+                },
+                (err) => {
+                    showSnack(
+                        (lang == 0) ? 'Por favor abra la consola del navegador, copie el error y contacte con un especialista en soporte'
+                                    : 'Please open the browser console, copy the error and contact a support specialist.',
+                        null,
+                        SNACK.error
+                    )
+                    console.error(err)
+                }
+            )
+        }
+    })
+    .catch(err => console.log(err))
+}
+
 const pdfFormatEval = (e) => {
     upperAttrIterator(e.target, 'id')
     .then(id => {
@@ -44,7 +72,8 @@ const pdfFormatEval = (e) => {
 }
 
 window.addEventListener('load', async(e) => {	
-	eventAssigner('.evaluate', 'click', evaluateUser).catch((error) => console.error(error))
+    eventAssigner('.evaluate', 'click', evaluateUser).catch((error) => console.error(error))
+	eventAssigner('.disable-eval', 'click', disableUser).catch((error) => console.error(error))
 	eventAssigner('.generate-pdf', 'click', pdfFormatEval).catch((error) => console.error(error))
 })
 
