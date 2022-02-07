@@ -9,17 +9,17 @@ const evaluateUser = (e) => {
     .catch(err => console.log(err))
 }
 
-const disableUser = (e) => {
+const manageEvalUser = (e) => {
     upperAttrIterator(e.target, 'id')
-    .then(res => {
-        if(res != null) {
+    .then(id => {
+        if(id != null) {
             fetchTo(
-                'http://localhost:999/home/manage-user/'+id,
+                'http://localhost:999/home/manage-user/'+id+'/'+e.target.value,
                 'GET',
-                { reqType: 'disable' },
+                null,
                 async (result) => {
                     if(result.status === 200) {
-                        
+                        window.location.reload(true)
                     }
                 },
                 (err) => {
@@ -73,7 +73,7 @@ const pdfFormatEval = (e) => {
 
 window.addEventListener('load', async(e) => {	
     eventAssigner('.evaluate', 'click', evaluateUser).catch((error) => console.error(error))
-	eventAssigner('.disable-eval', 'click', disableUser).catch((error) => console.error(error))
+	eventAssigner('.manage-eval', 'click', manageEvalUser).catch((error) => console.error(error))
 	eventAssigner('.generate-pdf', 'click', pdfFormatEval).catch((error) => console.error(error))
 })
 

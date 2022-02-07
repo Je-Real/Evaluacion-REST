@@ -2,6 +2,7 @@ const pdf = require('pdfjs')
 const fs = require('fs')
 const path = require('path')
 
+const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
 const weighting = require('../controllers/controllerEvaluation').weighting
 const DATE = new Date()
@@ -62,9 +63,9 @@ async function root(req, res) {
                 $set: {
                     records: {
                         $cond: [
-                            { $ifNull: ['$records', true] },
+                            { $ifNull: ['$records', false] },
                             '$records',
-                            0,
+                            0
                         ]
                     }
                 }
@@ -74,7 +75,7 @@ async function root(req, res) {
                     'department', 'career',
                     'contract', 'b_day',
                     'address', 'manager',
-                    'eval_'
+                    'eval_', '__v'
                 ]
             }
         ])
@@ -361,15 +362,40 @@ async function pdfEvalFormat(req, res) {
 }
 
 async function manageUserEvaluation(req, res) {
-    const userID = req.params.id
-    console.log(req.body)
-    console.log('------------------------')
-    console.log(req.params)
-    console.log('------------------------')
-    console.log(req)
+    const userId = req.params.id
+    const action = req.params.action
+    let save = { records: {} }
 
-    //TODO: Function for modify in the evaluations & user_infos collections the state "disable"
+    modelEvaluation.findOne({ _id: userId })
+    .then((data) => {
+        save = data
+        if(action == 'disabled')
+            save['records'][currYear] = {disabled: true}
+        else
+            delete save['records'][currYear]
 
+        new modelEvaluation(save).save()
+        .then(() => {
+            return res.end(JSON.stringify({
+                status: 200,
+                msg: true
+            }))
+        })
+        .catch(error => {
+            console.error(error)
+            return res.end(JSON.stringify({
+                status: 500,
+                error: error
+            }))
+        })
+    })
+    .catch(error => {
+        console.error(error)
+        return res.end(JSON.stringify({
+            status: 500,
+            error: error
+        }))
+    })
 }
 
 module.exports = {

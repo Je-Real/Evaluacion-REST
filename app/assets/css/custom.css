@@ -843,16 +843,38 @@ input.super-sad:checked + svg {
 	background: #e26d2a48;
 }
 
-.i-info .i-status::before {
+html[lang="es"] .i-info .i-status::before {
 	content: "No realizado";
+}
+html[lang="en"] .i-info .i-status::before {
+	content: "Not completed";
 }
 
 .i-info[data-status="1"] .i-status {
 	background: #a5e22a70;
 }
 
-.i-info[data-status="1"] .i-status::before {
+html[lang="es"] .i-info[data-status="1"] .i-status::before {
 	content: "Realizado";
+}
+html[lang="en"] .i-info[data-status="1"] .i-status::before {
+	content: "Completed";
+}
+
+.i-info[data-status="-1"] .i-status {
+	background: #70aabe70;
+}
+
+html[lang="es"] .i-info[data-status="-1"] .i-status::before {
+	content: "Deshabilitado";
+}
+html[lang="en"] .i-info[data-status="-1"] .i-status::before {
+	content: "Disabled";
+}
+
+.ctrl-btn {
+	width: 42px;
+	height: 42px;
 }
 /* Control */
 
@@ -1115,22 +1137,19 @@ select.slc-drpdwn {
 
 /* Button Language - https://codepen.io/himalayasingh/pen/EdVzNL */
 /* Button 17 */
-.toggle-button-cover
-{
+.toggle-button-cover {
     position: relative;
     height: 140px;
     box-sizing: border-box;
 }
 
-.button-cover
-{
+.button-cover {
     height: 100px;
     background-color: #fff;
     border-radius: 4px;
 }
 
-.button-cover, .knobs, .layer
-{
+.button-cover, .knobs, .layer {
     position: absolute;
     top: 0;
     right: 0;
@@ -1138,8 +1157,7 @@ select.slc-drpdwn {
     left: 0;
 }
 
-.button
-{
+.button {
     position: relative;
     top: 50%;
     width: 7rem;
@@ -1149,18 +1167,15 @@ select.slc-drpdwn {
     overflow: hidden;
 }
 
-.button.r, .button.r .layer
-{
+.button.r, .button.r .layer {
     border-radius: 100px;
 }
 
-.button.b2
-{
+.button.b2 {
     border-radius: 2px;
 }
 
-.checkbox
-{
+.checkbox {
     position: relative;
     width: 100%;
     height: 100%;
@@ -1171,13 +1186,11 @@ select.slc-drpdwn {
     z-index: 3;
 }
 
-.knobs
-{
+.knobs {
     z-index: 2;
 }
 
-.layer
-{
+.layer {
     width: 100%;
     background-color: #ebf7fc;
     transition: 0.3s ease all;
