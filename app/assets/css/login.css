@@ -1,0 +1,144 @@
+html {
+	height: 100%;
+}
+
+.login-box {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 400px;
+	padding: 40px;
+	transform: translate(-50%, -50%);
+	background: rgba(0, 0, 0, 0.5);
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+	border-radius: 10px;
+}
+
+.login-box h2 {
+	margin: 0 0 30px;
+	padding: 0;
+	color: #fff;
+	text-align: center;
+}
+
+.login-box .user-box {
+	position: relative;
+}
+
+.login-box .user-box input {
+	width: 100%;
+	padding: 10px 0;
+	font-size: 16px;
+	color: #fff;
+	margin-bottom: 2.25rem;
+	border: none;
+	border-bottom: 1px solid #fff;
+	outline: none;
+	background: transparent;
+}
+.login-box .user-box label {
+	position: absolute;
+	top: -35px;
+	left: 0;
+	padding: 10px 0;
+	font-size: 16px;
+	color: #fff;
+	pointer-events: none;
+	transition: 0.5s;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+	top: -34px;
+	left: 0;
+	color: #ffffff;
+	font-size: 14px;
+}
+
+.login-box button {
+	position: relative;
+	display: inline-block;
+	padding: 10px 20px;
+	color: #d3a712 !important;
+	background: #ffffff25;
+	border-radius: 7px;
+	font-size: 16px;
+	text-decoration: none;
+	text-transform: uppercase;
+	overflow: hidden;
+	transition: 0.5s;
+	margin-top: 10px;
+	letter-spacing: 3px;
+}
+
+.login-box button:hover {
+	background: #90cc57;
+	color: #fff !important;
+	border-radius: 5px;
+}
+
+
+/* Login From: https://codepen.io/soufiane-khalfaoui-hassani/pen/LYpPWda */
+
+.waves {
+	position: fixed;
+	width: 100%;
+	height: 15vh;
+	margin-bottom: -7px; /*Fix for safari gap*/
+	min-height: 100px;
+	max-height: 150px;
+	bottom: 0;
+}
+
+.content {
+	position: relative;
+	height: 20vh;
+	text-align: center;
+	background-color: white;
+}
+
+/* Animation */
+
+.parallax > use {
+	animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+.parallax > use:nth-child(1) {
+	animation-delay: -1s;
+	animation-duration: 16s;
+}
+.parallax > use:nth-child(2) {
+	animation-delay: 0;
+	animation-duration: 23s;
+}
+.parallax > use:nth-child(3) {
+	animation-delay: -4s;
+	animation-duration: 29s;
+}
+.parallax > use:nth-child(4) {
+	animation-delay: -7s;
+	animation-duration: 35s;
+}
+@keyframes move-forever {
+	0% {
+		transform: translate3d(-90px, 0, 0);
+	}
+	100% {
+		transform: translate3d(85px, 0, 0);
+	}
+}
+/*Shrinking for mobile*/
+@media (max-width: 768px) {
+	.waves {
+		height: 40px;
+		min-height: 40px;
+	}
+	.content {
+		height: 30vh;
+	}
+	h1 {
+		font-size: 24px;
+	}
+}
+
+/* Waves From: https://codepen.io/goodkatz/pen/LYPGxQz */

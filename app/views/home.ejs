@@ -1,86 +1,62 @@
 <%- include('template/!head.ejs') %>
 
-<body class="sb-nav-fixed">
-    <%- include('template/navbar.ejs') %>
+<body>
+    <div class="snack mx-auto w-25 d-flex flex-nowrap justify-content-center position-fixed">
+        <div id="snack-container" class="container-fluid mt-5"></div>
+    </div>
+    <nav id="layoutNavbar" data-log="<%= (session) ? true : false %>" class="d-none"></nav>
 
-    <div id="layoutSidenav">
-        <%- include('template/sidebar.ejs') %>
-
-        <div id="layoutSidenav_content">
-            <div class="container">
-                <div class="row mt-4 d-flex justify-content-center">
-                    <div class="dynamic-title-front mb-0 bg-white">
-                        <h1 class="display-3 text-center my-5">
-                            <span data-lang="es">Bienvenido a la UTNA</span>
-                            <span data-lang="en">Welcome to UTNA</span>
-                        </h1>
-                    </div>
-                </div>
-
-                <div class="row mt-4 d-flex justify-content-center">
-                    <div class="col-12 carousel-bg">
-                        <div id="index-carousel" class="carousel slide carousel-fade w-100" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="/img/carousel/1.jpg" class="d-block w-100" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="/img/carousel/2.jpg" class="d-block w-100" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="/img/carousel/4.jpg" class="d-block w-100" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="/img/carousel/5.jpg" class="d-block w-100" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="/img/carousel/6.jpg" class="d-block w-100" alt="...">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <h2 class="text-center carousel-text fs-3 w-md-50 w-90">
-                        <span data-lang="es">
-                            La UTNA ha tenido el reconocimiento de la sociedad en su región, está 
-                            cumpliendo con su compromiso y continúa trabajando para cumplir una gran
-                            visión: “Ser una Universidad de Clase Mundial”
-                        </span>
-                        <span data-lang="en">
-                            UTNA has been recognized by the society in its region, is fulfilling its 
-                            commitment and continues to is fulfilling its commitment and continues to
-                            work to fulfill a great vision: "To be a World Class University". vision:
-                            "To be a World Class University".
-                        </span>
-                    </h2>
-                </div>
+    <div id="load-b" class="bg-light p-0 m-0 mx-auto flex-nowrap position-fixed d-flex show">
+        <div class="container h-100 d-flex">
+            <div class="m-auto">
+                <div class="spinner-border text-info"></div>
             </div>
-
-            <div class="text-center bg-gradient-primary-to-secondary py-md-5 shadow">
-                <div class="container px-5">
-                    <div class="row gx-5 justify-content-center">
-                        <div class="col-xl-8">
-                            <div class="h2 fs-1 text-white mt-4">
-                                <span data-lang="es">
-                                    Síguenos y entérate de lo que pasa en nuestra universidad
-                                </span>
-                                <span data-lang="en">
-                                    Follow us and find out what's going on at our university
-                                </span>
-                            </div>
-                            <div class="h2 fs-1 text-primary mb-4">
-                                <span data-lang="es">#OrgulloUTNA</span>
-                                <span data-lang="en">#UTNAPride</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <%- include('template/!footer.ejs') %>
         </div>
     </div>
 
-    <%- include('template/login.ejs') %>
+    <div id="floatingLogin" class="hide floating">
+        <div class="login-box">
+            <div class="container d-flex">
+                <img src="/img/logo-utna.png" alt="Logo UTNA" class="px-3 w-sm-80 w-md-60 mx-auto img-fluid">
+            </div>
+            <h2 class="pt-4 pb-3"><span data-lang="es">Iniciar Sesión</span><span data-lang="en">Login</span></h2>
+                <div class="user-box">
+                    <input type="text" id="_id-txt" required>
+                    <label>
+                        <span data-lang="es">Usuario</span><span data-lang="en">User</span>
+                    </label>
+                </div>
+                <div class="user-box">
+                    <input type="password" name="pass" id="pass" required>
+                    <label>
+                        <span data-lang="es">Contraseña</span><span data-lang="en">Password</span>
+                    </label>
+                </div>
+                <div class="container d-flex">
+                    <button id="btn-login" class="btn mx-auto" onclick="login()">
+                        <p class="m-0" data-lang="es">Iniciar Sesión</p>
+                        <p class="m-0" data-lang="en">Login</p>
+                    </button>
+                </div>
+        </div>
+    </div>
+
+    <div>
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+        <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+        </g>
+        </svg>
+    </div>
+
+    <script src="/js/home.js"></script>
     <%- include('template/!scripts.ejs') %>
 </body>
 

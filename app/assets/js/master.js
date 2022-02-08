@@ -112,10 +112,9 @@ const download = (path, filename) => {
     document.body.removeChild(anchor)
 }
 
-async function eventAssigner(selector, eventClass, funcEvent ) {
+async function eventAssigner(selector = '', eventClass, funcEvent ) {
 	try {
-		Array.prototype.forEach.call(
-			$a(selector),
+		$a(selector).forEach(
 			(node) => {
 				node.addEventListener(eventClass, funcEvent)
 		})
@@ -127,8 +126,7 @@ async function eventAssigner(selector, eventClass, funcEvent ) {
 
 async function eventUnassigner(selector, eventClass, funcEvent) {
 	try {
-		Array.prototype.forEach.call(
-			$a(selector),
+		$a(selector).forEach(
 			(node) => {
 				node.removeEventListener(eventClass, funcEvent)
 		})
@@ -151,8 +149,7 @@ window.addEventListener('DOMContentLoaded', async(e) => {
         lang = 1
         $e('html').setAttribute('lang', 'en')
 
-        Array.prototype.forEach.call(
-			$a('*[data-lang="es"]'),
+        $a('*[data-lang="es"]').forEach(
 			(node) => { node.remove() }
         )
         document.body.querySelector('#btn-lang').checked = true
@@ -160,8 +157,7 @@ window.addEventListener('DOMContentLoaded', async(e) => {
         lang = 0
         $e('html').setAttribute('lang', 'es')
 
-        Array.prototype.forEach.call(
-			$a('*[data-lang="en"]'),
+        $a('*[data-lang="en"]').forEach(
 			(node) => { node.remove() }
         )
     }
@@ -183,38 +179,42 @@ window.addEventListener('DOMContentLoaded', async(e) => {
 
     let fade_away = true
 
-    if($e('#layoutNavbar').getAttribute('data-log') === 'false') {
-        await getCookie(0)
-        .then(async(data) => {
-            fade_away = false
-            if(data[0] != '' && data[0] != undefined) {
-                try {
-                    let cookieData = JSON.parse(data[0])
-                    showSnack(
-                        (lang == 0) ? 'Iniciando sesión...' : 'Logging in...',
-                        (lang == 0) ? 'Inicio de sesión' : 'Log in', SNACK.info
-                    )
-                    login(cookieData.user, cookieData.pass)
-
-                    if(data[1] != undefined) {
-                        await setCookie('requested-page', undefined)
-                        .then(() => {
-                            setTimeout(() => go(data[1]), 2500)
-                        })
-                        .catch((error) => {
-                            return console.error('requested-page: '+error)
-                        })
+    try {
+        if($e('#layoutNavbar').getAttribute('data-log') === 'false') {
+            await getCookie(0)
+            .then(async(data) => {
+                fade_away = false
+                if(data[0] != '' && data[0] != undefined) {
+                    try {
+                        let cookieData = JSON.parse(data[0])
+                        showSnack(
+                            (lang == 0) ? 'Iniciando sesión...' : 'Logging in...',
+                            (lang == 0) ? 'Inicio de sesión' : 'Log in', SNACK.info
+                        )
+                        login(cookieData.user, cookieData.pass)
+    
+                        if(data[1] != undefined) {
+                            await setCookie('requested-page', undefined)
+                            .then(() => {
+                                setTimeout(() => go(data[1]), 2500)
+                            })
+                            .catch((error) => {
+                                return console.error('requested-page: '+error)
+                            })
+                        }
+                    } catch(error) {
+                        return console.error(error)
                     }
-                } catch(error) {
-                    return console.error(error)
                 }
-            }
-            return fade_away = true
-        })
-        .catch((error) => {
-            fade_away = true
-            throw console.error('error: '+error)
-        })
+                return fade_away = true
+            })
+            .catch((error) => {
+                fade_away = true
+                throw console.error('error: '+error)
+            })
+        }
+    } catch (error) {
+        console.error(error);
     }
     
     if(fade_away) {
@@ -230,51 +230,8 @@ window.addEventListener('DOMContentLoaded', async(e) => {
     }
 })
 
-//Capture Enter key in inputs
-function onEnterHandler(e) {
-    let code = e.which || e.keyCode
-    if(code === 13) login()
-}
-
 function outSession(clicked) {
     if(clicked) setTimeout(() => go("home/"), 2500)
-}
-
-function toggleFloating(floating) {
-    if(tf || floating === 0) {
-        try { frameL.className = frameL.className.replace('show', 'hide') }
-        catch { console.log('Skiping Frame Login') }
-        try { frameP.className = frameP.className.replace('show', 'hide') }
-        catch { console.log('Skiping Frame Password') }
-
-        glass.className = ''
-    } else {
-        if(floating === 1) {
-            try { frameL.className = frameL.className.replace('hide', 'show') }
-            catch { console.log('Skiping Frame Login') }
-            try { frameP.className = frameP.className.replace('show', 'hide') }
-            catch { console.log('Skiping Frame Password') }
-
-            if(glass.className == 'blur-off') 
-                glass.className = glass.className.replace('blur-off', 'blur-on')
-            else 
-                glass.className = 'blur-on'
-
-            $e('#_id-txt').focus()
-        } else if(floating === 2) {
-            try { frameL.className = frameL.className.replace('show', 'hide') }
-            catch { console.log('Skiping Frame Login') }
-            try { frameP.className = frameP.className.replace('hide', 'show') }
-            catch { console.log('Skiping Frame Password') }
-
-            if(glass.className == 'blur-off')
-                glass.className = glass.className.replace('blur-off', 'blur-on')
-            else
-                glass.className = 'blur-on position-fixed'
-
-            $e('#_id-u-txt').focus()
-        }
-    }
 }
 
 function login(u, p) {
@@ -298,14 +255,10 @@ function login(u, p) {
                         result.msg,
                         null, SNACK.success
                     )
-                } else {
-                    $e('#loginMsg').classList.add('text-danger')
-                    $e('#loginMsg').innerHTML = result.msg
                 }
 
                 if(result.status === 200) {
                     $e('#load-b').classList.remove('hidden', 'fade')
-                    toggleFloating(0)
                     await setCookie('user', JSON.stringify(result.data))
                     .then(() => {
                         return go("home/")
@@ -318,7 +271,7 @@ function login(u, p) {
                     })
                 }
             },
-            async(error) => console.error('Log in: '+error)
+            async(error) => console.error(error)
         )
 }
 
