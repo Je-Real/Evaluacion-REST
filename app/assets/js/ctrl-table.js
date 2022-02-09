@@ -75,5 +75,7 @@ window.addEventListener('load', async(e) => {
     eventAssigner('.evaluate', 'click', evaluateUser).catch((error) => console.error(error))
 	eventAssigner('.manage-eval', 'click', manageEvalUser).catch((error) => console.error(error))
 	eventAssigner('.generate-pdf', 'click', pdfFormatEval).catch((error) => console.error(error))
+
+    $e('#registerPersonnel').addEventListener('click', () => go('register/'))
 })
 

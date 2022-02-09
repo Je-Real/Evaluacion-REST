@@ -2,7 +2,7 @@ const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
 
 const DATE = new Date()
-const currYear = '2020' //String(DATE.getFullYear())
+const currYear = String(DATE.getFullYear())
 
 // >>>>>>>>>>>>>>>>>>>>>> Evaluacion static <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
@@ -13,99 +13,178 @@ async function root(req, res) {
     } else { // Session 🤑
         session = req.session
 
-        await modelUserInfo.aggregate([
-            { $match: { manager: req.session.user } }, {
+        /** Search all subordinates and obtain whether
+         * each has current year evaluations or not */
+         await modelUserInfo.aggregate([
+            {
+                $match: {
+                    manager: "R000",
+                    disabled: {
+                        $exists: false,
+                    },
+                },
+            },
+            {
                 $lookup: {
                     from: "evaluations",
-                    pipeline: [ { $unset: ['_id', '__v'] } ],
+                    pipeline: [
+                        {
+                            $set: {
+                                records: {
+                                    $cond: [
+                                        {
+                                            $ifNull: ["$records.2022", false],
+                                        },
+                                        {
+                                            $cond: [
+                                                {
+                                                    $ifNull: ["$records.2022.disabled", false],
+                                                },
+                                                -1,
+                                                1,
+                                            ],
+                                        },
+                                        0,
+                                    ],
+                                },
+                            },
+                        },
+                    ],
                     localField: "_id",
                     foreignField: "_id",
-                    as: "eval",
-                }
-            }, {
+                    as: "eval_",
+                },
+            },
+            {
                 $lookup: {
                     from: "areas",
-                    pipeline: [ { $unset: ["_id", "n"] } ],
+                    pipeline: [
+                        {
+                            $unset: ["_id", "n"],
+                        },
+                    ],
                     localField: "area",
                     foreignField: "n",
                     as: "area",
-                }
-            }, {
+                },
+            },
+            {
                 $lookup: {
                     from: "departments",
-                    pipeline: [ { $unset: ["_id", "n", "area"]} ],
+                    pipeline: [
+                        {
+                            $unset: ["_id", "n", "area"],
+                        },
+                    ],
                     localField: "department",
                     foreignField: "n",
                     as: "department",
-                }
-            }, {
+                },
+            },
+            {
                 $lookup: {
                     from: "careers",
-                    pipeline: [ { $unset: ["_id", "n", "department"]} ],
+                    pipeline: [
+                        {
+                            $unset: ["_id", "n", "department"],
+                        },
+                    ],
                     localField: "careers",
                     foreignField: "n",
                     as: "career",
-                }
-            }, {
+                },
+            },
+            {
                 $replaceRoot: {
                     newRoot: {
                         $mergeObjects: [
-                            { $arrayElemAt: [ "$eval", 0 ] },
-                            "$$ROOT"
-                        ]
-                    }
-                }
-            }, {
-                $project: {
-                    first_name: 1,
-                    last_name: 1,
-                    last_name: 1,
-                    records: 1,
+                            {
+                                $arrayElemAt: ["$eval_", 0],
+                            },
+                            "$$ROOT",
+                        ],
+                    },
+                },
+            },
+            {
+                $set: {
+                    records: {
+                        $cond: [
+                            {
+                                $ifNull: ["$records", false],
+                            },
+                            "$records",
+                            0,
+                        ],
+                    },
                     area: {
                         $cond: {
-                           if: { $eq: [ [], "$area" ] },
-                           then: "$$REMOVE",
-                           else: { $arrayElemAt: ["$area.desc", 0] }
-                        }
+                            if: {
+                                $eq: [[], "$area"],
+                            },
+                            then: "$$REMOVE",
+                            else: {
+                                $arrayElemAt: ["$area.desc", 0],
+                            },
+                        },
                     },
                     department: {
                         $cond: {
-                           if: { $eq: [ [], "$department" ] },
-                           then: "$$REMOVE",
-                           else: { $arrayElemAt: ["$department.desc", 0] }
-                        }
+                            if: {
+                                $eq: [[], "$department"],
+                            },
+                            then: "$$REMOVE",
+                            else: {
+                                $arrayElemAt: ["$department.desc", 0],
+                            },
+                        },
                     },
                     career: {
                         $cond: {
-                           if: { $eq: [ [], "$career" ] },
-                           then: "$$REMOVE",
-                           else: { $arrayElemAt: ["$career.desc", 0] }
-                        }
+                            if: {
+                                $eq: [[], "$career"],
+                            },
+                            then: "$$REMOVE",
+                            else: {
+                                $arrayElemAt: ["$career.desc", 0],
+                            },
+                        },
                     },
+                },
+            },
+            { $unset: ["level", "contract", "b_day", "address", "manager", "eval_", "__v"] },
+        ])
+        .then(async(data) => {
+            // TODO: Look for { records: 0 }
+
+            for(let i in data) {
+                if(data[i]['records'] == 0) {
+                    userData.push(data[i])
                 }
             }
-        ]).then(async(data) => {
-            //Top tier query filter by 0s 🥶😎👌
+
+            /*//Top tier query filter by 0s 🥶😎👌
             //Get all the users that doesn't have a evaluation in the current year
             Object.entries(data).filter(([,info], i) => {
                 userData.push((!('records' in info))
                     ? info : ((!(currYear in info.records))
                         ? info : null)
                 )
-            })
+            })*/
         })
         .catch((error) => {
             console.error(error)
             userData = false
         })
+        .finally(() => {
+            //Evaluacion static route
+            return res.status(200).render('evaluation', {
+                title_page: 'UTNA - Evaluacion',
+                session: session,
+                userData: userData
+            })
+        })
     }
-
-    //Evaluacion static route
-    return res.status(200).render('evaluation', {
-        title_page: 'UTNA - Evaluacion',
-        session: session,
-        userData: userData
-    })
 }
 
 async function post(req, res) {

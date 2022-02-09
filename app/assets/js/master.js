@@ -287,7 +287,7 @@ function logout() {
                 await eatCookies()
                     .finally(() => {
                         setTimeout(() => {
-                            go("home/")
+                            go('home/')
                         }, 500)
                     })
             } else {
@@ -301,7 +301,7 @@ function logout() {
     )
 }
 
-function go(place) {
-    setCookie('go-to', place)
-    window.location.href = String(location.href).slice(0, 20+1)+place
+function go(url) {
+    setCookie('go-to', url)
+    window.location.href = String(location.href).slice(0, 20+1)+url
 }
