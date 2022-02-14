@@ -5,31 +5,41 @@
                 <div class="sidebar-top-p top-border-b" data-color="#e29e20"></div>
                 <a class="nav-link" href="/home/">
                     <div class="sb-nav-link-icon"><i class="fas fa-home fa-2x"></i></div>
-                    <span class="sb-nav-link-text"><span data-lang="es">Inicio</span><span data-lang="en">Home</span>
+                    <span class="sb-nav-link-text">
+                        <span data-lang="es">Inicio</span><span data-lang="en">Home</span>
+                    </span>
                 </a>
                 <% if(session) { %>
                         <div class="sb-sidenav-menu-heading green-border-t py-3">
-                            <span class="sb-nav-link-text"><span data-lang="es">Estatus</span><span data-lang="en">Status</span>
+                            <span class="sb-nav-link-text">
+                                <span data-lang="es">Estatus</span><span data-lang="en">Status</span>
+                            </span>
                         </div>
 
                         <a class="nav-link" href="/metrics/">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-line fa-2x"></i></div>
-                            <span class="sb-nav-link-text"><span data-lang="es">Métricas</span><span data-lang="en">Metrics</span>
+                            <span class="sb-nav-link-text">
+                                <span data-lang="es">Métricas</span><span data-lang="en">Metrics</span>
+                            </span>
                         </a>
 
                         <div class="sb-sidenav-menu-heading orange-border-t py-3">
-                            <span class="sb-nav-link-text"><span data-lang="es">Acciones</span><span data-lang="en">Actions</span>
+                            <span class="sb-nav-link-text">
+                                <span data-lang="es">Acciones</span><span data-lang="en">Actions</span>
+                            </span>
                         </div>
                         
-                        <% if(session.evaluation) { %>
-                            <a class="nav-link" href="/evaluation/">
-                                <div class="sb-nav-link-icon"><i class="fas fa-pen-alt fa-2x"></i></div>
-                                <span class="sb-nav-link-text">Evaluacion</span>
-                            </a>
-                        <% } %>
+                        <a class="nav-link" href="/evaluation/">
+                            <div class="sb-nav-link-icon"><i class="fas fa-pen-alt fa-2x"></i></div>
+                            <span class="sb-nav-link-text">
+                                <span data-lang="es">Evaluación</span><span data-lang="en">Evaluation</span>
+                            </span>
+                        </a>
                         <a class="nav-link" href="javascript:logout()">
                             <div class="sb-nav-link-icon"><i class="fas fa-door-open fa-2x"></i></div>
-                            <span class="sb-nav-link-text">Cerrar sesión</span>
+                            <span class="sb-nav-link-text">
+                                <span data-lang="es">Cerrar sesión</span><span data-lang="en">Logout</span>
+                            </span>
                         </a>
                 <% } else { %>
                     <div class="sb-sidenav-menu-heading orange-border-t py-3">

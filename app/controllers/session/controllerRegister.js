@@ -46,15 +46,15 @@ async function root(req, res) {
 
 async function signIn(req, res) {
 	//SignIn validator
-	await modelUser.find({ _id: req.body._id })
+	await modelUser.find({ _id: req.body._id }, { _id: 1 })
 	.then((dataUser) => {
-		if(dataUser.length) { //if data 👍
+		if(dataUser.length) { // If the user exists
 			return res.end(JSON.stringify({
 				msg: '¡Ya existe usuario con ese id!',
 				status: 500,
 				noti: true
 			}))
-		} else { //if no data 🥶
+		} else {
 			//Encryption
 			req.body.pass = crypto.AES.encrypt(req.body.pass, req.body._id).toString()
 

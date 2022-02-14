@@ -18,90 +18,68 @@ async function root(req, res) {
          await modelUserInfo.aggregate([
             {
                 $match: {
-                    manager: "R000",
-                    disabled: {
-                        $exists: false,
-                    },
+                    manager: req.session.user,
+                    disabled: { $exists: false }
                 },
             },
             {
                 $lookup: {
-                    from: "evaluations",
+                    from: 'evaluations',
                     pipeline: [
                         {
                             $set: {
                                 records: {
                                     $cond: [
-                                        {
-                                            $ifNull: ["$records.2022", false],
-                                        },
-                                        {
-                                            $cond: [
-                                                {
-                                                    $ifNull: ["$records.2022.disabled", false],
-                                                },
+                                        { $ifNull: [`$records.${currYear}`, false] },
+                                        { $cond: [
+                                                { $ifNull: [`$records.${currYear}.disabled`, false] },
                                                 -1,
                                                 1,
-                                            ],
-                                        },
+                                        ] },
                                         0,
                                     ],
                                 },
                             },
                         },
                     ],
-                    localField: "_id",
-                    foreignField: "_id",
-                    as: "eval_",
+                    localField: '_id',
+                    foreignField: '_id',
+                    as: 'eval_',
                 },
             },
             {
                 $lookup: {
-                    from: "areas",
-                    pipeline: [
-                        {
-                            $unset: ["_id", "n"],
-                        },
-                    ],
-                    localField: "area",
-                    foreignField: "n",
-                    as: "area",
+                    from: 'areas',
+                    pipeline: [ { $unset: ['_id', 'n'] } ],
+                    localField: 'area',
+                    foreignField: 'n',
+                    as: 'area',
                 },
             },
             {
                 $lookup: {
-                    from: "departments",
-                    pipeline: [
-                        {
-                            $unset: ["_id", "n", "area"],
-                        },
-                    ],
-                    localField: "department",
-                    foreignField: "n",
-                    as: "department",
+                    from: 'departments',
+                    pipeline: [ { $unset: ['_id', 'n', 'area'] } ],
+                    localField: 'department',
+                    foreignField: 'n',
+                    as: 'department',
                 },
             },
             {
                 $lookup: {
-                    from: "careers",
-                    pipeline: [
-                        {
-                            $unset: ["_id", "n", "department"],
-                        },
-                    ],
-                    localField: "careers",
-                    foreignField: "n",
-                    as: "career",
+                    from: 'careers',
+                    pipeline: [ { $unset: ['_id', 'n', 'department'] } ],
+                    localField: 'careers',
+                    foreignField: 'n',
+                    as: 'career',
                 },
             },
             {
                 $replaceRoot: {
                     newRoot: {
                         $mergeObjects: [
-                            {
-                                $arrayElemAt: ["$eval_", 0],
-                            },
-                            "$$ROOT",
+                            { $arrayElemAt: ['$eval_', 0] },
+                            '$$ROOT',
                         ],
                     },
                 },
@@ -109,50 +87,36 @@ async function root(req, res) {
             {
                 $set: {
                     records: {
-                        $cond: [
-                            {
-                                $ifNull: ["$records", false],
-                            },
-                            "$records",
+                        $cond: [ 
+                            { $ifNull: ['$records', false] },
+                            '$records',
                             0,
                         ],
                     },
                     area: {
                         $cond: {
-                            if: {
-                                $eq: [[], "$area"],
-                            },
-                            then: "$$REMOVE",
-                            else: {
-                                $arrayElemAt: ["$area.desc", 0],
-                            },
+                            if: { $eq: [[], '$area'], },
+                            then: '$$REMOVE',
+                            else: { $arrayElemAt: ['$area.desc', 0] },
                         },
                     },
                     department: {
                         $cond: {
-                            if: {
-                                $eq: [[], "$department"],
-                            },
-                            then: "$$REMOVE",
-                            else: {
-                                $arrayElemAt: ["$department.desc", 0],
-                            },
+                            if: { $eq: [[], '$department'], },
+                            then: '$$REMOVE',
+                            else: { $arrayElemAt: ['$department.desc', 0] },
                         },
                     },
                     career: {
                         $cond: {
-                            if: {
-                                $eq: [[], "$career"],
-                            },
-                            then: "$$REMOVE",
-                            else: {
-                                $arrayElemAt: ["$career.desc", 0],
-                            },
+                            if: { $eq: [[], '$career'], },
+                            then: '$$REMOVE',
+                            else: { $arrayElemAt: ['$career.desc', 0] },
                         },
                     },
                 },
             },
-            { $unset: ["level", "contract", "b_day", "address", "manager", "eval_", "__v"] },
+            { $unset: ['level', 'contract', 'b_day', 'address', 'manager', 'eval_', '__v'] },
         ])
         .then(async(data) => {
             // TODO: Look for { records: 0 }
@@ -162,15 +126,6 @@ async function root(req, res) {
                     userData.push(data[i])
                 }
             }
-
-            /*//Top tier query filter by 0s 🥶😎👌
-            //Get all the users that doesn't have a evaluation in the current year
-            Object.entries(data).filter(([,info], i) => {
-                userData.push((!('records' in info))
-                    ? info : ((!(currYear in info.records))
-                        ? info : null)
-                )
-            })*/
         })
         .catch((error) => {
             console.error(error)
@@ -196,7 +151,7 @@ async function post(req, res) {
         if(rec[answer] >= 1 && rec[answer] <= 4)
             answers.push(rec[answer])
         else {
-            return console.log(`Error: No se obtuvo calificacion de ${answer}`)
+            return console.log(`Error: Answer ${answer}`)
         }
     }
 
@@ -235,7 +190,7 @@ async function post(req, res) {
                     // If a evaluation exits in the current year, return the error message
                     if(currYear in insert.records)
                     return res.end(JSON.stringify({
-                        msg: '¿¡Ya existe una evaluacion para esta persona en este año!?',
+                        msg: '¿¡Ya existe una evaluación para esta persona en este año!?',
                         resType: 'error',
                         status: 500,
                         noti: true
@@ -252,7 +207,7 @@ async function post(req, res) {
                 await new modelEvaluation(insert).save()
                 .then(() => { //🟢
                     return res.end(JSON.stringify({
-                        msg: '¡Evaluacion registrada satisfactoriamente!',
+                        msg: '¡Evaluación registrada satisfactoriamente!',
                         resType: 'success',
                         status: 200,
                         noti: true
@@ -301,7 +256,7 @@ async function post(req, res) {
 
 function weighting(numAnswer, answer) {
     let failure = (question) => { return {
-        msg: 'Error: No se obtuvo calificacion de ' + question,
+        msg: 'Error: No se obtuvo calificación de ' + question,
         resType: 'error',
         noti: true,
         status: 500,

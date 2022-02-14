@@ -250,10 +250,10 @@ function login(u, p) {
             'POST',
             { _id: u, pass: p },
             async(result) => {
-                if(result.noti) {
+                if(result.msg) {
                     showSnack(
                         result.msg,
-                        null, SNACK.success
+                        null, SNACK.info
                     )
                 }
 

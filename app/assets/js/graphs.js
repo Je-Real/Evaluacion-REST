@@ -34,7 +34,8 @@ function getGradient(ctx, chartArea) {
 }
 
 function semiDoughnutChart(id, data, colors) {
-	if((data > 0 && data <= 100)) {
+	data = (data == null || parseFloat(data) == NaN) ? 0 : parseFloat(data)
+	if((data >= 0 && data <= 100)) {
 		if(dChart[id] != undefined) dChart[id].destroy()
 		let span
 
@@ -97,8 +98,7 @@ function semiDoughnutChart(id, data, colors) {
 		return null
 	}
 	log('[Graphs] Error in Semi doughnut', STYLE.error)
-	console.error(id)
-	console.error(data)
+	console.error('id chart: '+id+' - data: '+data+' - type: '+(typeof data))
 }
 
 function barChart(id, labels, data, colors) {

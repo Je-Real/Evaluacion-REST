@@ -18,6 +18,17 @@ async function root(req, res) {
 
     if(!req.session.user && !req.session.lvl) { // No session 😡
         session = null
+        //Reportes route
+        return res.status(200).render('metrics', {
+            title_page: 'UTNA - Metricas',
+            session: session,
+            area: area,
+            depa: department,
+            care: career,
+            subordinates: null,
+            hour: hour,
+            salutation: salutation
+        })
     } else { // Session 🤑
         session = req.session
 
@@ -115,19 +126,20 @@ async function root(req, res) {
         .catch((error) => {
             console.error(error)
         })
+        .finally(() => {
+            //Reportes route
+            return res.status(200).render('metrics', {
+                title_page: 'UTNA - Metricas',
+                session: session,
+                care: career,
+                depa: department,
+                area: area,
+                subordinates: subordinates,
+                hour: hour,
+                salutation: salutation
+            })
+        })
     }
-
-    //Reportes route
-    return res.status(200).render('metrics', {
-        title_page: 'UTNA - Metricas',
-        session: session,
-        care: career,
-        depa: department,
-        area: area,
-        subordinates: subordinates,
-        hour: hour,
-        salutation: salutation
-    })
 }
 
 function data(req, res) {
@@ -208,14 +220,16 @@ function data(req, res) {
             else subordinates = null
         
             for(let i=0; i<5; i++) {
-                let currYear = String(parseInt(year)-(4-i))
+                let yrs = String(parseInt(year)-(4-i))
             
-                years[i] = currYear
+                years[i] = yrs
                 for(let j in data) {
                     if('records' in data[j]) {
-                        if(String(currYear) in data[j].records) {
-                            histCounter[0][i] += data[j].records[String(currYear)].score
-                            histCounter[1][i]++
+                        if(String(yrs) in data[j].records) {
+                            if(!('disabled' in data[j].records[yrs])) {
+                                histCounter[0][i] += data[j].records[String(yrs)].score
+                                histCounter[1][i]++
+                            }
                         }
                     }
                 }
