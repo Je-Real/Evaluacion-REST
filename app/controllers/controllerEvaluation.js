@@ -4,7 +4,7 @@ const modelUserInfo = require('../models/modelUserInfo')
 const DATE = new Date()
 const currYear = String(DATE.getFullYear())
 
-// >>>>>>>>>>>>>>>>>>>>>> Evaluacion static <<<<<<<<<<<<<<<<<<<<<<
+// >>>>>>>>>>>>>>>>>>>>>> Evaluation static <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
     let session, userData = []
 
@@ -136,6 +136,7 @@ async function root(req, res) {
             return res.status(200).render('evaluation', {
                 title_page: 'UTNA - Evaluacion',
                 session: session,
+                lvl: req.session.lvl,
                 userData: userData
             })
         })

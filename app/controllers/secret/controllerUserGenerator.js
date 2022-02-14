@@ -50,7 +50,6 @@ async function root(req, res) {
     }
 }
 
-
 async function generatorFixed(params) {
     let area, depa, care,
         lvl, user, pass,

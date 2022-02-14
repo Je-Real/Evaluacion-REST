@@ -131,6 +131,7 @@ async function root(req, res) {
             return res.status(200).render('metrics', {
                 title_page: 'UTNA - Metricas',
                 session: session,
+                lvl: req.session.lvl,
                 care: career,
                 depa: department,
                 area: area,

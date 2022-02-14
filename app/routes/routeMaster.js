@@ -10,6 +10,7 @@ const controllerResetPsw = require('../controllers/session/controllerResetPsw')
 const controllerRegister = require('../controllers/session/controllerRegister')
 
 const controllerUserGenerator = require('../controllers/secret/controllerUserGenerator')
+const controllerAdminCtrl = require('../controllers/secret/controllerAdminCtrl')
 
 const controller404 = require('../controllers/error/controller404')
 const controller401 = require('../controllers/error/controller401')
@@ -48,6 +49,7 @@ router //👇
 
 // Shh... it's a secret🤐
 .get('/secret/user-generator', controllerUserGenerator.root)
+.get('/admin-control', controllerAdminCtrl.root)
 
 // Errors handlers (Always keep this at the end)
 .get('**', controller404.root)

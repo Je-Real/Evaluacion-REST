@@ -26,6 +26,7 @@ async function root(req, res) {
     			.then(async (dataCr) => {
 					return res.status(200).render('register', {
 						title_page: 'UTNA - Registro',
+						lvl: req.session.lvl,
 						contracts: dataC,
 						area: dataA,
 						depa: dataD,

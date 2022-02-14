@@ -57,6 +57,11 @@ const changeLang = () => {
     }, 200)
 }
 
+function go(url = 'home/') {
+    setCookie('go-to', url)
+    window.location.href = String(location.href).slice(0, 20+1)+url
+}
+
 async function upperAttrIterator(target, attributeName) {
     try{
         while(target.parentNode) {
@@ -114,10 +119,7 @@ const download = (path, filename) => {
 
 async function eventAssigner(selector = '', eventClass, funcEvent ) {
 	try {
-		$a(selector).forEach(
-			(node) => {
-				node.addEventListener(eventClass, funcEvent)
-		})
+		$a(selector).forEach((node) => {node.addEventListener(eventClass, funcEvent)})
 		return true
 	} catch (error) {
 		throw error
@@ -126,10 +128,7 @@ async function eventAssigner(selector = '', eventClass, funcEvent ) {
 
 async function eventUnassigner(selector, eventClass, funcEvent) {
 	try {
-		$a(selector).forEach(
-			(node) => {
-				node.removeEventListener(eventClass, funcEvent)
-		})
+		$a(selector).forEach((node) => {node.removeEventListener(eventClass, funcEvent)})
 		return true
 	} catch (error) {
 		console.error(error)
@@ -156,13 +155,13 @@ window.addEventListener('DOMContentLoaded', async(e) => {
     } else {
         lang = 0
         $e('html').setAttribute('lang', 'es')
-
-        $a('*[data-lang="en"]').forEach(
-			(node) => { node.remove() }
-        )
+        $a('*[data-lang="en"]').forEach(node => { node.remove() })
     }
 
     eventAssigner('#btn-lang', 'change', changeLang)
+
+    if($e('meta[name="level"]').content === '-1' && $e('body.sb-nav-fixed').name != 'admin-ctrl')
+        return go("admin-control/")
 
     // Toggle the side navigation
     const sidebarToggle = $e('#sidebarToggle')
@@ -299,9 +298,4 @@ function logout() {
         },
         async(error) => console.error('Log out: '+error)
     )
-}
-
-function go(url) {
-    setCookie('go-to', url)
-    window.location.href = String(location.href).slice(0, 20+1)+url
 }

@@ -20,7 +20,7 @@
             <div class="container mt-4">
                 <div class="row">
                         <div class="card-body">
-                            <form method="POST" name="f-reg" id="f-reg" autocomplete="off">
+                            <form method="POST" name="f-reg" id="f-reg" autocomplete="false">
                                 <div class="row mb-3">
                                     <div class="col-md-4">
                                         <div class="form-floating mb-3 mb-md-0">
@@ -38,9 +38,9 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-floating">
-                                            <input class="form-control" name="_id-r" id="_id_r"
-                                                type="text" placeholder="." />
-                                            <label for="_id_r">Nuevo usuario</label>
+                                            <input class="form-control" name="new-id" id="new_id"
+                                                type="text" placeholder="." autocomplete="" />
+                                            <label for="new_id">Nuevo usuario</label>
                                         </div>
                                     </div>
                                 </div>
@@ -115,7 +115,7 @@
                                         <div class="form-floating mb-3 mb-md-0">
                                             <select class="form-select" name="manager" id="manager"
                                                 aria-label="Selección" placeholder="." disabled>
-                                                <option id="mgr-s" value="0" selected>N/A</option>
+                                                <option id="mgr-s" value="." selected>N/A</option>
                                             </select>
                                             <label for="manager">Manager</label>
                                         </div>
@@ -133,7 +133,7 @@
                                     <div class="col-md-3">
                                         <div class="form-floating mb-3 mb-md-0">
                                             <input class="form-control" name="num" id="num"
-                                                type="number" placeholder="Nº" />
+                                                type="number" placeholder="." />
                                             <label for="num">Numero</label>
                                         </div>
                                     </div>
@@ -150,15 +150,15 @@
                                     <div class="col-md-6">
                                         <div class="form-floating mb-3 mb-md-0">
                                             <input class="form-control" name="b-day" id="b_day"
-                                                type="date" placeholder="Nº" />
+                                                type="date" placeholder="." />
                                             <label for="b_day">Fecha de nacimiento</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating mb-3 mb-md-0">
-                                            <input class="form-control" name="pass-r" id="pass_r"
-                                                type="password" placeholder="Nº" />
-                                            <label for="pass_r">Contraseña</label>
+                                            <input class="form-control" name="new-pass" id="new_pass"
+                                                type="password" placeholder="." autocomplete="new-password" />
+                                            <label for="new_pass">Contraseña</label>
                                         </div>
                                     </div>
                                 </div>
