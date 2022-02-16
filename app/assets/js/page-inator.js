@@ -68,53 +68,58 @@ function paginator() {
         )
     }
 
-    $e('#pag-ctrl a[rel="0"]').classList.add('active')
-    $e('#reg-total').innerHTML = items.length
+    try {
+        $e('#pag-ctrl a[rel="0"]').classList.add('active')
+        $e('#reg-total').innerHTML = items.length
     
-    const pagCTRL = (e) => {
-        $a('#pag-ctrl a').forEach(node => node.classList.remove('active'))
-        e.target.classList.add('active')
+        const pagCTRL = (e) => {
+            $a('#pag-ctrl a').forEach(node => node.classList.remove('active'))
+            e.target.classList.add('active')
 
-        let currPage = e.target.getAttribute('rel'),
-            startItem = currPage * rows,
-            endItem = startItem + rows
+            let currPage = e.target.getAttribute('rel'),
+                startItem = currPage * rows,
+                endItem = startItem + rows
 
-        try {
-            $a('.paginator tr.pag-item').forEach(node => { // Then apply them all the styles for hide 
-                node.style.opacity = 0
-                node.style.visibility = 'hide'
-                node.style.display = 'none'
-            })
+            try {
+                $a('.paginator tr.pag-item').forEach(node => { // Then apply them all the styles for hide 
+                    node.style.opacity = 0
+                    node.style.visibility = 'hide'
+                    node.style.display = 'none'
+                })
 
-            Array.prototype.slice.call( // Split the selected items in the table (from, to)
-                $a('.paginator tr.pag-item'),
-                startItem, endItem
-            ).forEach(node => { // Then apply them all the styles for hide 
-                node.style.opacity = 1
-                node.style.visibility = 'visible'
-                node.style.display = 'table-row'
-            })
-        } catch { }
+                Array.prototype.slice.call( // Split the selected items in the table (from, to)
+                    $a('.paginator tr.pag-item'),
+                    startItem, endItem
+                ).forEach(node => { // Then apply them all the styles for hide 
+                    node.style.opacity = 1
+                    node.style.visibility = 'visible'
+                    node.style.display = 'table-row'
+                })
+            } catch { }
 
-        try {
-            $a('.paginator div.pag-item').forEach(node => { // Then apply them all the styles for hide 
-                node.style.opacity = 0
-                node.style.visibility = 'hide'
-                node.style.display = 'none'
-            })
+            try {
+                $a('.paginator div.pag-item').forEach(node => { // Then apply them all the styles for hide 
+                    node.style.opacity = 0
+                    node.style.visibility = 'hide'
+                    node.style.display = 'none'
+                })
 
-            Array.prototype.slice.call( // Split the selected items in the table (from, to)
-                $a('.paginator div.pag-item'),
-                startItem, endItem
-            ).forEach(node => { // Then apply them all the styles for hide 
-                node.style.opacity = 1
-                node.style.visibility = 'visible'
-                node.style.display = ''
-            })
-        } catch { }
+                Array.prototype.slice.call( // Split the selected items in the table (from, to)
+                    $a('.paginator div.pag-item'),
+                    startItem, endItem
+                ).forEach(node => { // Then apply them all the styles for hide 
+                    node.style.opacity = 1
+                    node.style.visibility = 'visible'
+                    node.style.display = ''
+                })
+            } catch { }
+        }
+
+        eventAssigner('#pag-ctrl a', 'click', pagCTRL)
+
+        pagCTRL({target: $e('#pag-ctrl a')})
+
+    } catch {
+        log('[Page-inator] No data to format', STYLE.error)
     }
-
-    eventAssigner('#pag-ctrl a', 'click', pagCTRL)
-
-    pagCTRL({target: $e('#pag-ctrl a')})
 }

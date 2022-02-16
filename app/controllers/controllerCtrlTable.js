@@ -11,18 +11,18 @@ const currYear = String(DATE.getFullYear())
 
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
-	let session, data = false
+	let data = false
 	
 	if(!req.session.user && !req.session.lvl) { // No session 😡
-		session = null
-		// >>>>>>>>>>>>>>>>>>>>>> Home <<<<<<<<<<<<<<<<<<<<<<
-		return res.status(200).render('home', {
+		// >>>>>>>>>>>>>>>>>>>>>> Login <<<<<<<<<<<<<<<<<<<<<<
+		return res.status(200).render('login', {
 			title_page: 'UTNA - Inicio',
-			lvl: 0,
-			session: session
+			session: req.session
 		})
 	} else { // Session 🤑
-		session = req.session
+		// >>>>>>>>>>>>>>>>>>>>>> AD Ctrl <<<<<<<<<<<<<<<<<<<<<<
+		if(req.session.lvl == -1)
+			return res.redirect('/admin-control')
 
 		/** Search all subordinates and obtain whether
 		 * each has current year evaluations or not */
@@ -90,8 +90,7 @@ async function root(req, res) {
 		.finally(() => {
 			return res.status(200).render('ctrl_table', {
 				title_page: 'UTNA - Inicio',
-				session: session,
-				lvl: req.session.lvl,
+				session: req.session,
 				records: data
 			})
 		})

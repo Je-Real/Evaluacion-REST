@@ -1,3 +1,4 @@
+// Delete this file
 function search(req, res, next) {
     //Variable for a bunch of information to search
     let consulta = {}

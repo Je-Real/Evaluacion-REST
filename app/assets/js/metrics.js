@@ -58,7 +58,7 @@ window.addEventListener('load', async(e) => {
 	$a('.canvas-container canvas').forEach(node => node.classList.add('d-none'))
 	
 	document.querySelector('.canvas-container.semiDoughnutChart').innerHTML += `<div class="text-center d-block ghost-container">
-		<i class="fas fa-ghost icon-ghost f-vScreen-15 my-3 text-black-15"></i>
+		<i class="fa-solid fa-ghost icon-ghost f-vScreen-15 my-3 text-black-15"></i>
 		<p class="my-2 text-ghost">No hay datos para mostrar</p>
 	</div>`
 	clone = document.querySelector('.panel:last-of-type').cloneNode(true)

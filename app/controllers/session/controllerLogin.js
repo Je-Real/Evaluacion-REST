@@ -73,7 +73,6 @@ async function logIn(req, res) {
 								user: req.session.user,
 								pass: { token: crypto.AES.encrypt(req.body.pass, req.body._id).toString() },
 								name: req.session.first_name,
-								lvl: req.session.lvl
 							},
 							status: 200
 						}))

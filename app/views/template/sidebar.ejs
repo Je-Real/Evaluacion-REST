@@ -1,58 +1,50 @@
 <div id="layoutSidenav_nav">
-    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-        <div class="sb-sidenav-menu">
-            <div class="nav">
-                <div class="sidebar-top-p top-border-b" data-color="#e29e20"></div>
-                <a class="nav-link" href="/home/">
-                    <div class="sb-nav-link-icon"><i class="fas fa-home fa-2x"></i></div>
-                    <span class="sb-nav-link-text">
-                        <span data-lang="es">Inicio</span><span data-lang="en">Home</span>
-                    </span>
-                </a>
-                <% if(session) { %>
-                        <div class="sb-sidenav-menu-heading green-border-t py-3">
-                            <span class="sb-nav-link-text">
-                                <span data-lang="es">Estatus</span><span data-lang="en">Status</span>
-                            </span>
-                        </div>
+	<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+		<div class="sb-sidenav-menu">
+			<div class="nav">
+				<% if(session) { %>
+					<div class="sidebar-top-p top-border-b" data-color="#e29e20"></div>
+					<a class="nav-link" href="/home/">
+						<div class="sb-nav-link-icon"><i class="fa-solid fa-home fa-2x"></i></div>
+						<span class="sb-nav-link-text">
+							<span data-lang="es">Inicio</span><span data-lang="en">Home</span>
+						</span>
+					</a>
+					<% if(session.lvl != -1) { %>
+						<div class="sb-sidenav-menu-heading green-border-t py-3">
+							<span class="sb-nav-link-text">
+								<span data-lang="es">Estatus</span><span data-lang="en">Status</span>
+							</span>
+						</div>
 
-                        <a class="nav-link" href="/metrics/">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-line fa-2x"></i></div>
-                            <span class="sb-nav-link-text">
-                                <span data-lang="es">Métricas</span><span data-lang="en">Metrics</span>
-                            </span>
-                        </a>
+						<a class="nav-link" href="/metrics/">
+							<div class="sb-nav-link-icon"><i class="fa-solid fa-chart-line fa-2x"></i></div>
+							<span class="sb-nav-link-text">
+								<span data-lang="es">Métricas</span><span data-lang="en">Metrics</span>
+							</span>
+						</a>
 
-                        <div class="sb-sidenav-menu-heading orange-border-t py-3">
-                            <span class="sb-nav-link-text">
-                                <span data-lang="es">Acciones</span><span data-lang="en">Actions</span>
-                            </span>
-                        </div>
-                        
-                        <a class="nav-link" href="/evaluation/">
-                            <div class="sb-nav-link-icon"><i class="fas fa-pen-alt fa-2x"></i></div>
-                            <span class="sb-nav-link-text">
-                                <span data-lang="es">Evaluación</span><span data-lang="en">Evaluation</span>
-                            </span>
-                        </a>
-                        <a class="nav-link" href="javascript:logout()">
-                            <div class="sb-nav-link-icon"><i class="fas fa-door-open fa-2x"></i></div>
-                            <span class="sb-nav-link-text">
-                                <span data-lang="es">Cerrar sesión</span><span data-lang="en">Logout</span>
-                            </span>
-                        </a>
-                <% } else { %>
-                    <div class="sb-sidenav-menu-heading orange-border-t py-3">
-                        <span data-lang="es">Sesión</span><span data-lang="en">Session</span>
-                    </div>
-                    <a class="nav-link" href="javascript:toggleFloating(1)">
-                        <div class="sb-nav-link-icon"><i class="fas fa-user fa-2x"></i></div>
-                        <span class="sb-nav-link-text">
-                            <span data-lang="es">Iniciar sesión</span><span data-lang="en">Login</span>
-                        </span>
-                    </a>
-                <% } %>
-            </div>
-        </div>
-    </nav>
+						<div class="sb-sidenav-menu-heading orange-border-t py-3">
+							<span class="sb-nav-link-text">
+								<span data-lang="es">Acciones</span><span data-lang="en">Actions</span>
+							</span>
+						</div>
+						
+						<a class="nav-link" href="/evaluation/">
+							<div class="sb-nav-link-icon"><i class="fa-solid fa-pen-alt fa-2x"></i></div>
+							<span class="sb-nav-link-text">
+								<span data-lang="es">Evaluación</span><span data-lang="en">Evaluation</span>
+							</span>
+						</a>
+					<% } %>
+						<a class="nav-link" href="javascript:logout()">
+							<div class="sb-nav-link-icon"><i class="fa-solid fa-door-open fa-2x"></i></div>
+							<span class="sb-nav-link-text">
+								<span data-lang="es">Cerrar sesión</span><span data-lang="en">Logout</span>
+							</span>
+						</a>
+				<% } %>
+			</div>
+		</div>
+	</nav>
 </div>

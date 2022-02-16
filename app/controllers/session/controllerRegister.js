@@ -11,9 +11,10 @@ async function root(req, res) {
     let session
 
     if(!req.session.user && !req.session.lvl) { // No session 😡
-        session = null
-    } else { // Session 🤑
-        session = req.session
+        return res.status(200).render('login', {
+			title_page: 'UTNA - Inicio',
+			session: req.session
+		})
     }
 
 	await modelContract.find({})
@@ -26,12 +27,11 @@ async function root(req, res) {
     			.then(async (dataCr) => {
 					return res.status(200).render('register', {
 						title_page: 'UTNA - Registro',
-						lvl: req.session.lvl,
 						contracts: dataC,
 						area: dataA,
 						depa: dataD,
 						care: dataCr,
-						session: session
+						session: req.session
 					})
 				})
 			})

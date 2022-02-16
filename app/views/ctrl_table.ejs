@@ -42,7 +42,7 @@
                             <div class="help-bar container bg-dark text-light w-100 rounded-3">
                                 <div class="row flex-nowrap">
                                     <div class="col-7 col-md-9 col-lg-10 text-center d-inline-flex my-2">
-                                        <i class="fas ms-3 me-2 my-auto fa-info-circle fa-2x blink"></i>
+                                        <i class="fa-solid ms-3 me-2 my-auto fa-info-circle fa-2x blink"></i>
                                         <p class="d-flex fs-5 me-auto ms-2 my-2">
                                             <span class="lang my-auto" data-lang="es">
                                                 Para agregar a un nuevo personal bajo tu cargo, haz clic en el botón 
@@ -57,7 +57,7 @@
                                     <div class="col-5 col-md-3 col-lg-2 py-2">
                                         <button id="registerPersonnel" class="btn btn-outline-light text-center d-flex flex-column">
                                             <span class="w-100">
-                                                <i class="fas fa-plus fa-2x"></i>
+                                                <i class="fa-solid fa-plus fa-2x"></i>
                                             </span>
                                             <span class="w-100 mt-2">
                                                 <span class="lang" data-lang="es">Registrar Personal</span>
@@ -111,27 +111,27 @@
                                                 class="ctrl-btn btn btn-secondary manage-eval mx-md-2 my-auto mx-1 p-1 tooltip-text"
                                                 data-tooltip-es="Realizar evaluación para <%=records[person]['first_name']%> <%=records[person]['last_name']%>"
                                                 data-tooltip-en="Perform evaluation for <%=records[person]['first_name']%> <%=records[person]['last_name']%>">
-                                                <i class="text-white pe-none fas fa-lock-open fs-4"></i>
+                                                <i class="text-white pe-none fa-solid fa-lock-open fs-4"></i>
                                             </button>
                                         <% } else if(records[person]['records'] == 1) { %>
                                             <button type="button" 
                                                 class="ctrl-btn btn btn-success generate-pdf mx-md-2 my-auto mx-1 p-1 tooltip-text"
                                                 data-tooltip-es="Generar formato de evaluación para <%=records[person]['first_name']%> <%=records[person]['last_name']%>"
                                                 data-tooltip-en="Generate evaluation format for <%=records[person]['first_name']%> <%=records[person]['last_name']%>">
-                                                <i class="text-white pe-none mx-1 fas fa-file-pdf fa-2x"></i>
+                                                <i class="text-white pe-none mx-1 fa-solid fa-file-pdf fa-2x"></i>
                                             </button>
                                         <% } else if(records[person]['records'] == 0) { %>
                                             <button type="button"
                                                 class="ctrl-btn btn btn-info evaluate mx-md-2 my-auto mx-1 p-1 tooltip-text"
                                                 data-tooltip-es="Realizar evaluación para <%=records[person]['first_name']%> <%=records[person]['last_name']%>"
                                                 data-tooltip-en="Perform evaluation for <%=records[person]['first_name']%> <%=records[person]['last_name']%>">
-                                                <i class="text-white pe-none fas fa-plus-circle fa-2x"></i>
+                                                <i class="text-white pe-none fa-solid fa-plus-circle fa-2x"></i>
                                             </button>
                                             <button type="button" value="disabled"
                                                 class="ctrl-btn btn btn-danger manage-eval mx-md-2 my-auto mx-1 p-1 tooltip-text"
                                                 data-tooltip-es="Desactivar la evaluación esta vez para <%=records[person]['first_name']%> <%=records[person]['last_name']%>"
                                                 data-tooltip-en="Disable this current year evaluation for <%=records[person]['first_name']%> <%=records[person]['last_name']%>">
-                                                <i class="text-white pe-none mx-1 fas fa-lock fs-3"></i>
+                                                <i class="text-white pe-none mx-1 fa-solid fa-lock fs-3"></i>
                                             </button>
                                         <% } %>
                                         </td>
@@ -139,7 +139,7 @@
                                 <% } } else { %>
                                 <td id="empty" colspan="5" class="border-0 text-center">
                                     <div class="text-center">
-                                        <i class="fas fa-ghost icon-ghost f-vScreen-15 my-3 text-black-15"></i>
+                                        <i class="fa-solid fa-ghost icon-ghost f-vScreen-15 my-3 text-black-15"></i>
                                         <p class="my-2 text-ghost fs-4">
                                             <span class="lang" data-lang="es">No hay datos para mostrar</span>
                                             <span class="lang" data-lang="en">No records to show</span>
