@@ -1257,13 +1257,14 @@ select.slc-drpdwn {
 }
 
 #button-17 .checkbox:checked + .knobs:before {
-	content: 'English';
+	content: attr(data-checked);
 	left: 52%;
 }
 
 #button-17 .checkbox:not(:checked) + .knobs:before {
-	content: 'Español';
+	content: attr(data-unchecked);
 	left: 6%;
+	margin: auto;
 }
 
 #button-17 .checkbox:checked + .knobs span {

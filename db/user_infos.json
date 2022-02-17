@@ -9,9 +9,7 @@
         "career": 0,
         "contract": 1,
         "manager": false,
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -26,9 +24,7 @@
         "area": 1,
         "contract": 1,
         "manager": "R000",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -43,9 +39,7 @@
         "area": 1,
         "contract": 1,
         "manager": "R000",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -60,9 +54,7 @@
         "area": 1,
         "contract": 1,
         "manager": "R000",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -77,9 +69,7 @@
         "area": 1,
         "contract": 1,
         "manager": "R000",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -94,9 +84,7 @@
         "area": 1,
         "contract": 1,
         "manager": "R000",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -111,9 +99,7 @@
         "area": 1,
         "contract": 1,
         "manager": "R000",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -128,9 +114,7 @@
         "area": 7,
         "contract": 1,
         "manager": "R000",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -145,9 +129,7 @@
         "area": 6,
         "contract": 1,
         "manager": "R000",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -162,9 +144,7 @@
         "area": 5,
         "contract": 1,
         "manager": "R000",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -179,9 +159,7 @@
         "area": 1,
         "contract": 1,
         "manager": "R000",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -196,9 +174,7 @@
         "area": 3,
         "contract": 1,
         "manager": "R000",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -213,9 +189,7 @@
         "area": 1,
         "contract": 1,
         "manager": "R0010",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -230,9 +204,7 @@
         "area": 1,
         "contract": 1,
         "manager": "R0011",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -247,9 +219,7 @@
         "area": 1,
         "contract": 1,
         "manager": "R0011",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -264,9 +234,7 @@
         "area": 1,
         "contract": 1,
         "manager": "R0011",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -281,9 +249,7 @@
         "area": 1,
         "contract": 1,
         "manager": "R0011",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -298,9 +264,7 @@
         "area": 1,
         "contract": 1,
         "manager": "R0011",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -315,9 +279,7 @@
         "area": 4,
         "contract": 1,
         "manager": "R0011",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -332,9 +294,7 @@
         "area": 4,
         "contract": 1,
         "manager": "R0018",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -350,9 +310,7 @@
         "department": 6,
         "contract": 1,
         "manager": "R009",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -368,9 +326,7 @@
         "department": 1,
         "contract": 1,
         "manager": "R009",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -386,9 +342,7 @@
         "department": 2,
         "contract": 1,
         "manager": "R009",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -404,9 +358,7 @@
         "department": 1,
         "contract": 1,
         "manager": "R009",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -422,9 +374,7 @@
         "department": 3,
         "contract": 1,
         "manager": "R009",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -439,10 +389,8 @@
         "area": 5,
         "department": 1,
         "contract": 1,
-        "manager": "Claudia Prieto Macías",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0021",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -457,10 +405,8 @@
         "area": 5,
         "department": 1,
         "contract": 1,
-        "manager": "Claudia Prieto Macías",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0021",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -475,10 +421,8 @@
         "area": 5,
         "department": 1,
         "contract": 1,
-        "manager": "Claudia Prieto Macías",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0021",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -493,10 +437,8 @@
         "area": 5,
         "department": 1,
         "contract": 1,
-        "manager": "Claudia Prieto Macías",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0021",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -511,10 +453,8 @@
         "area": 5,
         "department": 1,
         "contract": 1,
-        "manager": "Claudia Prieto Macías",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0021",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -529,10 +469,8 @@
         "area": 5,
         "department": 1,
         "contract": 1,
-        "manager": "Claudia Prieto Macías",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0021",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -547,10 +485,8 @@
         "area": 5,
         "department": 1,
         "contract": 1,
-        "manager": "Claudia Prieto Macías",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0021",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -565,10 +501,8 @@
         "area": 5,
         "department": 1,
         "contract": 1,
-        "manager": "Claudia Prieto Macías",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0021",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -583,10 +517,8 @@
         "area": 5,
         "department": 2,
         "contract": 1,
-        "manager": "Felipe de Jesús Ocampo Rangel",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0022",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -601,10 +533,8 @@
         "area": 5,
         "department": 2,
         "contract": 1,
-        "manager": "Felipe de Jesús Ocampo Rangel",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0022",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -619,10 +549,8 @@
         "area": 5,
         "department": 2,
         "contract": 1,
-        "manager": "Felipe de Jesús Ocampo Rangel",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0022",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -637,10 +565,8 @@
         "area": 5,
         "department": 3,
         "contract": 1,
-        "manager": "Ma. Del Refugio Martínez Hernández",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0024",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -655,10 +581,8 @@
         "area": 5,
         "department": 3,
         "contract": 1,
-        "manager": "Ma. Del Refugio Martínez Hernández",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0024",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -673,10 +597,8 @@
         "area": 5,
         "department": 3,
         "contract": 1,
-        "manager": "Ma. Del Refugio Martínez Hernández",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0024",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -691,10 +613,8 @@
         "area": 5,
         "department": 3,
         "contract": 1,
-        "manager": "Ma. Del Refugio Martínez Hernández",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0024",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -709,10 +629,8 @@
         "area": 5,
         "department": 5,
         "contract": 1,
-        "manager": "Ernesto Macías Gómez",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0020",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -727,10 +645,8 @@
         "area": 5,
         "department": 4,
         "contract": 1,
-        "manager": "Ernesto Macías Gómez",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0020",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -745,10 +661,8 @@
         "area": 5,
         "department": 4,
         "contract": 1,
-        "manager": "Ernesto Macías Gómez",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0020",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -763,10 +677,8 @@
         "area": 5,
         "department": 4,
         "contract": 1,
-        "manager": "Ernesto Macías Gómez",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0020",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -781,10 +693,8 @@
         "area": 5,
         "department": 5,
         "contract": 1,
-        "manager": "Ernesto Macías Gómez",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0020",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -799,10 +709,8 @@
         "area": 5,
         "department": 6,
         "contract": 1,
-        "manager": "Ernesto Macías Gómez",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0020",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -817,10 +725,8 @@
         "area": 5,
         "department": 5,
         "contract": 1,
-        "manager": "Maribel Medrano Díaz",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0041",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -835,10 +741,8 @@
         "area": 5,
         "department": 5,
         "contract": 1,
-        "manager": "Maribel Medrano Díaz",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0041",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -853,10 +757,8 @@
         "area": 5,
         "department": 5,
         "contract": 1,
-        "manager": "Maribel Medrano Díaz",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0041",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -871,10 +773,8 @@
         "area": 5,
         "department": 5,
         "contract": 1,
-        "manager": "Maribel Medrano Díaz",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0041",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -889,10 +789,8 @@
         "area": 5,
         "department": 6,
         "contract": 1,
-        "manager": "Jorge Delgado Delgado",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0046",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -907,10 +805,8 @@
         "area": 5,
         "department": 6,
         "contract": 1,
-        "manager": "Jorge Delgado Delgado",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0046",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -925,10 +821,8 @@
         "area": 5,
         "department": 6,
         "contract": 1,
-        "manager": "Jorge Delgado Delgado",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0046",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -943,10 +837,8 @@
         "area": 5,
         "department": 6,
         "contract": 1,
-        "manager": "Jorge Delgado Delgado",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0046",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -961,10 +853,8 @@
         "area": 5,
         "department": 6,
         "contract": 1,
-        "manager": "Jorge Delgado Delgado",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0046",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -979,10 +869,8 @@
         "area": 5,
         "department": 6,
         "contract": 1,
-        "manager": "Jorge Delgado Delgado",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0046",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -997,10 +885,8 @@
         "area": 5,
         "department": 6,
         "contract": 1,
-        "manager": "Jorge Delgado Delgado",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0046",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1015,10 +901,8 @@
         "area": 5,
         "department": 6,
         "contract": 1,
-        "manager": "Jorge Delgado Delgado",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0046",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1033,10 +917,8 @@
         "area": 5,
         "department": 6,
         "contract": 1,
-        "manager": "Jorge Delgado Delgado",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0046",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1051,10 +933,8 @@
         "area": 5,
         "department": 6,
         "contract": 1,
-        "manager": "Jorge Delgado Delgado",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0046",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1069,10 +949,8 @@
         "area": 5,
         "department": 6,
         "contract": 1,
-        "manager": "Jorge Delgado Delgado",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0046",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1087,10 +965,8 @@
         "area": 5,
         "department": 6,
         "contract": 1,
-        "manager": "Jorge Delgado Delgado",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0046",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1105,10 +981,8 @@
         "area": 5,
         "department": 6,
         "contract": 1,
-        "manager": "Jorge Delgado Delgado",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0046",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1123,10 +997,8 @@
         "area": 5,
         "department": 6,
         "contract": 1,
-        "manager": "Jorge Delgado Delgado",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0046",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1141,10 +1013,8 @@
         "area": 5,
         "department": 6,
         "contract": 1,
-        "manager": "Jorge Delgado Delgado",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0046",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1159,10 +1029,8 @@
         "area": 5,
         "department": 6,
         "contract": 1,
-        "manager": "Jorge Delgado Delgado",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0046",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1177,10 +1045,8 @@
         "area": 5,
         "department": 7,
         "contract": 1,
-        "manager": "Carlos Jacobo Hinojosa Manrique",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0042",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1196,10 +1062,8 @@
         "area": 5,
         "department": 7,
         "contract": 1,
-        "manager": "Carlos Jacobo Hinojosa Manrique",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0042",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1215,10 +1079,8 @@
         "area": 5,
         "department": 7,
         "contract": 1,
-        "manager": "Carlos Jacobo Hinojosa Manrique",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0042",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1234,10 +1096,8 @@
         "area": 5,
         "department": 7,
         "contract": 1,
-        "manager": "Carlos Jacobo Hinojosa Manrique",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0042",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1253,10 +1113,8 @@
         "area": 5,
         "department": 7,
         "contract": 1,
-        "manager": "Carlos Jacobo Hinojosa Manrique",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0042",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1272,10 +1130,8 @@
         "area": 5,
         "department": 7,
         "contract": 1,
-        "manager": "Carlos Jacobo Hinojosa Manrique",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0042",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1290,10 +1146,8 @@
         "level": 3,
         "area": 6,
         "contract": 1,
-        "manager": "Jorge Enrique Uria Adame",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R008",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1307,10 +1161,8 @@
         "level": 3,
         "area": 6,
         "contract": 1,
-        "manager": "Jorge Enrique Uria Adame",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R008",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1324,10 +1176,8 @@
         "level": 3,
         "area": 6,
         "contract": 1,
-        "manager": "Jorge Enrique Uria Adame",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R008",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1341,10 +1191,8 @@
         "level": 3,
         "area": 6,
         "contract": 1,
-        "manager": "Jorge Enrique Uria Adame",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R008",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1358,10 +1206,8 @@
         "level": 3,
         "area": 6,
         "contract": 1,
-        "manager": "Jorge Enrique Uria Adame",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R008",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1375,10 +1221,8 @@
         "level": 4,
         "area": 6,
         "contract": 1,
-        "manager": "Jorge García Guzmán",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0074",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1392,10 +1236,8 @@
         "level": 4,
         "area": 6,
         "contract": 1,
-        "manager": "Jorge García Guzmán",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0074",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1409,10 +1251,8 @@
         "level": 4,
         "area": 6,
         "contract": 1,
-        "manager": "Jorge García Guzmán",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0074",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1426,10 +1266,8 @@
         "level": 4,
         "area": 6,
         "contract": 1,
-        "manager": "Daniel Isaias Loera Tovar",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0077",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1443,10 +1281,8 @@
         "level": 4,
         "area": 6,
         "contract": 1,
-        "manager": "Daniel Isaias Loera Tovar",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0077",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1460,10 +1296,8 @@
         "level": 4,
         "area": 6,
         "contract": 1,
-        "manager": "Alma Alejandra Aguiñaga Vidales",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0075",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1477,10 +1311,8 @@
         "level": 3,
         "area": 7,
         "contract": 1,
-        "manager": "Eduardo Sotres Ramos",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R007",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1494,10 +1326,8 @@
         "level": 3,
         "area": 7,
         "contract": 1,
-        "manager": "Eduardo Sotres Ramos",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R007",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1511,10 +1341,8 @@
         "level": 3,
         "area": 7,
         "contract": 1,
-        "manager": "Eduardo Sotres Ramos",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R007",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1528,10 +1356,8 @@
         "level": 3,
         "area": 7,
         "contract": 1,
-        "manager": "Eduardo Sotres Ramos",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R007",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1545,10 +1371,8 @@
         "level": 3,
         "area": 7,
         "contract": 1,
-        "manager": "Eduardo Sotres Ramos",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R007",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1562,10 +1386,8 @@
         "level": 3,
         "area": 7,
         "contract": 1,
-        "manager": "Eduardo Sotres Ramos",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R007",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1579,10 +1401,8 @@
         "level": 3,
         "area": 8,
         "contract": 1,
-        "manager": "Ángel Eduardo Zamora Acevedo",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R005",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1596,10 +1416,8 @@
         "level": 3,
         "area": 8,
         "contract": 1,
-        "manager": "Ángel Eduardo Zamora Acevedo",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R005",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1615,10 +1433,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Ángel Eduardo Zamora Acevedo",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R005",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1634,10 +1450,8 @@
         "area": 8,
         "department": 13,
         "contract": 1,
-        "manager": "Ángel Eduardo Zamora Acevedo",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R005",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1652,10 +1466,8 @@
         "area": 8,
         "department": 14,
         "contract": 1,
-        "manager": "Ángel Eduardo Zamora Acevedo",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R005",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1670,10 +1482,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Ángel Eduardo Zamora Acevedo",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R005",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1689,10 +1499,8 @@
         "area": 8,
         "department": 16,
         "contract": 1,
-        "manager": "Ángel Eduardo Zamora Acevedo",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R005",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1706,10 +1514,8 @@
         "level": 4,
         "area": 8,
         "contract": 1,
-        "manager": "Iris Berenice Torres García",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0091",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1724,10 +1530,8 @@
         "level": 4,
         "area": 8,
         "contract": 1,
-        "manager": "Iris Berenice Torres García",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0091",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1742,10 +1546,8 @@
         "level": 4,
         "area": 8,
         "contract": 1,
-        "manager": "Iris Berenice Torres García",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0091",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1760,10 +1562,8 @@
         "level": 4,
         "area": 8,
         "contract": 1,
-        "manager": "Iris Berenice Torres García",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0091",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1778,10 +1578,8 @@
         "level": 4,
         "area": 8,
         "contract": 1,
-        "manager": "Iris Berenice Torres García",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0091",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1797,10 +1595,8 @@
         "area": 6,
         "department": 11,
         "contract": 1,
-        "manager": "Iris Berenice Torres García",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0091",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1816,10 +1612,8 @@
         "area": 6,
         "department": 11,
         "contract": 1,
-        "manager": "Iris Berenice Torres García",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0091",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1835,10 +1629,8 @@
         "area": 6,
         "department": 11,
         "contract": 1,
-        "manager": "Iris Berenice Torres García",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0091",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1854,10 +1646,8 @@
         "area": 6,
         "department": 11,
         "contract": 1,
-        "manager": "Sandra Lucia Villalobos Martínez",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R00104",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1873,10 +1663,8 @@
         "area": 6,
         "department": 11,
         "contract": 1,
-        "manager": "Sandra Lucia Villalobos Martínez",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R00104",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1892,10 +1680,8 @@
         "area": 6,
         "department": 11,
         "contract": 1,
-        "manager": "Sandra Lucia Villalobos Martínez",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R00104",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1911,10 +1697,8 @@
         "area": 6,
         "department": 11,
         "contract": 1,
-        "manager": "Sandra Lucia Villalobos Martínez",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R00104",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1930,10 +1714,8 @@
         "area": 8,
         "department": 16,
         "contract": 1,
-        "manager": "Miguel Ángel Campos Ojeda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0096",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1948,10 +1730,8 @@
         "area": 8,
         "department": 16,
         "contract": 1,
-        "manager": "Miguel Ángel Campos Ojeda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0096",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1966,10 +1746,8 @@
         "area": 8,
         "department": 16,
         "contract": 1,
-        "manager": "Miguel Ángel Campos Ojeda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0096",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -1984,10 +1762,8 @@
         "area": 8,
         "department": 16,
         "contract": 1,
-        "manager": "Miguel Ángel Campos Ojeda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0096",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2002,10 +1778,8 @@
         "area": 8,
         "department": 16,
         "contract": 1,
-        "manager": "Miguel Ángel Campos Ojeda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0096",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2020,10 +1794,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Erika Magali Lazcano Ugalde",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0092",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2039,10 +1811,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Erika Magali Lazcano Ugalde",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0092",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2058,10 +1828,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Erika Magali Lazcano Ugalde",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0092",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2077,10 +1845,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Erika Magali Lazcano Ugalde",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0092",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2096,10 +1862,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Erika Magali Lazcano Ugalde",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0092",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2115,10 +1879,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Erika Magali Lazcano Ugalde",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0092",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2134,10 +1896,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Erika Magali Lazcano Ugalde",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0092",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2153,10 +1913,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Erika Magali Lazcano Ugalde",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0092",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2172,10 +1930,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Erika Magali Lazcano Ugalde",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0092",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2191,10 +1947,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Erika Magali Lazcano Ugalde",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0092",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2210,10 +1964,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Erika Magali Lazcano Ugalde",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0092",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2229,10 +1981,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Erika Magali Lazcano Ugalde",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0092",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2248,10 +1998,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Erika Magali Lazcano Ugalde",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0092",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2267,10 +2015,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Erika Magali Lazcano Ugalde",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0092",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2286,10 +2032,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Erika Magali Lazcano Ugalde",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0092",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2305,10 +2049,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Erika Magali Lazcano Ugalde",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0092",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2324,10 +2066,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Erika Magali Lazcano Ugalde",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0092",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2343,10 +2083,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Erika Magali Lazcano Ugalde",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0092",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2362,10 +2100,8 @@
         "area": 8,
         "department": 13,
         "contract": 1,
-        "manager": "Ana Cecilia López López",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0093",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2380,10 +2116,8 @@
         "area": 8,
         "department": 13,
         "contract": 1,
-        "manager": "Ana Cecilia López López",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0093",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2398,10 +2132,8 @@
         "area": 8,
         "department": 13,
         "contract": 1,
-        "manager": "Ana Cecilia López López",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0093",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2416,10 +2148,8 @@
         "area": 8,
         "department": 13,
         "contract": 1,
-        "manager": "Ana Cecilia López López",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0093",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2434,10 +2164,8 @@
         "area": 8,
         "department": 13,
         "contract": 1,
-        "manager": "Ana Cecilia López López",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0093",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2452,10 +2180,8 @@
         "area": 8,
         "department": 13,
         "contract": 1,
-        "manager": "Ana Cecilia López López",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0093",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2470,10 +2196,8 @@
         "area": 8,
         "department": 13,
         "contract": 1,
-        "manager": "Ana Cecilia López López",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0093",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2488,10 +2212,8 @@
         "area": 8,
         "department": 13,
         "contract": 1,
-        "manager": "Ana Cecilia López López",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0093",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2506,10 +2228,8 @@
         "area": 8,
         "department": 13,
         "contract": 1,
-        "manager": "Ana Cecilia López López",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0093",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2524,10 +2244,8 @@
         "area": 8,
         "department": 13,
         "contract": 1,
-        "manager": "Ana Cecilia López López",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0093",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2542,10 +2260,8 @@
         "area": 8,
         "department": 13,
         "contract": 1,
-        "manager": "Ana Cecilia López López",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0093",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2560,10 +2276,8 @@
         "area": 8,
         "department": 13,
         "contract": 1,
-        "manager": "Ana Cecilia López López",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0093",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2578,10 +2292,8 @@
         "area": 8,
         "department": 14,
         "contract": 1,
-        "manager": "Ricardo Salvador González de Alba",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0094",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2596,10 +2308,8 @@
         "area": 8,
         "department": 14,
         "contract": 1,
-        "manager": "Ricardo Salvador González de Alba",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0094",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2614,10 +2324,8 @@
         "area": 8,
         "department": 14,
         "contract": 1,
-        "manager": "Ricardo Salvador González de Alba",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0094",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2632,10 +2340,8 @@
         "area": 8,
         "department": 14,
         "contract": 1,
-        "manager": "Ricardo Salvador González de Alba",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0094",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2650,10 +2356,8 @@
         "area": 8,
         "department": 14,
         "contract": 1,
-        "manager": "Ricardo Salvador González de Alba",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0094",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2668,10 +2372,8 @@
         "area": 8,
         "department": 14,
         "contract": 1,
-        "manager": "Ricardo Salvador González de Alba",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0094",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2686,10 +2388,8 @@
         "area": 8,
         "department": 14,
         "contract": 1,
-        "manager": "Ricardo Salvador González de Alba",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0094",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2704,10 +2404,8 @@
         "area": 8,
         "department": 14,
         "contract": 1,
-        "manager": "Ricardo Salvador González de Alba",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0094",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2722,10 +2420,8 @@
         "area": 8,
         "department": 14,
         "contract": 1,
-        "manager": "Ricardo Salvador González de Alba",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0094",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2740,10 +2436,8 @@
         "area": 8,
         "department": 14,
         "contract": 1,
-        "manager": "Ricardo Salvador González de Alba",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0094",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2758,10 +2452,8 @@
         "area": 8,
         "department": 14,
         "contract": 1,
-        "manager": "Ricardo Salvador González de Alba",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0094",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2776,10 +2468,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Mayra Cuevas Banda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0095",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2794,10 +2484,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Mayra Cuevas Banda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0095",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2812,10 +2500,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Mayra Cuevas Banda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0095",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2830,10 +2516,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Mayra Cuevas Banda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0095",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2848,10 +2532,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Mayra Cuevas Banda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0095",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2866,10 +2548,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Mayra Cuevas Banda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0095",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2884,10 +2564,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Mayra Cuevas Banda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0095",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2902,10 +2580,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Mayra Cuevas Banda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0095",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2920,10 +2596,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Mayra Cuevas Banda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0095",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2938,10 +2612,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Mayra Cuevas Banda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0095",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2956,10 +2628,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Mayra Cuevas Banda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0095",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2974,10 +2644,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Mayra Cuevas Banda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0095",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -2992,10 +2660,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Mayra Cuevas Banda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0095",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -3010,10 +2676,8 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Mayra Cuevas Banda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0095",
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,
@@ -3028,10 +2692,20 @@
         "area": 8,
         "department": 15,
         "contract": 1,
-        "manager": "Mayra Cuevas Banda",
-        "b_day": {
-            "$date": "2000-03-14T00:00:00.000Z"
-        },
+        "manager": "R0095",
+        "b_day": { "date": "2000-03-14" },
+        "address": {
+            "street": "calle",
+            "num": 0,
+            "postal_code": 0
+        }
+    },
+    {
+        "_id": "AD0",
+        "first_name": "Jeremy Oswald",
+        "last_name": "Richarte Bernal",
+        "level": -1,
+        "b_day": { "date": "2000-03-14" },
         "address": {
             "street": "calle",
             "num": 0,

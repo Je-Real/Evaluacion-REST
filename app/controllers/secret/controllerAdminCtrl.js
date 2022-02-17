@@ -12,26 +12,79 @@ async function root(req, res) {
 		await modelUserInfo.aggregate([
 			{
 				$lookup: {
-					from: 'users',
-					pipeline: [
-						{ $unset: ['_id'] }
-					],
-					localField: '_id',
-					foreignField: '_id',
-					as: 'user_'
+					from: "areas",
+					pipeline: [ { $unset: ["_id", "n"] } ],
+					localField: "area",
+					foreignField: "n",
+					as: "area",
+				}
+			}, {
+				$unwind: {
+					path: "$area",
+					preserveNullAndEmptyArrays: true,
 				}
 			}, {
 				$lookup: {
-					from: 'evaluations',
-					pipeline: [
-						{ $unset: ['_id', '__v'] }
-					],
-					localField: '_id',
-					foreignField: '_id',
-					as: 'eval_'
+					from: "departments",
+					pipeline: [ { $unset: ["_id", "n", "area"] } ],
+					localField: "department",
+					foreignField: "n",
+					as: "department",
 				}
-			}, { 
-				$unset: [ '__v' ]
+			}, {
+				$unwind: {
+					path: "$department",
+					preserveNullAndEmptyArrays: true,
+				}
+			}, {
+				$lookup: {
+					from: "careers",
+					pipeline: [ { $unset: ["_id", "n", "department"] } ],
+					localField: "career",
+					foreignField: "n",
+					as: "career",
+				}
+			}, {
+				$unwind: {
+					path: "$career",
+					preserveNullAndEmptyArrays: true
+				}
+			}, {
+				$lookup: {
+					from: "users",
+					pipeline: [ { $unset: ["_id", "pass"] } ],
+					localField: "_id",
+					foreignField: "_id",
+					as: "user_"
+				}
+			}, {
+				$lookup: {
+					from: "evaluations",
+					pipeline: [ { $unset: ["_id", "__v"] } ],
+					localField: "_id",
+					foreignField: "_id",
+					as: "eval_"
+				},
+			}, {
+				$set: {
+					area: "$area.desc",
+					department: "$department.desc",
+					career: "$career.desc",
+					user_: {
+						$cond: {
+							if: { $eq: ["$user_", []] },
+							then: "$$REMOVE",
+							else: { $arrayElemAt: ["$user_", 0] },
+						}
+					},
+					eval_: {
+						$cond: {
+							if: { $eq: ["$eval_", []] },
+							then: "$$REMOVE",
+							else: { $arrayElemAt: ["$eval_", 0] }
+						}
+					}
+				}
 			}
 		])
 		.then(async (data) => {

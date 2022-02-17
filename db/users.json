@@ -2,10 +2,12 @@
     {
         "_id": "R000",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX19e2IPynbH3Mi1uGJljnIwim8c3l1oVv2I="
@@ -13,10 +15,12 @@
     {
         "_id": "R009",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX1/uu1isSQjNfbdxunqH097zTwvBAA719G4="
@@ -24,10 +28,12 @@
     {
         "_id": "R0010",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX1+TXBAvuU2ilmpr3JQFDMgL1nl8E3jLDvM="
@@ -35,10 +41,12 @@
     {
         "_id": "R0011",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX1/uO6jwDv+VTwgPtrqevs3TeW3WXw7HqAI="
@@ -46,10 +54,12 @@
     {
         "_id": "R0018",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX1/qj53e+L2HWz4fYdsqBdmIkS1bIM2v3gE="
@@ -57,10 +67,12 @@
     {
         "_id": "R007",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX19JMC3/eIT4zizLoHEhsmwLk1GgmEge4ug="
@@ -68,10 +80,12 @@
     {
         "_id": "R0046",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX18inkIXsQup6ntmQvKnMGpNLtu2lGo6/ow="
@@ -79,10 +93,12 @@
     {
         "_id": "R005",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX185gLMi3p7AjVVE6dBLOgzVexv46UAikLo="
@@ -90,10 +106,12 @@
     {
         "_id": "R00104",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX1/N5rcJGCt1rQiS8++Vxv2tDAafuMxQ7Bc="
@@ -101,10 +119,12 @@
     {
         "_id": "R0096",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX1/6tWZAOTuXtNrdbhaHNpErBZarDrXTUR0="
@@ -112,10 +132,12 @@
     {
         "_id": "R0093",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX1+1g4X4rhSYHwrGUrw4JgNDb8x+BgCbNJ4="
@@ -123,10 +145,12 @@
     {
         "_id": "R0094",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX18oYBBNYGyESxu+Azm/tLThIhEdQ7/QUoA="
@@ -134,10 +158,12 @@
     {
         "_id": "R0095",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX19FPiByRSpq25oZG3P0D4x5922Ykil77Vs="
@@ -145,10 +171,12 @@
     {
         "_id": "R0020",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX1+haNHHZzLXWU5ZtsYOonP3S1hFS4yph5g="
@@ -156,10 +184,12 @@
     {
         "_id": "R0024",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX1+6n6ukE2kKEFMt12l7smhfnuQBwbUS3Z0="
@@ -167,10 +197,12 @@
     {
         "_id": "R0092",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX1+WDgTAbwXeefy53XuwiQSCxuMGcFbfRuM="
@@ -178,10 +210,12 @@
     {
         "_id": "R0042",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX19AWriCFCLCWMOB2MOAcT5llXlMmIMa5YE="
@@ -189,10 +223,12 @@
     {
         "_id": "R0091",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX18THrqLWbgKi1EefnnWjxr4hN0AkvPONgw="
@@ -200,10 +236,12 @@
     {
         "_id": "R0075",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX1+YBa1XZnuC6XBgUR5RLnkXfGumB2cKWtU="
@@ -211,12 +249,27 @@
     {
         "_id": "R0041",
         "last_conn": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "created": {
-            "$date": "2021-12-061T14:33:59:000Z"
+            "date": "2021-01-01",
+            "time": "00:00"
         },
         "enabled": true,
         "pass": "U2FsdGVkX1+DzKGPu0jLgN/xx3N8v5KYjVq5R6vGyYY="
+    },
+    {
+        "_id":"AD0",
+        "last_conn": {
+            "date": "2021-01-01",
+            "time": "00:00"
+        },
+        "created":{
+            "date": "2021-01-01",
+            "time": "00:00"
+        },
+        "enabled":true,
+        "pass":"U2FsdGVkX1+tDUUwHwNIiLe+VdwQr1nLDcHAoveXf/Y="
     }
 ]

@@ -231,7 +231,7 @@
         "area": 5,
         "department": 1,
         "career": 0,
-        "manager": "Claudia Prieto Macías"
+        "manager": "R0021"
     },
     {
         "first_name": "Perla Cecilia",
@@ -240,7 +240,7 @@
         "area": 5,
         "department": 1,
         "career": 0,
-        "manager": "Claudia Prieto Macías"
+        "manager": "R0021"
     },
     {
         "first_name": "Ana Evelia",
@@ -249,7 +249,7 @@
         "area": 5,
         "department": 1,
         "career": 0,
-        "manager": "Claudia Prieto Macías"
+        "manager": "R0021"
     },
     {
         "first_name": "Nelly Jocabeth",
@@ -258,7 +258,7 @@
         "area": 5,
         "department": 1,
         "career": 0,
-        "manager": "Claudia Prieto Macías"
+        "manager": "R0021"
     },
     {
         "first_name": "César Omar",
@@ -267,7 +267,7 @@
         "area": 5,
         "department": 1,
         "career": 0,
-        "manager": "Claudia Prieto Macías"
+        "manager": "R0021"
     },
     {
         "first_name": "Soraila Edith",
@@ -276,7 +276,7 @@
         "area": 5,
         "department": 1,
         "career": 0,
-        "manager": "Claudia Prieto Macías"
+        "manager": "R0021"
     },
     {
         "first_name": "Karla Noemí",
@@ -285,7 +285,7 @@
         "area": 5,
         "department": 1,
         "career": 0,
-        "manager": "Claudia Prieto Macías"
+        "manager": "R0021"
     },
     {
         "first_name": "Delia",
@@ -294,7 +294,7 @@
         "area": 5,
         "department": 1,
         "career": 0,
-        "manager": "Claudia Prieto Macías"
+        "manager": "R0021"
     },
 
 
@@ -306,7 +306,7 @@
         "area": 5,
         "department": 2,
         "career": 0,
-        "manager": "Felipe de Jesús Ocampo Rangel"
+        "manager": "R0022"
     },
     {
         "first_name": "José De Jesús",
@@ -315,7 +315,7 @@
         "area": 5,
         "department": 2,
         "career": 0,
-        "manager": "Felipe de Jesús Ocampo Rangel"
+        "manager": "R0022"
     },
     {
         "first_name": "Polette",
@@ -324,7 +324,7 @@
         "area": 5,
         "department": 2,
         "career": 0,
-        "manager": "Felipe de Jesús Ocampo Rangel"
+        "manager": "R0022"
     },
 
     {
@@ -334,7 +334,7 @@
         "area": 5,
         "department": 3,
         "career": 0,
-        "manager": "Ma. Del Refugio Martínez Hernández"
+        "manager": "R0024"
     },
     {
         "first_name": "Javier",
@@ -343,7 +343,7 @@
         "area": 5,
         "department": 3,
         "career": 0,
-        "manager": "Ma. Del Refugio Martínez Hernández"
+        "manager": "R0024"
     },
     {
         "first_name": "Blanca Anabel",
@@ -352,7 +352,7 @@
         "area": 5,
         "department": 3,
         "career": 0,
-        "manager": "Ma. Del Refugio Martínez Hernández"
+        "manager": "R0024"
     },
     {
         "first_name": "Aketzalli",
@@ -361,7 +361,7 @@
         "area": 5,
         "department": 3,
         "career": 0,
-        "manager": "Ma. Del Refugio Martínez Hernández"
+        "manager": "R0024"
     },
     
     {
@@ -371,7 +371,7 @@
         "area": 5,
         "department": 5,
         "career": 0,
-        "manager": "Ernesto Macías Gómez"
+        "manager": "R0020"
     },
     {
         "first_name": "Carlos Jacobo",
@@ -380,7 +380,7 @@
         "area": 5,
         "department": 4,
         "career": 0,
-        "manager": "Ernesto Macías Gómez"
+        "manager": "R0020"
     },
     {
         "first_name": "Alma Mayela",
@@ -389,7 +389,7 @@
         "area": 5,
         "department": 4,
         "career": 0,
-        "manager": "Ernesto Macías Gómez"
+        "manager": "R0020"
     },
     {
         "first_name": "Liliana",
@@ -398,7 +398,7 @@
         "area": 5,
         "department": 4,
         "career": 0,
-        "manager": "Ernesto Macías Gómez"
+        "manager": "R0020"
     },
     {
         "first_name": "José Javier",
@@ -407,7 +407,7 @@
         "area": 5,
         "department": 5,
         "career": 0,
-        "manager": "Ernesto Macías Gómez"
+        "manager": "R0020"
     },
     {
         "first_name": "Jorge",
@@ -416,7 +416,7 @@
         "area": 5,
         "department": 6,
         "career": 0,
-        "manager": "Ernesto Macías Gómez"
+        "manager": "R0020"
     },
     
     {
@@ -426,7 +426,7 @@
         "area": 5,
         "department": 5,
         "career": 0,
-        "manager": "Maribel Medrano Díaz"
+        "manager": "R0041"
     },
     {
         "first_name": "Ana Yely",
@@ -435,7 +435,7 @@
         "area": 5,
         "department": 5,
         "career": 0,
-        "manager": "Maribel Medrano Díaz"
+        "manager": "R0041"
     },
     {
         "first_name": "Maricela",
@@ -444,7 +444,7 @@
         "area": 5,
         "department": 5,
         "career": 0,
-        "manager": "Maribel Medrano Díaz"
+        "manager": "R0041"
     },
     {
         "first_name": "Laura Patricia",
@@ -453,7 +453,7 @@
         "area": 5,
         "department": 5,
         "career": 0,
-        "manager": "Maribel Medrano Díaz"
+        "manager": "R0041"
     },
     
     {
@@ -463,7 +463,7 @@
         "area": 5,
         "department": 6,
         "career": 0,
-        "manager": "Jorge Delgado Delgado"
+        "manager": "R0046"
     },
     {
         "first_name": "José Alberto",
@@ -472,7 +472,7 @@
         "area": 5,
         "department": 6,
         "career": 0,
-        "manager": "Jorge Delgado Delgado"
+        "manager": "R0046"
     },
     {
         "first_name": "Jorge",
@@ -481,7 +481,7 @@
         "area": 5,
         "department": 6,
         "career": 0,
-        "manager": "Jorge Delgado Delgado"
+        "manager": "R0046"
     },
     {
         "first_name": "Jesús Eduardo",
@@ -490,7 +490,7 @@
         "area": 5,
         "department": 6,
         "career": 0,
-        "manager": "Jorge Delgado Delgado"
+        "manager": "R0046"
     },
     {
         "first_name": "José de Jesús",
@@ -499,7 +499,7 @@
         "area": 5,
         "department": 6,
         "career": 0,
-        "manager": "Jorge Delgado Delgado"
+        "manager": "R0046"
     },
     {
         "first_name": "Efrain",
@@ -508,7 +508,7 @@
         "area": 5,
         "department": 6,
         "career": 0,
-        "manager": "Jorge Delgado Delgado"
+        "manager": "R0046"
     },
     {
         "first_name": "Aureliano",
@@ -517,7 +517,7 @@
         "area": 5,
         "department": 6,
         "career": 0,
-        "manager": "Jorge Delgado Delgado"
+        "manager": "R0046"
     },
     {
         "first_name": "Luis Fernando",
@@ -526,7 +526,7 @@
         "area": 5,
         "department": 6,
         "career": 0,
-        "manager": "Jorge Delgado Delgado"
+        "manager": "R0046"
     },
     {
         "first_name": "Ignacio",
@@ -535,7 +535,7 @@
         "area": 5,
         "department": 6,
         "career": 0,
-        "manager": "Jorge Delgado Delgado"
+        "manager": "R0046"
     },
     {
         "first_name": "Raúl",
@@ -544,7 +544,7 @@
         "area": 5,
         "department": 6,
         "career": 0,
-        "manager": "Jorge Delgado Delgado"
+        "manager": "R0046"
     },
     {
         "first_name": "José David",
@@ -553,7 +553,7 @@
         "area": 5,
         "department": 6,
         "career": 0,
-        "manager": "Jorge Delgado Delgado"
+        "manager": "R0046"
     },
     {
         "first_name": "Javier",
@@ -562,7 +562,7 @@
         "area": 5,
         "department": 6,
         "career": 0,
-        "manager": "Jorge Delgado Delgado"
+        "manager": "R0046"
     },
     {
         "first_name": "José de Jesús",
@@ -571,7 +571,7 @@
         "area": 5,
         "department": 6,
         "career": 0,
-        "manager": "Jorge Delgado Delgado"
+        "manager": "R0046"
     },
     {
         "first_name": "J Dolores",
@@ -580,7 +580,7 @@
         "area": 5,
         "department": 6,
         "career": 0,
-        "manager": "Jorge Delgado Delgado"
+        "manager": "R0046"
     },
     {
         "first_name": "Abel",
@@ -589,7 +589,7 @@
         "area": 5,
         "department": 6,
         "career": 0,
-        "manager": "Jorge Delgado Delgado"
+        "manager": "R0046"
     },
     {
         "first_name": "Ricardo",
@@ -598,7 +598,7 @@
         "area": 5,
         "department": 6,
         "career": 0,
-        "manager": "Jorge Delgado Delgado"
+        "manager": "R0046"
     },
 
     {
@@ -609,7 +609,7 @@
         "department": 7,
         "career": 0,
         "note": "Soporte Tecnico",
-        "manager": "Carlos Jacobo Hinojosa Manrique"
+        "manager": "R0042"
     },
     {
         "first_name": "Ricardo",
@@ -619,7 +619,7 @@
         "department": 7,
         "career": 0,
         "note": "Soporte Tecnico",
-        "manager": "Carlos Jacobo Hinojosa Manrique"
+        "manager": "R0042"
     },
     {
         "first_name": "Martha Guadalupe",
@@ -629,7 +629,7 @@
         "department": 7,
         "career": 0,
         "note": "Soporte Tecnico",
-        "manager": "Carlos Jacobo Hinojosa Manrique"
+        "manager": "R0042"
     },
     {
         "first_name": "Emmanuel",
@@ -639,7 +639,7 @@
         "department": 7,
         "career": 0,
         "note": "Soporte Tecnico",
-        "manager": "Carlos Jacobo Hinojosa Manrique"
+        "manager": "R0042"
     },
     {
         "first_name": "Deisy Fabiola",
@@ -649,7 +649,7 @@
         "department": 7,
         "career": 0,
         "note": "Soporte Tecnico",
-        "manager": "Carlos Jacobo Hinojosa Manrique"
+        "manager": "R0042"
     },
     {
         "first_name": "Nieves Araceli",
@@ -659,7 +659,7 @@
         "department": 7,
         "career": 0,
         "note": "Soporte Tecnico",
-        "manager": "Carlos Jacobo Hinojosa Manrique"
+        "manager": "R0042"
     },
 
     {
@@ -669,7 +669,7 @@
         "area": 6,
         "department": 0,
         "career": 0,
-        "manager": "Jorge Enrique Uria Adame"
+        "manager": "R008"
     },
     {
         "first_name": "Jorge",
@@ -678,7 +678,7 @@
         "area": 6,
         "department": 0,
         "career": 0,
-        "manager": "Jorge Enrique Uria Adame"
+        "manager": "R008"
     },
     {
         "first_name": "Alma Alejandra",
@@ -687,7 +687,7 @@
         "area": 6,
         "department": 0,
         "career": 0,
-        "manager": "Jorge Enrique Uria Adame"
+        "manager": "R008"
     },
     {
         "first_name": "Zuleica Denise",
@@ -696,7 +696,7 @@
         "area": 6,
         "department": 0,
         "career": 0,
-        "manager": "Jorge Enrique Uria Adame"
+        "manager": "R008"
     },
     {
         "first_name": "Daniel Isaias",
@@ -705,7 +705,7 @@
         "area": 6,
         "department": 0,
         "career": 0,
-        "manager": "Jorge Enrique Uria Adame"
+        "manager": "R008"
     },
     
     {
@@ -715,7 +715,7 @@
         "area": 6,
         "department": 0,
         "career": 0,
-        "manager": "Jorge García Guzmán"
+        "manager": "R0074"
     },
     {
         "first_name": "María Guadalupe",
@@ -724,7 +724,7 @@
         "area": 6,
         "department": 0,
         "career": 0,
-        "manager": "Jorge García Guzmán"
+        "manager": "R0074"
     },
     {
         "first_name": "Blanca Magdalena",
@@ -733,7 +733,7 @@
         "area": 6,
         "department": 0,
         "career": 0,
-        "manager": "Jorge García Guzmán"
+        "manager": "R0074"
     },
     
     {
@@ -743,7 +743,7 @@
         "area": 6,
         "department": 0,
         "career": 0,
-        "manager": "Daniel Isaias Loera Tovar"
+        "manager": "R0077"
     },
     {
         "first_name": "Christian Raudel",
@@ -752,7 +752,7 @@
         "area": 6,
         "department": 0,
         "career": 0,
-        "manager": "Daniel Isaias Loera Tovar"
+        "manager": "R0077"
     },
     
     {
@@ -762,7 +762,7 @@
         "area": 6,
         "department": 0,
         "career": 0,
-        "manager": "Alma Alejandra Aguiñaga Vidales"
+        "manager": "R0075"
     },
     
     {
@@ -772,7 +772,7 @@
         "area": 7,
         "department": 0,
         "career": 0,
-        "manager": "Eduardo Sotres Ramos"
+        "manager": "R007"
     },
     {
         "first_name": "Gabriel Alfonso",
@@ -781,7 +781,7 @@
         "area": 7,
         "department": 0,
         "career": 0,
-        "manager": "Eduardo Sotres Ramos"
+        "manager": "R007"
     },
     {
         "first_name": "Leticia",
@@ -790,7 +790,7 @@
         "area": 7,
         "department": 0,
         "career": 0,
-        "manager": "Eduardo Sotres Ramos"
+        "manager": "R007"
     },
     {
         "first_name": "José De Jesús",
@@ -799,7 +799,7 @@
         "area": 7,
         "department": 0,
         "career": 0,
-        "manager": "Eduardo Sotres Ramos"
+        "manager": "R007"
     },
     {
         "first_name": "Omar Alejandro",
@@ -808,7 +808,7 @@
         "area": 7,
         "department": 0,
         "career": 0,
-        "manager": "Eduardo Sotres Ramos"
+        "manager": "R007"
     },
     {
         "first_name": "Ileana",
@@ -817,7 +817,7 @@
         "area": 7,
         "department": 0,
         "career": 0,
-        "manager": "Eduardo Sotres Ramos"
+        "manager": "R007"
     },
     
     {
@@ -827,7 +827,7 @@
         "area": 8,
         "department": 0,
         "career": 0,
-        "manager": "Ángel Eduardo Zamora Acevedo"
+        "manager": "R005"
     },
     {
         "first_name": "Iris Berenice",
@@ -837,7 +837,7 @@
         "department": 0,
         "career": 0,
         "note": "Servicios Escolares",
-        "manager": "Ángel Eduardo Zamora Acevedo"
+        "manager": "R005"
     },
     {
         "first_name": "Erika Magali",
@@ -847,7 +847,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Área Industrial",
-        "manager": "Ángel Eduardo Zamora Acevedo"
+        "manager": "R005"
     },
     {
         "first_name": "Ana Cecilia",
@@ -856,7 +856,7 @@
         "area": 8,
         "department": 13,
         "career": 0,
-        "manager": "Ángel Eduardo Zamora Acevedo"
+        "manager": "R005"
     },
     {
         "first_name": "Ricardo Salvador",
@@ -865,7 +865,7 @@
         "area": 8,
         "department": 14,
         "career": 0,
-        "manager": "Ángel Eduardo Zamora Acevedo"
+        "manager": "R005"
     },
     {
         "first_name": "Mayra",
@@ -875,7 +875,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica de Tecnologías de la Información",
-        "manager": "Ángel Eduardo Zamora Acevedo"
+        "manager": "R005"
     },
     {
         "first_name": "Miguel Ángel",
@@ -884,7 +884,7 @@
         "area": 8,
         "department": 16,
         "career": 0,
-        "manager": "Ángel Eduardo Zamora Acevedo"
+        "manager": "R005"
     },
     
     {
@@ -895,7 +895,7 @@
         "department": 0,
         "career": 0,
         "note": "Servicios Escolares",
-        "manager": "Iris Berenice Torres García"
+        "manager": "R0091"
     },
     {
         "first_name": "Lorena",
@@ -905,7 +905,7 @@
         "department": 0,
         "career": 0,
         "note": "Servicios Escolares",
-        "manager": "Iris Berenice Torres García"
+        "manager": "R0091"
     },
     {
         "first_name": "Fabiola",
@@ -915,7 +915,7 @@
         "department": 0,
         "career": 0,
         "note": "Servicios Escolares",
-        "manager": "Iris Berenice Torres García"
+        "manager": "R0091"
     },
     {
         "first_name": "Rosario Adriana",
@@ -925,7 +925,7 @@
         "department": 0,
         "career": 0,
         "note": "Servicios Escolares",
-        "manager": "Iris Berenice Torres García"
+        "manager": "R0091"
     },
     {
         "first_name": "Brenda",
@@ -935,7 +935,7 @@
         "department": 0,
         "career": 0,
         "note": "Servicios Escolares",
-        "manager": "Iris Berenice Torres García"
+        "manager": "R0091"
     },
     {
         "first_name": "Sanjuana",
@@ -945,7 +945,7 @@
         "department": 11,
         "career": 0,
         "note": "Formacion Integral",
-        "manager": "Iris Berenice Torres García"
+        "manager": "R0091"
     },
     {
         "first_name": "Nohelia Leticia",
@@ -955,7 +955,7 @@
         "department": 11,
         "career": 0,
         "note": "Formacion Integral",
-        "manager": "Iris Berenice Torres García"
+        "manager": "R0091"
     },
     {
         "first_name": "Sandra Lucia",
@@ -965,7 +965,7 @@
         "department": 11,
         "career": 0,
         "note": "Formacion Integral",
-        "manager": "Iris Berenice Torres García"
+        "manager": "R0091"
     },
     
     {
@@ -976,7 +976,7 @@
         "department": 11,
         "career": 0,
         "note": "Formacion Integral",
-        "manager": "Sandra Lucia Villalobos Martínez"
+        "manager": "R00104"
     },
     {
         "first_name": "Virginia",
@@ -986,7 +986,7 @@
         "department": 11,
         "career": 0,
         "note": "Formacion Integral",
-        "manager": "Sandra Lucia Villalobos Martínez"
+        "manager": "R00104"
     },
     {
         "first_name": "Ana Cecilia",
@@ -996,7 +996,7 @@
         "department": 11,
         "career": 0,
         "note": "Formacion Integral",
-        "manager": "Sandra Lucia Villalobos Martínez"
+        "manager": "R00104"
     },
     {
         "first_name": "Elizabeth",
@@ -1006,7 +1006,7 @@
         "department": 11,
         "career": 0,
         "note": "Formacion Integral",
-        "manager": "Sandra Lucia Villalobos Martínez"
+        "manager": "R00104"
     },
     
     {
@@ -1016,7 +1016,7 @@
         "area": 8,
         "department": 16,
         "career": 0,
-        "manager": "Miguel Ángel Campos Ojeda"
+        "manager": "R0096"
     },
     {
         "first_name": "Martha Jessica",
@@ -1025,7 +1025,7 @@
         "area": 8,
         "department": 16,
         "career": 0,
-        "manager": "Miguel Ángel Campos Ojeda"
+        "manager": "R0096"
     },
     {
         "first_name": "Patricia",
@@ -1034,7 +1034,7 @@
         "area": 8,
         "department": 16,
         "career": 0,
-        "manager": "Miguel Ángel Campos Ojeda"
+        "manager": "R0096"
     },
     {
         "first_name": "Claudia",
@@ -1043,7 +1043,7 @@
         "area": 8,
         "department": 16,
         "career": 0,
-        "manager": "Miguel Ángel Campos Ojeda"
+        "manager": "R0096"
     },
     {
         "first_name": "Malinali Xochiquetzal",
@@ -1052,7 +1052,7 @@
         "area": 8,
         "department": 16,
         "career": 0,
-        "manager": "Miguel Ángel Campos Ojeda"
+        "manager": "R0096"
     },
     
     {
@@ -1063,7 +1063,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Area Industrial",
-        "manager": "Erika Magali Lazcano Ugalde"
+        "manager": "R0092"
     },
     {
         "first_name": "Hector Manuel",
@@ -1073,7 +1073,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Area Industrial",
-        "manager": "Erika Magali Lazcano Ugalde"
+        "manager": "R0092"
     },
     {
         "first_name": "Tomas",
@@ -1083,7 +1083,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Area Industrial",
-        "manager": "Erika Magali Lazcano Ugalde"
+        "manager": "R0092"
     },
     {
         "first_name": "Juan Manuel",
@@ -1093,7 +1093,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Area Industrial",
-        "manager": "Erika Magali Lazcano Ugalde"
+        "manager": "R0092"
     },
     {
         "first_name": "José Antonio",
@@ -1103,7 +1103,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Area Industrial",
-        "manager": "Erika Magali Lazcano Ugalde"
+        "manager": "R0092"
     },
     {
         "first_name": "Fernando Octavio",
@@ -1113,7 +1113,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Area Industrial",
-        "manager": "Erika Magali Lazcano Ugalde"
+        "manager": "R0092"
     },
     {
         "first_name": "Ricardo",
@@ -1123,7 +1123,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Area Industrial",
-        "manager": "Erika Magali Lazcano Ugalde"
+        "manager": "R0092"
     },
     {
         "first_name": "Gerardo",
@@ -1133,7 +1133,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Area Industrial",
-        "manager": "Erika Magali Lazcano Ugalde"
+        "manager": "R0092"
     },
     {
         "first_name": "Mauricio",
@@ -1143,7 +1143,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Area Industrial",
-        "manager": "Erika Magali Lazcano Ugalde"
+        "manager": "R0092"
     },
     {
         "first_name": "Norberto Raul",
@@ -1153,7 +1153,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Area Industrial",
-        "manager": "Erika Magali Lazcano Ugalde"
+        "manager": "R0092"
     },
     {
         "first_name": "Rosa Ines",
@@ -1163,7 +1163,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Area Industrial",
-        "manager": "Erika Magali Lazcano Ugalde"
+        "manager": "R0092"
     },
     {
         "first_name": "Oscar Daniel",
@@ -1173,7 +1173,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Area Industrial",
-        "manager": "Erika Magali Lazcano Ugalde"
+        "manager": "R0092"
     },
     {
         "first_name": "Naieli",
@@ -1183,7 +1183,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Area Industrial",
-        "manager": "Erika Magali Lazcano Ugalde"
+        "manager": "R0092"
     },
     {
         "first_name": "Cesar Guillermo",
@@ -1193,7 +1193,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Area Industrial",
-        "manager": "Erika Magali Lazcano Ugalde"
+        "manager": "R0092"
     },
     {
         "first_name": "Jeronimo",
@@ -1203,7 +1203,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Area Industrial",
-        "manager": "Erika Magali Lazcano Ugalde"
+        "manager": "R0092"
     },
     {
         "first_name": "Maria Sanjuana",
@@ -1213,7 +1213,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Area Industrial",
-        "manager": "Erika Magali Lazcano Ugalde"
+        "manager": "R0092"
     },
     {
         "first_name": "Lizbeth Melina",
@@ -1223,7 +1223,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Area Industrial",
-        "manager": "Erika Magali Lazcano Ugalde"
+        "manager": "R0092"
     },
     {
         "first_name": "Rosa Angelica",
@@ -1233,7 +1233,7 @@
         "department": 15,
         "career": 0,
         "note": "Académica Area Industrial",
-        "manager": "Erika Magali Lazcano Ugalde"
+        "manager": "R0092"
     },
     
     {
