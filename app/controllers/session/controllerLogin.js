@@ -69,8 +69,8 @@ async function logIn(req, res) {
 						//Response success for Asynchronous request
 						return res.end(JSON.stringify({
 							msg: 'Sesión iniciada. Bienvenido '+dataUInfo[0].first_name+'.',
-							data: {
-								user: req.session.user,
+							data: (req.session.lvl == -1) ? null : {
+								user:  req.session.user,
 								pass: { token: crypto.AES.encrypt(req.body.pass, req.body._id).toString() },
 								name: req.session.first_name,
 							},

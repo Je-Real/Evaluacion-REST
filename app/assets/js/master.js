@@ -34,8 +34,8 @@ const STYLE = {
 	],
 }
 
-const $e = (selector) => (typeof selector == 'string') ? document.querySelector(selector) : null
-const $a = (selector) => (typeof selector == 'string') ? document.querySelectorAll(selector) : null
+const $e = (selector = '') => (typeof selector == 'string' && selector.length > 0) ? document.querySelector(selector) : null
+const $a = (selector = '') => (typeof selector == 'string' && selector.length > 0) ? document.querySelectorAll(selector) : null
 
 const log = (text, styleTypes = []) => {
 	let options = STYLE.base.join(';') + ';';
@@ -160,13 +160,11 @@ window.addEventListener('DOMContentLoaded', async(e) => {
 
 	eventAssigner('#btn-lang', 'change', changeLang)
 
-
 	// Toggle the side navigation
 	const sidebarToggle = $e('#sidebarToggle')
 	if(sidebarToggle) {
-		if(localStorage.getItem('sb|sidebar-toggle') === 'true') {
+		if(localStorage.getItem('sb|sidebar-toggle') === 'true')
 			$e('body').classList.toggle('sb-sidenav-toggled')
-		}
 		sidebarToggle.addEventListener('click', event => {
 			event.preventDefault()
 			$e('body').classList.toggle('sb-sidenav-toggled')
@@ -256,16 +254,19 @@ function login(u, p) {
 
 				if(result.status === 200) {
 					$e('#load-b').classList.remove('hidden', 'fade')
-					await setCookie('user', JSON.stringify(result.data))
-					.then(() => {
-						return go("home/")
-					})
-					.catch(() => {
-						showSnack(
-							(lang == 0) ? 'Falla de Cookies' : 'Cookies failure',
-							null, SNACK.warning
-						)
-					})
+					if(result.data !== null) {
+						await setCookie('user', JSON.stringify(result.data))
+						.then(() => {
+							return go("home/")
+						})
+						.catch(() => {
+							showSnack(
+								(lang == 0) ? 'Falla de Cookies' : 'Cookies failure',
+								null, SNACK.warning
+							)
+						})
+					}
+					else return go("home/")
 				}
 			},
 			async(error) => console.error(error)

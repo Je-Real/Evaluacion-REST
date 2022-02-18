@@ -106,7 +106,7 @@ async function root(req, res) {
 		})
 	}
 	else {
-		res.redirect('/error/404')
+		res.redirect('/home')
 	}
 
 }

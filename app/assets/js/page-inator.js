@@ -1,4 +1,4 @@
-let arr_rows
+let items, rows, numPages
 
 window.addEventListener('load', (e) => {
     let y, arr_rows, rows_shown = ''
@@ -10,24 +10,20 @@ window.addEventListener('load', (e) => {
     try {
         y = $e('#pag').getBoundingClientRect().y
         $e('#pag').style.top = (y - 225) + 'px'
-    } catch (error) {
-        return console.error(error)
-    }
 
-    try {
         arr_rows = $e('.paginator').getAttribute('data-rows-shown').split(',')
     } catch (error) {
         return console.error(error)
     }
 
     for(let i in arr_rows) {
-        let sel = (parseInt(arr_rows[i]) >= 4 && parseInt(arr_rows[i]) <= 6) ? 'selected' : ''
-        rows_shown += `<option value="${parseInt(arr_rows[i])}" ${sel}>${parseInt(arr_rows[i])}</option>`
+        rows_shown += `<option value="${parseInt(arr_rows[i])}" ${(i === 0) ? 'selected' : ''}>${parseInt(arr_rows[i])}</option>`
     }
 
     $a('.paginator').forEach(node => {
         node.insertAdjacentHTML('afterend', `<div class="pag-cont d-flex justify-content-md-between px-md-4">
-            <div id="pag-ctrl" class="pagination my-auto"></div>
+            <div id="pag-ctrl" class="pagination my-auto">
+            </div>
 
             <div class="d-flex">
                 <div class="text-md-center me-3 d-flex">
@@ -56,15 +52,19 @@ window.addEventListener('load', (e) => {
 })
 
 function paginator() {
-    $a('.row-temp').forEach(node => node.remove())
+    /**
+     * TODO: Limitar numero de paginas mostradas y agregar 
+     * botones fijos de anterior y siguiente
+     */
+    $a('.num-pag').forEach(node => node.remove())
 
-    const items = $a('.paginator .pag-item')
-    let rows = parseInt($e('#rows').value),
-        numPages = items.length/rows
+    items = $a('.paginator .pag-item')
+    rows = parseInt($e('#rows').value),
+    numPages = items.length/rows
     
     for(i=0; i<numPages; i++) {
         $e('#pag-ctrl').insertAdjacentHTML(
-            'beforeend', `<a class="row-temp" href="#pag" rel="${i}">${(i+1)}</a>`
+            'beforeend', `<a class="row-temp" rel="${i}">${(i+1)}</a>`
         )
     }
 
