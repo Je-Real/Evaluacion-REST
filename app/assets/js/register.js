@@ -177,7 +177,7 @@ function addressGetter() {
 }
 
 const register = async() => {
-    let packed = { 
+    let package = { 
         _id: $e('#new_id').value,
         pass: $e('#new_pass').value,
         first_name: String($e('#first_name').value).trim(),
@@ -195,7 +195,7 @@ const register = async() => {
     await fetchTo(
         'http://localhost:999/session/sign-in',
         'POST',
-        packed,
+        package,
         (result) => {
             showSnack(result.msg, null, SNACK.success)
             if(result.status === 200) $e('#f-reg').reset()
@@ -217,7 +217,7 @@ function getManager(lvl_sel) {
         return
     }
 
-    let packed = {
+    let package = {
         area: $e('#area')[$e('#area').selectedIndex].value,
         department: $e('#department')[$e('#department').selectedIndex].value,
         career: $e('#career')[$e('#career').selectedIndex].value,
@@ -227,7 +227,7 @@ function getManager(lvl_sel) {
     fetchTo(
         'http://localhost:999/register/manager',
         'GET',
-        packed,
+        package,
         (result) => {
             if(result.status === 200) {
                 if(result.data.length > 0) {

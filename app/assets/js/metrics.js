@@ -321,17 +321,17 @@ function buttonListeners() {
 async function getData(auto) {
     auto = (typeof auto == 'undefined') ? true : auto
 
-	let packed = {
+	let package = {
 		auto: auto
 	}
 	if(auto === false) {
 		if(subSelected != undefined)
-			packed._id = (parseInt(subSelected.getAttribute('data-index')) > 0) ? subSelected.getAttribute('value') : null
-		packed.area = parseInt($e(`.panel[data-id="${idSelect}"] .area`)[$e(`.panel[data-id="${idSelect}"] .area`).selectedIndex].getAttribute('value'))
-		packed.department = (parseInt($e(`.panel[data-id="${idSelect}"] .department`)[$e(`.panel[data-id="${idSelect}"] .department`).selectedIndex].getAttribute('value')) > 0)
+			package._id = (parseInt(subSelected.getAttribute('data-index')) > 0) ? subSelected.getAttribute('value') : null
+		package.area = parseInt($e(`.panel[data-id="${idSelect}"] .area`)[$e(`.panel[data-id="${idSelect}"] .area`).selectedIndex].getAttribute('value'))
+		package.department = (parseInt($e(`.panel[data-id="${idSelect}"] .department`)[$e(`.panel[data-id="${idSelect}"] .department`).selectedIndex].getAttribute('value')) > 0)
 				? parseInt($e(`.panel[data-id="${idSelect}"] .department`)[$e(`.panel[data-id="${idSelect}"] .department`).selectedIndex].getAttribute('value'))
 				: null
-		packed.career = (parseInt($e(`.panel[data-id="${idSelect}"] .career`)[$e(`.panel[data-id="${idSelect}"] .career`).selectedIndex].getAttribute('value')) > 0)
+		package.career = (parseInt($e(`.panel[data-id="${idSelect}"] .career`)[$e(`.panel[data-id="${idSelect}"] .career`).selectedIndex].getAttribute('value')) > 0)
 				? parseInt($e(`.panel[data-id="${idSelect}"] .career`)[$e(`.panel[data-id="${idSelect}"] .career`).selectedIndex].getAttribute('value'))
 				: null
 	}
@@ -339,7 +339,7 @@ async function getData(auto) {
     await fetchTo(
 		'http://localhost:999/metrics',
 		'POST',
-		packed,
+		package,
 		(result) => {
             if(result.console) log(result.console, STYLE.warning)
 

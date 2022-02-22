@@ -1,4 +1,11 @@
+const modelEvaluation = require('../../models/modelEvaluation')
 const modelUserInfo = require('../../models/modelUserInfo')
+const modelUser = require('../../models/modelUser')
+
+const modelArea = require('../../models/modelArea')
+const modelDepartment = require('../../models/modelDepartment')
+const modelCareer = require('../../models/modelCareer')
+const modelContract = require('../../models/modelContract')
 
 const crypto = require('crypto-js')
 
@@ -111,6 +118,38 @@ async function root(req, res) {
 
 }
 
+function update(req, res) {
+	if(req.body) {
+		let handler = {status: 200}
+
+		if('user' in req.body) {
+			if('pass' in req.body.user)
+				req.body.user.pass = crypto.AES.encrypt(req.body.user.pass, req.body._id).toString()
+
+			modelUser.updateOne({ _id: req.body._id}, { $set: req.body.user })
+			.then(data => { handler['user'] = (data.ok === 1) ? true : false } )
+			.catch(error => { handler['user'] = false; console.log(error)})
+		}
+		
+		if('user_info' in req.body)
+			modelUserInfo.updateOne({ _id: req.body._id}, { $set: req.body.user_info })
+			.then(data => { handler['user_info'] = (data.ok === 1) ? true : false } )
+			.catch(error => { handler['user_info'] = false; console.log(error)})
+
+		if('evaluation' in req.body)
+			modelUserInfo.updateOne({ _id: req.body._id}, { $set: req.body.evaluation })
+			.then(data => { handler['evaluation'] = (data.ok === 1) ? true : false } )
+			.catch(error => { handler['evaluation'] = false; console.log(error)})
+		
+		return res.end(JSON.stringify(handler))
+
+	} else return res.end({
+		status: 404,
+		error: 'No data'
+	})
+}
+
 module.exports = {
-	root
+	root,
+	update
 }

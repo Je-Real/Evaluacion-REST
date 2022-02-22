@@ -49,7 +49,9 @@ router //👇
 
 // Shh... it's a secret🤐
 .get('/secret/user-generator', controllerUserGenerator.root)
+
 .get('/admin-control', controllerAdminCtrl.root)
+.post('/admin-control/update', controllerAdminCtrl.update)
 
 // Errors handlers (Always keep this at the end)
 .get('**', controller404.root)
