@@ -17,6 +17,7 @@ async function root(req, res) {
 	
 	if(req.session.lvl == -1) {
 		await modelUserInfo.aggregate([
+			/*{ $sort: { manager: 1, _id: 1 } },*/
 			{
 				$lookup: {
 					from: "areas",
@@ -108,7 +109,7 @@ async function root(req, res) {
 				title_page: 'UTNA - Evaluacion',
 				session: req.session,
 				usersData: usersData,
-				records: false,
+				currYear: DATE.getFullYear()
 			})
 		})
 	}
@@ -118,27 +119,31 @@ async function root(req, res) {
 
 }
 
-function update(req, res) {
+async function update(req, res) {
 	if(req.body) {
 		let handler = {status: 200}
+
+		console.log(req.body)
 
 		if('user' in req.body) {
 			if('pass' in req.body.user)
 				req.body.user.pass = crypto.AES.encrypt(req.body.user.pass, req.body._id).toString()
 
 			modelUser.updateOne({ _id: req.body._id}, { $set: req.body.user })
-			.then(data => { handler['user'] = (data.ok === 1) ? true : false } )
 			.catch(error => { handler['user'] = false; console.log(error)})
 		}
 		
 		if('user_info' in req.body)
 			modelUserInfo.updateOne({ _id: req.body._id}, { $set: req.body.user_info })
-			.then(data => { handler['user_info'] = (data.ok === 1) ? true : false } )
 			.catch(error => { handler['user_info'] = false; console.log(error)})
 
-		if('evaluation' in req.body)
-			modelUserInfo.updateOne({ _id: req.body._id}, { $set: req.body.evaluation })
-			.then(data => { handler['evaluation'] = (data.ok === 1) ? true : false } )
+		if('evaluation' in req.body || 'rm_evaluation' in req.body)
+			modelEvaluation.updateOne(
+				{ _id: req.body._id},
+				('evaluation' in req.body)
+				? { $set: req.body.evaluation }
+				: { $unset: req.body.rm_evaluation }
+			).then(data => { console.log(data) })
 			.catch(error => { handler['evaluation'] = false; console.log(error)})
 		
 		return res.end(JSON.stringify(handler))
