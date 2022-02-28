@@ -4,10 +4,8 @@ const modelArea = require('../models/modelArea')
 const modelDepartment = require('../models/modelDepartment')
 const modelCareer = require('../models/modelCareer')
 
-const sharp = require('sharp');
+const sharp = require('sharp')
 const pdf = require('pdfjs')
-const fs = require('fs')
-const path = require('path')
 
 const DATE = new Date()
 const currYear = String(DATE.getFullYear())
@@ -37,15 +35,14 @@ async function root(req, res) {
 			salutation = `Buenas noches, ${session.first_name}`
 
 		await modelArea.aggregate([
-			{ $match: /*(options[0].length) ? { $or: options[0] } :*/ {} }, {
+			{
 				$lookup: {
 					from: 'departments',
 					pipeline: [
-						{ $match: /*(options[1].length) ? { $or: options[1] } :*/ {} }, {
+						{
 							$lookup: {
 								from: 'careers',
 								pipeline: [
-									{ $match: /*(options[2].length) ? { $or: options[2] } :*/ {} },
 									{ $project: { _id: 0, department: 0 } }
 								],
 								localField: 'n',
@@ -106,7 +103,7 @@ async function root(req, res) {
 			}
 		})
 		.catch((error) => { //🔴
-			console.error(error)
+			console.log(error)
 		})
 
 		await modelUserInfo.aggregate([ // Subordinates by default
@@ -121,7 +118,7 @@ async function root(req, res) {
 			subordinates = dataSubs // Get all the subordinates
 		})
 		.catch((error) => {
-			console.error(error)
+			console.log(error)
 		})
 		.finally(() => {
 			//Reportes route
@@ -212,7 +209,7 @@ function data(req, res) {
 					subordinates = dataSubs // Get all the subordinates
 				})
 				.catch((error) => {
-					console.error(error)
+					console.log(error)
 				})
 			else subordinates = null
 		
@@ -258,7 +255,7 @@ function data(req, res) {
 		}))
 	})
 	.catch((error) => { //🔴
-		console.error(error)
+		console.log(error)
 		return res.end(JSON.stringify({
 			msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
 			status: 404,
@@ -269,10 +266,11 @@ function data(req, res) {
 	})
 }
 
-function getAllOf(req, res) {
-	let search = {}, uAggregate
+async function getAllOf(req, res) {
+	let search = {}, uAggregate,
+		yearSel = ('FORCE_YEAR_TO' in req.body) ? req.body.FORCE_YEAR_TO : currYear
 
-	search['records.'+currYear] = { $exists: true }
+	search['records.'+yearSel] = { $exists: true }
 	uAggregate = [
 		{ 
 			$lookup: {
@@ -280,8 +278,8 @@ function getAllOf(req, res) {
 				pipeline: [
 					{ $match: search },
 					{ $group: {
-						_id: `$records.${currYear}.${req.body.search}`,
-						total: { $sum: `$records.${currYear}.score` },
+						_id: `$records.${yearSel}.${req.body.search}`,
+						total: { $sum: `$records.${yearSel}.score` },
 						length: { $sum: 1 }
 					} },
 					{ $lookup: {
@@ -302,7 +300,7 @@ function getAllOf(req, res) {
 					{ $unset: [`${req.body.search}_`] }
 				],
 				localField: 'n',
-				foreignField: `records.${currYear}.${req.body.search}`,
+				foreignField: `records.${yearSel}.${req.body.search}`,
 				as: '_avg'
 			}
 		}, {
@@ -332,10 +330,11 @@ function getAllOf(req, res) {
 				},
 				_id: '$n'
 			}
-		}
+		}, { $sort: { _id: 1 } }
 	]
 
 	const failure = () => {
+		if(!('FORCE_YEAR_TO' in req.body))
 		return res.end(JSON.stringify({
 			msg: 'La búsqueda no coincide dentro de los parámetros.',
 			status: 404,
@@ -345,6 +344,7 @@ function getAllOf(req, res) {
 	}
 
 	const success = (data) => {
+		if(!('FORCE_YEAR_TO' in req.body))
 		return res.end(JSON.stringify({
 			data: data,
 			status: 200
@@ -354,20 +354,29 @@ function getAllOf(req, res) {
 	switch (req.body.search) {
 		case 'area':
 			uAggregate.push({ $unset: ['_avg', 'n'] })
+			if('FORCE_YEAR_TO' in req.body)
+				return await modelArea.aggregate(uAggregate)
+			else
 			modelArea.aggregate(uAggregate)
-			.then(data => success(data))
+			.then(data => { success(data) })
 			.catch(error => { console.log(error); failure() })
 			break
 		case 'department':
 			uAggregate.push({ $unset: ['_avg', 'n', 'area'] })
+			if('FORCE_YEAR_TO' in req.body)
+				return await modelArea.aggregate(uAggregate)
+			else
 			modelDepartment.aggregate(uAggregate)
-			.then(data => success(data))
+			.then(data => { success(data) })
 			.catch(error => { console.log(error); failure() })
 			break
 		case 'career':
 			uAggregate.push({ $unset: ['_avg', 'n', 'department'] })
+			if('FORCE_YEAR_TO' in req.body)
+				return await modelArea.aggregate(uAggregate)
+			else
 			modelCareer.aggregate(uAggregate)
-			.then(data => success(data))
+			.then(data => { success(data) })
 			.catch(error => { console.log(error); failure() })
 			break
 		default:
@@ -384,28 +393,46 @@ async function printer(req, res) {
 	})
 
 	let uri_img = await req.body.imageAll.split(',')[1]
+	const image_buffer_jpeg = await sharp(new Buffer.from(uri_img, 'base64')).flatten({ background: '#ffffff' }).jpeg().toBuffer()
+
+	const theRecords = {
+		past: await getAllOf({body:{search:req.body.barSearch, FORCE_YEAR_TO:parseInt(currYear)-1}}, undefined),
+		curr: await getAllOf({body:{search:req.body.barSearch, FORCE_YEAR_TO:currYear}}, undefined)
+	}
 	
 	try {
 		// --------------------------- Page 1 --------------------------- //
-		const table = doc.table({
-			widths: [null, null, null],
-			borderHorizontalWidth: 1,
-			borderHorizontalColor: 0xadadad
-		})
-		const image_buffer_jpeg = await sharp(new Buffer.from(uri_img, 'base64')).flatten({ background: '#ffffff' }).jpeg().toBuffer();
 		const img = new pdf.Image(image_buffer_jpeg)
-
-		doc.image(img, { height: 7.5*pdf.cm, align: 'center', y: 3.25*pdf.cm })
-
+		doc.cell({ paddingTop: 2.4*pdf.cm, paddingBottom: 0.5*pdf.cm }).text({ textAlign: 'center', fontSize: 14 })
+			.add(`Comparación de areas (${parseInt(currYear)-1} - ${parseInt(currYear)})`)
+		doc.cell({ paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm }).image(img, { height: 7.5*pdf.cm, align: 'center'})
 		
-		{
+		const table = doc.table({
+			widths: [360, 90, 90],
+			borderVerticalWidths: [0, 1, 1, 0],
+			borderHorizontalWidth: 1,
+			borderColor: 0xadadad
+		})
+		const header = table.header()
+		header.cell({ paddingTop: 10}).text({ textAlign: 'center', fontSize: 12 }).add(req.body.barSearch)
+		header.cell({ paddingTop: 5, paddingBottom: 5}).text({ textAlign: 'center', fontSize: 12 }).add(`Porcentaje (${parseInt(currYear)-1})`)
+		header.cell({ paddingTop: 5, paddingBottom: 5}).text({ textAlign: 'center', fontSize: 12 }).add(`Porcentaje (${currYear})`)
+
+
+		for(let i in theRecords.curr) {{
 			const row = table.row()
-			row.cell({padding: 7}).image(img, { height: 2.5*pdf.cm, align: 'center' })
-			row.cell({padding: 7}).image(img, { height: 2.5*pdf.cm, align: 'center' })
-		}
+				row.cell({ paddingTop: 2, paddingBottom: 2, paddingLeft: 0.35*pdf.cm }).text({ textAlign: 'left', fontSize: 10 })
+					.add(theRecords.curr[i].desc)
+				row.cell({ paddingTop: 2, paddingBottom: 2, })
+					.text({ textAlign: 'center', fontSize: 10, color: (theRecords.past[i].length != 0) ? 0x000000 : 0x505050 })
+					.add((theRecords.past[i].length != 0) ? theRecords.past[i].total / theRecords.past[i].length : 'N.A.')
+				row.cell({ paddingTop: 2, paddingBottom: 2, })
+					.text({ textAlign: 'center', fontSize: 10, color: (theRecords.curr[i].length != 0) ? 0x000000 : 0x505050 })
+					.add((theRecords.curr[i].length != 0) ? theRecords.curr[i].total / theRecords.curr[i].length : 'N.A.')
+		}}
 
 	} catch (error) {
-		console.error(error)
+		console.log(error)
 		await doc.end() // Close file
 		return res.end(null)
 	}

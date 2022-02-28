@@ -1,17 +1,18 @@
 let rec, showCharts, clone, idSelect = 0,
 	showRegs = 5, year = parseInt(DATE.getFullYear()) - (showRegs-1),
-	subSelected, compareAll = false
+	subSelected, compareAll = false,
+	barSearch
 
 const barChartSearch = () => {
-	let toSearch = $e('#sel-bar-chart')[$e('#sel-bar-chart').selectedIndex].value
+	barSearch = $e('#sel-bar-chart')[$e('#sel-bar-chart').selectedIndex].value
 
-	if(toSearch === 'department') $e('#bars').classList.add('ext')
+	if(barSearch === 'department') $e('#bars').classList.add('ext')
 	else $e('#bars').classList.remove('ext')
 
 	fetchTo(
 		'http://localhost:999/metrics/all',
 		'POST',
-		{ search: toSearch },
+		{ search: barSearch },
 		(result) => {
 			if(result.noti === true) {
 				showSnack(result.msg, null, SNACK[result.notiType])
@@ -84,7 +85,10 @@ window.addEventListener('load', async(e) => {
 
 		setTimeout(async() => {
 			canvasGetter = $e('#bars canvas')
-			pkg = { imageAll: canvasGetter.toDataURL() }
+			pkg = {
+				barSearch: barSearch,
+				imageAll: canvasGetter.toDataURL(),
+			}
 			REQ_PARAMS = {
 				method: 'POST',
 				headers: {'Content-Type': 'application/json'},
@@ -112,7 +116,7 @@ window.addEventListener('load', async(e) => {
 					)
 					console.error(err)
 				})
-		}, 50)
+		}, 150)
 		
 	})
 })
