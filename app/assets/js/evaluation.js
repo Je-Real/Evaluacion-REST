@@ -106,7 +106,7 @@ window.addEventListener('load', async(e) => {
             }
         }
     
-        let package = {
+        let pkg = {
             _id: id,
             records: radioFields
         }
@@ -114,7 +114,7 @@ window.addEventListener('load', async(e) => {
         fetchTo(
             'http://localhost:999/evaluation',
             'POST',
-            package,
+            pkg,
             (result) => {
                 if(result.noti && result.status === 200) {
                     showSnack(result.msg, null, SNACK.success)

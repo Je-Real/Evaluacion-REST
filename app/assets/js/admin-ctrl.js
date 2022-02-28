@@ -60,46 +60,46 @@ window.addEventListener('load', async(e) => {
 	eventAssigner('.btn-save', 'click', (e) => {
 		// Save the information 🤠
 		let tgt = e.target.getAttribute('data-id'),
-			package = { _id: tgt }
+			pkg = { _id: tgt }
 		
 		if(String(tgt).length) {
 			$a(`.${tgt}.edited`).forEach(node => {
 				if(node.dataset.class == 'user_all' || node.dataset.class == 'user') {
-					if(!('user' in package)) package['user'] = {} // if not exists user
-					package.user[node.name] = node.value || node.checked
+					if(!('user' in pkg)) pkg['user'] = {} // if not exists user
+					pkg.user[node.name] = node.value || node.checked
 				}
 				if(node.dataset.class == 'user_all' || node.dataset.class == 'user_info') {
-					if(!('user_info' in package)) package['user_info'] = {} // if not exists user_info
+					if(!('user_info' in pkg)) pkg['user_info'] = {} // if not exists user_info
 
 					if(node.classList.contains('address')) { // for address information
-						if(!('address' in package.user_info)) package.user_info['address'] = {}
-						package.user_info.address[node.name] = node.value
+						if(!('address' in pkg.user_info)) pkg.user_info['address'] = {}
+						pkg.user_info.address[node.name] = node.value
 					} else if(node.name == 'b_day') {  // for birthday information
-						if(!('b_day' in package.user_info)) package.user_info['b_day'] = {}
-						package.user_info.b_day.date = node.value
+						if(!('b_day' in pkg.user_info)) pkg.user_info['b_day'] = {}
+						pkg.user_info.b_day.date = node.value
 					} else
-						package.user_info[node.name] = node.value || node.checked
+						pkg.user_info[node.name] = node.value || node.checked
 				}
 				if(node.dataset.class == 'evaluation') {
 					if(node.checked == true) {
-						if(!('evaluation' in package))
-							package['evaluation'] = { records: {} } // if not exists evaluation.records
-						if(!(node.dataset.year in package.evaluation.records)) 
-							package.evaluation.records[node.dataset.year] = { disabled: true } // and the years
+						if(!('evaluation' in pkg))
+							pkg['evaluation'] = { records: {} } // if not exists evaluation.records
+						if(!(node.dataset.year in pkg.evaluation.records)) 
+							pkg.evaluation.records[node.dataset.year] = { disabled: true } // and the years
 					} else {
-						if(!('rm_evaluation' in package))
-							package['rm_evaluation'] = {}
-						package.rm_evaluation[`records.${node.dataset.year}`] = ''
+						if(!('rm_evaluation' in pkg))
+							pkg['rm_evaluation'] = {}
+						pkg.rm_evaluation[`records.${node.dataset.year}`] = ''
 					}
 				}
 			})
 
-			console.log(package)
+			console.log(pkg)
 
 			fetchTo(
 				'http://localhost:999/admin-control/update',
 				'POST',
-				package,
+				pkg,
 				(result) => {
 					if(result.status === 200) {
 						showSnack((lang == 0) ? 'Cambios guardados' : 'Changes saved', null, SNACK.success)

@@ -4,6 +4,11 @@ const modelArea = require('../models/modelArea')
 const modelDepartment = require('../models/modelDepartment')
 const modelCareer = require('../models/modelCareer')
 
+const sharp = require('sharp');
+const pdf = require('pdfjs')
+const fs = require('fs')
+const path = require('path')
+
 const DATE = new Date()
 const currYear = String(DATE.getFullYear())
 
@@ -371,8 +376,50 @@ function getAllOf(req, res) {
 	}
 }
 
+async function printer(req, res) {
+	const doc = new pdf.Document({ // Vertical letter
+		width:   612, // 21.59 cm
+		height:  792, // 27.94 cm
+		padding: 32
+	})
+
+	let uri_img = await req.body.imageAll.split(',')[1]
+	
+	try {
+		// --------------------------- Page 1 --------------------------- //
+		const table = doc.table({
+			widths: [null, null, null],
+			borderHorizontalWidth: 1,
+			borderHorizontalColor: 0xadadad
+		})
+		const image_buffer_jpeg = await sharp(new Buffer.from(uri_img, 'base64')).flatten({ background: '#ffffff' }).jpeg().toBuffer();
+		const img = new pdf.Image(image_buffer_jpeg)
+
+		doc.image(img, { height: 7.5*pdf.cm, align: 'center', y: 3.25*pdf.cm })
+
+		
+		{
+			const row = table.row()
+			row.cell({padding: 7}).image(img, { height: 2.5*pdf.cm, align: 'center' })
+			row.cell({padding: 7}).image(img, { height: 2.5*pdf.cm, align: 'center' })
+		}
+
+	} catch (error) {
+		console.error(error)
+		await doc.end() // Close file
+		return res.end(null)
+	}
+
+	res.setHeader("Content-Disposition", "attachment; output.pdf")
+	await doc.pipe(res)
+	await doc.end() // Close file
+
+	return res.end(null)
+}
+
 module.exports = {
 	root,
 	data,
-	getAllOf
+	getAllOf,
+	printer
 }

@@ -30,6 +30,7 @@ router //👇
 .get('/metrics', controllerMetrics.root)
 .post('/metrics', controllerMetrics.data)
 .post('/metrics/all', controllerMetrics.getAllOf)
+.post('/metrics/print', controllerMetrics.printer)
 
 // Survey
 .get('/evaluation', controllerLayoutStatic.root)

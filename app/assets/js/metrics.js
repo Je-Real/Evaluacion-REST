@@ -5,6 +5,9 @@ let rec, showCharts, clone, idSelect = 0,
 const barChartSearch = () => {
 	let toSearch = $e('#sel-bar-chart')[$e('#sel-bar-chart').selectedIndex].value
 
+	if(toSearch === 'department') $e('#bars').classList.add('ext')
+	else $e('#bars').classList.remove('ext')
+
 	fetchTo(
 		'http://localhost:999/metrics/all',
 		'POST',
@@ -74,6 +77,44 @@ window.addEventListener('load', async(e) => {
 	setTimeout(() => {
 		getData(true)
     }, 150)
+
+	eventAssigner('#btn-pdf-compare-all', 'click', async () => {
+		let REQ_PARAMS, pkg, canvasGetter
+		$e('#layoutSidenav_content').classList.add('fixed-size')
+
+		setTimeout(async() => {
+			canvasGetter = $e('#bars canvas')
+			pkg = { imageAll: canvasGetter.toDataURL() }
+			REQ_PARAMS = {
+				method: 'POST',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify(pkg)
+			}
+			
+			await fetch('http://localhost:999/metrics/print', REQ_PARAMS)
+				.then(async res => await res.arrayBuffer()) // response data to array buffer
+				.then(async data => {
+					if(data == null || data == undefined || String(data) == '')
+						return showSnack('Server error', null, SNACK.error)
+					const blob = new Blob([data]) // Create a Blob object
+					const url = URL.createObjectURL(blob) // Create an object URL
+					download(url, (lang == 0) ? `formato-evaluacion---.pdf` : `evaluation-format---.pdf`) // Download file
+					URL.revokeObjectURL(url) // Release the object URL
+	
+					$e('#layoutSidenav_content').classList.remove('fixed-size')
+				})
+				.catch(err => {
+					showSnack(
+						(lang == 0) ? 'Por favor abra la consola del navegador, copie el error y contacte con un especialista en soporte'
+									: 'Please open the browser console, copy the error and contact a support specialist.',
+						null,
+						SNACK.error
+					)
+					console.error(err)
+				})
+		}, 50)
+		
+	})
 })
 
 function displayCharts(show, idElement) {
@@ -321,17 +362,17 @@ function buttonListeners() {
 async function getData(auto) {
     auto = (typeof auto == 'undefined') ? true : auto
 
-	let package = {
+	let pkg = {
 		auto: auto
 	}
 	if(auto === false) {
 		if(subSelected != undefined)
-			package._id = (parseInt(subSelected.getAttribute('data-index')) > 0) ? subSelected.getAttribute('value') : null
-		package.area = parseInt($e(`.panel[data-id="${idSelect}"] .area`)[$e(`.panel[data-id="${idSelect}"] .area`).selectedIndex].getAttribute('value'))
-		package.department = (parseInt($e(`.panel[data-id="${idSelect}"] .department`)[$e(`.panel[data-id="${idSelect}"] .department`).selectedIndex].getAttribute('value')) > 0)
+			pkg._id = (parseInt(subSelected.getAttribute('data-index')) > 0) ? subSelected.getAttribute('value') : null
+		pkg.area = parseInt($e(`.panel[data-id="${idSelect}"] .area`)[$e(`.panel[data-id="${idSelect}"] .area`).selectedIndex].getAttribute('value'))
+		pkg.department = (parseInt($e(`.panel[data-id="${idSelect}"] .department`)[$e(`.panel[data-id="${idSelect}"] .department`).selectedIndex].getAttribute('value')) > 0)
 				? parseInt($e(`.panel[data-id="${idSelect}"] .department`)[$e(`.panel[data-id="${idSelect}"] .department`).selectedIndex].getAttribute('value'))
 				: null
-		package.career = (parseInt($e(`.panel[data-id="${idSelect}"] .career`)[$e(`.panel[data-id="${idSelect}"] .career`).selectedIndex].getAttribute('value')) > 0)
+		pkg.career = (parseInt($e(`.panel[data-id="${idSelect}"] .career`)[$e(`.panel[data-id="${idSelect}"] .career`).selectedIndex].getAttribute('value')) > 0)
 				? parseInt($e(`.panel[data-id="${idSelect}"] .career`)[$e(`.panel[data-id="${idSelect}"] .career`).selectedIndex].getAttribute('value'))
 				: null
 	}
@@ -339,7 +380,7 @@ async function getData(auto) {
     await fetchTo(
 		'http://localhost:999/metrics',
 		'POST',
-		package,
+		pkg,
 		(result) => {
             if(result.console) log(result.console, STYLE.warning)
 

@@ -19,25 +19,30 @@
             <div class="container d-flex">
                 <img src="/img/logo-utna.png" alt="Logo UTNA" class="px-3 w-sm-80 w-md-60 mx-auto img-fluid">
             </div>
-            <h2 class="pt-4 pb-3"><span data-lang="es">Iniciar Sesión</span><span data-lang="en">Login</span></h2>
-                <div class="user-box">
-                    <input type="text" id="_id-txt" required>
-                    <label>
-                        <span data-lang="es">Usuario</span><span data-lang="en">User</span>
-                    </label>
-                </div>
-                <div class="user-box">
-                    <input type="password" name="pass" id="pass" required>
-                    <label>
-                        <span data-lang="es">Contraseña</span><span data-lang="en">Password</span>
-                    </label>
-                </div>
-                <div class="container d-flex">
-                    <button id="btn-login" class="btn mx-auto" onclick="login()">
-                        <p class="m-0" data-lang="es">Iniciar Sesión</p>
-                        <p class="m-0" data-lang="en">Login</p>
-                    </button>
-                </div>
+            <h2 class="pt-4 pb-3">
+                <span class="lang" data-lang="es">Iniciar Sesión</span>
+                <span class="lang" data-lang="en">Login</span>
+            </h2>
+            <div class="user-box">
+                <input type="text" id="_id-txt" required>
+                <label>
+                    <span class="lang" data-lang="es">Usuario</span>
+                    <span class="lang" data-lang="en">User</span>
+                </label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="pass" id="pass" required>
+                <label>
+                    <span class="lang" data-lang="es">Contraseña</span>
+                    <span class="lang" data-lang="en">Password</span>
+                </label>
+            </div>
+            <div class="container d-flex">
+                <button id="btn-login" class="btn mx-auto" onclick="login()">
+                    <p class="m-0" class="lang" data-lang="es">Iniciar Sesión</p>
+                    <p class="m-0" class="lang" data-lang="en">Login</p>
+                </button>
+            </div>
         </div>
     </div>
 
