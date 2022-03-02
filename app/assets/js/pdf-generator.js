@@ -17,8 +17,8 @@ let img = new Image()
 window.addEventListener('load', async(e) => {
 	img.src = '../img/logo-utna-c.png' // Get logo resource
 
-	/*if($e('#btn-pdf-compare-all') != undefined) {
-		eventAssigner('#btn-pdf-compare-all', 'click', () => {
+	/*if($e('#btn-download-pdf') != undefined) {
+		eventAssigner('#btn-download-pdf', 'click', () => {
 			let docV = new jsPDF({ // Vertical, unit millimeter, letter
 				format: 'letter',
 			})

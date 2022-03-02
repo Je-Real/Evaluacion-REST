@@ -53,6 +53,100 @@ const barChartSearch = () => {
 	)
 }
 
+const monoMetrics = async() => { // Get all the individual graphs
+	let metrics = {}, length = 0
+
+	$a('.lienzos').forEach((node, i) => {
+		let semi = node.querySelector('.semiDoughnutChart canvas'),
+			line = node.querySelector('.lineChart canvas'),
+			divisible = i % 2
+
+		if(!(`${length}` in metrics)) metrics[`${length}`] = {}
+
+		metrics[`${length}`][`${divisible}`] = {
+			title: node.querySelector('.canvasTitle').innerHTML.trim(),
+			semi: semi.toDataURL().split(',')[1],
+			score: node.querySelector('.semiDoughnutChart span').innerHTML.trim(),
+			line: line.toDataURL().split(',')[1]
+		}
+
+		if(divisible) length++
+	})
+
+	return metrics
+}
+
+const polyMetrics = async() => { // Get the bar graph  
+	let canvasGetter = $e('#bars canvas')
+	return canvasGetter.toDataURL().split(',')[1]
+}
+
+const generatePDF = async(mode = '') => {
+	let REQ_PARAMS, pkg
+	$e('#layoutSidenav_content').classList.add('fixed-size')
+
+	setTimeout(async() => {
+		switch (mode) {
+			case 'all':
+				pkg = {
+					barSearch: barSearch,
+					poly: await polyMetrics(),
+					mono: await monoMetrics(),
+				}
+				break
+			
+			case 'poly':
+				pkg = {
+					barSearch: barSearch,
+					poly: await polyMetrics(),
+				}
+				break
+			
+			case 'mono':
+				pkg = {
+					mono: await monoMetrics(),
+				}
+				break
+		
+			default:
+				return showSnack(
+					(lang == 0) 
+						? 'No se recibieron parámetros en la solicitud de descarga'
+						: 'No parameters has been received in download request',
+						null, SNACK.error
+				)
+		}
+
+		REQ_PARAMS = {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify(pkg)
+		}
+		
+		await fetch('http://localhost:999/metrics/print', REQ_PARAMS)
+			.then(async res => await res.arrayBuffer()) // response data to array buffer
+			.then(async data => {
+				if(data == null || data == undefined || String(data) == '')
+					return showSnack('Server error', null, SNACK.error)
+				const blob = new Blob([data]) // Create a Blob object
+				const url = URL.createObjectURL(blob) // Create an object URL
+				download(url, (lang == 0) ? `formato-evaluacion---.pdf` : `evaluation-format---.pdf`) // Download file
+				URL.revokeObjectURL(url) // Release the object URL
+
+				$e('#layoutSidenav_content').classList.remove('fixed-size')
+			})
+			.catch(err => {
+				showSnack(
+					(lang == 0) ? 'Por favor abra la consola del navegador, copie el error y contacte con un especialista en soporte'
+								: 'Please open the browser console, copy the error and contact a support specialist.',
+					null,
+					SNACK.error
+				)
+				console.error(err)
+			})
+	}, 150)
+}
+
 window.addEventListener('load', async(e) => {
 	$a('.dep').forEach(node => node.classList.add('d-none')) // Hide department options
 	$a('.department').forEach(node => node.disabled = true) // Disable dropdown for department
@@ -73,52 +167,12 @@ window.addEventListener('load', async(e) => {
 	
 	eventAssigner('#addPanel', 'click', addPanel).catch((error) => {return console.error(error)})
 	eventAssigner('#sel-bar-chart', 'change', barChartSearch).catch((error) => {return console.error(error)})
+	eventAssigner('#btn-download-pdf', 'click', () => generatePDF('all'))
 	buttonListeners()
 	
 	setTimeout(() => {
 		getData(true)
     }, 150)
-
-	eventAssigner('#btn-pdf-compare-all', 'click', async () => {
-		let REQ_PARAMS, pkg, canvasGetter
-		$e('#layoutSidenav_content').classList.add('fixed-size')
-
-		setTimeout(async() => {
-			canvasGetter = $e('#bars canvas')
-			pkg = {
-				barSearch: barSearch,
-				imageAll: canvasGetter.toDataURL(),
-			}
-			REQ_PARAMS = {
-				method: 'POST',
-				headers: {'Content-Type': 'application/json'},
-				body: JSON.stringify(pkg)
-			}
-			
-			await fetch('http://localhost:999/metrics/print', REQ_PARAMS)
-				.then(async res => await res.arrayBuffer()) // response data to array buffer
-				.then(async data => {
-					if(data == null || data == undefined || String(data) == '')
-						return showSnack('Server error', null, SNACK.error)
-					const blob = new Blob([data]) // Create a Blob object
-					const url = URL.createObjectURL(blob) // Create an object URL
-					download(url, (lang == 0) ? `formato-evaluacion---.pdf` : `evaluation-format---.pdf`) // Download file
-					URL.revokeObjectURL(url) // Release the object URL
-	
-					$e('#layoutSidenav_content').classList.remove('fixed-size')
-				})
-				.catch(err => {
-					showSnack(
-						(lang == 0) ? 'Por favor abra la consola del navegador, copie el error y contacte con un especialista en soporte'
-									: 'Please open the browser console, copy the error and contact a support specialist.',
-						null,
-						SNACK.error
-					)
-					console.error(err)
-				})
-		}, 150)
-		
-	})
 })
 
 function displayCharts(show, idElement) {

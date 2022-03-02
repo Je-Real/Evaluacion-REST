@@ -1,8 +1,8 @@
 //Import express & routes
-const session = require("express-session")
 const express = require('express')
-const path = require('path')
 const app = express()
+const path = require('path')
+const session = require('express-session')
 
 const routeMaster = require('./routes/routeMaster') //Require the routes
 
@@ -11,8 +11,10 @@ app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
 //Do N O T delete this 2 rows or else...
-app.use(express.urlencoded({extended:false}))
-app.use(express.json())
+//app.use(express.urlencoded({extended:false}))
+//app.use(express.json())
+app.use(express.urlencoded({extended:false, limit: '50mb'}))
+app.use(express.json({limit: '50mb'}))
 
 //Use the folder assets for access to /css, /js, /img, etc.
 app.use(express.static(path.join(__dirname, 'assets')))
@@ -27,7 +29,6 @@ app.use(session({
 
 //Routes
 app.use('/', routeMaster)
-
 
 //Export and execute the application
 module.exports = app
