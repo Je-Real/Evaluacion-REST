@@ -67,6 +67,10 @@ h1, h2, h3, h4, h5, h6 {
 	visibility: hidden;
 }
 
+#load-b.hidden .spinner-border {
+	animation: none;
+}
+
 #snackbar {
 	visibility: hidden;
 	min-width: 250px;
@@ -200,9 +204,13 @@ h1, h2, h3, h4, h5, h6 {
 	display: none;
 }
 
+.h-inherit {
+	height: inherit;
+}
+
 /* >>  W i d t h  << */
 .w-100 { width: 100% !important; }
-.w-90 { width: 90% !important; }
+.w-90 {width: 90% !important;}
 .w-85 { width: 85% !important; }
 .w-80 { width: 80% !important; }
 .w-75 { width: 75% !important; }
@@ -213,7 +221,7 @@ h1, h2, h3, h4, h5, h6 {
 .w-25 { width: 25% !important; }
 /* >>  W i d t h  << */
 
-/* >>  V i r t u a l   H e i g h t  << */
+/* >>  V I E W P O R T   H e i g h t  << */
 .vh-100 { height: 100vh !important; }
 .vh-90 { height: 90vh !important; }
 .vh-85 { height: 85vh !important; }
@@ -224,9 +232,9 @@ h1, h2, h3, h4, h5, h6 {
 .vh-40 { height: 40vh !important; }
 .vh-30 { height: 30vh !important; }
 .vh-25 { height: 25vh !important; }
-/* >>  V i r t u a l   H e i g h t  << */
+/* >>  V I E W P O R T   H e i g h t  << */
 
-/* >>  V i r t u a l   W i d t h  << */
+/* >>  V I E W P O R T   W i d t h  << */
 .vw-100 { width: 100vw !important; }
 .vw-90 { width: 90vw !important; }
 .vw-85 { width: 85vw !important; }
@@ -237,7 +245,7 @@ h1, h2, h3, h4, h5, h6 {
 .vw-40 { width: 40vw !important; }
 .vw-30 { width: 30vw !important; }
 .vw-25 { width: 25vw !important; }
-/* >>  V i r t u a l   W i d t h  << */
+/* >>  V I E W P O R T   W i d t h  << */
 
 /* =>576px - small (sm) */
 @media (min-width: 576px) {
@@ -274,7 +282,7 @@ h1, h2, h3, h4, h5, h6 {
 @media (min-width: 768px) {
 	.w-md-100 { width: 100% !important; }
 	.w-md-90 { width: 90% !important; }
-	.w-md-80 { width: 80% !important; }
+	.w-md-80 {width: 80% !important;}
 	.w-md-75 { width: 75% !important; }
 	.w-md-60 { width: 60% !important; }
 	.w-md-50 { width: 50% !important; }
@@ -292,6 +300,17 @@ h1, h2, h3, h4, h5, h6 {
 	.vw-md-40 { width: 40vw !important; }
 	.vw-md-30 { width: 30vw !important; }
 	.vw-md-25 { width: 25vw !important; }
+
+	.vh-md-100 { height: 100vh !important; }
+	.vh-md-90 { height: 90vh !important; }
+	.vh-md-85 { height: 85vh !important; }
+	.vh-md-80 { height: 80vh !important; }
+	.vh-md-75 { height: 75vh !important; }
+	.vh-md-60 { height: 60vh !important; }
+	.vh-md-50 { height: 50vh !important; }
+	.vh-md-40 { height: 40vh !important; }
+	.vh-md-30 { height: 30vh !important; }
+	.vh-md-25 { height: 25vh !important; }
 
 	.col-md { flex: 1 0 0%; }
 }
@@ -321,7 +340,26 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (min-width: 1118px) {
-	.w-big-80 { width: 80% !important; }
+	.w-xl-100 { width: 100% !important; }
+	.w-xl-90 { width: 90% !important; }
+	.w-xl-80 { width: 80% !important; }
+	.w-xl-75 { width: 75% !important; }
+	.w-xl-60 { width: 60% !important; }
+	.w-xl-50 { width: 50% !important; }
+	.w-xl-40 { width: 40% !important; }
+	.w-xl-30 { width: 30% !important; }
+	.w-xl-25 { width: 25% !important; }
+	
+	.vw-xl-100 { width: 100vw !important; }
+	.vw-xl-90 { width: 90vw !important; }
+	.vw-xl-85 { width: 85vw !important; }
+	.vw-xl-80 { width: 80vw !important; }
+	.vw-xl-75 { width: 75vw !important; }
+	.vw-xl-60 { width: 60vw !important; }
+	.vw-xl-50 { width: 50vw !important; }
+	.vw-xl-40 { width: 40vw !important; }
+	.vw-xl-30 { width: 30vw !important; }
+	.vw-xl-25 { width: 25vw !important; }
 }
 
 .align-self-center {
@@ -547,6 +585,10 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 26vh 0;
 }
 
+.cursor-pointer {
+	cursor: pointer;
+}
+
 .top-desing {
 	margin: 0 0 7rem 0;
 }
@@ -598,12 +640,12 @@ h1, h2, h3, h4, h5, h6 {
 	margin-bottom: 4rem;
 }
 
-.rot-20>svg {
+.rot-20 i {
 	transform: rotate(0deg);
 	transition: all 0.2s;
 }
 
-.rot-20.move>svg {
+.rot-20.animate i {
 	transform: rotate(90deg);
 }
 
@@ -1092,4 +1134,38 @@ code {
 
 #button-17 .checkbox:checked ~ .layer {
 	background-color: #fcebeb;
+}
+
+/* File input - https://codepen.io/aaronvanston/pen/dpRZXO */
+.inputDnD .form-control-file {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	min-height: 6em;
+	outline: none;
+	visibility: hidden;
+	cursor: pointer;
+	background-color: #c61c23;
+	box-shadow: 0 0 5px solid currentColor;
+}
+.inputDnD .form-control-file:before {
+	content: attr(data-title);
+	position: absolute;
+	top: 0.5em;
+	left: 0;
+	width: 100%;
+	min-height: 6em;
+	line-height: 2em;
+	padding-top: 1.5em;
+	opacity: 1;
+	visibility: visible;
+	text-align: center;
+	border: 0.25em dashed currentColor;
+	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+	overflow: hidden;
+	/* border-bottom: 1px solid chartreuse; */
+}
+.inputDnD .form-control-file:hover:before {
+	border-style: solid;
+	box-shadow: inset 0px 0px 0px 0.25em currentColor;
 }

@@ -20,7 +20,7 @@ async function root(req, res) {
 		subordinates = []
 
 	if(!req.session.user && !req.session.lvl) { // No session 😡
-		res.redirect('/home')
+		res.redirect('/home/')
 	} else { // Session 🤑
 		session = req.session
 
@@ -402,63 +402,67 @@ async function printer(req, res) {
 		hTable.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm })
 			.text(`${DATE.getDate()}/${DATE.getMonth()+1}/${currYear}`, {textAlign: 'right'})
 		
-		// --------------------------- Comparison graph page --------------------------- //
-		const img = new pdf.Image(polyJPEG)
-		doc.cell({ paddingTop: 0.4*pdf.cm, paddingBottom: 0.5*pdf.cm }).text({ textAlign: 'center', fontSize: 14 })
-			.add(`Comparación de areas (${parseInt(currYear)-1} - ${parseInt(currYear)})`)
-		doc.cell({ paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm }).image(img, { height: 7.5*pdf.cm, align: 'center'})
+		if(req.body.mode == 'all' || req.body.mode == 'poly') {
+			// --------------------------- Comparison graph page --------------------------- //
+			const img = new pdf.Image(polyJPEG)
+			doc.cell({ paddingTop: 0.4*pdf.cm, paddingBottom: 0.5*pdf.cm }).text({ textAlign: 'center', fontSize: 14 })
+				.add(`Comparación de areas (${parseInt(currYear)-1} - ${parseInt(currYear)})`)
+			doc.cell({ paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm }).image(img, { height: 7.5*pdf.cm, align: 'center'})
+			
+			const tableC = doc.table({
+				widths: [340, 100, 100],
+				borderVerticalWidths: [0, 1, 1, 0],
+				borderHorizontalWidth: 1,
+				borderColor: 0xadadad
+			})
+			const tHeader = tableC.header()
+			tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 10})
+				.text({ textAlign: 'center', fontSize: 10 }).add(DATA.barSearch)
+			tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 5, paddingBottom: 5})
+				.text({ textAlign: 'center', fontSize: 10 }).add(`Porcentaje (${parseInt(currYear)-1})`)
+			tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 5, paddingBottom: 5})
+				.text({ textAlign: 'center', fontSize: 10 }).add(`Porcentaje (${currYear})`)
+	
+	
+			for(let i in theRecords.curr) {{
+				const row = tableC.row()
+				row.cell({ paddingTop: 2, paddingBottom: 2, paddingLeft: 0.35*pdf.cm }).text({ textAlign: 'left', fontSize: 9 })
+					.add(theRecords.curr[i].desc)
+				row.cell({ paddingTop: 2, paddingBottom: 2, })
+					.text({ textAlign: 'center', fontSize: 9, color: (theRecords.past[i].length != 0) ? 0x000000 : 0x505050 })
+					.add((theRecords.past[i].length != 0) ? theRecords.past[i].total / theRecords.past[i].length : 'N.A.')
+				row.cell({ paddingTop: 2, paddingBottom: 2, })
+					.text({ textAlign: 'center', fontSize: 9, color: (theRecords.curr[i].length != 0) ? 0x000000 : 0x505050 })
+					.add((theRecords.curr[i].length != 0) ? theRecords.curr[i].total / theRecords.curr[i].length : 'N.A.')
+			}}
+	
+			doc.pageBreak()
+		}
+
+		if(req.body.mode == 'all' || req.body.mode == 'mono') {
+			// --------------------------- Individual Metrics page --------------------------- //
+			const tableM = doc.table({
+				widths: [null, null],
+				borderWidth: 0,
+			})
+	
+			for(let i in DATA.mono) {
+				const r = tableM.row()
+				for(let j in DATA.mono[i]) {
+					const cell = r.cell({paddingTop: 3, paddingBottom: 0.75*pdf.cm})
 		
-		const tableC = doc.table({
-			widths: [340, 100, 100],
-			borderVerticalWidths: [0, 1, 1, 0],
-			borderHorizontalWidth: 1,
-			borderColor: 0xadadad
-		})
-		const tHeader = tableC.header()
-		tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 10})
-			.text({ textAlign: 'center', fontSize: 10 }).add(DATA.barSearch)
-		tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 5, paddingBottom: 5})
-			.text({ textAlign: 'center', fontSize: 10 }).add(`Porcentaje (${parseInt(currYear)-1})`)
-		tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 5, paddingBottom: 5})
-			.text({ textAlign: 'center', fontSize: 10 }).add(`Porcentaje (${currYear})`)
-
-
-		for(let i in theRecords.curr) {{
-			const row = tableC.row()
-			row.cell({ paddingTop: 2, paddingBottom: 2, paddingLeft: 0.35*pdf.cm }).text({ textAlign: 'left', fontSize: 9 })
-				.add(theRecords.curr[i].desc)
-			row.cell({ paddingTop: 2, paddingBottom: 2, })
-				.text({ textAlign: 'center', fontSize: 9, color: (theRecords.past[i].length != 0) ? 0x000000 : 0x505050 })
-				.add((theRecords.past[i].length != 0) ? theRecords.past[i].total / theRecords.past[i].length : 'N.A.')
-			row.cell({ paddingTop: 2, paddingBottom: 2, })
-				.text({ textAlign: 'center', fontSize: 9, color: (theRecords.curr[i].length != 0) ? 0x000000 : 0x505050 })
-				.add((theRecords.curr[i].length != 0) ? theRecords.curr[i].total / theRecords.curr[i].length : 'N.A.')
-		}}
-
-		doc.pageBreak()
-
-		// --------------------------- Individual Metrics page --------------------------- //
-		const tableM = doc.table({
-			widths: [null, null],
-			borderWidth: 0,
-		})
-
-		for(let i in DATA.mono) {
-			const r = tableM.row()
-			for(let j in DATA.mono[i]) {
-				const cell = r.cell({paddingTop: 3, paddingBottom: 0.75*pdf.cm})
-	
-				const semiJPEG = await sharp(new Buffer.from(DATA.mono[i][j].semi, 'base64')).resize({height: 200})
-					.flatten({ background: '#ffffff' }).jpeg().toBuffer()
-				const semiChart = new pdf.Image(semiJPEG)
-				const lineJPEG = await sharp(new Buffer.from(DATA.mono[i][j].line, 'base64')).resize({height: 200})
-					.flatten({ background: '#ffffff' }).jpeg().toBuffer()
-				const lineChart = new pdf.Image(lineJPEG)
-	
-				cell.text({fontSize: 10, textAlign: 'center'}).add(DATA.mono[i][j].title).add()
-				cell.image(semiChart, { height: 3.1*pdf.cm, align: 'center' })
-				cell.text({fontSize: 10, textAlign: 'center'}).add('Promedio total: '+DATA.mono[i][j].score)
-				cell.image(lineChart, { height: 3.3*pdf.cm, align: 'center' })
+					const semiJPEG = await sharp(new Buffer.from(DATA.mono[i][j].semi, 'base64')).resize({height: 200})
+						.flatten({ background: '#ffffff' }).jpeg().toBuffer()
+					const semiChart = new pdf.Image(semiJPEG)
+					const lineJPEG = await sharp(new Buffer.from(DATA.mono[i][j].line, 'base64')).resize({height: 200})
+						.flatten({ background: '#ffffff' }).jpeg().toBuffer()
+					const lineChart = new pdf.Image(lineJPEG)
+		
+					cell.text({fontSize: 10, textAlign: 'center'}).add(DATA.mono[i][j].title).add()
+					cell.image(semiChart, { height: 3.1*pdf.cm, align: 'center' })
+					cell.text({fontSize: 10, textAlign: 'center'}).add('Promedio total: '+DATA.mono[i][j].score)
+					cell.image(lineChart, { height: 3.3*pdf.cm, align: 'center' })
+				}
 			}
 		}
 	} catch (error) {

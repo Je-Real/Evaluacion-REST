@@ -13,7 +13,7 @@ async function logIn(req, res) {
 	// LogIn validator
 	await modelUser.findOne({ _id: req.body._id }, { _id: 1, pass: 1, enabled: 1 })
 	.then((dataUser) => {
-		if('_id' in dataUser) { // If dataUser 👍
+		if(dataUser) { // If there is data in dataUser 👍
 			if(!dataUser.enabled) {
 				return res.end(JSON.stringify({
 					msg: 'El usuario o contraseña no coinciden.', 
@@ -46,26 +46,6 @@ async function logIn(req, res) {
 						if(String(dataUInfo[0].career).length)
 							req.session.career = dataUInfo[0].career
 	
-						//How to manipulate front-end cookies in back-end (------Doesn't work at all------)
-						/*let ini = [req.headers.cookie.search('{'), (req.headers.cookie.search('}'))+1]
-						let rest = [
-							req.headers.cookie.slice(0, ini[0]),
-							req.headers.cookie.slice(ini[1], req.headers.cookie.length)
-						]
-						let obj = JSON.parse(req.headers.cookie.slice(ini[0], ini[1]))
-						obj.pass = dataUser.pass
-						obj = JSON.stringify(obj)
-	
-						req.headers.cookie = rest[0]+obj+rest[1]
-						for(let header in req.rawHeaders) {
-							if(req.rawHeaders[header].search('user=') != -1) {
-								req.rawHeaders[header] = obj
-							}
-						}
-	
-						console.log(req.rawHeaders)
-						console.log(req.headers.cookie)*/
-	
 						//Response success for Asynchronous request
 						return res.end(JSON.stringify({
 							msg: 'Sesión iniciada. Bienvenido '+dataUInfo[0].first_name+'.',
@@ -96,14 +76,16 @@ async function logIn(req, res) {
 				})
 			} else { //🔴
 				return res.end(JSON.stringify({
-					msg: 'El usuario o contraseña no coinciden.', 
+					msg: 'El usuario o contraseña no coinciden.',
+					class: false,
 					status: 404
 				}))
 			}
 		} else {
 			//if no data 🥶
 			return res.end(JSON.stringify({
-				msg: 'El usuario no existe. Por favor revisa tu usuario.', 
+				msg: 'El usuario o contraseña no coinciden.',
+				class: false,
 				status: 404
 			}))
 		}

@@ -136,12 +136,7 @@ async function eventUnassigner(selector, eventClass, funcEvent) {
 	}
 }
 
-let tf = false, tr = false,
-	frameL = $e('#floatingLogin'),
-	frameP = $e('#floatingPass'),
-	frameR = $e('#floatingRegister'),
-	glass = $e('#layoutSidenav'),
-	lang = null
+var lang
 
 window.addEventListener('DOMContentLoaded', async(e) => {
 	if(localStorage.getItem('lang') === 'en') {
@@ -227,50 +222,6 @@ window.addEventListener('DOMContentLoaded', async(e) => {
 
 function outSession(clicked) {
 	if(clicked) setTimeout(() => go("home/"), 2500)
-}
-
-function login(u, p) {
-	u = (u) ? u : (($e('#_id-txt').value) ? $e('#_id-txt').value : null)
-	p = (p) ? p : (($e('#pass').value) ? $e('#pass').value : null)
-
-	if(u == null || p == null)
-		showSnack(
-			(lang == 0) ? 'Revisa los campos de inicio de sesión, por favor'
-						: 'Check the session fields, please',
-			null, SNACK.error
-		)
-	else
-		fetchTo(
-			'http://localhost:999/session/log-in',
-			'POST',
-			{ _id: u, pass: p },
-			async(result) => {
-				if(result.msg) {
-					showSnack(
-						result.msg,
-						null, SNACK.info
-					)
-				}
-
-				if(result.status === 200) {
-					$e('#load-b').classList.remove('hidden', 'fade')
-					if(result.data !== null) {
-						await setCookie('user', JSON.stringify(result.data))
-						.then(() => {
-							return go("home/")
-						})
-						.catch(() => {
-							showSnack(
-								(lang == 0) ? 'Falla de Cookies' : 'Cookies failure',
-								null, SNACK.warning
-							)
-						})
-					}
-					else return go("home/")
-				}
-			},
-			async(error) => console.error(error)
-		)
 }
 
 function logout() {

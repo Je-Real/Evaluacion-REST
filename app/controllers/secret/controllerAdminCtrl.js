@@ -114,7 +114,7 @@ async function root(req, res) {
 		})
 	}
 	else {
-		res.redirect('/home')
+		res.redirect('/home/')
 	}
 
 }

@@ -22,7 +22,7 @@ async function root(req, res) {
 	} else { // Session 🤑
 		// >>>>>>>>>>>>>>>>>>>>>> AD Ctrl <<<<<<<<<<<<<<<<<<<<<<
 		if(req.session.lvl == -1)
-			return res.redirect('/admin-control')
+			return res.redirect('/admin-control/')
 
 		/** Search all subordinates and obtain whether
 		 * each has current year evaluations or not */

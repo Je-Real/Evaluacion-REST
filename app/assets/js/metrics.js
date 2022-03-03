@@ -1,7 +1,7 @@
 let rec, showCharts, clone, idSelect = 0,
 	showRegs = 5, year = parseInt(DATE.getFullYear()) - (showRegs-1),
 	subSelected, compareAll = false,
-	barSearch
+	barSearch, lastConfigPanel = -1
 
 const barChartSearch = () => {
 	barSearch = $e('#sel-bar-chart')[$e('#sel-bar-chart').selectedIndex].value
@@ -155,12 +155,12 @@ window.addEventListener('load', async(e) => {
 	
 	$a('.canvas-container canvas').forEach(node => node.classList.add('d-none'))
 	
-	document.querySelector('.canvas-container.semiDoughnutChart').innerHTML += `<div class="text-center d-block ghost-container">
+	$e('.canvas-container.semiDoughnutChart').innerHTML += `<div class="text-center d-block ghost-container">
 		<i class="fa-solid fa-ghost icon-ghost f-vScreen-15 my-3 text-black-15"></i>
 		<p class="my-2 text-ghost">No hay datos para mostrar</p>
 	</div>`
-	clone = document.querySelector('.panel:last-of-type').cloneNode(true)
-	document.querySelector('.panel[data-id="0"] .canvas-remove').remove()
+	clone = $e('.panel:last-of-type').cloneNode(true)
+	$e('.panel[data-id="0"] .canvas-remove').remove()
 	
 	displayCharts(false, idSelect)
 	barChartSearch()
@@ -173,6 +173,8 @@ window.addEventListener('load', async(e) => {
 	setTimeout(() => {
 		getData(true)
     }, 150)
+
+	eventAssigner('html', 'click', configClose)
 })
 
 function displayCharts(show, idElement) {
@@ -216,19 +218,40 @@ function displayCharts(show, idElement) {
 }
 
 const config = (e) => {
-	let tgt = e.target, idConfig
-	tgt.classList.toggle('move')
+	let tgt = e.target
+	tgt.classList.toggle('animate')
 
-	while(tgt.parentNode) {
-        tgt = tgt.parentNode
-        if(tgt.getAttribute('data-id') != undefined) {
-            idConfig = parseInt(tgt.getAttribute('data-id'))
-            break
-        }
-    }
+	upperAttrIterator(tgt, 'data-id')
+	.then(id => {
+		if(lastConfigPanel != id) {
+			$a(`.panel:not([data-id="${id}"]) .config-menu.d-block`).forEach(node => {
+				node.classList.replace('d-block', 'd-none')
+			})
+			$a(`.panel:not([data-id="${id}"]) .canvas-config.animate`).forEach(node => {
+				node.classList.remove('animate')
+			})
+			
+			lastConfigPanel = id
+		}
+		
+		let config = $e(`.panel[data-id="${id}"] .config-menu`)
+		if(config.classList.contains('d-none'))
+			config.classList.replace('d-none', 'd-block')
+		else
+			config.classList.replace('d-block', 'd-none')
+	})
+	.catch(error => console.error(error))
+}
 
-	document.querySelector(`.panel[data-id="${idConfig}"] .config-menu`)
-		.classList.toggle('d-none')
+const configClose = (e) => {
+	if(!e.target.matches('.canvas-config.animate') && !e.target.closest(`.panel[data-id="${lastConfigPanel}"] .config-menu`)) {
+		$a('.config-menu.d-block').forEach(node => {
+			node.classList.replace('d-block', 'd-none')
+		})
+		$a('.canvas-config.animate').forEach(node => {
+			node.classList.remove('animate')
+		})
+	}
 }
 
 function emptySubordinate() {
@@ -324,7 +347,7 @@ const formSelect = (e) => {
         }
     }
 
-	canvasTitle = document.querySelector(`.panel[data-id="${idSelect}"] .canvasTitle`)
+	canvasTitle = $e(`.panel[data-id="${idSelect}"] .canvasTitle`)
 
 	if(target.classList.contains('subordinates')) {
 		subSelected = target.options[target.selectedIndex]
@@ -339,14 +362,14 @@ const formSelect = (e) => {
 	else if(target.classList.contains('area')) {
 		areaSelect()
 		emptySubordinate()
-		if(document.querySelector(`.panel[data-id="${idSelect}"] .department`).selectedIndex == 0 &&
-			document.querySelector(`.panel[data-id="${idSelect}"] .career`).selectedIndex == 0)
+		if($e(`.panel[data-id="${idSelect}"] .department`).selectedIndex == 0 &&
+			$e(`.panel[data-id="${idSelect}"] .career`).selectedIndex == 0)
 			canvasTitle.innerHTML = target.options[target.selectedIndex].innerHTML
 	}
 	else if(target.classList.contains('department')) {
 		depaSelect()
 		emptySubordinate()
-		if(document.querySelector(`.panel[data-id="${idSelect}"] .career`).selectedIndex == 0)
+		if($e(`.panel[data-id="${idSelect}"] .career`).selectedIndex == 0)
 			canvasTitle.innerHTML = target.options[target.selectedIndex].innerHTML
 	}
 	else if(target.classList.contains('career')) {
@@ -360,8 +383,8 @@ const formSelect = (e) => {
 }
 
 const addPanel = () => {
-	idSelect = parseInt(document.querySelector('.panel:last-of-type').getAttribute('data-id'))+1
-	let panelsDisplayed = parseInt(document.querySelectorAll('.panel').length)
+	idSelect = parseInt($e('.panel:last-of-type').getAttribute('data-id'))+1
+	let panelsDisplayed = parseInt($a('.panel').length)
 
 	if(compareAll) {
 		showSnack(
@@ -371,12 +394,12 @@ const addPanel = () => {
 	} else {
 		if(panelsDisplayed < 4 && !compareAll) {
 			clone.setAttribute('data-id', String(idSelect))
-			document.getElementById('panelContainer').appendChild(clone)
+			$e('#panelContainer').appendChild(clone)
 		
 			displayCharts(false, idSelect)
 			mainToolTip()
 			buttonListeners()
-			clone = document.querySelector('.panel:last-of-type').cloneNode(true)
+			clone = $e('.panel:last-of-type').cloneNode(true)
 			idSelect = -1
 		} else
 			showSnack(
@@ -398,7 +421,7 @@ const deletePanel = (e) => {
     }
 
 	if(idDeletable != 0) {
-		document.querySelector(`.panel[data-id="${idDeletable}"]`).remove()
+		$e(`.panel[data-id="${idDeletable}"]`).remove()
 	}
 	else showSnack(
 		(lang == 0) ? 'No puedes eliminar el panel principal 😡'
@@ -411,10 +434,12 @@ function buttonListeners() {
 	eventUnassigner('.canvas-config', 'click', config).catch((error) => {return console.error(error)})
 	eventUnassigner('.canvas-remove', 'click', deletePanel).catch((error) => {return console.error(error)})
 	eventUnassigner('.form-select:not(#sel-bar-chart)', 'change', formSelect).catch((error) => {return console.error(error)})
+	eventUnassigner('html', 'click', configClose).catch((error) => {return console.error(error)})
 	
 	eventAssigner('.canvas-config', 'click', config).catch((error) => {return console.error(error)})
 	eventAssigner('.canvas-remove', 'click', deletePanel).catch((error) => {return console.error(error)})
 	eventAssigner('.form-select:not(#sel-bar-chart)', 'change', formSelect).catch((error) => {return console.error(error)})
+	eventAssigner('html', 'click', configClose).catch((error) => {return console.error(error)})
 }
 
 async function getData(auto) {
