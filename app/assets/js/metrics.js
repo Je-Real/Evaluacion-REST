@@ -149,9 +149,9 @@ const generatePDF = async(mode = '') => {
 
 window.addEventListener('load', async(e) => {
 	$a('.dep').forEach(node => node.classList.add('d-none')) // Hide department options
-	$a('.department').forEach(node => node.disabled = true) // Disable dropdown for department
+	$a('.direction').forEach(node => node.disabled = true) // Disable dropdown for department
 	$a('.car').forEach(node => node.classList.add('d-none')) // Hide department options
-	$a('.career').forEach(node => node.disabled = true) // Disable dropdown for department
+	$a('.position').forEach(node => node.disabled = true) // Disable dropdown for department
 	
 	$a('.canvas-container canvas').forEach(node => node.classList.add('d-none'))
 	
@@ -260,79 +260,79 @@ function emptySubordinate() {
 }
 
 function areaSelect() {
-	$e(`.panel[data-id="${idSelect}"] .department .dep-s`).classList.add('d-none') //Hide default option
-	$e(`.panel[data-id="${idSelect}"] .department .dep`).classList.add('d-none') ////Hide again all department options
+	$e(`.panel[data-id="${idSelect}"] .direction .dep-s`).classList.add('d-none') //Hide default option
+	$e(`.panel[data-id="${idSelect}"] .direction .dep`).classList.add('d-none') ////Hide again all department options
 
 	//And show all departments the ones that match with the area selected
 	let areaIndex = $e(`.panel[data-id="${idSelect}"] .area`)
 		[$e(`.panel[data-id="${idSelect}"] .area`).selectedIndex].getAttribute('value'),
-		affected = $a(`.panel[data-id="${idSelect}"] .department .dep[data-area="${parseInt(areaIndex)}"]`)
+		affected = $a(`.panel[data-id="${idSelect}"] .direction .dep[data-area="${parseInt(areaIndex)}"]`)
 
 	if(affected.length) { //If in the area exists departments
-		$e(`.panel[data-id="${idSelect}"] .department .dep-s`).innerHTML = (lang == 0) 
+		$e(`.panel[data-id="${idSelect}"] .direction .dep-s`).innerHTML = (lang == 0) 
 																			? '-Selecciona departamento-'
 																			: '-Select department-'
-		$e(`.panel[data-id="${idSelect}"] .department .dep-s`).classList.remove('d-none')
-		$e(`.panel[data-id="${idSelect}"] .department .dep-s`).selected = true
-		$e(`.panel[data-id="${idSelect}"] .department`).disabled = false
+		$e(`.panel[data-id="${idSelect}"] .direction .dep-s`).classList.remove('d-none')
+		$e(`.panel[data-id="${idSelect}"] .direction .dep-s`).selected = true
+		$e(`.panel[data-id="${idSelect}"] .direction`).disabled = false
 
 		affected.forEach(node => {
 			node.classList.remove('d-none')
 		})
 	} else {
 		//Else 🟢
-		$e(`.panel[data-id="${idSelect}"] .department .dep-s`).innerHTML = 'N/A'
-		$e(`.panel[data-id="${idSelect}"] .department .dep-s`).classList.remove('d-none')
-		$e(`.panel[data-id="${idSelect}"] .department .dep-s`).selected = true
-		$e(`.panel[data-id="${idSelect}"] .department`).disabled = true
-		$a(`.panel[data-id="${idSelect}"] .department .dep`).forEach(node => {
+		$e(`.panel[data-id="${idSelect}"] .direction .dep-s`).innerHTML = 'N/A'
+		$e(`.panel[data-id="${idSelect}"] .direction .dep-s`).classList.remove('d-none')
+		$e(`.panel[data-id="${idSelect}"] .direction .dep-s`).selected = true
+		$e(`.panel[data-id="${idSelect}"] .direction`).disabled = true
+		$a(`.panel[data-id="${idSelect}"] .direction .dep`).forEach(node => {
 			node.classList.add('d-none')
 		})
 	}
-	$e(`.panel[data-id="${idSelect}"] .career .car-s`).innerHTML = 'N/A'
-	$e(`.panel[data-id="${idSelect}"] .career .car-s`).classList.remove('d-none')
-	$e(`.panel[data-id="${idSelect}"] .career .car-s`).selected = true
-	$e(`.panel[data-id="${idSelect}"] .career`).disabled = true
-	$a(`.panel[data-id="${idSelect}"] .career .car`).forEach(node => {
+	$e(`.panel[data-id="${idSelect}"] .position .car-s`).innerHTML = 'N/A'
+	$e(`.panel[data-id="${idSelect}"] .position .car-s`).classList.remove('d-none')
+	$e(`.panel[data-id="${idSelect}"] .position .car-s`).selected = true
+	$e(`.panel[data-id="${idSelect}"] .position`).disabled = true
+	$a(`.panel[data-id="${idSelect}"] .position .car`).forEach(node => {
 		node.classList.add('d-none')
 	})
 }
 
 function depaSelect() {
-	$e(`.panel[data-id="${idSelect}"] .department .dep-s`).classList.add('d-none') //Hide default option
-	$e(`.panel[data-id="${idSelect}"] .career .car-s`).classList.add('d-none') //Hide default option
-	$e(`.panel[data-id="${idSelect}"] .career .car`).classList.add('d-none') ////Hide again all career options
+	$e(`.panel[data-id="${idSelect}"] .direction .dep-s`).classList.add('d-none') //Hide default option
+	$e(`.panel[data-id="${idSelect}"] .position .car-s`).classList.add('d-none') //Hide default option
+	$e(`.panel[data-id="${idSelect}"] .position .car`).classList.add('d-none') ////Hide again all career options
 
 	//And show all departments the ones that match with the area selected
-	let depaIndex = $e(`.panel[data-id="${idSelect}"] .department`)
-		[$e(`.panel[data-id="${idSelect}"] .department`).selectedIndex].getAttribute('value'),
-		affected = $a(`.panel[data-id="${idSelect}"] .career .car[data-depa='${parseInt(depaIndex)}']`)
+	let depaIndex = $e(`.panel[data-id="${idSelect}"] .direction`)
+		[$e(`.panel[data-id="${idSelect}"] .direction`).selectedIndex].getAttribute('value'),
+		affected = $a(`.panel[data-id="${idSelect}"] .position .car[data-depa='${parseInt(depaIndex)}']`)
 
 	if(affected.length) {
 		//If in the area exists any departments
-		$e(`.panel[data-id="${idSelect}"] .career .car-s`).innerHTML = (lang == 0) 
+		$e(`.panel[data-id="${idSelect}"] .position .car-s`).innerHTML = (lang == 0) 
 																		? '-Selecciona departamento-'
 																		: '-Select department-'
-		$e(`.panel[data-id="${idSelect}"] .career .car-s`).classList.remove('d-none')
-		$e(`.panel[data-id="${idSelect}"] .career .car-s`).selected = true
-		$e(`.panel[data-id="${idSelect}"] .career`).disabled = false
+		$e(`.panel[data-id="${idSelect}"] .position .car-s`).classList.remove('d-none')
+		$e(`.panel[data-id="${idSelect}"] .position .car-s`).selected = true
+		$e(`.panel[data-id="${idSelect}"] .position`).disabled = false
 		affected.forEach(node => {
 			node.classList.remove('d-none')
 		})
 	} else {
 		//Else 🟢
-		$e(`.panel[data-id="${idSelect}"] .career .car-s`).innerHTML = 'N/A'
-		$e(`.panel[data-id="${idSelect}"] .career .car-s`).classList.remove('d-none')
-		$e(`.panel[data-id="${idSelect}"] .career .car-s`).selected = true
-		$e(`.panel[data-id="${idSelect}"] .career`).disabled = true
-		$a(`.panel[data-id="${idSelect}"] .career .car`).forEach(node => {
+		$e(`.panel[data-id="${idSelect}"] .position .car-s`).innerHTML = 'N/A'
+		$e(`.panel[data-id="${idSelect}"] .position .car-s`).classList.remove('d-none')
+		$e(`.panel[data-id="${idSelect}"] .position .car-s`).selected = true
+		$e(`.panel[data-id="${idSelect}"] .position`).disabled = true
+		$a(`.panel[data-id="${idSelect}"] .position .car`).forEach(node => {
 			node.classList.add('d-none')
 		})
 	}
 }
 
 function careSelect() {
-	$e(`.panel[data-id="${idSelect}"] .career .car-s`).classList.add('d-none') //Hide default option
+	$e(`.panel[data-id="${idSelect}"] .position .car-s`).classList.add('d-none') //Hide default option
 }
 
 const formSelect = (e) => {
@@ -362,14 +362,14 @@ const formSelect = (e) => {
 	else if(target.classList.contains('area')) {
 		areaSelect()
 		emptySubordinate()
-		if($e(`.panel[data-id="${idSelect}"] .department`).selectedIndex == 0 &&
-			$e(`.panel[data-id="${idSelect}"] .career`).selectedIndex == 0)
+		if($e(`.panel[data-id="${idSelect}"] .direction`).selectedIndex == 0 &&
+			$e(`.panel[data-id="${idSelect}"] .position`).selectedIndex == 0)
 			canvasTitle.innerHTML = target.options[target.selectedIndex].innerHTML
 	}
 	else if(target.classList.contains('department')) {
 		depaSelect()
 		emptySubordinate()
-		if($e(`.panel[data-id="${idSelect}"] .career`).selectedIndex == 0)
+		if($e(`.panel[data-id="${idSelect}"] .position`).selectedIndex == 0)
 			canvasTitle.innerHTML = target.options[target.selectedIndex].innerHTML
 	}
 	else if(target.classList.contains('career')) {
@@ -452,11 +452,11 @@ async function getData(auto) {
 		if(subSelected != undefined)
 			pkg._id = (parseInt(subSelected.getAttribute('data-index')) > 0) ? subSelected.getAttribute('value') : null
 		pkg.area = parseInt($e(`.panel[data-id="${idSelect}"] .area`)[$e(`.panel[data-id="${idSelect}"] .area`).selectedIndex].getAttribute('value'))
-		pkg.department = (parseInt($e(`.panel[data-id="${idSelect}"] .department`)[$e(`.panel[data-id="${idSelect}"] .department`).selectedIndex].getAttribute('value')) > 0)
-				? parseInt($e(`.panel[data-id="${idSelect}"] .department`)[$e(`.panel[data-id="${idSelect}"] .department`).selectedIndex].getAttribute('value'))
+		pkg.direction = (parseInt($e(`.panel[data-id="${idSelect}"] .direction`)[$e(`.panel[data-id="${idSelect}"] .direction`).selectedIndex].getAttribute('value')) > 0)
+				? parseInt($e(`.panel[data-id="${idSelect}"] .direction`)[$e(`.panel[data-id="${idSelect}"] .direction`).selectedIndex].getAttribute('value'))
 				: null
-		pkg.career = (parseInt($e(`.panel[data-id="${idSelect}"] .career`)[$e(`.panel[data-id="${idSelect}"] .career`).selectedIndex].getAttribute('value')) > 0)
-				? parseInt($e(`.panel[data-id="${idSelect}"] .career`)[$e(`.panel[data-id="${idSelect}"] .career`).selectedIndex].getAttribute('value'))
+		pkg.position = (parseInt($e(`.panel[data-id="${idSelect}"] .position`)[$e(`.panel[data-id="${idSelect}"] .position`).selectedIndex].getAttribute('value')) > 0)
+				? parseInt($e(`.panel[data-id="${idSelect}"] .position`)[$e(`.panel[data-id="${idSelect}"] .position`).selectedIndex].getAttribute('value'))
 				: null
 	}
 

@@ -4,30 +4,76 @@ let firstName, lastName,
 	lvl_s = 0
 
 window.addEventListener('load', async(e) => {
+	lockRegister(true)
 	eventAssigner('#submit-register', 'click', register)
+
+	eventAssigner('#register-personnel, .to-register', 'click', () => { lockRegister(false); lockFile() })
+	eventAssigner('*[aria-label="Close"]:not(.to-register)', 'click', () => { lockRegister(true) })
+
+	eventAssigner('#as_user', 'change', (e) => {
+		if(e.target.checked)
+			$e('#register input[type="password"]').disabled = false
+		else
+			$e('#register input[type="password"]').disabled = true
+	})
 })
 
-function readUrl(input) {
-	if (input.files && input.files[0]) {
+const lockRegister = (lock = true) => {
+	if(lock) {
+		$a('#register input, #register select, #submit-register').forEach(node => {
+			node.disabled = true
+		})
+		$e('#register input:not([type="checkbox"])').checked = false
+	}
+	else
+		$a('#register input:not([type="password"]), #register select, #submit-register').forEach(node => {
+			node.disabled = false
+		})
+}
+
+const lockFile = () => {
+	$e('input[type="file"]').setAttribute('data-title', $e('input[type="file"]').getAttribute('data-tittle-empty'))
+	$e('#submit-file').disabled = true
+}
+
+const readUrl = (input) => {
+	if(input.files && input.files[0]) {
 		let reader = new FileReader()
 		reader.onload = (e) => {
-			let fileData = e.target.result
 			let fileName = input.files[0].name
-			input.setAttribute("data-title", fileName)
+			if(!('tittleEmpty' in input.dataset))
+				input.setAttribute('data-tittle-empty', input.getAttribute('data-title'))
+			input.setAttribute('data-title', fileName)
 		}
-		reader.readAsDataURL(input.files[0]);
+		reader.readAsDataURL(input.files[0])
+
+		$e('#submit-file').disabled = false
 	}
 }
 
 const register = async() => {
 	let pkg = { 
-		_id: $e('#new_id').value,
-		pass: $e('#new_pass').value,
-		first_name: ($e('#first_name').value).trim(),
-		last_name: ($e('#last_name').value).trim(),
-		area: $e('#area')[$e('#area').selectedIndex].value,
-		direction: $e('#direction')[$e('#direction').selectedIndex].value,
-		position: $e('#position')[$e('#position').selectedIndex].value,
+		_id: 		parseInt($e('#new_id:not(disabled)').value),
+		first_name: ($e('#first_name:not(disabled)').value).trim(),
+		last_name: 	($e('#last_name:not(disabled)').value).trim(),
+		area: 		parseInt($e('#area:not(disabled)')[$e('#area').selectedIndex].value) + 1,
+		direction: 	parseInt($e('#direction:not(disabled)')[$e('#direction').selectedIndex].value) + 1,
+		position: 	parseInt($e('#position:not(disabled)')[$e('#position').selectedIndex].value) + 1,
+		category: 	parseInt($e('#category:not(disabled)')[$e('#category').selectedIndex].value) + 1
+	}
+
+	if($e('#as_user:not(disabled)').checked) {
+		pkg['pass'] = $e('#new_pass:not(disabled)').value
+		pkg['as_user'] = $e('#as_user:not(disabled)').checked
+	}
+
+	for(let i in pkg) {
+		if(pkg[i] == undefined || pkg[i] == '' || pkg[i] == null)
+			return showSnack(
+				(lang == 0) ? `No se puede enviar el registro, hay campos vacíos.`
+							: `Unable to send the data, there is empty fields`,
+				null, SNACK.warning
+			)
 	}
 
 	await fetchTo(
@@ -36,7 +82,7 @@ const register = async() => {
 		pkg,
 		(result) => {
 			showSnack(result.msg, null, SNACK.success)
-			if(result.status === 200) $e('#f-reg').reset()
+			if(result.status === 200) window.location.reload()
 		},
 		(error) => {
 			showSnack('Error '+error, null, SNACK.error)

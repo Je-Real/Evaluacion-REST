@@ -1,8 +1,8 @@
 const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
 const modelArea = require('../models/modelArea')
-const modelDepartment = require('../models/modelDepartment')
-const modelCareer = require('../models/modelCareer')
+const modelDepartment = require('../models/modelDirection')
+const modelCareer = require('../models/modelPosition')
 
 const sharp = require('sharp')
 const pdf = require('pdfjs')
@@ -19,7 +19,7 @@ async function root(req, res) {
 		career = [],
 		subordinates = []
 
-	if(!req.session.user && !req.session.lvl) { // No session 😡
+	if(!req.session.user && !req.session.category) { // No session 😡
 		res.redirect('/home/')
 	} else { // Session 🤑
 		session = req.session
@@ -139,13 +139,13 @@ function data(req, res) {
 		
 	if(req.body._id != null && (req.body._id).trim() != '') {
 		search._id = (req.body._id).trim()
-		if(req.session.lvl > 1)
+		if(req.session.category > 1)
 			search.manager = req.session.user
 	} else if(req.body.area > 0) {
 		search.area = req.body.area
-		if(req.body.department != null && req.body.department > 0) {
-			search.department = req.body.department
-			if(req.body.career != null && req.body.career > 0) search.career = req.body.career
+		if(req.body.direction != null && req.body.direction > 0) {
+			search.direction = req.body.direction
+			if(req.body.position != null && req.body.position > 0) search.position = req.body.position
 		}
 	}
 	else {

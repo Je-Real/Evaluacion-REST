@@ -64,14 +64,18 @@ function go(url = 'home/') {
 
 async function upperAttrIterator(target, attributeName) {
 	try{
-		while(target.parentNode) {
-			target = target.parentNode
-			if(target.getAttribute(attributeName) != undefined)
-				return target.getAttribute(attributeName)
+		if(target.getAttribute(attributeName))
+			return target.getAttribute(attributeName)
+		else {
+			while(target.parentNode) {
+				target = target.parentNode
+				if(target.getAttribute(attributeName))
+					return target.getAttribute(attributeName)
+			}
 		}
 		log(`Couldn't find attribute ${attributeName} in parentsNodes of ${target}`, STYLE.error)
 		return null
-	} catch (e) { throw e }
+	} catch(e) { throw e }
 }
 
 async function fetchTo(url = '', method = '', data = {}, onSuccess, onError) {

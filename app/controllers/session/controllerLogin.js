@@ -23,11 +23,11 @@ async function logIn(req, res) {
 
 			// Users that have session tokens in browser cookies
 			if(typeof req.body.pass === 'object') {
-				req.body.pass = crypto.AES.decrypt(req.body.pass.token, req.body._id)
+				req.body.pass = crypto.AES.decrypt(req.body.pass.token, String(req.body._id))
 				req.body.pass = req.body.pass.toString(crypto.enc.Utf8)
 			}
 			
-			let compare = crypto.AES.decrypt(dataUser.pass, req.body._id)
+			let compare = crypto.AES.decrypt(dataUser.pass, String(req.body._id))
 			
 			if(compare.toString(crypto.enc.Utf8) === req.body.pass) { //🟢
 				modelUserInfo.find({ _id: req.body._id })
@@ -37,21 +37,18 @@ async function logIn(req, res) {
 					.then(() => {
 						// Server 🍪🍪🍪
 						req.session.user = req.body._id
-						req.session.lvl = dataUInfo[0].level
 						req.session.first_name = dataUInfo[0].first_name
 						req.session.last_name = dataUInfo[0].last_name
 						req.session.area = dataUInfo[0].area
-						if(String(dataUInfo[0].department).length)
-							req.session.department = dataUInfo[0].department
-						if(String(dataUInfo[0].career).length)
-							req.session.career = dataUInfo[0].career
+						req.session.direction = dataUInfo[0].direction
+						req.session.position = dataUInfo[0].position
+						req.session.category = dataUInfo[0].category
 	
 						//Response success for Asynchronous request
 						return res.end(JSON.stringify({
-							msg: 'Sesión iniciada. Bienvenido '+dataUInfo[0].first_name+'.',
-							data: (req.session.lvl == -1) ? null : {
+							data: (req.session.category == -1) ? null : {
 								user:  req.session.user,
-								pass: { token: crypto.AES.encrypt(req.body.pass, req.body._id).toString() },
+								pass: { token: crypto.AES.encrypt(req.body.pass, String(req.body._id)).toString() },
 								name: req.session.first_name,
 							},
 							status: 200

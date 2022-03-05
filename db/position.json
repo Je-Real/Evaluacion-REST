@@ -1,0 +1,524 @@
+[
+    {
+        "_id": 1,
+        "description": [
+            "Rector(a) de la Universidad Tecnológica del Norte de Aguascalientes"
+        ]
+    },
+    {
+        "_id": 2,
+        "description": [
+            "Secretario(a) Académico"
+        ]
+    },
+    {
+        "_id": 3,
+        "description": [
+            "Titular de la Unidad Auditora del Órgano Interno de Control"
+        ]
+    },
+    {
+        "_id": 4,
+        "description": [
+            "Directora Académica de Administración y Contaduría"
+        ]
+    },
+    {
+        "_id": 5,
+        "description": [
+            "Directora de Administración y Finanzas"
+        ]
+    },
+    {
+        "_id": 6,
+        "description": [
+            "Director Académico de Agricultura y DNM"
+        ]
+    },
+    {
+        "_id": 7,
+        "description": [
+            "Director de Promoción, Comunicación y Extensión Universitaria"
+        ]
+    },
+    {
+        "_id": 8,
+        "description": [
+            "Director de Vinculación"
+        ]
+    },
+    {
+        "_id": 9,
+        "description": [
+            "Director Académico de Tecnologías de la Información"
+        ]
+    },
+    {
+        "_id": 10,
+        "description": [
+            "Directora Académica del Área Industrial"
+        ]
+    },
+    {
+        "_id": 11,
+        "description": [
+            "Subdirectora de Evaluación Institucional"
+        ]
+    },
+    {
+        "_id": 12,
+        "description": [
+            "Subdirector de Atención al Cliente"
+        ]
+    },
+    {
+        "_id": 13,
+        "description": [
+            "Subdirector de Servicios Administrativos"
+        ]
+    },
+    {
+        "_id": 14,
+        "description": [
+            "Subdirector de Planeación"
+        ]
+    },
+    {
+        "_id": 15,
+        "description": [
+            "Jefe de departamento de Servicios a la Industria"
+        ]
+    },
+    {
+        "_id": 16,
+        "description": [
+            "Jefe de Departamento de Actividades Culturales y Deportivas"
+        ]
+    },
+    {
+        "_id": 17,
+        "description": [
+            "Jefe del departamento de Programación y Presupuesto"
+        ]
+    },
+    {
+        "_id": 18,
+        "description": [
+            "Jefe de departamento de Capital Humano"
+        ]
+    },
+    {
+        "_id": 19,
+        "description": [
+            "Jefe de departamento de Asuntos Jurídicos"
+        ]
+    },
+    {
+        "_id": 20,
+        "description": [
+            "Jefe de departamento de Contabilidad"
+        ]
+    },
+    {
+        "_id": 21,
+        "description": [
+            "Jefe de departamento de Infraestructura"
+        ]
+    },
+    {
+        "_id": 22,
+        "description": [
+            "Jefe de departamento de Redes y Telecomunicaciones"
+        ]
+    },
+    {
+        "_id": 23,
+        "description": [
+            "Jefe de departamento de Formación Integral"
+        ]
+    },
+    {
+        "_id": 24,
+        "description": [
+            "Jefe de departamento de Internacionalización"
+        ]
+    },
+    {
+        "_id": 25,
+        "description": [
+            "Jefa de departamento de Adquisiciones"
+        ]
+    },
+    {
+        "_id": 26,
+        "description": [
+            "Jefe de departamento de Idiomas"
+        ]
+    },
+    {
+        "_id": 27,
+        "description": [
+            "Jefe de Departamento de Gestión de Calidad y Ambiental"
+        ]
+    },
+    {
+        "_id": 28,
+        "description": [
+            "Jefe de departamento de Investigación"
+        ]
+    },
+    {
+        "_id": 29,
+        "description": [
+            "Jefe de Departamento de Logística y Enlace Institucional"
+        ]
+    },
+    {
+        "_id": 30,
+        "description": [
+            "Profesor Asociado C (TSU)"
+        ]
+    },
+    {
+        "_id": 31,
+        "description": [
+            "Profesor Asociado C (LIC)"
+        ]
+    },
+    {
+        "_id": 32,
+        "description": [
+            "Profesor Asociado B (TSU)"
+        ]
+    },
+    {
+        "_id": 33,
+        "description": [
+            "Profesor Asociado B (LIC)"
+        ]
+    },
+    {
+        "_id": 34,
+        "description": [
+            "Profesor Asociado B"
+        ]
+    },
+    {
+        "_id": 35,
+        "description": [
+            "Profesor Asociado A (TSU)"
+        ]
+    },
+    {
+        "_id": 36,
+        "description": [
+            "Profesor Asociado A"
+        ]
+    },
+    {
+        "_id": 37,
+        "description": [
+            "Profesor Asociado A (LIC)"
+        ]
+    },
+    {
+        "_id": 38,
+        "description": [
+            "Técnico Académico Encargado de Laboratorio"
+        ]
+    },
+    {
+        "_id": 39,
+        "description": [
+            "Jefa de Sección de la coordinación de Evaluación e Información Estratégica"
+        ]
+    },
+    {
+        "_id": 40,
+        "description": [
+            "Titular de la Unidad Substanciadora y Resolutora del Órgano Interno de Control"
+        ]
+    },
+    {
+        "_id": 41,
+        "description": [
+            "Titular de la Unidad Investigadora del Órgano Interno de Control"
+        ]
+    },
+    {
+        "_id": 42,
+        "description": [
+            "Coordinadora de Planeación"
+        ]
+    },
+    {
+        "_id": 43,
+        "description": [
+            "Coordinadora de Rectoría"
+        ]
+    },
+    {
+        "_id": 44,
+        "description": [
+            "Coordinador de Seguimiento de egresados"
+        ]
+    },
+    {
+        "_id": 45,
+        "description": [
+            "Coordinador de Desarrollo de Sistemas de Información"
+        ]
+    },
+    {
+        "_id": 46,
+        "description": [
+            "Coordinador de Nómina y Prestaciones Económicas"
+        ]
+    },
+    {
+        "_id": 47,
+        "description": [
+            "Coordinación de Servicios Escolares"
+        ]
+    },
+    {
+        "_id": 48,
+        "description": [
+            "Ingeniero en Sistemas"
+        ]
+    },
+    {
+        "_id": 49,
+        "description": [
+            "Jefe de oficina de Servicios Generales jardineria"
+        ]
+    },
+    {
+        "_id": 50,
+        "description": [
+            "Jefe de Oficina en Contabilidad de Caja"
+        ]
+    },
+    {
+        "_id": 51,
+        "description": [
+            "Jefe de Oficina de Promoción"
+        ]
+    },
+    {
+        "_id": 52,
+        "description": [
+            "Jefe de Oficina de Contabilidad"
+        ]
+    },
+    {
+        "_id": 53,
+        "description": [
+            "Jefe de oficina de Servicios Generales Mantenimiento"
+        ]
+    },
+    {
+        "_id": 54,
+        "description": [
+            "Jefe de Oficina de Titulación"
+        ]
+    },
+    {
+        "_id": 55,
+        "description": [
+            "Secretaria de Director"
+        ]
+    },
+    {
+        "_id": 56,
+        "description": [
+            "Técnico en Contabilidad de Inventarios"
+        ]
+    },
+    {
+        "_id": 57,
+        "description": [
+            "Analista Administrativo de Becas"
+        ]
+    },
+    {
+        "_id": 58,
+        "description": [
+            "Analista Administrativo de Infraestructura"
+        ]
+    },
+    {
+        "_id": 59,
+        "description": [
+            "Operador del Conmutador"
+        ]
+    },
+    {
+        "_id": 60,
+        "description": [
+            "Chofer de Rector"
+        ]
+    },
+    {
+        "_id": 61,
+        "description": [
+            "Analista Administrativo de Adquisiciones"
+        ]
+    },
+    {
+        "_id": 62,
+        "description": [
+            "Analista Administrativo de Control presupuestal"
+        ]
+    },
+    {
+        "_id": 63,
+        "description": [
+            "Analista Administrativo del Centro de Información"
+        ]
+    },
+    {
+        "_id": 64,
+        "description": [
+            "Analista Administrativo de Servicios Escolares"
+        ]
+    },
+    {
+        "_id": 65,
+        "description": [
+            "Secretaria de Jefe de Departamento"
+        ]
+    },
+    {
+        "_id": 66,
+        "description": [
+            "Jefe de Serv. De Mantenimiento"
+        ]
+    },
+    {
+        "_id": 67,
+        "description": [
+            "Asistente de Serv. De Manto."
+        ]
+    },
+    {
+        "_id": 68,
+        "description": [
+            "Analista Administrativo de Contabilidad"
+        ]
+    },
+    {
+        "_id": 69,
+        "description": [
+            "Auxiliar de Servicios Generales en Jardinería"
+        ]
+    },
+    {
+        "_id": 70,
+        "description": [
+            "Jefe de Oficina de Planeación"
+        ]
+    },
+    {
+        "_id": 71,
+        "description": [
+            "Auxiliar de Servicios Generales en Mantenimiento"
+        ]
+    },
+    {
+        "_id": 72,
+        "description": [
+            "Jefe de Sección de Difusión Editorial y Cultural"
+        ]
+    },
+    {
+        "_id": 73,
+        "description": [
+            "Jefe de Sección de Radiodifusora"
+        ]
+    },
+    {
+        "_id": 74,
+        "description": [
+            "Enfermera"
+        ]
+    },
+    {
+        "_id": 75,
+        "description": [
+            "Analista administrativo de Capital Humano"
+        ]
+    },
+    {
+        "_id": 76,
+        "description": [
+            "Analista Administrativo de Soporte Técnico"
+        ]
+    },
+    {
+        "_id": 77,
+        "description": [
+            "Jefe de Sección de Sistema de Gestión Ambiental"
+        ]
+    },
+    {
+        "_id": 78,
+        "description": [
+            "Coordinador del Centro de Información"
+        ]
+    },
+    {
+        "_id": 79,
+        "description": [
+            "Médico"
+        ]
+    },
+    {
+        "_id": 80,
+        "description": [
+            "Analista administrativo de Caja"
+        ]
+    },
+    {
+        "_id": 81,
+        "description": [
+            "Programador Analista"
+        ]
+    },
+    {
+        "_id": 82,
+        "description": [
+            "Analista Administrativo de Tutorias"
+        ]
+    },
+    {
+        "_id": 83,
+        "description": [
+            "Jefe de Sección de Campus Virtual"
+        ]
+    },
+    {
+        "_id": 84,
+        "description": [
+            "Secretaria de Rectoría"
+        ]
+    },
+    {
+        "_id": 85,
+        "description": [
+            "Jefe de Sección de Oficina multimedios"
+        ]
+    },
+    {
+        "_id": 86,
+        "description": [
+            "Técnico Jurídico"
+        ]
+    },
+    {
+        "_id": 87,
+        "description": [
+            "Profesor de Asignatura"
+        ]
+    }
+]

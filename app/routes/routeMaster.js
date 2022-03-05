@@ -2,7 +2,7 @@ const { Router } = require('express')
 const router = Router()
 
 const controllerLayoutStatic = require('../controllers/controllerEvaluation')
-const controllerCtrlTable = require('../controllers/controllerCtrlTable')
+const controllerCtrlPanel = require('../controllers/controllerCtrlPanel')
 const controllerMetrics = require('../controllers/controllerMetrics')
 
 const controllerLogin = require('../controllers/session/controllerLogin')
@@ -16,15 +16,12 @@ const controller404 = require('../controllers/error/controller404')
 const controller401 = require('../controllers/error/controller401')
 const controller500 = require('../controllers/error/controller500')
 
-const controllerIndex = require('../controllers/controllerHome') //Only for test
-
 router //👇
 
 // Index
-.get('/home', controllerCtrlTable.root)
-.get('/home/evaluation-pdf/:id', controllerCtrlTable.pdfEvalFormat)
-.get('/home/manage-user/:id/:action', controllerCtrlTable.manageUserEvaluation)
-.get('/home/test', controllerIndex.test)
+.get('/home', controllerCtrlPanel.root)
+.get('/home/evaluation-pdf/:id', controllerCtrlPanel.pdfEvalFormat)
+.get('/home/manage-user/:id/:action', controllerCtrlPanel.manageUserEvaluation)
 
 // Reports
 .get('/metrics', controllerMetrics.root)
@@ -48,7 +45,7 @@ router //👇
 .post('/session/log-in', controllerLogin.logIn)
 .get('/session/log-out', controllerLogin.logOut)
 
-// Shh... it's a secret🤐
+// Shhh... it's a secret🤐
 .get('/secret/user-generator', controllerUserGenerator.root)
 
 .get('/admin-control', controllerAdminCtrl.root)

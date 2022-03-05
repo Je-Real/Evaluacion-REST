@@ -1,7 +1,7 @@
 // >>>>>>>>>>>>>>>>>>>>>> Error 401 <<<<<<<<<<<<<<<<<<<<<<
 function root(req, res) {
     let session
-    if(!req.session.user && !req.session.lvl) // No session 😡
+    if(!req.session.user && !req.session.category) // No session 😡
         session = null
     else // Session 🤑
         session = req.session

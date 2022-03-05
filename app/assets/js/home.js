@@ -15,12 +15,8 @@ window.addEventListener('load', async(e) => {
 				'POST',
 				{ _id: u.value, pass: p.value },
 				async(result) => {
-					if(result.msg) {
-						showSnack(
-							result.msg,
-							null, SNACK.info
-						)
-					}
+					if(result.msg)
+						showSnack(result.msg, null, SNACK.info )
 
 					if(result.status === 200) {
 						$e('#load-b').classList.remove('hidden', 'fade')
@@ -47,6 +43,13 @@ window.addEventListener('load', async(e) => {
 				async(error) => console.error(error)
 			)
 	}
+	
+	const enterTheLogin = (e) => {
+		let code = e.key || e.code
+		if(code === 'Enter') login()
+	}
+
+	window.addEventListener('keypress', (e) => { enterTheLogin(e) })
 
 	setTimeout(async() => {
 		$e('#floatingLogin').classList.replace('hide', 'show')
@@ -55,9 +58,6 @@ window.addEventListener('load', async(e) => {
 	eventAssigner('input', 'keypress', (e) => {
 		if(e.target.classList.contains('invalid'))
 			e.target.classList.remove('invalid')
-
-		var code = e.key || e.code
-		if(code === 'Enter') login()
 	})
 
 	eventAssigner('#btn-login', 'click', login)

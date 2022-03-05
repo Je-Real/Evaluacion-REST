@@ -1,2715 +1,1526 @@
 [
     {
-        "_id": "R000",
+        "_id": 0,
         "first_name": "María Angélica",
         "last_name": "Martínez Díaz",
-        "level": 1,
+        "category": 1,
         "area": 1,
-        "department": 0,
-        "career": 0,
-        "contract": 1,
-        "manager": false,
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 0,
+        "position": 0,
+        "manager": false
     },
     {
-        "_id": "R001",
+        "_id": 1,
         "first_name": "Angelica",
         "last_name": "Zavala Martínez",
-        "level": 2,
+        "category": 2,
         "area": 1,
-        "contract": 1,
-        "manager": "R000",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 0
     },
     {
-        "_id": "R002",
+        "_id": 2,
         "first_name": "Alfredo",
         "last_name": "Cárdenas",
-        "level": 2,
+        "category": 2,
         "area": 1,
-        "contract": 1,
-        "manager": "R000",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 0
     },
     {
-        "_id": "R003",
+        "_id": 3,
         "first_name": "Ma. Elizabeth",
         "last_name": "Almeida Salazar",
-        "level": 2,
+        "category": 2,
         "area": 1,
-        "contract": 1,
-        "manager": "R000",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 0
     },
     {
-        "_id": "R004",
+        "_id": 4,
         "first_name": "Martha Guadalupe",
         "last_name": "Díaz Venegas",
-        "level": 2,
+        "category": 2,
         "area": 1,
-        "contract": 1,
-        "manager": "R000",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 0
     },
     {
-        "_id": "R005",
+        "_id": 5,
         "first_name": "Ángel Eduardo",
         "last_name": "Zamora Acevedo",
-        "level": 2,
+        "category": 2,
         "area": 1,
-        "contract": 1,
-        "manager": "R000",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 0
     },
     {
-        "_id": "R006",
+        "_id": 6,
         "first_name": "Eduardo de",
         "last_name": "Anda López",
-        "level": 2,
+        "category": 2,
         "area": 1,
-        "contract": 1,
-        "manager": "R000",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 0
     },
     {
-        "_id": "R007",
+        "_id": 7,
         "first_name": "Eduardo",
         "last_name": "Sotres Ramos",
-        "level": 2,
+        "category": 2,
         "area": 7,
-        "contract": 1,
-        "manager": "R000",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 0
     },
     {
-        "_id": "R008",
+        "_id": 8,
         "first_name": "Jorge Enrique",
         "last_name": "Uria Adame",
-        "level": 2,
+        "category": 2,
         "area": 6,
-        "contract": 1,
-        "manager": "R000",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 0
     },
     {
-        "_id": "R009",
+        "_id": 9,
         "first_name": "Rebeca Inés",
         "last_name": "Rodríguez Beltrán",
-        "level": 2,
+        "category": 2,
         "area": 5,
-        "contract": 1,
-        "manager": "R000",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 0
     },
     {
-        "_id": "R0010",
+        "_id": 10,
         "first_name": "Armando Jare",
         "last_name": "Bernal Pérez",
-        "level": 2,
+        "category": 2,
         "area": 1,
-        "contract": 1,
-        "manager": "R000",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 0
     },
     {
-        "_id": "R0011",
+        "_id": 11,
         "first_name": "Blanca Haydee",
         "last_name": "Hernández Gallardo",
-        "level": 2,
+        "category": 2,
         "area": 3,
-        "contract": 1,
-        "manager": "R000",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 0
     },
     {
-        "_id": "R0012",
+        "_id": 12,
         "first_name": "Diana Verónica",
         "last_name": "Rodríguez Escobedo",
-        "level": 3,
+        "category": 3,
         "area": 1,
-        "contract": 1,
-        "manager": "R0010",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 10
     },
     {
-        "_id": "R0013",
+        "_id": 13,
         "first_name": "Christian Hernández",
         "last_name": "Duque Díaz de León",
-        "level": 3,
+        "category": 3,
         "area": 1,
-        "contract": 1,
-        "manager": "R0011",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 11
     },
     {
-        "_id": "R0014",
+        "_id": 14,
         "first_name": "Ernesto",
         "last_name": "Díaz Romero",
-        "level": 3,
+        "category": 3,
         "area": 1,
-        "contract": 1,
-        "manager": "R0011",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 11
     },
     {
-        "_id": "R0015",
+        "_id": 15,
         "first_name": "Maribel",
         "last_name": "Dávila Rodríguez",
-        "level": 3,
+        "category": 3,
         "area": 1,
-        "contract": 1,
-        "manager": "R0011",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 11
     },
     {
-        "_id": "R0016",
+        "_id": 16,
         "first_name": "Yolanda",
         "last_name": "Velasco De Luna",
-        "level": 3,
+        "category": 3,
         "area": 1,
-        "contract": 1,
-        "manager": "R0011",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 11
     },
     {
-        "_id": "R0017",
+        "_id": 17,
         "first_name": "José de Jesús",
         "last_name": "Báez Puebla",
-        "level": 3,
+        "category": 3,
         "area": 1,
-        "contract": 1,
-        "manager": "R0011",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 11
     },
     {
-        "_id": "R0018",
+        "_id": 18,
         "first_name": "Verónica Ivett",
         "last_name": "González Gutiérrez",
-        "level": 3,
+        "category": 3,
         "area": 4,
-        "contract": 1,
-        "manager": "R0011",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 11
     },
     {
-        "_id": "R0019",
+        "_id": 19,
         "first_name": "Claudia Mónica",
         "last_name": "Medina Badillo",
-        "level": 4,
+        "category": 4,
         "area": 4,
-        "contract": 1,
-        "manager": "R0018",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 18
     },
     {
-        "_id": "R0020",
+        "_id": 20,
         "first_name": "Ernesto",
         "last_name": "Macías Gómez",
-        "level": 3,
+        "category": 3,
         "area": 5,
-        "department": 6,
-        "contract": 1,
-        "manager": "R009",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 6,
+        "manager": 9
     },
     {
-        "_id": "R0021",
+        "_id": 21,
         "first_name": "Claudia",
         "last_name": "Prieto Macías",
-        "level": 3,
+        "category": 3,
         "area": 5,
-        "department": 1,
-        "contract": 1,
-        "manager": "R009",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 1,
+        "manager": 9
     },
     {
-        "_id": "R0022",
+        "_id": 22,
         "first_name": "Felipe de Jesús",
         "last_name": "Ocampo Rangel",
-        "level": 3,
+        "category": 3,
         "area": 5,
-        "department": 2,
-        "contract": 1,
-        "manager": "R009",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 2,
+        "manager": 9
     },
     {
-        "_id": "R0023",
+        "_id": 23,
         "first_name": "Christian Fabiola",
         "last_name": "Quiroz Puentes",
-        "level": 3,
+        "category": 3,
         "area": 5,
-        "department": 1,
-        "contract": 1,
-        "manager": "R009",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 1,
+        "manager": 9
     },
     {
-        "_id": "R0024",
+        "_id": 24,
         "first_name": "Ma. Del Refugio",
         "last_name": "Martínez Hernández",
-        "level": 3,
+        "category": 3,
         "area": 5,
-        "department": 3,
-        "contract": 1,
-        "manager": "R009",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 3,
+        "manager": 9
     },
     {
-        "_id": "R0025",
+        "_id": 25,
         "first_name": "Francisca",
         "last_name": "Herrera Castañón",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 1,
-        "contract": 1,
-        "manager": "R0021",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 1,
+        "manager": 21
     },
     {
-        "_id": "R0026",
+        "_id": 26,
         "first_name": "Perla Cecilia",
         "last_name": "Bustos Estrada",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 1,
-        "contract": 1,
-        "manager": "R0021",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 1,
+        "manager": 21
     },
     {
-        "_id": "R0027",
+        "_id": 27,
         "first_name": "Ana Evelia",
         "last_name": "Sánchez García",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 1,
-        "contract": 1,
-        "manager": "R0021",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 1,
+        "manager": 21
     },
     {
-        "_id": "R0028",
+        "_id": 28,
         "first_name": "Nelly Jocabeth",
         "last_name": "Herrera Hernández",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 1,
-        "contract": 1,
-        "manager": "R0021",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 1,
+        "manager": 21
     },
     {
-        "_id": "R0029",
+        "_id": 29,
         "first_name": "César Omar",
         "last_name": "Elias Díaz",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 1,
-        "contract": 1,
-        "manager": "R0021",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 1,
+        "manager": 21
     },
     {
-        "_id": "R0030",
+        "_id": 30,
         "first_name": "Soraila Edith",
         "last_name": "Covarrubias Rodríguez",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 1,
-        "contract": 1,
-        "manager": "R0021",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 1,
+        "manager": 21
     },
     {
-        "_id": "R0031",
+        "_id": 31,
         "first_name": "Karla Noemí",
         "last_name": "García Cisneros",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 1,
-        "contract": 1,
-        "manager": "R0021",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 1,
+        "manager": 21
     },
     {
-        "_id": "R0032",
+        "_id": 32,
         "first_name": "Delia",
         "last_name": "Castañón Mata",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 1,
-        "contract": 1,
-        "manager": "R0021",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 1,
+        "manager": 21
     },
     {
-        "_id": "R0033",
+        "_id": 33,
         "first_name": "Marybel",
         "last_name": "Olmedo Gómez",
-        "level": 4,
+        "category": 4,
         "area": 5,
-        "department": 2,
-        "contract": 1,
-        "manager": "R0022",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 2,
+        "manager": 22
     },
     {
-        "_id": "R0034",
+        "_id": 34,
         "first_name": "José De Jesús",
         "last_name": "Martínez Ramos",
-        "level": 4,
+        "category": 4,
         "area": 5,
-        "department": 2,
-        "contract": 1,
-        "manager": "R0022",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 2,
+        "manager": 22
     },
     {
-        "_id": "R0035",
+        "_id": 35,
         "first_name": "Polette",
         "last_name": "Palacios González",
-        "level": 4,
+        "category": 4,
         "area": 5,
-        "department": 2,
-        "contract": 1,
-        "manager": "R0022",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 2,
+        "manager": 22
     },
     {
-        "_id": "R0036",
+        "_id": 36,
         "first_name": "Juan Carlos",
         "last_name": "Puentes Herrera",
-        "level": 4,
+        "category": 4,
         "area": 5,
-        "department": 3,
-        "contract": 1,
-        "manager": "R0024",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 3,
+        "manager": 24
     },
     {
-        "_id": "R0037",
+        "_id": 37,
         "first_name": "Javier",
         "last_name": "Meza Caldera",
-        "level": 4,
+        "category": 4,
         "area": 5,
-        "department": 3,
-        "contract": 1,
-        "manager": "R0024",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 3,
+        "manager": 24
     },
     {
-        "_id": "R0038",
+        "_id": 38,
         "first_name": "Blanca Anabel",
         "last_name": "López Cortés",
-        "level": 4,
+        "category": 4,
         "area": 5,
-        "department": 3,
-        "contract": 1,
-        "manager": "R0024",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 3,
+        "manager": 24
     },
     {
-        "_id": "R0039",
+        "_id": 39,
         "first_name": "Aketzalli",
         "last_name": "Gregorio Ramírez",
-        "level": 4,
+        "category": 4,
         "area": 5,
-        "department": 3,
-        "contract": 1,
-        "manager": "R0024",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 3,
+        "manager": 24
     },
     {
-        "_id": "R0041",
+        "_id": 41,
         "first_name": "Maribel",
         "last_name": "Medrano Díaz",
-        "level": 4,
+        "category": 4,
         "area": 5,
-        "department": 5,
-        "contract": 1,
-        "manager": "R0020",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 5,
+        "manager": 20
     },
     {
-        "_id": "R0042",
+        "_id": 42,
         "first_name": "Carlos Jacobo",
         "last_name": "Hinojosa Manrique",
-        "level": 4,
+        "category": 4,
         "area": 5,
-        "department": 4,
-        "contract": 1,
-        "manager": "R0020",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 4,
+        "manager": 20
     },
     {
-        "_id": "R0043",
+        "_id": 43,
         "first_name": "Alma Mayela",
         "last_name": "Reyes Gutiérrez",
-        "level": 4,
+        "category": 4,
         "area": 5,
-        "department": 4,
-        "contract": 1,
-        "manager": "R0020",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 4,
+        "manager": 20
     },
     {
-        "_id": "R0044",
+        "_id": 44,
         "first_name": "Liliana",
         "last_name": "Herrera García",
-        "level": 4,
+        "category": 4,
         "area": 5,
-        "department": 4,
-        "contract": 1,
-        "manager": "R0020",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 4,
+        "manager": 20
     },
     {
-        "_id": "R0045",
+        "_id": 45,
         "first_name": "José Javier",
         "last_name": "Mares Zapata",
-        "level": 4,
+        "category": 4,
         "area": 5,
-        "department": 5,
-        "contract": 1,
-        "manager": "R0020",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 5,
+        "manager": 20
     },
     {
-        "_id": "R0046",
+        "_id": 46,
         "first_name": "Jorge",
         "last_name": "Delgado Delgado",
-        "level": 4,
+        "category": 4,
         "area": 5,
-        "department": 6,
-        "contract": 1,
-        "manager": "R0020",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 6,
+        "manager": 20
     },
     {
-        "_id": "R0047",
+        "_id": 47,
         "first_name": "Nayeli Margarita",
         "last_name": "Rosales Villalobos",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 5,
-        "contract": 1,
-        "manager": "R0041",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 5,
+        "manager": 41
     },
     {
-        "_id": "R0048",
+        "_id": 48,
         "first_name": "Ana Yely",
         "last_name": "Flores Flores",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 5,
-        "contract": 1,
-        "manager": "R0041",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 5,
+        "manager": 41
     },
     {
-        "_id": "R0049",
+        "_id": 49,
         "first_name": "Maricela",
         "last_name": "Gómez Herrera",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 5,
-        "contract": 1,
-        "manager": "R0041",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 5,
+        "manager": 41
     },
     {
-        "_id": "R0050",
+        "_id": 50,
         "first_name": "Laura Patricia",
         "last_name": "Narvaez Valadéz",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 5,
-        "contract": 1,
-        "manager": "R0041",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 5,
+        "manager": 41
     },
     {
-        "_id": "R0051",
+        "_id": 51,
         "first_name": "Randy Yenber",
         "last_name": "Buendía Delgado",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 6,
-        "contract": 1,
-        "manager": "R0046",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 6,
+        "manager": 46
     },
     {
-        "_id": "R0052",
+        "_id": 52,
         "first_name": "José Alberto",
         "last_name": "Nájera Castorena",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 6,
-        "contract": 1,
-        "manager": "R0046",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 6,
+        "manager": 46
     },
     {
-        "_id": "R0053",
+        "_id": 53,
         "first_name": "Jorge",
         "last_name": "García Cervantes",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 6,
-        "contract": 1,
-        "manager": "R0046",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 6,
+        "manager": 46
     },
     {
-        "_id": "R0054",
+        "_id": 54,
         "first_name": "Jesús Eduardo",
         "last_name": "Najera Castorena",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 6,
-        "contract": 1,
-        "manager": "R0046",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 6,
+        "manager": 46
     },
     {
-        "_id": "R0055",
+        "_id": 55,
         "first_name": "José de Jesús",
         "last_name": "Serrano Álvarez",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 6,
-        "contract": 1,
-        "manager": "R0046",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 6,
+        "manager": 46
     },
     {
-        "_id": "R0056",
+        "_id": 56,
         "first_name": "Efrain",
         "last_name": "Castorena Reyes",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 6,
-        "contract": 1,
-        "manager": "R0046",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 6,
+        "manager": 46
     },
     {
-        "_id": "R0057",
+        "_id": 57,
         "first_name": "Aureliano",
         "last_name": "Luevano Herrera",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 6,
-        "contract": 1,
-        "manager": "R0046",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 6,
+        "manager": 46
     },
     {
-        "_id": "R0058",
+        "_id": 58,
         "first_name": "Luis Fernando",
         "last_name": "Carreón Rodríguez",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 6,
-        "contract": 1,
-        "manager": "R0046",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 6,
+        "manager": 46
     },
     {
-        "_id": "R0059",
+        "_id": 59,
         "first_name": "Ignacio",
         "last_name": "García Castorena",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 6,
-        "contract": 1,
-        "manager": "R0046",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 6,
+        "manager": 46
     },
     {
-        "_id": "R0060",
+        "_id": 60,
         "first_name": "Raúl",
         "last_name": "Aguilar Alvarado",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 6,
-        "contract": 1,
-        "manager": "R0046",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 6,
+        "manager": 46
     },
     {
-        "_id": "R0061",
+        "_id": 61,
         "first_name": "José David",
         "last_name": "Soto Reyes",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 6,
-        "contract": 1,
-        "manager": "R0046",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 6,
+        "manager": 46
     },
     {
-        "_id": "R0062",
+        "_id": 62,
         "first_name": "Javier",
         "last_name": "Velasco Luévano",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 6,
-        "contract": 1,
-        "manager": "R0046",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 6,
+        "manager": 46
     },
     {
-        "_id": "R0063",
+        "_id": 63,
         "first_name": "José de Jesús",
         "last_name": "Pérez Lugo",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 6,
-        "contract": 1,
-        "manager": "R0046",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 6,
+        "manager": 46
     },
     {
-        "_id": "R0064",
+        "_id": 64,
         "first_name": "J Dolores",
         "last_name": "Campos Galván",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 6,
-        "contract": 1,
-        "manager": "R0046",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 6,
+        "manager": 46
     },
     {
-        "_id": "R0065",
+        "_id": 65,
         "first_name": "Abel",
         "last_name": "Cervantes Delgado",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 6,
-        "contract": 1,
-        "manager": "R0046",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 6,
+        "manager": 46
     },
     {
-        "_id": "R0066",
+        "_id": 66,
         "first_name": "Ricardo",
         "last_name": "García Castorena",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 6,
-        "contract": 1,
-        "manager": "R0046",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 6,
+        "manager": 46
     },
     {
-        "_id": "R0067",
+        "_id": 67,
         "first_name": "Víctor Daniel",
         "last_name": "Robles Luévano",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 7,
-        "contract": 1,
-        "manager": "R0042",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 7,
+        "manager": 42,
         "note": "Soporte Tecnico"
     },
     {
-        "_id": "R0068",
+        "_id": 68,
         "first_name": "Ricardo",
         "last_name": "Chávez Durán",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 7,
-        "contract": 1,
-        "manager": "R0042",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 7,
+        "manager": 42,
         "note": "Soporte Tecnico"
     },
     {
-        "_id": "R0069",
+        "_id": 69,
         "first_name": "Martha Guadalupe",
         "last_name": "Montalvo Salazar",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 7,
-        "contract": 1,
-        "manager": "R0042",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 7,
+        "manager": 42,
         "note": "Soporte Tecnico"
     },
     {
-        "_id": "R0070",
+        "_id": 70,
         "first_name": "Emmanuel",
         "last_name": "Zamora López",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 7,
-        "contract": 1,
-        "manager": "R0042",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 7,
+        "manager": 42,
         "note": "Soporte Tecnico"
     },
     {
-        "_id": "R0071",
+        "_id": 71,
         "first_name": "Deisy Fabiola",
         "last_name": "López Delgado",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 7,
-        "contract": 1,
-        "manager": "R0042",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 7,
+        "manager": 42,
         "note": "Soporte Tecnico"
     },
     {
-        "_id": "R0072",
+        "_id": 72,
         "first_name": "Nieves Araceli",
         "last_name": "Valadéz Chávez",
-        "level": 5,
+        "category": 5,
         "area": 5,
-        "department": 7,
-        "contract": 1,
-        "manager": "R0042",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 7,
+        "manager": 42,
         "note": "Soporte Tecnico"
     },
     {
-        "_id": "R0073",
+        "_id": 73,
         "first_name": "Nancy del Merced",
         "last_name": "Delgado García",
-        "level": 3,
+        "category": 3,
         "area": 6,
-        "contract": 1,
-        "manager": "R008",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 8
     },
     {
-        "_id": "R0074",
+        "_id": 74,
         "first_name": "Jorge",
         "last_name": "García Guzmán",
-        "level": 3,
+        "category": 3,
         "area": 6,
-        "contract": 1,
-        "manager": "R008",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 8
     },
     {
-        "_id": "R0075",
+        "_id": 75,
         "first_name": "Alma Alejandra",
         "last_name": "Aguiñaga Vidales",
-        "level": 3,
+        "category": 3,
         "area": 6,
-        "contract": 1,
-        "manager": "R008",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 8
     },
     {
-        "_id": "R0076",
+        "_id": 76,
         "first_name": "Zuleica Denise",
         "last_name": "Romo Palacios",
-        "level": 3,
+        "category": 3,
         "area": 6,
-        "contract": 1,
-        "manager": "R008",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 8
     },
     {
-        "_id": "R0077",
+        "_id": 77,
         "first_name": "Daniel Isaias",
         "last_name": "Loera Tovar",
-        "level": 3,
+        "category": 3,
         "area": 6,
-        "contract": 1,
-        "manager": "R008",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 8
     },
     {
-        "_id": "R0078",
+        "_id": 78,
         "first_name": "Magdalena",
         "last_name": "Esparza Sosa",
-        "level": 4,
+        "category": 4,
         "area": 6,
-        "contract": 1,
-        "manager": "R0074",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 74
     },
     {
-        "_id": "R0079",
+        "_id": 79,
         "first_name": "María Guadalupe",
         "last_name": "Saludes Bernal",
-        "level": 4,
+        "category": 4,
         "area": 6,
-        "contract": 1,
-        "manager": "R0074",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 74
     },
     {
-        "_id": "R0080",
+        "_id": 80,
         "first_name": "Blanca Magdalena",
         "last_name": "García Esparza",
-        "level": 4,
+        "category": 4,
         "area": 6,
-        "contract": 1,
-        "manager": "R0074",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 74
     },
     {
-        "_id": "R0081",
+        "_id": 81,
         "first_name": "Carolina",
         "last_name": "Chávez Tafoya",
-        "level": 4,
+        "category": 4,
         "area": 6,
-        "contract": 1,
-        "manager": "R0077",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 77
     },
     {
-        "_id": "R0082",
+        "_id": 82,
         "first_name": "Christian Raudel",
         "last_name": "Montoya Valencia",
-        "level": 4,
+        "category": 4,
         "area": 6,
-        "contract": 1,
-        "manager": "R0077",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 77
     },
     {
-        "_id": "R0083",
+        "_id": 83,
         "first_name": "Ada Sarair",
         "last_name": "Borrayo Tovar",
-        "level": 4,
+        "category": 4,
         "area": 6,
-        "contract": 1,
-        "manager": "R0075",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 75
     },
     {
-        "_id": "R0084",
+        "_id": 84,
         "first_name": "José Miguel",
         "last_name": "Alcántara",
-        "level": 3,
+        "category": 3,
         "area": 7,
-        "contract": 1,
-        "manager": "R007",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 7
     },
     {
-        "_id": "R0085",
+        "_id": 85,
         "first_name": "Gabriel Alfonso",
         "last_name": "De la Madrid Franco",
-        "level": 3,
+        "category": 3,
         "area": 7,
-        "contract": 1,
-        "manager": "R007",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 7
     },
     {
-        "_id": "R0086",
+        "_id": 86,
         "first_name": "Leticia",
         "last_name": "Aranda Legorreta",
-        "level": 3,
+        "category": 3,
         "area": 7,
-        "contract": 1,
-        "manager": "R007",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 7
     },
     {
-        "_id": "R0087",
+        "_id": 87,
         "first_name": "José De Jesús",
         "last_name": "Herrera Salazar",
-        "level": 3,
+        "category": 3,
         "area": 7,
-        "contract": 1,
-        "manager": "R007",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 7
     },
     {
-        "_id": "R0088",
+        "_id": 88,
         "first_name": "Omar Alejandro",
         "last_name": "Montes Contreras",
-        "level": 3,
+        "category": 3,
         "area": 7,
-        "contract": 1,
-        "manager": "R007",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 7
     },
     {
-        "_id": "R0089",
+        "_id": 89,
         "first_name": "Ileana",
         "last_name": "Adame Ramírez",
-        "level": 3,
+        "category": 3,
         "area": 7,
-        "contract": 1,
-        "manager": "R007",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 7
     },
     {
-        "_id": "R0090",
+        "_id": 90,
         "first_name": "Laura Elizabeth Vera Mata",
         "last_name": "Zamora Acevedo",
-        "level": 3,
+        "category": 3,
         "area": 8,
-        "contract": 1,
-        "manager": "R005",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "manager": 5
     },
     {
-        "_id": "R0091",
+        "_id": 91,
         "first_name": "Iris Berenice",
         "last_name": "Torres García",
-        "level": 3,
+        "category": 3,
         "area": 8,
-        "contract": 1,
-        "manager": "R005",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "manager": 5,
         "note": "Servicios Escolares"
     },
     {
-        "_id": "R0092",
+        "_id": 92,
         "first_name": "Erika Magali",
         "last_name": "Lazcano Ugalde",
-        "level": 3,
+        "category": 3,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R005",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 5,
         "note": "Académica Área Industrial"
     },
     {
-        "_id": "R0093",
+        "_id": 93,
         "first_name": "Ana Cecilia",
         "last_name": "López López",
-        "level": 3,
+        "category": 3,
         "area": 8,
-        "department": 13,
-        "contract": 1,
-        "manager": "R005",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 13,
+        "manager": 5
     },
     {
-        "_id": "R0094",
+        "_id": 94,
         "first_name": "Ricardo Salvador",
         "last_name": "González de Alba",
-        "level": 3,
+        "category": 3,
         "area": 8,
-        "department": 14,
-        "contract": 1,
-        "manager": "R005",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 14,
+        "manager": 5
     },
     {
-        "_id": "R0095",
+        "_id": 95,
         "first_name": "Mayra",
         "last_name": "Cuevas Banda",
-        "level": 3,
+        "category": 3,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R005",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 5,
         "note": "Académica de Tecnologías de la Información"
     },
     {
-        "_id": "R0096",
+        "_id": 96,
         "first_name": "Miguel Ángel",
         "last_name": "Campos Ojeda",
-        "level": 3,
+        "category": 3,
         "area": 8,
-        "department": 16,
-        "contract": 1,
-        "manager": "R005",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 16,
+        "manager": 5
     },
     {
-        "_id": "R0097",
+        "_id": 97,
         "first_name": "Jorge Luis",
         "last_name": "Castañeda Limones",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "contract": 1,
-        "manager": "R0091",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "manager": 91,
         "note": "Servicios Escolares"
     },
     {
-        "_id": "R0098",
+        "_id": 98,
         "first_name": "Lorena",
         "last_name": "Padilla Salazar",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "contract": 1,
-        "manager": "R0091",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "manager": 91,
         "note": "Servicios Escolares"
     },
     {
-        "_id": "R0099",
+        "_id": 99,
         "first_name": "Fabiola",
         "last_name": "Ramírez Ponce",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "contract": 1,
-        "manager": "R0091",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "manager": 91,
         "note": "Servicios Escolares"
     },
     {
-        "_id": "R00100",
+        "_id": 100,
         "first_name": "Rosario Adriana",
         "last_name": "Hernández Velazquez",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "contract": 1,
-        "manager": "R0091",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "manager": 91,
         "note": "Servicios Escolares"
     },
     {
-        "_id": "R00101",
+        "_id": 101,
         "first_name": "Brenda",
         "last_name": "Zamora Romo",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "contract": 1,
-        "manager": "R0091",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "manager": 91,
         "note": "Servicios Escolares"
     },
     {
-        "_id": "R00102",
+        "_id": 102,
         "first_name": "Sanjuana",
         "last_name": "Herrera Herrera",
-        "level": 4,
+        "category": 4,
         "area": 6,
-        "department": 11,
-        "contract": 1,
-        "manager": "R0091",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 11,
+        "manager": 91,
         "note": "Formacion Integral"
     },
     {
-        "_id": "R00103",
+        "_id": 103,
         "first_name": "Nohelia Leticia",
         "last_name": "González",
-        "level": 4,
+        "category": 4,
         "area": 6,
-        "department": 11,
-        "contract": 1,
-        "manager": "R0091",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 11,
+        "manager": 91,
         "note": "Formacion Integral"
     },
     {
-        "_id": "R00104",
+        "_id": 104,
         "first_name": "Sandra Lucia",
         "last_name": "Villalobos Martínez",
-        "level": 4,
+        "category": 4,
         "area": 6,
-        "department": 11,
-        "contract": 1,
-        "manager": "R0091",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 11,
+        "manager": 91,
         "note": "Formacion Integral"
     },
     {
-        "_id": "R00105",
+        "_id": 105,
         "first_name": "Paula Carmina",
         "last_name": "Del Valle Avila",
-        "level": 4,
+        "category": 4,
         "area": 6,
-        "department": 11,
-        "contract": 1,
-        "manager": "R00104",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 11,
+        "manager": 104,
         "note": "Formacion Integral"
     },
     {
-        "_id": "R00106",
+        "_id": 106,
         "first_name": "Virginia",
         "last_name": "Delgado Ruiz Esparza",
-        "level": 4,
+        "category": 4,
         "area": 6,
-        "department": 11,
-        "contract": 1,
-        "manager": "R00104",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 11,
+        "manager": 104,
         "note": "Formacion Integral"
     },
     {
-        "_id": "R00107",
+        "_id": 107,
         "first_name": "Ana Cecilia",
         "last_name": "Alvarez Loera",
-        "level": 4,
+        "category": 4,
         "area": 6,
-        "department": 11,
-        "contract": 1,
-        "manager": "R00104",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 11,
+        "manager": 104,
         "note": "Formacion Integral"
     },
     {
-        "_id": "R00108",
+        "_id": 108,
         "first_name": "Elizabeth",
         "last_name": "Martinez Ortiz",
-        "level": 4,
+        "category": 4,
         "area": 6,
-        "department": 11,
-        "contract": 1,
-        "manager": "R00104",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 11,
+        "manager": 104,
         "note": "Formacion Integral"
     },
     {
-        "_id": "R00109",
+        "_id": 109,
         "first_name": "Fernando",
         "last_name": "Nájera Romo",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 16,
-        "contract": 1,
-        "manager": "R0096",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 16,
+        "manager": 96
     },
     {
-        "_id": "R00110",
+        "_id": 110,
         "first_name": "Martha Jessica",
         "last_name": "Cadengo Lizaran",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 16,
-        "contract": 1,
-        "manager": "R0096",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 16,
+        "manager": 96
     },
     {
-        "_id": "R00111",
+        "_id": 111,
         "first_name": "Patricia",
         "last_name": "Corral Olvera",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 16,
-        "contract": 1,
-        "manager": "R0096",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 16,
+        "manager": 96
     },
     {
-        "_id": "R00112",
+        "_id": 112,
         "first_name": "Claudia",
         "last_name": "Benitez García",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 16,
-        "contract": 1,
-        "manager": "R0096",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 16,
+        "manager": 96
     },
     {
-        "_id": "R00113",
+        "_id": 113,
         "first_name": "Malinali Xochiquetzal",
         "last_name": "Martínez Martínez",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 16,
-        "contract": 1,
-        "manager": "R0096",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 16,
+        "manager": 96
     },
     {
-        "_id": "R00114",
+        "_id": 114,
         "first_name": "Mauro Jorge",
         "last_name": "Bolaños Cruz",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0092",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 92,
         "note": "Académica Area Industrial"
     },
     {
-        "_id": "R00115",
+        "_id": 115,
         "first_name": "Hector Manuel",
         "last_name": "Sanchez Estrada",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0092",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 92,
         "note": "Académica Area Industrial"
     },
     {
-        "_id": "R00116",
+        "_id": 116,
         "first_name": "Tomas",
         "last_name": "Moreno Granados",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0092",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 92,
         "note": "Académica Area Industrial"
     },
     {
-        "_id": "R00117",
+        "_id": 117,
         "first_name": "Juan Manuel",
         "last_name": "Nuñez Montalvo",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0092",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 92,
         "note": "Académica Area Industrial"
     },
     {
-        "_id": "R00118",
+        "_id": 118,
         "first_name": "José Antonio",
         "last_name": "Medina Mendoza",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0092",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 92,
         "note": "Académica Area Industrial"
     },
     {
-        "_id": "R00119",
+        "_id": 119,
         "first_name": "Fernando Octavio",
         "last_name": "Lopez Reyes",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0092",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 92,
         "note": "Académica Area Industrial"
     },
     {
-        "_id": "R00120",
+        "_id": 120,
         "first_name": "Ricardo",
         "last_name": "Arellano Yañez",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0092",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 92,
         "note": "Académica Area Industrial"
     },
     {
-        "_id": "R00121",
+        "_id": 121,
         "first_name": "Gerardo",
         "last_name": "Mendez Macias",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0092",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 92,
         "note": "Académica Area Industrial"
     },
     {
-        "_id": "R00122",
+        "_id": 122,
         "first_name": "Mauricio",
         "last_name": "Flores Aguilar",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0092",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 92,
         "note": "Académica Area Industrial"
     },
     {
-        "_id": "R00123",
+        "_id": 123,
         "first_name": "Norberto Raul",
         "last_name": "Madrid Peralta",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0092",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 92,
         "note": "Académica Area Industrial"
     },
     {
-        "_id": "R00124",
+        "_id": 124,
         "first_name": "Rosa Ines",
         "last_name": "Vazquez Gutiérrez",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0092",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 92,
         "note": "Académica Area Industrial"
     },
     {
-        "_id": "R00125",
+        "_id": 125,
         "first_name": "Oscar Daniel",
         "last_name": "Calvillo Valadéz",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0092",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 92,
         "note": "Académica Area Industrial"
     },
     {
-        "_id": "R00126",
+        "_id": 126,
         "first_name": "Naieli",
         "last_name": "Herrera Reyes",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0092",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 92,
         "note": "Académica Area Industrial"
     },
     {
-        "_id": "R00127",
+        "_id": 127,
         "first_name": "Cesar Guillermo",
         "last_name": "Garcia Fonseca",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0092",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 92,
         "note": "Académica Area Industrial"
     },
     {
-        "_id": "R00128",
+        "_id": 128,
         "first_name": "Jeronimo",
         "last_name": "Varela Puga",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0092",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 92,
         "note": "Académica Area Industrial"
     },
     {
-        "_id": "R00129",
+        "_id": 129,
         "first_name": "Maria Sanjuana",
         "last_name": "Medina Badillo",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0092",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 92,
         "note": "Académica Area Industrial"
     },
     {
-        "_id": "R00130",
+        "_id": 130,
         "first_name": "Lizbeth Melina",
         "last_name": "Correa Hernández",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0092",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 92,
         "note": "Académica Area Industrial"
     },
     {
-        "_id": "R00131",
+        "_id": 131,
         "first_name": "Rosa Angelica",
         "last_name": "Davila Espinoza",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0092",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        },
+        "direction": 15,
+        "manager": 92,
         "note": "Académica Area Industrial"
     },
     {
-        "_id": "R00132",
+        "_id": 132,
         "first_name": "Arturo Martin",
         "last_name": "Castañeda Ortiz",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 13,
-        "contract": 1,
-        "manager": "R0093",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 13,
+        "manager": 93
     },
     {
-        "_id": "R00133",
+        "_id": 133,
         "first_name": "Roxana",
         "last_name": "Montero Mendoza",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 13,
-        "contract": 1,
-        "manager": "R0093",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 13,
+        "manager": 93
     },
     {
-        "_id": "R00134",
+        "_id": 134,
         "first_name": "Ernesto",
         "last_name": "Diaz Olvera",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 13,
-        "contract": 1,
-        "manager": "R0093",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 13,
+        "manager": 93
     },
     {
-        "_id": "R00135",
+        "_id": 135,
         "first_name": "Rebeca",
         "last_name": "Hernández Torres",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 13,
-        "contract": 1,
-        "manager": "R0093",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 13,
+        "manager": 93
     },
     {
-        "_id": "R00136",
+        "_id": 136,
         "first_name": "Marcela",
         "last_name": "Rocha López",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 13,
-        "contract": 1,
-        "manager": "R0093",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 13,
+        "manager": 93
     },
     {
-        "_id": "R00137",
+        "_id": 137,
         "first_name": "Nallaly",
         "last_name": "Selene Martínez Giron",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 13,
-        "contract": 1,
-        "manager": "R0093",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 13,
+        "manager": 93
     },
     {
-        "_id": "R00138",
+        "_id": 138,
         "first_name": "Pedro Antonio",
         "last_name": "Salcedo López",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 13,
-        "contract": 1,
-        "manager": "R0093",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 13,
+        "manager": 93
     },
     {
-        "_id": "R00139",
+        "_id": 139,
         "first_name": "Rosa Mayela",
         "last_name": "Mendoza Esparza",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 13,
-        "contract": 1,
-        "manager": "R0093",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 13,
+        "manager": 93
     },
     {
-        "_id": "R00140",
+        "_id": 140,
         "first_name": "Karla María",
         "last_name": "de la Cruz Espino",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 13,
-        "contract": 1,
-        "manager": "R0093",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 13,
+        "manager": 93
     },
     {
-        "_id": "R00141",
+        "_id": 141,
         "first_name": "José de Jesús",
         "last_name": "Marquez Luna",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 13,
-        "contract": 1,
-        "manager": "R0093",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 13,
+        "manager": 93
     },
     {
-        "_id": "R00142",
+        "_id": 142,
         "first_name": "Andrea Saharai",
         "last_name": "Guerrero Hernández",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 13,
-        "contract": 1,
-        "manager": "R0093",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 13,
+        "manager": 93
     },
     {
-        "_id": "R00143",
+        "_id": 143,
         "first_name": "Araceli Maricruz",
         "last_name": "Diaz Roman",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 13,
-        "contract": 1,
-        "manager": "R0093",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 13,
+        "manager": 93
     },
     {
-        "_id": "R00144",
+        "_id": 144,
         "first_name": "Zaida Raquel",
         "last_name": "Guerrero Contreras",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 14,
-        "contract": 1,
-        "manager": "R0094",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 14,
+        "manager": 94
     },
     {
-        "_id": "R00145",
+        "_id": 145,
         "first_name": "Rene Felix",
         "last_name": "Dominguez López",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 14,
-        "contract": 1,
-        "manager": "R0094",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 14,
+        "manager": 94
     },
     {
-        "_id": "R00146",
+        "_id": 146,
         "first_name": "Georgina",
         "last_name": "Becerra Delgado",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 14,
-        "contract": 1,
-        "manager": "R0094",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 14,
+        "manager": 94
     },
     {
-        "_id": "R00147",
+        "_id": 147,
         "first_name": "Soren Hector",
         "last_name": "de Velasco Galván",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 14,
-        "contract": 1,
-        "manager": "R0094",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 14,
+        "manager": 94
     },
     {
-        "_id": "R00148",
+        "_id": 148,
         "first_name": "Ana Maria",
         "last_name": "Acosta Zamarripa",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 14,
-        "contract": 1,
-        "manager": "R0094",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 14,
+        "manager": 94
     },
     {
-        "_id": "R00149",
+        "_id": 149,
         "first_name": "Fabian Jairo",
         "last_name": "Quiroz Andrade",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 14,
-        "contract": 1,
-        "manager": "R0094",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 14,
+        "manager": 94
     },
     {
-        "_id": "R00150",
+        "_id": 150,
         "first_name": "Ricardo Flavio",
         "last_name": "Zarzosa Vega",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 14,
-        "contract": 1,
-        "manager": "R0094",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 14,
+        "manager": 94
     },
     {
-        "_id": "R00151",
+        "_id": 151,
         "first_name": "Felipe",
         "last_name": "Espinoza Aguilar",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 14,
-        "contract": 1,
-        "manager": "R0094",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 14,
+        "manager": 94
     },
     {
-        "_id": "R00152",
+        "_id": 152,
         "first_name": "Felipe Fernando",
         "last_name": "González Medina",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 14,
-        "contract": 1,
-        "manager": "R0094",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 14,
+        "manager": 94
     },
     {
-        "_id": "R00153",
+        "_id": 153,
         "first_name": "Diana Celia",
         "last_name": "Lozano Avila",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 14,
-        "contract": 1,
-        "manager": "R0094",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 14,
+        "manager": 94
     },
     {
-        "_id": "R00154",
+        "_id": 154,
         "first_name": "Silvia Karina",
         "last_name": "Jimenez Escobar",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 14,
-        "contract": 1,
-        "manager": "R0094",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 14,
+        "manager": 94
     },
     {
-        "_id": "R00155",
+        "_id": 155,
         "first_name": "Maria de Lourdes",
         "last_name": "Vargas Perea",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0095",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 15,
+        "manager": 95
     },
     {
-        "_id": "R00156",
+        "_id": 156,
         "first_name": "Fernando",
         "last_name": "García Vargas",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0095",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 15,
+        "manager": 95
     },
     {
-        "_id": "R00157",
+        "_id": 157,
         "first_name": "Alejandro",
         "last_name": "Villarreal Ortiz",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0095",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 15,
+        "manager": 95
     },
     {
-        "_id": "R00158",
+        "_id": 158,
         "first_name": "Rolando",
         "last_name": "López Martinez",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0095",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 15,
+        "manager": 95
     },
     {
-        "_id": "R00159",
+        "_id": 159,
         "first_name": "Sergio Humberto",
         "last_name": "Delgado Guerrero",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0095",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 15,
+        "manager": 95
     },
     {
-        "_id": "R00160",
+        "_id": 160,
         "first_name": "Juan Carlos",
         "last_name": "García Rodríguez",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0095",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 15,
+        "manager": 95
     },
     {
-        "_id": "R00161",
+        "_id": 161,
         "first_name": "Martin Eduardo",
         "last_name": "Rodríguez Franco",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0095",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 15,
+        "manager": 95
     },
     {
-        "_id": "R00162",
+        "_id": 162,
         "first_name": "Yadira Fabiola",
         "last_name": "López Alvarez",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0095",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 15,
+        "manager": 95
     },
     {
-        "_id": "R00163",
+        "_id": 163,
         "first_name": "Ricardo",
         "last_name": "Jara Ruiz",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0095",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 15,
+        "manager": 95
     },
     {
-        "_id": "R00164",
+        "_id": 164,
         "first_name": "Juan Felipe",
         "last_name": "Tavares Avendaño",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0095",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 15,
+        "manager": 95
     },
     {
-        "_id": "R00165",
+        "_id": 165,
         "first_name": "Ma. del Rocio",
         "last_name": "Martínez Hernández",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0095",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 15,
+        "manager": 95
     },
     {
-        "_id": "R00166",
+        "_id": 166,
         "first_name": "Gricelda",
         "last_name": "Medina Veloz",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0095",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 15,
+        "manager": 95
     },
     {
-        "_id": "R00167",
+        "_id": 167,
         "first_name": "Jorge",
         "last_name": "Herrera Serrano",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0095",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 15,
+        "manager": 95
     },
     {
-        "_id": "R00168",
+        "_id": 168,
         "first_name": "Veronica",
         "last_name": "de Luna Hernández",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0095",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 15,
+        "manager": 95
     },
     {
-        "_id": "R00169",
+        "_id": 169,
         "first_name": "Antonio",
         "last_name": "Diaz Mejia",
-        "level": 4,
+        "category": 4,
         "area": 8,
-        "department": 15,
-        "contract": 1,
-        "manager": "R0095",
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "direction": 15,
+        "manager": 95
     },
     {
-        "_id": "AD0",
+        "_id": 999,
         "first_name": "Jeremy Oswald",
         "last_name": "Richarte Bernal",
-        "level": -1,
-        "b_day": { "date": "2000-03-14" },
-        "address": {
-            "street": "calle",
-            "num": 0,
-            "postal_code": 0
-        }
+        "category": -1
     }
 ]

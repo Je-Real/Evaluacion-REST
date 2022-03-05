@@ -8,7 +8,7 @@ const currYear = String(DATE.getFullYear())
 async function root(req, res) {
 	let session, userData = []
 
-	if(!req.session.user && !req.session.lvl) { // No session 😡
+	if(!req.session.user && !req.session.category) { // No session 😡
 		return res.status(200).render('login', {
 			title_page: 'UTNA - Inicio',
 			session: req.session
@@ -203,8 +203,8 @@ async function post(req, res) {
 
 				insert.records[currYear] = { score: score, answers: answers }
 				insert.records[currYear].area = dataUInfo[0].area
-				if(dataUInfo[0].department != null) insert.records[currYear].department = dataUInfo[0].department
-				if(dataUInfo[0].career != null) insert.records[currYear].career = dataUInfo[0].career
+				if(dataUInfo[0].direction != null) insert.records[currYear].direction = dataUInfo[0].direction
+				if(dataUInfo[0].position != null) insert.records[currYear].position = dataUInfo[0].position
 					
 				
 				await new modelEvaluation(insert).save()

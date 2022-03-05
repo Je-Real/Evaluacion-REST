@@ -1,0 +1,20 @@
+[
+    {
+        "_id": 1,
+        "description": [
+            "Mando Medio"
+        ]
+    },
+    {
+        "_id": 2,
+        "description": [
+            "Docente"
+        ]
+    },
+    {
+        "_id": 3,
+        "description": [
+            "Administrativo"
+        ]
+    }
+]

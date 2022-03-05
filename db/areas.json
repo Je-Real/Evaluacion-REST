@@ -1,42 +1,332 @@
 [
-  {
-    "n": 1,
-    "desc": "Rectoría"
-  },
-  {
-    "n": 2,
-    "desc": "Jurídico"
-  },
-  {
-    "n": 3,
-    "desc": "Vinculación"
-  },
-  {
-    "n": 4,
-    "desc": "Logística y Enlace Institucional"
-  },
-  {
-    "n": 5,
-    "desc": "Administración y Finanzas"
-  },
-  {
-    "n": 6,
-    "desc": "Planeación y evaluación institucional"
-  },
-  {
-    "n": 7,
-    "desc": "Promoción, Comunicación y Extensión Universitaria"
-  },
-  {
-    "n": 8,
-    "desc": "Secretaria Académica"
-  },
-  {
-    "n": 9,
-    "desc": "Atención al Cliente"
-  },
-  {
-    "n": 10,
-    "desc": "Formación integral"
-  }
+    {
+        "_id": 1,
+        "description": [
+            "Rectoría"
+        ]
+    },
+    {
+        "_id": 2,
+        "description": [
+            "Académica de Administración y Contaduría"
+        ]
+    },
+    {
+        "_id": 3,
+        "description": [
+            "Administración y Finanzas"
+        ]
+    },
+    {
+        "_id": 4,
+        "description": [
+            "Académica de Agricultura y DNM"
+        ]
+    },
+    {
+        "_id": 5,
+        "description": [
+            "Promoción, Comunicación y Extensión Universitaria"
+        ]
+    },
+    {
+        "_id": 6,
+        "description": [
+            "Vinculación"
+        ]
+    },
+    {
+        "_id": 7,
+        "description": [
+            "Académica de Tecnologías de la Información"
+        ]
+    },
+    {
+        "_id": 8,
+        "description": [
+            "Académica Área Industrial"
+        ]
+    },
+    {
+        "_id": 9,
+        "description": [
+            "Planeación y Evaluación Institucional"
+        ]
+    },
+    {
+        "_id": 10,
+        "description": [
+            "Atención al Cliente"
+        ]
+    },
+    {
+        "_id": 11,
+        "description": [
+            "Servicios Administrativos"
+        ]
+    },
+    {
+        "_id": 12,
+        "description": [
+            "Relaciones Industriales"
+        ]
+    },
+    {
+        "_id": 13,
+        "description": [
+            "Programación y Presupuesto"
+        ]
+    },
+    {
+        "_id": 14,
+        "description": [
+            "Jurídico"
+        ]
+    },
+    {
+        "_id": 15,
+        "description": [
+            "Contabilidad"
+        ]
+    },
+    {
+        "_id": 16,
+        "description": [
+            "Adquisiciones"
+        ]
+    },
+    {
+        "_id": 17,
+        "description": [
+            "Idiomas"
+        ]
+    },
+    {
+        "_id": 18,
+        "description": [
+            "Secretaría Académica"
+        ]
+    },
+    {
+        "_id": 19,
+        "description": [
+            "Logística y Enlace Institucional"
+        ]
+    },
+    {
+        "_id": 20,
+        "description": [
+            "Académica de Mecatrónica y Mecánica Automotriz"
+        ]
+    },
+    {
+        "_id": 21,
+        "description": [
+            "Formación Integral"
+        ]
+    },
+    {
+        "_id": 22,
+        "description": [
+            "Expresión Oral y Escrita"
+        ]
+    },
+    {
+        "_id": 23,
+        "description": [
+            "Planeación"
+        ]
+    },
+    {
+        "_id": 24,
+        "description": [
+            "Soporte Técnico"
+        ]
+    },
+    {
+        "_id": 25,
+        "description": [
+            "Capital Humano"
+        ]
+    },
+    {
+        "_id": 26,
+        "description": [
+            "Servicios Escolares"
+        ]
+    },
+    {
+        "_id": 27,
+        "description": [
+            "Infraestructura"
+        ]
+    },
+    {
+        "_id": 28,
+        "description": [
+            "Infraestructura"
+        ]
+    },
+    {
+        "_id": 29,
+        "description": [
+            "Centro de Información"
+        ]
+    },
+    {
+        "_id": 30,
+        "description": [
+            "Dirección Académica de Tecnologías de la Información y Comunicación"
+        ]
+    },
+    {
+        "_id": 31,
+        "description": [
+            "Difusión y Divulgación"
+        ]
+    },
+    {
+        "_id": 32,
+        "description": [
+            "Subdirección de Servicios Administrativos"
+        ]
+    },
+    {
+        "_id": 33,
+        "description": [
+            "Capital Humano"
+        ]
+    },
+    {
+        "_id": 34,
+        "description": [
+            "Adquisiciones"
+        ]
+    },
+    {
+        "_id": 35,
+        "description": [
+            "Gestión de Calidad y Ambiental"
+        ]
+    },
+    {
+        "_id": 36,
+        "description": [
+            "Administración"
+        ]
+    },
+    {
+        "_id": 37,
+        "description": [
+            "Desarrollo de Negocios"
+        ]
+    },
+    {
+        "_id": 38,
+        "description": [
+            "Formación Sociocultural"
+        ]
+    },
+    {
+        "_id": 39,
+        "description": [
+            "Desarrollo de Negocios"
+        ]
+    },
+    {
+        "_id": 40,
+        "description": [
+            "Expresión Oral y Escrita (Jefatura de Idiomas)"
+        ]
+    },
+    {
+        "_id": 41,
+        "description": [
+            "Mecatrónica"
+        ]
+    },
+    {
+        "_id": 42,
+        "description": [
+            "Industrial"
+        ]
+    },
+    {
+        "_id": 43,
+        "description": [
+            "Tecnologías de la Información"
+        ]
+    },
+    {
+        "_id": 44,
+        "description": [
+            "Act. Culturales y Deportivas"
+        ]
+    },
+    {
+        "_id": 45,
+        "description": [
+            "Agricultura Sustentable y Protegida"
+        ]
+    },
+    {
+        "_id": 46,
+        "description": [
+            "Contabilidad"
+        ]
+    },
+    {
+        "_id": 47,
+        "description": [
+            "Mecánica"
+        ]
+    },
+    {
+        "_id": 48,
+        "description": [
+            "Matemáticas"
+        ]
+    },
+    {
+        "_id": 49,
+        "description": [
+            "Industrial (Química)"
+        ]
+    },
+    {
+        "_id": 50,
+        "description": [
+            "Contabilidad / Administración"
+        ]
+    },
+    {
+        "_id": 51,
+        "description": [
+            "Logística y Comercio"
+        ]
+    },
+    {
+        "_id": 52,
+        "description": [
+            "Diseño"
+        ]
+    },
+    {
+        "_id": 53,
+        "description": [
+            "Logística y Transporte"
+        ]
+    },
+    {
+        "_id": 54,
+        "description": [
+            "Diseño y Gestión en Redes Logísticas"
+        ]
+    },
+    {
+        "_id": 55,
+        "description": [
+            "Fiscal"
+        ]
+    }
 ]

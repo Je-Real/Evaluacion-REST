@@ -9,7 +9,7 @@ let rawData
 async function root(req, res) {
 	let booya = []
 	
-	if(!req.session.user && !req.session.lvl) { // No session 😡
+	if(!req.session.user && !req.session.category) { // No session 😡
 		return res.status(200).render('login', {
 			title_page: 'UTNA - Inicio',
 			session: req.session
@@ -70,12 +70,12 @@ async function generatorFixed(params) {
 			
 			if((typeof params[i].level == 'number') &&
 				(typeof params[i].area == 'number') &&
-				(typeof params[i].department == 'number')) {
+				(typeof params[i].direction == 'number')) {
 				mana = params[i].manager
 				
 				area = params[i].area
-				depa = params[i].department
-				care = params[i].career
+				depa = params[i].direction
+				care = params[i].position
 				lvl = params[i].level
 	
 				fn = params[i].first_name

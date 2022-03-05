@@ -3,9 +3,9 @@ const modelUserInfo = require('../../models/modelUserInfo')
 const modelUser = require('../../models/modelUser')
 
 const modelArea = require('../../models/modelArea')
-const modelDepartment = require('../../models/modelDepartment')
-const modelCareer = require('../../models/modelCareer')
-const modelContract = require('../../models/modelContract')
+const modelDepartment = require('../../models/modelDirection')
+const modelCareer = require('../../models/modelPosition')
+const modelContract = require('../../models/modelCategory')
 
 const crypto = require('crypto-js')
 
@@ -15,7 +15,7 @@ const DATE = new Date()
 async function root(req, res) {
 	let usersData
 	
-	if(req.session.lvl == -1) {
+	if(req.session.category == -1) {
 		await modelUserInfo.aggregate([
 			/*{ $sort: { manager: 1, _id: 1 } },*/
 			{
@@ -127,7 +127,7 @@ async function update(req, res) {
 
 		if('user' in req.body) {
 			if('pass' in req.body.user)
-				req.body.user.pass = crypto.AES.encrypt(req.body.user.pass, req.body._id).toString()
+				req.body.user.pass = crypto.AES.encrypt(String(req.body.user.pass), String(req.body._id)).toString()
 
 			modelUser.updateOne({ _id: req.body._id}, { $set: req.body.user })
 			.catch(error => { handler['user'] = false; console.log(error)})
@@ -149,8 +149,8 @@ async function update(req, res) {
 		return res.end(JSON.stringify(handler))
 
 	} else return res.end({
-		status: 404,
-		error: 'No data'
+		status: 418,
+		error: 'Without data'
 	})
 }
 

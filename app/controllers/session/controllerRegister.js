@@ -1,16 +1,16 @@
 const modelUser = require('../../models/modelUser')
 const modelUserInfo = require('../../models/modelUserInfo')
-const modelContract = require('../../models/modelContract')
+const modelContract = require('../../models/modelCategory')
 const modelArea = require('../../models/modelArea')
-const modelDepartment = require('../../models/modelDepartment')
-const modelCareer = require('../../models/modelCareer')
+const modelDepartment = require('../../models/modelDirection')
+const modelCareer = require('../../models/modelPosition')
 const crypto = require('crypto-js')
 
 // >>>>>>>>>>>>>>>>>>>>>> Registration <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
     let session
 
-    if(!req.session.user && !req.session.lvl) { // No session 😡
+    if(!req.session.user && !req.session.category) { // No session 😡
         return res.status(200).render('login', {
 			title_page: 'UTNA - Inicio',
 			session: req.session
@@ -46,89 +46,99 @@ async function root(req, res) {
 }
 
 async function signIn(req, res) {
-	//SignIn validator
-	await modelUser.find({ _id: req.body._id }, { _id: 1 })
-	.then((dataUser) => {
-		if(dataUser.length) { // If the user exists
-			return res.end(JSON.stringify({
-				msg: '¡Ya existe usuario con ese id!',
-				status: 500,
-				noti: true
-			}))
-		} else {
-			//Encryption
-			req.body.pass = crypto.AES.encrypt(req.body.pass, req.body._id).toString()
+	if(req.body) {
+		//SignIn validator
+		await modelUserInfo.find({ _id: req.body._id }, { _id: 1 })
+		.then((dataUser) => {
+			if(dataUser.length) { // If the user exists
+				return res.end(JSON.stringify({
+					msg: ['¡Ya existe usuario con ese ID!', 'There is an user with that ID already!'],
+					status: 409,
+					noti: true
+				}))
+			} else {
+				//Encryption
+				req.body.pass = crypto.AES.encrypt(String(req.body.pass), String(req.body._id)).toString()
 
-			req.body.address = {
-				street : req.body.street,
-				num : req.body.num,
-				postal_code : req.body.postal_code
-			}
-
-			//Save data
-			new modelUserInfo(req.body).save()
-			.then(() => { //🟢
-				new modelUser(req.body).save()
+				//Save data
+				new modelUserInfo(req.body).save()
 				.then(() => { //🟢
-					return res.end(JSON.stringify({
-						msg: '¡Registrado correctamente!',
-						status: 200,
-						noti: true
-					}))
+					if('as_user' in req.body) {
+						new modelUser(req.body).save()
+						.then((user) => { //🟢
+							console.log(user)
+							return res.end(JSON.stringify({
+								msg: ['¡Registrado correctamente!', 'Successfully registered!'],
+								status: 200,
+								noti: true
+							}))
+						})
+						.catch((error) => { //🔴
+							return res.end(JSON.stringify({
+								msg: [
+									'No se puede registrar usuario. Inténtalo más tarde.',
+									'Unable to register user. Please try again later.'
+								],
+								status: 500,
+								noti: true
+							}))
+						})
+					} else
+						return res.end(JSON.stringify({
+							msg: ['¡Registrado correctamente!', 'Successfully registered!'],
+							status: 200,
+							noti: true
+						}))
 				})
 				.catch((error) => { //🔴
 					console.log(error)
 					return res.end(JSON.stringify({
-						msg: 'No se puede registrar usuario.\r\nIntentalo más tarde.',
+						msg: [
+							'No se puede registrar usuario. Inténtalo más tarde.',
+							'Unable to register user. Please try again later.'
+						],
 						status: 500,
 						noti: true
 					}))
 				})
-			})
-			.catch((error) => { //🔴
-				console.log(error)
-				return res.end(JSON.stringify({
-					msg: 'No se puede registrar usuario.\r\nIntentalo más tarde.',
-					status: 500,
-					noti: true
-				}))
-			})
-		}
+			}
+		})
+		.catch((error) => { //if error 🤬
+			console.log('Error:',error)
+			return res.end(JSON.stringify({
+				msg: ['Error en servidor.', 'Server error'],
+				status: 500,
+				noti: true
+			}))
+		})
+	} else return res.end({
+		status: 418,
+		error: ['Sin datos', 'Without data']
 	})
-	.catch((error) => { //if error 🤬
-		console.log('Error:',error)
-		return res.end(JSON.stringify({
-			msg: 'Error en servidor.',
-			status: 500,
-			noti: true
-		}))
-	})
-	//NUNCA colocar un return fuera del catch
-	//NEVER place a return outside the catch
 }
 
 async function getManager(req, res) {
 	let search
 
-	if(parseInt(req.query.level) == 1) {
-		search = { level: parseInt(req.query.level) }
-	} else if(req.query.department > 0) {
+	if(parseInt(req.query.category) == 1) {
+		search = { level: parseInt(req.query.category) }
+	} else if(req.query.direction > 0) {
 		search = {
 			area: parseInt(req.query.area),
-			level: parseInt(req.query.level)
+			level: parseInt(req.query.category)
 		}
-	} else if(req.query.career > 0) {
+	} else if(req.query.position > 0) {
 		search = {
 			area: parseInt(req.query.area),
-			department: parseInt(req.query.department),
-			level: parseInt(req.query.level)
+			department: parseInt(req.query.direction),
+			level: parseInt(req.query.category)
 		}
 	} else {
 		search = {
 			area: parseInt(req.query.area),
-			department: parseInt(req.query.department),
-			career: parseInt(req.query.career),
-			level: parseInt(req.query.level)
+			department: parseInt(req.query.direction),
+			career: parseInt(req.query.position),
+			level: parseInt(req.query.category)
 		}
 	}
 	
@@ -139,7 +149,7 @@ async function getManager(req, res) {
 		for(i in data) {
 			info[i] = {
 				_id: data[i]._id,
-				level: data[i].level,
+				level: data[i].category,
 				first_name: data[i].first_name,
 				last_name: data[i].last_name
 			}

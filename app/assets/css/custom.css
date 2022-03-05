@@ -29,6 +29,10 @@ input {
 	padding-left: 1.2rem !important;
 }
 
+input:disabled, select:disabled {
+    background-color: #c3c5c7 !important;
+}
+
 table {
 	box-shadow: 0 0.7rem 1rem rgba(0, 0, 0, 0.175);
 }
@@ -79,7 +83,7 @@ h1, h2, h3, h4, h5, h6 {
 	border-radius: 2px;
 	padding: 16px;
 	position: fixed;
-	z-index: 1500;
+	z-index: 2000;
 	left: 50%;
 	top: 10px;
 	font-size: 1.15rem;
@@ -390,7 +394,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .snack {
-	z-index: 1055;
+	z-index: 2000;
 	left: 0;
 	right: 0;
 	text-align: -webkit-center;
@@ -481,14 +485,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 .btn-success:hover {
 	color: #fff;
-	background-color: #61d19d;
-	border-color: #61d19d;
+	background-color: #71ddaa;
+	border-color: #66ca9b;
 }
 .btn-check:focus + .btn-success,
 .btn-success:focus {
 	color: #fff;
-	background-color: #24cc7e;
-	border-color: #41a174;
+	background-color: #71ddaa;
+	border-color: #66ca9b;
 	box-shadow: 0 0 0 0.25rem rgba(54, 202, 133, 0.5);
 }
 .btn-check:checked + .btn-success,
@@ -801,45 +805,45 @@ input[type="radio"] {
 	opacity: 0;
 }
 
-input[type="radio"] + svg {
+input[type="radio"] + i {
 	-webkit-transition: all 0.2s;
 	transition: all 0.2s;
 }
 
-input + svg {
+input + i {
 	cursor: pointer;
 	color: #424242;
 }
 
-input.super-happy:hover + svg,
-input.super-happy:focus + svg {
+input.super-happy:hover + i,
+input.super-happy:focus + i {
 	color: rgb(159, 204, 235);
 }
-input.super-happy:checked + svg {
+input.super-happy:checked + i {
 	color: rgb(61, 161, 228);
 }
 
-input.happy:hover + svg,
-input.happy:focus + svg {
+input.happy:hover + i,
+input.happy:focus + i {
 	color: rgb(152, 236, 184);
 }
-input.happy:checked + svg {
+input.happy:checked + i {
 	color: rgb(57, 223, 120);
 }
 
-input.sad:hover + svg,
-input.sad:focus + svg {
+input.sad:hover + i,
+input.sad:focus + i {
 	color: rgb(240, 202, 149);
 }
-input.sad:checked + svg {
+input.sad:checked + i {
 	color: rgb(243, 155, 32);
 }
 
-input.super-sad:hover + svg,
-input.super-sad:focus + svg {
+input.super-sad:hover + i,
+input.super-sad:focus + i {
 	color: rgb(241, 147, 135);
 }
-input.super-sad:checked + svg {
+input.super-sad:checked + i {
 	color: rgb(245, 78, 56);
 }
 

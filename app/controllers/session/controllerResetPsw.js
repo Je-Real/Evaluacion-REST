@@ -7,7 +7,7 @@ async function reset(req, res) {
 	.then((dataUser) => {
 		if(dataUser.length) { //if data 👍
             //Encryption
-			dataUser.pass = crypto.AES.encrypt(req.body.pass, req.body._id).toString()
+			dataUser.pass = crypto.AES.encrypt(String(req.body.pass), String(req.body._id)).toString()
 
 			//Save data
 			new modelUser(dataUser).save()

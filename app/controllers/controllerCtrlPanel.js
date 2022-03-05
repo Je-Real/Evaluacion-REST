@@ -4,16 +4,18 @@ const path = require('path')
 
 const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
-const weighting = require('../controllers/controllerEvaluation').weighting
+const weighting = require('./controllerEvaluation').weighting
 
 const DATE = new Date()
 const currYear = String(DATE.getFullYear())
+
+const crypto = require('crypto-js')
 
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
 	let data = false
 	
-	if(!req.session.user && !req.session.lvl) { // No session 😡
+	if(!req.session.user && !req.session.category) { // No session 😡
 		// >>>>>>>>>>>>>>>>>>>>>> Login <<<<<<<<<<<<<<<<<<<<<<
 		return res.status(200).render('login', {
 			title_page: 'UTNA - Inicio',
@@ -21,7 +23,7 @@ async function root(req, res) {
 		})
 	} else { // Session 🤑
 		// >>>>>>>>>>>>>>>>>>>>>> AD Ctrl <<<<<<<<<<<<<<<<<<<<<<
-		if(req.session.lvl == -1)
+		if(req.session.category == -1)
 			return res.redirect('/admin-control/')
 
 		/** Search all subordinates and obtain whether
@@ -88,7 +90,7 @@ async function root(req, res) {
 			data = false
 		})
 		.finally(() => {
-			return res.status(200).render('ctrl_table', {
+			return res.status(200).render('ctrl_panel', {
 				title_page: 'UTNA - Inicio',
 				session: req.session,
 				records: data
@@ -262,7 +264,7 @@ async function pdfEvalFormat(req, res) {
 				
 				doc.cell({ width: 3.2*pdf.cm, x: 11.4*pdf.cm, y: 17.25*pdf.cm }) // Position
 				.text({ textAlign: 'center', fontSize: 7 }).add(
-					(data.career) ? data.career: ((data.department) ? data.department : data.area)
+					(data.position) ? data.position: ((data.direction) ? data.direction : data.area)
 				)
 				
 				doc.cell({ width: 2*pdf.cm, x: 18.5*pdf.cm, y: 17.25*pdf.cm }) // Employee number
@@ -272,7 +274,7 @@ async function pdfEvalFormat(req, res) {
 				.text({ textAlign: 'center', fontSize: 7 }).add(dateFormated)
 				
 				doc.cell({ width: 7.5*pdf.cm, x: 2.5*pdf.cm, y: 16.45*pdf.cm }) // Department
-				.text({ textAlign: 'center', fontSize: 7 }).add((data.department) ? data.department : data.area)
+				.text({ textAlign: 'center', fontSize: 7 }).add((data.direction) ? data.direction : data.area)
 				
 				doc.cell({ width: 4.3*pdf.cm, x: 11.3*pdf.cm, y: 16.45*pdf.cm }) // Category
 				.text({ textAlign: 'center', fontSize: 7 }).add(data.contract)
@@ -332,7 +334,7 @@ async function pdfEvalFormat(req, res) {
 				doc.cell({ width: 4*pdf.cm, x: 1.7*pdf.cm, y: 5.55*pdf.cm }) // Position
 				.text({ textAlign: 'left', fontSize: 7 })
 				.add(
-					(data.career) ? data.career: ((data.department) ? data.department : data.area)
+					(data.position) ? data.position: ((data.direction) ? data.direction : data.area)
 				) 
 				
 				// --------------------------- Page 3 --------------------------- //

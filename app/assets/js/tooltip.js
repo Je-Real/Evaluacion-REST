@@ -1,8 +1,18 @@
-let still_over = false,
+let stillOver,
 	msg, t_id, tooltip,
-	x, y, w, h, tgt
+	x, y, w, h, tgt,
+	currToolID
 
-const mainToolTip = (e) => {
+const mainToolTip = () => {
+	try {
+		$a('.tooltip-text').forEach(node => {
+			let id = 'tool-'+Math.random().toString(16).substring(2, 8)
+			setTimeout(() => { node.setAttribute('id', id) }, 30)
+		})
+	} catch (error) {
+		return console.error(error)
+	}
+
 	tooltip = $e('#tooltip')
 
 	eventAssigner('.tooltip-text', 'mousemove', mouseIn)
@@ -10,7 +20,7 @@ const mainToolTip = (e) => {
 	eventAssigner('.tooltip-text', 'mouseout', mouseOut)
 }
 
-const mouseIn = async (e) => {
+const mouseIn = async(e) => {
 	test = e.target
 	x = e.pageX
 	y = e.pageY
@@ -21,30 +31,24 @@ const mouseIn = async (e) => {
 	tooltip.style.top = y - (h + 10) + 'px'
 }
 
-const mouseOver = async (e) => {
+const mouseOver = async(e) => {
+	let langText = (lang == 0) ? 'data-tooltip-es' : 'data-tooltip-en'
 	tgt = e.target
-	if(String(tgt.getAttribute('data-tooltip-es')).length > 0)
-		msg = String(tgt.getAttribute('data-tooltip-es')).trim()
-	else
-		while(tgt.parentNode) {
-			tgt = tgt.parentNode
-			if(String(tgt.getAttribute('data-tooltip-es')).length > 0) {
-				msg = String(tgt.getAttribute('data-tooltip-es')).trim()
-				break
-			}
-		}
 
-	$e('#tooltip p').innerHTML = msg
-	still_over = true
+	if(tgt.id != currToolID) {
+		tooltip.querySelector('p').innerHTML = await upperAttrIterator(tgt, langText).catch(e => console.error(e))
+		currToolID = tgt.id
+	}
+	stillOver = true
 
 	setTimeout(() => {
-		if (still_over) tooltip.classList.add('show')
+		if(stillOver) tooltip.classList.add('show')
 	}, 800)
 }
 
-const mouseOut = async (e) => {
+const mouseOut = async(e) => {
 	tooltip.classList.remove('show')
-	still_over = false
+	stillOver = false
 }
 
 window.addEventListener('DOMContentLoaded', mainToolTip)
