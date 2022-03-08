@@ -50,16 +50,40 @@ async function signIn(req, res) {
 		//SignIn validator
 		await modelUserInfo.find({ _id: req.body._id }, { _id: 1 })
 		.then((dataUser) => {
+			//Encryption
+			req.body.pass = crypto.AES.encrypt(String(req.body.pass), String(req.body._id)).toString()
+			
 			if(dataUser.length) { // If the user exists
-				return res.end(JSON.stringify({
-					msg: ['¡Ya existe usuario con ese ID!', 'There is an user with that ID already!'],
-					status: 409,
-					noti: true
-				}))
+				if('as_user' in req.body) {
+					new modelUser(req.body).save()
+					.then((user) => { //🟢
+						console.log(user)
+						return res.end(JSON.stringify({
+							msg: [
+								`¡Usuario para ${dataUser[0].first_name } ${dataUser[0].last_name} creado correctamente!`,
+								`User for ${dataUser[0].first_name } ${dataUser[0].last_name} created successfully!`
+							],
+							status: 200,
+							noti: true
+						}))
+					})
+					.catch((error) => { //🔴
+						return res.end(JSON.stringify({
+							msg: [
+								'No se puede registrar usuario. Inténtalo más tarde.',
+								'Unable to register user. Please try again later.'
+							],
+							status: 500,
+							noti: true
+						}))
+					})
+				} else
+					return res.end(JSON.stringify({
+						msg: ['¡Ya existe usuario con ese ID!', 'There is an user with that ID already!'],
+						status: 409,
+						noti: true
+					}))
 			} else {
-				//Encryption
-				req.body.pass = crypto.AES.encrypt(String(req.body.pass), String(req.body._id)).toString()
-
 				//Save data
 				new modelUserInfo(req.body).save()
 				.then(() => { //🟢
@@ -111,10 +135,10 @@ async function signIn(req, res) {
 				noti: true
 			}))
 		})
-	} else return res.end({
+	} else return res.end(JSON.stringify({
 		status: 418,
 		error: ['Sin datos', 'Without data']
-	})
+	}))
 }
 
 async function getManager(req, res) {

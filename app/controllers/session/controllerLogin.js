@@ -119,7 +119,26 @@ async function logOut(req, res) {
 	}
 }
 
+function lang(req, res) {
+	if(req.body) {
+		try {
+			req.session.lang = req.body.lang
+			return res.end(JSON.stringify({ status: 200 }))
+		} catch (error) {
+			return res.end(JSON.stringify({
+				status: 418,
+				error: error
+			}))
+		}
+	}
+	else res.end(JSON.stringify({
+		status: 418,
+		error: 'Without data'
+	}))
+}
+
 module.exports = {
 	logIn,
-	logOut
+	logOut,
+	lang
 }

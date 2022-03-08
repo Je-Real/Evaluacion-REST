@@ -11,10 +11,28 @@ window.addEventListener('load', async(e) => {
 	eventAssigner('*[aria-label="Close"]:not(.to-register)', 'click', () => { lockRegister(true) })
 
 	eventAssigner('#as_user', 'change', (e) => {
-		if(e.target.checked)
+		if(e.target.checked) {
 			$e('#register input[type="password"]').disabled = false
-		else
+			$a('#force-id, #for-user').forEach(node => {
+				node.classList.remove('d-none')
+			})
+		}
+		else {
 			$e('#register input[type="password"]').disabled = true
+			$a('#force-id, #for-user').forEach(node => {
+				node.classList.add('d-none')
+			})
+		}
+	})
+	eventAssigner('#force', 'change', (e) => {
+		if(e.target.checked) {
+			$e('#new_id.read-only').disabled = false
+			$e('#new_id.read-only').classList.remove('read-only')
+		}
+		else {
+			$e('#new_id').disabled = true
+			$e('#new_id').classList.add('read-only')
+		}
 	})
 })
 
@@ -26,7 +44,7 @@ const lockRegister = (lock = true) => {
 		$e('#register input:not([type="checkbox"])').checked = false
 	}
 	else
-		$a('#register input:not([type="password"]), #register select, #submit-register').forEach(node => {
+		$a('#register input:not(.read-only):not([type="password"]), #register select, #submit-register').forEach(node => {
 			node.disabled = false
 		})
 }
@@ -53,7 +71,6 @@ const readUrl = (input) => {
 
 const register = async() => {
 	let pkg = { 
-		_id: 		parseInt($e('#new_id:not(disabled)').value),
 		first_name: ($e('#first_name:not(disabled)').value).trim(),
 		last_name: 	($e('#last_name:not(disabled)').value).trim(),
 		area: 		parseInt($e('#area:not(disabled)')[$e('#area').selectedIndex].value) + 1,
@@ -65,15 +82,19 @@ const register = async() => {
 	if($e('#as_user:not(disabled)').checked) {
 		pkg['pass'] = $e('#new_pass:not(disabled)').value
 		pkg['as_user'] = $e('#as_user:not(disabled)').checked
+		pkg['_id'] = parseInt($e('#new_id:not(.read-only):not(disabled)').value)
+		pkg['force_id'] = $e('#force').checked
 	}
 
-	for(let i in pkg) {
-		if(pkg[i] == undefined || pkg[i] == '' || pkg[i] == null)
-			return showSnack(
-				(lang == 0) ? `No se puede enviar el registro, hay campos vacíos.`
-							: `Unable to send the data, there is empty fields`,
-				null, SNACK.warning
-			)
+	if($e('#force').checked == false) {
+		for(let i in pkg) {
+			if(pkg[i] == undefined || pkg[i] == '' || pkg[i] == null)
+				return showSnack(
+					(lang == 0) ? `No se puede enviar el registro, hay campos vacíos.`
+								: `Unable to send the data, there is empty fields`,
+					null, SNACK.warning
+				)
+		}
 	}
 
 	await fetchTo(
@@ -81,8 +102,13 @@ const register = async() => {
 		'POST',
 		pkg,
 		(result) => {
-			showSnack(result.msg, null, SNACK.success)
-			if(result.status === 200) window.location.reload()
+			if(result.status === 200) {
+				showSnack(result.msg[lang], null, SNACK.success)
+				setTimeout(() => {
+					window.location.reload()	
+				}, 2000)
+			}
+			else showSnack(result.msg[lang], null, SNACK.warning)
 		},
 		(error) => {
 			showSnack('Error '+error, null, SNACK.error)

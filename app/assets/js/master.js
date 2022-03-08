@@ -157,6 +157,14 @@ window.addEventListener('DOMContentLoaded', async(e) => {
 		$a('*[data-lang="en"]').forEach(node => { node.remove() })
 	}
 
+	await fetchTo(
+		'http://localhost:999/session/lang',
+		'POST',
+		{lang: lang},
+		(result) => { if(result.status != 200) console.error(result.error) },
+		(error) => console.error(error)
+	)
+
 	eventAssigner('#btn-lang', 'change', changeLang)
 
 	// Toggle the side navigation

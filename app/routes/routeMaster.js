@@ -44,11 +44,13 @@ router //👇
 .post('/session/sign-in', controllerRegister.signIn)
 .post('/session/log-in', controllerLogin.logIn)
 .get('/session/log-out', controllerLogin.logOut)
+.post('/session/lang', controllerLogin.lang)
 
 // Shhh... it's a secret🤐
 .get('/secret/user-generator', controllerUserGenerator.root)
 
 .get('/admin-control', controllerAdminCtrl.root)
+.post('/admin-control/search', controllerAdminCtrl.search)
 .post('/admin-control/update', controllerAdminCtrl.update)
 
 // Errors handlers (Always keep this at the end)

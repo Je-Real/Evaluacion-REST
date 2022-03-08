@@ -194,7 +194,7 @@ function displayCharts(show, idElement) {
 					node.classList.toggle('d-block', true)
 			})
 	
-			log(`[Metrics] Shown Panel ${idElement}`, STYLE.cian)
+			//log(`[Metrics] Shown Panel ${idElement}`, STYLE.cian)
 		} else {
 			$a(`.panel[data-id="${idElement}"] canvas, .panel[data-id="${idElement}"] span:not(.lang)`).forEach(
 				(node) => {
@@ -207,7 +207,7 @@ function displayCharts(show, idElement) {
 					node.classList.toggle('d-block', true)
 			})
 	
-			log(`[Metrics] Hidden Panel ${idElement}`, STYLE.pink)
+			//log(`[Metrics] Hidden Panel ${idElement}`, STYLE.pink)
 		}
 	} else {
 		if(show)

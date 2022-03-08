@@ -3,9 +3,9 @@ const modelUserInfo = require('../../models/modelUserInfo')
 const modelUser = require('../../models/modelUser')
 
 const modelArea = require('../../models/modelArea')
-const modelDepartment = require('../../models/modelDirection')
-const modelCareer = require('../../models/modelPosition')
-const modelContract = require('../../models/modelCategory')
+const modelDirection = require('../../models/modelDirection')
+const modelPosition = require('../../models/modelPosition')
+const modelCategory = require('../../models/modelCategory')
 
 const crypto = require('crypto-js')
 
@@ -17,50 +17,71 @@ async function root(req, res) {
 	
 	if(req.session.category == -1) {
 		await modelUserInfo.aggregate([
-			/*{ $sort: { manager: 1, _id: 1 } },*/
+			{ $sort: { _id: 1 } },
 			{
 				$lookup: {
-					from: "areas",
-					pipeline: [ { $unset: ["_id", "n"] } ],
-					localField: "area",
-					foreignField: "n",
-					as: "area",
-				}
-			}, {
-				$unwind: {
-					path: "$area",
-					preserveNullAndEmptyArrays: true,
-				}
-			}, {
-				$lookup: {
-					from: "departments",
-					pipeline: [ { $unset: ["_id", "n", "area"] } ],
-					localField: "department",
-					foreignField: "n",
-					as: "department",
-				}
-			}, {
-				$unwind: {
-					path: "$department",
-					preserveNullAndEmptyArrays: true,
+					from: 'areas',
+					pipeline: [{
+					  	$unset: ['_id'],
+					}, {
+						$unwind: {
+							path: '$description',
+							preserveNullAndEmptyArrays: true
+						}
+					}],
+					localField: 'area',
+					foreignField: '_id',
+					as: 'area'
 				}
 			}, {
 				$lookup: {
-					from: "careers",
-					pipeline: [ { $unset: ["_id", "n", "department"] } ],
-					localField: "career",
-					foreignField: "n",
-					as: "career",
+					from: 'directions',
+					pipeline: [{
+						$unset: ['_id', 'area']
+					}, {
+						$unwind: {
+							path: '$description',
+							preserveNullAndEmptyArrays: true
+						}
+					}],
+					localField: 'direction',
+					foreignField: '_id',
+					as: 'direction'
 				}
 			}, {
-				$unwind: {
-					path: "$career",
-					preserveNullAndEmptyArrays: true
+				$lookup: {
+					from: 'positions',
+					pipeline: [{
+						$unset: ['_id']
+					}, {
+						$unwind: {
+							path: '$description',
+							preserveNullAndEmptyArrays: true
+						}
+					}],
+					localField: 'position',
+					foreignField: '_id',
+					as: 'position'
+				}
+			}, {
+				$lookup: {
+					from: 'categories',
+					pipeline: [{
+						$unset: ['_id']
+					}, {
+						$unwind: {
+							path: '$description',
+							preserveNullAndEmptyArrays: true
+						}
+					}],
+					localField: 'category',
+					foreignField: '_id',
+					as: 'category'
 				}
 			}, {
 				$lookup: {
 					from: "users",
-					pipeline: [ { $unset: ["_id", "pass"] } ],
+					pipeline: [ { $unset: ["_id", "pass", "__v"] } ],
 					localField: "_id",
 					foreignField: "_id",
 					as: "user_"
@@ -75,9 +96,6 @@ async function root(req, res) {
 				},
 			}, {
 				$set: {
-					area: "$area.desc",
-					department: "$department.desc",
-					career: "$career.desc",
 					user_: {
 						$cond: {
 							if: { $eq: ["$user_", []] },
@@ -93,7 +111,7 @@ async function root(req, res) {
 						}
 					}
 				}
-			}
+			}, { $unset: ["__v"] }
 		])
 		.then(async (data) => {
 			// Show data in the front end
@@ -116,14 +134,59 @@ async function root(req, res) {
 	else {
 		res.redirect('/home/')
 	}
-
 }
 
-async function update(req, res) {
+async function search(req, res) {
+	if(req.body) {
+		try {
+			if(req.body.search == 2)
+				modelArea.aggregate([{ $sort: {_id: -1}}])
+				.then(data => {
+					return res.end(JSON.stringify({
+						status: 200,
+						data: data
+					}))
+				})
+			else if(req.body.search == 3)
+				modelDirection.aggregate([{ $sort: {_id: -1}}])
+				.then(data => {
+					return res.end(JSON.stringify({
+						status: 200,
+						data: data
+					}))
+				})
+			else if(req.body.search == 4)
+				modelPosition.aggregate([{ $sort: {_id: -1}}])
+				.then(data => {
+					return res.end(JSON.stringify({
+						status: 200,
+						data: data
+					}))
+				})
+			else if(req.body.search == 5)
+				modelCategory.aggregate([{ $sort: {_id: -1}}])
+				.then(data => {
+					return res.end(JSON.stringify({
+						status: 200,
+						data: data
+					}))
+				})
+			else return res.end(JSON.stringify({
+				status: 418,
+				error: 'Without data'
+			}))
+		} catch (error) {
+			console.log(error)
+		}
+	} else return res.end(JSON.stringify({
+		status: 418,
+		error: 'Without data'
+	}))
+}
+
+function update(req, res) {
 	if(req.body) {
 		let handler = {status: 200}
-
-		console.log(req.body)
 
 		if('user' in req.body) {
 			if('pass' in req.body.user)
@@ -143,18 +206,35 @@ async function update(req, res) {
 				('evaluation' in req.body)
 				? { $set: req.body.evaluation }
 				: { $unset: req.body.rm_evaluation }
-			).then(data => { console.log(data) })
-			.catch(error => { handler['evaluation'] = false; console.log(error)})
+			).catch(error => { handler['evaluation'] = false; console.log(error)})
+		
+		if('area' in req.body)
+			modelArea.updateOne({ _id: req.body._id}, { $set: req.body.area })
+			.catch(error => { handler['area'] = false; console.log(error)})
+		
+		if('direction' in req.body)
+			modelDirection.updateOne({ _id: req.body._id}, { $set: req.body.direction })
+			.catch(error => { handler['direction'] = false; console.log(error)})
+		
+		if('position' in req.body)
+			modelPosition.updateOne({ _id: req.body._id}, { $set: req.body.position })
+			.catch(error => { handler['position'] = false; console.log(error)})
+		
+		if('category' in req.body)
+			modelCategory.updateOne({ _id: req.body._id}, { $set: req.body.category })
+			//.then(data => console.log(data))
+			.catch(error => { handler['category'] = false; console.log(error)})
 		
 		return res.end(JSON.stringify(handler))
 
-	} else return res.end({
+	} else return res.end(JSON.stringify({
 		status: 418,
 		error: 'Without data'
-	})
+	}))
 }
 
 module.exports = {
 	root,
-	update
+	search,
+	update,
 }

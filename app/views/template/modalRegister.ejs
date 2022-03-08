@@ -1,0 +1,259 @@
+<!-- Modal Register -->
+<div id="register" class="modal fade">
+	<div class="modal-dialog modal-xl modal-dialog-centered w-90 w-md-75">
+		<div class="modal-content bg-dark rounded-3 shadow-lg">
+			<div class="row my-auto align-content-center px-3">
+				<div class="container">
+					<div class="row mt-3">
+						<div class="col-2"></div>
+						<div class="col d-flex justify-content-center">
+							<h4 class="text-light p-0 mt-2">
+								<span class="p-0 lang" data-lang="es">Registros de personal</span>
+								<span class="p-0 lang" data-lang="en">Personnel records</span>
+							</h4>
+						</div>
+						<div class="col-2 d-flex justify-content-center align-content-center">
+							<button type="button" class="btn btn-outline-light my-auto d-flex" data-bs-dismiss="modal" aria-label="Close">
+								<i class="fa-solid fa-xmark fs-5 my-auto"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<form method="POST" name="f-reg" id="f-reg" autocomplete="off">
+						<div class="row mb-3">
+							<div class="col-md-6 col-12">
+								<div class="form-floating mb-3 mb-md-0">
+									<input class="form-control" name="first_name" id="first_name"
+										type="text" placeholder="." maxlength="30" disabled />
+									<label for="first_name">
+										<span class="lang" data-lang="es">Nombre(s)</span>
+										<span class="lang" data-lang="en">First Name</span>
+									</label>
+								</div>
+							</div>
+							<div class="col-md-6 col-12">
+								<div class="form-floating">
+									<input class="form-control" name="last_name" id="last_name"
+										type="text" placeholder="." maxlength="30" disabled />
+									<label for="last_name">
+										<span class="lang" data-lang="es">Apellido(s)</span>
+										<span class="lang" data-lang="en">Last Name</span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-md-6 col-12">
+								<div class="form-floating mb-3 mb-md-0">
+									<select class="form-control form-select ps-4" name="area" id="area" disabled>
+										<option id="area-def" value="0" selected>
+											<span class="lang" data-lang="es">- Selecciona área -</span>
+											<span class="lang" data-lang="en">- Select area -</span>
+										</option>
+										<% /*for(let data in area) { %>
+											<option class="area-opt" value="<%= area[data]['n'] %>"><%= area[data]['desc'] %></option>
+										<% }*/ %>
+									</select>
+									<label for="area">
+										<span class="lang" data-lang="es">Área de Adscripción</span>
+										<span class="lang" data-lang="en">Adscription area</span>
+									</label>
+								</div>
+							</div>
+							<div class="col-md-6 col-12">
+								<div class="form-floating mb-3 mb-md-0">
+									<select class="form-control form-select ps-4" name="direction" id="direction" disabled>
+										<option id="dir-def" value="0" selected>
+											<span class="lang" data-lang="es">- Selecciona área -</span>
+											<span class="lang" data-lang="en">- Select direction -</span>
+										</option>
+										<% /*for(let data in depa) { %>
+											<option class="dir-opt" data-area="<%= depa[data]['area'] %>" value="<%= depa[data]['n'] %>"><%= depa[data]['desc'] %></option>
+										<% }*/ %>
+									</select>
+									<label for="direction">
+										<span class="lang" data-lang="es">Dirección / Subdirección</span>
+										<span class="lang" data-lang="en">Direction / Sub-direction</span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-md-6 col-12">
+								<div class="form-floating">
+									<select class="form-control form-select ps-4" name="position" id="position" disabled>
+										<option id="pos-def" value="0" selected>
+											<span class="lang" data-lang="es">- Selecciona puesto -</span>
+											<span class="lang" data-lang="en">- Select position -</span>
+										</option>
+										<% /*for(let data in care) { %>
+											<option class="pos-opt" data-depa="<%= care[data]['department'] %>" value="<%= care[data]['n'] %>"><%= care[data]['desc'] %></option>
+										<% }*/ %>
+									</select>
+									<label for="position">
+										<span class="lang" data-lang="es">Puesto</span>
+										<span class="lang" data-lang="en">Position</span>
+									</label>
+								</div>
+							</div>
+
+							<div class="col-md-6 col-12">
+								<div class="form-floating">
+									<select class="form-control form-select ps-4" name="category" id="category" disabled>
+										<option id="cat-def" value="0" selected>
+											<span class="lang" data-lang="es">- Selecciona categoría -</span>
+											<span class="lang" data-lang="en">- Select category -</span>
+										</option>
+										<option class="cat-opt" value="1">Mando Medio</option>
+										<option class="cat-opt" value="2">Administrativo</option>
+										<option class="cat-opt" value="3">Docente</option>
+									</select>
+									<label for="category">
+										<span class="lang" data-lang="es">Categoría</span>
+										<span class="lang" data-lang="en">Category</span>
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="row mb-3">
+							<div class="col-md-6 col-12 mx-auto">
+								<div class="form-floating mb-3 mb-md-0">
+									<input class="form-control" name="manager" id="manager"
+										type="text" placeholder="." disabled />
+									<label for="manager">
+										<span class="lang" data-lang="es">Jefe directo</span>
+										<span class="lang" data-lang="en">Manager</span>
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<div id="for-user" class="row mb-3 d-none">
+							<div class="col-md-6 col-12">
+								<div class="form-floating">
+									<input class="form-control read-only" name="new-id" id="new_id"
+										type="number" placeholder="0" min="0" disabled />
+									<label for="new_id">
+										<span class="lang" data-lang="es">Código de usuario</span>
+										<span class="lang" data-lang="en">User code</span>(ID)
+									</label>
+								</div>
+							</div>
+							<div class="col-md-6 col-12">
+								<div class="form-floating mb-3 mb-md-0">
+									<input class="form-control" name="new-pass" id="new_pass" maxlength="20"
+										type="password" placeholder="." autocomplete="new-password" disabled />
+									<label for="new_pass">
+										<span class="lang" data-lang="es">Contraseña</span>
+										<span class="lang" data-lang="en">Password</span>
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="mt-2 mb-0">
+							<div class="row mt-5">
+								<div class="mb-2 d-flex justify-content-center">
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input" id="as_user">
+										<label class="form-check-label text-light text-decoration-underline" for="as_user">
+											<span class="lang" data-lang="es">Registrar como usuario</span>
+											<span class="lang" data-lang="en">Register as user</span>
+										</label>
+									</div>
+									<div class="tooltip-text my-auto d-flex text-light" 
+										data-tooltip-es="Registrar como usuario del sistema. Esta persona podrá acceder a esta
+										aplicación web con las credenciales asignadas (código y contraseña)."
+										data-tooltip-en="Register as a user of the system. This person will be able to access
+										this web application with the assigned credentials (code and password).">
+										<i class="fa-solid fa-circle-question fs-5 my-auto ms-2"></i>
+									</div>
+								</div>
+								<div id="force-id" class="mb-3 d-flex justify-content-center d-none">
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input" id="force">
+										<label class="form-check-label text-light text-decoration-underline" for="force">
+											<span class="lang" data-lang="es">Forzar ID</span>
+											<span class="lang" data-lang="en">Force ID</span>
+										</label>
+									</div>
+									<div class="tooltip-text my-auto d-flex text-light"
+										data-tooltip-es="Registrar como usuario con un ID fijo. No se registrara el usuario si
+										el ID ya esta ocupado por alguien mas. Esto es util cuando se quiere transformar a un
+										usuario de evaluación en usuario de sistema (podrá iniciar sesión en esta aplicación web)."
+										data-tooltip-en="Register as a user with a fixed ID. The user will not be registered
+										if the ID is already occupied by someone else. This is useful when you want to transform
+										an evaluation user into a system user (he/she will be able to log in to this web application).
+										evaluation user into a system user (he/she will be able to log in to this web application).">
+										<i class="fa-solid fa-circle-question fs-5 my-auto ms-2"></i>
+									</div>
+								</div>
+								<button id="submit-register" class="mx-auto w-50 w-md-25 btn btn-success text-dark fs-5 btn-block"
+									type="button" disabled>Registrar</button>
+								<p class="p-0 text-light text-center my-4">O subir un <span data-bs-dismiss="modal" aria-label="Close"
+									data-bs-toggle="modal" data-bs-target="#register-file"
+									class="text-warning fw-bold cursor-pointer">archivo Excel</span>
+								</p>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="register-file" class="modal fade">
+	<div class="modal-dialog modal-xl modal-dialog-centered w-75 w-md-60">
+		<div class="modal-content bg-dark rounded-3 shadow-lg">
+			<div class="container">
+				<div class="row mt-3">
+					<div class="col-2"></div>
+					<div class="col d-flex justify-content-center">
+						<h4 class="text-light p-0 mt-2">
+							<span class="p-0 lang" data-lang="es">Registros de personal (Archivo)</span>
+							<span class="p-0 lang" data-lang="en">Personnel records (File)</span>
+						</h4>
+					</div>
+					<div class="col-2 d-flex justify-content-center align-content-center">
+						<button type="button" class="btn btn-outline-light my-auto d-flex" data-bs-dismiss="modal" aria-label="Close">
+							<i class="fa-solid fa-xmark fs-5 my-auto"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="row m-b-1">
+				<div class="col-sm-6 offset-sm-3 my-4">
+					<div class="form-group inputDnD">
+						<label class="sr-only lang" data-lang="es" for="inputFile">File Upload</label>
+						<label class="sr-only lang" data-lang="en" for="inputFile">File Upload</label>
+
+						<input type="file" class="lang p-0 form-control-file text-warning font-weight-bold"
+							id="inputFile" accept=".xls, .xlsx" onchange="readUrl(this)"
+							data-lang="es" data-title="Haz clic aquí o arrastra y suelta el archivo">
+						<input type="file" class="lang p-0 form-control-file text-warning font-weight-bold"
+							id="inputFile" accept=".xls, .xlsx" onchange="readUrl(this)"
+							data-lang="en" data-title="Click here or drag and drop a file">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="mb-0">
+					<div class="row mt-2">
+						<button id="submit-file" class="mx-auto w-50 w-md-25 btn btn-success text-dark fs-5 btn-block"
+							type="button" disabled>
+							<span class="lang" data-lang="es">Subir archivo</span>
+							<span class="lang" data-lang="en">Upload file</span>
+						</button>
+						<p class="p-0 text-light text-center my-4">Cambiar a <span data-bs-dismiss="modal" aria-label="Close"
+							data-bs-toggle="modal" data-bs-target="#register"
+							class="text-warning fw-bold cursor-pointer to-register">registro manual</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

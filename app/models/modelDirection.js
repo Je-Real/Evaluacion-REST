@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 //Schema for direction colecction
 const directionSchema = new mongoose.Schema({
     _id:{ type:Number },
-    area:{ type:Number, required:true },
+    area:{ type:Number },
     description:{ type:Array, required:true },
 
     //blame
