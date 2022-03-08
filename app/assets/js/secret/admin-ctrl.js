@@ -87,25 +87,28 @@ const updateInfo = (e) => {
 					}
 				})
 				break
-			
+
 			case 2:
 				pkg['area'] = { description : [] }
 				$a(`input.${tgt}`).forEach(node => {
 					pkg.area.description[parseInt(node.name)] = node.value
 				})
 				break
+
 			case 3:
 				pkg['direction'] = { description : [] }
 				$a(`input.${tgt}`).forEach(node => {
 					pkg.direction.description[parseInt(node.name)] = node.value
 				})
 				break
+
 			case 4:
 				pkg['position'] = { description : [] }
 				$a(`input.${tgt}`).forEach(node => {
 					pkg.position.description[parseInt(node.name)] = node.value
 				})
 				break
+
 			case 5:
 				pkg['category'] = { description : [] }
 				$a(`input.${tgt}`).forEach(node => {

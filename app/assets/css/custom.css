@@ -997,7 +997,7 @@ html[lang="en"] .i-info[data-status="-1"] .i-status::before {
 	width: 7rem;
 }
 
-.row-temp {
+.num-page {
 	cursor: pointer;
 }
 /* Pagination */

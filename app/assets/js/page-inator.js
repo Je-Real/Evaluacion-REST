@@ -1,6 +1,10 @@
 let items, rows, numPages
 
 window.addEventListener('load', (e) => {
+    paginator()
+})
+
+function paginator() {
     let y, arr_rows, rows_shown = ''
 
     $a('.paginator').forEach(node => {
@@ -22,19 +26,19 @@ window.addEventListener('load', (e) => {
 
     $a('.paginator').forEach(node => {
         node.insertAdjacentHTML('afterend', `<div class="pag-cont d-flex justify-content-md-between px-md-4">
-            <div id="pag-ctrl" class="pagination my-auto">
+            <div id="pag-ctrl" class="pagination my-auto" data-current-page="0">
             </div>
 
             <div class="d-flex">
                 <div class="text-md-center me-3 d-flex">
                     <p class="text-black-50 my-auto">
-                        Registros: <span id="reg-total" class="fw-bold mx-1">⛔</span>
+                        ${(lang == 0) ? 'Registros' : 'Records'}: <span id="reg-total" class="fw-bold mx-1">⛔</span>
                     </p>
                 </div class="d-flex">
                 <div class="rows-quantity">
                     <div class="form-floating">
                         <select name="rows" id="rows" class="form-select ps-4"
-                            title="Rows-quantity" aria-label="Selección">
+                            title="Rows-quantity" aria-label="Rows in view">
                             ${rows_shown}
                         </select>
                         <label for="rows">Filas</label>
@@ -43,15 +47,7 @@ window.addEventListener('load', (e) => {
             </div>
         </div>`)
     })
-    paginator()
-    
-    const rows = () => {
-        if(parseInt($e('#rows').value) != rows) paginator()
-    }
-    eventAssigner('#rows', 'change', rows)
-})
 
-function paginator() {
     /**
      * TODO: Limitar numero de paginas mostradas y agregar 
      * botones fijos de anterior y siguiente
@@ -63,9 +59,15 @@ function paginator() {
     numPages = items.length/rows
     
     for(i=0; i<numPages; i++) {
-        $e('#pag-ctrl').insertAdjacentHTML(
-            'beforeend', `<a class="row-temp" rel="${i}">${(i+1)}</a>`
-        )
+        if(i > 5) {
+            $e('#pag-ctrl').insertAdjacentHTML(
+                'beforeend', `<a class="num-page d-none" rel="${i}">${(i+1)}</a>`
+            )
+        } else {
+            $e('#pag-ctrl').insertAdjacentHTML(
+                'beforeend', `<a class="num-page" rel="${i}">${(i+1)}</a>`
+            )
+        }
     }
 
     try {
@@ -76,7 +78,7 @@ function paginator() {
             $a('#pag-ctrl a').forEach(node => node.classList.remove('active'))
             e.target.classList.add('active')
 
-            let currPage = e.target.getAttribute('rel'),
+            let currPage = (e.target.rel == 'next' || 'prev') ? parseInt(e.target.rel) : parseInt(e.target.rel),
                 startItem = currPage * rows,
                 endItem = startItem + rows
 
@@ -116,10 +118,14 @@ function paginator() {
         }
 
         eventAssigner('#pag-ctrl a', 'click', pagCTRL)
-
-        pagCTRL({target: $e('#pag-ctrl a')})
+        pagCTRL({target: $e('#pag-ctrl a[rel="0"]')})
 
     } catch {
         log('[Page-inator] No data to format', STYLE.error)
     }
+
+    const theRows = () => {
+        if(parseInt($e('#rows').value) != rows) paginator()
+    }
+    eventAssigner('#rows', 'change', theRows)
 }
