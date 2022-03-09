@@ -19,17 +19,17 @@ async function root(req, res) {
 		career = [],
 		subordinates = []
 
-	if(!req.session.user && !req.session.category) { // No session 😡
+	if(!req.session._id && !req.session.category) { // No session 😡
 		res.redirect('/home/')
 	} else { // Session 🤑
 		session = req.session
 
 		if(hour >= 5 && hour <= 12) 
-			salutation = `Buen día, ${session.first_name}`
+			salutation = `Buen día, ${session.name}`
 		else if(hour > 12 && hour <= 19)
-			salutation = `Buenas tardes, ${session.first_name}`
+			salutation = `Buenas tardes, ${session.name}`
 		else 
-			salutation = `Buenas noches, ${session.first_name}`
+			salutation = `Buenas noches, ${session.name}`
 
 		await modelArea.aggregate([
 			{
@@ -104,11 +104,10 @@ async function root(req, res) {
 		})
 
 		await modelUserInfo.aggregate([ // Subordinates by default
-			{ $match: {manager: session.user} },
+			{ $match: {manager: session._id} },
 			{ $project: {
 				_id: 1,
-				first_name: 1,
-				last_name: 1,
+				name: 1,
 			} },
 		])
 		.then((dataSubs) => {
@@ -140,7 +139,7 @@ function data(req, res) {
 	if(req.body._id != null && (req.body._id).trim() != '') {
 		search._id = (req.body._id).trim()
 		if(req.session.category > 1)
-			search.manager = req.session.user
+			search.manager = req.session._id
 	} else if(req.body.area > 0) {
 		search.area = req.body.area
 		if(req.body.direction != null && req.body.direction > 0) {
@@ -149,7 +148,7 @@ function data(req, res) {
 		}
 	}
 	else {
-		search.manager = req.session.user
+		search.manager = req.session._id
 	}
 
 	modelEvaluation.aggregate([
@@ -158,8 +157,7 @@ function data(req, res) {
 			pipeline: [
 				{ $match : search },
 				{ $project: {
-						first_name: 1,
-						last_name: 1,
+						name: 1,
 				} }
 			],
 			localField: '_id',
@@ -177,8 +175,7 @@ function data(req, res) {
 			$project: {
 				_id : { $cond: { if: { $eq: [ '$info', [] ] }, then: '$$REMOVE', else: '$_id' } },
 				records : { $cond: { if: { $eq: [ '$info', [] ] }, then: '$$REMOVE', else: '$records' } },
-				first_name : { $cond: { if: { $and: [ { $eq: [ '$info', [] ] }, { $ne: ['$first_name', null] } ] }, then: '$$REMOVE', else: '$first_name' } },
-				last_name : { $cond: { if: { $and: [ { $eq: [ '$info', [] ] }, { $ne: ['$last_name', null] } ] }, then: '$$REMOVE', else: '$last_name' } },
+				name : { $cond: { if: { $and: [ { $eq: [ '$info', [] ] }, { $ne: ['$name', null] } ] }, then: '$$REMOVE', else: '$name' } }
 				//Get field directly from array = fieldExample: { $arrayElemAt: [ '$fieldExample.fieldInside', 0 ] }
 			}
 		}
@@ -198,8 +195,7 @@ function data(req, res) {
 					{ $match: search },
 					{ $project: {
 						_id: 1,
-						first_name: 1,
-						last_name: 1,
+						name: 1,
 					} },
 				])
 				.then((dataSubs) => {
@@ -397,7 +393,7 @@ async function printer(req, res) {
 		const hTable = header.row()
 		
 		hTable.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm })
-			.text(req.session.first_name +' '+ req.session.last_name)
+			.text(req.session.name)
 		hTable.cell().text('')
 		hTable.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm })
 			.text(`${DATE.getDate()}/${DATE.getMonth()+1}/${currYear}`, {textAlign: 'right'})

@@ -9,8 +9,7 @@
 
 		<div id="layoutSidenav_content">
 			<div>
-				<input type="hidden" id="input_first_name" value="<%= session.first_name %>">
-				<input type="hidden" id="input_last_name" value="<%= session.last_name %>">
+				<input type="hidden" id="input_name" value="<%= session.name %>">
 			</div>
 
 			<div class="mb-3">
@@ -149,7 +148,7 @@
 															<option class="sub-s" data-index="0" value="0" selected data-lang="en">-Select personnel-</option>
 															<% for(let s in subordinates) { %>
 																<option class="sub" data-index="<%= parseInt(s)+1 %>" value="<%= subordinates[s]['_id'] %>"> 
-																	<%= subordinates[s]['first_name'] %> <%= subordinates[s]['last_name'] %>
+																	<%= subordinates[s]['name'] %>
 																</option>
 															<% } %>
 														</select>

@@ -25,7 +25,7 @@ function paginator() {
     }
 
     $a('.paginator').forEach(node => {
-        node.insertAdjacentHTML('afterend', `<div class="pag-cont d-flex justify-content-md-between px-md-4">
+        node.insertAdjacentHTML('afterend', `<div class="pag-cont d-flex justify-content-md-between px-md-4 py-2">
             <div id="pag-ctrl" class="pagination my-auto" data-current-page="0">
             </div>
 

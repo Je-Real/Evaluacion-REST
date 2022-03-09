@@ -8,7 +8,7 @@ const currYear = String(DATE.getFullYear())
 async function root(req, res) {
 	let session, userData = []
 
-	if(!req.session.user && !req.session.category) { // No session 😡
+	if(!req.session._id && !req.session.category) { // No session 😡
 		return res.status(200).render('login', {
 			title_page: 'UTNA - Inicio',
 			session: req.session
@@ -21,7 +21,7 @@ async function root(req, res) {
 		 await modelUserInfo.aggregate([
 			{
 				$match: {
-					manager: req.session.user,
+					manager: req.session._id,
 					disabled: { $exists: false }
 				},
 			},

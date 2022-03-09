@@ -3,13 +3,9 @@ const modelUserInfo = require('../../models/modelUserInfo')
 const crypto = require('crypto-js')
 
 const DATE = new Date()
-const currYear = DATE.getFullYear()
 
 // >>>>>>>>>>>>>>>>>>>>>> Login <<<<<<<<<<<<<<<<<<<<<<
 async function logIn(req, res) {
-	// Force to Uppercase the ID
-	req.body._id = String(req.body._id).toUpperCase()
-
 	// LogIn validator
 	await modelUser.findOne({ _id: req.body._id }, { _id: 1, pass: 1, enabled: 1 })
 	.then((dataUser) => {
@@ -23,22 +19,37 @@ async function logIn(req, res) {
 
 			// Users that have session tokens in browser cookies
 			if(typeof req.body.pass === 'object') {
-				req.body.pass = crypto.AES.decrypt(req.body.pass.token, String(req.body._id))
+				req.body.pass = crypto.AES.decrypt(req.body.pass.token, req.body._id)
 				req.body.pass = req.body.pass.toString(crypto.enc.Utf8)
 			}
 			
-			let compare = crypto.AES.decrypt(dataUser.pass, String(req.body._id))
+			let compare = crypto.AES.decrypt(dataUser.pass, req.body._id)
 			
 			if(compare.toString(crypto.enc.Utf8) === req.body.pass) { //🟢
 				modelUserInfo.find({ _id: req.body._id })
 				.then((dataUInfo) => {
 					// Update last connection
-					modelUser.updateOne({ user: req.body._id }, { $set: {last_conn: Date.now()} })
+					// yyyy-mm-dd
+					const FORMAT_DATE = `${ DATE.getFullYear() }-`+
+					`${ (String(DATE.getMonth()+1).length == 1) ? '0'+(DATE.getMonth()+1) : DATE.getMonth()+1 }-`+
+					`${ (String(DATE.getDate()).length == 1) ? '0'+(DATE.getDate()) : DATE.getDate() }`
+					// hh:mm
+					const FORMAT_HOUR = `${ (String(DATE.getHours()).length == 1) ? '0'+(DATE.getHours()) : DATE.getHours() }:`+
+					`${ (String(DATE.getMinutes()).length == 1) ? '0'+(DATE.getMinutes()) : DATE.getMinutes() }`
+
+					modelUser.updateOne(
+						{ _id: req.body._id },
+						{ $set: {
+							last_conn:{
+								date: FORMAT_DATE,
+								time: FORMAT_HOUR
+							}
+						}}
+					)
 					.then(() => {
 						// Server 🍪🍪🍪
-						req.session.user = req.body._id
-						req.session.first_name = dataUInfo[0].first_name
-						req.session.last_name = dataUInfo[0].last_name
+						req.session._id = req.body._id
+						req.session.name = dataUInfo[0].name
 						req.session.area = dataUInfo[0].area
 						req.session.direction = dataUInfo[0].direction
 						req.session.position = dataUInfo[0].position
@@ -47,9 +58,9 @@ async function logIn(req, res) {
 						//Response success for Asynchronous request
 						return res.end(JSON.stringify({
 							data: (req.session.category == -1) ? null : {
-								user:  req.session.user,
-								pass: { token: crypto.AES.encrypt(req.body.pass, String(req.body._id)).toString() },
-								name: req.session.first_name,
+								user:  req.session._id,
+								pass: { token: crypto.AES.encrypt(req.body.pass, req.body._id).toString() },
+								name: req.session.name,
 							},
 							status: 200
 						}))

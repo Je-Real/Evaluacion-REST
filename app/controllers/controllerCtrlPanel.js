@@ -15,7 +15,7 @@ const crypto = require('crypto-js')
 async function root(req, res) {
 	let data = false
 	
-	if(!req.session.user && !req.session.category) { // No session 😡
+	if(!req.session._id && !req.session.category) { // No session 😡
 		// >>>>>>>>>>>>>>>>>>>>>> Login <<<<<<<<<<<<<<<<<<<<<<
 		return res.status(200).render('login', {
 			title_page: 'UTNA - Inicio',
@@ -30,7 +30,7 @@ async function root(req, res) {
 		 * each has current year evaluations or not */
 		await modelUserInfo.aggregate([
 			{ $match: { 
-				manager: req.session.user,
+				manager: req.session._id,
 				disabled: { $exists: false }
 			} }, {
 				$lookup: {
@@ -200,8 +200,7 @@ async function pdfEvalFormat(req, res) {
 				[
 				  {
 					_id: 'ID',
-					first_name: 'NAME',
-					last_name: 'NAME',
+					name: 'NAME',
 					area: 'AREA',
 					department (?): 'DEPARTMENT',
 					career (?): 'CAREER',
@@ -209,8 +208,7 @@ async function pdfEvalFormat(req, res) {
 					records: { '2022': { score: 100, answers: [ ..11 positions.. ] } },
 					manager: {
 					  _id: 'MANAGER ID',
-					  first_name: 'MANAGER NAME',
-					  last_name: 'MANAGER NAME'
+					  name: 'MANAGER NAME',
 					}
 				  }
 				]
@@ -260,7 +258,7 @@ async function pdfEvalFormat(req, res) {
 				// --------------------------- Page 1 --------------------------- //
 				doc.setTemplate(ext_1) 
 				doc.cell({ width: 8*pdf.cm, x: 2*pdf.cm, y: 17.25*pdf.cm }) // Name
-				.text({ textAlign: 'center', fontSize: 7 }).add(data.first_name+' '+data.last_name)
+				.text({ textAlign: 'center', fontSize: 7 }).add(data.name)
 				
 				doc.cell({ width: 3.2*pdf.cm, x: 11.4*pdf.cm, y: 17.25*pdf.cm }) // Position
 				.text({ textAlign: 'center', fontSize: 7 }).add(
@@ -329,7 +327,7 @@ async function pdfEvalFormat(req, res) {
 
 				doc.cell({ width: 4*pdf.cm, x: 1.7*pdf.cm, y: 6.15*pdf.cm })
 				.text({ textAlign: 'left', fontSize: 7 })
-				.add(req.session.first_name+' '+req.session.last_name) // Name Evaluator
+				.add(req.session.name) // Name Evaluator
 
 				doc.cell({ width: 4*pdf.cm, x: 1.7*pdf.cm, y: 5.55*pdf.cm }) // Position
 				.text({ textAlign: 'left', fontSize: 7 })

@@ -9,7 +9,7 @@ let rawData
 async function root(req, res) {
 	let booya = []
 	
-	if(!req.session.user && !req.session.category) { // No session 😡
+	if(!req.session._id && !req.session.category) { // No session 😡
 		return res.status(200).render('login', {
 			title_page: 'UTNA - Inicio',
 			session: req.session
@@ -53,7 +53,7 @@ async function root(req, res) {
 async function generatorFixed(params) {
 	let area, depa, care,
 		lvl, user, pass,
-		mana, fn, ls, note = null,
+		mana, fn, note = null,
 		userer = [], inforer = [],
 		year = DATE.getFullYear(),
 		month = (DATE.getMonth()+1 < 10 && String(DATE.getMonth()+1).length < 2) ? '0'+DATE.getMonth()+1 : DATE.getMonth()+1,
@@ -78,8 +78,7 @@ async function generatorFixed(params) {
 				care = params[i].position
 				lvl = params[i].level
 	
-				fn = params[i].first_name
-				ls = params[i].last_name
+				fn = params[i].name
 				
 				if('note' in params[i]) note = params[i].note
 				else note = null
@@ -102,8 +101,7 @@ async function generatorFixed(params) {
 
 			inforer[i] = {
 				_id: user,
-				first_name: fn,
-				last_name: ls,
+				name: fn,
 				level: lvl,
 				area: area,
 				department: depa,
@@ -212,8 +210,7 @@ function generatorRex(params) {
 
 					inforer = inforer +`{
 			"_id": "${user}",
-			"first_name": "${user}",
-			"last_name": "${user}",
+			"name": "${user}",
 			"level": ${lvl},
 			"area": ${area},
 			"department": ${depa},

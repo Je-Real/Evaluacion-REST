@@ -4,13 +4,16 @@ const modelContract = require('../../models/modelCategory')
 const modelArea = require('../../models/modelArea')
 const modelDepartment = require('../../models/modelDirection')
 const modelCareer = require('../../models/modelPosition')
+
 const crypto = require('crypto-js')
+
+const DATE = new Date()
 
 // >>>>>>>>>>>>>>>>>>>>>> Registration <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
     let session
 
-    if(!req.session.user && !req.session.category) { // No session 😡
+    if(!req.session._id && !req.session.category) { // No session 😡
         return res.status(200).render('login', {
 			title_page: 'UTNA - Inicio',
 			session: req.session
@@ -47,11 +50,29 @@ async function root(req, res) {
 
 async function signIn(req, res) {
 	if(req.body) {
+		// yyyy-mm-dd
+		const FORMAT_DATE = `${ DATE.getFullYear() }-`+
+		`${ (String(DATE.getMonth()+1).length == 1) ? '0'+(DATE.getMonth()+1) : DATE.getMonth()+1 }-`+
+		`${ (String(DATE.getDate()).length == 1) ? '0'+(DATE.getDate()) : DATE.getDate() }`
+		// hh:mm
+		const FORMAT_HOUR = `${ (String(DATE.getHours()).length == 1) ? '0'+(DATE.getHours()) : DATE.getHours() }:`+
+		`${ (String(DATE.getMinutes()).length == 1) ? '0'+(DATE.getMinutes()) : DATE.getMinutes() }`
+
+		req.body['log'] = {
+			_id: req.session._id,
+			name: req.session.name,
+			timestamp: {
+				date: FORMAT_DATE,
+				time: FORMAT_HOUR
+			},
+			operation: 'created'
+		}
+
 		//SignIn validator
 		await modelUserInfo.find({ _id: req.body._id }, { _id: 1 })
 		.then((dataUser) => {
 			//Encryption
-			req.body.pass = crypto.AES.encrypt(String(req.body.pass), String(req.body._id)).toString()
+			req.body.pass = crypto.AES.encrypt(req.body.pass, req.body._id).toString()
 			
 			if(dataUser.length) { // If the user exists
 				if('as_user' in req.body) {
@@ -60,8 +81,8 @@ async function signIn(req, res) {
 						console.log(user)
 						return res.end(JSON.stringify({
 							msg: [
-								`¡Usuario para ${dataUser[0].first_name } ${dataUser[0].last_name} creado correctamente!`,
-								`User for ${dataUser[0].first_name } ${dataUser[0].last_name} created successfully!`
+								`¡Usuario para ${dataUser[0].name } creado correctamente!`,
+								`User for ${dataUser[0].name } created successfully!`
 							],
 							status: 200,
 							noti: true
@@ -174,8 +195,7 @@ async function getManager(req, res) {
 			info[i] = {
 				_id: data[i]._id,
 				level: data[i].category,
-				first_name: data[i].first_name,
-				last_name: data[i].last_name
+				name: data[i].name,
 			}
 		}
 

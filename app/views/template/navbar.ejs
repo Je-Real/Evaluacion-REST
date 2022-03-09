@@ -37,7 +37,7 @@
     <!-- Navbar-->
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-5">
         <li class="nav-item dropdown">
-            <% let temp = (session) ? session.first_name : '' %>
+            <% let temp = (session) ? session.name : '' %>
             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false"><i class="fa-solid fa-user fa-fw me-1"></i><%= temp %></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

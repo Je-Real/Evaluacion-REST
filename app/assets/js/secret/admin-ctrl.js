@@ -58,7 +58,7 @@ const updateInfo = (e) => {
 	// Save the information 🤠
 	let tgt = e.target.getAttribute('data-id'),
 		pkg = {
-			_id: parseInt((e.target.getAttribute('data-id')).split('-')[1]),
+			_id: e.target.getAttribute('data-id'),
 			collection: parseInt(e.target.getAttribute('data-table'))
 		}
 

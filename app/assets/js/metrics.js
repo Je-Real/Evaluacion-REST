@@ -488,8 +488,7 @@ async function getData(auto) {
 							$e(`.panel[data-id="${idSelect}"] .subordinates`).insertAdjacentHTML(
 								'beforeend', `<option class="sub" data-index="${parseInt(i)+1}"`+
 								`value="${result.data.subordinates[i]['_id']}">`+
-								`${result.data.subordinates[i]['first_name']} `+
-								`${result.data.subordinates[i]['last_name']}`+
+								`${result.data.subordinates[i]['name']} `+
 								`</option>`
 							)
 						}

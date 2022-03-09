@@ -1167,7 +1167,9 @@ code {
 	border: 0.25em dashed currentColor;
 	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 	overflow: hidden;
-	/* border-bottom: 1px solid chartreuse; */
+	text-overflow: ellipsis;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 .inputDnD .form-control-file:hover:before {
 	border-style: solid;

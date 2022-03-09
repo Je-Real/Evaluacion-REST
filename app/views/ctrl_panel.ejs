@@ -11,9 +11,9 @@
 			<div class="mb-5">
 				<div class="session-container">
 					<input class="deletable" type="hidden" name="user" id="user"
-						value="<%= session.user%>">
+						value="<%= session._id%>">
 					<input class="deletable" type="hidden" name="name" id="name"
-						value="<%= session.first_name%>">
+						value="<%= session.name%>">
 					<input class="deletable" type="hidden" name="lvl" id="lvl"
 						value="<%= session.category%>">
 					
@@ -79,12 +79,8 @@
 										<span class="lang" data-lang="en">User</span>
 									</th>
 									<th class="border-0 border-bottom border-start flex-th">
-										<span class="lang" data-lang="es">Nombre(s)</span>
-										<span class="lang" data-lang="en">First Name</span>
-									</th>
-									<th class="border-0 border-bottom border-start flex-th">
-										<span class="lang" data-lang="es">Apellido(s)</span>
-										<span class="lang" data-lang="en">Last Name</span>
+										<span class="lang" data-lang="es">Nombre</span>
+										<span class="lang" data-lang="en">Name</span>
 									</th>
 									<th class="border-0 border-bottom border-start flex-th">
 										<span class="lang" data-lang="es">Evaluación</span>
@@ -105,38 +101,35 @@
 											<p class="p-0 m-0"><%=records[person]['_id'] %></p>
 										</td>
 										<td class="border-0 border-start text-center">
-											<p class="p-0 m-0 name"><%=records[person]['first_name'] %></p>
-										</td>
-										<td class="border-0 border-start text-center">
-											<p class="p-0 m-0 name"><%=records[person]['last_name'] %></p>
+											<p class="p-0 m-0 name"><%=records[person]['name'] %></p>
 										</td>
 										<td class="border-0 border-start text-center i-status"></td>
 										<td class="border-0 border-start d-flex justify-content-center h-100">
 										<% if(records[person]['records'] == -1) { %>
 											<button type="button" value="enabled"
 												class="ctrl-btn btn btn-secondary manage-eval mx-md-2 my-auto mx-1 p-1 tooltip-text"
-												data-tooltip-es="Realizar evaluación para <%=records[person]['first_name']%> <%=records[person]['last_name']%>"
-												data-tooltip-en="Perform evaluation for <%=records[person]['first_name']%> <%=records[person]['last_name']%>">
+												data-tooltip-es="Realizar evaluación para <%=records[person]['name']%>"
+												data-tooltip-en="Perform evaluation for <%=records[person]['name']%>">
 												<i class="text-white pe-none fa-solid fa-lock-open fs-4"></i>
 											</button>
 										<% } else if(records[person]['records'] == 1) { %>
 											<button type="button" 
 												class="ctrl-btn btn btn-success generate-pdf mx-md-2 my-auto mx-1 p-1 tooltip-text"
-												data-tooltip-es="Generar formato de evaluación para <%=records[person]['first_name']%> <%=records[person]['last_name']%>"
-												data-tooltip-en="Generate evaluation format for <%=records[person]['first_name']%> <%=records[person]['last_name']%>">
+												data-tooltip-es="Generar formato de evaluación para <%=records[person]['name']%>"
+												data-tooltip-en="Generate evaluation format for <%=records[person]['name']%>">
 												<i class="text-white pe-none mx-1 fa-solid fa-file-pdf fa-2x"></i>
 											</button>
 										<% } else if(records[person]['records'] == 0) { %>
 											<button type="button"
 												class="ctrl-btn btn btn-info evaluate mx-md-2 my-auto mx-1 p-1 tooltip-text"
-												data-tooltip-es="Realizar evaluación para <%=records[person]['first_name']%> <%=records[person]['last_name']%>"
-												data-tooltip-en="Perform evaluation for <%=records[person]['first_name']%> <%=records[person]['last_name']%>">
+												data-tooltip-es="Realizar evaluación para <%=records[person]['name']%>"
+												data-tooltip-en="Perform evaluation for <%=records[person]['name']%>">
 												<i class="text-white pe-none fa-solid fa-plus-circle fa-2x"></i>
 											</button>
 											<button type="button" value="disabled"
 												class="ctrl-btn btn btn-danger manage-eval mx-md-2 my-auto mx-1 p-1 tooltip-text"
-												data-tooltip-es="Desactivar la evaluación esta vez para <%=records[person]['first_name']%> <%=records[person]['last_name']%>"
-												data-tooltip-en="Disable this current year evaluation for <%=records[person]['first_name']%> <%=records[person]['last_name']%>">
+												data-tooltip-es="Desactivar la evaluación esta vez para <%=records[person]['name']%>"
+												data-tooltip-en="Disable this current year evaluation for <%=records[person]['name']%>">
 												<i class="text-white pe-none mx-1 fa-solid fa-lock fs-3"></i>
 											</button>
 										<% } %>

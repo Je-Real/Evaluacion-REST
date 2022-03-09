@@ -34,6 +34,9 @@ window.addEventListener('load', async(e) => {
 			$e('#new_id').classList.add('read-only')
 		}
 	})
+
+	eventAssigner('#excel-file', 'change', e => {readUrl(e.target)})
+	eventAssigner('#submit-file', 'click', upload)
 })
 
 const lockRegister = (lock = true) => {
@@ -50,8 +53,9 @@ const lockRegister = (lock = true) => {
 }
 
 const lockFile = () => {
-	$e('input[type="file"]').setAttribute('data-title', $e('input[type="file"]').getAttribute('data-tittle-empty'))
+	$e('input[type="file"]').setAttribute('data-title', (lang == 0) ? 'Haz clic aquí o arrastra y suelta el archivo' : 'Click here or drag and drop a file')
 	$e('#submit-file').disabled = true
+	$e('#columns').classList.add('d-none')
 }
 
 const readUrl = (input) => {
@@ -59,20 +63,20 @@ const readUrl = (input) => {
 		let reader = new FileReader()
 		reader.onload = (e) => {
 			let fileName = input.files[0].name
-			if(!('tittleEmpty' in input.dataset))
-				input.setAttribute('data-tittle-empty', input.getAttribute('data-title'))
 			input.setAttribute('data-title', fileName)
+
+			$e('#columns').classList.remove('d-none')
 		}
+		reader.onerror = (e) => { console.error(e) }
 		reader.readAsDataURL(input.files[0])
 
 		$e('#submit-file').disabled = false
-	}
+	} 
 }
 
 const register = async() => {
 	let pkg = { 
-		first_name: ($e('#first_name:not(disabled)').value).trim(),
-		last_name: 	($e('#last_name:not(disabled)').value).trim(),
+		name: ($e('#name:not(disabled)').value).trim(),
 		area: 		parseInt($e('#area:not(disabled)')[$e('#area').selectedIndex].value) + 1,
 		direction: 	parseInt($e('#direction:not(disabled)')[$e('#direction').selectedIndex].value) + 1,
 		position: 	parseInt($e('#position:not(disabled)')[$e('#position').selectedIndex].value) + 1,
@@ -82,7 +86,7 @@ const register = async() => {
 	if($e('#as_user:not(disabled)').checked) {
 		pkg['pass'] = $e('#new_pass:not(disabled)').value
 		pkg['as_user'] = $e('#as_user:not(disabled)').checked
-		pkg['_id'] = parseInt($e('#new_id:not(.read-only):not(disabled)').value)
+		pkg['_id'] = $e('#new_id:not(.read-only):not(disabled)').value
 		pkg['force_id'] = $e('#force').checked
 	}
 
@@ -145,8 +149,7 @@ function getManager(lvl_sel) {
 					for(info in result.data) {
 						$e('#manager').insertAdjacentHTML('beforeend',
 							`<option class='mgr-s mgr-${info}' value='${info+1}'>
-							${(result.data[info].first_name).split(' ')[0]} 
-							${(result.data[info].last_name)}
+							${(result.data[info].name).split(' ')[0]} 
 							</option>`
 						)
 					}
@@ -175,4 +178,39 @@ function getManager(lvl_sel) {
 			console.error(error)
 		}
 	)
+}
+
+// Method to upload a valid excel file
+const upload = () => {
+	let files = document.getElementById('excel-file').files,
+		filename = files[0].name,
+		extension = filename.substring(filename.lastIndexOf('.')).toUpperCase()
+	if (extension == '.XLS' || extension == '.XLSX')
+	  	excelFileToJSON(files[0])
+	else
+	  	showSnack(
+			(lang == 0) ? 'Por favor, selecciona un archivo de excel valido':'Please select a valid excel file',
+			null, SNACK.error
+		)
+}
+  //Method to read excel file and convert it into JSON 
+  function excelFileToJSON(file){
+	try {
+		let reader = new FileReader()
+
+		reader.readAsBinaryString(file)
+		reader.onload = function(e) {
+			let data = e.target.result,
+				workbook = XLSX.read(data, { type : 'binary' }),
+				jsonOBJ = {}
+			
+			workbook.SheetNames.forEach(function(sheetName) {
+				let roa = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName])
+				if (roa.length > 0) jsonOBJ[sheetName] = roa
+			})
+		}
+	}
+	catch(e){
+	  	console.error(e)
+	}
 }

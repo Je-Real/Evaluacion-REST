@@ -14,7 +14,7 @@ const DATE = new Date()
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
 	let usersData
-	
+
 	if(req.session.category == -1) {
 		await modelUserInfo.aggregate([
 			{ $sort: { _id: 1 } },
@@ -186,6 +186,24 @@ async function search(req, res) {
 
 function update(req, res) {
 	if(req.body) {
+		// yyyy-mm-dd
+		const FORMAT_DATE = `${ DATE.getFullYear() }-`+
+		`${ (String(DATE.getMonth()+1).length == 1) ? '0'+(DATE.getMonth()+1) : DATE.getMonth()+1 }-`+
+		`${ (String(DATE.getDate()).length == 1) ? '0'+(DATE.getDate()) : DATE.getDate() }`
+		// hh:mm
+		const FORMAT_HOUR = `${ (String(DATE.getHours()).length == 1) ? '0'+(DATE.getHours()) : DATE.getHours() }:`+
+		`${ (String(DATE.getMinutes()).length == 1) ? '0'+(DATE.getMinutes()) : DATE.getMinutes() }`
+
+		req.body['log'] = {
+			_id: req.session._id,
+			name: req.session.name,
+			timestamp: {
+				date: FORMAT_DATE,
+				time: FORMAT_HOUR
+			},
+			operation: 'modified'
+		}
+
 		let handler = {status: 200}
 
 		if('user' in req.body) {
@@ -193,9 +211,10 @@ function update(req, res) {
 				req.body.user.pass = crypto.AES.encrypt(String(req.body.user.pass), String(req.body._id)).toString()
 
 			modelUser.updateOne({ _id: req.body._id}, { $set: req.body.user })
+			//.then(data => console.log(data))
 			.catch(error => { handler['user'] = false; console.log(error)})
 		}
-		
+
 		if('user_info' in req.body)
 			modelUserInfo.updateOne({ _id: req.body._id}, { $set: req.body.user_info })
 			.catch(error => { handler['user_info'] = false; console.log(error)})
@@ -207,24 +226,24 @@ function update(req, res) {
 				? { $set: req.body.evaluation }
 				: { $unset: req.body.rm_evaluation }
 			).catch(error => { handler['evaluation'] = false; console.log(error)})
-		
+
 		if('area' in req.body)
 			modelArea.updateOne({ _id: req.body._id}, { $set: req.body.area })
 			.catch(error => { handler['area'] = false; console.log(error)})
-		
+
 		if('direction' in req.body)
 			modelDirection.updateOne({ _id: req.body._id}, { $set: req.body.direction })
 			.catch(error => { handler['direction'] = false; console.log(error)})
-		
+
 		if('position' in req.body)
 			modelPosition.updateOne({ _id: req.body._id}, { $set: req.body.position })
 			.catch(error => { handler['position'] = false; console.log(error)})
-		
+
 		if('category' in req.body)
 			modelCategory.updateOne({ _id: req.body._id}, { $set: req.body.category })
 			//.then(data => console.log(data))
 			.catch(error => { handler['category'] = false; console.log(error)})
-		
+
 		return res.end(JSON.stringify(handler))
 
 	} else return res.end(JSON.stringify({

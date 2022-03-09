@@ -22,23 +22,13 @@
 				<div class="card-body">
 					<form method="POST" name="f-reg" id="f-reg" autocomplete="off">
 						<div class="row mb-3">
-							<div class="col-md-6 col-12">
+							<div class="col-12">
 								<div class="form-floating mb-3 mb-md-0">
-									<input class="form-control" name="first_name" id="first_name"
+									<input class="form-control" name="name" id="name"
 										type="text" placeholder="." maxlength="30" disabled />
-									<label for="first_name">
-										<span class="lang" data-lang="es">Nombre(s)</span>
-										<span class="lang" data-lang="en">First Name</span>
-									</label>
-								</div>
-							</div>
-							<div class="col-md-6 col-12">
-								<div class="form-floating">
-									<input class="form-control" name="last_name" id="last_name"
-										type="text" placeholder="." maxlength="30" disabled />
-									<label for="last_name">
-										<span class="lang" data-lang="es">Apellido(s)</span>
-										<span class="lang" data-lang="en">Last Name</span>
+									<label for="name">
+										<span class="lang" data-lang="es">Nombre</span>
+										<span class="lang" data-lang="en">Name</span>
 									</label>
 								</div>
 							</div>
@@ -47,9 +37,11 @@
 							<div class="col-md-6 col-12">
 								<div class="form-floating mb-3 mb-md-0">
 									<select class="form-control form-select ps-4" name="area" id="area" disabled>
-										<option id="area-def" value="0" selected>
-											<span class="lang" data-lang="es">- Selecciona área -</span>
-											<span class="lang" data-lang="en">- Select area -</span>
+										<option id="area-def" value="0" class="lang" data-lang="es" selected>
+											- Selecciona área -
+										</option>
+										<option id="area-def" value="0" class="lang" data-lang="en" selected>
+											- Select area -
 										</option>
 										<% /*for(let data in area) { %>
 											<option class="area-opt" value="<%= area[data]['n'] %>"><%= area[data]['desc'] %></option>
@@ -64,9 +56,11 @@
 							<div class="col-md-6 col-12">
 								<div class="form-floating mb-3 mb-md-0">
 									<select class="form-control form-select ps-4" name="direction" id="direction" disabled>
-										<option id="dir-def" value="0" selected>
-											<span class="lang" data-lang="es">- Selecciona área -</span>
-											<span class="lang" data-lang="en">- Select direction -</span>
+										<option id="dir-def" value="0" class="lang" data-lang="es" selected>
+											- Selecciona dirección -
+										</option>
+										<option id="dir-def" value="0" class="lang" data-lang="en" selected>
+											- Select direction -
 										</option>
 										<% /*for(let data in depa) { %>
 											<option class="dir-opt" data-area="<%= depa[data]['area'] %>" value="<%= depa[data]['n'] %>"><%= depa[data]['desc'] %></option>
@@ -83,9 +77,11 @@
 							<div class="col-md-6 col-12">
 								<div class="form-floating">
 									<select class="form-control form-select ps-4" name="position" id="position" disabled>
-										<option id="pos-def" value="0" selected>
-											<span class="lang" data-lang="es">- Selecciona puesto -</span>
-											<span class="lang" data-lang="en">- Select position -</span>
+										<option id="pos-def" value="0" class="lang" data-lang="es" selected>
+											- Selecciona puesto -
+										</option>
+										<option id="pos-def" value="0" class="lang" data-lang="en" selected>
+											- Select position -
 										</option>
 										<% /*for(let data in care) { %>
 											<option class="pos-opt" data-depa="<%= care[data]['department'] %>" value="<%= care[data]['n'] %>"><%= care[data]['desc'] %></option>
@@ -101,9 +97,11 @@
 							<div class="col-md-6 col-12">
 								<div class="form-floating">
 									<select class="form-control form-select ps-4" name="category" id="category" disabled>
-										<option id="cat-def" value="0" selected>
-											<span class="lang" data-lang="es">- Selecciona categoría -</span>
-											<span class="lang" data-lang="en">- Select category -</span>
+										<option id="cat-def" value="0" class="lang" data-lang="es" selected>
+											- Selecciona categoría -
+										</option>
+										<option id="cat-def" value="0" class="lang" data-lang="en" selected>
+											- Select category -
 										</option>
 										<option class="cat-opt" value="1">Mando Medio</option>
 										<option class="cat-opt" value="2">Administrativo</option>
@@ -227,15 +225,101 @@
 			<div class="row m-b-1">
 				<div class="col-sm-6 offset-sm-3 my-4">
 					<div class="form-group inputDnD">
-						<label class="sr-only lang" data-lang="es" for="inputFile">File Upload</label>
-						<label class="sr-only lang" data-lang="en" for="inputFile">File Upload</label>
+						<label class="sr-only lang" data-lang="es" for="excel-file">File Upload</label>
+						<label class="sr-only lang" data-lang="en" for="excel-file">File Upload</label>
 
 						<input type="file" class="lang p-0 form-control-file text-warning font-weight-bold"
-							id="inputFile" accept=".xls, .xlsx" onchange="readUrl(this)"
-							data-lang="es" data-title="Haz clic aquí o arrastra y suelta el archivo">
-						<input type="file" class="lang p-0 form-control-file text-warning font-weight-bold"
-							id="inputFile" accept=".xls, .xlsx" onchange="readUrl(this)"
-							data-lang="en" data-title="Click here or drag and drop a file">
+							id="excel-file" accept=".xls, .xlsx"
+							data-title="">
+					</div>
+				</div>
+			</div>
+			<div id="columns" class="container d-none">
+				<div class="row">
+					<div class="text-center">
+						<p class="py-2">
+							<span class="px-3 py-2 m-0 badge bg-secondary fs-5 p-0 lang" data-lang="es">Selecciona las columnas correspondientes</span>
+							<span class="px-3 py-2 m-0 badge bg-secondary fs-5 p-0 lang" data-lang="en">Select the corresponding columns</span>
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<div class="form-floating my-2">
+							<select class="form-control form-select ps-4" name="col-name" id="col-name" disabled>
+								<option value="0" selected>N.A.</option>
+							</select>
+							<label for="col-name">
+								<span class="lang" data-lang="es">Nombres</span>
+								<span class="lang" data-lang="en">Names</span>
+							</label>
+						</div>
+					</div>
+					<div class="col-6">
+						<div class="form-floating my-2">
+							<select class="form-control form-select ps-4" name="col-area" id="col-area" disabled>
+								<option value="0" selected>N.A.</option>
+							</select>
+							<label for="col-area">
+								<span class="lang" data-lang="es">Áreas</span>
+								<span class="lang" data-lang="en">Areas</span>
+							</label>
+						</div>
+					</div>
+					<div class="col-6">
+						<div class="form-floating my-2">
+							<select class="form-control form-select ps-4" name="col-direction" id="col-direction" disabled>
+								<option value="0" selected>N.A.</option>
+							</select>
+							<label for="col-direction">
+								<span class="lang" data-lang="es">Direcciones / Subdirecciones</span>
+								<span class="lang" data-lang="en">Directions / Sub-directions</span>
+							</label>
+						</div>
+					</div>
+					<div class="col-6">
+						<div class="form-floating my-2">
+							<select class="form-control form-select ps-4" name="col-position" id="col-position" disabled>
+								<option value="0" selected>N.A.</option>
+							</select>
+							<label for="col-position">
+								<span class="lang" data-lang="es">Puesto</span>
+								<span class="lang" data-lang="en">Position</span>
+							</label>
+						</div>
+					</div>
+					<div class="col-6">
+						<div class="form-floating my-2">
+							<select class="form-control form-select ps-4" name="col-category" id="col-category" disabled>
+								<option value="0" selected>N.A.</option>
+							</select>
+							<label for="col-category">
+								<span class="lang" data-lang="es">Categoría</span>
+								<span class="lang" data-lang="en">Category</span>
+							</label>
+						</div>
+					</div>
+					<div class="col-6">
+						<div class="form-floating my-2">
+							<select class="form-control form-select ps-4" name="col-manager" id="col-manager" disabled>
+								<option value="0" selected>N.A.</option>
+							</select>
+							<label for="col-manager">
+								<span class="lang" data-lang="es">Jefe directo</span>
+								<span class="lang" data-lang="en">Manager</span>
+							</label>
+						</div>
+					</div>
+					<div class="col-6 mx-auto">
+						<div class="form-floating my-2">
+							<select class="form-control form-select ps-4" name="col-id" id="col-id" disabled>
+								<option value="0" selected>N.A.</option>
+							</select>
+							<label for="col-id">
+								<span class="lang" data-lang="es">Códigos de usuario (IDs)</span>
+								<span class="lang" data-lang="en">IDs</span>
+							</label>
+						</div>
 					</div>
 				</div>
 			</div>
