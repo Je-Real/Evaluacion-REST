@@ -7,10 +7,10 @@ const informationSchema = new mongoose.Schema({
 	
 	manager:{ type: String, required: true, default: 'undefined' },
 
-	area:{ type: Number, required: true, min:-1 },
-	direction:{ type: Number, required: true, min:-1 },
-	position:{ type: Number, required: true, min:-1 },
-	category:{ type: Number, required: true, min:-1 },
+	area:{ type: String, required: true, },
+	direction:{ type: String, required: true, },
+	position:{ type: String, required: true, },
+	category:{ type: String, required: true, },
 
 	enabled:{ type: Boolean, default: true },
 

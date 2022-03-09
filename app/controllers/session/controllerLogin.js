@@ -111,7 +111,6 @@ async function logIn(req, res) {
 }
 
 async function logOut(req, res) {
-	//Login route
 	//🍪🚫
 	req.session.destroy()
 	

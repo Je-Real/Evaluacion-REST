@@ -13,122 +13,15 @@ const DATE = new Date()
 
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
-	let usersData
+	let usersData = []
 
 	if(req.session.category == -1) {
-		await modelUserInfo.aggregate([
-			{ $sort: { _id: 1 } },
-			{
-				$lookup: {
-					from: 'areas',
-					pipeline: [{
-					  	$unset: ['_id'],
-					}, {
-						$unwind: {
-							path: '$description',
-							preserveNullAndEmptyArrays: true
-						}
-					}],
-					localField: 'area',
-					foreignField: '_id',
-					as: 'area'
-				}
-			}, {
-				$lookup: {
-					from: 'directions',
-					pipeline: [{
-						$unset: ['_id', 'area']
-					}, {
-						$unwind: {
-							path: '$description',
-							preserveNullAndEmptyArrays: true
-						}
-					}],
-					localField: 'direction',
-					foreignField: '_id',
-					as: 'direction'
-				}
-			}, {
-				$lookup: {
-					from: 'positions',
-					pipeline: [{
-						$unset: ['_id']
-					}, {
-						$unwind: {
-							path: '$description',
-							preserveNullAndEmptyArrays: true
-						}
-					}],
-					localField: 'position',
-					foreignField: '_id',
-					as: 'position'
-				}
-			}, {
-				$lookup: {
-					from: 'categories',
-					pipeline: [{
-						$unset: ['_id']
-					}, {
-						$unwind: {
-							path: '$description',
-							preserveNullAndEmptyArrays: true
-						}
-					}],
-					localField: 'category',
-					foreignField: '_id',
-					as: 'category'
-				}
-			}, {
-				$lookup: {
-					from: "users",
-					pipeline: [ { $unset: ["_id", "pass", "__v"] } ],
-					localField: "_id",
-					foreignField: "_id",
-					as: "user_"
-				}
-			}, {
-				$lookup: {
-					from: "evaluations",
-					pipeline: [ { $unset: ["_id", "__v"] } ],
-					localField: "_id",
-					foreignField: "_id",
-					as: "eval_"
-				},
-			}, {
-				$set: {
-					user_: {
-						$cond: {
-							if: { $eq: ["$user_", []] },
-							then: "$$REMOVE",
-							else: { $arrayElemAt: ["$user_", 0] },
-						}
-					},
-					eval_: {
-						$cond: {
-							if: { $eq: ["$eval_", []] },
-							then: "$$REMOVE",
-							else: { $arrayElemAt: ["$eval_", 0] }
-						}
-					}
-				}
-			}, { $unset: ["__v"] }
-		])
-		.then(async (data) => {
-			// Show data in the front end
-			usersData = data
-		})
-		.catch(error => {
-			console.error(error)
-			usersData = null
-		})
-		.finally(() => {
-			//Root route
-			return res.status(200).render('secret/adminCtrl', {
-				title_page: 'UTNA - Evaluacion',
-				session: req.session,
-				usersData: usersData,
-				currYear: DATE.getFullYear()
-			})
+		return res.status(200).render('secret/adminCtrl', {
+			title_page: 'UTNA - Evaluacion',
+			session: req.session,
+			usersData: usersData,
+			count: await modelUserInfo.countDocuments({}),
+			currYear: DATE.getFullYear()
 		})
 	}
 	else {
@@ -137,9 +30,128 @@ async function root(req, res) {
 }
 
 async function search(req, res) {
+	if(typeof req.session == 'undefined') {
+		return res.end(JSON.stringify({
+			msg: [
+				`Por favor, inicia sesión nuevamente`,
+				`Please, log in again`
+			],
+			status: 401,
+			noti: true
+		}))
+	}
+
 	if(req.body) {
 		try {
-			if(req.body.search == 2)
+			if(req.body.search == 1) {
+				let structure = [
+					{ $sort: { _id: 1 } },
+					{ $limit: ('limit' in req.body) ? parseInt(req.body.limit) : 10 },
+					{
+						$lookup: {
+							from: 'areas',
+							pipeline: [{
+								$unset: ['_id'],
+							}, {
+								$unwind: {
+									path: '$description',
+									preserveNullAndEmptyArrays: true
+								}
+							}],
+							localField: 'area',
+							foreignField: '_id',
+							as: 'area'
+						}
+					}, {
+						$lookup: {
+							from: 'directions',
+							pipeline: [{
+								$unset: ['_id', 'area']
+							}, {
+								$unwind: {
+									path: '$description',
+									preserveNullAndEmptyArrays: true
+								}
+							}],
+							localField: 'direction',
+							foreignField: '_id',
+							as: 'direction'
+						}
+					}, {
+						$lookup: {
+							from: 'positions',
+							pipeline: [{
+								$unset: ['_id']
+							}, {
+								$unwind: {
+									path: '$description',
+									preserveNullAndEmptyArrays: true
+								}
+							}],
+							localField: 'position',
+							foreignField: '_id',
+							as: 'position'
+						}
+					}, {
+						$lookup: {
+							from: 'categories',
+							pipeline: [{
+								$unset: ['_id']
+							}, {
+								$unwind: {
+									path: '$description',
+									preserveNullAndEmptyArrays: true
+								}
+							}],
+							localField: 'category',
+							foreignField: '_id',
+							as: 'category'
+						}
+					}, {
+						$lookup: {
+							from: 'users',
+							pipeline: [ { $unset: ['_id', 'pass', '__v'] } ],
+							localField: '_id',
+							foreignField: '_id',
+							as: 'user_'
+						}
+					}, {
+						$lookup: {
+							from: 'evaluations',
+							pipeline: [ { $unset: ['_id', '__v'] } ],
+							localField: '_id',
+							foreignField: '_id',
+							as: 'eval_'
+						},
+					}, {
+						$set: {
+							user_: {
+								$cond: {
+									if: { $eq: ['$user_', []] },
+									then: '$$REMOVE',
+									else: { $arrayElemAt: ['$user_', 0] },
+								}
+							},
+							eval_: {
+								$cond: {
+									if: { $eq: ['$eval_', []] },
+									then: '$$REMOVE',
+									else: { $arrayElemAt: ['$eval_', 0] }
+								}
+							}
+						}
+					}, { $unset: ['__v', 'log'] }
+				]
+				if('skip' in req.body) structure.unshift({ $skip: parseInt(req.body.skip) })
+
+				modelUserInfo.aggregate(structure)
+				.then(data => {
+					return res.end(JSON.stringify({
+						status: 200,
+						data: data
+					}))
+				})
+			} else if(req.body.search == 2)
 				modelArea.aggregate([{ $sort: {_id: -1}}])
 				.then(data => {
 					return res.end(JSON.stringify({
@@ -185,6 +197,17 @@ async function search(req, res) {
 }
 
 function update(req, res) {
+	if(typeof req.session == 'undefined') {
+		return res.end(JSON.stringify({
+			msg: [
+				`Por favor, inicia sesión nuevamente`,
+				`Please, log in again`
+			],
+			status: 401,
+			noti: true
+		}))
+	}
+
 	if(req.body) {
 		// yyyy-mm-dd
 		const FORMAT_DATE = `${ DATE.getFullYear() }-`+

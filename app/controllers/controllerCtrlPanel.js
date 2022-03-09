@@ -14,7 +14,7 @@ const crypto = require('crypto-js')
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
 	let data = false
-	
+
 	if(!req.session._id && !req.session.category) { // No session 😡
 		// >>>>>>>>>>>>>>>>>>>>>> Login <<<<<<<<<<<<<<<<<<<<<<
 		return res.status(200).render('login', {
@@ -29,7 +29,7 @@ async function root(req, res) {
 		/** Search all subordinates and obtain whether
 		 * each has current year evaluations or not */
 		await modelUserInfo.aggregate([
-			{ $match: { 
+			{ $match: {
 				manager: req.session._id,
 				disabled: { $exists: false }
 			} }, {
@@ -100,79 +100,89 @@ async function root(req, res) {
 }
 
 async function pdfEvalFormat(req, res) {
+	if(typeof req.session == 'undefined') {
+		return res.end(JSON.stringify({
+			msg: [
+				`Por favor, inicia sesión nuevamente`,
+				`Please, log in again`
+			],
+			status: 401,
+			noti: true
+		}))
+	}
 	const userID = req.params.id
 
 	await modelUserInfo.aggregate([
 		{ $match: { _id: userID } }, {
 			$lookup: {
-				from: 'evaluations', 
-				pipeline: [ { $unset: ['_id'] } ], 
-				localField: '_id', 
-				foreignField: '_id', 
+				from: 'evaluations',
+				pipeline: [ { $unset: ['_id'] } ],
+				localField: '_id',
+				foreignField: '_id',
 				as: 'evaluations'
 			}
 		}, {
 			$lookup: {
-				from: 'user_infos', 
+				from: 'user_infos',
 				pipeline: [{
-					$unset: [ 
-						'level', 'b_day', 'address', 'manager', 
+					$unset: [
+						'level', 'b_day', 'address', 'manager',
 						'area', 'department', 'career', 'contract'
 					]
 				}],
-				localField: 'manager', 
-				foreignField: '_id', 
+				localField: 'manager',
+				foreignField: '_id',
 				as: 'mngr_info'
 			}
 		}, {
 			$lookup: {
-				from: 'areas', 
+				from: 'areas',
 				pipeline: [
 					{ $unset: [ '_id', 'n' ] },
 					{ $project: { area: '$desc' } }
-				], 
-				localField: 'area', 
-				foreignField: 'n', 
+				],
+				localField: 'area',
+				foreignField: 'n',
 				as: 'area_'
 			}
 		}, {
 			$lookup: {
-				from: 'departments', 
+				from: 'departments',
 				pipeline: [
 					{ $unset: [ '_id', 'n' ] },
 					{ $project: { department: '$desc' } }
-				], 
-				localField: 'department', 
-				foreignField: 'n', 
+				],
+				localField: 'department',
+				foreignField: 'n',
 				as: 'department_'
 			}
 		}, {
 			$lookup: {
-				from: 'careers', 
+				from: 'careers',
 				pipeline: [
 					{ $unset: [ '_id', 'n' ] },
 					{ $project: { career: '$desc' } }
-				], 
-				localField: 'career', 
-				foreignField: 'n', 
+				],
+				localField: 'career',
+				foreignField: 'n',
 				as: 'career_'
 			}
 		}, {
 			$lookup: {
-				from: 'contracts', 
-				pipeline: [ 
+				from: 'contracts',
+				pipeline: [
 					{ $unset: [ '_id', 'n' ] },
 					{ $project: { contract: '$desc' } }
-				], 
-				localField: 'contract', 
-				foreignField: 'n', 
+				],
+				localField: 'contract',
+				foreignField: 'n',
 				as: 'contract_'
 			}
 		}, {
 			$unset: [ 'area', 'department', 'career', 'contract' ]
 		}, {
 			$replaceRoot: {
-				newRoot: { 
+				newRoot: {
 					$mergeObjects: [
 						{ $arrayElemAt: [ '$area_', 0 ] },
 						{ $arrayElemAt: [ '$department_', 0 ] },
@@ -227,59 +237,59 @@ async function pdfEvalFormat(req, res) {
 			const ext_3 = new pdf.ExternalDocument(
 				fs.readFileSync(path.join(__dirname, '../assets/templates/formato-evaluacion-3.pdf'))
 			)
-		
+
 			let date_time = new Date(Date.now()),
 				dateFormated = date_time.getDate()+'/'+(date_time.getMonth()+1)+'/'+date_time.getFullYear(),
 				answers = data.records[currYear].answers,
 				yAnchor, xAnchor, total = 0, tempScore
 
 			const printAnswers = (numFactor, yMargin = 2, result = false) => {
-				if(numFactor > 0) {                    
+				if(numFactor > 0) {
 					doc.cell({ width: 2.95*pdf.cm, x: xAnchor+((answers[numFactor-1]-1)*2.95*pdf.cm), y: yAnchor -= yMargin*pdf.cm })
 					.text({ textAlign: 'center', fontSize: 7 }).add('X')
-					
+
 					tempScore = weighting(numFactor, answers[numFactor-1])
 					total += tempScore
-					
+
 					doc.cell({ width: 2.95*pdf.cm, x: xAnchor+((answers[numFactor-1]-1)*2.95*pdf.cm), y: yAnchor - 0.6*pdf.cm })
 					.text({ textAlign: 'center', fontSize: 7 }).add(tempScore+'%')
-	
+
 					if(result)
 						doc.cell({ width: 1.25*pdf.cm, x: 25.5*pdf.cm, y: yAnchor - 0.6*pdf.cm })
 						.text({ textAlign: 'center', fontSize: 7 }).add(tempScore+'%') // Result
-					
+
 					return tempScore
 				}
 			}
-		
+
 			try {
 				let evalFactorSum
 
 				// --------------------------- Page 1 --------------------------- //
-				doc.setTemplate(ext_1) 
+				doc.setTemplate(ext_1)
 				doc.cell({ width: 8*pdf.cm, x: 2*pdf.cm, y: 17.25*pdf.cm }) // Name
 				.text({ textAlign: 'center', fontSize: 7 }).add(data.name)
-				
+
 				doc.cell({ width: 3.2*pdf.cm, x: 11.4*pdf.cm, y: 17.25*pdf.cm }) // Position
 				.text({ textAlign: 'center', fontSize: 7 }).add(
 					(data.position) ? data.position: ((data.direction) ? data.direction : data.area)
 				)
-				
+
 				doc.cell({ width: 2*pdf.cm, x: 18.5*pdf.cm, y: 17.25*pdf.cm }) // Employee number
 				.text({ textAlign: 'center', fontSize: 7 }).add(data._id)
-				
+
 				doc.cell({ width: 2.5*pdf.cm, x: 22.25*pdf.cm, y: 17.15*pdf.cm }) // Date
 				.text({ textAlign: 'center', fontSize: 7 }).add(dateFormated)
-				
+
 				doc.cell({ width: 7.5*pdf.cm, x: 2.5*pdf.cm, y: 16.45*pdf.cm }) // Department
 				.text({ textAlign: 'center', fontSize: 7 }).add((data.direction) ? data.direction : data.area)
-				
+
 				doc.cell({ width: 4.3*pdf.cm, x: 11.3*pdf.cm, y: 16.45*pdf.cm }) // Category
 				.text({ textAlign: 'center', fontSize: 7 }).add(data.contract)
-				
+
 				doc.cell({ width: 1.3*pdf.cm, x: 16.9*pdf.cm, y: 16.45*pdf.cm }) // Average
 				.text({ textAlign: 'center', fontSize: 7 }).add(data.records[currYear].score+'%')
-				
+
 				yAnchor = 13.5*pdf.cm + 2*pdf.cm // Added 2cm because de function iteration
 				xAnchor = 13.1*pdf.cm            // Guide for the first column (for all pages)
 
@@ -287,12 +297,12 @@ async function pdfEvalFormat(req, res) {
 				printAnswers(2, 2.03, true) // Evaluation Factor 2
 				printAnswers(3, 2.03, true) // Evaluation Factor 3
 				printAnswers(4, 2.03, true) // Evaluation Factor 4
-				
+
 				// --------------------------- Page 1 --------------------------- //
-				
+
 				// --------------------------- Page 2 --------------------------- //
 				doc.setTemplate(ext_2)
-				
+
 				yAnchor = 16.4*pdf.cm + 1.5*pdf.cm
 				evalFactorSum = printAnswers(5, 1.5, false) // Evaluation Factor 5-1
 				evalFactorSum += printAnswers(6, 1.5, false) // Evaluation Factor 5-2
@@ -301,16 +311,16 @@ async function pdfEvalFormat(req, res) {
 
 				doc.cell({ width: 1.25*pdf.cm, x: 25.5*pdf.cm, y: yAnchor - 1.1*pdf.cm })
 				.text({ textAlign: 'center', fontSize: 7 }).add(evalFactorSum+'%') // Result
-				
+
 				yAnchor = 9.5*pdf.cm + 1.5*pdf.cm
 				evalFactorSum = printAnswers(9, 1.5, false) // Evaluation Factor 6-1
 				evalFactorSum += printAnswers(10, 1.6, false) // Evaluation Factor 6-2
 
 				doc.cell({ width: 1.25*pdf.cm, x: 25.5*pdf.cm, y: yAnchor - 1.1*pdf.cm })
 				.text({ textAlign: 'center', fontSize: 7 }).add(evalFactorSum+'%') // Result
-				
+
 				// --------------------------- Page 2 --------------------------- //
-				
+
 				// --------------------------- Page 3 --------------------------- //
 				doc.setTemplate(ext_3)
 
@@ -333,8 +343,8 @@ async function pdfEvalFormat(req, res) {
 				.text({ textAlign: 'left', fontSize: 7 })
 				.add(
 					(data.position) ? data.position: ((data.direction) ? data.direction : data.area)
-				) 
-				
+				)
+
 				// --------------------------- Page 3 --------------------------- //
 			} catch (error) {
 				console.error(error)

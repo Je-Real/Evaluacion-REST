@@ -49,6 +49,17 @@ async function root(req, res) {
 }
 
 async function signIn(req, res) {
+	if(typeof req.session == 'undefined') {
+		return res.end(JSON.stringify({
+			msg: [
+				`Por favor, inicia sesión nuevamente`,
+				`Please, log in again`
+			],
+			status: 401,
+			noti: true
+		}))
+	}
+	
 	if(req.body) {
 		// yyyy-mm-dd
 		const FORMAT_DATE = `${ DATE.getFullYear() }-`+
@@ -68,27 +79,93 @@ async function signIn(req, res) {
 			operation: 'created'
 		}
 
-		//SignIn validator
-		await modelUserInfo.find({ _id: req.body._id }, { _id: 1 })
-		.then((dataUser) => {
-			//Encryption
-			req.body.pass = crypto.AES.encrypt(req.body.pass, req.body._id).toString()
-			
-			if(dataUser.length) { // If the user exists
-				if('as_user' in req.body) {
-					new modelUser(req.body).save()
-					.then((user) => { //🟢
-						console.log(user)
+		for(let data in req.body.data) {
+			//SignIn validator
+			await modelUserInfo.find({ _id: ('fields' in req.body) ? req.body.data[data][req.body.fields._id] : req.body.data[data]._id }, { _id: 1 })
+			.then((dataUser) => {
+				//Encryption
+				
+				let model = {
+					_id: ('fields' in req.body) ? req.body.data[data][req.body.fields._id] : req.body.data[data]._id,
+					name: ('fields' in req.body) ? req.body.data[data][req.body.fields.name] : req.body.data[data].name,
+					area: ('fields' in req.body) ? req.body.data[data][req.body.fields.area] : req.body.data[data].area,
+					direction: ('fields' in req.body) ? req.body.data[data][req.body.fields.direction] : req.body.data[data].direction,
+					position: ('fields' in req.body) ? req.body.data[data][req.body.fields.position] : req.body.data[data].position,
+					category: ('fields' in req.body) ? req.body.data[data][req.body.fields.category] : req.body.data[data].category,
+					// blame system™ 😎
+					log: req.body.log
+				}
+
+				if('manager' in req.body.data[data])
+					req.body.data[data] = {
+						manager: ('fields' in req.body) 
+						? req.body.data[data][req.body.fields.manager]
+						: req.body.data[data].manager
+					}
+
+				if(dataUser.length) { // If the user exists
+					if('as_user' in req.body.data[data]) {
+						model['pass'] = crypto.AES.encrypt('password', model._id).toString()
+
+						// If user_info exits then save a new user for that employee
+						new modelUser(model).save()
+						.then((user) => { //🟢
+							return res.end(JSON.stringify({
+								msg: [
+									`¡Usuario para ${dataUser[0].name } creado correctamente!`,
+									`User for ${dataUser[0].name } created successfully!`
+								],
+								status: 200,
+								noti: true
+							}))
+						})
+						.catch((error) => { //🔴
+							return res.end(JSON.stringify({
+								msg: ['Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
+									'Unable to register user. Please try again later.'],
+								status: 500,
+								noti: true
+							}))
+						})
+					} else
 						return res.end(JSON.stringify({
-							msg: [
-								`¡Usuario para ${dataUser[0].name } creado correctamente!`,
-								`User for ${dataUser[0].name } created successfully!`
-							],
-							status: 200,
+							msg: ['¡Ya existe usuario con ese ID!', 'There is an user with that ID already!'],
+							status: 409,
 							noti: true
 						}))
+				} else {
+					// Save a new info_user
+					new modelUserInfo(model).save()
+					.then(() => { //🟢
+						// And if the employee is a user
+						if('as_user' in req.body.data[data]) {
+							new modelUser(model).save()
+							.then((user) => { //🟢
+								return res.end(JSON.stringify({
+									msg: ['¡Registrado correctamente!', 'Successfully registered!'],
+									status: 200,
+									noti: true
+								}))
+							})
+							.catch((error) => { //🔴
+								return res.end(JSON.stringify({
+									msg: [
+										'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
+										'Unable to register user. Please try again later.'
+									],
+									status: 500,
+									noti: true
+								}))
+							})
+						} else
+							return res.end(JSON.stringify({
+								msg: ['¡Registrado correctamente!', 'Successfully registered!'],
+								status: 200,
+								noti: true
+							}))
 					})
 					.catch((error) => { //🔴
+						console.log(error)
 						return res.end(JSON.stringify({
 							msg: [
 								'No se puede registrar usuario. Inténtalo más tarde.',
@@ -98,67 +175,21 @@ async function signIn(req, res) {
 							noti: true
 						}))
 					})
-				} else
-					return res.end(JSON.stringify({
-						msg: ['¡Ya existe usuario con ese ID!', 'There is an user with that ID already!'],
-						status: 409,
-						noti: true
-					}))
-			} else {
-				//Save data
-				new modelUserInfo(req.body).save()
-				.then(() => { //🟢
-					if('as_user' in req.body) {
-						new modelUser(req.body).save()
-						.then((user) => { //🟢
-							console.log(user)
-							return res.end(JSON.stringify({
-								msg: ['¡Registrado correctamente!', 'Successfully registered!'],
-								status: 200,
-								noti: true
-							}))
-						})
-						.catch((error) => { //🔴
-							return res.end(JSON.stringify({
-								msg: [
-									'No se puede registrar usuario. Inténtalo más tarde.',
-									'Unable to register user. Please try again later.'
-								],
-								status: 500,
-								noti: true
-							}))
-						})
-					} else
-						return res.end(JSON.stringify({
-							msg: ['¡Registrado correctamente!', 'Successfully registered!'],
-							status: 200,
-							noti: true
-						}))
-				})
-				.catch((error) => { //🔴
-					console.log(error)
-					return res.end(JSON.stringify({
-						msg: [
-							'No se puede registrar usuario. Inténtalo más tarde.',
-							'Unable to register user. Please try again later.'
-						],
-						status: 500,
-						noti: true
-					}))
-				})
-			}
-		})
-		.catch((error) => { //if error 🤬
-			console.log('Error:',error)
-			return res.end(JSON.stringify({
-				msg: ['Error en servidor.', 'Server error'],
-				status: 500,
-				noti: true
-			}))
-		})
+				}
+			})
+			.catch((error) => { //if error 🤬
+				console.log('Error:',error)
+				return res.end(JSON.stringify({
+					msg: ['Error en servidor.', 'Server error'],
+					status: 500,
+					noti: true
+				}))
+			})
+		}
 	} else return res.end(JSON.stringify({
 		status: 418,
-		error: ['Sin datos', 'Without data']
+		error: ['Sin datos', 'Without data'],
+		noti: true
 	}))
 }
 
@@ -186,7 +217,7 @@ async function getManager(req, res) {
 			level: parseInt(req.query.category)
 		}
 	}
-	
+
 	await modelUserInfo.find(search)
 	.then((data) => { //🟢
 		let info = []

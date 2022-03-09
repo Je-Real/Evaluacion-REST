@@ -150,7 +150,8 @@ window.addEventListener('DOMContentLoaded', async(e) => {
 		$a('*[data-lang="es"]').forEach(
 			(node) => { node.remove() }
 		)
-		document.body.querySelector('#btn-lang').checked = true
+		if($e('#btn-lang'))
+			$e('#btn-lang').checked = true
 	} else {
 		lang = 0
 		$e('html').setAttribute('lang', 'es')

@@ -24,11 +24,11 @@ async function root(req, res) {
 	} else { // Session 🤑
 		session = req.session
 
-		if(hour >= 5 && hour <= 12) 
+		if(hour >= 5 && hour <= 12)
 			salutation = `Buen día, ${session.name}`
 		else if(hour > 12 && hour <= 19)
 			salutation = `Buenas tardes, ${session.name}`
-		else 
+		else
 			salutation = `Buenas noches, ${session.name}`
 
 		await modelArea.aggregate([
@@ -59,12 +59,12 @@ async function root(req, res) {
 			 *  {
 			 *      n: 0,  << Area number >>
 			 *      desc: 'Area 0',  << Area name >>
-			 *      departments: [ 
-			 *          { 
+			 *      departments: [
+			 *          {
 			 *              n: 1,  << Department number >>
 			 *              desc: 'Dep 1',  << Department name >>
-			 *              careers: [ 
-			 *                  { 
+			 *              careers: [
+			 *                  {
 			 *                      n: 2,  << Career number >>
 			 *                      desc: 'Career 2'  << Career name >>
 			 *                  }
@@ -73,7 +73,7 @@ async function root(req, res) {
 			 *      ]
 			 *  }
 			 */
-	
+
 			for(let i in dataInfo) {
 				area[i] = {
 					n: dataInfo[i]['n'],
@@ -135,7 +135,7 @@ async function root(req, res) {
 function data(req, res) {
 	let search = {}, sumTemp,
 		year = DATE.getFullYear()
-		
+
 	if(req.body._id != null && (req.body._id).trim() != '') {
 		search._id = (req.body._id).trim()
 		if(req.session.category > 1)
@@ -171,7 +171,7 @@ function data(req, res) {
 					]
 				}
 			}
-		}, { 
+		}, {
 			$project: {
 				_id : { $cond: { if: { $eq: [ '$info', [] ] }, then: '$$REMOVE', else: '$_id' } },
 				records : { $cond: { if: { $eq: [ '$info', [] ] }, then: '$$REMOVE', else: '$records' } },
@@ -184,12 +184,12 @@ function data(req, res) {
 		if(data) {
 			// filter empty objects
 			data = data.filter(value => Object.keys(value).length !== 0)
-	
+
 			let average = 0, sumTemp = 0,
 				years = [], records =  [], subordinates = [],
 				histCounter =  [[0, 0, 0, 0, 0],[0, 0, 0, 0, 0]],
 				divideBy = 0
-	
+
 			if(req.body._id == null || req.body._id == undefined)
 				await modelUserInfo.aggregate([
 					{ $match: search },
@@ -205,10 +205,10 @@ function data(req, res) {
 					console.log(error)
 				})
 			else subordinates = null
-		
+
 			for(let i=0; i<5; i++) {
 				let yrs = String(parseInt(year)-(4-i))
-			
+
 				years[i] = yrs
 				for(let j in data) {
 					if('records' in data[j]) {
@@ -221,16 +221,16 @@ function data(req, res) {
 					}
 				}
 				histCounter[0][i] = parseFloat((histCounter[0][i])).toFixed(2)
-				
+
 				records[i] = (histCounter[0][i] === 0 || histCounter[1][i] === 0)
 					? 0 : parseFloat((histCounter[0][i] / histCounter[1][i]).toFixed(1))
 				sumTemp += records[i]
-				
+
 				if(records[i] != 0) divideBy++
 			}
 			// Get average just for only for years with evaluations
 			average = parseFloat((sumTemp / divideBy).toFixed(1))
-		
+
 			return res.end(JSON.stringify({
 				data: {
 					total: (average === NaN) ? null : average,
@@ -265,7 +265,7 @@ async function getAllOf(req, res) {
 
 	search['records.'+yearSel] = { $exists: true }
 	uAggregate = [
-		{ 
+		{
 			$lookup: {
 				from: 'evaluations',
 				pipeline: [
@@ -299,7 +299,7 @@ async function getAllOf(req, res) {
 		}, {
 			$replaceRoot: {
 				newRoot: {
-					$mergeObjects: [ 
+					$mergeObjects: [
 						{ $arrayElemAt: ['$_avg', 0] },
 						'$$ROOT'
 					]
@@ -343,7 +343,7 @@ async function getAllOf(req, res) {
 			status: 200
 		}))
 	}
-	
+
 	if(req.body.search == 'area') {
 		uAggregate.push({ $unset: ['_avg', 'n'] })
 		if('FORCE_YEAR_TO' in req.body)
@@ -368,11 +368,22 @@ async function getAllOf(req, res) {
 			modelCareer.aggregate(uAggregate)
 			.then(data => { success(data) })
 			.catch(error => { console.log(error); failure() })
-	} else 
+	} else
 		failure()
 }
 
 async function printer(req, res) {
+	if(typeof req.session == 'undefined') {
+		return res.end(JSON.stringify({
+			msg: [
+				`Por favor, inicia sesión nuevamente`,
+				`Please, log in again`
+			],
+			status: 401,
+			noti: true
+		}))
+	}
+
 	const DATA = await req.body
 	const doc = new pdf.Document({ // Vertical letter
 		width:   612, // 21.59 cm
@@ -382,7 +393,7 @@ async function printer(req, res) {
 
 	const polyJPEG = await sharp(new Buffer.from(DATA.poly, 'base64')).resize({height: 400})
 		.flatten({ background: '#ffffff' }).jpeg().toBuffer()
-	
+
 	const theRecords = {
 		past: await getAllOf({body:{search:DATA.barSearch, FORCE_YEAR_TO:parseInt(currYear)-1}}, undefined),
 		curr: await getAllOf({body:{search:DATA.barSearch, FORCE_YEAR_TO:currYear}}, undefined)
@@ -391,20 +402,20 @@ async function printer(req, res) {
 	try {
 		const header = doc.header().table({widths: [150, 240, 150], borderWidth: 0})
 		const hTable = header.row()
-		
+
 		hTable.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm })
 			.text(req.session.name)
 		hTable.cell().text('')
 		hTable.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm })
 			.text(`${DATE.getDate()}/${DATE.getMonth()+1}/${currYear}`, {textAlign: 'right'})
-		
+
 		if(req.body.mode == 'all' || req.body.mode == 'poly') {
 			// --------------------------- Comparison graph page --------------------------- //
 			const img = new pdf.Image(polyJPEG)
 			doc.cell({ paddingTop: 0.4*pdf.cm, paddingBottom: 0.5*pdf.cm }).text({ textAlign: 'center', fontSize: 14 })
 				.add(`Comparación de areas (${parseInt(currYear)-1} - ${parseInt(currYear)})`)
 			doc.cell({ paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm }).image(img, { height: 7.5*pdf.cm, align: 'center'})
-			
+
 			const tableC = doc.table({
 				widths: [340, 100, 100],
 				borderVerticalWidths: [0, 1, 1, 0],
@@ -418,8 +429,8 @@ async function printer(req, res) {
 				.text({ textAlign: 'center', fontSize: 10 }).add(`Porcentaje (${parseInt(currYear)-1})`)
 			tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 5, paddingBottom: 5})
 				.text({ textAlign: 'center', fontSize: 10 }).add(`Porcentaje (${currYear})`)
-	
-	
+
+
 			for(let i in theRecords.curr) {{
 				const row = tableC.row()
 				row.cell({ paddingTop: 2, paddingBottom: 2, paddingLeft: 0.35*pdf.cm }).text({ textAlign: 'left', fontSize: 9 })
@@ -431,7 +442,7 @@ async function printer(req, res) {
 					.text({ textAlign: 'center', fontSize: 9, color: (theRecords.curr[i].length != 0) ? 0x000000 : 0x505050 })
 					.add((theRecords.curr[i].length != 0) ? theRecords.curr[i].total / theRecords.curr[i].length : 'N.A.')
 			}}
-	
+
 			doc.pageBreak()
 		}
 
@@ -441,19 +452,19 @@ async function printer(req, res) {
 				widths: [null, null],
 				borderWidth: 0,
 			})
-	
+
 			for(let i in DATA.mono) {
 				const r = tableM.row()
 				for(let j in DATA.mono[i]) {
 					const cell = r.cell({paddingTop: 3, paddingBottom: 0.75*pdf.cm})
-		
+
 					const semiJPEG = await sharp(new Buffer.from(DATA.mono[i][j].semi, 'base64')).resize({height: 200})
 						.flatten({ background: '#ffffff' }).jpeg().toBuffer()
 					const semiChart = new pdf.Image(semiJPEG)
 					const lineJPEG = await sharp(new Buffer.from(DATA.mono[i][j].line, 'base64')).resize({height: 200})
 						.flatten({ background: '#ffffff' }).jpeg().toBuffer()
 					const lineChart = new pdf.Image(lineJPEG)
-		
+
 					cell.text({fontSize: 10, textAlign: 'center'}).add(DATA.mono[i][j].title).add()
 					cell.image(semiChart, { height: 3.1*pdf.cm, align: 'center' })
 					cell.text({fontSize: 10, textAlign: 'center'}).add('Promedio total: '+DATA.mono[i][j].score)

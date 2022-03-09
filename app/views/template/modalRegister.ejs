@@ -19,16 +19,33 @@
 						</div>
 					</div>
 				</div>
+				<div class="d-flex flex-nowrap text-light justify-content-center text-decoration-underline">
+					<p class="lang" data-lang="es">Los campos obligatorios aparecen marcados con un </p>
+					<p class="lang" data-lang="en">Required fields are marked with a </p>
+					<span class="text-danger ps-2"><i class="fa-solid fa-asterisk"></i></span>
+				</div>
 				<div class="card-body">
 					<form method="POST" name="f-reg" id="f-reg" autocomplete="off">
 						<div class="row mb-3">
-							<div class="col-12">
+							<div class="col-md-4 col-12">
+								<div class="form-floating">
+									<input class="form-control mandatory" name="new-id" id="new_id"
+										type="number" placeholder="0" min="0" max="9999" disabled />
+									<label for="new_id">
+										<span class="lang" data-lang="es">Código de usuario</span>
+										<span class="lang" data-lang="en">User code</span>(ID)
+										<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+									</label>
+								</div>
+							</div>
+							<div class="col-md-8 col-12">
 								<div class="form-floating mb-3 mb-md-0">
-									<input class="form-control" name="name" id="name"
+									<input class="form-control mandatory" name="name" id="name"
 										type="text" placeholder="." maxlength="30" disabled />
 									<label for="name">
 										<span class="lang" data-lang="es">Nombre</span>
 										<span class="lang" data-lang="en">Name</span>
+										<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
 									</label>
 								</div>
 							</div>
@@ -36,7 +53,7 @@
 						<div class="row mb-3">
 							<div class="col-md-6 col-12">
 								<div class="form-floating mb-3 mb-md-0">
-									<select class="form-control form-select ps-4" name="area" id="area" disabled>
+									<select class="form-control form-select ps-4 mandatory" name="area" id="area" disabled>
 										<option id="area-def" value="0" class="lang" data-lang="es" selected>
 											- Selecciona área -
 										</option>
@@ -50,12 +67,13 @@
 									<label for="area">
 										<span class="lang" data-lang="es">Área de Adscripción</span>
 										<span class="lang" data-lang="en">Adscription area</span>
+										<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
 									</label>
 								</div>
 							</div>
 							<div class="col-md-6 col-12">
 								<div class="form-floating mb-3 mb-md-0">
-									<select class="form-control form-select ps-4" name="direction" id="direction" disabled>
+									<select class="form-control form-select ps-4 mandatory" name="direction" id="direction" disabled>
 										<option id="dir-def" value="0" class="lang" data-lang="es" selected>
 											- Selecciona dirección -
 										</option>
@@ -69,6 +87,7 @@
 									<label for="direction">
 										<span class="lang" data-lang="es">Dirección / Subdirección</span>
 										<span class="lang" data-lang="en">Direction / Sub-direction</span>
+										<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
 									</label>
 								</div>
 							</div>
@@ -76,7 +95,7 @@
 						<div class="row mb-3">
 							<div class="col-md-6 col-12">
 								<div class="form-floating">
-									<select class="form-control form-select ps-4" name="position" id="position" disabled>
+									<select class="form-control form-select ps-4 mandatory" name="position" id="position" disabled>
 										<option id="pos-def" value="0" class="lang" data-lang="es" selected>
 											- Selecciona puesto -
 										</option>
@@ -90,13 +109,14 @@
 									<label for="position">
 										<span class="lang" data-lang="es">Puesto</span>
 										<span class="lang" data-lang="en">Position</span>
+										<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
 									</label>
 								</div>
 							</div>
 
 							<div class="col-md-6 col-12">
 								<div class="form-floating">
-									<select class="form-control form-select ps-4" name="category" id="category" disabled>
+									<select class="form-control form-select ps-4 mandatory" name="category" id="category" disabled>
 										<option id="cat-def" value="0" class="lang" data-lang="es" selected>
 											- Selecciona categoría -
 										</option>
@@ -110,6 +130,7 @@
 									<label for="category">
 										<span class="lang" data-lang="es">Categoría</span>
 										<span class="lang" data-lang="en">Category</span>
+										<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
 									</label>
 								</div>
 							</div>
@@ -118,34 +139,12 @@
 						<div class="row mb-3">
 							<div class="col-md-6 col-12 mx-auto">
 								<div class="form-floating mb-3 mb-md-0">
-									<input class="form-control" name="manager" id="manager"
+									<input class="form-control mandatory" name="manager" id="manager"
 										type="text" placeholder="." disabled />
 									<label for="manager">
 										<span class="lang" data-lang="es">Jefe directo</span>
 										<span class="lang" data-lang="en">Manager</span>
-									</label>
-								</div>
-							</div>
-						</div>
-
-						<div id="for-user" class="row mb-3 d-none">
-							<div class="col-md-6 col-12">
-								<div class="form-floating">
-									<input class="form-control read-only" name="new-id" id="new_id"
-										type="number" placeholder="0" min="0" disabled />
-									<label for="new_id">
-										<span class="lang" data-lang="es">Código de usuario</span>
-										<span class="lang" data-lang="en">User code</span>(ID)
-									</label>
-								</div>
-							</div>
-							<div class="col-md-6 col-12">
-								<div class="form-floating mb-3 mb-md-0">
-									<input class="form-control" name="new-pass" id="new_pass" maxlength="20"
-										type="password" placeholder="." autocomplete="new-password" disabled />
-									<label for="new_pass">
-										<span class="lang" data-lang="es">Contraseña</span>
-										<span class="lang" data-lang="en">Password</span>
+										<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
 									</label>
 								</div>
 							</div>
@@ -169,30 +168,18 @@
 										<i class="fa-solid fa-circle-question fs-5 my-auto ms-2"></i>
 									</div>
 								</div>
-								<div id="force-id" class="mb-3 d-flex justify-content-center d-none">
-									<div class="form-check">
-										<input type="checkbox" class="form-check-input" id="force">
-										<label class="form-check-label text-light text-decoration-underline" for="force">
-											<span class="lang" data-lang="es">Forzar ID</span>
-											<span class="lang" data-lang="en">Force ID</span>
-										</label>
-									</div>
-									<div class="tooltip-text my-auto d-flex text-light"
-										data-tooltip-es="Registrar como usuario con un ID fijo. No se registrara el usuario si
-										el ID ya esta ocupado por alguien mas. Esto es util cuando se quiere transformar a un
-										usuario de evaluación en usuario de sistema (podrá iniciar sesión en esta aplicación web)."
-										data-tooltip-en="Register as a user with a fixed ID. The user will not be registered
-										if the ID is already occupied by someone else. This is useful when you want to transform
-										an evaluation user into a system user (he/she will be able to log in to this web application).
-										evaluation user into a system user (he/she will be able to log in to this web application).">
-										<i class="fa-solid fa-circle-question fs-5 my-auto ms-2"></i>
-									</div>
-								</div>
 								<button id="submit-register" class="mx-auto w-50 w-md-25 btn btn-success text-dark fs-5 btn-block"
-									type="button" disabled>Registrar</button>
-								<p class="p-0 text-light text-center my-4">O subir un <span data-bs-dismiss="modal" aria-label="Close"
+									type="button" disabled>
+									<span class="lang" data-lang="es">Registrar</span>
+									<span class="lang" data-lang="en">Register</span>
+								</button>
+								<p class="p-0 text-light text-center my-4 lang" data-lang="es">O subir un <span data-bs-dismiss="modal" aria-label="Close"
 									data-bs-toggle="modal" data-bs-target="#register-file"
 									class="text-warning fw-bold cursor-pointer">archivo Excel</span>
+								</p>
+								<p class="p-0 text-light text-center my-4 lang" data-lang="en">Or upload a <span data-bs-dismiss="modal" aria-label="Close"
+									data-bs-toggle="modal" data-bs-target="#register-file"
+									class="text-warning fw-bold cursor-pointer">Excel file</span>
 								</p>
 							</div>
 						</div>
@@ -237,87 +224,104 @@
 			<div id="columns" class="container d-none">
 				<div class="row">
 					<div class="text-center">
-						<p class="py-2">
+						<p class="py-2 mb-0">
 							<span class="px-3 py-2 m-0 badge bg-secondary fs-5 p-0 lang" data-lang="es">Selecciona las columnas correspondientes</span>
 							<span class="px-3 py-2 m-0 badge bg-secondary fs-5 p-0 lang" data-lang="en">Select the corresponding columns</span>
 						</p>
+						<div class="d-flex flex-nowrap text-light justify-content-center text-decoration-underline">
+							<p class="lang" data-lang="es">Los campos obligatorios aparecen marcados con un </p>
+							<p class="lang" data-lang="en">Required fields are marked with a </p>
+							<span class="text-danger ps-2"><i class="fa-solid fa-asterisk"></i></span>
+						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-6">
 						<div class="form-floating my-2">
-							<select class="form-control form-select ps-4" name="col-name" id="col-name" disabled>
-								<option value="0" selected>N.A.</option>
+							<select class="form-control form-select ps-4 mandatory" name="_id" id="col-id" disabled>
+								<option class="lang" data-lang="es" value="0" selected>- Selecciona una columna -</option>
+								<option class="lang" data-lang="en" value="0" selected>- Select a column -</option>
+							</select>
+							<label for="col-id">
+								<span class="lang" data-lang="es">Códigos de usuario (IDs)</span>
+								<span class="lang" data-lang="en">IDs</span>
+								<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+							</label>
+						</div>
+					</div>
+					<div class="col-6">
+						<div class="form-floating my-2">
+							<select class="form-control form-select ps-4 mandatory" name="name" id="col-name" disabled>
+								<option class="lang" data-lang="es" value="0" selected>- Selecciona una columna -</option>
+								<option class="lang" data-lang="en" value="0" selected>- Select a column -</option>
 							</select>
 							<label for="col-name">
 								<span class="lang" data-lang="es">Nombres</span>
 								<span class="lang" data-lang="en">Names</span>
+								<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
 							</label>
 						</div>
 					</div>
 					<div class="col-6">
 						<div class="form-floating my-2">
-							<select class="form-control form-select ps-4" name="col-area" id="col-area" disabled>
-								<option value="0" selected>N.A.</option>
+							<select class="form-control form-select ps-4 mandatory" name="area" id="col-area" disabled>
+								<option class="lang" data-lang="es" value="0" selected>- Selecciona una columna -</option>
+								<option class="lang" data-lang="en" value="0" selected>- Select a column -</option>
 							</select>
 							<label for="col-area">
 								<span class="lang" data-lang="es">Áreas</span>
 								<span class="lang" data-lang="en">Areas</span>
+								<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
 							</label>
 						</div>
 					</div>
 					<div class="col-6">
 						<div class="form-floating my-2">
-							<select class="form-control form-select ps-4" name="col-direction" id="col-direction" disabled>
-								<option value="0" selected>N.A.</option>
+							<select class="form-control form-select ps-4 mandatory" name="direction" id="col-direction" disabled>
+								<option class="lang" data-lang="es" value="0" selected>- Selecciona una columna -</option>
+								<option class="lang" data-lang="en" value="0" selected>- Select a column -</option>
 							</select>
 							<label for="col-direction">
 								<span class="lang" data-lang="es">Direcciones / Subdirecciones</span>
 								<span class="lang" data-lang="en">Directions / Sub-directions</span>
+								<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
 							</label>
 						</div>
 					</div>
 					<div class="col-6">
 						<div class="form-floating my-2">
-							<select class="form-control form-select ps-4" name="col-position" id="col-position" disabled>
-								<option value="0" selected>N.A.</option>
+							<select class="form-control form-select ps-4 mandatory" name="position" id="col-position" disabled>
+								<option class="lang" data-lang="es" value="0" selected>- Selecciona una columna -</option>
+								<option class="lang" data-lang="en" value="0" selected>- Select a column -</option>
 							</select>
 							<label for="col-position">
-								<span class="lang" data-lang="es">Puesto</span>
-								<span class="lang" data-lang="en">Position</span>
+								<span class="lang" data-lang="es">Puestos</span>
+								<span class="lang" data-lang="en">Positions</span>
+								<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
 							</label>
 						</div>
 					</div>
 					<div class="col-6">
 						<div class="form-floating my-2">
-							<select class="form-control form-select ps-4" name="col-category" id="col-category" disabled>
-								<option value="0" selected>N.A.</option>
+							<select class="form-control form-select ps-4 mandatory" name="category" id="col-category" disabled>
+								<option class="lang" data-lang="es" value="0" selected>- Selecciona una columna -</option>
+								<option class="lang" data-lang="en" value="0" selected>- Select a column -</option>
 							</select>
 							<label for="col-category">
 								<span class="lang" data-lang="es">Categoría</span>
 								<span class="lang" data-lang="en">Category</span>
-							</label>
-						</div>
-					</div>
-					<div class="col-6">
-						<div class="form-floating my-2">
-							<select class="form-control form-select ps-4" name="col-manager" id="col-manager" disabled>
-								<option value="0" selected>N.A.</option>
-							</select>
-							<label for="col-manager">
-								<span class="lang" data-lang="es">Jefe directo</span>
-								<span class="lang" data-lang="en">Manager</span>
+								<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
 							</label>
 						</div>
 					</div>
 					<div class="col-6 mx-auto">
 						<div class="form-floating my-2">
-							<select class="form-control form-select ps-4" name="col-id" id="col-id" disabled>
+							<select class="form-control form-select ps-4" name="manager" id="col-manager" disabled>
 								<option value="0" selected>N.A.</option>
 							</select>
-							<label for="col-id">
-								<span class="lang" data-lang="es">Códigos de usuario (IDs)</span>
-								<span class="lang" data-lang="en">IDs</span>
+							<label for="col-manager">
+								<span class="lang" data-lang="es">Jefe directo</span>
+								<span class="lang" data-lang="en">Manager</span>
 							</label>
 						</div>
 					</div>
@@ -331,9 +335,13 @@
 							<span class="lang" data-lang="es">Subir archivo</span>
 							<span class="lang" data-lang="en">Upload file</span>
 						</button>
-						<p class="p-0 text-light text-center my-4">Cambiar a <span data-bs-dismiss="modal" aria-label="Close"
+						<p class="p-0 text-light text-center my-4 lang" data-lang="es">Cambiar a <span data-bs-dismiss="modal" aria-label="Close"
 							data-bs-toggle="modal" data-bs-target="#register"
 							class="text-warning fw-bold cursor-pointer to-register">registro manual</span>
+						</p>
+						<p class="p-0 text-light text-center my-4 lang" data-lang="en">Change to <span data-bs-dismiss="modal" aria-label="Close"
+							data-bs-toggle="modal" data-bs-target="#register"
+							class="text-warning fw-bold cursor-pointer to-register">manual registry</span>
 						</p>
 					</div>
 				</div>

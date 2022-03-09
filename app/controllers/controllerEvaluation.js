@@ -90,7 +90,7 @@ async function root(req, res) {
 			{
 				$set: {
 					records: {
-						$cond: [ 
+						$cond: [
 							{ $ifNull: ['$records', false] },
 							'$records',
 							0,
@@ -146,6 +146,17 @@ async function root(req, res) {
 }
 
 async function post(req, res) {
+	if(typeof req.session == 'undefined') {
+		return res.end(JSON.stringify({
+			msg: [
+				`Por favor, inicia sesión nuevamente`,
+				`Please, log in again`
+			],
+			status: 401,
+			noti: true
+		}))
+	}
+
 	let score = 0,
 		rec = req.body.records,
 		answers = []
@@ -205,8 +216,8 @@ async function post(req, res) {
 				insert.records[currYear].area = dataUInfo[0].area
 				if(dataUInfo[0].direction != null) insert.records[currYear].direction = dataUInfo[0].direction
 				if(dataUInfo[0].position != null) insert.records[currYear].position = dataUInfo[0].position
-					
-				
+
+
 				await new modelEvaluation(insert).save()
 				.then(() => { //🟢
 					return res.end(JSON.stringify({
@@ -279,7 +290,7 @@ function weighting(numAnswer, answer) {
 				default:
 					return failure('question-'+numAnswer)
 			}
-		
+
 		case 2:
 			switch (answer) {
 				case 4:
@@ -293,7 +304,7 @@ function weighting(numAnswer, answer) {
 				default:
 					return failure('question-'+numAnswer)
 			}
-		
+
 		case 3:
 			switch (answer) {
 				case 4:
@@ -307,7 +318,7 @@ function weighting(numAnswer, answer) {
 				default:
 					return failure('question-'+numAnswer)
 			}
-		
+
 		case 4:
 			switch (answer) {
 				case 4:
@@ -321,7 +332,7 @@ function weighting(numAnswer, answer) {
 				default:
 					return failure('question-'+numAnswer)
 			}
-		
+
 		case 5:
 			switch (answer) {
 				case 4:
@@ -335,7 +346,7 @@ function weighting(numAnswer, answer) {
 				default:
 					return failure('question-'+numAnswer)
 			}
-		
+
 		case 6:
 			switch (answer) {
 				case 4:
@@ -349,7 +360,7 @@ function weighting(numAnswer, answer) {
 				default:
 					return failure('question-'+numAnswer)
 			}
-		
+
 		case 7:
 			switch (answer) {
 				case 4:
@@ -363,7 +374,7 @@ function weighting(numAnswer, answer) {
 				default:
 					return failure('question-'+numAnswer)
 			}
-		
+
 		case 8:
 			switch (answer) {
 				case 4:
@@ -377,7 +388,7 @@ function weighting(numAnswer, answer) {
 				default:
 					return failure('question-'+numAnswer)
 			}
-		
+
 		case 9:
 			switch (answer) {
 				case 4:
@@ -391,7 +402,7 @@ function weighting(numAnswer, answer) {
 				default:
 					return failure('question-'+numAnswer)
 			}
-		
+
 		case 10:
 			switch (answer) {
 				case 4:
@@ -405,7 +416,7 @@ function weighting(numAnswer, answer) {
 				default:
 					return failure('question-'+numAnswer)
 			}
-		
+
 		case 11:
 			switch (answer) {
 				case 4:
@@ -419,7 +430,7 @@ function weighting(numAnswer, answer) {
 				default:
 					return failure('question-'+numAnswer)
 			}
-		
+
 		case 12:
 			switch (answer) {
 				case 4:
@@ -433,7 +444,7 @@ function weighting(numAnswer, answer) {
 				default:
 					return failure('question-'+numAnswer)
 			}
-		
+
 		case 13:
 			switch (answer) {
 				case 4:
@@ -447,7 +458,7 @@ function weighting(numAnswer, answer) {
 				default:
 					return failure('question-'+numAnswer)
 			}
-		
+
 		case 14:
 			switch (answer) {
 				case 4:
@@ -461,7 +472,7 @@ function weighting(numAnswer, answer) {
 				default:
 					return failure('question-'+numAnswer)
 			}
-	
+
 		default:
 			return failure('no question')
 	}
