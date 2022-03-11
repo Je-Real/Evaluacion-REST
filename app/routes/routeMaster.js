@@ -29,16 +29,9 @@ router //👇
 .post('/metrics/all', controllerMetrics.getAllOf)
 .post('/metrics/print', controllerMetrics.printer)
 
-// Survey
+// Survey / Evaluation
 .get('/evaluation', controllerLayoutStatic.root)
 .post('/evaluation', controllerLayoutStatic.post)
-
-// Register
-.get('/register', controllerRegister.root)
-.get('/register/manager', controllerRegister.getManager)
-
-// Recovery password
-.post('/reset-psw', controllerResetPsw.reset)
 
 // Users
 .post('/session/sign-in', controllerRegister.signIn)
@@ -46,12 +39,16 @@ router //👇
 .get('/session/log-out', controllerLogin.logOut)
 .post('/session/lang', controllerLogin.lang)
 
+// Recovery password
+.post('/session/reset-psw', controllerResetPsw.reset)
+
 // Shhh... it's a secret🤐
-.get('/secret/user-generator', controllerUserGenerator.root)
+//.get('/secret/user-generator', controllerUserGenerator.root)
 
 .get('/admin-control', controllerAdminCtrl.root)
 .post('/admin-control/search', controllerAdminCtrl.search)
 .post('/admin-control/update', controllerAdminCtrl.update)
+//.post('/admin-control/find', controllerAdminCtrl.fuzzy)
 
 // Errors handlers (Always keep this at the end)
 .get('**', controller404.root)

@@ -1,52 +1,16 @@
 const modelUser = require('../../models/modelUser')
 const modelUserInfo = require('../../models/modelUserInfo')
-const modelContract = require('../../models/modelCategory')
+
 const modelArea = require('../../models/modelArea')
-const modelDepartment = require('../../models/modelDirection')
-const modelCareer = require('../../models/modelPosition')
+const modelDirection = require('../../models/modelDirection')
+const modelCategory = require('../../models/modelCategory')
+const modelPosition = require('../../models/modelPosition')
+
+const fuzzy = require('../util/util').fuzzySearch
 
 const crypto = require('crypto-js')
 
 const DATE = new Date()
-
-// >>>>>>>>>>>>>>>>>>>>>> Registration <<<<<<<<<<<<<<<<<<<<<<
-async function root(req, res) {
-    let session
-
-    if(!req.session._id && !req.session.category) { // No session 😡
-        return res.status(200).render('login', {
-			title_page: 'UTNA - Inicio',
-			session: req.session
-		})
-    }
-
-	await modelContract.find({})
-    .then(async (dataC) => {
-		await modelArea.find({})
-    	.then(async (dataA) => {
-			await modelDepartment.find({})
-    		.then(async (dataD) => {
-				await modelCareer.find({})
-    			.then(async (dataCr) => {
-					return res.status(200).render('register', {
-						title_page: 'UTNA - Registro',
-						contracts: dataC,
-						area: dataA,
-						depa: dataD,
-						care: dataCr,
-						session: req.session
-					})
-				})
-			})
-        })
-    })
-    .catch((error) => {
-        console.log(error)
-        return res.status(200).render('register', {
-			session: session
-		})
-    })
-}
 
 async function signIn(req, res) {
 	if(typeof req.session == 'undefined') {
@@ -59,7 +23,7 @@ async function signIn(req, res) {
 			noti: true
 		}))
 	}
-	
+
 	if(req.body) {
 		// yyyy-mm-dd
 		const FORMAT_DATE = `${ DATE.getFullYear() }-`+
@@ -68,6 +32,140 @@ async function signIn(req, res) {
 		// hh:mm
 		const FORMAT_HOUR = `${ (String(DATE.getHours()).length == 1) ? '0'+(DATE.getHours()) : DATE.getHours() }:`+
 		`${ (String(DATE.getMinutes()).length == 1) ? '0'+(DATE.getMinutes()) : DATE.getMinutes() }`
+
+		/**
+		 * Getting fuzzy: This function works like if there isn't the records that we're searching
+		 * in the collection then insert it and get the ID and return it.
+		 * Else, if the records exists get its ID and return it as a reference to avoid duplications.
+		 */ 
+		const getFuzzy = async(query, collection) => {
+			if(!isNaN(parseInt(query)))
+				return query
+			
+			query = String(query).trim()
+
+			let modelMaster
+
+			// Select model
+			if(collection == 'area')
+				modelMaster = modelArea
+			if(collection == 'direction')
+				modelMaster = modelDirection
+			if(collection == 'category')
+				modelMaster = modelCategory
+			if(collection == 'position')
+				modelMaster = modelPosition
+
+			// Fuzzy search (this method skips all the vowels because there's no insensitive diacritic)
+			// This gets if there is the record that we're are searching already in the collection or not
+			let data = await fuzzy({ query: query, collection: collection }).catch(error => {
+				console.log(error)
+				return res.end(JSON.stringify({
+					msg: [
+						`No se pudo leer la columna ${collection}.`,
+						`Could not read the ${collection}.`
+					],
+					status: 404,
+					noti: true
+				}))
+			})
+
+			let block = true
+			if(data) { // If the search found the same word, then get the ID
+				for(let recFound in data) {
+					if(data[recFound].description[0] == query) {
+						block = false
+						return data[recFound]._id
+					}
+				}
+			}
+
+			if(block) {
+				// Else, first get the last ID or assign the ID as "1" for the first record
+				let m = await modelMaster.find({}).countDocuments({},{})
+				let insertNew = {
+						_id: m+1,
+						description: [ query, query ]
+					}
+	
+				// After insert the document, get the ID and return it
+				const ID = await new modelMaster(insertNew).save()
+				.catch(error => {
+					console.log(error)
+					return res.end(JSON.stringify({
+						msg: [
+							`No se pudo leer la columna ${collection}.`,
+							`Could not read the ${collection}.`
+						],
+						status: 404,
+						noti: true
+					}))
+				})
+				return ID['_id']
+			}
+
+
+			// Function with promises (don't work 😥)
+			// TODO: Delete this!!!
+			/*fuzzy({ query: query, collection: collection })
+			.then(data => {
+				if(data) result = data._id 
+				else {
+					modelMaster.aggregate([
+						{ $sort: { _id: -1} },
+						{ $limit: 1 },
+						{ $project: { _id: 1 } }
+					])
+					.then(id => {
+						let insertNew = {
+							_id: (id.length) ? parseInt(id[0]._id)+1 : 1,
+							description: [ query, query ]
+						}
+	
+						new modelMaster(insertNew).save()
+						.then(data => {
+							result = data._id
+						})
+						.catch(error => {
+							console.log(error)
+							return res.end(JSON.stringify({
+								msg: [
+									`No se pudo leer la columna ${'area'}.`,
+									`Could not read the ${'area'}.`
+								],
+								status: 404,
+								noti: true
+							}))
+						})
+					})
+					.catch(error => {
+						console.log(error)
+						return res.end(JSON.stringify({
+							msg: [
+								`No se pudo leer la columna ${'area'}.`,
+								`Could not read the ${'area'}.`
+							],
+							status: 404,
+							noti: true
+						}))
+					})
+				}
+			})
+			.catch(error => {
+				console.log(error)
+				return res.end(JSON.stringify({
+					msg: [
+						`No se pudo leer la columna ${'area'}.`,
+						`Could not read the ${'area'}.`
+					],
+					status: 404,
+					noti: true
+				}))
+			})
+			.finally(() => {
+				return result
+			})*/
+		}
 
 		req.body['log'] = {
 			_id: req.session._id,
@@ -82,9 +180,7 @@ async function signIn(req, res) {
 		for(let data in req.body.data) {
 			//SignIn validator
 			await modelUserInfo.find({ _id: ('fields' in req.body) ? req.body.data[data][req.body.fields._id] : req.body.data[data]._id }, { _id: 1 })
-			.then((dataUser) => {
-				//Encryption
-				
+			.then(async(dataUser) => {
 				let model = {
 					_id: ('fields' in req.body) ? req.body.data[data][req.body.fields._id] : req.body.data[data]._id,
 					name: ('fields' in req.body) ? req.body.data[data][req.body.fields.name] : req.body.data[data].name,
@@ -96,15 +192,21 @@ async function signIn(req, res) {
 					log: req.body.log
 				}
 
+				model['area'] = await getFuzzy(model['area'], 'area')
+				model['direction'] = await getFuzzy(model['direction'], 'direction')
+				model['position'] = await getFuzzy(model['position'], 'position')
+				model['category'] = await getFuzzy(model['category'], 'category')
+
 				if('manager' in req.body.data[data])
 					req.body.data[data] = {
-						manager: ('fields' in req.body) 
+						manager: ('fields' in req.body)
 						? req.body.data[data][req.body.fields.manager]
 						: req.body.data[data].manager
 					}
 
 				if(dataUser.length) { // If the user exists
 					if('as_user' in req.body.data[data]) {
+						// Encryption
 						model['pass'] = crypto.AES.encrypt('password', model._id).toString()
 
 						// If user_info exits then save a new user for that employee
@@ -178,7 +280,7 @@ async function signIn(req, res) {
 				}
 			})
 			.catch((error) => { //if error 🤬
-				console.log('Error:',error)
+				console.log(error)
 				return res.end(JSON.stringify({
 					msg: ['Error en servidor.', 'Server error'],
 					status: 500,
@@ -247,7 +349,6 @@ async function getManager(req, res) {
 }
 
 module.exports = {
-	root,
 	signIn,
 	getManager,
 }

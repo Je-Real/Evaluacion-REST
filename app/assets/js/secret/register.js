@@ -32,26 +32,27 @@ window.addEventListener('load', async(e) => {
 
 	eventAssigner('#excel-file', 'change', e => {readUrl(e.target)})
 	eventAssigner('#submit-file', 'click', e => {
-		pkg['file'] = null
+		pkg['file'] = true
 		pkg['fields'] = {}
 
 		$a('#register-file select').forEach(node => {
 			let value = node[node.selectedIndex].value
-			pkg['file'] = true
 
 			if(node.classList.contains('mandatory')) {
 				if(value === '0') {
-					pkg['file'] = false
-					return showSnack(
-						(lang == 0) ? 'Algún campo obligatorio debe esta incompleto. Por favor, revisa el formulario'
-									: 'Some required fields must be incomplete. Please check the form',
-						null, SNACK.warning
-					)
+					if(pkg['file'] == true) {
+						showSnack(
+							(lang == 0) ? 'Algún campo obligatorio debe esta incompleto. Por favor, revisa el formulario'
+							: 'Some required fields must be incomplete. Please check the form',
+							null, SNACK.warning
+						)
+						return pkg['file'] = false
+					}
 				}
 			}
+			
 			pkg.fields[node.name] = value
-		})
-		
+		})	
 
 		if(pkg['file']) {
 			fetchTo(

@@ -11,17 +11,18 @@ const FORMAT_HOUR = `${ (String(DATE.getHours()).length == 1) ? '0'+(DATE.getHou
 
 //Schema for users colecction
 const UserSchema = new mongoose.Schema({
-	_id:{ type: String },
-	pass:{ type: String, required: true },
-	last_conn:{
-		date: { type: String, required: true, default:FORMAT_DATE },
-		time: { type: String, default:FORMAT_HOUR }
+	_id:	{ type: String },
+	pass: 	{ type: String, required: true },
+	enabled: { type: Boolean, default: true },
+
+	last_conn: {
+		date: 	{ type: String, required: true, default:FORMAT_DATE },
+		time: 	{ type: String, default:FORMAT_HOUR }
 	},
-	created:{
-		date: { type: String, required: true, default:FORMAT_DATE },
-		time: { type: String, default:FORMAT_HOUR }
+	created: {
+		date: 	{ type: String, required: true, default:FORMAT_DATE },
+		time: 	{ type: String, default:FORMAT_HOUR }
 	},
-	enabled:{ type: Boolean, default: true },
 
 	// blame system™
 	log: { type: Object }

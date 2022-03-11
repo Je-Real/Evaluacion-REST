@@ -6,10 +6,10 @@ const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
 const weighting = require('./controllerEvaluation').weighting
 
+//const modelArea = require('../models/modelArea')
+
 const DATE = new Date()
 const currYear = String(DATE.getFullYear())
-
-const crypto = require('crypto-js')
 
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {

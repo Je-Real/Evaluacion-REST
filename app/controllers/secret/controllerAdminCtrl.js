@@ -185,14 +185,14 @@ async function search(req, res) {
 				})
 			else return res.end(JSON.stringify({
 				status: 418,
-				error: 'Without data'
+				error: ['Sin datos', 'Without data']
 			}))
 		} catch (error) {
 			console.log(error)
 		}
 	} else return res.end(JSON.stringify({
 		status: 418,
-		error: 'Without data'
+		error: ['Sin datos', 'Without data']
 	}))
 }
 
@@ -271,7 +271,7 @@ function update(req, res) {
 
 	} else return res.end(JSON.stringify({
 		status: 418,
-		error: 'Without data'
+		error: ['Sin datos', 'Without data']
 	}))
 }
 
