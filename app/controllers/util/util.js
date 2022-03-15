@@ -8,47 +8,70 @@ const modelCategory = require('../../models/modelCategory')
 
 // Fuzzy search for specific information
 async function fuzzySearch(req = { query: '', collection: '' }) {
-	if(req.query.length > 1) {
-		const regrex = new RegExp(scapeRegrex(req.query), 'is')
+	if(req.query.length > 0) {
+		const regrex = await scapeRegrex(req.query, (req.collection == 'user_info') ? true : false)
 
 		switch (req.collection) {
 			case 'user':
-				return await modelUser.find({ _id: regrex }, { _id: 1, last_conn: 1, enabled: 1 })
+				return await modelUser.aggregate([
+					{ $match: {_id: {$regex: regrex, $options: 'i'}} },
+					{ $project: {_id: 1, last_conn: 1, enabled: 1}}
+				])
 				.catch(error => {
 					console.log(error)
 					return false
 				})
 
 			case 'user_info':
-				return await modelUserInfo.find({ name: regrex } /* { _id: parseInt(regrex) */, { _id: 1, name: 1, enabled: 1 })
+				return await modelUserInfo.aggregate([
+					{
+						$match:(isNaN(parseInt(regrex)))
+						? { $text: { $search: req.query } }
+						: { _id: { $regex: regrex, $options: 'i' } }
+					},
+					{ $limit: 6 },
+					{ $project: {_id: 1, name: 1, enabled: 1}}
+				])
 				.catch(error => {
 					console.log(error)
 					return false
 				})
 
 			case 'area':
-				return await modelArea.find({ description: regrex }, { _id: 1, description: 1 })
+				return await modelArea.aggregate([
+					{ $match: {description: { $regex: regrex, $options: 'i' }} },
+					{ $project: {_id: 1, description: 1}}
+				])
 				.catch(error => {
 					console.log(error)
 					return false
 				})
 
 			case 'direction':
-				return await modelDirection.find({ description: regrex }, { _id: 1, description: 1 })
+				return await modelDirection.aggregate([
+					{ $match: {description: { $regex: regrex, $options: 'i' }} },
+					{ $project: {_id: 1, description: 1}}
+				])
 				.catch(error => {
 					console.log(error)
 					return false
 				})
 
 			case 'position':
-				return await modelPosition.find({ description: regrex }, { _id: 1, description: 1 })
+				return await modelPosition.aggregate([
+					{ $match: {description: { $regex: regrex, $options: 'i' }} },
+					{ $project: {_id: 1, description: 1}}
+				])
 				.catch(error => {
 					console.log(error)
 					return false
 				})
 
 			case 'category':
-				return await modelCategory.find({ description: regrex }, { _id: 1, description: 1 })
+				return await modelCategory.aggregate([
+					{ $match: {description: { $regex: regrex, $options: 'i' }} },
+					{ $project: {_id: 1, description: 1}}
+				])
 				//.then(data => console.log(data))
 				.catch(error => {
 					console.log(error)
@@ -62,14 +85,15 @@ async function fuzzySearch(req = { query: '', collection: '' }) {
 	} else return null
 }
 
-const scapeRegrex = (text) => {
+const scapeRegrex = async(text, vowels = false) => {
 	if(text.length) {
 		text = text.trim()
-		text = text.replace(/\\/g, '-')
-		text = text.replace(/[aeiou]/g, '.')
-		return text.replace(/[[\]{}*+?\\^$|#]/g, '')
-		//return text.replace(/[-[\]{}()*,+?\\^$|#]/g, '')
-		// There are some troubles searching string with the characters () / -
+		if(vowels)
+			text = text.replace(/[aeiouAEIOU]/g, '.')
+		text = text.replace(/[àèìòùÀÈÌÒÙáéíóúÁÉÍÓÚüÜ]/g, '.')
+		return await text.replace(/[-[\]{}()*+?\/,\\^$|#]/g, '\\$&')
+		// Original regrex Scape
+		// return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
 	}
 }
 

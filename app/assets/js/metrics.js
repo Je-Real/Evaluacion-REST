@@ -14,8 +14,8 @@ const barChartSearch = () => {
 		'POST',
 		{ search: barSearch },
 		(result) => {
-			if(result.noti === true) {
-				showSnack(result.msg, null, SNACK[result.notiType])
+			if(result.snack === true) {
+				showSnack(result.msg, null, SNACK[result.snackType])
 			}
 
 			if(result.status === 200) {
@@ -467,7 +467,7 @@ async function getData(auto) {
 		(result) => {
             if(result.console) log(result.console, STYLE.warning)
 
-			if(result.noti) showSnack(
+			if(result.snack) showSnack(
 				result.msg, 
 				null, SNACK.info
 			)

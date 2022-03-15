@@ -19,7 +19,7 @@ async function root(req, res) {
 		// >>>>>>>>>>>>>>>>>>>>>> Login <<<<<<<<<<<<<<<<<<<<<<
 		return res.status(200).render('login', {
 			title_page: 'UTNA - Inicio',
-			session: req.session
+			session: req.session,
 		})
 	} else { // Session 🤑
 		// >>>>>>>>>>>>>>>>>>>>>> AD Ctrl <<<<<<<<<<<<<<<<<<<<<<
@@ -101,14 +101,14 @@ async function root(req, res) {
 
 async function pdfEvalFormat(req, res) {
 	if(typeof req.session == 'undefined') {
-		return res.end(JSON.stringify({
+		return res.json({
 			msg: [
 				`Por favor, inicia sesión nuevamente`,
 				`Please, log in again`
 			],
 			status: 401,
-			noti: true
-		}))
+			snack: true
+		})
 	}
 	const userID = req.params.id
 
@@ -349,7 +349,7 @@ async function pdfEvalFormat(req, res) {
 			} catch (error) {
 				console.error(error)
 				await doc.end() // Close file
-				return res.end(null)
+				return res.send(null)
 			}
 
 			res.setHeader("Content-Disposition", "attachment; output.pdf")
@@ -357,18 +357,18 @@ async function pdfEvalFormat(req, res) {
 			await doc.end() // Close file
 		} else {
 			console.error('No data')
-			return res.end(JSON.stringify({
+			return res.json({
 				status: 404,
 				error: 'No data'
-			}))
+			})
 		}
 	})
 	.catch(error => {
 		console.error(error)
-		return res.end(JSON.stringify({
+		return res.json({
 			status: 500,
 			error: error
-		}))
+		})
 	})
 }
 
@@ -387,25 +387,25 @@ async function manageUserEvaluation(req, res) {
 
 		new modelEvaluation(save).save()
 		.then(() => {
-			return res.end(JSON.stringify({
+			return res.json({
 				status: 200,
 				msg: true
-			}))
+			})
 		})
 		.catch(error => {
 			console.error(error)
-			return res.end(JSON.stringify({
+			return res.json({
 				status: 500,
 				error: error
-			}))
+			})
 		})
 	})
 	.catch(error => {
 		console.error(error)
-		return res.end(JSON.stringify({
+		return res.json({
 			status: 500,
 			error: error
-		}))
+		})
 	})
 }
 

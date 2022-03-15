@@ -11,10 +11,10 @@ async function logIn(req, res) {
 	.then((dataUser) => {
 		if(dataUser) { // If there is data in dataUser 👍
 			if(!dataUser.enabled) {
-				return res.end(JSON.stringify({
+				return res.json({
 					msg: 'El usuario o contraseña no coinciden.', 
 					status: 404
-				}))
+				})
 			}
 
 			// Users that have session tokens in browser cookies
@@ -56,55 +56,55 @@ async function logIn(req, res) {
 						req.session.category = dataUInfo[0].category
 	
 						//Response success for Asynchronous request
-						return res.end(JSON.stringify({
+						return res.json({
 							data: (req.session.category == -1) ? null : {
 								user:  req.session._id,
 								pass: { token: crypto.AES.encrypt(req.body.pass, req.body._id).toString() },
 								name: req.session.name,
 							},
 							status: 200
-						}))
+						})
 
 					})
 					.catch((error) => {
 						console.log(error)
 						//Response error for Asynchronous request
-						return res.end(JSON.stringify({
+						return res.json({
 							msg: 'Error de actualización de datos.', 
 							status: 500
-						}))
+						})
 					})
 				})
 				.catch((error) => {
 					console.log(error)
-					return res.end(JSON.stringify({
+					return res.json({
 						msg: 'Error de búsqueda de usuario. Intenta de nuevo mas tarde.', 
 						status: 404
-					}))
+					})
 				})
 			} else { //🔴
-				return res.end(JSON.stringify({
+				return res.json({
 					msg: 'El usuario o contraseña no coinciden.',
 					class: false,
 					status: 404
-				}))
+				})
 			}
 		} else {
 			//if no data 🥶
-			return res.end(JSON.stringify({
+			return res.json({
 				msg: 'El usuario o contraseña no coinciden.',
 				class: false,
 				status: 404
-			}))
+			})
 		}
 	})
 	.catch((error) => { //if error 🤬
 		console.log(error)
-		return res.end(JSON.stringify({
+		return res.json({
 			msg: 'Error del servidor.\n\r¡No te alarmes! Todo saldrá bien.', 
 			status: 500,
 			error: true
-		}))
+		})
 	})
 	//NUNCA colocar un return fuera del catch
 	//NEVER place a return outside the catch
@@ -115,17 +115,17 @@ async function logOut(req, res) {
 	req.session.destroy()
 	
 	if(req.session == null) {
-		return res.end(JSON.stringify({
+		return res.json({
 			msg: 'Sesión finalizada.', 
 			status: 200,
-			noti: true
-		}))
+			snack: true
+		})
 	} else {
-		return res.end(JSON.stringify({
+		return res.json({
 			msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldrá bien.', 
 			status: 404,
-			noti: true
-		}))
+			snack: true
+		})
 	}
 }
 
@@ -133,18 +133,18 @@ function lang(req, res) {
 	if(req.body) {
 		try {
 			req.session.lang = req.body.lang
-			return res.end(JSON.stringify({ status: 200 }))
+			return res.json({ status: 200 })
 		} catch (error) {
-			return res.end(JSON.stringify({
+			return res.json({
 				status: 418,
 				error: error
-			}))
+			})
 		}
 	}
-	else res.end(JSON.stringify({
+	else res.json({
 		status: 418,
 		error: 'Without data'
-	}))
+	})
 }
 
 module.exports = {

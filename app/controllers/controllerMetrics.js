@@ -231,7 +231,7 @@ function data(req, res) {
 			// Get average just for only for years with evaluations
 			average = parseFloat((sumTemp / divideBy).toFixed(1))
 
-			return res.end(JSON.stringify({
+			return res.json({
 				data: {
 					total: (average === NaN) ? null : average,
 					log: {
@@ -241,21 +241,21 @@ function data(req, res) {
 					subordinates: subordinates
 				},
 				status: 200,
-			}))
-		} else return res.end(JSON.stringify({
+			})
+		} else return res.json({
 			data: null,
 			status: 404,
-		}))
+		})
 	})
 	.catch((error) => { //🔴
 		console.log(error)
-		return res.end(JSON.stringify({
+		return res.json({
 			msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
 			status: 404,
-			noti: true,
+			snack: true,
 			notiType: 'error',
 			error: error
-		}))
+		})
 	})
 }
 
@@ -328,20 +328,20 @@ async function getAllOf(req, res) {
 
 	const failure = () => {
 		if(!('FORCE_YEAR_TO' in req.body))
-		return res.end(JSON.stringify({
+		return res.json({
 			msg: 'La búsqueda no coincide dentro de los parámetros.',
 			status: 404,
-			noti: true,
+			snack: true,
 			notiType: 'error'
-		}))
+		})
 	}
 
 	const success = (data) => {
 		if(!('FORCE_YEAR_TO' in req.body))
-		return res.end(JSON.stringify({
+		return res.json({
 			data: data,
 			status: 200
-		}))
+		})
 	}
 
 	if(req.body.search == 'area') {
@@ -374,14 +374,14 @@ async function getAllOf(req, res) {
 
 async function printer(req, res) {
 	if(typeof req.session == 'undefined') {
-		return res.end(JSON.stringify({
+		return res.json({
 			msg: [
 				`Por favor, inicia sesión nuevamente`,
 				`Please, log in again`
 			],
 			status: 401,
-			noti: true
-		}))
+			snack: true
+		})
 	}
 
 	const DATA = await req.body
@@ -475,7 +475,7 @@ async function printer(req, res) {
 	} catch (error) {
 		console.log(error)
 		await doc.end() // Close file
-		throw res.end(null)
+		throw res.send(null)
 	}
 
 	res.setHeader("Content-Disposition", "attachment; output.pdf")

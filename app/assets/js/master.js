@@ -73,7 +73,7 @@ async function upperAttrIterator(target, attributeName) {
 					return target.getAttribute(attributeName)
 			}
 		}
-		log(`Couldn't find attribute ${attributeName} in parentsNodes of ${target}`, STYLE.error)
+		//log(`Couldn't find attribute ${attributeName} in parentsNodes of ${target}`, STYLE.error)
 		return null
 	} catch(e) { throw e }
 }
@@ -82,27 +82,18 @@ async function fetchTo(url = '', method = '', data = {}, onSuccess, onError) {
 	let REQ_PARAMS
 	method = method.toUpperCase()
 	
-	if(method === 'POST') {
-		if(typeof data == 'object') {
-			REQ_PARAMS = {
-				method: method,
-				headers: {'Content-Type': 'application/json'},
-				body: JSON.stringify(data)
-			}
+	if(method === 'POST' || method === 'GET') {
+		REQ_PARAMS = (method === 'POST') ? {
+			method: method,
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify(data)
+		} : {}
 
-			return await fetch(url, REQ_PARAMS)
-				.then(res => res.json())
-				.then(data => onSuccess(data))
-				.catch(error => onError(error))
-		} else
-			throw 'Error: Data sent is not an Object type'
-	} else if (method === 'GET') {
-		return await fetch(url)
-			.then(res => res.json())
-			.then(data => onSuccess(data))
-			.catch(error => onError(error))
-	} else
-		throw 'Error: Methods supported are "GET" and "POST"'
+		return await fetch(url, REQ_PARAMS)
+		.then(res => res.json())
+		.then(data => onSuccess(data))
+		.catch(error => onError(error))
+	} else onError('Error: Methods supported are "GET" and "POST"')
 }
 
 const download = (path, filename) => {

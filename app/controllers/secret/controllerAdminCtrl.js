@@ -31,14 +31,14 @@ async function root(req, res) {
 
 async function search(req, res) {
 	if(typeof req.session == 'undefined') {
-		return res.end(JSON.stringify({
+		return res.json({
 			msg: [
 				`Por favor, inicia sesión nuevamente`,
 				`Please, log in again`
 			],
 			status: 401,
-			noti: true
-		}))
+			snack: true
+		})
 	}
 
 	if(req.body) {
@@ -146,66 +146,66 @@ async function search(req, res) {
 
 				modelUserInfo.aggregate(structure)
 				.then(data => {
-					return res.end(JSON.stringify({
+					return res.status(200).json({
 						status: 200,
 						data: data
-					}))
+					})
 				})
 			} else if(req.body.search == 2)
 				modelArea.aggregate([{ $sort: {_id: -1}}])
 				.then(data => {
-					return res.end(JSON.stringify({
+					return res.status(200).json({
 						status: 200,
 						data: data
-					}))
+					})
 				})
 			else if(req.body.search == 3)
 				modelDirection.aggregate([{ $sort: {_id: -1}}])
 				.then(data => {
-					return res.end(JSON.stringify({
+					return res.status(200).json({
 						status: 200,
 						data: data
-					}))
+					})
 				})
 			else if(req.body.search == 4)
 				modelPosition.aggregate([{ $sort: {_id: -1}}])
 				.then(data => {
-					return res.end(JSON.stringify({
+					return res.status(200).json({
 						status: 200,
 						data: data
-					}))
+					})
 				})
 			else if(req.body.search == 5)
 				modelCategory.aggregate([{ $sort: {_id: -1}}])
 				.then(data => {
-					return res.end(JSON.stringify({
+					return res.status(200).json({
 						status: 200,
 						data: data
-					}))
+					})
 				})
-			else return res.end(JSON.stringify({
+			else return res.status(418).json({
 				status: 418,
 				error: ['Sin datos', 'Without data']
-			}))
+			})
 		} catch (error) {
 			console.log(error)
 		}
-	} else return res.end(JSON.stringify({
+	} else return res.status(418).json({
 		status: 418,
 		error: ['Sin datos', 'Without data']
-	}))
+	})
 }
 
 function update(req, res) {
 	if(typeof req.session == 'undefined') {
-		return res.end(JSON.stringify({
+		return res.status(401).json({
 			msg: [
 				`Por favor, inicia sesión nuevamente`,
 				`Please, log in again`
 			],
 			status: 401,
-			noti: true
-		}))
+			snack: true
+		})
 	}
 
 	if(req.body) {
@@ -267,12 +267,12 @@ function update(req, res) {
 			//.then(data => console.log(data))
 			.catch(error => { handler['category'] = false; console.log(error)})
 
-		return res.end(JSON.stringify(handler))
+		return res.json(handler)
 
-	} else return res.end(JSON.stringify({
+	} else return res.status(418).json({
 		status: 418,
 		error: ['Sin datos', 'Without data']
-	}))
+	})
 }
 
 module.exports = {

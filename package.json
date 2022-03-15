@@ -19,7 +19,8 @@
     "mongoose": "^5.13.6",
     "morgan": "^1.10.0",
     "pdfjs": "^2.4.7",
-    "sharp": "^0.30.1"
+    "sharp": "^0.30.1",
+    "xlsx-populate": "^1.21.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"

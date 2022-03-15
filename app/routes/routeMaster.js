@@ -10,11 +10,15 @@ const controllerResetPsw = require('../controllers/session/controllerResetPsw')
 const controllerRegister = require('../controllers/session/controllerRegister')
 
 const controllerUserGenerator = require('../controllers/secret/controllerUserGenerator')
+const controllerTest = require('../controllers/secret/controllerTest')
+
 const controllerAdminCtrl = require('../controllers/secret/controllerAdminCtrl')
 
 const controller404 = require('../controllers/error/controller404')
 const controller401 = require('../controllers/error/controller401')
 const controller500 = require('../controllers/error/controller500')
+
+const util = require('../controllers/util/util')
 
 router //👇
 
@@ -43,12 +47,17 @@ router //👇
 .post('/session/reset-psw', controllerResetPsw.reset)
 
 // Shhh... it's a secret🤐
+//.get('/secret/test', controllerTest.root)
+//.get('/secret/test/download', controllerTest.saveAsExcel)
 //.get('/secret/user-generator', controllerUserGenerator.root)
 
+// Admin control
 .get('/admin-control', controllerAdminCtrl.root)
 .post('/admin-control/search', controllerAdminCtrl.search)
 .post('/admin-control/update', controllerAdminCtrl.update)
-//.post('/admin-control/find', controllerAdminCtrl.fuzzy)
+
+// (Utils) Fuzzy search 
+.post('/admin-control/fuzzy-find', controllerRegister.fuzzySearch)
 
 // Errors handlers (Always keep this at the end)
 .get('**', controller404.root)

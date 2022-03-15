@@ -147,14 +147,14 @@ async function root(req, res) {
 
 async function post(req, res) {
 	if(typeof req.session == 'undefined') {
-		return res.end(JSON.stringify({
+		return res.json({
 			msg: [
 				`Por favor, inicia sesión nuevamente`,
 				`Please, log in again`
 			],
 			status: 401,
-			noti: true
-		}))
+			snack: true
+		})
 	}
 
 	let score = 0,
@@ -203,12 +203,12 @@ async function post(req, res) {
 					insert = dataEval[0]
 					// If a evaluation exits in the current year, return the error message
 					if(currYear in insert.records)
-					return res.end(JSON.stringify({
+					return res.json({
 						msg: '¿¡Ya existe una evaluación para esta persona en este año!?',
 						resType: 'error',
 						status: 500,
-						noti: true
-					}))
+						snack: true
+					})
 				} else
 					insert = { _id: req.body._id, records: {} }
 
@@ -220,51 +220,51 @@ async function post(req, res) {
 
 				await new modelEvaluation(insert).save()
 				.then(() => { //🟢
-					return res.end(JSON.stringify({
+					return res.json({
 						msg: '¡Evaluación registrada satisfactoriamente!',
 						resType: 'success',
 						status: 200,
-						noti: true
-					}))
+						snack: true
+					})
 				})
 				.catch((error) => { //🔴
 					console.error(error)
-					return res.end(JSON.stringify({
+					return res.json({
 						msg: 'Imposible registrar resultados.\r\nIntentalo más tarde.',
 						resType: 'error',
 						status: 500,
-						noti: true
-					}))
+						snack: true
+					})
 				})
 			})
 			.catch((error) => { //🔴
 				console.error(error)
-					return res.end(JSON.stringify({
+					return res.json({
 						msg: 'Imposible registrar resultados.\r\nIntentalo más tarde.',
 						resType: 'error',
 						status: 500,
-						noti: true
-					}))
+						snack: true
+					})
 			})
 		} else {
 			console.log(dataUInfo)
 			console.error('No length in user info search!')
-			return res.end(JSON.stringify({
+			return res.json({
 				msg: '¿¡No existe el usuario seleccionado!?',
 				resType: 'error',
 				status: 500,
-				noti: true
-			}))
+				snack: true
+			})
 		}
 	})
 	.catch((error) => { //🔴
 		console.error(error)
-		return res.end(JSON.stringify({
+		return res.json({
 			msg: '¿¡No existe el usuario actual!?\r\n¿¿¿Cómo lo lograste???',
 			resType: 'error',
 			status: 500,
-			noti: true
-		}))
+			snack: true
+		})
 	})
 }
 
@@ -272,7 +272,7 @@ function weighting(numAnswer, answer) {
 	let failure = (question) => { return {
 		msg: 'Error: No se obtuvo calificación de ' + question,
 		resType: 'error',
-		noti: true,
+		snack: true,
 		status: 500,
 	}}
 

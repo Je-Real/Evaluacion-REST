@@ -116,7 +116,7 @@ window.addEventListener('load', async(e) => {
             'POST',
             pkg,
             (result) => {
-                if(result.noti && result.status === 200) {
+                if(result.snack && result.status === 200) {
                     showSnack(result.msg, null, SNACK.success)
                     setTimeout(window.location.reload(false), 1500)
 

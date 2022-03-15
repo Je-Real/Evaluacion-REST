@@ -7,6 +7,6 @@ const positionSchema = new mongoose.Schema({
 
     // blame system™
 	log: { type: Object }
-})
+}).index({description: 'text'})
 
 module.exports = mongoose.model('position', positionSchema)

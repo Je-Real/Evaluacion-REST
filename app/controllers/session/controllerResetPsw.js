@@ -12,35 +12,35 @@ async function reset(req, res) {
 			//Save data
 			new modelUser(dataUser).save()
 			.then(() => { //🟢
-				return res.end(JSON.stringify({
+				return res.json({
 					msg: '¡Contraseña actualizada correctamente!',
 					status: 200,
-					noti: true
-				}))
+					snack: true
+				})
 			})
 			.catch((error) => { //🔴
 				console.log(error)
-				return res.end(JSON.stringify({
+				return res.json({
 					msg: 'No se puede actualizar contraseña.\r\nIntentalo más tarde.',
 					status: 500,
-					noti: true
-				}))
+					snack: true
+				})
 			})
 		} else { //if no data 🥶
-			return res.end(JSON.stringify({
+			return res.json({
 				msg: '¡No se encontro usuario!',
 				status: 404,
-				noti: true
-			}))
+				snack: true
+			})
 		}
 	})
 	.catch((error) => { //if error 🤬
 		console.log('Error:',error)
-		return res.end(JSON.stringify({
+		return res.json({
 			msg: 'Error en servidor.',
 			status: 500,
-			noti: true
-		}))
+			snack: true
+		})
 	})
 	//NUNCA colocar un return fuera del catch
 	//NEVER place a return outside the catch

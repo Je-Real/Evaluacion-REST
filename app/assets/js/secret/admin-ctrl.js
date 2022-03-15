@@ -191,7 +191,8 @@ const collections = (e) => {
 														</button>
 													</h2>
 													<div id="user-flush-eval-${ year }-collapse-${ result.data[i]._id }" class="accordion-collapse collapse"
-														aria-labelledby="user-flush-eval-${ year }-${ result.data[i]._id }" data-bs-parent="#flush-eval-collapse-${ result.data[i]._id }">
+														aria-labelledby="user-flush-eval-${ year }-${ result.data[i]._id }"
+														data-bs-parent="#flush-eval-collapse-${ result.data[i]._id }">
 														<div class="accordion-body px-0">
 															<div class="row">
 																<div class="my-1 col-md-4 col-6">
@@ -202,67 +203,65 @@ const collections = (e) => {
 																		<div class="button b2 mt-2 mb-2" id="button-17">
 																			<input name="disabled" id="disabled-${ year }-${ result.data[i]._id }" type="checkbox"
 																				class="checkbox info-${ result.data[i]._id } ${ (parseInt(year) != currYear) ? 'read-only' : '' }"
-																				data-class="evaluation" data-year="${ year }" ${ ('disabled' in result.data[i].eval_.records[year]) ? '' : checked } }
+																				data-class="evaluation" data-year="${ year }"
+																				${ ('disabled' in result.data[i].eval_.records[year]) ? '' : checked } }
 																				disabled>
-																				<div class="knobs" data-unchecked="${ Array('Sí', 'Yes')[lang] }" data-checked="${ Array('No', 'No')[lang] }"><span></span></div>
+																				<div class="knobs" data-unchecked="${ Array('Sí', 'Yes')[lang] }"
+																					data-checked="${ Array('No', 'No')[lang] }"><span></span></div>
 																			<div class="layer"></div>
-																		</div>
-																	</div>
-																</div>
+																</div></div></div>
 																<div class="my-1 col-md-4 col-6">
 																	<p class="text-mini-label text-center m-0">
 																		${ Array('Puntuación', 'Score')[lang] }
 																	</p>
-																	<input value="${ result.data[i].eval_.records[year].score }" class="form-control info-${ result.data[i]._id } read-only"
-																		name="score" id="score-${ year }-${ result.data[i]._id }" data-class="evaluation" data-year="${ year }" type="text" disabled>
-																</div>
-																<div class="my-1 col-md-4 col-6">
+																	<input value="${ result.data[i].eval_.records[year].score }"
+																		class="form-control info-${ result.data[i]._id } read-only"
+																		name="score" id="score-${ year }-${ result.data[i]._id }"
+																		data-class="evaluation" data-year="${ year }" type="text" disabled>
+																</div><div class="my-1 col-md-4 col-6">
 																	<p class="text-mini-label text-center m-0">
 																		${ Array('Respuestas', 'Answers')[lang] }
 																	</p>
-																	<input value="${ result.data[i].eval_.records[year].answers }" class="form-control info-${ result.data[i]._id } read-only"
-																		name="answers" id="answers-${ year }-${ result.data[i]._id }" data-class="evaluation" data-year="${ year }" type="text" disabled>
-																</div>
-			
-																<div class="my-1 col-md-4 col-6 mx-auto">
+																	<input value="${ result.data[i].eval_.records[year].answers }"
+																		class="form-control info-${ result.data[i]._id } read-only"
+																		name="answers" id="answers-${ year }-${ result.data[i]._id }"
+																		data-class="evaluation" data-year="${ year }" type="text" disabled>
+																</div><div class="my-1 col-md-4 col-6 mx-auto">
 																	<p class="text-mini-label text-center m-0">
 																		${ Array('Área', 'Area')[lang] }
 																	</p>
-																	<input value="${ result.data[i].eval_.records[year].area }" class="form-control info-${ result.data[i]._id } read-only"
-																		name="area" id="area-${ year }-${ result.data[i]._id }" data-class="evaluation" data-year="${ year }" type="text" disabled/>
+																	<input value="${ result.data[i].eval_.records[year].area }"
+																		class="form-control info-${ result.data[i]._id } read-only"
+																		name="area" id="area-${ year }-${ result.data[i]._id }"
+																		data-class="evaluation" data-year="${ year }" type="text" disabled/>
 																</div>
-			
 																${ ('department' in result.data[i].eval_.records[year])
 																	?`<div class="my-1 col-md-4 col-6 mx-auto">
 																		<p class="text-mini-label text-center m-0">
 																			${ Array('Departamento', 'Department')[lang] }
 																		</p>
-																		<input value="${ result.data[i].eval_.records[year].direction }" class="form-control info-${ result.data[i]._id } read-only"
-																			name="department" id="department-${ year }-${ result.data[i]._id }" data-class="evaluation" data-year="${ year }" type="text" disabled/>
+																		<input value="${ result.data[i].eval_.records[year].direction }"
+																			class="form-control info-${ result.data[i]._id } read-only"
+																			name="department" id="department-${ year }-${ result.data[i]._id }" data-class="evaluation"
+																			data-year="${ year }" type="text" disabled/>
 																	</div>` : ''
-																}
-			
-																${ ('career' in result.data[i].eval_.records[year])
+																} ${ ('career' in result.data[i].eval_.records[year])
 																	? `<div class="my-1 col-md-4 col-6 mx-auto">
 																		<p class="text-mini-label text-center m-0">
 																			${ Array('Carrera', 'Career')[lang] }
 																		</p>
-																		<input value="${ result.data[i].eval_.records[year].position }" class="form-control info-${ result.data[i]._id } read-only"
-																			name="career" id="career-${ year }-${ result.data[i]._id }" data-class="evaluation" data-year="${ year }" type="text" disabled/>
+																		<input value="${ result.data[i].eval_.records[year].position }"
+																			class="form-control info-${ result.data[i]._id } read-only"
+																			name="career" id="career-${ year }-${ result.data[i]._id }" data-class="evaluation"
+																			data-year="${ year }" type="text" disabled/>
 																	</div>` : ''
 																}
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>`
+											</div></div></div></div></div>`
 										}
 									} else { 
-										evalRecords = `<div class="col-12 text-center text-black-50">
-											<p class="fs-4">
+										evalRecords = `<div class="col-12 text-center text-black-50"><p class="fs-4">
 												${ Array('No hay registros', 'No records')[lang] }
-											</p>
-										</div>`
+											</p></div>`
 									}
 
 								$e('#collector-accordion').insertAdjacentHTML(
@@ -281,11 +280,7 @@ const collections = (e) => {
 															? Array('Habilitado', 'Enabled')[lang]
 															: Array('Deshabilitado', 'Disabled')[lang]
 														}</p>
-													</div>
-												</div>
-											</button>
-										</h2>
-
+										</div></div></button></h2>
 										<div id="flush-collector-collapse-${ result.data[i]._id }" class="accordion-collapse collapse"
 											aria-labelledby="flush-collector-${ result.data[i]._id }" data-bs-parent="#collector-accordion">
 											<div class="accordion-body px-3">
@@ -294,36 +289,45 @@ const collections = (e) => {
 														<h6 class="col-12 p-0 text-black-50 fs-5">
 															${ Array('Información de puesto', 'Position information')[lang] }</span>
 														</h6>
-														${ (false) 
-															? `<div class="col-12">
-																<h6 class="p-0 text-black-50 fs-5">
+														${ (false) ? `<div class="col-12"><h6 class="p-0 text-black-50 fs-5">
 																	${ Array('Información de puesto', 'Position information')[lang] }
-																</h6>
-															</div>` : ''
+																</h6></div>` : ''
 														}
-
 														<div class="my-1 col-md-6 col-12">
 															<p class="text-mini-label text-center m-0">
 																${ Array('Área de adscripción', 'Adscription area')[lang] }
 															</p>
-															<input value="${ ((result.data[i].area).length) ? (('description' in result.data[i].area[session.lang]) ? result.data[i].area[session.lang].description : 'N.A') : 'N.A' }"
-																class="form-control info-${ result.data[i]._id }" name="area" id="area-${ result.data[i]._id }"
+															<input value="${ ((result.data[i].area).length)
+																? (('description' in result.data[i].area[lang])
+																	? result.data[i].area[lang].description
+																	: 'N.A')
+																: 'N.A' }"
+																class="form-control info-${ result.data[i]._id }" name="area"
+																id="area-${ result.data[i]._id }"
 																data-class="user_info" type="text" disabled/>
-														</div>
-														<div class="my-1 col-md-6 col-12">
+														</div><div class="my-1 col-md-6 col-12">
 															<p class="text-mini-label text-center m-0">
 																${ Array('Dirección / Subdirección', 'Direction / Sub-direction')[lang] }
 															</p>
-															<input value="${ ((result.data[i].direction).length) ? (('description' in result.data[i].direction[session.lang]) ? result.data[i].direction[session.lang].description : 'N.A') : 'N.A' }"
-																class="form-control info-${ result.data[i]._id }" name="direction" id="direction-${ result.data[i]._id }"
+															<input value="${ ((result.data[i].direction).length)
+																? (('description' in result.data[i].direction[lang])
+																	? result.data[i].direction[lang].description
+																	: 'N.A')
+																: 'N.A' }"
+																class="form-control info-${ result.data[i]._id }" name="direction"
+																id="direction-${ result.data[i]._id }"
 																data-class="user_info" type="text" disabled/>
-														</div>
-														<div class="my-1 col-md-6 col-12">
+														</div><div class="my-1 col-md-6 col-12">
 															<p class="text-mini-label text-center m-0">
 																${ Array('Categoría', 'Category')[lang] }
 															</p>
-															<input value="${ ((result.data[i].category).length) ? (('description' in result.data[i].category[session.lang]) ? result.data[i].category[session.lang].description : 'N.A') : 'N.A' }"
-																class="form-control info-${ result.data[i]._id }" name="category" id="category-${ result.data[i]._id }"
+															<input value="${ ((result.data[i].category).length)
+																? (('description' in result.data[i].category[lang])
+																	? result.data[i].category[lang].description
+																	: 'N.A')
+																: 'N.A' }"
+																class="form-control info-${ result.data[i]._id }" name="category"
+																id="category-${ result.data[i]._id }"
 																data-class="user_info" type="text" disabled/>
 														</div>
 														<div class="my-1 col-md-6 col-12">
@@ -332,15 +336,14 @@ const collections = (e) => {
 															</p>
 															<input value="${
 																((result.data[i].position).length) ? (
-																( 'description' in result.data[i].position[session.lang])
-																	? result.data[i].position[session.lang].description
+																( 'description' in result.data[i].position[lang])
+																	? result.data[i].position[lang].description
 																	: 'N.A.' )
 																: 'N.A' }"
-																class="form-control info-${ result.data[i]._id }" name="position" id="position-${ result.data[i]._id }"
+																class="form-control info-${ result.data[i]._id }" name="position"
+																id="position-${ result.data[i]._id }"
 																data-class="user_info" type="text" disabled/>
-														</div>
-													</div>
-
+													</div></div>
 													<div class="row">
 														<div class="my-1 col-md-5 col-6 mx-auto">
 															<p class="text-mini-label text-center m-0">
@@ -348,11 +351,9 @@ const collections = (e) => {
 															</p>
 															<input value="${ result.data[i].manager }" class="form-control info-${result.data[i]._id }
 																${ (parseInt(result.data[i].category) <= 1) ? '' : 'read-only' }"
-																name="manager" id="manager-${ result.data[i]._id }" data-class="user_info" type="text" disabled/>
-														</div>
-													</div>
-												</div>
-
+																name="manager" id="manager-${ result.data[i]._id }" data-class="user_info"
+																type="text" disabled/>
+												</div></div></div>
 												${ ('user_' in result.data[i]) 
 													? `<div class="my-md-2 my-1 px-md-3 py-md-2 p-2 rounded-3">
 														<div class="row">
@@ -377,19 +378,16 @@ const collections = (e) => {
 																<input value="${ result.data[i].user_.last_conn.date } @ ${ result.data[i].user_.last_conn.time }"
 																	class="form-control info-${ result.data[i]._id } date read-only text-center"
 																	name="lastConn" id="lastConn-${ result.data[i]._id }" type="text" disabled/>
-															</div>
-														</div>
-													</div>` : ''
+													</div></div></div>` : ''
 												}
-
 												<div class="accordion accordion-flush mt-2" id="inner-accordions-${ result.data[i]._id }">
 													${ ('eval_' in result.data[i])
 														? `<!-- Evaluation information -->
 														<div class="accordion-item">
 															<h2 class="accordion-header" id="flush-eval-${ result.data[i]._id }">
-																<button class="btn-outline-success accordion-button collapsed" type="button" data-bs-toggle="collapse"
-																	data-bs-target="#flush-eval-collapse-${ result.data[i]._id }" aria-expanded="false"
-																	aria-controls="flush-eval-collapse-${ result.data[i]._id }">
+																<button class="btn-outline-success accordion-button collapsed"
+																	type="button" data-bs-toggle="collapse" data-bs-target="#flush-eval-collapse-${ result.data[i]._id }"
+																	aria-expanded="false" aria-controls="flush-eval-collapse-${ result.data[i]._id }">
 																	${ Array('Evaluaciones', 'Evaluations')[lang] }
 
 																</button>
@@ -399,12 +397,8 @@ const collections = (e) => {
 																<div class="accordion-body px-0">
 																	<div class="row">
 																		${ evalRecords }
-																	</div>
-																</div>
-															</div>
-														</div>` : ''
+														</div></div></div></div>` : ''
 													}
-
 													<!-- Sensitive information -->
 													<div class="accordion-item">
 														<h2 class="accordion-header" id="flush-sensitive-${ result.data[i]._id }">
@@ -424,12 +418,7 @@ const collections = (e) => {
 																		</p>
 																		<input value="${ result.data[i].name }" class="form-control info-${ result.data[i]._id }"
 																			name="name" id="first-name-${ result.data[i]._id }" data-class="user_info" type="text" disabled>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-
+													</div></div></div></div></div>
 													<!-- Danger Zone -->
 													<div class="accordion accordion-flush mt-2" id="user-accordion-inner-${ result.data[i]._id }">
 														<div class="accordion-item">
@@ -469,13 +458,7 @@ const collections = (e) => {
 																					autocomplete="new-password" disabled>
 																			</div>` : ''
 																		}
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-
+												</div></div></div></div></div></div>
 												<div class="w-100 text-right d-flex justify-content-end mt-2 pe-3">
 													<button id="edit-info-${ result.data[i]._id }" data-id="info-${ result.data[i]._id }"
 														data-table="1" class="btn-edit btn btn-secondary px-3 py-2">
@@ -491,11 +474,7 @@ const collections = (e) => {
 														data-table="1" class="btn-save btn btn-outline-dark px-3 py-2 d-none" disabled>
 														<i class="pe-none pe-1 fa-solid fa-floppy-disk"></i>
 														<span class="pe-none">${ Array('Guardar', 'Save')[lang] }</span>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>`
+									</button></div></div></div></div>`
 								)
 							}
 						} else {
@@ -512,17 +491,12 @@ const collections = (e) => {
 														<p class="m-0">ID: ${ result.data[i]['_id'] }</p>
 													</div>
 													<div class="text-right p-0 ms-auto me-2">
-														<p class="m-0 lang" data-lang="es">
-														${
+														<p class="m-0 lang" data-lang="es">${
 															(result.data[i]['description'][lang])
 															? result.data[i]['description'][lang]
 															: result.data[i]['description'][0]
-														}
-														</p>
-													</div>
-												</div>
-											</button>
-										</h2>
+														}</p>
+										</div></div></button></h2>
 
 										<div id="flush-collector-${ result.data[i]['_id'] }" class="accordion-collapse collapse"
 											aria-labelledby="flush-head-collector-${ result.data[i]['_id'] }" data-bs-parent="#collector-accordion">
@@ -534,17 +508,14 @@ const collections = (e) => {
 														</p>
 														<input value="${ result.data[i]['description'][0] }" class="form-control e-${ result.data[i]['_id'] }"
 															name="0" id="exts-e-${ result.data[i]['_id'] }" type="text" disabled>
-													</div>
-													<div class="my-1 col-md-6 col-12 mx-auto">
+													</div><div class="my-1 col-md-6 col-12 mx-auto">
 														<p class="text-mini-label text-center m-0">
 														${ (lang == 0) ? 'Idioma (en)' : 'Language (en)' }
 														</p>
 														<input value="${ (result.data[i]['description'][1]) ? result.data[i]['description'][1] : '' }"
 															name="1" class="form-control e-${ result.data[i]['_id'] }" id="extn-e-${ result.data[i]['_id'] }"
 															type="text" disabled>
-													</div>
-												</div>
-	
+												</div></div>
 												<div class="w-100 text-right d-flex justify-content-end mt-2 pe-3">
 													<button id="edit-e-${ result.data[i]['_id'] }" data-id="e-${ result.data[i]['_id'] }" data-table="${search}"
 														class="btn-edit btn btn-secondary px-3 py-2">
@@ -566,11 +537,7 @@ const collections = (e) => {
 														<span class="pe-none lang">
 															${(lang == 0) ? 'Guardar' : 'Save' }
 														</span>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>`
+									</button></div></div></div></div>`
 								)
 							}
 						}
@@ -590,11 +557,10 @@ const collections = (e) => {
 							`<td id="empty" colspan="5" class="border-0 text-center">
 								<div class="text-center">
 									<i class="fa-solid fa-ghost icon-ghost f-vScreen-15 my-3 text-black-15"></i>
-									<p class="my-2 text-ghost fs-4">
-										${ Array('No hay datos para mostrar', 'No records to show')[lang] }
-									</p>
-								</div>
-							</td>`
+									<p class="my-2 text-ghost fs-4">${
+										Array('No hay datos para mostrar', 'No records to show')[lang]
+									}</p>
+							</div></td>`
 						)
 					}
 				} else showSnack(result.error, null, SNACK.error)

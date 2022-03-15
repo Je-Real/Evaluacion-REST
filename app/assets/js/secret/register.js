@@ -11,25 +11,125 @@ window.addEventListener('load', async(e) => {
 	eventAssigner('#register-personnel, .to-register', 'click', () => { lockRegister(false); lockFile(true) })
 	eventAssigner('*[aria-label="Close"]:not(.to-register)', 'click', () => { lockRegister(true); lockFile(false) })
 
-	eventAssigner('#as_user', 'change', (e) => {
-		if(e.target.checked) {
-			$e('#register input[type="password"]').disabled = false
-			$e('#register input[type="password"]').classList.add('mandatory')
-		} else {
-			$e('#register input[type="password"]').disabled = true
-			$e('#register input[type="password"]').classList.remove('mandatory')
-		}
-	})
-	eventAssigner('#force', 'change', (e) => {
-		if(e.target.checked) {
-			$e('#new_id.read-only').disabled = false
-			$e('#new_id.read-only').classList.remove('read-only')
-		} else {
-			$e('#new_id').disabled = true
-			$e('#new_id').classList.add('read-only')
+	eventAssigner('#find_user, #new_user', 'change', (e) => {
+		let tgt = e.target
+		if(tgt.id === 'find_user') {
+			if(tgt.checked) {
+				$e('#new_user').checked = false
+				$a('.reg-field:not(.find-user)').forEach(node => {
+					node.classList.add('d-none')
+				})
+				$a('.form-control:not(.find-user)').forEach(node => {
+					node.classList.remove('mandatory')
+					if(node.tagName.toLowerCase == 'input')
+						node.value = ''
+					else
+						node.selectedIndex = 0
+				})
+			}
+		} else if (tgt.id === 'new_user') {
+			if(tgt.checked) {
+				$e('#find_user').checked = false
+				$a('.reg-field:not(.find-user)').forEach(node => {
+					node.classList.remove('d-none')
+				})
+				$a('.form-control:not(.find-user)').forEach(node => {
+					node.classList.add('mandatory')
+				})
+			}
 		}
 	})
 
+	$a('.dynamic-hint').forEach(node => {
+		node.parentElement.insertAdjacentHTML(
+			'beforeend',
+			'<div class="modal-hint hide mt-1 bg-light rounded-3 shadow-lg"></div>'
+		)
+	})
+	let fuzzyLock = true
+	const modalHintDisplay = async(e, show = true) => {
+		try {
+			return setTimeout(() => {
+				if(e.target)
+					if(show) {
+						let modalHint = e.target.parentElement.querySelector('.modal-hint')
+			
+						if(modalHint != null)
+							modalHint.classList.remove('hide')
+		
+						return true
+					} else {
+						let modalHint = e.target.parentElement.querySelector('.modal-hint')
+						
+						if(modalHint != null) {
+							modalHint.innerHTML = ''
+							modalHint.classList.add('hide')
+						}
+		
+						return true
+					}
+				else return false
+			}, 200)
+		} catch (error) {
+			console.warn(error)
+			throw false
+		}
+	}
+	const dynamicHints = async(e, collection) => {
+		if(fuzzyLock && e.target) {
+			fuzzyLock = false
+			setTimeout(() => {
+				fetchTo(
+					'http://localhost:999/admin-control/fuzzy-find',
+					'POST',
+					{ query: (e.target.value).trim(), collection: collection },
+					(result) => {
+						if(result.snack) {
+							return showSnack(result.msg, null, SNACK.warning)
+						} else if(result.status === 200) {
+							let textItterator = ''
+							fuzzyLock = true
+
+							if(result.data) {
+								for(let d in result.data) {
+									textItterator += `<div class="hints btn btn-outline-light py-2 px-4"
+									data-name="${result.data[d].name}" data-id="${result.data[d]._id}">
+									<p class="m-0 p-0 text-dark text-start pe-none">
+										<span class="pe-2">ID: ${result.data[d]._id}</span> - 
+										<span class="ps-2">${result.data[d].name}</span>
+									</p></div>`
+								}
+								let modalHint = e.target.parentElement.querySelector('.modal-hint')
+								if(modalHint != null)
+									modalHint.innerHTML = textItterator
+
+								eventAssigner('.hints', 'click', (e) => {
+									let input = e.target.parentElement.parentElement.querySelector('input')
+
+									if('hint' in input.dataset)
+										$e('#manager').value = e.target.dataset['id']
+									else {
+										$e('#new_id').value = e.target.dataset['id']
+										$e('#name').value = e.target.dataset['name']
+									}
+									modalHintDisplay(e.target, false)
+								})
+							}
+						}
+					},
+					(error) => {
+						console.warn(error)
+						return showSnack(error, null, SNACK.error)
+					}
+				)
+			}, 750)
+		}
+	}
+	eventAssigner('.dynamic-hint', 'focusin', (e) => modalHintDisplay(e, true))
+	eventAssigner('.dynamic-hint', 'focusout', (e) => modalHintDisplay(e, false))
+	eventAssigner('.dynamic-hint', 'keydown', (e) => dynamicHints(e, 'user_info'))
+	eventAssigner('.dynamic-hint', 'change', (e) => dynamicHints(e, 'user_info'))
+	
 	eventAssigner('#excel-file', 'change', e => {readUrl(e.target)})
 	eventAssigner('#submit-file', 'click', e => {
 		pkg['file'] = true
@@ -74,6 +174,12 @@ window.addEventListener('load', async(e) => {
 				}
 			)
 		}
+	})
+
+	eventAssigner('button[aria-label="Close"]', 'click', () => {
+		console.log('close')
+		$e('#manual-reg').reset()
+		$e('#file-reg').reset()
 	})
 })
 
@@ -185,104 +291,133 @@ const excelToJSON = async(file) => {
 }
 
 const register = async() => {
-	pkg['data'] = [{
-		_id: 		$e('#new_id:not(.read-only):not(disabled)').value,
-		name: 		($e('#name:not(disabled)').value).trim(),
-		area: 		parseInt($e('#area:not(disabled)')[$e('#area').selectedIndex].value) + 1,
-		direction: 	parseInt($e('#direction:not(disabled)')[$e('#direction').selectedIndex].value) + 1,
-		position: 	parseInt($e('#position:not(disabled)')[$e('#position').selectedIndex].value) + 1,
-		category: 	parseInt($e('#category:not(disabled)')[$e('#category').selectedIndex].value) + 1
-	}]
+	pkg['data'] = [{}]
 
-	if($e('#as_user:not(disabled)').checked) {
-		//pkg.data[0]['pass'] = $e('#new_pass:not(disabled)').value //random password in back-end
-		pkg.data[0]['as_user'] = $e('#as_user:not(disabled)').checked
+	if($e('#new_user:not(disabled)').checked) {
+		pkg.data[0]['new_user'] = $e('#new_user:not(disabled)').checked
+	} else if($e('#find_user:not(disabled)').checked) {
+		pkg.data[0]['find_user'] = $e('#find_user:not(disabled)').checked
 	}
 
-	for(let i in pkg.data[0]) {
-		if(pkg.data[0][i] == undefined || pkg.data[0][i] == '' || pkg.data[0][i] === 0)
-			return showSnack(
-				(lang == 0) ? `No se puede enviar el registro, hay campos vacíos.`
-							: `Unable to send the data, there is empty fields`,
-				null, SNACK.warning
-			)
-	}
+	let pass = true
+	$a('#manual-reg .form-control.mandatory').forEach(node => {
 
-	await fetchTo(
-		'http://localhost:999/session/sign-in',
-		'POST',
-		pkg,
-		(result) => {
-			if(result.status === 200) {
-				showSnack(result.msg[lang], null, SNACK.success)
-				setTimeout(() => {
-					window.location.reload()
-				}, 2000)
-			}
-			else showSnack(result.msg[lang], null, SNACK.warning)
-		},
-		(error) => {
-			showSnack('Error '+error, null, SNACK.error)
-			console.error(error)
+		if(node.tagName.toLowerCase() == 'input') {
+			if(node.value.lenght < 4 && pass) {
+				pass = false
+				return showSnack(
+					(lang == 0) ? `No se puede enviar el registro, hay campos vacíos.`
+								: `Unable to send the data, there is empty fields`,
+					null, SNACK.warning
+				)
+			} else pkg.data[0][node.name] = node.value
 		}
-	)
-}
+		else if(node.tagName.toLowerCase() == 'select') {
+			console.log('selectedIndex')
+			console.log(node.selectedIndex)
+			if(parseInt(node.selectedIndex) == 0 && pass) {
+				pass = false
+				return showSnack(
+					(lang == 0) ? `No se puede enviar el registro, hay campos vacíos.`
+								: `Unable to send the data, there is empty fields`,
+					null, SNACK.warning
+				)
+			} else pkg.data[0][node.name] = parseInt(node[node.selectedIndex].value)
+		} else {
+			pass = false
+			return console.warn(node)
+		}
+	})
 
-function getManager(lvl_sel) {
-	$a('.mgr-s').forEach(node => node.remove())
-	if(lvl_sel === false) {
-		$e('#manager').disabled = true
-		$e('#mgr-s').className.remove('d-none')
-		$e('#mgr-s').selected = true
-		$e('#lvl-s').selected = true
-		return
-	}
+	if(pass) {
+		await fetch('http://localhost:999/session/sign-in',
+			{method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify(pkg)}
+		)
+		.then(async data => {
+			let SNK_Type = ''
+			if(data.status === 200) SNK_Type = 'success'
+			else SNK_Type = 'warning'
+			if(Boolean(data.headers.get('snack')) == true) {
+				showSnack(data.headers.get('msg'), null, SNACK[SNK_Type])
+			}
 
-	let pkg = {
-		area: $e('#area')[$e('#area').selectedIndex].value,
-		department: $e('#department')[$e('#department').selectedIndex].value,
-		career: $e('#career')[$e('#career').selectedIndex].value,
-		level: parseInt(lvl_sel)
-	}
+			data.arrayBuffer()
+			.then(data => {
+				if(data == null || data == undefined)
+				return showSnack('Server error', null, SNACK.error)
+				const blob = new Blob([data]) // Create a Blob object
+				const url = URL.createObjectURL(blob) // Create an object URL
+				download(url, `doc.xlsx`) // Download file
+				URL.revokeObjectURL(url) // Release the object URL
+			})
+		}) // response data to array buffer
+		/*.then(data => {
+			if(data == null || data == undefined)
+				return showSnack('Server error', null, SNACK.error)
+			const blob = new Blob([data]) // Create a Blob object
+			const url = URL.createObjectURL(blob) // Create an object URL
+			download(url, `doc.xlsx`) // Download file
+			URL.revokeObjectURL(url) // Release the object URL
+		})*/
+		.catch(error => console.error(error))
 
-	fetchTo(
-		'http://localhost:999/register/manager',
-		'GET',
-		pkg,
-		(result) => {
-			if(result.status === 200) {
-				if(result.data.length > 0) {
+		/*await fetchTo(
+			'http://localhost:999/session/sign-in',
+			'POST',
+			pkg,
+			async(result) => {
+				if(result.status === 200) {
+					showSnack(result.msg[lang], null, SNACK.success)
 
-					for(info in result.data) {
-						$e('#manager').insertAdjacentHTML('beforeend',
-							`<option class='mgr-s mgr-${info}' value='${info+1}'>
-							${(result.data[info].name).split(' ')[0]}
-							</option>`
-						)
+					var wb = XLSX.utils.book_new();
+					wb.Props = {
+						Title: "SheetJS Tutorial",
+						Subject: "Test",
+						Author: "UTNA",
+						CreatedDate: new Date(2017,12,19)
+					};
+					wb.SheetNames.push("Test Sheet");
+
+					let header = ["_id", "name", "system_user", "info_user", "error"]
+
+					const getSheetData = (data, header) => {
+						let fields = Object.keys(data[0])
+						let sheetData = data.map((row) => {
+							return fields.map((fieldName) => {
+								return (String(row[fieldName]).length != 0) ? row[fieldName] : ''
+							})
+						})
+						sheetData.unshift(header)
+						return sheetData
 					}
-					$e('#mgr-s').classList.add('d-none')
-					$a('.mgr-s.mgr-0').forEach(node => node.selected = true)
 
-					$e('#manager').disabled = false
-				} else {
-					$e('#manager').disabled = true
-					$e('#mgr-s').innerHTML = 'N/A'
-					$e('#mgr-s').classList.remove('d-none')
-					$e('#mgr-s').selected = true
-					showSnack(
-						(lang == 0) ? 'No se encontró manager. <br/>Error del servidor.'
-									: 'No manager found. <br/> Server error.',
-						null, SNACK.error
-					)
+					var ws = XLSX.utils.aoa_to_sheet([['hola', 'tontos']]);
+					wb.Sheets["Test Sheet"] = ws;
+
+					var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
+
+					function s2ab(s) { 
+						var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
+						var view = new Uint8Array(buf);  //create uint8array as viewer
+						for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
+						return buf;    
+					}
+
+					XLSX.writeFile(new Blob([s2ab(wbout)]), "out.xlsx");
+
+					//setTimeout(() => {
+					//	window.location.reload()
+					//}, 2000)
 				}
+				else showSnack(result.msg[lang], null, SNACK.warning)
+			
+			},
+			(error) => {
+				showSnack('Error '+error, null, SNACK.error)
+				console.error(error)
 			}
-		},
-		(error, result) => {
-			showSnack(
-				'Status: '+result+'. '+error,
-				null, SNACK.error
-			)
-			console.error(error)
-		}
-	)
+		)*/
+	}
 }
