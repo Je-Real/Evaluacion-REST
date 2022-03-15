@@ -4,6 +4,86 @@ let firstName, lastName,
 	lvl_s = 0,
 	pkg = { data: [] }, options = []
 
+let fuzzyLock = true
+const modalHintDisplay = async(e, show = true) => {
+	try {
+		return setTimeout(() => {
+			if(e.target)
+				if(show) {
+					let modalHint = e.target.parentElement.querySelector('.modal-hint')
+		
+					if(modalHint != null)
+						modalHint.classList.remove('hide')
+	
+					return true
+				} else {
+					let modalHint = e.target.parentElement.querySelector('.modal-hint')
+					
+					if(modalHint != null) {
+						modalHint.innerHTML = ''
+						modalHint.classList.add('hide')
+					}
+	
+					return true
+				}
+			else return false
+		}, 200)
+	} catch (error) {
+		console.warn(error)
+		throw false
+	}
+}
+const dynamicHints = async(e, collection) => {
+	if(fuzzyLock && e.target) {
+		fuzzyLock = false
+		setTimeout(() => {
+			fetchTo(
+				'http://localhost:999/admin-control/fuzzy-find',
+				'POST',
+				{ query: (e.target.value).trim(), collection: collection },
+				(result) => {
+					if(result.snack) {
+						return showSnack(result.msg, null, SNACK.warning)
+					} else if(result.status === 200) {
+						let textItterator = ''
+						fuzzyLock = true
+
+						if(result.data) {
+							for(let d in result.data) {
+								textItterator += `<div class="hints btn btn-outline-light py-2 px-4"
+								data-name="${result.data[d].name}" data-id="${result.data[d]._id}">
+								<p class="m-0 p-0 text-dark text-start pe-none">
+									<span class="pe-2">ID: ${result.data[d]._id}</span> - 
+									<span class="ps-2">${result.data[d].name}</span>
+								</p></div>`
+							}
+							let modalHint = e.target.parentElement.querySelector('.modal-hint')
+							if(modalHint != null)
+								modalHint.innerHTML = textItterator
+
+							eventAssigner('.hints', 'click', (e) => { // TODO: Fix this (get automatically? the value)
+								let input = e.target.parentElement.parentElement.querySelector('input')
+
+								if('hint' in input.dataset)
+									input.value = e.target.dataset['id']
+								else {
+									$e('#new_id').value = e.target.dataset['id']
+									$e('#name').value = e.target.dataset['name']
+								}
+								modalHintDisplay(e.target, false)
+							})
+						}
+					}
+				},
+				(error) => {
+					console.warn(error)
+					return showSnack(error, null, SNACK.error)
+				}
+			)
+		}, 750)
+	}
+}
+
 window.addEventListener('load', async(e) => {
 	lockRegister(true)
 	eventAssigner('#submit-register', 'click', register)
@@ -46,92 +126,13 @@ window.addEventListener('load', async(e) => {
 			'<div class="modal-hint hide mt-1 bg-light rounded-3 shadow-lg"></div>'
 		)
 	})
-	let fuzzyLock = true
-	const modalHintDisplay = async(e, show = true) => {
-		try {
-			return setTimeout(() => {
-				if(e.target)
-					if(show) {
-						let modalHint = e.target.parentElement.querySelector('.modal-hint')
-			
-						if(modalHint != null)
-							modalHint.classList.remove('hide')
-		
-						return true
-					} else {
-						let modalHint = e.target.parentElement.querySelector('.modal-hint')
-						
-						if(modalHint != null) {
-							modalHint.innerHTML = ''
-							modalHint.classList.add('hide')
-						}
-		
-						return true
-					}
-				else return false
-			}, 200)
-		} catch (error) {
-			console.warn(error)
-			throw false
-		}
-	}
-	const dynamicHints = async(e, collection) => {
-		if(fuzzyLock && e.target) {
-			fuzzyLock = false
-			setTimeout(() => {
-				fetchTo(
-					'http://localhost:999/admin-control/fuzzy-find',
-					'POST',
-					{ query: (e.target.value).trim(), collection: collection },
-					(result) => {
-						if(result.snack) {
-							return showSnack(result.msg, null, SNACK.warning)
-						} else if(result.status === 200) {
-							let textItterator = ''
-							fuzzyLock = true
-
-							if(result.data) {
-								for(let d in result.data) {
-									textItterator += `<div class="hints btn btn-outline-light py-2 px-4"
-									data-name="${result.data[d].name}" data-id="${result.data[d]._id}">
-									<p class="m-0 p-0 text-dark text-start pe-none">
-										<span class="pe-2">ID: ${result.data[d]._id}</span> - 
-										<span class="ps-2">${result.data[d].name}</span>
-									</p></div>`
-								}
-								let modalHint = e.target.parentElement.querySelector('.modal-hint')
-								if(modalHint != null)
-									modalHint.innerHTML = textItterator
-
-								eventAssigner('.hints', 'click', (e) => {
-									let input = e.target.parentElement.parentElement.querySelector('input')
-
-									if('hint' in input.dataset)
-										$e('#manager').value = e.target.dataset['id']
-									else {
-										$e('#new_id').value = e.target.dataset['id']
-										$e('#name').value = e.target.dataset['name']
-									}
-									modalHintDisplay(e.target, false)
-								})
-							}
-						}
-					},
-					(error) => {
-						console.warn(error)
-						return showSnack(error, null, SNACK.error)
-					}
-				)
-			}, 750)
-		}
-	}
 	eventAssigner('.dynamic-hint', 'focusin', (e) => modalHintDisplay(e, true))
 	eventAssigner('.dynamic-hint', 'focusout', (e) => modalHintDisplay(e, false))
 	eventAssigner('.dynamic-hint', 'keydown', (e) => dynamicHints(e, 'user_info'))
 	eventAssigner('.dynamic-hint', 'change', (e) => dynamicHints(e, 'user_info'))
 	
 	eventAssigner('#excel-file', 'change', e => {readUrl(e.target)})
-	eventAssigner('#submit-file', 'click', e => {
+	eventAssigner('#submit-file', 'click', async e => {
 		pkg['file'] = true
 		pkg['fields'] = {}
 
@@ -152,32 +153,44 @@ window.addEventListener('load', async(e) => {
 			}
 			
 			pkg.fields[node.name] = value
-		})	
+		})
 
 		if(pkg['file']) {
-			fetchTo(
-				'http://localhost:999/session/sign-in',
-				'POST',
-				pkg,
-				(result) => {
-					if(result.status === 200) {
-						showSnack(result.msg[lang], null, SNACK.success)
-						setTimeout(() => {
-							window.location.reload()
-						}, 2000)
-					}
-					else showSnack(result.msg[lang], null, SNACK.warning)
-				},
-				(error) => {
-					showSnack('Error '+error, null, SNACK.error)
-					console.error(error)
-				}
+			await fetch('http://localhost:999/session/sign-in',
+				{method: 'POST',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify(pkg)}
 			)
+			.then(async data => {
+				if(data.status != 401) {
+					let SNK_Type = '',
+						filename = data.headers.get('filename')
+
+					if(data.status === 200) SNK_Type = 'success'
+					else SNK_Type = 'warning'
+					if(Boolean(data.headers.get('snack')) == true) {
+						showSnack(data.headers.get('msg'), null, SNACK[SNK_Type])
+					}
+	
+					data.arrayBuffer()
+					.then(data => {
+						if(data == null || data == undefined)
+						return showSnack('Server error', null, SNACK.error)
+						const blob = new Blob([data]) // Create a Blob object
+						const url = URL.createObjectURL(blob) // Create an object URL
+						download(url, filename) // Download file
+						URL.revokeObjectURL(url) // Release the object URL
+					})
+				} else showSnack(data.headers.get('msg'), null, SNACK['error'])
+			})
+			.catch(error => console.error(error))
+			.finally(() => {
+				$e('button.close-modal').click()
+			})
 		}
 	})
 
 	eventAssigner('button[aria-label="Close"]', 'click', () => {
-		console.log('close')
 		$e('#manual-reg').reset()
 		$e('#file-reg').reset()
 	})
@@ -336,88 +349,30 @@ const register = async() => {
 			body: JSON.stringify(pkg)}
 		)
 		.then(async data => {
-			let SNK_Type = ''
-			if(data.status === 200) SNK_Type = 'success'
-			else SNK_Type = 'warning'
-			if(Boolean(data.headers.get('snack')) == true) {
-				showSnack(data.headers.get('msg'), null, SNACK[SNK_Type])
-			}
+			if(data.status != 401) {
+				let SNK_Type = '',
+					filename = data.headers.get('filename')
 
-			data.arrayBuffer()
-			.then(data => {
-				if(data == null || data == undefined)
-				return showSnack('Server error', null, SNACK.error)
-				const blob = new Blob([data]) // Create a Blob object
-				const url = URL.createObjectURL(blob) // Create an object URL
-				download(url, `doc.xlsx`) // Download file
-				URL.revokeObjectURL(url) // Release the object URL
-			})
-		}) // response data to array buffer
-		/*.then(data => {
-			if(data == null || data == undefined)
-				return showSnack('Server error', null, SNACK.error)
-			const blob = new Blob([data]) // Create a Blob object
-			const url = URL.createObjectURL(blob) // Create an object URL
-			download(url, `doc.xlsx`) // Download file
-			URL.revokeObjectURL(url) // Release the object URL
-		})*/
-		.catch(error => console.error(error))
-
-		/*await fetchTo(
-			'http://localhost:999/session/sign-in',
-			'POST',
-			pkg,
-			async(result) => {
-				if(result.status === 200) {
-					showSnack(result.msg[lang], null, SNACK.success)
-
-					var wb = XLSX.utils.book_new();
-					wb.Props = {
-						Title: "SheetJS Tutorial",
-						Subject: "Test",
-						Author: "UTNA",
-						CreatedDate: new Date(2017,12,19)
-					};
-					wb.SheetNames.push("Test Sheet");
-
-					let header = ["_id", "name", "system_user", "info_user", "error"]
-
-					const getSheetData = (data, header) => {
-						let fields = Object.keys(data[0])
-						let sheetData = data.map((row) => {
-							return fields.map((fieldName) => {
-								return (String(row[fieldName]).length != 0) ? row[fieldName] : ''
-							})
-						})
-						sheetData.unshift(header)
-						return sheetData
-					}
-
-					var ws = XLSX.utils.aoa_to_sheet([['hola', 'tontos']]);
-					wb.Sheets["Test Sheet"] = ws;
-
-					var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
-
-					function s2ab(s) { 
-						var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
-						var view = new Uint8Array(buf);  //create uint8array as viewer
-						for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
-						return buf;    
-					}
-
-					XLSX.writeFile(new Blob([s2ab(wbout)]), "out.xlsx");
-
-					//setTimeout(() => {
-					//	window.location.reload()
-					//}, 2000)
+				if(data.status === 200) SNK_Type = 'success'
+				else SNK_Type = 'warning'
+				if(Boolean(data.headers.get('snack')) == true) {
+					showSnack(data.headers.get('msg'), null, SNACK[SNK_Type])
 				}
-				else showSnack(result.msg[lang], null, SNACK.warning)
-			
-			},
-			(error) => {
-				showSnack('Error '+error, null, SNACK.error)
-				console.error(error)
-			}
-		)*/
+
+				data.arrayBuffer()
+				.then(data => {
+					if(data == null || data == undefined)
+					return showSnack('Server error', null, SNACK.error)
+					const blob = new Blob([data]) // Create a Blob object
+					const url = URL.createObjectURL(blob) // Create an object URL
+					download(url, filename) // Download file
+					URL.revokeObjectURL(url) // Release the object URL
+				})
+			} else showSnack(data.headers.get('msg'), null, SNACK['error'])
+		})
+		.catch(error => console.error(error))
+		.finally(() => {
+			$e('button.close-modal').click()
+		})
 	}
 }

@@ -1036,7 +1036,6 @@ code {
 	z-index: 5;
 	min-width: 20vw;
 	max-width: 45vw;
-
 	transition: all 200ms ease-in-out;
 }
 

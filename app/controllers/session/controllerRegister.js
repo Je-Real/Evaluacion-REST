@@ -14,15 +14,13 @@ const XLSXPopulate = require('xlsx-populate')
 const DATE = new Date()
 
 async function signIn(req, res) {
-	if(typeof req.session == 'undefined') {
-		return res.json({
-			msg: [
-				`Por favor, inicia sesión nuevamente`,
-				`Please, log in again`
-			],
-			status: 401,
-			snack: true
-		})
+	if(!('_id' in req.session)) {
+		res.append('msg', Array(
+			`Por favor, inicia sesión nuevamente`,
+			`Please, log in again`
+		))
+		res.append('snack', 'true')
+		return res.status(401).end()
 	}
 
 	if(req.body) {
@@ -59,60 +57,65 @@ async function signIn(req, res) {
 
 			// Fuzzy search (this method skips all the vowels because there's no insensitive diacritic)
 			// This gets if there is the record that we're are searching already in the collection or not
-			let data = await fuzzy({ query: query, collection: collection }).catch(error => {
-				console.log(error)
-				return res.json({
-					msg: [
+			return await fuzzy({ query: query, collection: collection })
+			.then(async(data) => {
+				let pass = true
+				if(data) { // If the search found the same word, then get the ID
+					for(let recFound in data) {
+						if( String(data[recFound].description[0]).length == query.length ||
+							data[recFound].description[0] == query
+						) {
+							pass = false
+							return data[recFound]._id
+						}
+					}
+				}
+
+				if(pass) {
+					// Else, first get the last ID or assign the ID as "1" for the first record
+					let m = await modelMaster.find({}).countDocuments({},{})
+					let insertNew = {
+							_id: m+1,
+							description: [ query, query ]
+						}
+
+					// After insert the document, get the ID and return it
+					const ID = await new modelMaster(insertNew).save()
+					.catch(error => {
+						console.log(error)
+						throw res.json({
+							msg: Array(
+								`No se pudo leer la columna ${collection}.`,
+								`Could not read the ${collection}.`
+							)[req.session.lang],
+							status: 404,
+							snack: true
+						})
+					})
+
+					return ID['_id']
+				} else 
+				throw res.json({
+					msg: Array(
 						`No se pudo leer la columna ${collection}.`,
 						`Could not read the ${collection}.`
-					],
+					)[req.session.lang],
+					status: 404,
+					snack: true
+				})
+			})
+			.catch(error => {
+				console.log(error)
+				throw res.json({
+					msg: Array(
+						`No se pudo leer la columna ${collection}.`,
+						`Could not read the ${collection}.`
+					)[req.session.lang],
 					status: 404,
 					snack: true
 				})
 			})
 
-			let pass = true
-			if(data) { // If the search found the same word, then get the ID
-				for(let recFound in data) {
-					if( String(data[recFound].description[0]).length == query.length ||
-						data[recFound].description[0] == query
-					) {
-						pass = false
-						return data[recFound]._id
-					}
-				}
-			}
-
-			if(pass) {
-				// Else, first get the last ID or assign the ID as "1" for the first record
-				let m = await modelMaster.find({}).countDocuments({},{})
-				let insertNew = {
-						_id: m+1,
-						description: [ query, query ]
-					}
-
-				// After insert the document, get the ID and return it
-				const ID = await new modelMaster(insertNew).save()
-				.catch(error => {
-					console.log(error)
-					return res.json({
-						msg: [
-							`No se pudo leer la columna ${collection}.`,
-							`Could not read the ${collection}.`
-						],
-						status: 404,
-						snack: true
-					})
-				})
-				return ID['_id']
-			} else return res.json({
-					msg: [
-						`No se pudo leer la columna ${collection}.`,
-						`Could not read the ${collection}.`
-					],
-					status: 404,
-					snack: true
-				})
 		}
 
 		const getSheetData = (data, header) => {
@@ -127,12 +130,12 @@ async function signIn(req, res) {
 		}
 		const saveAsExcel = async(log) => {
 			let header = ['_id', 'name', 'system_user', 'pass', 'info_user', 'error']
-		
+
 			return await XLSXPopulate.fromBlankAsync().then(async (workbook) => {
 				const sheet1 = workbook.sheet(0)
 				const sheetData = getSheetData(log, header)
 				const totalColumns = sheetData[0].length
-		
+
 				sheet1.cell('A1').value(sheetData)
 				const range = sheet1.usedRange()
 				const endColumn = String.fromCharCode(64 + totalColumns)
@@ -155,11 +158,21 @@ async function signIn(req, res) {
 		}
 		let regLog = { length: req.body.data.length, users: [] }
 		let isFile = (req.body.data.length > 1)
-		
+
+		res.append('filename', Array(
+			`lista-registro-${FORMAT_DATE}-${DATE.getHours()}-${DATE.getMinutes()}.xlsx`,
+			`registry-log-${FORMAT_DATE}-${DATE.getHours()}-${DATE.getMinutes()}.xlsx`
+		)[req.session.lang])
+		res.append('snack', 'true')
+
 		for(let data in req.body.data) {
 			regLog.users[parseInt(data)] = {
 				_id: ('fields' in req.body) ? req.body.data[data][req.body.fields._id] : req.body.data[data]._id,
 				name: ('fields' in req.body) ? req.body.data[data][req.body.fields.name] : req.body.data[data].name,
+				system_user: false,
+				pass: false,
+				info_user: false,
+				error: ''
 			}
 
 			// Sign in validator
@@ -177,178 +190,221 @@ async function signIn(req, res) {
 					category: ('fields' in req.body) ? req.body.data[data][req.body.fields.category] : req.body.data[data].category,
 					// blame system™ 😎
 					log: req.body.log
-				}
+				}, nextStep = true
 
-				model['area'] = await getFuzzy(model['area'], 'area')
-				model['direction'] = await getFuzzy(model['direction'], 'direction')
-				model['position'] = await getFuzzy(model['position'], 'position')
-				model['category'] = await getFuzzy(model['category'], 'category')
+				model['area'] = await getFuzzy(model['area'], 'area').then(data => {
+					if(parseInt(data) > 0) return parseInt(data)
+					else nextStep = false
+				}).catch(error => {console.log(error); nextStep = false})
+				model['direction'] = await getFuzzy(model['direction'], 'direction').then(data => {
+					if(parseInt(data) > 0) return parseInt(data)
+					else nextStep = false
+				}).catch(error => {console.log(error); nextStep = false})
+				model['position'] = await getFuzzy(model['position'], 'position').then(data => {
+					if(parseInt(data) > 0) return parseInt(data)
+					else nextStep = false
+				}).catch(error => {console.log(error); nextStep = false})
+				model['category'] = await getFuzzy(model['category'], 'category').then(data => {
+					if(parseInt(data) > 0) return parseInt(data)
+					else nextStep = false
+				}).catch(error => {console.log(error); nextStep = false})
 
-				if('manager' in req.body.data[data])
-					req.body.data[data] = {
-						manager: ('fields' in req.body)
-						? req.body.data[data][req.body.fields.manager]
-						: req.body.data[data].manager
-					}
-
-				if(dataUser.length) { // If the user exists
-					if('find_user' in req.body.data[data]) {
-						modelUser.findOne({ _id: model._id }, { _id: 1 })
-						.then(async(sys_user) => {
-							if(sys_user) {
-								regLog.users[parseInt(data)]['system_user'] = false
-
-								if((isFile && data >= (regLog.length-1)) || !isFile)
-									res.append('filename', `registro-${FORMAT_DATE}.xlsx`)
-									res.append('msg', Array(
+				if(nextStep) {
+					if('manager' in req.body.data[data])
+						req.body.data[data] = {
+							manager: ('fields' in req.body)
+							? req.body.data[data][req.body.fields.manager]
+							: req.body.data[data].manager
+						}
+	
+					if(dataUser.length) { // If the user exists
+						if('find_user' in req.body.data[data]) {
+							modelUser.findOne({ _id: model._id }, { _id: 1 })
+							.then(async(sys_user) => {
+								if(sys_user) {
+									if(!isFile) {
+										res.append('msg', Array(
+											'¡Ya existe usuario con ese ID!',
+											'There is an user with that ID already!'
+										)[req.session.lang])
+									} else if(isFile && data >= (regLog.length-1)) {
+										res.append('msg', Array(
+											'Se completo el registro con algunas fallas. Revise en el archivo descargado.',
+											'The registration is complete with some errors. Check in the downloaded file.'
+										)[req.session.lang])
+									}
+									regLog.users[parseInt(data)]['error'] = Array(
 										'¡Ya existe usuario con ese ID!',
 										'There is an user with that ID already!'
-									)[req.session.lang])
-									res.append('snack', 'true')
+									)[req.session.lang]
 									return res.status(409).send(await saveAsExcel(regLog.users))
-							} else {
-								let chars = '0123456789abcdefghijklmnopqrstuvwxyz!@#$()ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-									passwordLength = 8,
-									password = ''
-								
-								for(let i = 0; i <= passwordLength; i++) {
-									let randomNumber = Math.floor(Math.random() * chars.length)
-									password += chars.substring(randomNumber, randomNumber+1)
-								}
-								// Encryption
-								model['pass'] = crypto.AES.encrypt(password, model._id).toString()
-
-								// If user_info exits then save a new user for that employee
-								new modelUser(model).save()
-								.then(async() => { //🟢
-									regLog.users[parseInt(data)]['system_user'] = true
-									regLog.users[parseInt(data)]['password'] = password
-
-									if((isFile && data >= (regLog.length-1)) || !isFile)
-										res.append('msg', Array(
-											`¡Usuario para ${dataUser[0].name } creado correctamente!`,
-											`User for ${dataUser[0].name } created successfully!`
-										)[req.session.lang])
-										res.append('snack', 'true')
+								} else {
+									let chars = '0123456789abcdefghijklmnopqrstuvwxyz!@#$()ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+										passwordLength = 8,
+										password = ''
+	
+									for(let i = 0; i <= passwordLength; i++) {
+										let randomNumber = Math.floor(Math.random() * chars.length)
+										password += chars.substring(randomNumber, randomNumber+1)
+									}
+									// Encryption
+									model['pass'] = crypto.AES.encrypt(password, model._id).toString()
+	
+									// If user_info exits then save a new user for that employee
+									new modelUser(model).save()
+									.then(async() => { //🟢
+										regLog.users[parseInt(data)]['system_user'] = true
+										regLog.users[parseInt(data)]['password'] = password
+	
+										if(!isFile) {
+											res.append('msg', Array(
+												`¡Usuario para ${dataUser[0].name } creado correctamente!`,
+												`User for ${dataUser[0].name } created successfully!`
+											)[req.session.lang])
+										} else if(isFile && data >= (regLog.length-1)) {
+											res.append('msg', Array(
+												`!Proceso de registro completado correctamente!`,
+												`Registration process successfully completed!`
+											)[req.session.lang])
+										}
 										res.status(200).send(await saveAsExcel(regLog.users))
-								})
-								.catch(async(error) => { //🔴
-									console.log(error)
-									regLog.users[parseInt(data)]['system_user'] = Array(
+									})
+									.catch(async(error) => { //🔴
+										console.log(error)
+										regLog.users[parseInt(data)]['system_user'] = Array(
 											'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
 											'Unable to register user. Please try again later.'
 										)[req.session.lang]
-									regLog.users[parseInt(data)]['error'] = error
-
-									if((isFile && data >= (regLog.length-1)) || !isFile)
-										res.append('msg', Array(
-											'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
-											'Unable to register user. Please try again later.'
-										)[req.session.lang])
-										res.append('snack', 'true')
-										res.status(500).send(await saveAsExcel(regLog.users))
-								})
-							}
-						})
-						.catch(async(error) => { //🔴
-							console.log(error)
-							regLog.users[parseInt(data)]['system_user'] = Array(
-									'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
-									'Unable to register user. Please try again later.'
-								)[req.session.lang]
-							regLog.users[parseInt(data)]['error'] = error
-
-							if((isFile && data >= (regLog.length-1)) || !isFile)
-								res.append('msg', Array(
-									'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
-									'Unable to register user. Please try again later.'
-								)[req.session.lang])
-								res.append('snack', 'true')
-								return res.status(500).send(await saveAsExcel(regLog.users))
-						})
-					} else {
-						regLog.users[parseInt(data)]['system_user'] = false
-
-						if((isFile && data >= (regLog.length-1)) || !isFile)
-							res.append('msg', Array(
-								'¡Ya existe usuario con ese ID!',
-								'There is an user with that ID already!'
-							)[req.session.lang])
-							res.append('snack', 'true')
-							return res.status(409).send(await saveAsExcel(regLog.users))
-					}
-				} else {
-					// Save a new info_user
-					new modelUserInfo(model).save()
-					.then(async() => { //🟢
-						// And if the employee is a user
-						if('as_user' in req.body.data[data]) {
-							new modelUser(model).save()
-							.then(async() => { //🟢
-								regLog.users[parseInt(data)]['system_user'] = true
-
-								if((isFile && data >= (regLog.length-1)) || !isFile)
-									res.append('msg', Array(
-										'¡Registrado correctamente!', 'Successfully registered!'
-									)[req.session.lang])
-									res.append('snack', 'true')
-									return res.status(200).send(await saveAsExcel(regLog.users))
+										regLog.users[parseInt(data)]['error'] = error
+	
+										if((isFile && data >= (regLog.length-1)) || !isFile) {
+											res.append('msg', Array(
+												'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
+												'Unable to register user. Please try again later.'
+											)[req.session.lang])
+											res.status(500).send(await saveAsExcel(regLog.users))
+										}
+									})
+								}
 							})
-							.catch(async() => { //🔴
+							.catch(async(error) => { //🔴
 								console.log(error)
 								regLog.users[parseInt(data)]['system_user'] = Array(
 										'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
 										'Unable to register user. Please try again later.'
 									)[req.session.lang]
 								regLog.users[parseInt(data)]['error'] = error
-
+	
 								if((isFile && data >= (regLog.length-1)) || !isFile) {
 									res.append('msg', Array(
 										'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
 										'Unable to register user. Please try again later.'
 									)[req.session.lang])
-									res.append('snack', 'true')
 									return res.status(500).send(await saveAsExcel(regLog.users))
 								}
 							})
 						} else {
-							regLog.users[parseInt(data)]['info_user'] = true
-
-							if((isFile && data >= (regLog.length-1)) || !isFile) {
+							if(!isFile) {
 								res.append('msg', Array(
-									'¡Registrado correctamente!', 'Successfully registered!'
+									'¡Ya existe usuario con ese ID!',
+									'There is an user with that ID already!'
 								)[req.session.lang])
-								res.append('snack', 'true')
+							} else if(isFile && data >= (regLog.length-1)) {
+								res.append('msg', Array(
+									'Se completo el registro con algunas fallas. Revise en el archivo descargado.',
+									'The registration is complete with some errors. Check in the downloaded file.'
+								)[req.session.lang])
+							}
+							regLog.users[parseInt(data)]['error'] = Array(
+								'¡Ya existe usuario con ese ID!',
+								'There is an user with that ID already!'
+							)[req.session.lang]
+							return res.status(409).send(await saveAsExcel(regLog.users))
+						}
+					} else {
+						// Save a new info_user
+						new modelUserInfo(model).save()
+						.then(async() => { //🟢
+							// And if the employee is a user
+							regLog.users[parseInt(data)]['info_user'] = true
+	
+							if('new_user' in req.body.data[data]) {
+								new modelUser(model).save()
+								.then(async() => { //🟢
+									regLog.users[parseInt(data)]['system_user'] = true
+	
+									if(!isFile) {
+										res.append('msg', Array(
+											`¡Información registrada correctamente!`,
+											`Information successfully recorded!`
+										)[req.session.lang])
+									} else if(isFile && data >= (regLog.length-1)) {
+										res.append('msg', Array(
+											`!Proceso de registro completado correctamente!`,
+											`Registration process successfully completed!`
+										)[req.session.lang])
+									}
+									return res.status(200).send(await saveAsExcel(regLog.users))
+								})
+								.catch(async() => { //🔴
+									console.log(error)
+									regLog.users[parseInt(data)]['system_user'] = Array(
+											'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
+											'Unable to register user. Please try again later.'
+										)[req.session.lang]
+									regLog.users[parseInt(data)]['error'] = error
+	
+									if((isFile && data >= (regLog.length-1)) || !isFile) {
+										res.append('msg', Array(
+											'Proceso con errores. Revisa en el archivo descargado.',
+											'Process with errors. Check in the downloaded file.'
+										)[req.session.lang])
+										return res.status(500).send(await saveAsExcel(regLog.users))
+									}
+								})
+							} else{
+								if(!isFile) {
+									res.append('msg', Array(
+										`¡Información registrada correctamente!`,
+										`Information successfully recorded!`
+									)[req.session.lang])
+								} else if(isFile && data >= (regLog.length-1)) {
+									res.append('msg', Array(
+										`!Proceso de registro completado correctamente!`,
+										`Registration process successfully completed!`
+									)[req.session.lang])
+								}
 								return res.status(200).send(await saveAsExcel(regLog.users))
 							}
-						}
-					})
-					.catch(async(error) => { //🔴
-						console.log(error)
-						regLog.users[parseInt(data)]['info_user'] = Array(
-								'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
-								'Unable to register user. Please try again later.'
-							)[req.session.lang]
-						regLog.users[parseInt(data)]['error'] = error
-
-						if((isFile && data >= (regLog.length-1)) || !isFile) {
-							res.append('msg', Array(
-								'No se puede registrar usuario. Inténtalo más tarde.',
-								'Unable to register user. Please try again later.'
-							)[req.session.lang])
-							res.append('snack', 'true')
-							return res.status(500).send(await saveAsExcel(regLog.users))
-						}
-					})
-				}
+						})
+						.catch(async(error) => { //🔴
+							console.log(error)
+							regLog.users[parseInt(data)]['info_user'] = Array(
+									'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
+									'Unable to register user. Please try again later.'
+								)[req.session.lang]
+							regLog.users[parseInt(data)]['error'] = error
+	
+							if((isFile && data >= (regLog.length-1)) || !isFile) {
+								res.append('msg', Array(
+									'Proceso con errores. Revisa en el archivo descargado.',
+									'Process with errors. Check in the downloaded file.'
+								)[req.session.lang])
+								return res.status(500).send(await saveAsExcel(regLog.users))
+							}
+						})
+					}
+				} else return res.status(200).end({})
 			})
 			.catch(async(error) => { //if error 🤬
 				console.log(error)
 				regLog.users[parseInt(data)]['error'] = error
 
 				if((isFile && data >= (regLog.length-1)) || !isFile) {
-					res.append('msg', Array('Error en servidor.', 'Server error')[req.session.lang])
-					res.append('snack', 'true')
+					res.append('msg', Array(
+						'Error en servidor. Revisa en el archivo descargado.',
+						'Server error. Check in the downloaded file.'
+					)[req.session.lang])
 					return res.status(500).send(await saveAsExcel(regLog.users))
 				}
 			})

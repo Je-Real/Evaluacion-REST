@@ -1,92 +1,91 @@
-[
-    {
-        "_id": 1,
-        "description": [
-            "Rectoría"
-        ]
-    },
-    {
-        "_id": 2,
-        "description": [
-            "Secretaría Académica"
-        ]
-    },
-    {
-        "_id": 3,
-        "description": [
-            "Órgano Interno de Control"
-        ]
-    },
-    {
-        "_id": 4,
-        "description": [
-            "Administración y Finanzas"
-        ]
-    },
-    {
-        "_id": 5,
-        "description": [
-            "Promoción, Comunicación y Extensión Universitaria"
-        ]
-    },
-    {
-        "_id": 6,
-        "description": [
-            "Vinculación"
-        ]
-    },
-    {
-        "_id": 7,
-        "description": [
-            "Planeación y Evaluación Institucional"
-        ]
-    },
-    {
-        "_id": 8,
-        "description": [
-            "Subdirección de Servicios Administrativos"
-        ]
-    },
-    {
-        "_id": 9,
-        "description": [
-            "Subdirección Jurídica"
-        ]
-    },
-    {
-        "_id": 10,
-        "description": [
-            "Subdirección de Atención al Cliente"
-        ]
-    },
-    {
-        "_id": 11,
-        "description": [
-            "Académica de Tecnologías de la Información"
-        ]
-    },
-    {
-        "_id": 12,
-        "description": [
-            "Académica Área Industrial"
-        ]
-    },
-    {
-        "_id": 13,
-        "description": [
-            "Académica de Agricultura y DNM"
-        ]
-    },
-    {
-        "_id": 14,
-        "description": [
-            "Académica de Administración y Contaduría"
-        ]
-    },
-    {
-        "_id": 15,
-        "description": [
-            "Dirección Académica de Tecnologías de la Información"
-        ]
-    }
-]
+[{
+  "_id": 1,
+  "description": [
+    "Rectoría",
+    "Rectoría"
+  ]
+},{
+  "_id": 2,
+  "description": [
+    "Secretaría Académica",
+    "Secretaría Académica"
+  ]
+},{
+  "_id": 3,
+  "description": [
+    "Órgano Interno de Control",
+    "Órgano Interno de Control"
+  ]
+},{
+  "_id": 4,
+  "description": [
+    "Administración y Finanzas",
+    "Administración y Finanzas"
+  ]
+},{
+  "_id": 5,
+  "description": [
+    "Promoción, Comunicación y Extensión Universitaria",
+    "Promoción, Comunicación y Extensión Universitaria"
+  ]
+},{
+  "_id": 6,
+  "description": [
+    "Vinculación",
+    "Vinculación"
+  ]
+},{
+  "_id": 7,
+  "description": [
+    "Planeación y Evaluación Institucional",
+    "Planeación y Evaluación Institucional"
+  ]
+},{
+  "_id": 8,
+  "description": [
+    "Subdirección de Servicios Administrativos",
+    "Subdirección de Servicios Administrativos"
+  ]
+},{
+  "_id": 9,
+  "description": [
+    "Subdirección Jurídica",
+    "Subdirección Jurídica"
+  ]
+},{
+  "_id": 10,
+  "description": [
+    "Subdirección de Atención al Cliente",
+    "Subdirección de Atención al Cliente"
+  ]
+},{
+  "_id": 11,
+  "description": [
+    "Académica de Tecnologías de la Información",
+    "Académica de Tecnologías de la Información"
+  ]
+},{
+  "_id": 12,
+  "description": [
+    "Académica Área Industrial",
+    "Académica Área Industrial"
+  ]
+},{
+  "_id": 13,
+  "description": [
+    "Académica de Agricultura y DNM",
+    "Académica de Agricultura y DNM"
+  ]
+},{
+  "_id": 14,
+  "description": [
+    "Académica de Administración y Contaduría",
+    "Académica de Administración y Contaduría"
+  ]
+},{
+  "_id": 15,
+  "description": [
+    "Dirección Académica de Tecnologías de la Información",
+    "Dirección Académica de Tecnologías de la Información"
+  ]
+}]

@@ -20,7 +20,6 @@ async function root(req, res) {
 			title_page: 'UTNA - Evaluacion',
 			session: req.session,
 			usersData: usersData,
-			count: await modelUserInfo.countDocuments({}),
 			currYear: DATE.getFullYear()
 		})
 	}
@@ -30,23 +29,30 @@ async function root(req, res) {
 }
 
 async function search(req, res) {
-	if(typeof req.session == 'undefined') {
-		return res.json({
+	if(!('_id' in req.session)) {
+		return res.status(401).json({
 			msg: [
 				`Por favor, inicia sesión nuevamente`,
 				`Please, log in again`
 			],
-			status: 401,
-			snack: true
+			snack: true,
+			status: 401
 		})
 	}
 
 	if(req.body) {
 		try {
+			let structure = [
+				{ $sort: { _id: -1 } }, // ID 1st, Skip 2nd & limit 3rd
+				{ $limit: parseInt(req.body.limit) },
+			]
+			if(req.body.skip > 0)
+				structure.splice(1, 0, { $skip: parseInt(req.body.skip) * parseInt(req.body.limit) })
+
 			if(req.body.search == 1) {
-				let structure = [
-					{ $sort: { _id: 1 } },
-					{ $limit: ('limit' in req.body) ? parseInt(req.body.limit) : 10 },
+				structure = [
+					{ $sort: { _id: 1 } }, // ID 1st, Skip 2nd & limit 3rd
+					{ $limit: parseInt(req.body.limit) },
 					{
 						$lookup: {
 							from: 'areas',
@@ -142,69 +148,75 @@ async function search(req, res) {
 						}
 					}, { $unset: ['__v', 'log'] }
 				]
-				if('skip' in req.body) structure.unshift({ $skip: parseInt(req.body.skip) })
+				if(req.body.skip > 0) 
+					structure.splice(1, 0, { $skip: parseInt(req.body.skip) * parseInt(req.body.limit) })
 
 				modelUserInfo.aggregate(structure)
-				.then(data => {
+				.then(async(data) => {
 					return res.status(200).json({
-						status: 200,
-						data: data
+						data: data,
+						count: await modelUserInfo.countDocuments({}),
+						status: 200
 					})
 				})
 			} else if(req.body.search == 2)
-				modelArea.aggregate([{ $sort: {_id: -1}}])
-				.then(data => {
+				modelArea.aggregate(structure)
+				.then(async(data) => {
 					return res.status(200).json({
-						status: 200,
-						data: data
+						data: data,
+						count: await modelArea.countDocuments({}),
+						status: 200
 					})
 				})
 			else if(req.body.search == 3)
-				modelDirection.aggregate([{ $sort: {_id: -1}}])
-				.then(data => {
+				modelDirection.aggregate(structure)
+				.then(async(data) => {
 					return res.status(200).json({
-						status: 200,
-						data: data
+						data: data,
+						count: await modelDirection.countDocuments({}),
+						status: 200
 					})
 				})
 			else if(req.body.search == 4)
-				modelPosition.aggregate([{ $sort: {_id: -1}}])
-				.then(data => {
+				modelPosition.aggregate(structure)
+				.then(async(data) => {
 					return res.status(200).json({
-						status: 200,
-						data: data
+						data: data,
+						count: await modelPosition.countDocuments({}),
+						status: 200
 					})
 				})
 			else if(req.body.search == 5)
-				modelCategory.aggregate([{ $sort: {_id: -1}}])
-				.then(data => {
+				modelCategory.aggregate(structure)
+				.then(async(data) => {
 					return res.status(200).json({
-						status: 200,
-						data: data
+						data: data,
+						count: await modelCategory.countDocuments({}),
+						status: 200
 					})
 				})
 			else return res.status(418).json({
-				status: 418,
-				error: ['Sin datos', 'Without data']
+				error: ['Sin datos', 'Without data'],
+				status: 418
 			})
 		} catch (error) {
 			console.log(error)
 		}
 	} else return res.status(418).json({
-		status: 418,
-		error: ['Sin datos', 'Without data']
+		error: ['Sin datos', 'Without data'],
+		status: 418
 	})
 }
 
 function update(req, res) {
-	if(typeof req.session == 'undefined') {
+	if(!('_id' in req.session)) {
 		return res.status(401).json({
 			msg: [
 				`Por favor, inicia sesión nuevamente`,
 				`Please, log in again`
 			],
-			status: 401,
-			snack: true
+			snack: true,
+			status: 401
 		})
 	}
 
@@ -238,35 +250,36 @@ function update(req, res) {
 			.catch(error => { handler['user'] = false; console.log(error)})
 		}
 
-		if('user_info' in req.body)
+		if('user_info' in req.body) {
 			modelUserInfo.updateOne({ _id: req.body._id}, { $set: req.body.user_info })
+			//.then(data => { console.log(data) })
 			.catch(error => { handler['user_info'] = false; console.log(error)})
-
-		if('evaluation' in req.body || 'rm_evaluation' in req.body)
+		}
+		if('evaluation' in req.body || 'rm_evaluation' in req.body) {
 			modelEvaluation.updateOne(
 				{ _id: req.body._id},
 				('evaluation' in req.body)
 				? { $set: req.body.evaluation }
 				: { $unset: req.body.rm_evaluation }
 			).catch(error => { handler['evaluation'] = false; console.log(error)})
-
-		if('area' in req.body)
+		}
+		if('area' in req.body) {
 			modelArea.updateOne({ _id: req.body._id}, { $set: req.body.area })
 			.catch(error => { handler['area'] = false; console.log(error)})
-
-		if('direction' in req.body)
+		}
+		if('direction' in req.body) {
 			modelDirection.updateOne({ _id: req.body._id}, { $set: req.body.direction })
 			.catch(error => { handler['direction'] = false; console.log(error)})
-
-		if('position' in req.body)
+		}
+		if('position' in req.body) {
 			modelPosition.updateOne({ _id: req.body._id}, { $set: req.body.position })
 			.catch(error => { handler['position'] = false; console.log(error)})
-
-		if('category' in req.body)
+		}
+		if('category' in req.body) {
 			modelCategory.updateOne({ _id: req.body._id}, { $set: req.body.category })
 			//.then(data => console.log(data))
 			.catch(error => { handler['category'] = false; console.log(error)})
-
+		}
 		return res.json(handler)
 
 	} else return res.status(418).json({

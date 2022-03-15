@@ -65,7 +65,7 @@ function showSnack(msg, title, style = []) {
         $e('#snack-container').appendChild(snackChildContainer)
         setTimeout(() => $e(`#${id}`).classList.replace('fade-anim-disappear', 'fade-anim-appear'), 100)
 
-        setTimeout(() => hideSnack(id), 3200)
+        setTimeout(() => hideSnack(id), 4000)
     } else
         log('Toast overflow! Discarding new notifications', STYLE.error)
 }
