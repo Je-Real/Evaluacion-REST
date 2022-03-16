@@ -32,8 +32,8 @@
 							<span class="lang" data-lang="en">Home</span>
 						</h1>
 						<p class="fs-5 text-center pb-4">
-							<span class="lang" data-lang="es">Tabla de Estatus</span>
-							<span class="lang" data-lang="en">Status Table</span>
+							<span class="lang" data-lang="es">Panel de control</span>
+							<span class="lang" data-lang="en">Control Panel</span>
 						</p>
 					</div>
 					
@@ -100,7 +100,7 @@
 									for(let person in records) { %>
 									<tr id="<%=records[person]['_id']%>" class="i-info pag-item" data-status="<%=records[person]['records']%>">
 										<td class="border-0 border-end text-center">
-											<p class="p-0 m-0"><%=records[person]['_id'] %></p>
+											<p class="p-0 m-0 id"><%=records[person]['_id'] %></p>
 										</td>
 										<td class="border-0 border-start text-center">
 											<p class="p-0 m-0 name"><%=records[person]['name'] %></p>
