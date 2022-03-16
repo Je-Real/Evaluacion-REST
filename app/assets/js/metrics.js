@@ -73,7 +73,8 @@ window.addEventListener('load', async(e) => {
 
 	eventAssigner('#addPanel', 'click', addPanel).catch((error) => {return console.error(error)})
 	eventAssigner('#sel-bar-chart', 'change', barChartSearch).catch((error) => {return console.error(error)})
-	eventAssigner('#btn-download-pdf', 'click', () => generatePDF('all'))
+	eventAssigner('#btn-all-report', 'click', () => generatePDF('all'))
+	eventAssigner('#btn-mono-report', 'click', () => generatePDF('mono'))
 	buttonListeners()
 
 	setTimeout(() => {
@@ -114,7 +115,6 @@ function displayCharts(show, idElement) {
 			//log(`[Metrics] Hidden Panel ${idElement}`, STYLE.pink)
 		}
 	} else {
-		console.log(idElement)
 		if(show) $e(idElement).classList.replace('d-none', 'd-block')
 		else $e(idElement).classList.replace('d-block', 'd-none')
 	}
@@ -336,15 +336,14 @@ async function getData(auto, getter = null) {
 				}
 
 				if(result.data.total != 0 && result.data.log.records != 0) { // Data that will be sent to graphs
-					console.log(result.data)
 					try {
 						let lineLabels = []
 						for(let i in result.data.log.years) {
 							lineLabels.push([
-									result.data.log.years[i],
-									(result.data.log.records[i] > 0 || result.data.log.records[i] != false)
-									? '[ ' + result.data.log.records[i] + '% ]'
-									: '[ N/A ]'
+								result.data.log.years[i],
+								(result.data.log.records[i] > 0 || result.data.log.records[i] != false)
+								? '[ ' + result.data.log.records[i] + '% ]'
+								: '[ N.A. ]'
 							])
 						}
 
@@ -377,7 +376,7 @@ async function getData(auto, getter = null) {
 const monoMetrics = async() => { // All the individual graphs
 	let metrics = {}, length = 0
 
-	$a('.lienzos').forEach((node, i) => {
+	$a('.lienzos').forEach(async(node, i) => {
 		let semi = node.querySelector('.semiDoughnutChart canvas'),
 			line = node.querySelector('.lineChart canvas'),
 			divisible = i % 2
@@ -386,7 +385,7 @@ const monoMetrics = async() => { // All the individual graphs
 
 		metrics[`${length}`][`${divisible}`] = {
 			title: node.querySelector('.canvasTitle').innerHTML.trim(),
-			semi: semi.toDataURL().split(',')[1],
+			semi: await semi.toDataURL().split(',')[1],
 			score: node.querySelector('.semiDoughnutChart span').innerHTML.trim(),
 			line: line.toDataURL().split(',')[1]
 		}
@@ -442,24 +441,25 @@ const generatePDF = async(mode = '') => {
 		}
 
 		await fetch('http://localhost:999/metrics/print', REQ_PARAMS)
-			.then(async res => await res.arrayBuffer()) // response data to array buffer
-			.then(async data => {
-				if(data == null || data == undefined || String(data) == '')
-					return showSnack('Server error', null, SNACK.error)
-				const blob = new Blob([data]) // Create a Blob object
-				const url = URL.createObjectURL(blob) // Create an object URL
-				download(url, Array(`formato-evaluacion-.pdf`, `evaluation-format-.pdf`)[lang]) // Download file
-				URL.revokeObjectURL(url) // Release the object URL
-
-				$e('#layoutSidenav_content').classList.remove('fixed-size')
-			})
-			.catch(err => {
-				showSnack(
-					Array('Por favor abra la consola del navegador, copie el error y contacte con un especialista en soporte',
-						'Please open the browser console, copy the error and contact a support specialist.')[lang],
-					null, SNACK.error
-				)
-				console.error(err)
-			})
+		.then(async res => await res.arrayBuffer()) // response data to array buffer
+		.then(async data => {
+			if(data == null || data == undefined || String(data) == '')
+				return showSnack('Server error', null, SNACK.error)
+			const blob = new Blob([data]) // Create a Blob object
+			const url = URL.createObjectURL(blob) // Create an object URL
+			download(url, Array(`formato-evaluacion-.pdf`, `evaluation-format-.pdf`)[lang]) // Download file
+			URL.revokeObjectURL(url) // Release the object URL
+		})
+		.catch(err => {
+			showSnack(
+				Array('Por favor abra la consola del navegador, copie el error y contacte con un especialista en soporte',
+					'Please open the browser console, copy the error and contact a support specialist.')[lang],
+				null, SNACK.error
+			)
+			console.error(err)
+		})
+		.finally(() => {
+			$e('#layoutSidenav_content').classList.remove('fixed-size')
+		})
 	}, 150)
 }

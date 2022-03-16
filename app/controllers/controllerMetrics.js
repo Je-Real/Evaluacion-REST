@@ -47,29 +47,26 @@ async function root(req, res) {
 }
 
 function data(req, res) {
-	let search = {}, sumTemp,
+	let search = {},
 		year = DATE.getFullYear()
-
+	
 	if('_id' in req.body) {
 		search._id = (req.body._id).trim()
 		if(req.session.category > 1)
 			search.manager = req.session._id
 	}
-	else if('area' in req.body) {
+	else if('area' in req.body)
 		search.area = req.body.area
-	}
-	else if('direction' in req.body) {
+	else if('direction' in req.body)
 		search.direction = req.body.direction
-	} 
-	else {
+	else
 		search.manager = req.session._id
-	}
 
 	let match = {}
-	match[`records.${DATE.getFullYear()}.disabled`] = { $exists: false }
+	match[`records.${currYear}.disabled`] = { $exists: false }
 
 	modelEvaluation.aggregate([
-		{ $match: { match } },
+		{ $match: match },
 		{ $lookup: {
 			from: 'user_infos',
 			pipeline: [
@@ -177,7 +174,7 @@ function data(req, res) {
 	})
 	.catch((error) => { //🔴
 		console.log(error)
-		return res.json({
+		return res.status(404).json({
 			msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
 			status: 404,
 			snack: true,
@@ -314,21 +311,22 @@ async function printer(req, res) {
 		})
 	}
 
+	const lang = req.session.lang
 	const DATA = await req.body
+	const FORMAT_DATE = `${ DATE.getFullYear() }-`+
+		`${ (String(DATE.getMonth()+1).length == 1) ? '0'+(DATE.getMonth()+1) : DATE.getMonth()+1 }-`+
+		`${ (String(DATE.getDate()).length == 1) ? '0'+(DATE.getDate()) : DATE.getDate() }`
 	const doc = new pdf.Document({ // Vertical letter
 		width:   612, // 21.59 cm
 		height:  792, // 27.94 cm
 		padding: 32
 	})
-
-	const polyJPEG = await sharp(new Buffer.from(DATA.poly, 'base64')).resize({height: 400})
-		.flatten({ background: '#ffffff' }).jpeg().toBuffer()
-
-	const theRecords = {
-		past: await getAllOf({body:{search:DATA.barSearch, FORCE_YEAR_TO:parseInt(currYear)-1}}, undefined),
-		curr: await getAllOf({body:{search:DATA.barSearch, FORCE_YEAR_TO:currYear}}, undefined)
-	}
-
+	
+	res.append('filename', Array(
+		`reporte-${FORMAT_DATE}.pdf`,
+		`report-${FORMAT_DATE}.pdf`
+	)[req.session.lang])
+	res.append('snack', 'true')
 	try {
 		const header = doc.header().table({widths: [150, 240, 150], borderWidth: 0})
 		const hTable = header.row()
@@ -339,7 +337,15 @@ async function printer(req, res) {
 		hTable.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm })
 			.text(`${DATE.getDate()}/${DATE.getMonth()+1}/${currYear}`, {textAlign: 'right'})
 
-		if(req.body.mode == 'all' || req.body.mode == 'poly') {
+		if('poly' in req.body) {			
+			const theRecords = {
+				past: await getAllOf({body:{search:DATA.barSearch, FORCE_YEAR_TO:parseInt(currYear)-1}}, undefined),
+				curr: await getAllOf({body:{search:DATA.barSearch, FORCE_YEAR_TO:currYear}}, undefined)
+			}
+			
+			const polyJPEG = await sharp(new Buffer.from(DATA.poly, 'base64')).resize({height: 400})
+			.flatten({ background: '#ffffff' }).jpeg().toBuffer()
+
 			// --------------------------- Comparison graph page --------------------------- //
 			const img = new pdf.Image(polyJPEG)
 			doc.cell({ paddingTop: 0.4*pdf.cm, paddingBottom: 0.5*pdf.cm }).text({ textAlign: 'center', fontSize: 14 })
@@ -364,7 +370,7 @@ async function printer(req, res) {
 			for(let i in theRecords.curr) {{
 				const row = tableC.row()
 				row.cell({ paddingTop: 2, paddingBottom: 2, paddingLeft: 0.35*pdf.cm }).text({ textAlign: 'left', fontSize: 9 })
-					.add(theRecords.curr[i].desc)
+					.add(theRecords.curr[i].description[lang])
 				row.cell({ paddingTop: 2, paddingBottom: 2, })
 					.text({ textAlign: 'center', fontSize: 9, color: (theRecords.past[i].length != 0) ? 0x000000 : 0x505050 })
 					.add((theRecords.past[i].length != 0) ? theRecords.past[i].total / theRecords.past[i].length : 'N.A.')
@@ -376,7 +382,7 @@ async function printer(req, res) {
 			doc.pageBreak()
 		}
 
-		if(req.body.mode == 'all' || req.body.mode == 'mono') {
+		if('mono' in req.body) {
 			// --------------------------- Individual Metrics page --------------------------- //
 			const tableM = doc.table({
 				widths: [null, null],
@@ -401,16 +407,15 @@ async function printer(req, res) {
 					cell.image(lineChart, { height: 3.3*pdf.cm, align: 'center' })
 				}
 			}
-		}
+		}		
 	} catch (error) {
-		console.log(error)
-		await doc.end() // Close file
-		throw res.send(null)
+		console.error(error)
+		doc.end() // Close file
+		res.status(500).end()
+	} finally {
+		res.append('filename', 'output.pdf')
+		return await res.send(await doc.asBuffer())
 	}
-
-	res.append('filename', 'output.pdf')
-	await doc.pipe(res)
-	return await doc.end() // Close file
 }
 
 module.exports = {

@@ -34,7 +34,7 @@
 					</div>
 					<div class="col">
 						<div class="d-flex justify-content-end my-4 pe-5">
-							<button id="btn-pdf-report" class="btn btn-download text-center d-flex flex-column mx-3">
+							<button id="btn-mono-report" class="btn btn-download text-center d-flex flex-column mx-3">
 								<span class="w-100">
 									<i class="fa-solid fa-file-download fa-3x"></i>
 								</span>
@@ -43,7 +43,7 @@
 									<span class="lang" data-lang="en">Download Report</span>
 								</span>
 							</button>
-							<button id="btn-download-pdf" class="btn btn-download text-center d-flex flex-column mx-3">
+							<button id="btn-all-report" class="btn btn-download text-center d-flex flex-column mx-3">
 								<span class="w-100">
 									<i class="fa-solid fa-file-download fa-3x"></i>
 								</span>
@@ -164,7 +164,7 @@
 															<option class="sub-def" value="0" selected data-lang="es">-Selecciona personal-</option>
 															<option class="sub-def" value="0" selected data-lang="en">-Select personnel-</option>
 															<% for(let s in subordinates) { %>
-																<option class="sub" value="<%= parseInt(s)+1 %>" value="<%= subordinates[s]['_id'] %>"> 
+																<option class="sub" data-index="<%= parseInt(s)+1 %>" value="<%= subordinates[s]['_id'] %>"> 
 																	<%= subordinates[s]['name'] %>
 																</option>
 															<% } %>
