@@ -77,7 +77,7 @@ window.addEventListener('load', async(e) => {
         }
     })
     .catch((error) => {
-        log('[Survey] Error user selected!: '+error, STYLE.pink)
+        log('[Survey] Error user selected! '+error, STYLE.pink)
     })
     
     eventAssigner('.card.card-option', 'click', slctOjb)
@@ -204,11 +204,11 @@ function selectObjective(hover) {
             node.classList.add('selected')
         )
     else 
-        $e(`div#${hover}`).classList.add('selected')
+        $e(`div#_${hover}`).classList.add('selected')
 
     $e('#userObj').value = $e('.card.card-option.selected').getAttribute('data-id')
     $a('.force-disabled').forEach(node => {
         node.classList.replace('force-disabled', 'force-enabled')
     })
-    log('[Survey] User selected!: '+$e('#userObj').value, STYLE.info)
+    //log('[Survey] User selected: '+$e('#userObj').value, STYLE.info)
 }

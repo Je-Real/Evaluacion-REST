@@ -1,8 +1,7 @@
 const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
 const modelArea = require('../models/modelArea')
-const modelDepartment = require('../models/modelDirection')
-const modelCareer = require('../models/modelPosition')
+const modelDirection = require('../models/modelDirection')
 
 const sharp = require('sharp')
 const pdf = require('pdfjs')
@@ -12,103 +11,21 @@ const currYear = String(DATE.getFullYear())
 
 // >>>>>>>>>>>>>>>>>>>>>> Reportes <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
-	let hour = DATE.getHours(),
-		salutation, session,
-		area = [],
-		department = [],
-		career = [],
+	let areas = [],
+		directions = [],
 		subordinates = []
 
-	if(!req.session._id && !req.session.category) { // No session 😡
+	if(!('_id' in req.session)) { // No session 😡
 		res.redirect('/home/')
 	} else { // Session 🤑
-		session = req.session
-
-		if(hour >= 5 && hour <= 12)
-			salutation = `Buen día, ${session.name}`
-		else if(hour > 12 && hour <= 19)
-			salutation = `Buenas tardes, ${session.name}`
-		else
-			salutation = `Buenas noches, ${session.name}`
-
-		await modelArea.aggregate([
-			{
-				$lookup: {
-					from: 'departments',
-					pipeline: [
-						{
-							$lookup: {
-								from: 'careers',
-								pipeline: [
-									{ $project: { _id: 0, department: 0 } }
-								],
-								localField: 'n',
-								foreignField: 'department',
-								as: 'careers',
-							}
-						}, { $project: { _id: 0, area: 0 } }
-					],
-					localField: 'n',
-					foreignField: 'area',
-					as: 'departments',
-				}
-			}, { $project: { _id: 0 } }
-		]) // Get all areas in DB
-		.then((dataInfo) => { //🟢
-			/* We get as result a JSON like this
-			 *  {
-			 *      n: 0,  << Area number >>
-			 *      desc: 'Area 0',  << Area name >>
-			 *      departments: [
-			 *          {
-			 *              n: 1,  << Department number >>
-			 *              desc: 'Dep 1',  << Department name >>
-			 *              careers: [
-			 *                  {
-			 *                      n: 2,  << Career number >>
-			 *                      desc: 'Career 2'  << Career name >>
-			 *                  }
-			 *              ]
-			 *          }
-			 *      ]
-			 *  }
-			 */
-
-			for(let i in dataInfo) {
-				area[i] = {
-					n: dataInfo[i]['n'],
-					desc: dataInfo[i]['desc']
-				}
-				if(dataInfo[i]['departments'] != undefined) {
-					for(let j in dataInfo[i]['departments']) {
-						department.push({
-							n: dataInfo[i]['departments'][j]['n'],
-							area: dataInfo[i]['n'],
-							desc: dataInfo[i]['departments'][j]['desc']
-						})
-						if(dataInfo[i]['departments'] != undefined) {
-							for(let k in dataInfo[i]['departments'][j]['careers']) {
-								career.push({
-									n: dataInfo[i]['departments'][j]['careers'][k]['n'],
-									department: dataInfo[i]['departments'][j]['n'],
-									desc: dataInfo[i]['departments'][j]['careers'][k]['desc']
-								})
-							}
-						}
-					}
-				}
-			}
-		})
-		.catch((error) => { //🔴
-			console.log(error)
-		})
+		areas = await modelArea.find({}) // Get all areas in DB
+			.catch((error) => { console.log(error) })
+		directions = await modelDirection.find({}) // Get all directions in DB
+			.catch((error) => { console.log(error) })
 
 		await modelUserInfo.aggregate([ // Subordinates by default
-			{ $match: {manager: session._id} },
-			{ $project: {
-				_id: 1,
-				name: 1,
-			} },
+			{ $match: {manager: req.session._id} },
+			{ $project: { _id: 1, name: 1, } },
 		])
 		.then((dataSubs) => {
 			subordinates = dataSubs // Get all the subordinates
@@ -120,13 +37,10 @@ async function root(req, res) {
 			//Reportes route
 			return res.status(200).render('metrics', {
 				title_page: 'UTNA - Metricas',
-				session: session,
-				care: career,
-				depa: department,
-				area: area,
+				session: req.session,
+				directions: directions,
+				areas: areas,
 				subordinates: subordinates,
-				hour: hour,
-				salutation: salutation
 			})
 		})
 	}
@@ -136,29 +50,31 @@ function data(req, res) {
 	let search = {}, sumTemp,
 		year = DATE.getFullYear()
 
-	if(req.body._id != null && (req.body._id).trim() != '') {
+	if('_id' in req.body) {
 		search._id = (req.body._id).trim()
 		if(req.session.category > 1)
 			search.manager = req.session._id
-	} else if(req.body.area > 0) {
-		search.area = req.body.area
-		if(req.body.direction != null && req.body.direction > 0) {
-			search.direction = req.body.direction
-			if(req.body.position != null && req.body.position > 0) search.position = req.body.position
-		}
 	}
+	else if('area' in req.body) {
+		search.area = req.body.area
+	}
+	else if('direction' in req.body) {
+		search.direction = req.body.direction
+	} 
 	else {
 		search.manager = req.session._id
 	}
 
+	let match = {}
+	match[`records.${DATE.getFullYear()}.disabled`] = { $exists: false }
+
 	modelEvaluation.aggregate([
+		{ $match: { match } },
 		{ $lookup: {
 			from: 'user_infos',
 			pipeline: [
 				{ $match : search },
-				{ $project: {
-						name: 1,
-				} }
+				{ $project: { name: 1 } }
 			],
 			localField: '_id',
 			foreignField: '_id',
@@ -181,6 +97,18 @@ function data(req, res) {
 		}
 	])
 	.then(async (data) => { //🟢
+		/*	Data Example:
+
+			_id: "0000"
+			name: "Name"
+			records: {
+				2022: {
+					score: 99.9
+					answers: [...]
+					area: 1
+				}
+			}
+		*/
 		if(data) {
 			// filter empty objects
 			data = data.filter(value => Object.keys(value).length !== 0)
@@ -264,71 +192,84 @@ async function getAllOf(req, res) {
 		yearSel = ('FORCE_YEAR_TO' in req.body) ? req.body.FORCE_YEAR_TO : currYear
 
 	search['records.'+yearSel] = { $exists: true }
+	search['records.'+yearSel+'.disabled'] = { $exists: false }
 	uAggregate = [
-		{
+		{ 
 			$lookup: {
 				from: 'evaluations',
 				pipeline: [
 					{ $match: search },
-					{ $group: {
-						_id: `$records.${yearSel}.${req.body.search}`,
-						total: { $sum: `$records.${yearSel}.score` },
-						length: { $sum: 1 }
-					} },
-					{ $lookup: {
-						from: `${req.body.search}s`,
-						pipeline: [ { $unset: ['n', '_id', 'desc'] } ],
-						localField: '_id',
-						foreignField: 'n',
-						as: `${req.body.search}_`
-					} },
-					{ $replaceRoot: {
-						newRoot: {
-							$mergeObjects: [
-								{ $arrayElemAt: [`$${req.body.search}_`, 0] },
-								'$$ROOT'
-							]
-						}
-					} },
-					{ $unset: [`${req.body.search}_`] }
+					{
+						$group: {
+							_id: `$records.${yearSel}.${req.body.search}`,
+							total: { $sum: `$records.${yearSel}.score` },
+							length: { $sum: 1 },
+						},
+					}, {
+						$lookup: {
+							from: `${req.body.search}s`,
+							pipeline: [ { $unset: ['n', '_id', 'desc'] } ],
+							localField: '_id',
+							foreignField: '_id',
+							as: `${req.body.search}_`,
+						},
+					}, {
+						$replaceRoot: {
+							newRoot: {
+								$mergeObjects: [
+									{ $arrayElemAt: ['$area_', 0] }, '$$ROOT',
+								],
+							},
+						},
+					}, { $unset: [`${req.body.search}_`] },
 				],
-				localField: 'n',
-				foreignField: `records.${yearSel}.${req.body.search}`,
-				as: '_avg'
-			}
+				localField: '_id',
+				foreignField: 'records.2022.area',
+				as: '_avg',
+			},
 		}, {
 			$replaceRoot: {
 				newRoot: {
-					$mergeObjects: [
-						{ $arrayElemAt: ['$_avg', 0] },
-						'$$ROOT'
-					]
-				}
-			}
+					$mergeObjects: [ { $arrayElemAt: ['$_avg', 0] }, '$$ROOT' ],
+				},
+			},
 		}, {
 			$set: {
 				total: {
 					$cond: [
 						{ $ifNull: ['$total', false] },
-						'$total',
-						0
-					]
+						'$total', 0,
+					],
 				},
 				length: {
 					$cond: [
 						{ $ifNull: ['$length', false] },
-						'$length',
-						0
-					]
+						'$length', 0,
+					],
 				},
-				_id: '$n'
-			}
-		}, { $sort: { _id: 1 } }
+				_id: '$n',
+			},
+		},
+		{ $unset: ['_avg', '__v'] },
 	]
+	
+	/* 	We need the data like this:
+
+		[{
+			total: 90.5 		(Number)
+			length: 5			(Number)
+			description:[		(Array)
+				"ES Languaje",	(String)
+				"EN Languaje"	(String)
+			]
+
+		},
+		{...}]
+	*/
 
 	const failure = () => {
 		if(!('FORCE_YEAR_TO' in req.body))
-		return res.json({
+		return res.status(404).json({
 			msg: 'La búsqueda no coincide dentro de los parámetros.',
 			status: 404,
 			snack: true,
@@ -338,42 +279,31 @@ async function getAllOf(req, res) {
 
 	const success = (data) => {
 		if(!('FORCE_YEAR_TO' in req.body))
-		return res.json({
+		return res.status(200).json({
 			data: data,
 			status: 200
 		})
 	}
 
-	if(req.body.search == 'area') {
-		uAggregate.push({ $unset: ['_avg', 'n'] })
-		if('FORCE_YEAR_TO' in req.body)
-			return await modelArea.aggregate(uAggregate)
-		else
-			modelArea.aggregate(uAggregate)
-			.then(data => { success(data) })
-			.catch(error => { console.log(error); failure() })
-	} else if (req.body.search == 'department') {
-		uAggregate.push({ $unset: ['_avg', 'n', 'area'] })
-		if('FORCE_YEAR_TO' in req.body)
-			return await modelDepartment.aggregate(uAggregate)
-		else
-			modelDepartment.aggregate(uAggregate)
-			.then(data => { success(data) })
-			.catch(error => { console.log(error); failure() })
-	} else if (req.body.search == 'career') {
-		uAggregate.push({ $unset: ['_avg', 'n', 'department'] })
-		if('FORCE_YEAR_TO' in req.body)
-			return await modelCareer.aggregate(uAggregate)
-		else
-			modelCareer.aggregate(uAggregate)
-			.then(data => { success(data) })
-			.catch(error => { console.log(error); failure() })
-	} else
-		failure()
+	let modelMaster
+
+	if(req.body.search == 'area')
+		modelMaster = modelArea
+	else if (req.body.search == 'directions')
+		modelMaster = modelDirection
+	else
+		return failure()
+
+	if('FORCE_YEAR_TO' in req.body)
+		return await modelMaster.aggregate(uAggregate)
+	else
+		modelMaster.aggregate(uAggregate)
+		.then(data => { success(data) })
+		.catch(error => { console.log(error); failure() })
 }
 
 async function printer(req, res) {
-	if(typeof req.session == 'undefined') {
+	if(!('_id' in req.session)) {
 		return res.json({
 			msg: [
 				`Por favor, inicia sesión nuevamente`,
@@ -478,7 +408,7 @@ async function printer(req, res) {
 		throw res.send(null)
 	}
 
-	res.setHeader("Content-Disposition", "attachment; output.pdf")
+	res.append('filename', 'output.pdf')
 	await doc.pipe(res)
 	return await doc.end() // Close file
 }

@@ -146,7 +146,7 @@ async function root(req, res) {
 }
 
 async function post(req, res) {
-	if(typeof req.session == 'undefined') {
+	if(!('_id' in req.session)) {
 		return res.json({
 			msg: [
 				`Por favor, inicia sesión nuevamente`,

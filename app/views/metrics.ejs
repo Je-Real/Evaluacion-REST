@@ -27,8 +27,9 @@
 			<div class="mb-5 bg-ligth-gray">
 				<div class="row w-100 w-lg-90 my-3">
 					<div class="w-auto d-flex ms-2 me-lg-5 ms-lg-4 pe-lg-5">
-						<h2 class="display-6 text-center my-auto" data-time="<%= hour %>">
-							<%= salutation %>
+						<h2 class="display-6 text-center my-auto">
+							<span class="lang" data-lang="es">Controles</span>
+							<span class="lang" data-lang="en">Controls</span>
 						</h2>
 					</div>
 					<div class="col">
@@ -101,13 +102,11 @@
 							
 							<div class="col-md-6 col-7">
 								<select class="form-select" id="sel-bar-chart" name="sel-bar-chart">
-									<option class="barSelect" value="area" selected>Areas</option>
+									<option class="barSelect lang" value="0" data-lang="es" selected>Áreas</option>
+									<option class="barSelect lang" value="0" data-lang="en" selected>Areas</option>
 
-									<option class="barSelect" value="department" data-lang="es">Departamentos</option>
-									<option class="barSelect" value="department" data-lang="en">Departamentos</option>
-
-									<option class="barSelect" value="career" data-lang="es">Carreras</option>
-									<option class="barSelect" value="career" data-lang="en">Careers</option>
+									<option class="barSelect lang" value="1" data-lang="es">Direcciones / Subdirecciones</option>
+									<option class="barSelect lang" value="1" data-lang="en">Directions / Sub-directions</option>
 								</select>
 							</div>
 						</div>
@@ -127,11 +126,11 @@
 												<div class="col-md-6 col-12 mx-auto my-1">
 													<div class="form-floating">
 														<select class="form-select area" id="sel-area" name="sel-area" aria-label="Selección">
-															<option class="are-s" value="0" data-lang="es" selected>Personal a cargo</option>
-															<option class="are-s" value="0" data-lang="en" selected>Personnel in charge</option>
-															<% for(let a in area) { %>
-																<option class="are" value="<%= area[a]['n'] %>"> 
-																	<%= area[a]['desc'] %> 
+															<option class="area-def" value="0" data-lang="es" selected>Personal a cargo</option>
+															<option class="area-def" value="0" data-lang="en" selected>Personnel in charge</option>
+															<% for(let a in areas) { %>
+																<option class="area" value="<%= areas[a]['_id'] %>"> 
+																	<%= areas[a]['description'][session.lang] %> 
 																</option>
 															<% } %>
 														</select>
@@ -143,11 +142,29 @@
 												</div>
 												<div class="col-md-6 col-12 mx-auto my-1">
 													<div class="form-floating">
-														<select class="form-select subordinates" id="sel-subordinates" name="sel-subordinates" aria-label="Selección">
-															<option class="sub-s" data-index="0" value="0" selected data-lang="es">-Selecciona personal-</option>
-															<option class="sub-s" data-index="0" value="0" selected data-lang="en">-Select personnel-</option>
+														<select class="form-select direction" id="sel-direction" name="sel-direction" aria-label="Selección">
+															<option class="direction-def" value="0" selected data-lang="es">-Selecciona dirección-</option>
+															<option class="direction-def" value="0" selected data-lang="en">-Select direction-</option>
+															<% for(let d in directions) { %>
+																<option class="direction" value="<%= directions[d]['_id'] %>">
+																	<%= directions[d]['description'][session.lang] %>
+																</option>
+															<% } %>
+														</select>
+														<label for="sel-direction">
+															<span class="lang" data-lang="es">Dirección</span>
+															<span class="lang" data-lang="en">Direction</span>
+														</label>
+													</div>
+												</div>
+												<div class="col-md-6 col-12 mx-auto my-1">
+													<div class="form-floating">
+														<select class="form-select subordinates" id="sel-subordinates" name="sel-subordinates"
+															aria-label="Selección">
+															<option class="sub-def" value="0" selected data-lang="es">-Selecciona personal-</option>
+															<option class="sub-def" value="0" selected data-lang="en">-Select personnel-</option>
 															<% for(let s in subordinates) { %>
-																<option class="sub" data-index="<%= parseInt(s)+1 %>" value="<%= subordinates[s]['_id'] %>"> 
+																<option class="sub" value="<%= parseInt(s)+1 %>" value="<%= subordinates[s]['_id'] %>"> 
 																	<%= subordinates[s]['name'] %>
 																</option>
 															<% } %>
@@ -155,40 +172,6 @@
 														<label for="sel-subordinates">
 															<span class="lang" data-lang="es">Personal</span>
 															<span class="lang" data-lang="en">Personnel</span>
-														</label>
-													</div>
-												</div>
-												<div class="col-md-6 col-12 mx-auto my-1">
-													<div class="form-floating">
-														<select class="form-select department" id="sel-department" name="sel-department" aria-label="Selección" disabled>
-															<option class="dep-s" value="0" selected data-lang="es">-Selecciona departamento-</option>
-															<option class="dep-s" value="0" selected data-lang="en">-Select department-</option>
-															<% for(let d in depa) { %>
-																<option class="dep" data-area="<%= depa[d]['area'] %>" value="<%= depa[d]['n'] %>">
-																	<%= depa[d]['desc'] %>
-																</option>
-															<% } %>
-														</select>
-														<label for="sel-department">
-															<span class="lang" data-lang="es">Departamento</span>
-															<span class="lang" data-lang="en">Department</span>
-														</label>
-													</div>
-												</div>
-												<div class="col-md-6 col-12 mx-auto my-1">
-													<div class="form-floating">
-														<select class="form-select career" id="sel-career" name="sel-career" aria-label="Selección" disabled>
-															<option class="car-s" value="0" selected data-lang="es">-Selecciona carrera-</option>
-															<option class="car-s" value="0" selected data-lang="en">-Select career-</option>
-															<% for(let c in care) { %>
-																<option class="car" data-depa="<%= care[c]['department'] %>" value="<%= care[c]['n'] %>">
-																	<%= care[c]['desc'] %>
-																</option>
-															<% } %>
-														</select>
-														<label for="sel-career">
-															<span class="lang" data-lang="es">Carrera</span>
-															<span class="lang" data-lang="en">Career</span>
 														</label>
 													</div>
 												</div>

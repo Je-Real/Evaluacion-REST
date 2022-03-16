@@ -37,41 +37,43 @@
 						</p>
 					</div>
 					
-					<div>
-						<div class="container-fluid px-4 mb-4">
-							<div class="help-bar container bg-dark text-light w-100 rounded-3">
-								<div class="row flex-nowrap">
-									<div class="col-7 col-md-9 col-lg-10 text-center d-inline-flex my-2">
-										<i class="fa-solid ms-3 me-2 my-auto fa-info-circle fa-2x blink"></i>
-										<p class="d-flex fs-5 me-auto ms-2 my-2">
-											<span class="lang my-auto" data-lang="es">
-												Para agregar a un nuevo personal bajo tu cargo, haz clic en el botón 
-												<span class="fw-bold me-1">Registrar Personal</span>.
-											</span>
-											<span class="lang my-auto" data-lang="en">
-												To add a new personnel under your charge, click on the
-												<span class="fw-bold me-1">Register Personnel</span> button.
-											</span>
-										</p>
-									</div>
-									<div class="col-5 col-md-3 col-lg-2 py-2">
-										<button id="registerPersonnel" class="btn btn-outline-light text-center d-flex flex-column">
-											<span class="w-100">
-												<i class="fa-solid fa-plus fa-2x"></i>
-											</span>
-											<span class="w-100 mt-2">
-												<span class="lang" data-lang="es">Registrar Personal</span>
-												<span class="lang" data-lang="en">Register Personnel</span>
-											</span>
-										</button>
+					<% if(false) { %>
+						<div>
+							<div class="container-fluid px-4 mb-4">
+								<div class="help-bar container bg-dark text-light w-100 rounded-3">
+									<div class="row flex-nowrap">
+										<div class="col-7 col-md-9 col-lg-10 text-center d-inline-flex my-2">
+											<i class="fa-solid ms-3 me-2 my-auto fa-info-circle fa-2x blink"></i>
+											<p class="d-flex fs-5 me-auto ms-2 my-2">
+												<span class="lang my-auto" data-lang="es">
+													Para agregar a un nuevo personal bajo tu cargo, haz clic en el botón 
+													<span class="fw-bold me-1">Registrar Personal</span>.
+												</span>
+												<span class="lang my-auto" data-lang="en">
+													To add a new personnel under your charge, click on the
+													<span class="fw-bold me-1">Register Personnel</span> button.
+												</span>
+											</p>
+										</div>
+										<div class="col-5 col-md-3 col-lg-2 py-2">
+											<button id="registerPersonnel" class="btn btn-outline-light text-center d-flex flex-column">
+												<span class="w-100">
+													<i class="fa-solid fa-plus fa-2x"></i>
+												</span>
+												<span class="w-100 mt-2">
+													<span class="lang" data-lang="es">Registrar Personal</span>
+													<span class="lang" data-lang="en">Register Personnel</span>
+												</span>
+											</button>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					<% } %>
 
 					<div class="container w-lg-75 w-90 mx-auto table-responsive">
-						<table class="paginator table-effect border-0 table caption-top flex-table table align-middle" data-rows-shown="5, 10, 15">
+						<table class="paginator table-effect border-0 table caption-top flex-table table align-middle" data-rows-shown="5">
 							<thead>
 								<tr class="border-0 flex-th">
 									<th class="border-0 border-bottom border-end flex-th">

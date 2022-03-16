@@ -93,30 +93,34 @@ window.addEventListener('load', async(e) => {
 
 	eventAssigner('#find_user, #new_user', 'change', (e) => {
 		let tgt = e.target
+		const all_mode = () => {
+			$e('#find_user').checked = false
+			$a('.reg-field:not(.find-user)').forEach(node => {
+				node.classList.remove('d-none')
+			})
+			$a('.form-control:not(.find-user)').forEach(node => {
+				node.classList.add('mandatory')
+			})
+		}
+		const find_mode = () => {
+			$e('#new_user').checked = false
+			$a('.reg-field:not(.find-user)').forEach(node => {
+				node.classList.add('d-none')
+			})
+			$a('.form-control:not(.find-user)').forEach(node => {
+				node.classList.remove('mandatory')
+				if(node.tagName.toLowerCase == 'input')
+					node.value = ''
+				else
+					node.selectedIndex = 0
+			})
+		}
+
 		if(tgt.id === 'find_user') {
-			if(tgt.checked) {
-				$e('#new_user').checked = false
-				$a('.reg-field:not(.find-user)').forEach(node => {
-					node.classList.add('d-none')
-				})
-				$a('.form-control:not(.find-user)').forEach(node => {
-					node.classList.remove('mandatory')
-					if(node.tagName.toLowerCase == 'input')
-						node.value = ''
-					else
-						node.selectedIndex = 0
-				})
-			}
+			if(tgt.checked) find_mode()
+			else all_mode()
 		} else if (tgt.id === 'new_user') {
-			if(tgt.checked) {
-				$e('#find_user').checked = false
-				$a('.reg-field:not(.find-user)').forEach(node => {
-					node.classList.remove('d-none')
-				})
-				$a('.form-control:not(.find-user)').forEach(node => {
-					node.classList.add('mandatory')
-				})
-			}
+			if(tgt.checked) all_mode()
 		}
 	})
 
@@ -172,10 +176,10 @@ window.addEventListener('load', async(e) => {
 						showSnack(data.headers.get('msg'), null, SNACK[SNK_Type])
 					}
 	
-					data.arrayBuffer()
-					.then(data => {
+					await data.arrayBuffer()
+					.then(async(data) => {
 						if(data == null || data == undefined)
-						return showSnack('Server error', null, SNACK.error)
+							return showSnack('Server error', null, SNACK.error)
 						const blob = new Blob([data]) // Create a Blob object
 						const url = URL.createObjectURL(blob) // Create an object URL
 						download(url, filename) // Download file
@@ -184,8 +188,8 @@ window.addEventListener('load', async(e) => {
 				} else showSnack(data.headers.get('msg'), null, SNACK['error'])
 			})
 			.catch(error => console.error(error))
-			.finally(() => {
-				$e('button.close-modal').click()
+			.finally(async() => {
+				$e('#register-file button.close-modal').click()
 			})
 		}
 	})
@@ -372,7 +376,7 @@ const register = async() => {
 		})
 		.catch(error => console.error(error))
 		.finally(() => {
-			$e('button.close-modal').click()
+			$e('#register button.close-modal').click()
 		})
 	}
 }

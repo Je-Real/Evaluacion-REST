@@ -38,7 +38,7 @@ async function signIn(req, res) {
 		 * Else, if the records exists get its ID and return it as a reference to avoid duplications.
 		 */
 		const getFuzzy = async(query, collection) => {
-			if(!isNaN(parseInt(query)))
+			if(!isNaN(parseInt(query)) || query == undefined)
 				return query
 
 			query = String(query).trim()
@@ -94,7 +94,7 @@ async function signIn(req, res) {
 					})
 
 					return ID['_id']
-				} else 
+				} else
 				throw res.json({
 					msg: Array(
 						`No se pudo leer la columna ${collection}.`,
@@ -188,6 +188,11 @@ async function signIn(req, res) {
 					direction: ('fields' in req.body) ? req.body.data[data][req.body.fields.direction] : req.body.data[data].direction,
 					position: ('fields' in req.body) ? req.body.data[data][req.body.fields.position] : req.body.data[data].position,
 					category: ('fields' in req.body) ? req.body.data[data][req.body.fields.category] : req.body.data[data].category,
+					manager: ('fields' in req.body)
+						? req.body.data[data][req.body.fields.manager]
+						: ('manager' in req.body.data[data])
+							? req.body.data[data].manager
+							: '-1',
 					// blame system™ 😎
 					log: req.body.log
 				}, nextStep = true
@@ -216,58 +221,60 @@ async function signIn(req, res) {
 							? req.body.data[data][req.body.fields.manager]
 							: req.body.data[data].manager
 						}
-	
+
 					if(dataUser.length) { // If the user exists
 						if('find_user' in req.body.data[data]) {
 							modelUser.findOne({ _id: model._id }, { _id: 1 })
 							.then(async(sys_user) => {
 								if(sys_user) {
+									regLog.users[parseInt(data)]['error'] = Array(
+										'¡Ya existe usuario con ese ID!',
+										'There is an user with that ID already!'
+									)[req.session.lang]
 									if(!isFile) {
 										res.append('msg', Array(
 											'¡Ya existe usuario con ese ID!',
 											'There is an user with that ID already!'
 										)[req.session.lang])
+										return res.status(409).send(await saveAsExcel(regLog.users))
 									} else if(isFile && data >= (regLog.length-1)) {
 										res.append('msg', Array(
 											'Se completo el registro con algunas fallas. Revise en el archivo descargado.',
 											'The registration is complete with some errors. Check in the downloaded file.'
 										)[req.session.lang])
+										return res.status(409).send(await saveAsExcel(regLog.users))
 									}
-									regLog.users[parseInt(data)]['error'] = Array(
-										'¡Ya existe usuario con ese ID!',
-										'There is an user with that ID already!'
-									)[req.session.lang]
-									return res.status(409).send(await saveAsExcel(regLog.users))
 								} else {
 									let chars = '0123456789abcdefghijklmnopqrstuvwxyz!@#$()ABCDEFGHIJKLMNOPQRSTUVWXYZ',
 										passwordLength = 8,
 										password = ''
-	
+
 									for(let i = 0; i <= passwordLength; i++) {
 										let randomNumber = Math.floor(Math.random() * chars.length)
 										password += chars.substring(randomNumber, randomNumber+1)
 									}
 									// Encryption
 									model['pass'] = crypto.AES.encrypt(password, model._id).toString()
-	
+
 									// If user_info exits then save a new user for that employee
 									new modelUser(model).save()
 									.then(async() => { //🟢
 										regLog.users[parseInt(data)]['system_user'] = true
-										regLog.users[parseInt(data)]['password'] = password
-	
+										regLog.users[parseInt(data)]['pass'] = password
+
 										if(!isFile) {
 											res.append('msg', Array(
 												`¡Usuario para ${dataUser[0].name } creado correctamente!`,
 												`User for ${dataUser[0].name } created successfully!`
 											)[req.session.lang])
+											res.status(200).send(await saveAsExcel(regLog.users))
 										} else if(isFile && data >= (regLog.length-1)) {
 											res.append('msg', Array(
 												`!Proceso de registro completado correctamente!`,
 												`Registration process successfully completed!`
 											)[req.session.lang])
+											res.status(200).send(await saveAsExcel(regLog.users))
 										}
-										res.status(200).send(await saveAsExcel(regLog.users))
 									})
 									.catch(async(error) => { //🔴
 										console.log(error)
@@ -276,7 +283,7 @@ async function signIn(req, res) {
 											'Unable to register user. Please try again later.'
 										)[req.session.lang]
 										regLog.users[parseInt(data)]['error'] = error
-	
+
 										if((isFile && data >= (regLog.length-1)) || !isFile) {
 											res.append('msg', Array(
 												'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
@@ -294,7 +301,7 @@ async function signIn(req, res) {
 										'Unable to register user. Please try again later.'
 									)[req.session.lang]
 								regLog.users[parseInt(data)]['error'] = error
-	
+
 								if((isFile && data >= (regLog.length-1)) || !isFile) {
 									res.append('msg', Array(
 										'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
@@ -304,22 +311,23 @@ async function signIn(req, res) {
 								}
 							})
 						} else {
+							regLog.users[parseInt(data)]['error'] = Array(
+								'¡Ya existe usuario con ese ID!',
+								'There is an user with that ID already!'
+							)[req.session.lang]
 							if(!isFile) {
 								res.append('msg', Array(
 									'¡Ya existe usuario con ese ID!',
 									'There is an user with that ID already!'
 								)[req.session.lang])
+								return res.status(409).send(await saveAsExcel(regLog.users))
 							} else if(isFile && data >= (regLog.length-1)) {
 								res.append('msg', Array(
 									'Se completo el registro con algunas fallas. Revise en el archivo descargado.',
 									'The registration is complete with some errors. Check in the downloaded file.'
 								)[req.session.lang])
+								return res.status(409).send(await saveAsExcel(regLog.users))
 							}
-							regLog.users[parseInt(data)]['error'] = Array(
-								'¡Ya existe usuario con ese ID!',
-								'There is an user with that ID already!'
-							)[req.session.lang]
-							return res.status(409).send(await saveAsExcel(regLog.users))
 						}
 					} else {
 						// Save a new info_user
@@ -327,24 +335,37 @@ async function signIn(req, res) {
 						.then(async() => { //🟢
 							// And if the employee is a user
 							regLog.users[parseInt(data)]['info_user'] = true
-	
+
 							if('new_user' in req.body.data[data]) {
+								let chars = '0123456789abcdefghijklmnopqrstuvwxyz!@#$()ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+									passwordLength = 8,
+									password = ''
+
+								for(let i = 0; i <= passwordLength; i++) {
+									let randomNumber = Math.floor(Math.random() * chars.length)
+									password += chars.substring(randomNumber, randomNumber+1)
+								}
+								// Encryption
+								model['pass'] = crypto.AES.encrypt(password, model._id).toString()
+
 								new modelUser(model).save()
 								.then(async() => { //🟢
 									regLog.users[parseInt(data)]['system_user'] = true
-	
+									regLog.users[parseInt(data)]['pass'] = password
+
 									if(!isFile) {
 										res.append('msg', Array(
 											`¡Información registrada correctamente!`,
 											`Information successfully recorded!`
 										)[req.session.lang])
+										return res.status(200).send(await saveAsExcel(regLog.users))
 									} else if(isFile && data >= (regLog.length-1)) {
 										res.append('msg', Array(
 											`!Proceso de registro completado correctamente!`,
 											`Registration process successfully completed!`
 										)[req.session.lang])
+										return res.status(200).send(await saveAsExcel(regLog.users))
 									}
-									return res.status(200).send(await saveAsExcel(regLog.users))
 								})
 								.catch(async() => { //🔴
 									console.log(error)
@@ -353,7 +374,7 @@ async function signIn(req, res) {
 											'Unable to register user. Please try again later.'
 										)[req.session.lang]
 									regLog.users[parseInt(data)]['error'] = error
-	
+
 									if((isFile && data >= (regLog.length-1)) || !isFile) {
 										res.append('msg', Array(
 											'Proceso con errores. Revisa en el archivo descargado.',
@@ -368,13 +389,14 @@ async function signIn(req, res) {
 										`¡Información registrada correctamente!`,
 										`Information successfully recorded!`
 									)[req.session.lang])
+									return res.status(200).send(await saveAsExcel(regLog.users))
 								} else if(isFile && data >= (regLog.length-1)) {
 									res.append('msg', Array(
 										`!Proceso de registro completado correctamente!`,
 										`Registration process successfully completed!`
 									)[req.session.lang])
+									return res.status(200).send(await saveAsExcel(regLog.users))
 								}
-								return res.status(200).send(await saveAsExcel(regLog.users))
 							}
 						})
 						.catch(async(error) => { //🔴
@@ -384,7 +406,7 @@ async function signIn(req, res) {
 									'Unable to register user. Please try again later.'
 								)[req.session.lang]
 							regLog.users[parseInt(data)]['error'] = error
-	
+
 							if((isFile && data >= (regLog.length-1)) || !isFile) {
 								res.append('msg', Array(
 									'Proceso con errores. Revisa en el archivo descargado.',

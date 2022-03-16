@@ -1,18 +1,9 @@
 let stillOver,
 	msg, t_id, tooltip,
 	x, y, w, h, tgt,
-	currToolID
+	currToolNode
 
 const mainToolTip = () => {
-	try {
-		$a('.tooltip-text').forEach(node => {
-			let id = 'tool-'+Math.random().toString(16).substring(2, 8)
-			setTimeout(() => { node.setAttribute('id', id) }, 30)
-		})
-	} catch (error) {
-		return console.error(error)
-	}
-
 	tooltip = $e('#tooltip')
 
 	eventAssigner('.tooltip-text', 'mousemove', mouseIn)
@@ -35,9 +26,9 @@ const mouseOver = async(e) => {
 	let langText = (lang == 0) ? 'data-tooltip-es' : 'data-tooltip-en'
 	tgt = e.target
 
-	if(tgt.id != currToolID) {
+	if(tgt != currToolNode) {
 		tooltip.querySelector('p').innerHTML = await upperAttrIterator(tgt, langText).catch(e => console.error(e))
-		currToolID = tgt.id
+		currToolNode = tgt
 	}
 	stillOver = true
 

@@ -43,8 +43,9 @@ async function search(req, res) {
 	if(req.body) {
 		try {
 			let structure = [
-				{ $sort: { _id: -1 } }, // ID 1st, Skip 2nd & limit 3rd
+				{ $sort: { _id: 1 } }, // ID 1st, Skip 2nd & limit 3rd
 				{ $limit: parseInt(req.body.limit) },
+				{ $sort: { _id: -1 } }
 			]
 			if(req.body.skip > 0)
 				structure.splice(1, 0, { $skip: parseInt(req.body.skip) * parseInt(req.body.limit) })

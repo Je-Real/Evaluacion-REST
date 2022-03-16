@@ -4,9 +4,8 @@ const path = require('path')
 
 const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
+const modelPosition = require('../models/modelPosition')
 const weighting = require('./controllerEvaluation').weighting
-
-//const modelArea = require('../models/modelArea')
 
 const DATE = new Date()
 const currYear = String(DATE.getFullYear())
@@ -31,7 +30,7 @@ async function root(req, res) {
 		await modelUserInfo.aggregate([
 			{ $match: {
 				manager: req.session._id,
-				disabled: { $exists: false }
+				enabled: true
 			} }, {
 				$lookup: {
 					from: 'evaluations',
@@ -100,7 +99,7 @@ async function root(req, res) {
 }
 
 async function pdfEvalFormat(req, res) {
-	if(typeof req.session == 'undefined') {
+	if(!('_id' in req.session)) {
 		return res.json({
 			msg: [
 				`Por favor, inicia sesión nuevamente`,
@@ -113,95 +112,96 @@ async function pdfEvalFormat(req, res) {
 	const userID = req.params.id
 
 	await modelUserInfo.aggregate([
-		{ $match: { _id: userID } }, {
+		{ $match: { _id: userID } },
+		{
 			$lookup: {
-				from: 'evaluations',
-				pipeline: [ { $unset: ['_id'] } ],
-				localField: '_id',
-				foreignField: '_id',
-				as: 'evaluations'
-			}
+				from: "evaluations",
+				pipeline: [ { $unset: ["_id"] } ],
+				localField: "_id",
+				foreignField: "_id",
+				as: "evaluations",
+			},
 		}, {
 			$lookup: {
-				from: 'user_infos',
-				pipeline: [{
-					$unset: [
-						'level', 'b_day', 'address', 'manager',
-						'area', 'department', 'career', 'contract'
-					]
-				}],
-				localField: 'manager',
-				foreignField: '_id',
-				as: 'mngr_info'
-			}
+				from: "user_infos",
+				pipeline: [ { $unset: ["manager", "category", "area",
+					"direction", "position", "log", "__v", "enabled"] } ],
+				localField: "manager",
+				foreignField: "_id",
+				as: "mngr_info",
+			},
 		}, {
 			$lookup: {
-				from: 'areas',
+				from: "areas",
 				pipeline: [
-					{ $unset: [ '_id', 'n' ] },
-					{ $project: { area: '$desc' } }
+					{ $unset: ["__v", "_id"] },
+					{ $project: { area: "$description" } },
 				],
-				localField: 'area',
-				foreignField: 'n',
-				as: 'area_'
-			}
+				localField: "area",
+				foreignField: "_id",
+				as: "area_",
+			},
 		}, {
 			$lookup: {
-				from: 'departments',
+				from: "directions",
 				pipeline: [
-					{ $unset: [ '_id', 'n' ] },
-					{ $project: { department: '$desc' } }
+					{ $unset: ["__v", "_id"] },
+					{ $project: { direction: "$description" } }
 				],
-				localField: 'department',
-				foreignField: 'n',
-				as: 'department_'
-			}
+				localField: "direction",
+				foreignField: "_id",
+				as: "direction_",
+			},
 		}, {
 			$lookup: {
-				from: 'careers',
+				from: "positions",
 				pipeline: [
-					{ $unset: [ '_id', 'n' ] },
-					{ $project: { career: '$desc' } }
+					{ $unset: ["__v", "_id"] },
+					{ $project: { position: "$description" } }
 				],
-				localField: 'career',
-				foreignField: 'n',
-				as: 'career_'
-			}
+				localField: "position",
+				foreignField: "_id",
+				as: "position_",
+			},
 		}, {
 			$lookup: {
-				from: 'contracts',
+				from: "categories",
 				pipeline: [
-					{ $unset: [ '_id', 'n' ] },
-					{ $project: { contract: '$desc' } }
+					{ $unset: ["__v", "_id"] },
+					{ $project: { category: "$description" } }
 				],
-				localField: 'contract',
-				foreignField: 'n',
-				as: 'contract_'
-			}
-		}, {
-			$unset: [ 'area', 'department', 'career', 'contract' ]
-		}, {
+				localField: "category",
+				foreignField: "_id",
+				as: "category_",
+			},
+		}, 
+		{ $unset: ["area", "direction", "position", "category"] },
+		{
 			$replaceRoot: {
 				newRoot: {
 					$mergeObjects: [
-						{ $arrayElemAt: [ '$area_', 0 ] },
-						{ $arrayElemAt: [ '$department_', 0 ] },
-						{ $arrayElemAt: [ '$career_', 0 ] },
-						{ $arrayElemAt: [ '$contract_', 0 ] },
-						{ $arrayElemAt: [ '$evaluations', 0 ] },
-						'$$ROOT'
-					]
-				}
-			}
+						{ $arrayElemAt: ["$area_", 0] },
+						{ $arrayElemAt: ["$direction_", 0] },
+						{ $arrayElemAt: ["$position_", 0] },
+						{ $arrayElemAt: ["$category_", 0] },
+						{ $arrayElemAt: ["$evaluations", 0] },
+						"$$ROOT",
+					],
+				},
+			},
 		}, {
-			$set: { manager: { $arrayElemAt: [ '$mngr_info', 0 ] } }
+			$set: {
+				manager: {
+					$arrayElemAt: ["$mngr_info", 0],
+				},
+			},
 		}, {
 			$unset: [
-				'evaluations', 'mngr_info', 'area_',
-				'department_', 'career_', 'contract_',
-				'level', 'b_day', 'address'
-			]
-		}
+				"evaluations", "mngr_info", "area_",
+				"direction_", "position_", "category_",
+				"log", "__v", "enabled",
+			],
+		},
 	])
 	.then(async([data]) => {
 		if(data != undefined) {
@@ -212,9 +212,9 @@ async function pdfEvalFormat(req, res) {
 					_id: 'ID',
 					name: 'NAME',
 					area: 'AREA',
-					department (?): 'DEPARTMENT',
-					career (?): 'CAREER',
-					contract: 'CONTRACT',
+					direction: 'DIRECTION',
+					position: 'POSITION',
+					category: 'CATEGORY',
 					records: { '2022': { score: 100, answers: [ ..11 positions.. ] } },
 					manager: {
 					  _id: 'MANAGER ID',
@@ -242,7 +242,10 @@ async function pdfEvalFormat(req, res) {
 				dateFormated = date_time.getDate()+'/'+(date_time.getMonth()+1)+'/'+date_time.getFullYear(),
 				answers = data.records[currYear].answers,
 				yAnchor, xAnchor, total = 0, tempScore
-
+			
+			let userPosition = await modelPosition.findOne({_id: req.session.position}, {description: 1})
+				.catch((error) => console.log(error))
+			
 			const printAnswers = (numFactor, yMargin = 2, result = false) => {
 				if(numFactor > 0) {
 					doc.cell({ width: 2.95*pdf.cm, x: xAnchor+((answers[numFactor-1]-1)*2.95*pdf.cm), y: yAnchor -= yMargin*pdf.cm })
@@ -271,9 +274,7 @@ async function pdfEvalFormat(req, res) {
 				.text({ textAlign: 'center', fontSize: 7 }).add(data.name)
 
 				doc.cell({ width: 3.2*pdf.cm, x: 11.4*pdf.cm, y: 17.25*pdf.cm }) // Position
-				.text({ textAlign: 'center', fontSize: 7 }).add(
-					(data.position) ? data.position: ((data.direction) ? data.direction : data.area)
-				)
+				.text({ textAlign: 'center', fontSize: 7 }).add(data.position[req.session.lang])
 
 				doc.cell({ width: 2*pdf.cm, x: 18.5*pdf.cm, y: 17.25*pdf.cm }) // Employee number
 				.text({ textAlign: 'center', fontSize: 7 }).add(data._id)
@@ -281,11 +282,11 @@ async function pdfEvalFormat(req, res) {
 				doc.cell({ width: 2.5*pdf.cm, x: 22.25*pdf.cm, y: 17.15*pdf.cm }) // Date
 				.text({ textAlign: 'center', fontSize: 7 }).add(dateFormated)
 
-				doc.cell({ width: 7.5*pdf.cm, x: 2.5*pdf.cm, y: 16.45*pdf.cm }) // Department
-				.text({ textAlign: 'center', fontSize: 7 }).add((data.direction) ? data.direction : data.area)
+				doc.cell({ width: 7.5*pdf.cm, x: 2.5*pdf.cm, y: 16.45*pdf.cm }) // Direction
+				.text({ textAlign: 'center', fontSize: 7 }).add(data.direction[req.session.lang])
 
 				doc.cell({ width: 4.3*pdf.cm, x: 11.3*pdf.cm, y: 16.45*pdf.cm }) // Category
-				.text({ textAlign: 'center', fontSize: 7 }).add(data.contract)
+				.text({ textAlign: 'center', fontSize: 7 }).add(data.category[req.session.lang])
 
 				doc.cell({ width: 1.3*pdf.cm, x: 16.9*pdf.cm, y: 16.45*pdf.cm }) // Average
 				.text({ textAlign: 'center', fontSize: 7 }).add(data.records[currYear].score+'%')
@@ -341,9 +342,7 @@ async function pdfEvalFormat(req, res) {
 
 				doc.cell({ width: 4*pdf.cm, x: 1.7*pdf.cm, y: 5.55*pdf.cm }) // Position
 				.text({ textAlign: 'left', fontSize: 7 })
-				.add(
-					(data.position) ? data.position: ((data.direction) ? data.direction : data.area)
-				)
+				.add((userPosition) ? userPosition.description[req.session.lang] : '')
 
 				// --------------------------- Page 3 --------------------------- //
 			} catch (error) {
@@ -352,7 +351,7 @@ async function pdfEvalFormat(req, res) {
 				return res.send(null)
 			}
 
-			res.setHeader("Content-Disposition", "attachment; output.pdf")
+			res.append('filename', 'output.pdf')
 			await doc.pipe(res)
 			await doc.end() // Close file
 		} else {
@@ -373,15 +372,18 @@ async function pdfEvalFormat(req, res) {
 }
 
 async function manageUserEvaluation(req, res) {
-	const userId = req.params.id
+	const id = req.params.id
 	const action = req.params.action
-	let save = { records: {} }
+	let save = {
+		_id: id,
+		records: {}
+	}
 
-	modelEvaluation.findOne({ _id: userId })
+	modelEvaluation.findOne({ _id: id })
 	.then((data) => {
-		save = data
+		if(data) save = data
 		if(action == 'disabled')
-			save['records'][currYear] = {disabled: true}
+			save.records[currYear] = {disabled: true}
 		else
 			delete save['records'][currYear]
 

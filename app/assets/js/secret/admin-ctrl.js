@@ -3,6 +3,11 @@ let currCollection = null
 window.addEventListener('load', async() => {
 	eventAssigner('#tables-opts .dropdown-item', 'click', findCollections)
 	$e('#tables-opts .dropdown-item[data-table="1"]').click()
+
+	eventAssigner('#reload-list', 'click', () => {
+		if($e('.num-page.active'))
+			$e('.num-page.active').click()
+	})
 })
 
 const editInfo = (e) => {
@@ -167,9 +172,9 @@ const findCollections = (e) => {
 				: ($e('#tables-opts .dropdown-item:disabled'))
 					? $e('#tables-opts .dropdown-item:disabled').dataset.table
 					: null,
-			limit: $e('#rows') ? parseInt($e('#rows').value) : 10,
-			skip: $e('.num-page.active') ? parseInt($e('.num-page.active').rel) : 0
+			limit: $e('#rows') ? parseInt($e('#rows').value) : 10
 		}
+	pkg['skip'] = ($e('.num-page.active') && currCollection == pkg.search) ? parseInt($e('.num-page.active').rel) : 0
 
 	if(pkg.search) {
 		fetchTo(
@@ -529,21 +534,21 @@ const findCollections = (e) => {
 															type="text" disabled>
 												</div></div>
 												<div class="w-100 text-right d-flex justify-content-end mt-2 pe-3">
-													<button id="edit-_${ result.data[i]['_id'] }" data-id="_${ result.data[i]['_id'] }" data-table="${search}"
+													<button id="edit-_${ result.data[i]['_id'] }" data-id="_${ result.data[i]['_id'] }" data-table="${pkg.search}"
 														class="btn-edit btn btn-secondary px-3 py-2">
 														<i class="pe-none pe-1 fa-solid fa-pen-to-square"></i>
 														<span class="pe-none lang">
 															${(lang == 0) ? 'Editar' : 'Edit' }
 														</span>
 													</button>
-													<button id="cancel-_${ result.data[i]['_id'] }" data-id="_${ result.data[i]['_id'] }" data-table="${search}"
+													<button id="cancel-_${ result.data[i]['_id'] }" data-id="_${ result.data[i]['_id'] }" data-table="${pkg.search}"
 														class="btn-cancel btn btn-outline-danger px-3 py-2 me-2 d-none" disabled>
 														<i class="pe-none pe-1 fa-solid fa-ban"></i>
 														<span class="pe-none lang">
 															${(lang == 0) ? 'Cancelar' : 'Cancel' }
 														</span>
 													</button>
-													<button id="save-_${ result.data[i]['_id'] }" data-id="_${ result.data[i]['_id'] }" data-table="${search}"
+													<button id="save-_${ result.data[i]['_id'] }" data-id="_${ result.data[i]['_id'] }" data-table="${pkg.search}"
 														class="btn-save btn btn-outline-dark px-3 py-2 d-none" disabled>
 														<i class="pe-none pe-1 fa-solid fa-floppy-disk"></i>
 														<span class="pe-none lang">
@@ -576,18 +581,16 @@ const findCollections = (e) => {
 								}
 							}
 
-							$e('.num-page:first-child').classList.add('active')
-
 							eventAssigner('.num-page', 'click', (e) => {
 								let rel = parseInt(e.target.rel),
 									lastRel = parseInt($e('.num-page:last-child').rel)
 									margin = [2, 2]
 
-								if((rel-1) <= 0) margin = [1, 3] // Left buttons displayed
-								else if((rel-2) < 0) margin = [0, 4] // Left buttons displayed
+								if((rel-1) == 0) margin = [1, 3] // Left buttons displayed (nearby limit)
+								else if((rel-2) < 0) margin = [0, 4] // Left buttons displayed (limit)
 
-								if((rel+1) >= lastRel) margin = [3, 1] // Right buttons displayed
-								else if((rel+2) > lastRel) margin = [4, 0] // Right buttons displayed
+								if((rel+1) == lastRel) margin = [3, 1] // Right buttons displayed (nearby limit)
+								else if((rel+2) > lastRel) margin = [4, 0] // Right buttons displayed (limit)
 
 								$a('.num-page').forEach(node => {
 									if(node.classList.contains('active'))
@@ -608,6 +611,8 @@ const findCollections = (e) => {
 
 								findCollections()
 							})
+
+							$e('.num-page[rel="0"]').click()
 						}
 
 						$a('#collector .dynamic-hint').forEach(node => {
