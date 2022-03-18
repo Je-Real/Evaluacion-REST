@@ -50,30 +50,94 @@ h1, h2, h3, h4, h5, h6 {
 	padding-top: 2.2rem;
 }
 
-#load-b {
-	visibility: visible;
-	z-index: 1070;
+.spinner-border {
+	width: 35px;
+	height: 35px;
+}
+
+.floating-spinner {
 	top: 0;
 	bottom: 0;
 	left: 0;
 	right: 0;
-	opacity: 1;
+	display: flex;
+	position: fixed;
 	-webkit-transition: opacity 0.3s;
 	transition: opacity 0.3s;
 }
+.floating-spinner > div {
+	display: flex;
+}
 
-#load-b.fade {
+.floating-spinner > div > div {
+	margin: auto;
+}
+
+/* Loading spinner */
+#spinner-loading {
+	background-color: #f8f9fa;
+}
+
+#spinner-loading.show {
+	opacity: 1;
+	visibility: visible;
+	z-index: 1070;
+}
+
+#spinner-loading.fade {
 	opacity: 0;
 }
 
-#load-b.hidden {
+#spinner-loading.hide {
 	z-index: -1000;
 	visibility: hidden;
 }
 
-#load-b.hidden .spinner-border {
+#spinner-loading.hide .spinner-border {
 	animation: none;
 }
+/* Loading spinner */
+
+/* Waiting spinner */
+#spinner-waiting {
+	background-color: #3f3f3f79;
+	align-self: center;
+}
+
+#spinner-waiting .text {
+	padding: 0;
+	margin-left: 2rem;
+}
+
+#spinner-waiting > div {
+	background-color: #0000007e;
+	align-self: center;
+}
+
+#spinner-waiting > div > div {
+	margin: auto;
+	display: flex;
+}
+
+#spinner-waiting.show {
+	opacity: 1;
+	visibility: visible;
+	z-index: 1070;
+}
+
+#spinner-waiting.fade {
+	opacity: 0;
+}
+
+#spinner-waiting.hide {
+	z-index: -1000;
+	visibility: hidden;
+}
+
+#spinner-waiting.hide .spinner-border {
+	animation: none;
+}
+/* Waiting spinner */
 
 #snackbar {
 	visibility: hidden;
@@ -127,6 +191,12 @@ h1, h2, h3, h4, h5, h6 {
 @keyframes fill-up {
 	0% { box-shadow: 0px 0 0 0 #00000000; }
 	100% {box-shadow: 0px 1rem 0 65vw #000000c0;}
+}
+
+@keyframes rotate-360 {
+	0% { transform: rotate(0deg); }
+	99% { transform: rotate(359deg); }
+	100% { transform: rotate(0deg); }
 }
 
 .top {
@@ -1020,6 +1090,14 @@ code {
 /* Secret */
 
 /* Ad Control */
+#reload-list i {
+	transition: all 200ms ease-in-out;
+}
+
+#reload-list.rotate i {
+	animation: rotate-360 1s infinite;
+}
+
 #drop-tables i {
 	transform: rotate(0deg);
 	transition: transform 250ms ease-in-out;

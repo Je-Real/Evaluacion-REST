@@ -20,7 +20,7 @@ const barChartSearch = () => {
 		{ search: barSearch },
 		(result) => {
 			if(result.snack === true) {
-				showSnack(result.msg, null, SNACK[result.snackType])
+				showSnack(result.msg, null, result.snackType)
 			}
 
 			if(result.status === 200) {
@@ -52,7 +52,7 @@ const barChartSearch = () => {
 			}
 		},
 		(error) => {
-			showSnack('Error '+error, null, SNACK.error)
+			showSnack('Error '+error, null, 'error')
 			console.error(error)
 		}
 	)
@@ -100,7 +100,7 @@ function displayCharts(show, idElement) {
 					node.classList.toggle('d-none', false)
 					node.classList.toggle('d-block', true)
 			})
-			//log(`[Metrics] Shown Panel ${idElement}`, STYLE.cian)
+			//log(`[Metrics] Shown Panel ${idElement}`, 'cian')
 		} else {
 			$a(`.panel[data-id="${idElement}"] canvas, .panel[data-id="${idElement}"] span:not(.lang)`).forEach(
 				(node) => {
@@ -112,7 +112,7 @@ function displayCharts(show, idElement) {
 					node.classList.toggle('d-none', false)
 					node.classList.toggle('d-block', true)
 			})
-			//log(`[Metrics] Hidden Panel ${idElement}`, STYLE.pink)
+			//log(`[Metrics] Hidden Panel ${idElement}`, 'pink')
 		}
 	} else {
 		if(show) $e(idElement).classList.replace('d-none', 'd-block')
@@ -226,7 +226,7 @@ const addPanel = () => {
 	if(compareAll) {
 		showSnack(
 			Array('Comparar todas las areas', 'Compare all areas')[lang],
-			null, SNACK.info
+			null, 'info'
 		)
 	} else {
 		if(panelsDisplayed < 10 && !compareAll) {
@@ -241,7 +241,7 @@ const addPanel = () => {
 		} else
 			showSnack(
 				Array('El limite son 10 paneles', 'The limit is 10 panels')[lang],
-				null, SNACK.warning
+				null, 'warning'
 			)
 	}
 }
@@ -257,7 +257,7 @@ const deletePanel = (e) => {
 		else showSnack(
 			Array('No puedes eliminar el panel principal 😡',
 				'You cannot delete the main panel 😡')[lang],
-			null, SNACK.error
+			null, 'error'
 		)
 	})
 	.catch(error => console.error(error))
@@ -292,7 +292,7 @@ async function getData(auto, getter = null) {
 		else if(parseInt($e(`.panel[data-id="${idSelect}"] .direction`).value) > 0)
 			pkg.direction = parseInt($e(`.panel[data-id="${idSelect}"] .direction`).value)
 		else
-			return showSnack(Array('No se enviaron datos', 'No data sent')[lang], null, SNACK.warning)
+			return showSnack(Array('No se enviaron datos', 'No data sent')[lang], null, 'warning')
 	}
 
     await fetchTo(
@@ -300,11 +300,11 @@ async function getData(auto, getter = null) {
 		'POST',
 		pkg,
 		(result) => {
-            if(result.console) log(result.console, STYLE.warning)
+            if(result.console) log(result.console, 'warning')
 
 			if(result.snack) showSnack(
 				result.msg,
-				null, SNACK.info
+				null, 'info'
 			)
 
 			if(result.status === 200) {
@@ -360,12 +360,12 @@ async function getData(auto, getter = null) {
 				} else displayCharts(false, idSelect)
 			}
 			else {
-				if(result.log === true) return log('[Metrics] '+result.msg, STYLE.error)
+				if(result.log === true) return log('[Metrics] '+result.msg, 'error')
 			}
 			canvasId = undefined
         },
 		(error) => {
-			showSnack('Error '+error, null, SNACK.error)
+			showSnack('Error '+error, null, 'error')
 			console.error(error)
 			canvasId = undefined
 		}
@@ -430,7 +430,7 @@ const generatePDF = async(mode = '') => {
 				return showSnack(
 					Array('No se recibieron parámetros en la solicitud de descarga',
 						'No parameters has been received in download request')[lang],
-						null, SNACK.error
+						null, 'error'
 				)
 		}
 
@@ -444,7 +444,7 @@ const generatePDF = async(mode = '') => {
 		.then(async res => await res.arrayBuffer()) // response data to array buffer
 		.then(async data => {
 			if(data == null || data == undefined || String(data) == '')
-				return showSnack('Server error', null, SNACK.error)
+				return showSnack('Server error', null, 'error')
 			const blob = new Blob([data]) // Create a Blob object
 			const url = URL.createObjectURL(blob) // Create an object URL
 			download(url, Array(`formato-evaluacion-.pdf`, `evaluation-format-.pdf`)[lang]) // Download file
@@ -454,7 +454,7 @@ const generatePDF = async(mode = '') => {
 			showSnack(
 				Array('Por favor abra la consola del navegador, copie el error y contacte con un especialista en soporte',
 					'Please open the browser console, copy the error and contact a support specialist.')[lang],
-				null, SNACK.error
+				null, 'error'
 			)
 			console.error(err)
 		})

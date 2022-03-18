@@ -8,7 +8,7 @@ const modelPosition = require('../models/modelPosition')
 const weighting = require('./controllerEvaluation').weighting
 
 const DATE = new Date()
-const currYear = String(DATE.getFullYear())
+const CURRENT_YEAR = String(DATE.getFullYear())
 
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
@@ -38,9 +38,9 @@ async function root(req, res) {
 						$set: {
 							records: {
 							$cond: [
-								{ $ifNull: [`$records.${currYear}`, false] }, // If records[current year] is not null (if exists)
+								{ $ifNull: [`$records.${CURRENT_YEAR}`, false] }, // If records[current year] is not null (if exists)
 								{ $cond: [
-									{ $ifNull: [`$records.${currYear}.disabled`, false] }, // If disable is not null (if exists)
+									{ $ifNull: [`$records.${CURRENT_YEAR}.disabled`, false] }, // If disable is not null (if exists)
 									-1, // user disabled
 									1 // user with an evaluation already done
 								]},
@@ -240,7 +240,7 @@ async function pdfEvalFormat(req, res) {
 
 			let date_time = new Date(Date.now()),
 				dateFormated = date_time.getDate()+'/'+(date_time.getMonth()+1)+'/'+date_time.getFullYear(),
-				answers = data.records[currYear].answers,
+				answers = data.records[CURRENT_YEAR].answers,
 				yAnchor, xAnchor, total = 0, tempScore
 			
 			let userPosition = await modelPosition.findOne({_id: req.session.position}, {description: 1})
@@ -289,7 +289,7 @@ async function pdfEvalFormat(req, res) {
 				.text({ textAlign: 'center', fontSize: 7 }).add(data.category[req.session.lang])
 
 				doc.cell({ width: 1.3*pdf.cm, x: 16.9*pdf.cm, y: 16.45*pdf.cm }) // Average
-				.text({ textAlign: 'center', fontSize: 7 }).add(data.records[currYear].score+'%')
+				.text({ textAlign: 'center', fontSize: 7 }).add(data.records[CURRENT_YEAR].score+'%')
 
 				yAnchor = 13.5*pdf.cm + 2*pdf.cm // Added 2cm because de function iteration
 				xAnchor = 13.1*pdf.cm            // Guide for the first column (for all pages)
@@ -383,9 +383,9 @@ async function manageUserEvaluation(req, res) {
 	.then((data) => {
 		if(data) save = data
 		if(action == 'disabled')
-			save.records[currYear] = {disabled: true}
+			save.records[CURRENT_YEAR] = {disabled: true}
 		else
-			delete save['records'][currYear]
+			delete save['records'][CURRENT_YEAR]
 
 		new modelEvaluation(save).save()
 		.then(() => {

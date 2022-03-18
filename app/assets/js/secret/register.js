@@ -43,7 +43,7 @@ const dynamicHints = async(e, collection) => {
 				{ query: (e.target.value).trim(), collection: collection },
 				(result) => {
 					if(result.snack) {
-						return showSnack(result.msg, null, SNACK.warning)
+						return showSnack(result.msg, null, 'warning')
 					} else if(result.status === 200) {
 						let textItterator = ''
 						fuzzyLock = true
@@ -77,7 +77,7 @@ const dynamicHints = async(e, collection) => {
 				},
 				(error) => {
 					console.warn(error)
-					return showSnack(error, null, SNACK.error)
+					return showSnack(error, null, 'error')
 				}
 			)
 		}, 750)
@@ -135,8 +135,10 @@ window.addEventListener('load', async(e) => {
 	eventAssigner('.dynamic-hint', 'keydown', (e) => dynamicHints(e, 'user_info'))
 	eventAssigner('.dynamic-hint', 'change', (e) => dynamicHints(e, 'user_info'))
 	
-	eventAssigner('#excel-file', 'change', e => {readUrl(e.target)})
-	eventAssigner('#submit-file', 'click', async e => {
+	eventAssigner('#excel-file', 'change', e => {readUrl(e.target)}) // Read the name and columns of the file
+	eventAssigner('#submit-file', 'click', async e => { // Send file event
+		spinner('wait', true)
+
 		pkg['file'] = true
 		pkg['fields'] = {}
 
@@ -149,7 +151,7 @@ window.addEventListener('load', async(e) => {
 						showSnack(
 							(lang == 0) ? 'Algún campo obligatorio debe esta incompleto. Por favor, revisa el formulario'
 							: 'Some required fields must be incomplete. Please check the form',
-							null, SNACK.warning
+							null, 'warning'
 						)
 						return pkg['file'] = false
 					}
@@ -173,23 +175,24 @@ window.addEventListener('load', async(e) => {
 					if(data.status === 200) SNK_Type = 'success'
 					else SNK_Type = 'warning'
 					if(Boolean(data.headers.get('snack')) == true) {
-						showSnack(data.headers.get('msg'), null, SNACK[SNK_Type])
+						showSnack(data.headers.get('msg'), null, SNK_Type)
 					}
 	
 					await data.arrayBuffer()
 					.then(async(data) => {
 						if(data == null || data == undefined)
-							return showSnack('Server error', null, SNACK.error)
+							return showSnack('Server error', null, 'error')
 						const blob = new Blob([data]) // Create a Blob object
 						const url = URL.createObjectURL(blob) // Create an object URL
 						download(url, filename) // Download file
 						URL.revokeObjectURL(url) // Release the object URL
 					})
-				} else showSnack(data.headers.get('msg'), null, SNACK['error'])
+				} else showSnack(data.headers.get('msg'), null, 'error')
 			})
 			.catch(error => console.error(error))
 			.finally(async() => {
 				$e('#register-file button.close-modal').click()
+				spinner('wait', false)
 			})
 		}
 	})
@@ -255,7 +258,7 @@ const readUrl = (input) => {
 					return showSnack(
 						(lang == 0) ?'Error en la lectura del archivo de excel. Revise la consola, por favor'
 						:'Error reading excel file. Please check the console',
-						null, SNACK.error
+						null, 'error'
 					)
 				})
 			}
@@ -263,7 +266,7 @@ const readUrl = (input) => {
 				return showSnack(
 					(lang == 0) ?'Por favor, selecciona un archivo de excel valido'
 					:'Please select a valid excel file',
-					null, SNACK.error
+					null, 'error'
 				)
 		}
 		reader.onerror = (e) => { console.error(e) }
@@ -308,6 +311,8 @@ const excelToJSON = async(file) => {
 }
 
 const register = async() => {
+	spinner('wait', true)
+
 	pkg['data'] = [{}]
 
 	if($e('#new_user:not(disabled)').checked) {
@@ -325,7 +330,7 @@ const register = async() => {
 				return showSnack(
 					(lang == 0) ? `No se puede enviar el registro, hay campos vacíos.`
 								: `Unable to send the data, there is empty fields`,
-					null, SNACK.warning
+					null, 'warning'
 				)
 			} else pkg.data[0][node.name] = node.value
 		}
@@ -337,7 +342,7 @@ const register = async() => {
 				return showSnack(
 					(lang == 0) ? `No se puede enviar el registro, hay campos vacíos.`
 								: `Unable to send the data, there is empty fields`,
-					null, SNACK.warning
+					null, 'warning'
 				)
 			} else pkg.data[0][node.name] = parseInt(node[node.selectedIndex].value)
 		} else {
@@ -360,23 +365,24 @@ const register = async() => {
 				if(data.status === 200) SNK_Type = 'success'
 				else SNK_Type = 'warning'
 				if(Boolean(data.headers.get('snack')) == true) {
-					showSnack(data.headers.get('msg'), null, SNACK[SNK_Type])
+					showSnack(data.headers.get('msg'), null, SNK_Type)
 				}
 
 				data.arrayBuffer()
 				.then(data => {
 					if(data == null || data == undefined)
-					return showSnack('Server error', null, SNACK.error)
+					return showSnack('Server error', null, 'error')
 					const blob = new Blob([data]) // Create a Blob object
 					const url = URL.createObjectURL(blob) // Create an object URL
 					download(url, filename) // Download file
 					URL.revokeObjectURL(url) // Release the object URL
 				})
-			} else showSnack(data.headers.get('msg'), null, SNACK['error'])
+			} else showSnack(data.headers.get('msg'), null, 'error')
 		})
 		.catch(error => console.error(error))
 		.finally(() => {
 			$e('#register button.close-modal').click()
+			spinner('wait', false)
 		})
 	}
 }

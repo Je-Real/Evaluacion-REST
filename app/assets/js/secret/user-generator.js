@@ -8,6 +8,6 @@ function copyInfo(info) {
 	navigator.clipboard.writeText(copyText)
 	showSnack(
         (lang == 0) ? 'Texto copiado' : 'Text copied',
-        null, SNACK.info
+        null, 'info'
     )
 }

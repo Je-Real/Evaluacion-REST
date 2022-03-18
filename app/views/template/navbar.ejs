@@ -1,63 +1,75 @@
 <noscript>
-    <h1>
-        <span data-lang="es">Por favor, activa Javascript en tu navegador</span>
-        <span data-lang="en">Please enable Javascript in your browser</span>
-    </h1>
+	<h1>
+		<span data-lang="es">Por favor, activa Javascript en tu navegador</span>
+		<span data-lang="en">Please enable Javascript in your browser</span>
+	</h1>
 </noscript>
 
 <!-- Navbar -->
-<div id="load-b" class="bg-light p-0 m-0 mx-auto flex-nowrap position-fixed d-flex show">
-    <div class="container h-100 d-flex">
-        <div class="m-auto">
-            <div class="spinner-border text-info"></div>
-        </div>
-    </div>
+<div id="spinner-loading" class="floating-spinner show">
+	<div class="w-100 h-100">
+		<div>
+			<div class="spinner-border text-info"></div>
+		</div>
+	</div>
+</div>
+
+<div id="spinner-waiting" class="floating-spinner show fade hide">
+	<div class="w-100 vh-40">
+		<div>
+			<div class="spinner-border text-light"></div>
+			<h3 class="text text-light">
+				<p class="lang" data-lang="es">Por favor, espere...</p>
+				<p class="lang" data-lang="en">Please wait...</p>
+			</h3>
+		</div>
+	</div>
 </div>
 
 <div class="snack mx-auto w-25 d-flex flex-nowrap justify-content-center position-fixed">
-    <div id="snack-container" class="container-fluid mt-5"></div>
+	<div id="snack-container" class="container-fluid mt-5"></div>
 </div>
 
 <div id="tooltip"><p></p></div>
 
 <nav id="layoutNavbar" data-log="<%= (session) ? true : false %>"
-    class="sb-topnav navbar navbar-expand navbar-dark bg-dark text-end">
-    <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="/home/">
-        <img class="mx-auto d-block pt-1" src="/img/logo-utna.png" width="100" alt="UTNA">
-    </a>
+	class="sb-topnav navbar navbar-expand navbar-dark bg-dark text-end">
+	<!-- Navbar Brand-->
+	<a class="navbar-brand ps-3" href="/home/">
+		<img class="mx-auto d-block pt-1" src="/img/logo-utna.png" width="100" alt="UTNA">
+	</a>
 
-    <!-- Sidebar Toggle-->
-    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" ><i
-        class="fa-solid fa-bars"></i></button>
+	<!-- Sidebar Toggle-->
+	<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" ><i
+		class="fa-solid fa-bars"></i></button>
 
-    <!-- Navbar Search-->
-    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></form>
+	<!-- Navbar Search-->
+	<form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></form>
 
-    <!-- Navbar-->
-    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-5">
-        <li class="nav-item dropdown">
-            <% let temp = (session) ? session.name : '' %>
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false"><i class="fa-solid fa-user fa-fw me-1"></i><%= temp %></a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                
-                <li><div class="container ps-3">
-                    <span data-lang="es">Lenguaje</span><span data-lang="en">Language</span>
-                    <div class="button b2 mt-2 mb-2" id="button-17">
-                        <input id="btn-lang" type="checkbox" class="checkbox">
-                            <div class="knobs" data-checked="English" data-unchecked="Español"><span></span></div>
-                        <div class="layer"></div>
-                    </div>
-                </div></li>
-                
-                <% if(session) { %>
-                    <li><a class="dropdown-item" href="javascript:logout()">
-                        <span data-lang="es">Cerrar sesión</span><span data-lang="en">Logout</span>
-                    </a></li>
-                <% } %>
-            </ul>
-        </li>
-    </ul>
+	<!-- Navbar-->
+	<ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-5">
+		<li class="nav-item dropdown">
+			<% let temp = (session) ? session.name : '' %>
+			<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+				aria-expanded="false"><i class="fa-solid fa-user fa-fw me-1"></i><%= temp %></a>
+			<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+				<li><div class="container ps-3">
+					<span data-lang="es">Lenguaje</span><span data-lang="en">Language</span>
+					<div class="button b2 mt-2 mb-2" id="button-17">
+						<input id="btn-lang" type="checkbox" class="checkbox">
+							<div class="knobs" data-checked="English" data-unchecked="Español"><span></span></div>
+						<div class="layer"></div>
+					</div>
+				</div></li>
+
+				<% if(session) { %>
+					<li><a class="dropdown-item" href="javascript:logout()">
+						<span data-lang="es">Cerrar sesión</span><span data-lang="en">Logout</span>
+					</a></li>
+				<% } %>
+			</ul>
+		</li>
+	</ul>
 </nav>
 <!-- Navbar -->

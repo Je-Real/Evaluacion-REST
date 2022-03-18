@@ -121,7 +121,7 @@ function paginator() {
         pagCTRL({target: $e('#pag-ctrl a[rel="0"]')})
 
     } catch {
-        log('[Page-inator] No data to format', STYLE.error)
+        log('[Page-inator] No data to format', 'error')
     }
 
     const theRows = () => {

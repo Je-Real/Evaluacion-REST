@@ -7,7 +7,7 @@ window.addEventListener('load', async(e) => {
 			.then(async res => await res.arrayBuffer()) // response data to array buffer
 			.then(data => {
 				if(data == null || data == undefined)
-					return showSnack('Server error', null, SNACK.error)
+					return showSnack('Server error', null, 'error')
 				const blob = new Blob([data]) // Create a Blob object
 				const url = URL.createObjectURL(blob) // Create an object URL
 				download(url, `doc.xlsx`) // Download file

@@ -1,65 +1,135 @@
 // 👇 Production mode
-'use strict'
+//'use strict'
 
 const DATE = new Date()
-const STYLE = {
-	base: [
+const CURRENT_YEAR = String(DATE.getFullYear())
+
+/**
+ * Get one element
+ * @param {keyof HTMLElementTagNameMap} selector Selector
+ * @returns Element
+**/
+const $e = (selector) => document.querySelector(selector)
+/**
+ * Get a list of elements
+ * @param {keyof HTMLElementTagNameMap} selector Selector
+ * @returns List of elements
+**/
+const $a = (selector) => document.querySelectorAll(selector)
+
+/**
+ * Print a pretty text log in browser's console with different styles
+ * @param {String} text Text
+ * @param {'error' | 'success' | 'warning' | 'info' | 'pink' | 'cian' |'light'} style Log style
+**/
+const log = (text, style) => {
+	const base = [
 		"color: #fff",
 		"background-color: #292929",
 		"padding: 2px 4px",
 		"border-radius: 2px"
-	],
-	error: [
-		"color: #eee",
-		"background-color: #ed416c"
-	],
-	success: [
-		"background-color: #4caa24"
-	],
-	warning: [
-		"background-color: #b08210"
-	],
-	info: [
-		"background-color: #0f87ae"
-	],
-	pink: [
-		"background-color: #8a3e98"
-	],
-	cian: [
-		"background-color: #189a84"
-	],
-	light: [
-		"color: #1e1e1e",
-		"background-color: #d3d3d3"
-	],
+	]
+
+	switch(style) {
+		case 'error': style = [
+			"color: #eee",
+			"background-color: #ed416c"
+			]
+			break
+		case 'success': style = [
+			"background-color: #4caa24"
+			]
+			break
+		case 'warning': style = [
+			"background-color: #b08210"
+			]
+			break
+		case 'info': style = [
+			"background-color: #0f87ae"
+			]
+			break
+		case 'pink': style = [
+			"background-color: #8a3e98"
+			]
+			break
+		case 'cian': style = [
+			"background-color: #189a84"
+			]
+			break
+		case 'light': style = [
+				"color: #1e1e1e",
+				"background-color: #d3d3d3"
+			]
+			break
+	}
+
+
+	let options = base.join(';') + ';';
+	options += style.join(';'); // Add any additional styles
+	console.log(`%c${text}`, options);
 }
 
-const $e = (selector = '') => (typeof selector == 'string' && selector.length > 0) ? document.querySelector(selector) : null
-const $a = (selector = '') => (typeof selector == 'string' && selector.length > 0) ? document.querySelectorAll(selector) : null
+/**
+ * Control the loading spinner
+ * @param {'load' | 'wait'} type Select from spinner-loading or spinner-waiting
+ * @param {Boolean} show Show the spinner
+ * @return Boolean
+**/
+const spinner = async(type, show) => {
+	if(type == 'load')
+		type = $e('#spinner-loading')
+	else if (type == 'wait')
+		type = $e('#spinner-waiting')
+	else
+		return false
 
-const log = (text, styleTypes = []) => {
-	let options = STYLE.base.join(';') + ';';
-	options += styleTypes.join(';'); // Add any additional styles
-	console.log(`%c${text}`, options);
+	if(show) {
+		setTimeout(async() => {
+			type.classList.remove('hide', 'fade')
+		}, 200)
+		return true
+	} else {
+		setTimeout(async() => {
+			type.classList.add('fade')
+			setTimeout(() => {
+				type.classList.add('hide')
+			}, 200)
+		}, 200)
+		return true
+	}
 }
 
 const changeLang = () => {
 	let btnChecked = $e('body').querySelector('#btn-lang').checked
-	
+
 	if(btnChecked) localStorage.setItem('lang', 'en')
 	else localStorage.setItem('lang', 'es')
 
 	setTimeout(async() => {
-		$e('#load-b').classList.replace('hidden', 'show')
-		setTimeout(() => {
-			window.location.reload(false)
-		}, 200)
+		spinner('load', true)
+		.then(res => {
+			if(res) {
+				setTimeout(() => {
+					window.location.reload(false)
+				}, 200)
+			}
+		})
 	}, 200)
 }
 
-function go(url = 'home/') {
-	setCookie('go-to', url)
-	window.location.href = String(location.href).slice(0, 20+1)+url
+/**
+ * @param {String} url
+**/
+function go(url) {
+	spinner('load', true)
+	.then(setTimeout(() => {
+		if(url[0] != '/') // If url has no '/' at the start, add it
+			url = '/'+url
+		if(url[url.length-1] != '/') // If url has no '/' at the end, add it
+			url = url+'/'
+		setCookie('go-to', url)
+		return window.location.pathname = url
+	}, 200))
 }
 
 async function upperAttrIterator(target, attributeName) {
@@ -73,7 +143,7 @@ async function upperAttrIterator(target, attributeName) {
 					return target.getAttribute(attributeName)
 			}
 		}
-		//log(`Couldn't find attribute ${attributeName} in parentsNodes of ${target}`, STYLE.error)
+		//log(`Couldn't find attribute ${attributeName} in parentsNodes of ${target}`, 'error')
 		return null
 	} catch(e) { throw e }
 }
@@ -81,7 +151,7 @@ async function upperAttrIterator(target, attributeName) {
 async function fetchTo(url = '', method = '', data = {}, onSuccess, onError) {
 	let REQ_PARAMS
 	method = method.toUpperCase()
-	
+
 	if(method === 'POST' || method === 'GET') {
 		REQ_PARAMS = (method === 'POST') ? {
 			method: method,
@@ -183,10 +253,10 @@ window.addEventListener('DOMContentLoaded', async(e) => {
 						let cookieData = JSON.parse(data[0])
 						showSnack(
 							(lang == 0) ? 'Iniciando sesión...' : 'Logging in...',
-							(lang == 0) ? 'Inicio de sesión' : 'Log in', SNACK.info
+							(lang == 0) ? 'Inicio de sesión' : 'Log in', 'info'
 						)
 						login(cookieData.user, cookieData.pass)
-	
+
 						if(data[1] != undefined) {
 							await setCookie('requested-page', undefined)
 							.then(() => {
@@ -210,22 +280,21 @@ window.addEventListener('DOMContentLoaded', async(e) => {
 	} catch (error) {
 		console.error(error);
 	}
-	
+
 	if(fade_away) {
-		setTimeout(async() => {
-			await $e('#load-b').classList.add('fade')
-			setTimeout(() => {
-				$e('#load-b').classList.add('hidden')
-			}, 200)
-		}, 200)
-		setTimeout(async() => {
-			await $a('.deletable').forEach((node) => {node.remove()}) //Remove all the "deletable" elements after 1 sec
-		}, 1000)
+		spinner('load', false)
+		.then(res => {
+			if(res) {
+				setTimeout(async() => {
+					$a('.deletable').forEach((node) => {node.remove()}) //Remove all the "deletable" elements after 1 sec
+				}, 1000)
+			}
+		})
 	}
 })
 
 function outSession(clicked) {
-	if(clicked) setTimeout(() => go("home/"), 2500)
+	if(clicked) setTimeout(() => go('home/'), 2500)
 }
 
 function logout() {
@@ -236,17 +305,19 @@ function logout() {
 		async(result) => {
 			if(result.status === 200) {
 				outSession(true)
-				$e('#load-b').classList.remove('hidden', 'fade')
-				await eatCookies()
-					.finally(() => {
-						setTimeout(() => {
-							go('home/')
-						}, 500)
-					})
+				spinner('load', true)
+				.then(async() => {
+					await eatCookies()
+						.finally(() => {
+							setTimeout(() => {
+								go('home/')
+							}, 500)
+						})
+				})
 			} else {
 				showSnack(
 					`Error: ${result.msg}`,
-					null, SNACK.error
+					null, 'error'
 				)
 			}
 		},

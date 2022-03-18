@@ -7,7 +7,7 @@ window.addEventListener('load', async(e) => {
 			showSnack(
 				(lang == 0) ? 'Revisa los campos de inicio de sesión, por favor'
 							: 'Check the session fields, please',
-				null, SNACK.error
+				null, 'error'
 			)
 		else
 			fetchTo(
@@ -16,21 +16,25 @@ window.addEventListener('load', async(e) => {
 				{ _id: u.value, pass: p.value },
 				async(result) => {
 					if(result.msg)
-						showSnack(result.msg, null, SNACK.info )
+						showSnack(result.msg, null, 'info' )
 
 					if(result.status === 200) {
-						$e('#load-b').classList.remove('hidden', 'fade')
-						if(result.data !== null) {
-							await setCookie('user', JSON.stringify(result.data))
-							.then(() => go('home/'))
-							.catch(() => {
-								showSnack(
-									(lang == 0) ? 'Falla de Cookies' : 'Cookies failure',
-									null, SNACK.warning
-								)
-							})
-						}
-						else return go('home/')
+						spinner('load', true)
+						.then(async res => {
+							if(res) {
+								if(result.data !== null) {
+									await setCookie('user', JSON.stringify(result.data))
+									.then(() => go('home/'))
+									.catch(() => {
+										showSnack(
+											(lang == 0) ? 'Falla de Cookies' : 'Cookies failure',
+											null, 'warning'
+										)
+									})
+								}
+								else return go('home/')
+							}
+						})
 					}
 
 					if('class' in result) {

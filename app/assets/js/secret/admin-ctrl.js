@@ -1,12 +1,16 @@
-let currCollection = null
+let anchorID = null, anchorLength = null, anchorCollection = null,
+	spin = false
 
 window.addEventListener('load', async() => {
 	eventAssigner('#tables-opts .dropdown-item', 'click', findCollections)
 	$e('#tables-opts .dropdown-item[data-table="1"]').click()
-
+	
 	eventAssigner('#reload-list', 'click', () => {
-		if($e('.num-page.active'))
-			$e('.num-page.active').click()
+		anchorID = null
+		anchorLength = null
+		anchorCollection = null
+		
+		findCollections()
 	})
 })
 
@@ -30,7 +34,7 @@ const editInfo = (e) => {
 		$e(`#edit-${tgt}`).classList.add('d-none')
 		$e(`#edit-${tgt}`).disabled = true
 	} else
-		return log(`[AD-CTRL] Not found ID target in button event (target = ${tgt})`, STYLE.error)
+		return log(`[AD-CTRL] Not found ID target in button event (target = ${tgt})`, 'error')
 }
 
 const cancelInfo = (e) => {
@@ -127,7 +131,7 @@ const updateInfo = (e) => {
 			pkg,
 			(result) => {
 				if(result.status === 200) {
-					showSnack((lang == 0) ? 'Cambios guardados' : 'Changes saved', null, SNACK.success)
+					showSnack((lang == 0) ? 'Cambios guardados' : 'Changes saved', null, 'success')
 					$a(`.${tgt}:not(.read-only)`).forEach(node => {
 						node.disabled = true
 					})
@@ -138,7 +142,7 @@ const updateInfo = (e) => {
 					$e(`#edit-${tgt}`).classList.remove('d-none')
 					$e(`#edit-${tgt}`).disabled = false
 				} else
-					showSnack(result.error, null, SNACK.error)
+					showSnack(result.error, null, 'error')
 			},
 			(error) => {
 				console.error(error)
@@ -147,7 +151,7 @@ const updateInfo = (e) => {
 
 		// TODO: Send new data to update the DB
 	} else
-		return log(`[AD-CTRL] Not found ID target in button event (target = ${tgt})`, STYLE.error)
+		return log(`[AD-CTRL] Not found ID target in button event (target = ${tgt})`, 'error')
 }
 
 const highlighter = (e) => {
@@ -163,19 +167,22 @@ const highlighter = (e) => {
 }
 
 const findCollections = (e) => {
-	let lblText = (e != undefined) ? e.target.innerHTML
+	let title = (e != undefined) ? e.target.innerHTML
 		: ($e('#tables-opts .dropdown-item:disabled'))
 			? $e('#tables-opts .dropdown-item:disabled').innerHTML
 			: null,
 		pkg = {
-			search: (e != undefined) ? e.target.dataset.table
+			search: (e != undefined) ? e.target.dataset.table // Collection
 				: ($e('#tables-opts .dropdown-item:disabled'))
 					? $e('#tables-opts .dropdown-item:disabled').dataset.table
 					: null,
-			limit: $e('#rows') ? parseInt($e('#rows').value) : 10
+			limit: $e('#rows') ? parseInt($e('#rows').value) : 10 // Limit of rows
 		}
-	pkg['skip'] = ($e('.num-page.active') && currCollection == pkg.search) ? parseInt($e('.num-page.active').rel) : 0
+	// Documents to skip (this is the operation in server: limit * skip = first document of the page)
+	pkg['skip'] = ($e('.num-page.active') && anchorCollection == pkg.search) ? parseInt($e('.num-page.active').rel) : 0
 
+	$e('#reload-list').classList.add('rotate') // Reload button animation start
+	
 	if(pkg.search) {
 		fetchTo(
 			'http://localhost:999/admin-control/search',
@@ -186,455 +193,461 @@ const findCollections = (e) => {
 					if(e != undefined) {
 						if($e('#tables-opts .dropdown-item:disabled'))
 							$e('#tables-opts .dropdown-item:disabled').disabled = false
-						e.target.disabled = true
-					}
+							e.target.disabled = true
+						}
 
-					$e('#collector-accordion').innerHTML = ''
-					$e('#collector .lang').innerHTML = lblText
 					if(result.data.length) {
-						if(pkg.search == 1) {
-							for(let i in result.data) {
-								let evalRecords = ''
+						if(result.data.length != anchorLength || result.data[0]._id != anchorID || pkg.search != anchorCollection) {
+							try {
+							// This if works to stop a duplicate search
+								if(pkg.search == 1) {
+									anchorID = result.data[0]._id
 
-								if('eval_' in result.data[i])
-									if(Object.keys(result.data[i].eval_.records).length != 0) {
-										for(let year in result.data[i].eval_.records) {
-											evalRecords += `<div class="my-1 col-md-6 col-12 accordion accordion-flush" id="user-eval-${ year }-${ result.data[i]._id }">
-												<div class="accordion-item">
-													<h2 class="accordion-header" id="user-flush-eval-${ year }-${ result.data[i]._id }">
-														<button class="btn-outline-success accordion-button collapsed" type="button" data-bs-toggle="collapse"
-														data-bs-target="#user-flush-eval-${ year }-collapse-${ result.data[i]._id }" aria-expanded="false"
-														aria-controls="user-flush-eval-${ year }-collapse-${ result.data[i]._id }">
-															${ Array('Año', 'Year')[lang] }
-														</button>
-													</h2>
-													<div id="user-flush-eval-${ year }-collapse-${ result.data[i]._id }" class="accordion-collapse collapse"
-														aria-labelledby="user-flush-eval-${ year }-${ result.data[i]._id }"
-														data-bs-parent="#flush-eval-collapse-${ result.data[i]._id }">
-														<div class="accordion-body px-0">
-															<div class="row">
-																<div class="my-1 col-md-4 col-6">
-																	<p class="text-mini-label text-center m-0">
-																		${ Array('Habilitado', 'Enabled')[lang] }
-																	</p>
-																	<div class="container ps-3">
-																		<div class="button b2 mt-2 mb-2" id="button-17">
-																			<input name="disabled" id="disabled-${ year }-${ result.data[i]._id }" type="checkbox"
-																				class="checkbox _${ result.data[i]._id } ${ (parseInt(year) != currYear) ? 'read-only' : '' }"
-																				data-class="evaluation" data-year="${ year }"
-																				${ ('disabled' in result.data[i].eval_.records[year]) ? '' : checked } }
-																				disabled>
-																				<div class="knobs" data-unchecked="${ Array('Sí', 'Yes')[lang] }"
-																					data-checked="${ Array('No', 'No')[lang] }"><span></span></div>
-																			<div class="layer"></div>
-																</div></div></div>
-																<div class="my-1 col-md-4 col-6">
-																	<p class="text-mini-label text-center m-0">
-																		${ Array('Puntuación', 'Score')[lang] }
-																	</p>
-																	<input value="${ result.data[i].eval_.records[year].score }"
-																		class="form-control _${ result.data[i]._id } read-only"
-																		name="score" id="score-${ year }-${ result.data[i]._id }"
-																		data-class="evaluation" data-year="${ year }" type="text" disabled>
-																</div><div class="my-1 col-md-4 col-6">
-																	<p class="text-mini-label text-center m-0">
-																		${ Array('Respuestas', 'Answers')[lang] }
-																	</p>
-																	<input value="${ result.data[i].eval_.records[year].answers }"
-																		class="form-control _${ result.data[i]._id } read-only"
-																		name="answers" id="answers-${ year }-${ result.data[i]._id }"
-																		data-class="evaluation" data-year="${ year }" type="text" disabled>
-																</div><div class="my-1 col-md-4 col-6 mx-auto">
-																	<p class="text-mini-label text-center m-0">
-																		${ Array('Área', 'Area')[lang] }
-																	</p>
-																	<input value="${ result.data[i].eval_.records[year].area }"
-																		class="form-control _${ result.data[i]._id } read-only"
-																		name="area" id="area-${ year }-${ result.data[i]._id }"
-																		data-class="evaluation" data-year="${ year }" type="text" disabled/>
-																</div>
-																${ ('department' in result.data[i].eval_.records[year])
-																	?`<div class="my-1 col-md-4 col-6 mx-auto">
-																		<p class="text-mini-label text-center m-0">
-																			${ Array('Departamento', 'Department')[lang] }
-																		</p>
-																		<input value="${ result.data[i].eval_.records[year].direction }"
-																			class="form-control _${ result.data[i]._id } read-only"
-																			name="department" id="department-${ year }-${ result.data[i]._id }" data-class="evaluation"
-																			data-year="${ year }" type="text" disabled/>
-																	</div>` : ''
-																} ${ ('career' in result.data[i].eval_.records[year])
-																	? `<div class="my-1 col-md-4 col-6 mx-auto">
-																		<p class="text-mini-label text-center m-0">
-																			${ Array('Carrera', 'Career')[lang] }
-																		</p>
-																		<input value="${ result.data[i].eval_.records[year].position }"
-																			class="form-control _${ result.data[i]._id } read-only"
-																			name="career" id="career-${ year }-${ result.data[i]._id }" data-class="evaluation"
-																			data-year="${ year }" type="text" disabled/>
-																	</div>` : ''
-																}
-											</div></div></div></div></div>`
-										}
-									} else {
-										evalRecords = `<div class="col-12 text-center text-black-50"><p class="fs-4">
-												${ Array('No hay registros', 'No records')[lang] }
-											</p></div>`
-									}
+									$e('#collector-accordion').innerHTML = '' // Clear the list
+									$e('#collector .lang').innerHTML = title // Set the title
 
-								$e('#collector-accordion').insertAdjacentHTML(
-									'beforeend',
-									`<div class="accordion-item">
-										<h2 class="accordion-header" id="flush-collector-${ result.data[i]._id }">
-											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-											data-bs-target="#flush-collector-collapse-${ result.data[i]._id }" aria-expanded="false"
-											aria-controls="flush-collector-collapse-${ result.data[i]._id }">
-												<div class="item-header d-flex w-100">
-													<div class="text-center p-0 col-3 d-flex"> <p class="m-0">ID: ${ result.data[i]._id }</p> </div>
-													<div class="text-center p-0 mx-2"> <p class="m-0">${ result.data[i].name }</p> </div>
-													<div class="text-right p-0 ms-auto me-2">
-														<p class="m-0">${
-															(result.data[i].enabled)
-															? Array('Habilitado', 'Enabled')[lang]
-															: Array('Deshabilitado', 'Disabled')[lang]
-														}</p>
-										</div></div></button></h2>
-										<div id="flush-collector-collapse-${ result.data[i]._id }" class="accordion-collapse collapse"
-											aria-labelledby="flush-collector-${ result.data[i]._id }" data-bs-parent="#collector-accordion">
-											<div class="accordion-body px-3">
-												<div class="my-md-2 my-1 px-md-3 py-md-2 p-2 rounded-3">
-													<div class="row">
-														<h6 class="col-12 p-0 text-black-50 fs-5">
-															${ Array('Información de puesto', 'Position information')[lang] }</span>
-														</h6>
-														${ (false) ? `<div class="col-12"><h6 class="p-0 text-black-50 fs-5">
-																	${ Array('Información de puesto', 'Position information')[lang] }
-																</h6></div>` : ''
-														}
-														<div class="my-1 col-md-6 col-12">
-															<p class="text-mini-label text-center m-0">
-																${ Array('Área de adscripción', 'Adscription area')[lang] }
-															</p>
-															<input value="${ ((result.data[i].area).length)
-																? (('description' in result.data[i].area[lang])
-																	? result.data[i].area[lang].description
-																	: 'N.A')
-																: 'N.A' }"
-																class="form-control _${ result.data[i]._id }" name="area"
-																id="area-${ result.data[i]._id }"
-																data-class="user_info" type="text" disabled/>
-														</div><div class="my-1 col-md-6 col-12">
-															<p class="text-mini-label text-center m-0">
-																${ Array('Dirección / Subdirección', 'Direction / Sub-direction')[lang] }
-															</p>
-															<input value="${ ((result.data[i].direction).length)
-																? (('description' in result.data[i].direction[lang])
-																	? result.data[i].direction[lang].description
-																	: 'N.A')
-																: 'N.A' }"
-																class="form-control _${ result.data[i]._id }" name="direction"
-																id="direction-${ result.data[i]._id }"
-																data-class="user_info" type="text" disabled/>
-														</div><div class="my-1 col-md-6 col-12">
-															<p class="text-mini-label text-center m-0">
-																${ Array('Categoría', 'Category')[lang] }
-															</p>
-															<input value="${ ((result.data[i].category).length)
-																? (('description' in result.data[i].category[lang])
-																	? result.data[i].category[lang].description
-																	: 'N.A')
-																: 'N.A' }"
-																class="form-control _${ result.data[i]._id }" name="category"
-																id="category-${ result.data[i]._id }"
-																data-class="user_info" type="text" disabled/>
-														</div>
-														<div class="my-1 col-md-6 col-12">
-															<p class="text-mini-label text-center m-0">
-																${ Array('Puesto', 'Position')[lang] }
-															</p>
-															<input value="${
-																((result.data[i].position).length) ? (
-																( 'description' in result.data[i].position[lang])
-																	? result.data[i].position[lang].description
-																	: 'N.A.' )
-																: 'N.A' }"
-																class="form-control _${ result.data[i]._id }" name="position"
-																id="position-${ result.data[i]._id }"
-																data-class="user_info" type="text" disabled/>
-													</div></div>
-													<div class="row">
-														<div class="my-1 col-md-5 col-6 mx-auto">
-															<p class="text-mini-label text-center m-0">
-																${ Array('ID Jefe directo', 'ID manager')[lang] }
-															</p>
-															<input value="${ result.data[i].manager }" class="form-control dynamic-hint _${ result.data[i]._id }"
-																name="manager" id="manager-${ result.data[i]._id }" data-hint="id" data-class="user_info"
-																type="text" disabled/>
-												</div></div></div>
-												${ ('user_' in result.data[i])
-													? `<div class="my-md-2 my-1 px-md-3 py-md-2 p-2 rounded-3">
-														<div class="row">
-															<div class="col-12">
-																<h6 class="p-0 text-black-50 fs-5">
-																	${ Array('Información de solo lectura', 'Read-Only information')[lang] }
-																</h6>
-															</div>
-
-															<div class="my-1 col-md-6 col-12 mx-auto">
-																<p class="text-mini-label text-center m-0">
-																	${ Array('Creado', 'Created')[lang] }
-																</p>
-																<input value="${ result.data[i].user_.created.date } @ ${ result.data[i].user_.created.time }"
-																	class="form-control _${ result.data[i]._id } date read-only text-center"
-																	name="created" id="created-${ result.data[i]._id }" type="text" disabled/>
-															</div>
-															<div class="my-1 col-md-6 col-12 mx-auto">
-																<p class="text-mini-label text-center m-0">
-																	${ Array('Ultimo inicio de sesión', 'Last login')[lang] }
-																</p>
-																<input value="${ result.data[i].user_.last_conn.date } @ ${ result.data[i].user_.last_conn.time }"
-																	class="form-control _${ result.data[i]._id } date read-only text-center"
-																	name="lastConn" id="lastConn-${ result.data[i]._id }" type="text" disabled/>
-													</div></div></div>` : ''
-												}
-												<div class="accordion accordion-flush mt-2" id="inner-accordions-${ result.data[i]._id }">
-													${ ('eval_' in result.data[i])
-														? `<!-- Evaluation information -->
+									for(let i in result.data) {
+										let evalRecords = ''
+		
+										if('eval_' in result.data[i]) {
+											if(Object.keys(result.data[i].eval_.records).length != 0) {
+												for(let year in result.data[i].eval_.records) {
+													evalRecords += `<div class="my-1 col-md-6 col-12 accordion accordion-flush" id="user-eval-${ year }-${ result.data[i]._id }">
 														<div class="accordion-item">
-															<h2 class="accordion-header" id="flush-eval-${ result.data[i]._id }">
-																<button class="btn-outline-success accordion-button collapsed"
-																	type="button" data-bs-toggle="collapse" data-bs-target="#flush-eval-collapse-${ result.data[i]._id }"
-																	aria-expanded="false" aria-controls="flush-eval-collapse-${ result.data[i]._id }">
-																	${ Array('Evaluaciones', 'Evaluations')[lang] }
-
+															<h2 class="accordion-header" id="user-flush-eval-${ year }-${ result.data[i]._id }">
+																<button class="btn-outline-success accordion-button collapsed" type="button" data-bs-toggle="collapse"
+																data-bs-target="#user-flush-eval-${ year }-collapse-${ result.data[i]._id }" aria-expanded="false"
+																aria-controls="user-flush-eval-${ year }-collapse-${ result.data[i]._id }">
+																	${ Array('Año: '+year, 'Year: '+year)[lang] }
 																</button>
 															</h2>
-															<div id="flush-eval-collapse-${ result.data[i]._id }" class="accordion-collapse collapse"
-																aria-labelledby="flush-eval-${ result.data[i]._id }" data-bs-parent="#inner-accordions-${ result.data[i]._id }">
+															<div id="user-flush-eval-${ year }-collapse-${ result.data[i]._id }" class="accordion-collapse collapse"
+																aria-labelledby="user-flush-eval-${ year }-${ result.data[i]._id }"
+																data-bs-parent="#flush-eval-collapse-${ result.data[i]._id }">
 																<div class="accordion-body px-0">
 																	<div class="row">
-																		${ evalRecords }
-														</div></div></div></div>` : ''
-													}
-													<!-- Sensitive information -->
-													<div class="accordion-item">
-														<h2 class="accordion-header" id="flush-sensitive-${ result.data[i]._id }">
-															<button class="btn-outline-warning accordion-button collapsed" type="button" data-bs-toggle="collapse"
-																data-bs-target="#flush-sensitive-collapse-${ result.data[i]._id }" aria-expanded="false"
-																aria-controls="flush-sensitive-collapse-${ result.data[i]._id }">
-																${ Array('Información sensible', 'Sensitive information')[lang] }
-															</button>
-														</h2>
-														<div id="flush-sensitive-collapse-${ result.data[i]._id }" class="accordion-collapse collapse"
-															aria-labelledby="flush-sensitive-${ result.data[i]._id }" data-bs-parent="#inner-accordions-${ result.data[i]._id }">
-															<div class="accordion-body px-0">
-																<div class="row">
-																	<div class="my-1 col-md-9 col-12 mx-auto">
-																		<p class="text-mini-label text-center m-0">
-																			${ Array('Nombre', 'Name')[lang] }
-																		</p>
-																		<input value="${ result.data[i].name }" class="form-control _${ result.data[i]._id }"
-																			name="name" id="first-name-${ result.data[i]._id }" data-class="user_info" type="text" disabled>
-													</div></div></div></div></div>
-													<!-- Danger Zone -->
-													<div class="accordion accordion-flush mt-2" id="user-accordion-inner-${ result.data[i]._id }">
-														<div class="accordion-item">
-															<h2 class="accordion-header" id="danger-flush-${ result.data[i]._id }">
-																<button class="btn-outline-danger accordion-button collapsed" type="button" data-bs-toggle="collapse"
-																	data-bs-target="#danger-flush-collapse-${ result.data[i]._id }" aria-expanded="false"
-																	aria-controls="danger-flush-collapse-${ result.data[i]._id }">
-																	${ Array('Zona de peligro', 'Danger zone')[lang] }
-																</button>
-															</h2>
-															<div id="danger-flush-collapse-${ result.data[i]._id }" class="accordion-collapse collapse"
-																aria-labelledby="danger-flush-${ result.data[i]._id }" data-bs-parent="#inner-accordions-${ result.data[i]._id }">
-																<div class="accordion-body px-0">
-																	<div class="row">
-																		<div class="my-1 col-md-3 col-12 mx-auto">
+																		<div class="my-1 col-12">
 																			<p class="text-mini-label text-center m-0">
 																				${ Array('Habilitado', 'Enabled')[lang] }
 																			</p>
 																			<div class="container ps-3">
 																				<div class="button b2 mt-2 mb-2" id="button-17">
-																					<input name="disabled" id="disabled-${ result.data[i]._id }" type="checkbox"
-																						data-class="user_all" class="checkbox _${ result.data[i]._id }"
-																							${('enabled' in result.data[i]) ? '' : 'checked' } disabled>
+																					<input name="disabled" id="disabled-${ year }-${ result.data[i]._id }" type="checkbox"
+																						class="checkbox _${ result.data[i]._id } ${ (parseInt(year) != CURRENT_YEAR) ? 'read-only' : '' }"
+																						data-class="evaluation" data-year="${ year }"
+																						${ ('disabled' in result.data[i].eval_.records[year]) ? 'checked' : '' /* Unchecked = Yes, Checked= No */ } }
+																						disabled>
 																						<div class="knobs" data-unchecked="${ Array('Sí', 'Yes')[lang] }"
 																							data-checked="${ Array('No', 'No')[lang] }"><span></span></div>
 																					<div class="layer"></div>
-																				</div>
-																			</div>
-																		</div>
-																		${ ('user_' in result.data[i])
-																			? `<div class="my-1 col-md-5 col-12 mx-auto">
+																		</div></div></div>
+																		${ (!('disabled' in result.data[i].eval_.records[year])) // If not disabled
+																		? `<div class="my-1 col-md-6">
 																				<p class="text-mini-label text-center m-0">
-																					${ Array('Contraseña', 'Password')[lang] }
+																					${ Array('Puntuación', 'Score')[lang] }
 																				</p>
-																				<input value="amogus_sussy_bak😈📸" class="form-control _${ result.data[i]._id } mt-2"
-																					name="pass" id="pass-${ result.data[i]._id }" data-class="user" type="password"
-																					autocomplete="new-password" disabled>
-																			</div>` : ''
-																		}
-												</div></div></div></div></div></div>
-												<div class="w-100 text-right d-flex justify-content-end mt-2 pe-3">
-													<button id="edit-_${ result.data[i]._id }" data-id="_${ result.data[i]._id }"
-														data-table="1" class="btn-edit btn btn-secondary px-3 py-2">
-														<i class="pe-none pe-1 fa-solid fa-pen-to-square"></i>
-														<span class="pe-none">${ Array('Editar', 'Edit')[lang] }</span>
-													</button>
-													<button id="cancel-_${ result.data[i]._id }" data-id="_${ result.data[i]._id }"
-														data-table="1" class="btn-cancel btn btn-outline-danger px-3 py-2 me-2 d-none" disabled>
-														<i class="pe-none pe-1 fa-solid fa-ban"></i>
-														<span class="pe-none">${ Array('Cancelar', 'Cancel')[lang] }</span>
-													</button>
-													<button id="save-_${ result.data[i]._id }" data-id="_${ result.data[i]._id }"
-														data-table="1" class="btn-save btn btn-outline-dark px-3 py-2 d-none" disabled>
-														<i class="pe-none pe-1 fa-solid fa-floppy-disk"></i>
-														<span class="pe-none">${ Array('Guardar', 'Save')[lang] }</span>
-									</button></div></div></div></div>`
-								)
-							}
-						} else {
-							for(let i in result.data) {
-								$e('#collector-accordion').insertAdjacentHTML(
-									'afterbegin',
-									`<div class="accordion-item">
-										<h2 class="accordion-header" id="flush-head-collector-${ result.data[i]['_id'] }">
-											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-												data-bs-target="#flush-collector-${ result.data[i]['_id'] }" aria-expanded="false"
-												aria-controls="flush-collector-${ result.data[i]['_id'] }">
-												<div class="item-header d-flex w-100">
-													<div class="text-center p-0 col-2 d-flex">
-														<p class="m-0">ID: ${ result.data[i]['_id'] }</p>
-													</div>
-													<div class="text-right p-0 ms-auto me-2">
-														<p class="m-0 lang" data-lang="es">${
-															(result.data[i]['description'][lang])
-															? result.data[i]['description'][lang]
-															: result.data[i]['description'][0]
-														}</p>
-										</div></div></button></h2>
-
-										<div id="flush-collector-${ result.data[i]['_id'] }" class="accordion-collapse collapse"
-											aria-labelledby="flush-head-collector-${ result.data[i]['_id'] }" data-bs-parent="#collector-accordion">
-											<div class="accordion-body px-3">
-												<div class="row">
-													<div class="my-1 col-md-6 col-12 mx-auto">
-														<p class="text-mini-label text-center m-0">
-															${ (lang == 0) ? 'Idioma (es)' : 'Language (es)' }
-														</p>
-														<input value="${ result.data[i]['description'][0] }" class="form-control _${ result.data[i]['_id'] }"
-															name="0" id="exts-_${ result.data[i]['_id'] }" type="text" disabled>
-													</div><div class="my-1 col-md-6 col-12 mx-auto">
-														<p class="text-mini-label text-center m-0">
-														${ (lang == 0) ? 'Idioma (en)' : 'Language (en)' }
-														</p>
-														<input value="${ (result.data[i]['description'][1]) ? result.data[i]['description'][1] : '' }"
-															name="1" class="form-control _${ result.data[i]['_id'] }" id="extn-_${ result.data[i]['_id'] }"
-															type="text" disabled>
-												</div></div>
-												<div class="w-100 text-right d-flex justify-content-end mt-2 pe-3">
-													<button id="edit-_${ result.data[i]['_id'] }" data-id="_${ result.data[i]['_id'] }" data-table="${pkg.search}"
-														class="btn-edit btn btn-secondary px-3 py-2">
-														<i class="pe-none pe-1 fa-solid fa-pen-to-square"></i>
-														<span class="pe-none lang">
-															${(lang == 0) ? 'Editar' : 'Edit' }
-														</span>
-													</button>
-													<button id="cancel-_${ result.data[i]['_id'] }" data-id="_${ result.data[i]['_id'] }" data-table="${pkg.search}"
-														class="btn-cancel btn btn-outline-danger px-3 py-2 me-2 d-none" disabled>
-														<i class="pe-none pe-1 fa-solid fa-ban"></i>
-														<span class="pe-none lang">
-															${(lang == 0) ? 'Cancelar' : 'Cancel' }
-														</span>
-													</button>
-													<button id="save-_${ result.data[i]['_id'] }" data-id="_${ result.data[i]['_id'] }" data-table="${pkg.search}"
-														class="btn-save btn btn-outline-dark px-3 py-2 d-none" disabled>
-														<i class="pe-none pe-1 fa-solid fa-floppy-disk"></i>
-														<span class="pe-none lang">
-															${(lang == 0) ? 'Guardar' : 'Save' }
-														</span>
-									</button></div></div></div></div>`
-								)
-							}
-						}
-
-						if(currCollection != pkg.search) { // Init pagination
-							currCollection = pkg.search
-
-							$e('#reg-total').innerHTML = result.count
-							let numPages = result.count/pkg.limit
-
-							$a('.num-page').forEach(node => {
-								node.remove()
-							})
-
-							for(i=0; i<numPages; i++) {
-								if(i > 4) {
-									$e('#pag-ctrl').insertAdjacentHTML(
-										'beforeend', `<a class="num-page d-none" rel="${i}">${(i+1)}</a>`
-									)
+																				<input value="${ result.data[i].eval_.records[year].score }"
+																					class="form-control _${ result.data[i]._id } read-only"
+																					name="score" id="score-${ year }-${ result.data[i]._id }"
+																					data-class="evaluation" data-year="${ year }" type="text" disabled>
+																			</div><div class="my-1 col-md-6">
+																				<p class="text-mini-label text-center m-0">
+																					${ Array('Respuestas', 'Answers')[lang] }
+																				</p>
+																				<input value="${ result.data[i].eval_.records[year].answers }"
+																					class="form-control _${ result.data[i]._id } read-only"
+																					name="answers" id="answers-${ year }-${ result.data[i]._id }"
+																					data-class="evaluation" data-year="${ year }" type="text" disabled>
+																			</div><div class="my-1 col-md-6 mx-auto">
+																				<p class="text-mini-label text-center m-0">
+																					${ Array('Área', 'Area')[lang] }
+																				</p>
+																				<input value="${ result.data[i].eval_.records[year].area }"
+																					class="form-control _${ result.data[i]._id } read-only"
+																					name="area" id="area-${ year }-${ result.data[i]._id }"
+																					data-class="evaluation" data-year="${ year }" type="text" disabled/>
+																			</div>
+																			${ ('direction' in result.data[i].eval_.records[year])
+																				?`<div class="my-1 col-md-4 col-6 mx-auto">
+																					<p class="text-mini-label text-center m-0">
+																						${ Array('Dirección / Subdirección', 'Direction / Sub-direction')[lang] }
+																					</p>
+																					<input value="${ result.data[i].eval_.records[year].direction }"
+																						class="form-control _${ result.data[i]._id } read-only"
+																						name="direction" id="direction-${ year }-${ result.data[i]._id }" data-class="evaluation"
+																						data-year="${ year }" type="text" disabled/>
+																				</div>` : ''
+																			}` : '' }
+																		
+													</div></div></div></div></div>`
+												}
+											} else {
+												evalRecords = `<div class="col-12 text-center text-black-50"><p class="fs-4">${
+													Array('No hay registros', 'No records')[lang]
+												}</p></div>`
+											}
+										}
+		
+										$e('#collector-accordion').insertAdjacentHTML(
+											'beforeend',
+											`<div class="accordion-item">
+												<h2 class="accordion-header" id="flush-collector-${ result.data[i]._id }">
+													<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+													data-bs-target="#flush-collector-collapse-${ result.data[i]._id }" aria-expanded="false"
+													aria-controls="flush-collector-collapse-${ result.data[i]._id }">
+														<div class="item-header d-flex w-100">
+															<div class="text-center p-0 col-3 d-flex"> <p class="m-0">ID: ${ result.data[i]._id }</p> </div>
+															<div class="text-center p-0 mx-2"> <p class="m-0">${ result.data[i].name }</p> </div>
+															<div class="text-right p-0 ms-auto me-2">
+																<p class="m-0">${
+																	(result.data[i].enabled)
+																	? Array('Habilitado', 'Enabled')[lang]
+																	: Array('Deshabilitado', 'Disabled')[lang]
+																}</p>
+												</div></div></button></h2>
+												<div id="flush-collector-collapse-${ result.data[i]._id }" class="accordion-collapse collapse"
+													aria-labelledby="flush-collector-${ result.data[i]._id }" data-bs-parent="#collector-accordion">
+													<div class="accordion-body px-3">
+														<div class="my-md-2 my-1 px-md-3 py-md-2 p-2 rounded-3">
+															<div class="row">
+																<h6 class="col-12 p-0 text-black-50 fs-5">
+																	${ Array('Información de puesto', 'Position information')[lang] }</span>
+																</h6>
+																${ (false) ? `<div class="col-12"><h6 class="p-0 text-black-50 fs-5">
+																			${ Array('Información de puesto', 'Position information')[lang] }
+																		</h6></div>` : ''
+																}
+																<div class="my-1 col-md-6 col-12">
+																	<p class="text-mini-label text-center m-0">
+																		${ Array('Área de adscripción', 'Adscription area')[lang] }
+																	</p>
+																	<input value="${ ((result.data[i].area).length)
+																		? (('description' in result.data[i].area[lang])
+																			? result.data[i].area[lang].description
+																			: 'N.A')
+																		: 'N.A' }"
+																		class="form-control _${ result.data[i]._id }" name="area"
+																		data-class="user_info" type="text" disabled/>
+																</div><div class="my-1 col-md-6 col-12">
+																	<p class="text-mini-label text-center m-0">
+																		${ Array('Dirección / Subdirección', 'Direction / Sub-direction')[lang] }
+																	</p>
+																	<input value="${ ((result.data[i].direction).length)
+																		? (('description' in result.data[i].direction[lang])
+																			? result.data[i].direction[lang].description
+																			: 'N.A')
+																		: 'N.A' }"
+																		class="form-control _${ result.data[i]._id }" name="direction"
+																		data-class="user_info" type="text" disabled/>
+																</div><div class="my-1 col-md-6 col-12">
+																	<p class="text-mini-label text-center m-0">
+																		${ Array('Categoría', 'Category')[lang] }
+																	</p>
+																	<input value="${ ((result.data[i].category).length)
+																		? (('description' in result.data[i].category[lang])
+																			? result.data[i].category[lang].description
+																			: 'N.A')
+																		: 'N.A' }"
+																		class="form-control _${ result.data[i]._id }" name="category"
+																		data-class="user_info" type="text" disabled/>
+																</div>
+																<div class="my-1 col-md-6 col-12">
+																	<p class="text-mini-label text-center m-0">
+																		${ Array('Puesto', 'Position')[lang] }
+																	</p>
+																	<input value="${
+																		((result.data[i].position).length) ? (
+																		( 'description' in result.data[i].position[lang])
+																			? result.data[i].position[lang].description
+																			: 'N.A.' )
+																		: 'N.A' }"
+																		class="form-control _${ result.data[i]._id }" name="position"
+																		data-class="user_info" type="text" disabled/>
+															</div></div>
+															<div class="row">
+																<div class="my-1 col-md-5 col-6 mx-auto">
+																	<p class="text-mini-label text-center m-0">
+																		${ Array('ID Jefe directo', 'ID manager')[lang] }
+																	</p>
+																	<input value="${ result.data[i].manager }" class="form-control dynamic-hint _${ result.data[i]._id }"
+																		name="manager" data-hint="id" data-class="user_info"
+																		type="text" disabled/>
+														</div></div></div>
+														${ ('user_' in result.data[i])
+															? `<div class="my-md-2 my-1 px-md-3 py-md-2 p-2 rounded-3">
+																<div class="row">
+																	<div class="col-12">
+																		<h6 class="p-0 text-black-50 fs-5">
+																			${ Array('Información de solo lectura', 'Read-Only information')[lang] }
+																		</h6>
+																	</div>
+		
+																	<div class="my-1 col-md-6 col-12 mx-auto">
+																		<p class="text-mini-label text-center m-0">
+																			${ Array('Creado', 'Created')[lang] }
+																		</p>
+																		<input value="${ result.data[i].user_.created.date } @ ${ result.data[i].user_.created.time }"
+																			class="form-control _${ result.data[i]._id } date read-only text-center"
+																			name="created" type="text" disabled/>
+																	</div>
+																	<div class="my-1 col-md-6 col-12 mx-auto">
+																		<p class="text-mini-label text-center m-0">
+																			${ Array('Ultimo inicio de sesión', 'Last login')[lang] }
+																		</p>
+																		<input value="${ result.data[i].user_.last_conn.date } @ ${ result.data[i].user_.last_conn.time }"
+																			class="form-control _${ result.data[i]._id } date read-only text-center"
+																			name="lastConn" type="text" disabled/>
+															</div></div></div>` : ''
+														}
+														<div class="accordion accordion-flush mt-2" id="inner-accordions-${ result.data[i]._id }">
+															${ ('eval_' in result.data[i])
+																? `<!-- Evaluation information -->
+																<div class="accordion-item">
+																	<h2 class="accordion-header" id="flush-eval-${ result.data[i]._id }">
+																		<button class="btn-outline-success accordion-button collapsed"
+																			type="button" data-bs-toggle="collapse" data-bs-target="#flush-eval-collapse-${ result.data[i]._id }"
+																			aria-expanded="false" aria-controls="flush-eval-collapse-${ result.data[i]._id }">
+																			${ Array('Evaluaciones', 'Evaluations')[lang] }
+		
+																		</button>
+																	</h2>
+																	<div id="flush-eval-collapse-${ result.data[i]._id }" class="accordion-collapse collapse"
+																		aria-labelledby="flush-eval-${ result.data[i]._id }" data-bs-parent="#inner-accordions-${ result.data[i]._id }">
+																		<div class="accordion-body px-0">
+																			<div class="row">
+																				${ evalRecords }
+																</div></div></div></div>` : ''
+															}
+															<!-- Sensitive information -->
+															<div class="accordion-item">
+																<h2 class="accordion-header" id="flush-sensitive-${ result.data[i]._id }">
+																	<button class="btn-outline-warning accordion-button collapsed" type="button" data-bs-toggle="collapse"
+																		data-bs-target="#flush-sensitive-collapse-${ result.data[i]._id }" aria-expanded="false"
+																		aria-controls="flush-sensitive-collapse-${ result.data[i]._id }">
+																		${ Array('Información sensible', 'Sensitive information')[lang] }
+																	</button>
+																</h2>
+																<div id="flush-sensitive-collapse-${ result.data[i]._id }" class="accordion-collapse collapse"
+																	aria-labelledby="flush-sensitive-${ result.data[i]._id }" data-bs-parent="#inner-accordions-${ result.data[i]._id }">
+																	<div class="accordion-body px-0">
+																		<div class="row">
+																			<div class="my-1 col-md-9 col-12 mx-auto">
+																				<p class="text-mini-label text-center m-0">
+																					${ Array('Nombre', 'Name')[lang] }
+																				</p>
+																				<input value="${ result.data[i].name }" class="form-control _${ result.data[i]._id }"
+																					name="name" data-class="user_info" type="text" disabled>
+															</div></div></div></div></div>
+															<!-- Danger Zone -->
+															<div class="accordion accordion-flush mt-2" id="user-accordion-inner-${ result.data[i]._id }">
+																<div class="accordion-item">
+																	<h2 class="accordion-header" id="danger-flush-${ result.data[i]._id }">
+																		<button class="btn-outline-danger accordion-button collapsed" type="button" data-bs-toggle="collapse"
+																			data-bs-target="#danger-flush-collapse-${ result.data[i]._id }" aria-expanded="false"
+																			aria-controls="danger-flush-collapse-${ result.data[i]._id }">
+																			${ Array('Zona de peligro', 'Danger zone')[lang] }
+																		</button>
+																	</h2>
+																	<div id="danger-flush-collapse-${ result.data[i]._id }" class="accordion-collapse collapse"
+																		aria-labelledby="danger-flush-${ result.data[i]._id }" data-bs-parent="#inner-accordions-${ result.data[i]._id }">
+																		<div class="accordion-body px-0">
+																			<div class="row">
+																				<div class="my-1 col-md-3 col-12 mx-auto">
+																					<p class="text-mini-label text-center m-0">
+																						${ Array('Usuario habilitado', 'User enabled')[lang] }
+																					</p>
+																					<div class="container ps-3">
+																						<div class="button b2 mt-2 mb-2" id="button-17">
+																							<input name="disabled" type="checkbox"
+																								data-class="user_all" class="checkbox _${ result.data[i]._id }"
+																									${('enabled' in result.data[i]) ? '' : 'checked' } disabled>
+																								<div class="knobs" data-unchecked="${ Array('Sí', 'Yes')[lang] }"
+																									data-checked="${ Array('No', 'No')[lang] }"><span></span></div>
+																							<div class="layer"></div>
+																						</div>
+																					</div>
+																				</div>
+																				${ ('user_' in result.data[i])
+																					? `<div class="my-1 col-md-5 col-12 mx-auto">
+																						<p class="text-mini-label text-center m-0">
+																							${ Array('Contraseña', 'Password')[lang] }
+																						</p>
+																						<input value="amogus_sussy_bak😈📸" class="form-control _${ result.data[i]._id } mt-2"
+																							name="pass" data-class="user" type="password"
+																							autocomplete="new-password" disabled>
+																					</div>` : ''
+																				}
+														</div></div></div></div></div></div>
+														<div class="w-100 text-right d-flex justify-content-end mt-2 pe-3">
+															<button id="edit-_${ result.data[i]._id }" data-id="_${ result.data[i]._id }"
+																data-table="1" class="btn-edit btn btn-secondary px-3 py-2">
+																<i class="pe-none pe-1 fa-solid fa-pen-to-square"></i>
+																<span class="pe-none">${ Array('Editar', 'Edit')[lang] }</span>
+															</button>
+															<button id="cancel-_${ result.data[i]._id }" data-id="_${ result.data[i]._id }"
+																data-table="1" class="btn-cancel btn btn-outline-danger px-3 py-2 me-2 d-none" disabled>
+																<i class="pe-none pe-1 fa-solid fa-ban"></i>
+																<span class="pe-none">${ Array('Cancelar', 'Cancel')[lang] }</span>
+															</button>
+															<button id="save-_${ result.data[i]._id }" data-id="_${ result.data[i]._id }"
+																data-table="1" class="btn-save btn btn-outline-dark px-3 py-2 d-none" disabled>
+																<i class="pe-none pe-1 fa-solid fa-floppy-disk"></i>
+																<span class="pe-none">${ Array('Guardar', 'Save')[lang] }</span>
+											</button></div></div></div></div>`
+										)
+									}
 								} else {
-									$e('#pag-ctrl').insertAdjacentHTML(
-										'beforeend', `<a class="num-page" rel="${i}">${(i+1)}</a>`
-									)
+									for(let i in result.data) {
+										$e('#collector-accordion').insertAdjacentHTML(
+											'afterbegin',
+											`<div class="accordion-item">
+												<h2 class="accordion-header" id="flush-head-collector-${ result.data[i]['_id'] }">
+													<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+														data-bs-target="#flush-collector-${ result.data[i]['_id'] }" aria-expanded="false"
+														aria-controls="flush-collector-${ result.data[i]['_id'] }">
+														<div class="item-header d-flex w-100">
+															<div class="text-center p-0 col-2 d-flex">
+																<p class="m-0">ID: ${ result.data[i]['_id'] }</p>
+															</div>
+															<div class="text-right p-0 ms-auto me-2">
+																<p class="m-0 lang" data-lang="es">${
+																	(result.data[i]['description'][lang])
+																	? result.data[i]['description'][lang]
+																	: result.data[i]['description'][0]
+																}</p>
+												</div></div></button></h2>
+		
+												<div id="flush-collector-${ result.data[i]['_id'] }" class="accordion-collapse collapse"
+													aria-labelledby="flush-head-collector-${ result.data[i]['_id'] }" data-bs-parent="#collector-accordion">
+													<div class="accordion-body px-3">
+														<div class="row">
+															<div class="my-1 col-md-6 col-12 mx-auto">
+																<p class="text-mini-label text-center m-0">
+																	${ (lang == 0) ? 'Idioma (es)' : 'Language (es)' }
+																</p>
+																<input value="${ result.data[i]['description'][0] }" class="form-control _${ result.data[i]['_id'] }"
+																	name="0" id="exts-_${ result.data[i]['_id'] }" type="text" disabled>
+															</div><div class="my-1 col-md-6 col-12 mx-auto">
+																<p class="text-mini-label text-center m-0">
+																${ (lang == 0) ? 'Idioma (en)' : 'Language (en)' }
+																</p>
+																<input value="${ (result.data[i]['description'][1]) ? result.data[i]['description'][1] : '' }"
+																	name="1" class="form-control _${ result.data[i]['_id'] }" id="extn-_${ result.data[i]['_id'] }"
+																	type="text" disabled>
+														</div></div>
+														<div class="w-100 text-right d-flex justify-content-end mt-2 pe-3">
+															<button id="edit-_${ result.data[i]['_id'] }" data-id="_${ result.data[i]['_id'] }" data-table="${pkg.search}"
+																class="btn-edit btn btn-secondary px-3 py-2">
+																<i class="pe-none pe-1 fa-solid fa-pen-to-square"></i>
+																<span class="pe-none lang">
+																	${(lang == 0) ? 'Editar' : 'Edit' }
+																</span>
+															</button>
+															<button id="cancel-_${ result.data[i]['_id'] }" data-id="_${ result.data[i]['_id'] }" data-table="${pkg.search}"
+																class="btn-cancel btn btn-outline-danger px-3 py-2 me-2 d-none" disabled>
+																<i class="pe-none pe-1 fa-solid fa-ban"></i>
+																<span class="pe-none lang">
+																	${(lang == 0) ? 'Cancelar' : 'Cancel' }
+																</span>
+															</button>
+															<button id="save-_${ result.data[i]['_id'] }" data-id="_${ result.data[i]['_id'] }" data-table="${pkg.search}"
+																class="btn-save btn btn-outline-dark px-3 py-2 d-none" disabled>
+																<i class="pe-none pe-1 fa-solid fa-floppy-disk"></i>
+																<span class="pe-none lang">
+																	${(lang == 0) ? 'Guardar' : 'Save' }
+																</span>
+											</button></div></div></div></div>`
+										)
+									}
+								}
+								eventAssigner('#rows', 'change', (e) => {findCollections()})
+							} catch (error) {
+								console.error(error)
+								return showSnack(Array('Error', 'Error')[lang], null, 'error')
+							} finally {
+								if(anchorLength != pkg.limit) { // Change in rows displayed
+									// Remove the current rows and show new ones with the new limit 
+									anchorLength = pkg.limit
+
+									$e('#reg-total').innerHTML = result.count
+									let numPages = result.count/pkg.limit
+	
+									$a('.num-page').forEach(node => {
+										node.remove()
+									})
+	
+									for(i=0; i<numPages; i++) {
+										if(i > 4) {
+											$e('#pag-ctrl').insertAdjacentHTML(
+												'beforeend', `<a class="num-page user-select-none d-none" rel="${i}">${(i+1)}</a>`
+											)
+										} else {
+											$e('#pag-ctrl').insertAdjacentHTML(
+												'beforeend', `<a class="num-page user-select-none" rel="${i}">${(i+1)}</a>`
+											)
+										}
+									}
+	
+									eventAssigner('.num-page', 'click', (e) => {
+										let rel = parseInt(e.target.rel),
+											lastRel = parseInt($e('.num-page:last-child').rel)
+											margin = [2, 2]
+	
+										if((rel-1) == 0) margin = [1, 3] // Left buttons displayed (nearby limit)
+										else if((rel-2) < 0) margin = [0, 4] // Left buttons displayed (limit)
+	
+										if((rel+1) == lastRel) margin = [3, 1] // Right buttons displayed (nearby limit)
+										else if((rel+2) > lastRel) margin = [4, 0] // Right buttons displayed (limit)
+	
+										$a('.num-page').forEach(node => {
+											if(node.classList.contains('active'))
+												node.classList.remove('active')
+											if(node.rel != e.target.rel)
+												node.classList.add('d-none')
+										})
+										e.target.classList.add('active')
+										$a('.num-page').forEach(node => {
+											let f_rel = parseInt(node.rel)
+											if(f_rel >= (rel-margin[0]) && parseInt(node.rel) < rel) {
+												node.classList.remove('d-none')
+											}
+											if(f_rel <= (rel+margin[1]) && parseInt(node.rel) > rel) {
+												node.classList.remove('d-none')
+											}
+										})
+	
+										findCollections()
+									})
+
+									$e('.num-page[rel="0"]').click()
+								}
+
+								if(anchorCollection != pkg.search) { // Change in collection
+									anchorCollection = pkg.search
+									
+									$a('#collector .dynamic-hint').forEach(node => {
+										node.parentElement.insertAdjacentHTML(
+											'beforeend',
+											'<div class="modal-hint hide mt-1 bg-light rounded-3 shadow-lg position-absolute"></div>'
+										)
+									})
+									eventAssigner('#collector .dynamic-hint', 'focusin', (e) => modalHintDisplay(e, true))
+									eventAssigner('#collector .dynamic-hint', 'focusout', (e) => modalHintDisplay(e, false))
+									eventAssigner('#collector .dynamic-hint', 'keydown', (e) => dynamicHints(e, 'user_info'))
+									eventAssigner('#collector .dynamic-hint', 'change', (e) => dynamicHints(e, 'user_info'))
+			
+									eventUnassigner('.btn-edit', 'click', editInfo)
+									eventUnassigner('.btn-cancel', 'click', cancelInfo)
+									eventUnassigner('.btn-save', 'click', updateInfo)
+									eventUnassigner('input:not(.read-only)', 'change', highlighter)
+			
+									eventAssigner('.btn-edit', 'click', editInfo)
+									eventAssigner('.btn-cancel', 'click', cancelInfo)
+									eventAssigner('.btn-save', 'click', updateInfo)
+									eventAssigner('input:not(.read-only)', 'change', highlighter)
 								}
 							}
-
-							eventAssigner('.num-page', 'click', (e) => {
-								let rel = parseInt(e.target.rel),
-									lastRel = parseInt($e('.num-page:last-child').rel)
-									margin = [2, 2]
-
-								if((rel-1) == 0) margin = [1, 3] // Left buttons displayed (nearby limit)
-								else if((rel-2) < 0) margin = [0, 4] // Left buttons displayed (limit)
-
-								if((rel+1) == lastRel) margin = [3, 1] // Right buttons displayed (nearby limit)
-								else if((rel+2) > lastRel) margin = [4, 0] // Right buttons displayed (limit)
-
-								$a('.num-page').forEach(node => {
-									if(node.classList.contains('active'))
-										node.classList.remove('active')
-									if(node.rel != e.target.rel)
-										node.classList.add('d-none')
-								})
-								e.target.classList.add('active')
-								$a('.num-page').forEach(node => {
-									let f_rel = parseInt(node.rel)
-									if(f_rel >= (rel-margin[0]) && parseInt(node.rel) < rel) {
-										node.classList.remove('d-none')
-									}
-									if(f_rel <= (rel+margin[1]) && parseInt(node.rel) > rel) {
-										node.classList.remove('d-none')
-									}
-								})
-
-								findCollections()
-							})
-
-							$e('.num-page[rel="0"]').click()
 						}
-
-						$a('#collector .dynamic-hint').forEach(node => {
-							node.parentElement.insertAdjacentHTML(
-								'beforeend',
-								'<div class="modal-hint hide mt-1 bg-light rounded-3 shadow-lg position-absolute"></div>'
-							)
-						})
-						eventAssigner('#collector .dynamic-hint', 'focusin', (e) => modalHintDisplay(e, true))
-						eventAssigner('#collector .dynamic-hint', 'focusout', (e) => modalHintDisplay(e, false))
-						eventAssigner('#collector .dynamic-hint', 'keydown', (e) => dynamicHints(e, 'user_info'))
-						eventAssigner('#collector .dynamic-hint', 'change', (e) => dynamicHints(e, 'user_info'))
-
-						eventUnassigner('.btn-edit', 'click', editInfo)
-						eventUnassigner('.btn-cancel', 'click', cancelInfo)
-						eventUnassigner('.btn-save', 'click', updateInfo)
-						eventUnassigner('input:not(.read-only)', 'change', highlighter)
-
-						eventAssigner('.btn-edit', 'click', editInfo)
-						eventAssigner('.btn-cancel', 'click', cancelInfo)
-						eventAssigner('.btn-save', 'click', updateInfo)
-						eventAssigner('input:not(.read-only)', 'change', highlighter)
 					} else {
 						$e('#collector-accordion').insertAdjacentHTML(
 							'afterbegin',
@@ -649,10 +662,14 @@ const findCollections = (e) => {
 					}
 				} else {
 					console.error(result)
-					showSnack(result.msg, null, SNACK.error)
+					showSnack(result.msg, null, 'error')
 				}
 			},
 			(error) => console.error(error)
 		)
 	}
+
+	setTimeout(() => {
+		$e('#reload-list').classList.remove('rotate')
+	}, 200)
 }

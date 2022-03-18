@@ -77,7 +77,7 @@ window.addEventListener('load', async(e) => {
         }
     })
     .catch((error) => {
-        log('[Survey] Error user selected! '+error, STYLE.pink)
+        log('[Survey] Error user selected! '+error, 'pink')
     })
     
     eventAssigner('.card.card-option', 'click', slctOjb)
@@ -91,7 +91,7 @@ window.addEventListener('load', async(e) => {
             return showSnack(
                 (lang == 0) ? 'Debes seleccionar a alguien para evaluar'
                             : 'You must select someone to evaluate',
-                null, SNACK.warning
+                null, 'warning'
             )
         else id = $e('#userObj').value
 
@@ -101,7 +101,7 @@ window.addEventListener('load', async(e) => {
                 return showSnack(
                     (lang == 0) ? '¡Aun no se puede enviar!<br/>Debes completar la evaluación! Falta '+score
                                 : 'Cannot be sent yet!<br/>You must complete the evaluation. Remain '+score,
-                    null, SNACK.warning
+                    null, 'warning'
                 )
             }
         }
@@ -117,7 +117,7 @@ window.addEventListener('load', async(e) => {
             pkg,
             (result) => {
                 if(result.snack && result.status === 200) {
-                    showSnack(result.msg, null, SNACK.success)
+                    showSnack(result.msg, null, 'success')
                     setTimeout(window.location.reload(false), 1500)
 
                     /**TODO: If page without reloading */
@@ -126,9 +126,9 @@ window.addEventListener('load', async(e) => {
                     activeSec_6 = [0, 2]
                     activeSec_7 = [0, 4]
                 }
-                else showSnack(result.msg, null, SNACK.error)
+                else showSnack(result.msg, null, 'error')
             },
-            (error) => showSnack(`Error: ${error}`, null, SNACK.error)
+            (error) => showSnack(`Error: ${error}`, null, 'error')
         )
     })
 })
@@ -210,5 +210,5 @@ function selectObjective(hover) {
     $a('.force-disabled').forEach(node => {
         node.classList.replace('force-disabled', 'force-enabled')
     })
-    //log('[Survey] User selected: '+$e('#userObj').value, STYLE.info)
+    //log('[Survey] User selected: '+$e('#userObj').value, 'info')
 }

@@ -2,7 +2,7 @@ const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
 
 const DATE = new Date()
-const currYear = String(DATE.getFullYear())
+const CURRENT_YEAR = String(DATE.getFullYear())
 
 // >>>>>>>>>>>>>>>>>>>>>> Evaluation static <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
@@ -33,9 +33,9 @@ async function root(req, res) {
 							$set: {
 								records: {
 									$cond: [
-										{ $ifNull: [`$records.${currYear}`, false] },
+										{ $ifNull: [`$records.${CURRENT_YEAR}`, false] },
 										{ $cond: [
-												{ $ifNull: [`$records.${currYear}.disabled`, false] },
+												{ $ifNull: [`$records.${CURRENT_YEAR}.disabled`, false] },
 												-1,
 												1,
 										] },
@@ -202,7 +202,7 @@ async function post(req, res) {
 				if(dataEval.length) {
 					insert = dataEval[0]
 					// If a evaluation exits in the current year, return the error message
-					if(currYear in insert.records)
+					if(CURRENT_YEAR in insert.records)
 					return res.json({
 						msg: '¿¡Ya existe una evaluación para esta persona en este año!?',
 						resType: 'error',
@@ -212,10 +212,10 @@ async function post(req, res) {
 				} else
 					insert = { _id: req.body._id, records: {} }
 
-				insert.records[currYear] = { score: score, answers: answers }
-				insert.records[currYear].area = dataUInfo[0].area
-				if(dataUInfo[0].direction != null) insert.records[currYear].direction = dataUInfo[0].direction
-				if(dataUInfo[0].position != null) insert.records[currYear].position = dataUInfo[0].position
+				insert.records[CURRENT_YEAR] = { score: score, answers: answers }
+				insert.records[CURRENT_YEAR].area = dataUInfo[0].area
+				if(dataUInfo[0].direction != null) insert.records[CURRENT_YEAR].direction = dataUInfo[0].direction
+				if(dataUInfo[0].position != null) insert.records[CURRENT_YEAR].position = dataUInfo[0].position
 
 
 				await new modelEvaluation(insert).save()

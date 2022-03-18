@@ -27,7 +27,7 @@ const manageEvalUser = (e) => {
 						(lang == 0) ? 'Por favor abra la consola del navegador, copie el error y contacte con un especialista en soporte'
 									: 'Please open the browser console, copy the error and contact a support specialist.',
 						null,
-						SNACK.error
+						'error'
 					)
 					console.error(err)
 				}
@@ -50,26 +50,26 @@ const pdfFormatEval = (e) => {
 					if(data.status === 200) SNK_Type = 'success'
 					else SNK_Type = 'warning'
 					if(Boolean(data.headers.get('snack')) == true) {
-						showSnack(data.headers.get('msg'), null, SNACK[SNK_Type])
+						showSnack(data.headers.get('msg'), null, SNK_Type)
 					}
 	
 					await data.arrayBuffer()
 					.then(data => {
 						if(data == null || data == undefined)
-						return showSnack('Server error', null, SNACK.error)
+						return showSnack('Server error', null, 'error')
 						const blob = new Blob([data]) // Create a Blob object
 						const url = URL.createObjectURL(blob) // Create an object URL
 						download(url, Array(`formato-evaluacion-${id}.pdf`, `evaluation-format-${id}.pdf`)[lang]) // Download file
 						URL.revokeObjectURL(url) // Release the object URL
 					})
-				} else showSnack(data.headers.get('msg'), null, SNACK['error'])
+				} else showSnack(data.headers.get('msg'), null, 'error')
 			})
 			.catch(err => {
 				showSnack(
 					(lang == 0) ? 'Por favor abra la consola del navegador, copie el error y contacte con un especialista en soporte'
 								: 'Please open the browser console, copy the error and contact a support specialist.',
 					null,
-					SNACK.error
+					'error'
 				)
 				console.error(err)
 			})
@@ -78,7 +78,7 @@ const pdfFormatEval = (e) => {
 				(lang == 0) ? 'Por favor abra la consola del navegador, copie el error y contacte con un especialista en soporte'
 							: 'Please open the browser console, copy the error and contact a support specialist.',
 				null,
-				SNACK.error
+				'error'
 			)
 	})
 	.catch(err => console.log(err))

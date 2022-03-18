@@ -20,7 +20,7 @@ async function root(req, res) {
 			title_page: 'UTNA - Evaluacion',
 			session: req.session,
 			usersData: usersData,
-			currYear: DATE.getFullYear()
+			CURRENT_YEAR: DATE.getFullYear()
 		})
 	}
 	else {

@@ -7,7 +7,7 @@ const sharp = require('sharp')
 const pdf = require('pdfjs')
 
 const DATE = new Date()
-const currYear = String(DATE.getFullYear())
+const CURRENT_YEAR = String(DATE.getFullYear())
 
 // >>>>>>>>>>>>>>>>>>>>>> Reportes <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
@@ -63,7 +63,7 @@ function data(req, res) {
 		search.manager = req.session._id
 
 	let match = {}
-	match[`records.${currYear}.disabled`] = { $exists: false }
+	match[`records.${CURRENT_YEAR}.disabled`] = { $exists: false }
 
 	modelEvaluation.aggregate([
 		{ $match: match },
@@ -186,7 +186,7 @@ function data(req, res) {
 
 async function getAllOf(req, res) {
 	let search = {}, uAggregate,
-		yearSel = ('FORCE_YEAR_TO' in req.body) ? req.body.FORCE_YEAR_TO : currYear
+		yearSel = ('FORCE_YEAR_TO' in req.body) ? req.body.FORCE_YEAR_TO : CURRENT_YEAR
 
 	search['records.'+yearSel] = { $exists: true }
 	search['records.'+yearSel+'.disabled'] = { $exists: false }
@@ -335,12 +335,12 @@ async function printer(req, res) {
 			.text(req.session.name)
 		hTable.cell().text('')
 		hTable.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm })
-			.text(`${DATE.getDate()}/${DATE.getMonth()+1}/${currYear}`, {textAlign: 'right'})
+			.text(`${DATE.getDate()}/${DATE.getMonth()+1}/${CURRENT_YEAR}`, {textAlign: 'right'})
 
 		if('poly' in req.body) {			
 			const theRecords = {
-				past: await getAllOf({body:{search:DATA.barSearch, FORCE_YEAR_TO:parseInt(currYear)-1}}, undefined),
-				curr: await getAllOf({body:{search:DATA.barSearch, FORCE_YEAR_TO:currYear}}, undefined)
+				past: await getAllOf({body:{search:DATA.barSearch, FORCE_YEAR_TO:parseInt(CURRENT_YEAR)-1}}, undefined),
+				curr: await getAllOf({body:{search:DATA.barSearch, FORCE_YEAR_TO:CURRENT_YEAR}}, undefined)
 			}
 			
 			const polyJPEG = await sharp(new Buffer.from(DATA.poly, 'base64')).resize({height: 400})
@@ -349,7 +349,7 @@ async function printer(req, res) {
 			// --------------------------- Comparison graph page --------------------------- //
 			const img = new pdf.Image(polyJPEG)
 			doc.cell({ paddingTop: 0.4*pdf.cm, paddingBottom: 0.5*pdf.cm }).text({ textAlign: 'center', fontSize: 14 })
-				.add(`Comparación de areas (${parseInt(currYear)-1} - ${parseInt(currYear)})`)
+				.add(`Comparación de areas (${parseInt(CURRENT_YEAR)-1} - ${parseInt(CURRENT_YEAR)})`)
 			doc.cell({ paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm }).image(img, { height: 7.5*pdf.cm, align: 'center'})
 
 			const tableC = doc.table({
@@ -362,9 +362,9 @@ async function printer(req, res) {
 			tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 10})
 				.text({ textAlign: 'center', fontSize: 10 }).add(DATA.barSearch)
 			tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 5, paddingBottom: 5})
-				.text({ textAlign: 'center', fontSize: 10 }).add(`Porcentaje (${parseInt(currYear)-1})`)
+				.text({ textAlign: 'center', fontSize: 10 }).add(`Porcentaje (${parseInt(CURRENT_YEAR)-1})`)
 			tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 5, paddingBottom: 5})
-				.text({ textAlign: 'center', fontSize: 10 }).add(`Porcentaje (${currYear})`)
+				.text({ textAlign: 'center', fontSize: 10 }).add(`Porcentaje (${CURRENT_YEAR})`)
 
 
 			for(let i in theRecords.curr) {{
