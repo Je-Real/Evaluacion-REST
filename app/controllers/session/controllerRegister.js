@@ -13,7 +13,7 @@ const XLSXPopulate = require('xlsx-populate')
 
 const DATE = new Date()
 
-async function signIn(req, res) {
+async function signUp(req, res) {
 	if(!('_id' in req.session)) {
 		res.append('msg', Array(
 			`Por favor, inicia sesión nuevamente`,
@@ -535,7 +535,7 @@ async function fuzzySearch(req, res) {
 }
 
 module.exports = {
-	signIn,
+	signUp: signUp,
 	getManager,
 	fuzzySearch,
 }

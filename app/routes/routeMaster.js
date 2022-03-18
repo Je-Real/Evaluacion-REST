@@ -38,7 +38,7 @@ router //👇
 .post('/evaluation', controllerLayoutStatic.post)
 
 // Users
-.post('/session/sign-in', controllerRegister.signIn)
+.post('/session/sign-in', controllerRegister.signUp)
 .post('/session/log-in', controllerLogin.logIn)
 .get('/session/log-out', controllerLogin.logOut)
 .post('/session/lang', controllerLogin.lang)
