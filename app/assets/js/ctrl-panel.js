@@ -14,7 +14,7 @@ const manageEvalUser = (e) => {
 	.then(id => {
 		if(id != null) {
 			fetchTo(
-				'http://localhost:999/home/manage-user/'+id+'/'+e.target.value,
+				window.location.origin+'/home/manage-user/'+id+'/'+e.target.value,
 				'GET',
 				null,
 				async (result) => {
@@ -41,7 +41,7 @@ const pdfFormatEval = (e) => {
 	upperAttrIterator(e.target, 'id')
 	.then(id => {
 		if(id != null) {
-			fetch('http://localhost:999/home/evaluation-pdf/'+id)
+			fetch(window.location.origin+'/home/evaluation-pdf/'+id)
 			.then(async data => {
 				if(data.status != 401) {
 					let SNK_Type = '',

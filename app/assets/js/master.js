@@ -220,7 +220,7 @@ window.addEventListener('DOMContentLoaded', async(e) => {
 	}
 
 	await fetchTo(
-		'http://localhost:999/session/lang',
+		window.location.origin+'/session/lang',
 		'POST',
 		{lang: lang},
 		(result) => { if(result.status != 200) console.error(result.error) },
@@ -299,7 +299,7 @@ function outSession(clicked) {
 
 function logout() {
 	fetchTo(
-		'http://localhost:999/session/log-out',
+		window.location.origin+'/session/log-out',
 		'GET',
 		null,
 		async(result) => {

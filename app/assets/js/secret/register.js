@@ -38,7 +38,7 @@ const dynamicHints = async(e, collection) => {
 		fuzzyLock = false
 		setTimeout(() => {
 			fetchTo(
-				'http://localhost:999/admin-control/fuzzy-find',
+				window.location.origin+'/admin-control/fuzzy-find',
 				'POST',
 				{ query: (e.target.value).trim(), collection: collection },
 				(result) => {
@@ -162,7 +162,7 @@ window.addEventListener('load', async(e) => {
 		})
 
 		if(pkg['file']) {
-			await fetch('http://localhost:999/session/sign-in',
+			await fetch(window.location.origin+'/session/sign-in',
 				{method: 'POST',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify(pkg)}
@@ -352,7 +352,7 @@ const register = async() => {
 	})
 
 	if(pass) {
-		await fetch('http://localhost:999/session/sign-in',
+		await fetch(window.location.origin+'/session/sign-in',
 			{method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify(pkg)}

@@ -16,7 +16,7 @@ window.addEventListener('load', async(e) => {
 			loginBox.classList.add('waiting')
 
 			fetchTo(
-				'http://localhost:999/session/log-in',
+				window.location.origin+'/session/log-in',
 				'POST',
 				{ _id: u.value, pass: p.value },
 				async(result) => {

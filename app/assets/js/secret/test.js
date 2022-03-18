@@ -2,7 +2,7 @@ window.addEventListener('load', async(e) => {
 	eventAssigner('#d', 'click', async() => {
 		console.log('click')
 
-		await fetch('http://localhost:999/secret/test/download/')
+		await fetch(window.location.origin+'/secret/test/download/')
 			//.then(data => console.log(data))
 			.then(async res => await res.arrayBuffer()) // response data to array buffer
 			.then(data => {

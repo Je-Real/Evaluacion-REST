@@ -126,7 +126,7 @@ const updateInfo = (e) => {
 		delete pkg['collection']
 
 		fetchTo(
-			'http://localhost:999/admin-control/update',
+			window.location.origin+'/admin-control/update',
 			'POST',
 			pkg,
 			(result) => {
@@ -185,7 +185,7 @@ const findCollections = (e) => {
 	
 	if(pkg.search) {
 		fetchTo(
-			'http://localhost:999/admin-control/search',
+			window.location.origin+'/admin-control/search',
 			'POST',
 			pkg,
 			(result) => {

@@ -112,7 +112,7 @@ window.addEventListener('load', async(e) => {
         }
         
         fetchTo(
-            'http://localhost:999/evaluation',
+            window.location.origin+'/evaluation',
             'POST',
             pkg,
             (result) => {

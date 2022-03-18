@@ -15,7 +15,7 @@ const barChartSearch = () => {
 	}
 
 	fetchTo(
-		'http://localhost:999/metrics/all',
+		window.location.origin+'/metrics/all',
 		'POST',
 		{ search: barSearch },
 		(result) => {
@@ -296,7 +296,7 @@ async function getData(auto, getter = null) {
 	}
 
     await fetchTo(
-		'http://localhost:999/metrics',
+		window.location.origin+'/metrics',
 		'POST',
 		pkg,
 		(result) => {
@@ -440,7 +440,7 @@ const generatePDF = async(mode = '') => {
 			body: JSON.stringify(pkg)
 		}
 
-		await fetch('http://localhost:999/metrics/print', REQ_PARAMS)
+		await fetch(window.location.origin+'/metrics/print', REQ_PARAMS)
 		.then(async res => await res.arrayBuffer()) // response data to array buffer
 		.then(async data => {
 			if(data == null || data == undefined || String(data) == '')
