@@ -1,15 +1,20 @@
 window.addEventListener('load', async(e) => {
 	const login = () => {
 		let u = $e('#txt-code'),
-			p = $e('#txt-pass')
+			p = $e('#txt-pass'),
+			btn = $e('#btn-login'),
+			loginBox = $e('.login-box')
 	
 		if(!p.value || !u.value)
-			showSnack(
-				(lang == 0) ? 'Revisa los campos de inicio de sesión, por favor'
-							: 'Check the session fields, please',
+			showSnack(Array(
+				'Revisa los campos de inicio de sesión, por favor', 
+				'Check the session fields, please')[lang],
 				null, 'error'
 			)
-		else
+		else{
+			btn.disabled = true
+			loginBox.classList.add('waiting')
+
 			fetchTo(
 				'http://localhost:999/session/log-in',
 				'POST',
@@ -25,9 +30,11 @@ window.addEventListener('load', async(e) => {
 								if(result.data !== null) {
 									await setCookie('user', JSON.stringify(result.data))
 									.then(() => go('home/'))
-									.catch(() => {
-										showSnack(
-											(lang == 0) ? 'Falla de Cookies' : 'Cookies failure',
+									.catch(error => {
+										console.error(error)
+										showSnack(Array(
+											'Falla al guardar las cookies',
+											'Failure while saving cookies')[lang],
 											null, 'warning'
 										)
 									})
@@ -46,6 +53,14 @@ window.addEventListener('load', async(e) => {
 				},
 				async(error) => console.error(error)
 			)
+			.finally(() => {
+				loginBox.classList.replace('waiting', 'stop')
+				btn.disabled = false
+				setTimeout(() => {
+					loginBox.classList.remove('stop')
+				}, 1050);
+			})
+		}
 	}
 	
 	const enterTheLogin = (e) => {

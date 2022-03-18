@@ -4,15 +4,52 @@ html {
 
 .login-box {
 	position: absolute;
+	overflow: hidden;
 	top: 50%;
 	left: 50%;
 	width: 400px;
 	padding: 40px;
 	transform: translate(-50%, -50%);
-	background: rgba(0, 0, 0, 0.5);
 	box-sizing: border-box;
 	box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
 	border-radius: 10px;
+	background: rgba(33, 33, 38, 1);
+	transition: all 200ms ease-in-out;
+}
+
+.login-box > span{
+	position: absolute;
+	display: flex;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 5px;
+}
+
+.login-box.waiting > span{
+	background: linear-gradient(90deg, transparent 0%, #f4b403 30%, transparent 30%, transparent 70%, #03f46f 100%);
+	animation: waiting 3s linear infinite;
+}
+@keyframes waiting{
+    0%	{ left: -100vw; }
+    100%{ left: 50vw; }
+}
+
+.login-box.stop > span{
+	position: absolute;
+	display: flex;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 5px;
+	background: transparent;
+	animation: stop 1s linear normal;
+}
+@keyframes stop{
+    0%	{ background: #ffffffee; }
+    25%	{ opacity: 1; }
+    30%	{ opacity: .85; }
+    100%{ opacity: 0; }
 }
 
 .login-box h2 {
@@ -31,12 +68,11 @@ html {
 	padding: 10px 0;
 	font-size: 16px;
 	color: #fff;
-	margin-bottom: 2.25rem;
+	margin-bottom: 2.5rem;
 	border: none;
 	border-bottom: 1.5px solid #fff;
 	outline: none;
 	background-color: inherit;
-
 	transition: border 200ms ease-in-out;
 }
 
@@ -50,10 +86,10 @@ html {
 
 .login-box .input-box label {
 	position: absolute;
-	top: -35px;
+	top: -38px;
 	left: 0;
 	padding: 10px 0;
-	font-size: 15px;
+	font-size: 16px;
 	color: #fff;
 	pointer-events: none;
 	transition: 0.5s;
@@ -78,9 +114,10 @@ html {
 	text-decoration: none;
 	text-transform: uppercase;
 	overflow: hidden;
-	transition: 0.5s;
 	margin-top: 10px;
 	letter-spacing: 3px;
+
+	transition: all 300ms ease-in-out;
 }
 
 .login-box button:hover {
@@ -89,13 +126,17 @@ html {
 	border-radius: 5px;
 }
 
+.login-box button:disabled {
+	background: #383838;
+	color: rgb(141, 141, 141) !important;
+}
 
 
 /* Login From: https://codepen.io/soufiane-khalfaoui-hassani/pen/LYpPWda */
 
 .waves {
 	position: fixed;
-	width: 100%;
+	width: 115%;
 	height: 15vh;
 	margin-bottom: -7px; /*Fix for safari gap*/
 	min-height: 100px;
