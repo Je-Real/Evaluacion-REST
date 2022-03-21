@@ -192,6 +192,7 @@ window.addEventListener('load', async(e) => {
 			.catch(error => console.error(error))
 			.finally(async() => {
 				$e('#register-file button.close-modal').click()
+				$e('#reload-list').click()
 				spinner('wait', false)
 			})
 		}
@@ -382,6 +383,7 @@ const register = async() => {
 		.catch(error => console.error(error))
 		.finally(() => {
 			$e('#register button.close-modal').click()
+			$e('#reload-list').click()
 			spinner('wait', false)
 		})
 	}

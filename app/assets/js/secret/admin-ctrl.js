@@ -199,12 +199,12 @@ const findCollections = (e) => {
 					if(result.data.length) {
 						if(result.data.length != anchorLength || result.data[0]._id != anchorID || pkg.search != anchorCollection) {
 							try {
-							// This if works to stop a duplicate search
+								// This if works to stop a duplicate search
+								$e('#collector-accordion').innerHTML = '' // Clear the list
+								$e('#collector .lang').innerHTML = title // Set the title
+
 								if(pkg.search == 1) {
 									anchorID = result.data[0]._id
-
-									$e('#collector-accordion').innerHTML = '' // Clear the list
-									$e('#collector .lang').innerHTML = title // Set the title
 
 									for(let i in result.data) {
 										let evalRecords = ''
@@ -565,25 +565,26 @@ const findCollections = (e) => {
 								console.error(error)
 								return showSnack(Array('Error', 'Error')[lang], null, 'error')
 							} finally {
+								
 								if(anchorLength != pkg.limit) { // Change in rows displayed
 									// Remove the current rows and show new ones with the new limit 
 									anchorLength = pkg.limit
-
+									
 									$e('#reg-total').innerHTML = result.count
 									let numPages = result.count/pkg.limit
 	
-									$a('.num-page').forEach(node => {
-										node.remove()
-									})
-	
+									$a('.num-page').forEach(node => { node.remove() })
+
 									for(i=0; i<numPages; i++) {
 										if(i > 4) {
 											$e('#pag-ctrl').insertAdjacentHTML(
-												'beforeend', `<a class="num-page user-select-none d-none" rel="${i}">${(i+1)}</a>`
+												'beforeend',
+												`<a class="num-page user-select-none d-none" rel="${i}">${(i+1)}</a>`
 											)
 										} else {
 											$e('#pag-ctrl').insertAdjacentHTML(
-												'beforeend', `<a class="num-page user-select-none" rel="${i}">${(i+1)}</a>`
+												'beforeend',
+												`<a class="num-page user-select-none" rel="${i}">${(i+1)}</a>`
 											)
 										}
 									}
