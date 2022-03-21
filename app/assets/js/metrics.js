@@ -3,6 +3,7 @@ let rec, showCharts, clone, idSelect = 0,
 	compareAll = false,
 	barSearch, lastConfigPanel = -1
 
+/* Code for bar chart
 const barChartSearch = () => {
 	barSearch = $e('#sel-bar-chart').value
 
@@ -19,9 +20,8 @@ const barChartSearch = () => {
 		'POST',
 		{ search: barSearch },
 		(result) => {
-			if(result.snack === true) {
+			if(result.snack === true)
 				showSnack(result.msg, null, result.snackType)
-			}
 
 			if(result.status === 200) {
 				if(result.data.length) {
@@ -56,9 +56,14 @@ const barChartSearch = () => {
 			console.error(error)
 		}
 	)
-}
+}*/
 
 window.addEventListener('load', async(e) => {
+	/**
+	 * TODO:
+	 * Cambio de datos con selects area y direcciones
+	 */
+
 	$a('.canvas-container canvas').forEach(node => node.classList.add('d-none'))
 
 	$e('.canvas-container.semiDoughnutChart').innerHTML += `<div class="text-center d-block ghost-container">
@@ -69,10 +74,10 @@ window.addEventListener('load', async(e) => {
 	$e('.panel[data-id="0"] .canvas-remove').remove()
 
 	displayCharts(false, idSelect)
-	barChartSearch()
+	//barChartSearch()
 
 	eventAssigner('#addPanel', 'click', addPanel).catch((error) => {return console.error(error)})
-	eventAssigner('#sel-bar-chart', 'change', barChartSearch).catch((error) => {return console.error(error)})
+	//eventAssigner('#sel-bar-chart', 'change', barChartSearch).catch((error) => {return console.error(error)})
 	eventAssigner('#btn-all-report', 'click', () => generatePDF('all'))
 	eventAssigner('#btn-mono-report', 'click', () => generatePDF('mono'))
 	buttonListeners()

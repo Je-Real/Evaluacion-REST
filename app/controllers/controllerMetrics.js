@@ -18,30 +18,113 @@ async function root(req, res) {
 	if(!('_id' in req.session)) { // No session 😡
 		res.redirect('/home/')
 	} else { // Session 🤑
-		areas = await modelArea.find({}) // Get all areas in DB
+		if(true) {
+			areas = await modelUserInfo.aggregate([
+				{
+					$match: {
+						$or: [ { _id: req.session._id }, { manager: req.session._id } ],
+					}
+				}, {
+					$lookup: {
+						from: "areas",
+						pipeline: [ { $unset: ["__v"] } ],
+						localField: "area",
+						foreignField: "_id",
+						as: "area",
+					},
+				}, {
+					$unwind: {
+						path: "$area",
+						preserveNullAndEmptyArrays: true,
+					},
+				}, {
+					$group: {
+						_id: "$area._id",
+						description: { $addToSet: "$area.description" },
+						count: { $sum: 1 },
+					},
+				}, {
+					$unwind: {
+						path: "$description",
+						preserveNullAndEmptyArrays: true,
+					},
+				},
+			]) // Get the areas of the user and subordinates
 			.catch((error) => { console.log(error) })
-		directions = await modelDirection.find({}) // Get all directions in DB
+	
+			directions = await modelUserInfo.aggregate([
+				{
+					$match: {
+						$or: [ { _id: req.session._id }, { manager: req.session._id } ],
+					}
+				}, {
+					$lookup: {
+						from: "directions",
+						pipeline: [ { $unset: ["__v"] } ],
+						localField: "direction",
+						foreignField: "_id",
+						as: "direction",
+					},
+				}, {
+					$unwind: {
+						path: "$direction",
+						preserveNullAndEmptyArrays: true,
+					},
+				}, {
+					$group: {
+						_id: "$direction._id",
+						description: { $addToSet: "$direction.description" },
+						count: { $sum: 1 },
+					},
+				}, {
+					$unwind: {
+						path: "$description",
+						preserveNullAndEmptyArrays: true,
+					},
+				},
+			]) // Get all directions in DB
 			.catch((error) => { console.log(error) })
+		}
+		if(false) {
+			areas = await modelArea.find({}) // Get all areas in DB
+				.catch((error) => { console.log(error) })
+			directions = await modelDirection.find({}) // Get all directions in DB
+				.catch((error) => { console.log(error) })
+		}
 
-		await modelUserInfo.aggregate([ // Subordinates by default
-			{ $match: {manager: req.session._id} },
-			{ $project: { _id: 1, name: 1, } },
+		subordinates = await modelUserInfo.aggregate([ // Get all subordinates of the user
+			{ $match: { manager: req.session._id } },
+			{
+				$lookup: {
+					from: 'positions',
+					pipeline: [ { $unset: ['_id', '__v'] } ],
+					localField: 'position',
+					foreignField: '_id',
+					as: 'position',
+				},
+			}, {
+				$project: {
+					_id: true,
+					position: true,
+				},
+			}, {
+				$unwind: {
+					path: '$position',
+					preserveNullAndEmptyArrays: true,
+				},
+			},
 		])
-		.then((dataSubs) => {
-			subordinates = dataSubs // Get all the subordinates
-		})
 		.catch((error) => {
 			console.log(error)
 		})
-		.finally(() => {
-			//Reportes route
-			return res.status(200).render('metrics', {
-				title_page: 'UTNA - Metricas',
-				session: req.session,
-				directions: directions,
-				areas: areas,
-				subordinates: subordinates,
-			})
+
+		// Metrics route
+		return res.status(200).render('metrics', {
+			title_page: 'UTNA - Metricas',
+			session: req.session,
+			directions: directions,
+			areas: areas,
+			subordinates: subordinates,
 		})
 	}
 }

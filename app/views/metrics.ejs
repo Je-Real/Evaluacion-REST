@@ -65,6 +65,12 @@
 					</div>
 				</div>
 			</div>
+
+			<div id="yea">
+				<% for(let s in subordinates) { %>
+					<%= subordinates[s].description%>
+				<% } %>
+			</div>
 			
 			<div>
 				<div class="container-fluid px-4">
@@ -91,6 +97,7 @@
 
 			<div class="mb-5">
 				<div class="container-fluid px-4">
+					<% if(false) { /* - Bar chart - */ %>
 					<div class="row w-100 my-4">
 						<div class="row mx-auto w-100 w-md-75 w-lg-50 my-3">
 							<div class="col-md-6 col-5">
@@ -115,6 +122,7 @@
 							<canvas width="75%" height="30%"></canvas>
 						</div>
 					</div>
+					<% } %>
 
 					<div id="panelContainer" class="row m-0 my-4 mx-auto justify-content-center"> <!-- Row div container for the report panels -->
 						<div class="col-12 col-md-6 col-xxl-4 panel my-3" data-id="0">
@@ -165,7 +173,7 @@
 															<option class="sub-def" value="0" selected data-lang="en">-Select personnel-</option>
 															<% for(let s in subordinates) { %>
 																<option class="sub" data-index="<%= parseInt(s)+1 %>" value="<%= subordinates[s]['_id'] %>"> 
-																	<%= subordinates[s]['name'] %>
+																	<%= subordinates[s].position.description[session.lang] %>
 																</option>
 															<% } %>
 														</select>
