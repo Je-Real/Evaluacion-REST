@@ -7,7 +7,7 @@ const sharp = require('sharp')
 const pdf = require('pdfjs')
 
 const DATE = new Date()
-const CURRENT_YEAR = String(DATE.getFullYear())
+const CURRENT_YEAR = DATE.getFullYear()
 
 // >>>>>>>>>>>>>>>>>>>>>> Reportes <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
@@ -51,7 +51,7 @@ async function root(req, res) {
 				},
 			]) // Get the areas of the user and subordinates
 			.catch((error) => { console.log(error) })
-	
+
 			directions = await modelUserInfo.aggregate([
 				{
 					$match: {
@@ -129,82 +129,157 @@ async function root(req, res) {
 	}
 }
 
-function data(req, res) {
-	let search = {},
-		year = DATE.getFullYear()
-	
+function getOne(req, res) {
+	if(!('_id' in req.session)) {
+		return res.json({
+			msg: [
+				`Por favor, inicia sesión nuevamente`,
+				`Please, log in again`
+			],
+			status: 401,
+			snack: true
+		})
+	}
+
+	let search = {}, filter = {
+			'records.year': {
+				$gte: CURRENT_YEAR-4,
+				$lte: CURRENT_YEAR
+			},
+			'records.disabled': {
+				$exists: false
+			}
+		}
+
 	if('_id' in req.body) {
 		search._id = (req.body._id).trim()
-		if(req.session.category > 1)
-			search.manager = req.session._id
+		filter._id = (req.body._id).trim()
+
+		if(req.session.category > 1){
+			search['records.manager'] = req.session._id
+			filter['records.manager'] = req.session._id
+		}
 	}
-	else if('area' in req.body)
-		search.area = req.body.area
-	else if('direction' in req.body)
-		search.direction = req.body.direction
-	else
-		search.manager = req.session._id
+	else if('area' in req.body) {
+		search['records.area'] = req.body.area
+		filter['records.area'] = req.body.area
+	}
+	else if('direction' in req.body) {
+		search['records.direction'] = req.body.direction
+		filter['records.direction'] = req.body.direction
+	}
+	else {
+		search['records.manager'] = req.session._id
+		filter['records.manager'] = req.session._id
+	}
 
-	let match = {}
-	match[`records.${CURRENT_YEAR}.disabled`] = { $exists: false }
-
+	console.log(search)
+	console.log(filter)
+	
 	modelEvaluation.aggregate([
-		{ $match: match },
-		{ $lookup: {
-			from: 'user_infos',
-			pipeline: [
-				{ $match : search },
-				{ $project: { name: 1 } }
-			],
-			localField: '_id',
-			foreignField: '_id',
-			as: 'info',
-		} }, {
-			$replaceRoot: {
-				newRoot: {
-					$mergeObjects: [
-						{ $arrayElemAt: [ '$info', 0 ] }, '$$ROOT'
-					]
-				}
-			}
+		{
+			$match: search
 		}, {
-			$project: {
-				_id : { $cond: { if: { $eq: [ '$info', [] ] }, then: '$$REMOVE', else: '$_id' } },
-				records : { $cond: { if: { $eq: [ '$info', [] ] }, then: '$$REMOVE', else: '$records' } },
-				name : { $cond: { if: { $and: [ { $eq: [ '$info', [] ] }, { $ne: ['$name', null] } ] }, then: '$$REMOVE', else: '$name' } }
-				//Get field directly from array = fieldExample: { $arrayElemAt: [ '$fieldExample.fieldInside', 0 ] }
+			$unwind: {
+				path: '$records',
+				preserveNullAndEmptyArrays: true
+			}
+		}, { $match: filter }, {
+			$group: {
+				_id: '$_id',
+				records: {
+					$addToSet: '$records'
+				}
 			}
 		}
 	])
-	.then(async (data) => { //🟢
+	.then(async(dataEval) => { //🟢
 		/*	Data Example:
 
-			_id: "0000"
-			name: "Name"
-			records: {
-				2022: {
-					score: 99.9
-					answers: [...]
-					area: 1
+			[ {...},
+				{
+					_id: "0000"
+					records: [
+						{...},
+						{
+							year: 2000
+							score: 99.9
+							answers: [...]
+							area: 1
+							direction: 1
+							manager: "manager_id"
+						},
+						{...}
+				},
+			{...} ]
+		*/
+		if(dataEval) {
+			let showingYears = [], // From 4 years ago to the current year
+				yearsAverages = [0, 0, 0, 0, 0], // 5 positions for 5 years
+				i = [0, 0, 0, 0, 0], // Iterator for each employee gotten on the years
+				finalAverage = 0, // Average of averages
+				subordinates = []
+
+			for(let year = 4; year >= 0; year--) { // Set the 5 years
+				showingYears.push(CURRENT_YEAR - year)
+			}
+
+			for(let data in dataEval) { // Get a sum of all records of each employee
+				for(let record in dataEval[data].records) {
+					let yearPos = 4 - (CURRENT_YEAR - dataEval[data].records[record].year)
+					yearsAverages[yearPos] += parseFloat((dataEval[data].records[record].score).toFixed(2))
+					i[yearPos]++
 				}
 			}
-		*/
-		if(data) {
-			// filter empty objects
-			data = data.filter(value => Object.keys(value).length !== 0)
 
-			let average = 0, sumTemp = 0,
-				years = [], records =  [], subordinates = [],
-				histCounter =  [[0, 0, 0, 0, 0],[0, 0, 0, 0, 0]],
-				divideBy = 0
+			for(let j in yearsAverages) { // Get averages per year
+				if(i[j] > 0) {
+					yearsAverages[j] = parseFloat((yearsAverages[j] / i[j]).toFixed(2))
+					finalAverage += yearsAverages[j] // Sum of all averages
+				}
+			}
 
-			if(req.body._id == null || req.body._id == undefined)
+			// Get all the elements counted and get the average of averages
+			let divideBy = i.reduce(
+				(sum, currentVal) => (currentVal > 0) ? sum+1 : sum, 0
+			)
+			finalAverage = parseFloat((finalAverage / divideBy).toFixed(2))
+
+			// If an area or direction is requested, then get the employees of the search
+			if(req.body._id == null || req.body._id == undefined) {
+				search = {}
+
+				if('_id' in req.body) {
+					search._id = (req.body._id).trim()
+				}
+				else if('area' in req.body)
+					search.area = req.body.area
+				else if('direction' in req.body)
+					search.direction = req.body.direction
+				
+				search.manager = req.session._id
+
 				await modelUserInfo.aggregate([
-					{ $match: search },
-					{ $project: {
-						_id: 1,
-						name: 1,
-					} },
+					{ '$match': search }, {
+						'$lookup': {
+							'from': 'positions', 
+							'pipeline': [
+								{ '$unset': ['_id', '__v'] }
+							], 
+							'localField': 'position', 
+							'foreignField': '_id', 
+							'as': 'position'
+						}
+					}, {
+						'$unset': [
+							'enabled', 'name', 'manager', 'area',
+							'direction', 'category', '__v', 'log'
+						]
+					}, {
+						'$unwind': { 'path': '$position' }
+					}, {
+						'$set': { 'position': '$position.description' }
+					}
 				])
 				.then((dataSubs) => {
 					subordinates = dataSubs // Get all the subordinates
@@ -212,39 +287,15 @@ function data(req, res) {
 				.catch((error) => {
 					console.log(error)
 				})
-			else subordinates = null
-
-			for(let i=0; i<5; i++) {
-				let yrs = String(parseInt(year)-(4-i))
-
-				years[i] = yrs
-				for(let j in data) {
-					if('records' in data[j]) {
-						if(String(yrs) in data[j].records) {
-							if(!('disabled' in data[j].records[yrs])) {
-								histCounter[0][i] += data[j].records[String(yrs)].score
-								histCounter[1][i]++
-							}
-						}
-					}
-				}
-				histCounter[0][i] = parseFloat((histCounter[0][i])).toFixed(2)
-
-				records[i] = (histCounter[0][i] === 0 || histCounter[1][i] === 0)
-					? 0 : parseFloat((histCounter[0][i] / histCounter[1][i]).toFixed(1))
-				sumTemp += records[i]
-
-				if(records[i] != 0) divideBy++
 			}
-			// Get average just for only for years with evaluations
-			average = parseFloat((sumTemp / divideBy).toFixed(1))
+			else subordinates = null
 
 			return res.json({
 				data: {
-					total: (average === NaN) ? null : average,
+					total: (finalAverage == NaN) ? null : finalAverage,
 					log: {
-						years: years,
-						records: records
+						years: showingYears,
+						records: yearsAverages
 					},
 					subordinates: subordinates
 				},
@@ -267,14 +318,25 @@ function data(req, res) {
 	})
 }
 
-async function getAllOf(req, res) {
+async function getAll(req, res) {
+	if(!('_id' in req.session)) {
+		return res.json({
+			msg: [
+				`Por favor, inicia sesión nuevamente`,
+				`Please, log in again`
+			],
+			status: 401,
+			snack: true
+		})
+	}
+
 	let search = {}, uAggregate,
 		yearSel = ('FORCE_YEAR_TO' in req.body) ? req.body.FORCE_YEAR_TO : CURRENT_YEAR
 
 	search['records.'+yearSel] = { $exists: true }
 	search['records.'+yearSel+'.disabled'] = { $exists: false }
 	uAggregate = [
-		{ 
+		{
 			$lookup: {
 				from: 'evaluations',
 				pipeline: [
@@ -332,7 +394,7 @@ async function getAllOf(req, res) {
 		},
 		{ $unset: ['_avg', '__v'] },
 	]
-	
+
 	/* 	We need the data like this:
 
 		[{
@@ -404,7 +466,7 @@ async function printer(req, res) {
 		height:  792, // 27.94 cm
 		padding: 32
 	})
-	
+
 	res.append('filename', Array(
 		`reporte-${FORMAT_DATE}.pdf`,
 		`report-${FORMAT_DATE}.pdf`
@@ -420,12 +482,12 @@ async function printer(req, res) {
 		hTable.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm })
 			.text(`${DATE.getDate()}/${DATE.getMonth()+1}/${CURRENT_YEAR}`, {textAlign: 'right'})
 
-		if('poly' in req.body) {			
+		if('poly' in req.body) {
 			const theRecords = {
-				past: await getAllOf({body:{search:DATA.barSearch, FORCE_YEAR_TO:parseInt(CURRENT_YEAR)-1}}, undefined),
-				curr: await getAllOf({body:{search:DATA.barSearch, FORCE_YEAR_TO:CURRENT_YEAR}}, undefined)
+				past: await getAll({body:{search:DATA.barSearch, FORCE_YEAR_TO:parseInt(CURRENT_YEAR)-1}}, undefined),
+				curr: await getAll({body:{search:DATA.barSearch, FORCE_YEAR_TO:CURRENT_YEAR}}, undefined)
 			}
-			
+
 			const polyJPEG = await sharp(new Buffer.from(DATA.poly, 'base64')).resize({height: 400})
 			.flatten({ background: '#ffffff' }).jpeg().toBuffer()
 
@@ -490,7 +552,7 @@ async function printer(req, res) {
 					cell.image(lineChart, { height: 3.3*pdf.cm, align: 'center' })
 				}
 			}
-		}		
+		}
 	} catch (error) {
 		console.error(error)
 		doc.end() // Close file
@@ -503,7 +565,7 @@ async function printer(req, res) {
 
 module.exports = {
 	root,
-	data,
-	getAllOf,
+	getOne,
+	getAll,
 	printer
 }

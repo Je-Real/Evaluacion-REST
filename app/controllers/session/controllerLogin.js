@@ -26,7 +26,7 @@ async function logIn(req, res) {
 			let compare = crypto.AES.decrypt(dataUser.pass, req.body._id)
 			
 			if(compare.toString(crypto.enc.Utf8) === req.body.pass) { //🟢
-				modelUserInfo.find({ _id: req.body._id })
+				modelUserInfo.findOne({ _id: req.body._id })
 				.then((dataUInfo) => {
 					// Update last connection
 					// yyyy-mm-dd
@@ -49,11 +49,13 @@ async function logIn(req, res) {
 					.then(() => {
 						// Server 🍪🍪🍪
 						req.session._id = req.body._id
-						req.session.name = dataUInfo[0].name
-						req.session.area = dataUInfo[0].area
-						req.session.direction = dataUInfo[0].direction
-						req.session.position = dataUInfo[0].position
-						req.session.category = dataUInfo[0].category
+						req.session.name = dataUInfo.name
+						req.session.area = dataUInfo.area
+						req.session.direction = dataUInfo.direction
+						req.session.position = dataUInfo.position
+						req.session.category = dataUInfo.category
+
+						if('super' in dataUInfo) req.session.super = dataUInfo.super
 	
 						//Response success for Asynchronous request
 						return res.json({

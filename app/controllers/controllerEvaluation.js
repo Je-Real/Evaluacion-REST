@@ -2,7 +2,7 @@ const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
 
 const DATE = new Date()
-const CURRENT_YEAR = String(DATE.getFullYear())
+const CURRENT_YEAR = DATE.getFullYear()
 
 // >>>>>>>>>>>>>>>>>>>>>> Evaluation static <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
@@ -17,113 +17,103 @@ async function root(req, res) {
 		session = req.session
 
 		/** Search all subordinates and obtain whether
-		 * each has current year evaluations or not */
+		 * each has current year evaluations or not 
+		**/
 		 await modelUserInfo.aggregate([
-			{
-				$match: {
-					manager: req.session._id,
-					disabled: { $exists: false }
-				},
-			},
-			{
+			{ $match: {
+				manager: req.session._id,
+				disabled: { $exists: false }
+			} }, {
 				$lookup: {
 					from: 'evaluations',
 					pipeline: [
-						{
-							$set: {
-								records: {
-									$cond: [
-										{ $ifNull: [`$records.${CURRENT_YEAR}`, false] },
-										{ $cond: [
-												{ $ifNull: [`$records.${CURRENT_YEAR}.disabled`, false] },
-												-1,
-												1,
-										] },
-										0,
-									],
-								},
-							},
-						},
+						// Find out just records in the current year
+						{ $unwind: { path: '$records', preserveNullAndEmptyArrays: true } },
+						{ $match: { 'records.year': CURRENT_YEAR } },
+
+						{ $set: {
+							records: {
+								$cond: [
+									// If disable is not null (if exists)
+									{ $eq: ['$records.disabled', true] },
+									-1, // user disabled
+									1 // user with an evaluation already done
+								]
+							}
+						}}
 					],
 					localField: '_id',
 					foreignField: '_id',
-					as: 'eval_',
-				},
-			},
-			{
+					as: 'eval_'
+				}
+			}, {
 				$lookup: {
 					from: 'areas',
 					pipeline: [ { $unset: ['_id', 'n'] } ],
 					localField: 'area',
 					foreignField: 'n',
 					as: 'area',
-				},
-			},
-			{
+				}
+			}, {
 				$lookup: {
-					from: 'departments',
+					from: 'directions',
 					pipeline: [ { $unset: ['_id', 'n', 'area'] } ],
-					localField: 'department',
+					localField: 'direction',
 					foreignField: 'n',
-					as: 'department',
-				},
-			},
-			{
-				$lookup: {
-					from: 'careers',
-					pipeline: [ { $unset: ['_id', 'n', 'department'] } ],
-					localField: 'careers',
-					foreignField: 'n',
-					as: 'career',
-				},
-			},
-			{
+					as: 'direction',
+				}
+			}, {
 				$replaceRoot: {
 					newRoot: {
 						$mergeObjects: [
 							{ $arrayElemAt: ['$eval_', 0] },
 							'$$ROOT',
 						],
-					},
-				},
-			},
-			{
+					}
+				}
+			}, {
 				$set: {
 					records: {
 						$cond: [
 							{ $ifNull: ['$records', false] },
 							'$records',
-							0,
-						],
+							0 // If there isn't any record, then is available 
+						]
 					},
 					area: {
 						$cond: {
 							if: { $eq: [[], '$area'], },
 							then: '$$REMOVE',
-							else: { $arrayElemAt: ['$area.desc', 0] },
+							else: { $arrayElemAt: ['$area.description', 0] },
 						},
 					},
-					department: {
+					direction: {
 						$cond: {
-							if: { $eq: [[], '$department'], },
+							if: { $eq: [[], '$direction'], },
 							then: '$$REMOVE',
-							else: { $arrayElemAt: ['$department.desc', 0] },
+							else: { $arrayElemAt: ['$direction.description', 0] },
 						},
-					},
-					career: {
-						$cond: {
-							if: { $eq: [[], '$career'], },
-							then: '$$REMOVE',
-							else: { $arrayElemAt: ['$career.desc', 0] },
-						},
-					},
+					}
 				},
 			},
-			{ $unset: ['level', 'contract', 'b_day', 'address', 'manager', 'eval_', '__v'] },
+			{ $match: { records: 0 } }, // This match filters only the employees available
+			{ $unset: [
+				'area', 'direction', 'category',
+				'manager', 'eval_', '__v', 'log'
+			] },
 		])
 		.then(async(data) => {
-			// TODO: Look for { records: 0 }
-
+			/* 	Data to retrieve:
+				[
+					{
+						_id: "0000"
+						enabled: true | false
+						name: "Name"
+						records: 0
+					},
+					{...}
+				]
+			 */
 			for(let i in data) {
 				if(data[i]['records'] == 0) {
 					userData.push(data[i])
@@ -135,7 +125,7 @@ async function root(req, res) {
 			userData = false
 		})
 		.finally(() => {
-			//Evaluacion static route
+			//Evaluation static route
 			return res.status(200).render('evaluation', {
 				title_page: 'UTNA - Evaluacion',
 				session: session,
@@ -148,10 +138,10 @@ async function root(req, res) {
 async function post(req, res) {
 	if(!('_id' in req.session)) {
 		return res.json({
-			msg: [
+			msg: Array(
 				`Por favor, inicia sesión nuevamente`,
 				`Please, log in again`
-			],
+			)[req.session.lang],
 			status: 401,
 			snack: true
 		})
@@ -192,55 +182,112 @@ async function post(req, res) {
 	let temp = Number((Math.abs(score) * 100).toPrecision(15))
 	score = Math.round(temp) / 100 * Math.sign(score)
 
-	await modelUserInfo.find({ _id: req.body._id }, { _id: 1, area: 1, department: 1, career: 1 })
+	await modelUserInfo.findOne({ _id: req.body._id }, { _id: 1, area: 1, department: 1, manager: 1 })
 	.then(async(dataUInfo) => { //🟢
-		if(dataUInfo.length) {
-			await modelEvaluation.find({ _id: req.body._id })
+		if(dataUInfo) {
+			await modelEvaluation.findOne({ _id: req.body._id })
 			.then(async(dataEval) => { //🟢
-				let insert
+				let insert = {}
 
-				if(dataEval.length) {
-					insert = dataEval[0]
-					// If a evaluation exits in the current year, return the error message
-					if(CURRENT_YEAR in insert.records)
-					return res.json({
-						msg: '¿¡Ya existe una evaluación para esta persona en este año!?',
-						resType: 'error',
-						status: 500,
-						snack: true
+				if(dataEval) {
+					let ifEval = false
+					if('records' in dataEval) 
+						for(let d in dataEval.records) {
+							if('year' in dataEval.records[d])
+								if(dataEval.records[d].year == CURRENT_YEAR)
+									ifEval = true
+						}
+					
+					if(ifEval) // If a evaluation exits in the current year, return 👇
+						return res.json({
+							msg: Array(
+								'¿¡Ya existe una evaluación para esta persona en este año!?',
+								'¿¡There is already an evaluation for this person in this year!?'
+								)[req.session.lang],
+							resType: 'error',
+							status: 500,
+							snack: true
+						})
+					
+					insert = {
+						year: CURRENT_YEAR,
+						score: score,
+						answers: answers,
+						area: dataUInfo.area,
+						direction: dataUInfo.direction,
+						manager: dataUInfo.manager
+					}
+					
+					return await modelEvaluation.updateOne({ _id: req.body._id }, { $push: { records: insert } })
+					.then(() => { //🟢
+						return res.json({
+							msg: Array(
+								'¡Evaluación registrada satisfactoriamente!',
+								'Evaluation saved successfully!'
+							)[req.session.lang],
+							resType: 'success',
+							status: 200,
+							snack: true
+						})
 					})
-				} else
-					insert = { _id: req.body._id, records: {} }
-
-				insert.records[CURRENT_YEAR] = { score: score, answers: answers }
-				insert.records[CURRENT_YEAR].area = dataUInfo[0].area
-				if(dataUInfo[0].direction != null) insert.records[CURRENT_YEAR].direction = dataUInfo[0].direction
-				if(dataUInfo[0].position != null) insert.records[CURRENT_YEAR].position = dataUInfo[0].position
-
-
-				await new modelEvaluation(insert).save()
-				.then(() => { //🟢
-					return res.json({
-						msg: '¡Evaluación registrada satisfactoriamente!',
-						resType: 'success',
-						status: 200,
-						snack: true
+					.catch((error) => { //🔴
+						console.error(error)
+						return res.json({
+							msg: Array(
+								'Imposible registrar resultados. Inténtalo más tarde.',
+								'Unable to record results. Please try again later.'
+							)[req.session.lang],
+							resType: 'error',
+							status: 500,
+							snack: true
+						})
 					})
-				})
-				.catch((error) => { //🔴
-					console.error(error)
-					return res.json({
-						msg: 'Imposible registrar resultados.\r\nIntentalo más tarde.',
-						resType: 'error',
-						status: 500,
-						snack: true
+				} else {
+					insert = {
+						_id: req.body._id,
+						records: [{
+							year: CURRENT_YEAR,
+							score: score,
+							answers: answers,
+							area: dataUInfo.area,
+							direction: dataUInfo.direction,
+							manager: dataUInfo.manager
+						}]
+					}
+	
+					return await new modelEvaluation(insert).save()
+					.then(() => { //🟢
+						return res.json({
+							msg: Array(
+								'¡Evaluación registrada satisfactoriamente!',
+								'Evaluation saved successfully!'
+							)[req.session.lang],
+							resType: 'success',
+							status: 200,
+							snack: true
+						})
 					})
-				})
+					.catch((error) => { //🔴
+						console.error(error)
+						return res.json({
+							msg: Array(
+								'Imposible registrar resultados. Inténtalo más tarde.',
+								'Unable to record results. Please try again later.'
+							)[req.session.lang],
+							resType: 'error',
+							status: 500,
+							snack: true
+						})
+					})
+				}
 			})
 			.catch((error) => { //🔴
 				console.error(error)
 					return res.json({
-						msg: 'Imposible registrar resultados.\r\nIntentalo más tarde.',
+						msg: Array(
+							'Imposible registrar resultados. Inténtalo más tarde.',
+							'Unable to record results. Please try again later.'
+						)[req.session.lang],
 						resType: 'error',
 						status: 500,
 						snack: true
@@ -250,7 +297,10 @@ async function post(req, res) {
 			console.log(dataUInfo)
 			console.error('No length in user info search!')
 			return res.json({
-				msg: '¿¡No existe el usuario seleccionado!?',
+				msg: Array(
+					'¿¡No existe el usuario seleccionado!?',
+					'The selected user does not exist!?'
+				)[req.session.lang],
 				resType: 'error',
 				status: 500,
 				snack: true
@@ -260,7 +310,10 @@ async function post(req, res) {
 	.catch((error) => { //🔴
 		console.error(error)
 		return res.json({
-			msg: '¿¡No existe el usuario actual!?\r\n¿¿¿Cómo lo lograste???',
+			msg: Array(
+				'¿¡No existe el usuario actual!? ¿¿¿Cómo lo lograste???',
+				'The selected user does not exist!? ¿¿¿How did you do it???'
+			),
 			resType: 'error',
 			status: 500,
 			snack: true

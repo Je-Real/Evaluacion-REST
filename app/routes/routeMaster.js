@@ -29,8 +29,8 @@ router //👇
 
 // Reports
 .get('/metrics', controllerMetrics.root)
-.post('/metrics', controllerMetrics.data)
-.post('/metrics/all', controllerMetrics.getAllOf)
+.post('/metrics', controllerMetrics.getOne) // Individual metrics
+.post('/metrics/all', controllerMetrics.getAll) // Comparison metrics (bar chart)
 .post('/metrics/print', controllerMetrics.printer)
 
 // Survey / Evaluation

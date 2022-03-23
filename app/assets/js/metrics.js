@@ -59,11 +59,6 @@ const barChartSearch = () => {
 }*/
 
 window.addEventListener('load', async(e) => {
-	/**
-	 * TODO:
-	 * Cambio de datos con selects area y direcciones
-	 */
-
 	$a('.canvas-container canvas').forEach(node => node.classList.add('d-none'))
 
 	$e('.canvas-container.semiDoughnutChart').innerHTML += `<div class="text-center d-block ghost-container">
@@ -168,8 +163,8 @@ const configClose = (e) => {
 
 const formSelect = (e) => { // All .forms-select that isn't #sel-bar-chart
 	const emptySubordinate = () => {
-		$e(`.panel[data-id="${idSelect}"] .subordinates`).classList.add('d-none')
 		$e(`.panel[data-id="${idSelect}"] .sub-def`).selected = true
+		$e(`.panel[data-id="${idSelect}"] #lbl-name`).innerHTML = ''
 	}
 	const emptyArea = () => {
 		$e(`.panel[data-id="${idSelect}"] .area-def`).selected = true
@@ -187,36 +182,38 @@ const formSelect = (e) => { // All .forms-select that isn't #sel-bar-chart
 		getter = null
 
 		if(tgt.classList.contains('areas')) {
-			if(tgt.value == 0) {
-				$e(`.panel[data-id="${idSelect}"] .subordinates`).classList.remove('d-none')
-			} else {
-				emptyDirections()
-				emptySubordinate()
-				canvasTitle.innerHTML = tgt.options[tgt.selectedIndex].innerHTML
-				getter = {area: tgt.value}
-			}
+			if(parseInt(tgt.value) == 0) return false
+
+			emptyDirections()
+			emptySubordinate()
+			canvasTitle.innerHTML = tgt.options[tgt.selectedIndex].innerHTML
+			getter = {area: parseInt(tgt.value)}
 		}
 		else if(tgt.classList.contains('directions')) {
+			if(parseInt(tgt.value) == 0) return false
+
 			emptySubordinate()
 			emptyArea()
 			canvasTitle.innerHTML = tgt.options[tgt.selectedIndex].innerHTML
-			getter = {direction: tgt.value}
+			getter = {direction: parseInt(tgt.value)}
 		}
 		else if(tgt.classList.contains('subordinates')) { // Subordinates select
 			emptyArea()
 			emptyDirections()
-			subSelected = tgt.options[tgt.selectedIndex]
-
-			if(tgt.selectedIndex > 0) { // Get name of subordinate and split it
-				let nameArray = ((subSelected.innerHTML).trim()).split(' ')
-				nameArray.length = parseInt((nameArray.length / 2)+0.5)
-				canvasTitle.innerHTML = nameArray.join(' ')
-			} else // Else the title will be...
+			if(tgt.selectedIndex == 0) { // All subordinates option
 				canvasTitle.innerHTML = Array('Personal a cargo', 'Personnel in charge')[lang]
+				$e(`.panel[data-id="${idSelect}"] #lbl-name`).innerHTML = ''
+				return getData(true, null)
+			}
+
+			// Get position of subordinate and split it
+			subSelected = tgt.options[tgt.selectedIndex]
+			$e(`.panel[data-id="${idSelect}"] #lbl-name`).innerHTML = subSelected.innerHTML
 			getter = {_id: tgt.value}
 		} 
 		else return false
 
+		console.log(getter)
 		getData(false, getter)
 	})
 	.catch(error => {
@@ -284,33 +281,17 @@ async function getData(auto, getter = null) {
     auto = (typeof auto == 'undefined') ? true : auto
 
 	let pkg = { auto: auto }
-
-	if(getter != null) {
-		pkg = getter
-		// If select subordinates is different from default
-		if($e(`.panel[data-id="${idSelect}"] .subordinates`).value != '0')
-			pkg._id = $e(`.panel[data-id="${idSelect}"] .subordinates`).value
-		// Else if select area is different from default
-		else if(parseInt($e(`.panel[data-id="${idSelect}"] .area`).value) > 0)
-			pkg.area = parseInt($e(`.panel[data-id="${idSelect}"] .area`).value)
-		// Else if select direction is different from default
-		else if(parseInt($e(`.panel[data-id="${idSelect}"] .direction`).value) > 0)
-			pkg.direction = parseInt($e(`.panel[data-id="${idSelect}"] .direction`).value)
-		else
-			return showSnack(Array('No se enviaron datos', 'No data sent')[lang], null, 'warning')
-	}
+	if(getter != null) pkg = getter
 
     await fetchTo(
 		window.location.origin+'/metrics',
 		'POST',
 		pkg,
 		(result) => {
+			console.log(result.data)
+			
             if(result.console) log(result.console, 'warning')
-
-			if(result.snack) showSnack(
-				result.msg,
-				null, 'info'
-			)
+			if(result.snack) showSnack(result.msg, null, 'info')
 
 			if(result.status === 200) {
 				if('area' in pkg) {
@@ -323,13 +304,13 @@ async function getData(auto, getter = null) {
 	
 						if(result.data.subordinates) {
 							$e(longText).disabled = false
-							$e(`${longText} .sub-def`).innerHTML = Array('-Selecciona personal-', '-Select personnel-')[lang]
+							$e(`${longText} .sub-def`).innerHTML = Array('Personal a cargo', 'Personnel in charge')[lang]
 	
 							for (let i in result.data.subordinates) {
 								$e(longText).insertAdjacentHTML(
 									'beforeend', `<option class="sub" data-index="${parseInt(i)+1}"`+
-									`value="${result.data.subordinates[i]['_id']}">`+
-									`${result.data.subordinates[i]['name']} `+
+									`value="${result.data.subordinates[i]._id}">`+
+									`${result.data.subordinates[i].position[lang]} `+
 									`</option>`
 								)
 							}

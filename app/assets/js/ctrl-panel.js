@@ -18,9 +18,9 @@ const manageEvalUser = (e) => {
 				'GET',
 				null,
 				async (result) => {
-					if(result.status === 200) {
+					if(result.snack) showSnack(result.msg, null, 'info')
+					if(result.status === 200)
 						window.location.reload(true)
-					}
 				},
 				(err) => {
 					showSnack(

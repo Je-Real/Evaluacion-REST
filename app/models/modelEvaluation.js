@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 
-//Schema for evaluation colecction
+//Schema for evaluation collection
 const EvaluationSchema = new mongoose.Schema({
-    _id:{ type: String, required:true },
-    records:{ type:Object, required:true },
+    _id:{ type: String, required: true },
+    records:{ type: Array, required: true },
 
     // blame system™
 	log: { type: Object }

@@ -133,9 +133,9 @@
 											<div class="row">
 												<div class="col-md-6 col-12 mx-auto my-1">
 													<div class="form-floating">
-														<select class="form-select area" id="sel-area" name="sel-area" aria-label="Selección">
-															<option class="area-def" value="0" data-lang="es" selected>Personal a cargo</option>
-															<option class="area-def" value="0" data-lang="en" selected>Personnel in charge</option>
+														<select class="form-select areas" id="sel-area" name="sel-area" aria-label="Selección">
+															<option class="area-def" value="0" selected data-lang="es">Selecciona área</option>
+															<option class="area-def" value="0" selected data-lang="en">Select area</option>
 															<% for(let a in areas) { %>
 																<option class="area" value="<%= areas[a]['_id'] %>"> 
 																	<%= areas[a]['description'][session.lang] %> 
@@ -150,9 +150,9 @@
 												</div>
 												<div class="col-md-6 col-12 mx-auto my-1">
 													<div class="form-floating">
-														<select class="form-select direction" id="sel-direction" name="sel-direction" aria-label="Selección">
-															<option class="direction-def" value="0" selected data-lang="es">-Selecciona dirección-</option>
-															<option class="direction-def" value="0" selected data-lang="en">-Select direction-</option>
+														<select class="form-select directions" id="sel-direction" name="sel-direction" aria-label="Selección">
+															<option class="direction-def" value="0" selected data-lang="es">Selecciona dirección</option>
+															<option class="direction-def" value="0" selected data-lang="en">Select direction</option>
 															<% for(let d in directions) { %>
 																<option class="direction" value="<%= directions[d]['_id'] %>">
 																	<%= directions[d]['description'][session.lang] %>
@@ -169,8 +169,8 @@
 													<div class="form-floating">
 														<select class="form-select subordinates" id="sel-subordinates" name="sel-subordinates"
 															aria-label="Selección">
-															<option class="sub-def" value="0" selected data-lang="es">-Selecciona personal-</option>
-															<option class="sub-def" value="0" selected data-lang="en">-Select personnel-</option>
+															<option class="sub-def" value="0" data-lang="es" selected>Personal a cargo</option>
+															<option class="sub-def" value="0" data-lang="en" selected>Personnel in charge</option>
 															<% for(let s in subordinates) { %>
 																<option class="sub" data-index="<%= parseInt(s)+1 %>" value="<%= subordinates[s]['_id'] %>"> 
 																	<%= subordinates[s].position.description[session.lang] %>
@@ -192,13 +192,13 @@
 										<div class="lienzos container">
 											<div class="row">
 												<div class="col-2 col-md-1 p-0 m-0">
-													<button class="btn canvas-remove m-0 ms-5 mt-4 p-1 w-auto position-absolute">
+													<button class="btn canvas-remove m-0 ms-5 mt-3 p-1 w-auto position-absolute">
 														<i class="fa-solid fa-times fa-2x pointer-event-none mx-1"></i>
 													</button>
 												</div>
 												
 												<div class="col-8 col-md-10 mt-4">
-													<h5 class="text-center fs-4 text-uppercase canvasTitle lang" data-lang="es"">
+													<h5 class="text-center fs-4 text-uppercase canvasTitle lang" data-lang="es">
 														Personal a cargo
 													</h5>
 													<h5 class="text-center fs-4 text-uppercase canvasTitle lang" data-lang="en">
@@ -207,11 +207,14 @@
 												</div>
 
 												<div class="col-2 col-md-1 p-0 m-0">
-													<button class="btn canvas-config mt-4 tooltip-text rot-20"
+													<button class="btn canvas-config mt-3 tooltip-text rot-20"
 														data-tooltip-es="Desplegar opciones para este panel">
 														<i class="fa-solid fa-cog fa-2x pointer-event-none"></i>
 													</button>
 												</div>
+											</div>
+											<div class="row p-0 m-0">
+												<p id="lbl-name" class="col-12 p-0 m-0 text-center"></p>
 											</div>
 											<div class="row canvas-container semiDoughnutChart">
 												<canvas width="100%" height="100%"></canvas>

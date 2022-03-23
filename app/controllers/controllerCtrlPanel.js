@@ -8,7 +8,7 @@ const modelPosition = require('../models/modelPosition')
 const weighting = require('./controllerEvaluation').weighting
 
 const DATE = new Date()
-const CURRENT_YEAR = String(DATE.getFullYear())
+const CURRENT_YEAR = DATE.getFullYear()
 
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
@@ -34,21 +34,22 @@ async function root(req, res) {
 			} }, {
 				$lookup: {
 					from: 'evaluations',
-					pipeline: [{
-						$set: {
+					pipeline: [
+						// Find out just records in the current year
+						{ $unwind: { path: '$records', preserveNullAndEmptyArrays: true } },
+						{ $match: { 'records.year': CURRENT_YEAR } },
+
+						{ $set: {
 							records: {
-							$cond: [
-								{ $ifNull: [`$records.${CURRENT_YEAR}`, false] }, // If records[current year] is not null (if exists)
-								{ $cond: [
-									{ $ifNull: [`$records.${CURRENT_YEAR}.disabled`, false] }, // If disable is not null (if exists)
+								$cond: [
+									// If disable is not null (if exists)
+									{ $eq: ['$records.disabled', true] },
 									-1, // user disabled
 									1 // user with an evaluation already done
-								]},
-								0 // Else, no evaluation found
-							]
+								]
 							}
-						}
-					}],
+						}}
+					],
 					localField: '_id',
 					foreignField: '_id',
 					as: 'eval_'
@@ -67,17 +68,16 @@ async function root(req, res) {
 						$cond: [
 							{ $ifNull: ['$records', false] },
 							'$records',
-							0
+							0 // If there isn't any record, then is available 
 						]
 					}
 				}
 			}, {
 				$unset: [
-					'level', 'area',
-					'department', 'career',
-					'contract', 'b_day',
-					'address', 'manager',
-					'eval_', '__v'
+					'category', 'area',
+					'direction', 'position',
+					'manager', 'eval_',
+					'__v', 'log'
 				]
 			}
 		])
@@ -371,32 +371,46 @@ async function pdfEvalFormat(req, res) {
 	})
 }
 
+/**
+ * Enable or disable a evaluation for a employee in
+ * Evaluations collection
+ * @param {*} req 
+ * @param {*} res 
+ */
 async function manageUserEvaluation(req, res) {
 	const id = req.params.id
 	const action = req.params.action
-	let save = {
-		_id: id,
-		records: {}
-	}
 
-	modelEvaluation.findOne({ _id: id })
+	modelEvaluation.aggregate([ // Find out just records in the current year
+		{ $match: { _id: id } },
+		{ $unwind: { path: '$records', preserveNullAndEmptyArrays: true } },
+		{ $match: { 'records.year': 2022 } }
+	])
 	.then((data) => {
-		if(data) save = data
-		if(action == 'disabled')
-			save.records[CURRENT_YEAR] = {disabled: true}
-		else
-			delete save['records'][CURRENT_YEAR]
-
-		new modelEvaluation(save).save()
-		.then(() => {
-			return res.json({
+		let updater = {}
+		if('score' in data[0])
+			return res.status(200).json({
 				status: 200,
-				msg: true
+				msg: Array(
+					'Ya hay una evaluación realizada, no se puede habilitar / deshabilitar.',
+					'An evaluation has already been performed, it cannot be enabled / disabled.',
+				)[req.session.lang],
+				snack: true
+			})
+		else if(action == 'disabled') // Push the current year with the disabled state
+			updater = { $push: { records: { year: CURRENT_YEAR, disabled: true } } }
+		else if(action == 'enabled') // Delete the current year record to set a evaluation
+			updater = { $pull: { records: { year: CURRENT_YEAR } } }
+
+		modelEvaluation.updateOne({ _id: id }, updater)
+		.then(() => {
+			return res.status(200).json({
+				status: 200
 			})
 		})
 		.catch(error => {
 			console.error(error)
-			return res.json({
+			return res.status(500).json({
 				status: 500,
 				error: error
 			})
