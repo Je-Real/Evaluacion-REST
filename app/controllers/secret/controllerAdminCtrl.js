@@ -10,16 +10,34 @@ const modelCategory = require('../../models/modelCategory')
 const crypto = require('crypto-js')
 
 const DATE = new Date()
+const CURRENT_YEAR = DATE.getFullYear()
 
 // >>>>>>>>>>>>>>>>>>>>>> Control <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
-	let usersData = []
+	let usersData = [], areaData,
+		directionData, positionData,
+		categoryData
 
 	if(req.session.category == -1) {
+		areaData = await modelArea.find({}, {_id: true, description: true})
+			.catch(error => { console.error(error); return false })
+		directionData = await modelDirection.find({}, {_id: true, description: true})
+			.catch(error => { console.error(error); return false })
+		positionData = await modelPosition.find({}, {_id: true, description: true})
+			.catch(error => { console.error(error); return false })
+		categoryData = await modelCategory.find({}, {_id: true, description: true})
+			.catch(error => { console.error(error); return false })
+
 		return res.status(200).render('secret/adminCtrl', {
 			title_page: 'UTNA - Evaluacion',
 			session: req.session,
 			usersData: usersData,
+			data: { // Lists for the front end variables
+				areaData: JSON.stringify(await areaData),
+				directionData: JSON.stringify(await directionData),
+				positionData: JSON.stringify(await positionData),
+				categoryData: JSON.stringify(await categoryData)
+			},
 			CURRENT_YEAR: DATE.getFullYear()
 		})
 	}
@@ -56,66 +74,6 @@ async function search(req, res) {
 					{ $limit: parseInt(req.body.limit) },
 					{
 						$lookup: {
-							from: 'areas',
-							pipeline: [{
-								$unset: ['_id'],
-							}, {
-								$unwind: {
-									path: '$description',
-									preserveNullAndEmptyArrays: true
-								}
-							}],
-							localField: 'area',
-							foreignField: '_id',
-							as: 'area'
-						}
-					}, {
-						$lookup: {
-							from: 'directions',
-							pipeline: [{
-								$unset: ['_id', 'area']
-							}, {
-								$unwind: {
-									path: '$description',
-									preserveNullAndEmptyArrays: true
-								}
-							}],
-							localField: 'direction',
-							foreignField: '_id',
-							as: 'direction'
-						}
-					}, {
-						$lookup: {
-							from: 'positions',
-							pipeline: [{
-								$unset: ['_id']
-							}, {
-								$unwind: {
-									path: '$description',
-									preserveNullAndEmptyArrays: true
-								}
-							}],
-							localField: 'position',
-							foreignField: '_id',
-							as: 'position'
-						}
-					}, {
-						$lookup: {
-							from: 'categories',
-							pipeline: [{
-								$unset: ['_id']
-							}, {
-								$unwind: {
-									path: '$description',
-									preserveNullAndEmptyArrays: true
-								}
-							}],
-							localField: 'category',
-							foreignField: '_id',
-							as: 'category'
-						}
-					}, {
-						$lookup: {
 							from: 'users',
 							pipeline: [ { $unset: ['_id', 'pass', '__v'] } ],
 							localField: '_id',
@@ -125,11 +83,30 @@ async function search(req, res) {
 					}, {
 						$lookup: {
 							from: 'evaluations',
-							pipeline: [ { $unset: ['_id', '__v'] } ],
+							let: { id: '$_id' },
+							pipeline: [
+								{ $unset: ['_id', '__v']},
+								{ $unwind: { path: '$records' }},
+								{ $match: {
+									'records.year': {
+											'$gte': CURRENT_YEAR-4, 
+											'$lte': CURRENT_YEAR
+										}
+									}
+								},
+								{
+									$group: {
+										'_id': '$$id', 
+										'records': {
+											'$addToSet': '$records'
+										}
+									}
+								}
+						  	],
 							localField: '_id',
 							foreignField: '_id',
 							as: 'eval_'
-						},
+						}
 					}, {
 						$set: {
 							user_: {
@@ -147,7 +124,7 @@ async function search(req, res) {
 								}
 							}
 						}
-					}, { $unset: ['__v', 'log'] }
+					}, { $unset: ['__v', 'log', 'eval_._id'] }
 				]
 				if(req.body.skip > 0) 
 					structure.splice(1, 0, { $skip: parseInt(req.body.skip) * parseInt(req.body.limit) })
@@ -201,7 +178,7 @@ async function search(req, res) {
 				status: 418
 			})
 		} catch (error) {
-			console.log(error)
+			console.error(error)
 		}
 	} else return res.status(418).json({
 		error: ['Sin datos', 'Without data'],
@@ -222,6 +199,8 @@ function update(req, res) {
 	}
 
 	if(req.body) {
+		console.log(req.body)
+
 		// yyyy-mm-dd
 		const FORMAT_DATE = `${ DATE.getFullYear() }-`+
 		`${ (String(DATE.getMonth()+1).length == 1) ? '0'+(DATE.getMonth()+1) : DATE.getMonth()+1 }-`+
@@ -248,13 +227,13 @@ function update(req, res) {
 
 			modelUser.updateOne({ _id: req.body._id}, { $set: req.body.user })
 			//.then(data => console.log(data))
-			.catch(error => { handler['user'] = false; console.log(error)})
+			.catch(error => { handler['user'] = false; console.error(error)})
 		}
 
 		if('user_info' in req.body) {
 			modelUserInfo.updateOne({ _id: req.body._id}, { $set: req.body.user_info })
 			//.then(data => { console.log(data) })
-			.catch(error => { handler['user_info'] = false; console.log(error)})
+			.catch(error => { handler['user_info'] = false; console.error(error)})
 		}
 		if('evaluation' in req.body || 'rm_evaluation' in req.body) {
 			modelEvaluation.updateOne(
@@ -262,24 +241,24 @@ function update(req, res) {
 				('evaluation' in req.body)
 				? { $set: req.body.evaluation }
 				: { $unset: req.body.rm_evaluation }
-			).catch(error => { handler['evaluation'] = false; console.log(error)})
+			).catch(error => { handler['evaluation'] = false; console.error(error)})
 		}
 		if('area' in req.body) {
 			modelArea.updateOne({ _id: req.body._id}, { $set: req.body.area })
-			.catch(error => { handler['area'] = false; console.log(error)})
+			.catch(error => { handler['area'] = false; console.error(error)})
 		}
 		if('direction' in req.body) {
 			modelDirection.updateOne({ _id: req.body._id}, { $set: req.body.direction })
-			.catch(error => { handler['direction'] = false; console.log(error)})
+			.catch(error => { handler['direction'] = false; console.error(error)})
 		}
 		if('position' in req.body) {
 			modelPosition.updateOne({ _id: req.body._id}, { $set: req.body.position })
-			.catch(error => { handler['position'] = false; console.log(error)})
+			.catch(error => { handler['position'] = false; console.error(error)})
 		}
 		if('category' in req.body) {
 			modelCategory.updateOne({ _id: req.body._id}, { $set: req.body.category })
 			//.then(data => console.log(data))
-			.catch(error => { handler['category'] = false; console.log(error)})
+			.catch(error => { handler['category'] = false; console.error(error)})
 		}
 		return res.json(handler)
 

@@ -1,21 +1,101 @@
 let anchorID = null, anchorLength = null, anchorCollection = null,
-	spin = false
+	spin = false,
+	areaData,
+	positionData,
+	directionData,
+	categoryData
+
+/**
+ * Find the description of the object inside of the
+ * collections variables
+ * @param {'area'|'position'|'direction'|'category'} collection Collection to be searched 
+ * @param {Number} _id ID of the element
+ */
+const findFrom = (collection, _id) => {
+	if(_id == 0) return '' 
+
+	let elem
+	switch (collection) {
+		case 'area':
+			elem = areaData.find(x => x._id == _id)
+			return elem.description[lang] 
+		case 'position':
+			elem = positionData.find(x => x._id == _id)
+			return elem.description[lang] 
+		case 'direction':
+			elem = directionData.find(x => x._id == _id)
+			return elem.description[lang] 
+		case 'category':
+			elem = categoryData.find(x => x._id == _id)
+			return elem.description[lang] 
+		default:
+			return _id
+	}
+}
 
 window.addEventListener('load', async() => {
 	eventAssigner('#tables-opts .dropdown-item', 'click', findCollections)
-	$e('#tables-opts .dropdown-item[data-table="1"]').click()
-	
-	eventAssigner('#reload-list', 'click', () => {
-		anchorID = null
-		anchorLength = null
-		anchorCollection = null
+
+	try {
+		areaData = JSON.parse($e('#areaData').value)
+		directionData = JSON.parse($e('#directionData').value)
+		positionData = JSON.parse($e('#positionData').value)
+		categoryData = JSON.parse($e('#categoryData').value)
+
+		if(areaData == false || areaData.length == 0)
+			throw Array(
+				'No se obtuvieron datos de la colección: Área. Por favor, contacte con soporte.',
+				'No data were obtained from the collection: Area. Please, contact support'
+			)[lang]
+		if(directionData == false || directionData.length == 0)
+			throw Array(
+				'No se obtuvieron datos de la colección: Dirección. Por favor, contacte con soporte.',
+				'No data were obtained from the collection: Direction. Please, contact support'
+			)[lang]
+		if(positionData == false || positionData.length == 0)
+			throw Array(
+				'No se obtuvieron datos de la colección: Puesto. Por favor, contacte con soporte.',
+				'No data were obtained from the collection: Position. Please, contact support'
+			)[lang]
+		if(categoryData == false || categoryData.length == 0)
+			throw Array(
+				'No se obtuvieron datos de la colección: Categoría. Por favor, contacte con soporte.',
+				'No data were obtained from the collection: Category. Please, contact support'
+			)[lang]
 		
-		findCollections()
-	})
+		$e('#tables-opts .dropdown-item[data-table="1"]').click()
+		eventAssigner('#reload-list', 'click', () => {
+			anchorID = null
+			anchorLength = null
+			anchorCollection = null
+			
+			findCollections()
+		})
+	} catch (error) {
+		console.error(error)
+		showSnack(error, null, 'error')
+
+		$e('#collector-accordion').insertAdjacentHTML(
+			'afterbegin',
+			`<td id="empty" colspan="5" class="border-0 text-center">
+				<div class="text-center">
+					<i class="fa-solid fa-ghost icon-ghost f-vScreen-15 my-3 text-black-15"></i>
+					<p class="my-2 text-ghost fs-4">${
+						Array('No hay datos para mostrar', 'No records to show')[lang]
+					}</p>
+			</div></td>`
+		)
+	} finally {
+		$a('.rm').forEach(node => node.remove())
+	}
 })
 
+/**
+ * Edit a user info, show buttons and set a restore
+ * point for all inputs in case of cancel
+ * @param {*} e Event
+ */
 const editInfo = (e) => {
-	// Edit a user info, show buttons & set a restore point for all inputs in case of cancel
 	let tgt = e.target.getAttribute('data-id')
 
 	if((tgt).length) {
@@ -34,11 +114,15 @@ const editInfo = (e) => {
 		$e(`#edit-${tgt}`).classList.add('d-none')
 		$e(`#edit-${tgt}`).disabled = true
 	} else
-		return log(`[AD-CTRL] Not found ID target in button event (target = ${tgt})`, 'error')
+		log(`[AD-CTRL] Not found ID target in button event (target = ${tgt})`, 'error')
 }
 
+/**
+ * Cancel the current operation (lock inputs) and
+ * restore the original values
+ * @param {*} e Event
+ */
 const cancelInfo = (e) => {
-	// Cancel the current operation (lock inputs) & restore the original values
 	let tgt = e.target.getAttribute('data-id')
 
 	$a(`.${tgt}.edited`).forEach(node => {
@@ -61,8 +145,11 @@ const cancelInfo = (e) => {
 	$e(`#edit-${tgt}`).disabled = false
 }
 
+/**
+ * Save the information edited 🤠
+ * @param {*} e Event
+ */
 const updateInfo = (e) => {
-	// Save the information 🤠
 	let tgt = e.target.getAttribute('data-id'),
 		pkg = {
 			_id: e.target.getAttribute('data-id').split('_')[1],
@@ -75,11 +162,17 @@ const updateInfo = (e) => {
 				$a(`.${tgt}.edited`).forEach(node => {
 					if(node.dataset.class == 'user_all' || node.dataset.class == 'user') {
 						if(!('user' in pkg)) pkg['user'] = {} // if not exists user
-						pkg.user[node.name] = node.value || node.checked
+						if(node.type =="checkbox")
+							pkg.user[node.name] = !node.checked
+						else
+							pkg.user[node.name] = node.value
 					}
 					if(node.dataset.class == 'user_all' || node.dataset.class == 'user_info') {
 						if(!('user_info' in pkg)) pkg['user_info'] = {} // if not exists user_info
-						pkg.user_info[node.name] = node.value || node.checked
+						if(node.type =="checkbox")
+							pkg.user_info[node.name] = !node.checked
+						else
+							pkg.user_info[node.name] = node.value
 					}
 					if(node.dataset.class == 'evaluation') {
 						if(node.checked == true) {
@@ -148,14 +241,15 @@ const updateInfo = (e) => {
 				console.error(error)
 			}
 		)
-
-		// TODO: Send new data to update the DB
 	} else
-		return log(`[AD-CTRL] Not found ID target in button event (target = ${tgt})`, 'error')
+		log(`[AD-CTRL] Not found ID target in button event (target = ${tgt})`, 'error')
 }
 
+/**
+ * "Highlights" the inputs that had been modified
+ * @param {*} e Event
+ */
 const highlighter = (e) => {
-	// Highlight the inputs that had been modified
 	let tgt = e.target
 
 	if('restore' in tgt.dataset) {
@@ -211,18 +305,19 @@ const findCollections = (e) => {
 		
 										if('eval_' in result.data[i]) {
 											if(Object.keys(result.data[i].eval_.records).length != 0) {
-												for(let year in result.data[i].eval_.records) {
-													evalRecords += `<div class="my-1 col-md-6 col-12 accordion accordion-flush" id="user-eval-${ year }-${ result.data[i]._id }">
+												console.log()
+												for(let r in result.data[i].eval_.records) {
+													evalRecords += `<div class="my-1 col-md-6 col-12 accordion accordion-flush" id="user-eval-${ result.data[i].eval_.records[r].year }-${ result.data[i]._id }">
 														<div class="accordion-item">
-															<h2 class="accordion-header" id="user-flush-eval-${ year }-${ result.data[i]._id }">
+															<h2 class="accordion-header" id="user-flush-eval-${ result.data[i].eval_.records[r].year }-${ result.data[i]._id }">
 																<button class="btn-outline-success accordion-button collapsed" type="button" data-bs-toggle="collapse"
-																data-bs-target="#user-flush-eval-${ year }-collapse-${ result.data[i]._id }" aria-expanded="false"
-																aria-controls="user-flush-eval-${ year }-collapse-${ result.data[i]._id }">
-																	${ Array('Año: '+year, 'Year: '+year)[lang] }
+																data-bs-target="#user-flush-eval-${ result.data[i].eval_.records[r].year }-collapse-${ result.data[i]._id }" aria-expanded="false"
+																aria-controls="user-flush-eval-${ result.data[i].eval_.records[r].year }-collapse-${ result.data[i]._id }">
+																	${ Array('Año: '+result.data[i].eval_.records[r].year, 'Year: '+result.data[i].eval_.records[r].year)[lang] }
 																</button>
 															</h2>
-															<div id="user-flush-eval-${ year }-collapse-${ result.data[i]._id }" class="accordion-collapse collapse"
-																aria-labelledby="user-flush-eval-${ year }-${ result.data[i]._id }"
+															<div id="user-flush-eval-${ result.data[i].eval_.records[r].year }-collapse-${ result.data[i]._id }" class="accordion-collapse collapse"
+																aria-labelledby="user-flush-eval-${ result.data[i].eval_.records[r].year }-${ result.data[i]._id }"
 																data-bs-parent="#flush-eval-collapse-${ result.data[i]._id }">
 																<div class="accordion-body px-0">
 																	<div class="row">
@@ -232,50 +327,61 @@ const findCollections = (e) => {
 																			</p>
 																			<div class="container ps-3">
 																				<div class="button b2 mt-2 mb-2" id="button-17">
-																					<input name="disabled" id="disabled-${ year }-${ result.data[i]._id }" type="checkbox"
-																						class="checkbox _${ result.data[i]._id } ${ (parseInt(year) != CURRENT_YEAR) ? 'read-only' : '' }"
-																						data-class="evaluation" data-year="${ year }"
-																						${ ('disabled' in result.data[i].eval_.records[year]) ? 'checked' : '' /* Unchecked = Yes, Checked= No */ } }
+																					<input name="disabled"  type="checkbox"
+																						class="checkbox _${ result.data[i]._id } ${ 
+																							( /* If the year is not equal to the current year and not exists "score" in the record */
+																								result.data[i].eval_.records[r].year != CURRENT_YEAR
+																								&& !('score' in result.data[i].eval_.records[r])
+																							) ? 'read-only' : '' 
+																						}"
+																						data-class="evaluation" data-year="${ result.data[i].eval_.records[r].year }"
+																						${ ('disabled' in result.data[i].eval_.records[r]) ? 'checked' : '' /* Unchecked = Yes, Checked= No */ } }
 																						disabled>
 																						<div class="knobs" data-unchecked="${ Array('Sí', 'Yes')[lang] }"
 																							data-checked="${ Array('No', 'No')[lang] }"><span></span></div>
 																					<div class="layer"></div>
 																		</div></div></div>
-																		${ (!('disabled' in result.data[i].eval_.records[year])) // If not disabled
-																		? `<div class="my-1 col-md-6">
+																		${ (!('disabled' in result.data[i].eval_.records[r])) // If not disabled
+																		? `<div class="my-1 col-12 col-md-6">
 																				<p class="text-mini-label text-center m-0">
 																					${ Array('Puntuación', 'Score')[lang] }
 																				</p>
-																				<input value="${ result.data[i].eval_.records[year].score }"
+																				<input value="${ result.data[i].eval_.records[r].score }"
 																					class="form-control _${ result.data[i]._id } read-only"
-																					name="score" id="score-${ year }-${ result.data[i]._id }"
-																					data-class="evaluation" data-year="${ year }" type="text" disabled>
-																			</div><div class="my-1 col-md-6">
+																					name="score" 
+																					data-class="evaluation" data-year="${ result.data[i].eval_.records[r].year }" type="text" disabled>
+																			</div><div class="my-1 col-12 col-md-6">
 																				<p class="text-mini-label text-center m-0">
 																					${ Array('Respuestas', 'Answers')[lang] }
 																				</p>
-																				<input value="${ result.data[i].eval_.records[year].answers }"
+																				<input value="${ result.data[i].eval_.records[r].answers }"
 																					class="form-control _${ result.data[i]._id } read-only"
-																					name="answers" id="answers-${ year }-${ result.data[i]._id }"
-																					data-class="evaluation" data-year="${ year }" type="text" disabled>
-																			</div><div class="my-1 col-md-6 mx-auto">
+																					name="answers" 
+																					data-class="evaluation" data-year="${ result.data[i].eval_.records[r].year }" type="text" disabled>
+																			</div><div class="my-1 col-12 col-xxl-6 mx-auto">
 																				<p class="text-mini-label text-center m-0">
 																					${ Array('Área', 'Area')[lang] }
 																				</p>
-																				<input value="${ result.data[i].eval_.records[year].area }"
+																				<input value="${ findFrom('area',
+																						(result.data[i].eval_.records[r].area)
+																						? result.data[i].eval_.records[r].area : 0
+																					) }"
 																					class="form-control _${ result.data[i]._id } read-only"
-																					name="area" id="area-${ year }-${ result.data[i]._id }"
-																					data-class="evaluation" data-year="${ year }" type="text" disabled/>
+																					name="area" 
+																					data-class="evaluation" data-year="${ result.data[i].eval_.records[r].year }" type="text" disabled/>
 																			</div>
-																			${ ('direction' in result.data[i].eval_.records[year])
-																				?`<div class="my-1 col-md-4 col-6 mx-auto">
+																			${ ('direction' in result.data[i].eval_.records[r])
+																				?`<div class="my-1 col-12 col-xxl-6 mx-auto">
 																					<p class="text-mini-label text-center m-0">
 																						${ Array('Dirección / Subdirección', 'Direction / Sub-direction')[lang] }
 																					</p>
-																					<input value="${ result.data[i].eval_.records[year].direction }"
+																					<input value="${ findFrom('direction',
+																							(result.data[i].eval_.records[r].direction)
+																							? (result.data[i].eval_.records[r].direction) : 0
+																						) }"
 																						class="form-control _${ result.data[i]._id } read-only"
-																						name="direction" id="direction-${ year }-${ result.data[i]._id }" data-class="evaluation"
-																						data-year="${ year }" type="text" disabled/>
+																						name="direction"  data-class="evaluation"
+																						data-year="${ result.data[i].eval_.records[r].year }" type="text" disabled/>
 																				</div>` : ''
 																			}` : '' }
 																		
@@ -321,33 +427,21 @@ const findCollections = (e) => {
 																	<p class="text-mini-label text-center m-0">
 																		${ Array('Área de adscripción', 'Adscription area')[lang] }
 																	</p>
-																	<input value="${ ((result.data[i].area).length)
-																		? (('description' in result.data[i].area[lang])
-																			? result.data[i].area[lang].description
-																			: 'N.A')
-																		: 'N.A' }"
+																	<input value="${ findFrom('area', result.data[i].area) }"
 																		class="form-control _${ result.data[i]._id }" name="area"
 																		data-class="user_info" type="text" disabled/>
 																</div><div class="my-1 col-md-6 col-12">
 																	<p class="text-mini-label text-center m-0">
 																		${ Array('Dirección / Subdirección', 'Direction / Sub-direction')[lang] }
 																	</p>
-																	<input value="${ ((result.data[i].direction).length)
-																		? (('description' in result.data[i].direction[lang])
-																			? result.data[i].direction[lang].description
-																			: 'N.A')
-																		: 'N.A' }"
+																	<input value="${ findFrom('direction', result.data[i].direction) }"
 																		class="form-control _${ result.data[i]._id }" name="direction"
 																		data-class="user_info" type="text" disabled/>
 																</div><div class="my-1 col-md-6 col-12">
 																	<p class="text-mini-label text-center m-0">
 																		${ Array('Categoría', 'Category')[lang] }
 																	</p>
-																	<input value="${ ((result.data[i].category).length)
-																		? (('description' in result.data[i].category[lang])
-																			? result.data[i].category[lang].description
-																			: 'N.A')
-																		: 'N.A' }"
+																	<input value="${ findFrom('category', result.data[i].category) }"
 																		class="form-control _${ result.data[i]._id }" name="category"
 																		data-class="user_info" type="text" disabled/>
 																</div>
@@ -355,12 +449,7 @@ const findCollections = (e) => {
 																	<p class="text-mini-label text-center m-0">
 																		${ Array('Puesto', 'Position')[lang] }
 																	</p>
-																	<input value="${
-																		((result.data[i].position).length) ? (
-																		( 'description' in result.data[i].position[lang])
-																			? result.data[i].position[lang].description
-																			: 'N.A.' )
-																		: 'N.A' }"
+																	<input value="${ findFrom('position', result.data[i].position) }"
 																		class="form-control _${ result.data[i]._id }" name="position"
 																		data-class="user_info" type="text" disabled/>
 															</div></div>
@@ -452,15 +541,17 @@ const findCollections = (e) => {
 																		aria-labelledby="danger-flush-${ result.data[i]._id }" data-bs-parent="#inner-accordions-${ result.data[i]._id }">
 																		<div class="accordion-body px-0">
 																			<div class="row">
-																				<div class="my-1 col-md-3 col-12 mx-auto">
+																				<div class="my-1 col-md-4 col-12 mx-auto">
 																					<p class="text-mini-label text-center m-0">
 																						${ Array('Usuario habilitado', 'User enabled')[lang] }
 																					</p>
 																					<div class="container ps-3">
 																						<div class="button b2 mt-2 mb-2" id="button-17">
-																							<input name="disabled" type="checkbox"
-																								data-class="user_all" class="checkbox _${ result.data[i]._id }"
-																									${('enabled' in result.data[i]) ? '' : 'checked' } disabled>
+																							<input name="enabled" type="checkbox"
+																								data-class="${ 
+																									('user_' in result.data[i]) ? 'user_all' : 'user_info' 
+																								}" class="checkbox _${ result.data[i]._id }"
+																									${(result.data[i].enabled) ? '' : 'checked' /*checked = No*/} disabled>
 																								<div class="knobs" data-unchecked="${ Array('Sí', 'Yes')[lang] }"
 																									data-checked="${ Array('No', 'No')[lang] }"><span></span></div>
 																							<div class="layer"></div>
@@ -522,15 +613,15 @@ const findCollections = (e) => {
 													<div class="accordion-body px-3">
 														<div class="row">
 															<div class="my-1 col-md-6 col-12 mx-auto">
-																<p class="text-mini-label text-center m-0">
-																	${ (lang == 0) ? 'Idioma (es)' : 'Language (es)' }
-																</p>
+																<p class="text-mini-label text-center m-0">${
+																	(lang == 0) ? 'Idioma (es)' : 'Language (es)'
+																}</p>
 																<input value="${ result.data[i]['description'][0] }" class="form-control _${ result.data[i]['_id'] }"
-																	name="0" id="exts-_${ result.data[i]['_id'] }" type="text" disabled>
+																	name="0" type="text" disabled>
 															</div><div class="my-1 col-md-6 col-12 mx-auto">
-																<p class="text-mini-label text-center m-0">
-																${ (lang == 0) ? 'Idioma (en)' : 'Language (en)' }
-																</p>
+																<p class="text-mini-label text-center m-0">${
+																	(lang == 0) ? 'Idioma (en)' : 'Language (en)'
+																}</p>
 																<input value="${ (result.data[i]['description'][1]) ? result.data[i]['description'][1] : '' }"
 																	name="1" class="form-control _${ result.data[i]['_id'] }" id="extn-_${ result.data[i]['_id'] }"
 																	type="text" disabled>
@@ -539,23 +630,23 @@ const findCollections = (e) => {
 															<button id="edit-_${ result.data[i]['_id'] }" data-id="_${ result.data[i]['_id'] }" data-table="${pkg.search}"
 																class="btn-edit btn btn-secondary px-3 py-2">
 																<i class="pe-none pe-1 fa-solid fa-pen-to-square"></i>
-																<span class="pe-none lang">
-																	${(lang == 0) ? 'Editar' : 'Edit' }
-																</span>
+																<span class="pe-none lang">${
+																	(lang == 0) ? 'Editar' : 'Edit'
+																}</span>
 															</button>
 															<button id="cancel-_${ result.data[i]['_id'] }" data-id="_${ result.data[i]['_id'] }" data-table="${pkg.search}"
 																class="btn-cancel btn btn-outline-danger px-3 py-2 me-2 d-none" disabled>
 																<i class="pe-none pe-1 fa-solid fa-ban"></i>
-																<span class="pe-none lang">
-																	${(lang == 0) ? 'Cancelar' : 'Cancel' }
-																</span>
+																<span class="pe-none lang">${
+																	(lang == 0) ? 'Cancelar' : 'Cancel'
+																}</span>
 															</button>
 															<button id="save-_${ result.data[i]['_id'] }" data-id="_${ result.data[i]['_id'] }" data-table="${pkg.search}"
 																class="btn-save btn btn-outline-dark px-3 py-2 d-none" disabled>
 																<i class="pe-none pe-1 fa-solid fa-floppy-disk"></i>
-																<span class="pe-none lang">
-																	${(lang == 0) ? 'Guardar' : 'Save' }
-																</span>
+																<span class="pe-none lang">${
+																	(lang == 0) ? 'Guardar' : 'Save'
+																}</span>
 											</button></div></div></div></div>`
 										)
 									}

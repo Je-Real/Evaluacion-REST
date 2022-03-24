@@ -10,9 +10,13 @@ async function logIn(req, res) {
 	await modelUser.findOne({ _id: req.body._id }, { _id: 1, pass: 1, enabled: 1 })
 	.then((dataUser) => {
 		if(dataUser) { // If there is data in dataUser 👍
-			if(!dataUser.enabled) {
-				return res.json({
-					msg: 'El usuario o contraseña no coinciden.', 
+			if(!dataUser.enabled) { // If disabled (don't tell them)
+				return res.status(404).json({
+					msg: Array(
+						'El usuario o contraseña no coinciden. Intentalo de nuevo por favor.',
+						'The username or password does not match. Please try again.'
+					),
+					snack: true,
 					status: 404
 				})
 			}
@@ -47,14 +51,13 @@ async function logIn(req, res) {
 						}}
 					)
 					.then(() => {
-						// Server 🍪🍪🍪
+						// Server cookies 🍪
 						req.session._id = req.body._id
 						req.session.name = dataUInfo.name
 						req.session.area = dataUInfo.area
 						req.session.direction = dataUInfo.direction
 						req.session.position = dataUInfo.position
 						req.session.category = dataUInfo.category
-
 						if('super' in dataUInfo) req.session.super = dataUInfo.super
 	
 						//Response success for Asynchronous request
@@ -69,24 +72,36 @@ async function logIn(req, res) {
 
 					})
 					.catch((error) => {
-						console.log(error)
+						console.error(error)
 						//Response error for Asynchronous request
-						return res.json({
-							msg: 'Error de actualización de datos.', 
+						return res.status(500).json({
+							msg: Array(
+								'Error de actualización de datos. Contacta con el administrador.',
+								'Error updating data. Contact the administrator.'
+							),
+							snack: true,
 							status: 500
 						})
 					})
 				})
 				.catch((error) => {
-					console.log(error)
+					console.error(error)
 					return res.json({
-						msg: 'Error de búsqueda de usuario. Intenta de nuevo mas tarde.', 
+						msg: Array(
+							'El usuario o contraseña no coinciden. Intentalo de nuevo por favor.',
+							'The username or password does not match. Please try again.'
+						),
+						snack: true,
 						status: 404
 					})
 				})
 			} else { //🔴
 				return res.json({
-					msg: 'El usuario o contraseña no coinciden.',
+					msg: Array(
+						'El usuario o contraseña no coinciden. Intentalo de nuevo por favor.',
+						'The username or password does not match. Please try again.'
+					),
+					snack: true,
 					class: false,
 					status: 404
 				})
@@ -94,26 +109,37 @@ async function logIn(req, res) {
 		} else {
 			//if no data 🥶
 			return res.json({
-				msg: 'El usuario o contraseña no coinciden.',
+				msg: Array(
+					'El usuario o contraseña no coinciden. Intentalo de nuevo por favor.',
+					'The username or password does not match. Please try again.'
+				),
+				snack: true,
 				class: false,
 				status: 404
 			})
 		}
 	})
 	.catch((error) => { //if error 🤬
-		console.log(error)
+		console.error(error)
 		return res.json({
-			msg: 'Error del servidor.\n\r¡No te alarmes! Todo saldrá bien.', 
-			status: 500,
-			error: true
+			msg: Array(
+				'Error del servidor. Contacta con el administrador.',
+				'Server error. Contact the administrator.'
+			),
+			snack: true,
+			error: true,
+			status: 500
 		})
 	})
-	//NUNCA colocar un return fuera del catch
-	//NEVER place a return outside the catch
 }
 
+/**
+ * 🍪🚫
+ * @param {*} req 
+ * @param {*} res 
+ * @returns JSON
+ */
 async function logOut(req, res) {
-	//🍪🚫
 	req.session.destroy()
 	
 	if(req.session == null) {

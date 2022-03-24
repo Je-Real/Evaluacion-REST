@@ -18,7 +18,13 @@ async function root(req, res) {
 	if(!('_id' in req.session)) { // No session 😡
 		res.redirect('/home/')
 	} else { // Session 🤑
-		if(true) {
+		if(req.session.super) {
+			areas = await modelArea.find({}) // Get all areas in DB
+				.catch((error) => { console.error(error) })
+			directions = await modelDirection.find({}) // Get all directions in DB
+				.catch((error) => { console.error(error) })
+		}
+		else {
 			areas = await modelUserInfo.aggregate([
 				{
 					$match: {
@@ -50,7 +56,7 @@ async function root(req, res) {
 					},
 				},
 			]) // Get the areas of the user and subordinates
-			.catch((error) => { console.log(error) })
+			.catch((error) => { console.error(error) })
 
 			directions = await modelUserInfo.aggregate([
 				{
@@ -83,13 +89,7 @@ async function root(req, res) {
 					},
 				},
 			]) // Get all directions in DB
-			.catch((error) => { console.log(error) })
-		}
-		if(false) {
-			areas = await modelArea.find({}) // Get all areas in DB
-				.catch((error) => { console.log(error) })
-			directions = await modelDirection.find({}) // Get all directions in DB
-				.catch((error) => { console.log(error) })
+			.catch((error) => { console.error(error) })
 		}
 
 		subordinates = await modelUserInfo.aggregate([ // Get all subordinates of the user
@@ -115,7 +115,7 @@ async function root(req, res) {
 			},
 		])
 		.catch((error) => {
-			console.log(error)
+			console.error(error)
 		})
 
 		// Metrics route
@@ -172,9 +172,6 @@ function getOne(req, res) {
 		search['records.manager'] = req.session._id
 		filter['records.manager'] = req.session._id
 	}
-
-	console.log(search)
-	console.log(filter)
 	
 	modelEvaluation.aggregate([
 		{
@@ -285,7 +282,7 @@ function getOne(req, res) {
 					subordinates = dataSubs // Get all the subordinates
 				})
 				.catch((error) => {
-					console.log(error)
+					console.error(error)
 				})
 			}
 			else subordinates = null
@@ -307,7 +304,7 @@ function getOne(req, res) {
 		})
 	})
 	.catch((error) => { //🔴
-		console.log(error)
+		console.error(error)
 		return res.status(404).json({
 			msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
 			status: 404,
@@ -441,7 +438,7 @@ async function getAll(req, res) {
 	else
 		modelMaster.aggregate(uAggregate)
 		.then(data => { success(data) })
-		.catch(error => { console.log(error); failure() })
+		.catch(error => { console.error(error); failure() })
 }
 
 async function printer(req, res) {

@@ -2,7 +2,7 @@
 //'use strict'
 
 const DATE = new Date()
-const CURRENT_YEAR = String(DATE.getFullYear())
+const CURRENT_YEAR = DATE.getFullYear()
 
 /**
  * Get one element

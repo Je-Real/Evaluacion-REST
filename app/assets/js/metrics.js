@@ -213,7 +213,6 @@ const formSelect = (e) => { // All .forms-select that isn't #sel-bar-chart
 		} 
 		else return false
 
-		console.log(getter)
 		getData(false, getter)
 	})
 	.catch(error => {
@@ -287,9 +286,7 @@ async function getData(auto, getter = null) {
 		window.location.origin+'/metrics',
 		'POST',
 		pkg,
-		(result) => {
-			console.log(result.data)
-			
+		(result) => {			
             if(result.console) log(result.console, 'warning')
 			if(result.snack) showSnack(result.msg, null, 'info')
 

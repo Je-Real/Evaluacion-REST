@@ -19,7 +19,7 @@ async function reset(req, res) {
 				})
 			})
 			.catch((error) => { //🔴
-				console.log(error)
+				console.error(error)
 				return res.json({
 					msg: 'No se puede actualizar contraseña.\r\nIntentalo más tarde.',
 					status: 500,
@@ -35,15 +35,13 @@ async function reset(req, res) {
 		}
 	})
 	.catch((error) => { //if error 🤬
-		console.log('Error:',error)
+		console.error('Error:',error)
 		return res.json({
 			msg: 'Error en servidor.',
 			status: 500,
 			snack: true
 		})
 	})
-	//NUNCA colocar un return fuera del catch
-	//NEVER place a return outside the catch
 }
 
 module.exports = {

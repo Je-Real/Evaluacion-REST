@@ -182,7 +182,10 @@ async function post(req, res) {
 	let temp = Number((Math.abs(score) * 100).toPrecision(15))
 	score = Math.round(temp) / 100 * Math.sign(score)
 
-	await modelUserInfo.findOne({ _id: req.body._id }, { _id: 1, area: 1, department: 1, manager: 1 })
+	await modelUserInfo.findOne(
+		{ _id: req.body._id },
+		{ _id: true, area: true, direction: true, manager: true }
+	)
 	.then(async(dataUInfo) => { //🟢
 		if(dataUInfo) {
 			await modelEvaluation.findOne({ _id: req.body._id })

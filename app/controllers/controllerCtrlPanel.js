@@ -244,7 +244,7 @@ async function pdfEvalFormat(req, res) {
 				yAnchor, xAnchor, total = 0, tempScore
 			
 			let userPosition = await modelPosition.findOne({_id: req.session.position}, {description: 1})
-				.catch((error) => console.log(error))
+				.catch((error) => console.error(error))
 			
 			const printAnswers = (numFactor, yMargin = 2, result = false) => {
 				if(numFactor > 0) {
@@ -381,23 +381,25 @@ async function manageUserEvaluation(req, res) {
 	const id = req.params.id
 	const action = req.params.action
 
-	modelEvaluation.aggregate([ // Find out just records in the current year
+	return modelEvaluation.aggregate([ // Find out just records in the current year
 		{ $match: { _id: id } },
 		{ $unwind: { path: '$records', preserveNullAndEmptyArrays: true } },
 		{ $match: { 'records.year': 2022 } }
 	])
 	.then((data) => {
 		let updater = {}
-		if('score' in data[0])
-			return res.status(200).json({
-				status: 200,
-				msg: Array(
-					'Ya hay una evaluación realizada, no se puede habilitar / deshabilitar.',
-					'An evaluation has already been performed, it cannot be enabled / disabled.',
-				)[req.session.lang],
-				snack: true
-			})
-		else if(action == 'disabled') // Push the current year with the disabled state
+		if(data.length) 
+			if('score' in data[0])
+				return res.status(200).json({
+					status: 200,
+					msg: Array(
+						'Ya hay una evaluación realizada, no se puede habilitar / deshabilitar.',
+						'An evaluation has already been performed, it cannot be enabled / disabled.',
+					)[req.session.lang],
+					snack: true
+				})
+
+		if(action == 'disabled') // Push the current year with the disabled state
 			updater = { $push: { records: { year: CURRENT_YEAR, disabled: true } } }
 		else if(action == 'enabled') // Delete the current year record to set a evaluation
 			updater = { $pull: { records: { year: CURRENT_YEAR } } }
@@ -412,7 +414,12 @@ async function manageUserEvaluation(req, res) {
 			console.error(error)
 			return res.status(500).json({
 				status: 500,
-				error: error
+				error: error,
+				msg: Array(
+					'Hubo un error en el servidor al habilitar / deshabilitar.',
+					'There was an error in the server when enabled / disabled.',
+				)[req.session.lang],
+				snack: true
 			})
 		})
 	})
@@ -420,7 +427,12 @@ async function manageUserEvaluation(req, res) {
 		console.error(error)
 		return res.json({
 			status: 500,
-			error: error
+			error: error,
+			msg: Array(
+				'Hubo un error en el servidor al habilitar / deshabilitar.',
+				'There was an error in the server when enabled / disabled.',
+			)[req.session.lang],
+			snack: true
 		})
 	})
 }

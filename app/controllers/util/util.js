@@ -18,7 +18,7 @@ async function fuzzySearch(req = { query: '', collection: '' }) {
 					{ $project: {_id: 1, last_conn: 1, enabled: 1}}
 				])
 				.catch(error => {
-					console.log(error)
+					console.error(error)
 					return false
 				})
 
@@ -33,7 +33,7 @@ async function fuzzySearch(req = { query: '', collection: '' }) {
 					{ $project: {_id: 1, name: 1, enabled: 1}}
 				])
 				.catch(error => {
-					console.log(error)
+					console.error(error)
 					return false
 				})
 
@@ -43,7 +43,7 @@ async function fuzzySearch(req = { query: '', collection: '' }) {
 					{ $project: {_id: 1, description: 1}}
 				])
 				.catch(error => {
-					console.log(error)
+					console.error(error)
 					return false
 				})
 
@@ -53,7 +53,7 @@ async function fuzzySearch(req = { query: '', collection: '' }) {
 					{ $project: {_id: 1, description: 1}}
 				])
 				.catch(error => {
-					console.log(error)
+					console.error(error)
 					return false
 				})
 
@@ -63,7 +63,7 @@ async function fuzzySearch(req = { query: '', collection: '' }) {
 					{ $project: {_id: 1, description: 1}}
 				])
 				.catch(error => {
-					console.log(error)
+					console.error(error)
 					return false
 				})
 
@@ -74,7 +74,7 @@ async function fuzzySearch(req = { query: '', collection: '' }) {
 				])
 				//.then(data => console.log(data))
 				.catch(error => {
-					console.log(error)
+					console.error(error)
 					return false
 				})
 

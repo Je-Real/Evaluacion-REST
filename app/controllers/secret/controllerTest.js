@@ -70,7 +70,7 @@ async function saveAsExcel(req, res) {
 			sheet1.range("A1:" + endColumn + "1").style("fill", "BFBFBF")
 			range.style("border", true)
 			return await workbook.outputAsync()
-				.catch(error => console.log(error))
+				.catch(error => console.error(error))
 		})
 	}
 
