@@ -49,9 +49,10 @@ const pdfFormatEval = (e) => {
 	
 					if(data.status === 200) SNK_Type = 'success'
 					else SNK_Type = 'warning'
-					if(Boolean(data.headers.get('snack')) == true) {
+					if(Boolean(data.headers.get('snack')) == true)
 						showSnack(data.headers.get('msg'), null, SNK_Type)
-					}
+					if(data.headers.get('error') != undefined)
+						showSnack(data.headers.get('error'), null, SNK_Type)
 	
 					await data.arrayBuffer()
 					.then(data => {
@@ -59,7 +60,7 @@ const pdfFormatEval = (e) => {
 						return showSnack('Server error', null, 'error')
 						const blob = new Blob([data]) // Create a Blob object
 						const url = URL.createObjectURL(blob) // Create an object URL
-						download(url, Array(`formato-evaluacion-${id}.pdf`, `evaluation-format-${id}.pdf`)[lang]) // Download file
+						download(url, filename) // Download file
 						URL.revokeObjectURL(url) // Release the object URL
 					})
 				} else showSnack(data.headers.get('msg'), null, 'error')

@@ -41,6 +41,8 @@ function showSnack(msg, title, style) {
 
 		if(title == null || title.length <= 1)
 			title = style.title
+		if(typeof msg === 'object')
+			msg = msg[lang]
 
 		//$e('#snack-container').appendChild(snackChildContainer)
 		$e('#snack-container').insertAdjacentHTML(
@@ -52,7 +54,7 @@ function showSnack(msg, title, style) {
 						<button type="button" role="button" data-bs-dismiss="toast" aria-label="Close"
 							onclick="hideSnack('${id}')" class="btn-close">
 						</button>
-			</div><div class="toast-body">${(typeof msg == 'object') ? msg[lang] : msg}</div></div></div>`
+			</div><div class="toast-body">${msg}</div></div></div>`
 		)
 
 		setTimeout(() => $e(`#${id}`).classList.replace('fade-anim-disappear', 'fade-anim-appear'), 100)

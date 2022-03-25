@@ -100,107 +100,109 @@ async function root(req, res) {
 
 async function pdfEvalFormat(req, res) {
 	if(!('_id' in req.session)) {
-		return res.json({
-			msg: [
-				`Por favor, inicia sesión nuevamente`,
-				`Please, log in again`
-			],
-			status: 401,
-			snack: true
-		})
+		res.append('msg', Array(
+			`Por favor, inicia sesión nuevamente`,
+			`Please, log in again`
+		))
+		res.append('snack', 'true')
+		return res.status(401).end()
 	}
 	const userID = req.params.id
 
-	await modelUserInfo.aggregate([
+	return await modelUserInfo.aggregate([
 		{ $match: { _id: userID } },
 		{
 			$lookup: {
-				from: "evaluations",
-				pipeline: [ { $unset: ["_id"] } ],
-				localField: "_id",
-				foreignField: "_id",
-				as: "evaluations",
-			},
-		}, {
-			$lookup: {
-				from: "user_infos",
-				pipeline: [ { $unset: ["manager", "category", "area",
-					"direction", "position", "log", "__v", "enabled"] } ],
-				localField: "manager",
-				foreignField: "_id",
-				as: "mngr_info",
-			},
-		}, {
-			$lookup: {
-				from: "areas",
+				from: 'evaluations',
 				pipeline: [
-					{ $unset: ["__v", "_id"] },
-					{ $project: { area: "$description" } },
+					{ $unset: ['_id', '__v', 'log'] },
+					{ $unwind: { path: '$records' } },
+					{ $match: { 'records.year': CURRENT_YEAR } }
 				],
-				localField: "area",
-				foreignField: "_id",
-				as: "area_",
-			},
+				localField: '_id',
+				foreignField: '_id',
+				as: 'evaluations',
+			}
 		}, {
 			$lookup: {
-				from: "directions",
-				pipeline: [
-					{ $unset: ["__v", "_id"] },
-					{ $project: { direction: "$description" } }
-				],
-				localField: "direction",
-				foreignField: "_id",
-				as: "direction_",
-			},
+				from: 'user_infos',
+				pipeline: [ { $unset: ['manager', 'category', 'area',
+					'direction', 'position', 'log', '__v', 'enabled'] } ],
+				localField: 'manager',
+				foreignField: '_id',
+				as: 'mngr_info',
+			}
 		}, {
 			$lookup: {
-				from: "positions",
+				from: 'areas',
 				pipeline: [
-					{ $unset: ["__v", "_id"] },
-					{ $project: { position: "$description" } }
+					{ $unset: ['__v', '_id', 'log'] },
+					{ $project: { area: '$description' } },
 				],
-				localField: "position",
-				foreignField: "_id",
-				as: "position_",
-			},
+				localField: 'area',
+				foreignField: '_id',
+				as: 'area_',
+			}
 		}, {
 			$lookup: {
-				from: "categories",
+				from: 'directions',
 				pipeline: [
-					{ $unset: ["__v", "_id"] },
-					{ $project: { category: "$description" } }
+					{ $unset: ['__v', '_id', 'log'] },
+					{ $project: { direction: '$description' } }
 				],
-				localField: "category",
-				foreignField: "_id",
-				as: "category_",
-			},
+				localField: 'direction',
+				foreignField: '_id',
+				as: 'direction_',
+			}
+		}, {
+			$lookup: {
+				from: 'positions',
+				pipeline: [
+					{ $unset: ['__v', '_id', 'log'] },
+					{ $project: { position: '$description' } }
+				],
+				localField: 'position',
+				foreignField: '_id',
+				as: 'position_',
+			}
+		}, {
+			$lookup: {
+				from: 'categories',
+				pipeline: [
+					{ $unset: ['__v', '_id', 'log'] },
+					{ $project: { category: '$description' } }
+				],
+				localField: 'category',
+				foreignField: '_id',
+				as: 'category_',
+			}
 		}, 
-		{ $unset: ["area", "direction", "position", "category"] },
+		{ $unset: ['area', 'direction', 'position', 'category'] },
 		{
 			$replaceRoot: {
 				newRoot: {
 					$mergeObjects: [
-						{ $arrayElemAt: ["$area_", 0] },
-						{ $arrayElemAt: ["$direction_", 0] },
-						{ $arrayElemAt: ["$position_", 0] },
-						{ $arrayElemAt: ["$category_", 0] },
-						{ $arrayElemAt: ["$evaluations", 0] },
-						"$$ROOT",
-					],
-				},
-			},
+						{ $arrayElemAt: ['$area_', 0] },
+						{ $arrayElemAt: ['$direction_', 0] },
+						{ $arrayElemAt: ['$position_', 0] },
+						{ $arrayElemAt: ['$category_', 0] },
+						{ $arrayElemAt: ['$evaluations', 0] },
+						'$$ROOT',
+					]
+				}
+			}
 		}, {
 			$set: {
 				manager: {
-					$arrayElemAt: ["$mngr_info", 0],
-				},
-			},
+					$arrayElemAt: ['$mngr_info', 0],
+				}
+			}
 		}, {
 			$unset: [
-				"evaluations", "mngr_info", "area_",
-				"direction_", "position_", "category_",
-				"log", "__v", "enabled",
-			],
+				'evaluations', 'mngr_info', 'area_',
+				'direction_', 'position_', 'category_',
+				'log', '__v', 'enabled',
+			]
 		},
 	])
 	.then(async([data]) => {
@@ -215,7 +217,17 @@ async function pdfEvalFormat(req, res) {
 					direction: 'DIRECTION',
 					position: 'POSITION',
 					category: 'CATEGORY',
-					records: { '2022': { score: 100, answers: [ ..11 positions.. ] } },
+					records: [
+						{
+							year: 2000,
+							score: 100,
+							answers: [ ..11 positions.. ],
+							manager: 'ID',
+							area: 0,
+							direction: 0,
+							position: 0
+						}
+					],
 					manager: {
 					  _id: 'MANAGER ID',
 					  name: 'MANAGER NAME',
@@ -240,7 +252,7 @@ async function pdfEvalFormat(req, res) {
 
 			let date_time = new Date(Date.now()),
 				dateFormated = date_time.getDate()+'/'+(date_time.getMonth()+1)+'/'+date_time.getFullYear(),
-				answers = data.records[CURRENT_YEAR].answers,
+				answers = data.records.answers,
 				yAnchor, xAnchor, total = 0, tempScore
 			
 			let userPosition = await modelPosition.findOne({_id: req.session.position}, {description: 1})
@@ -289,7 +301,7 @@ async function pdfEvalFormat(req, res) {
 				.text({ textAlign: 'center', fontSize: 7 }).add(data.category[req.session.lang])
 
 				doc.cell({ width: 1.3*pdf.cm, x: 16.9*pdf.cm, y: 16.45*pdf.cm }) // Average
-				.text({ textAlign: 'center', fontSize: 7 }).add(data.records[CURRENT_YEAR].score+'%')
+				.text({ textAlign: 'center', fontSize: 7 }).add(data.records.score+'%')
 
 				yAnchor = 13.5*pdf.cm + 2*pdf.cm // Added 2cm because de function iteration
 				xAnchor = 13.1*pdf.cm            // Guide for the first column (for all pages)
@@ -347,27 +359,45 @@ async function pdfEvalFormat(req, res) {
 				// --------------------------- Page 3 --------------------------- //
 			} catch (error) {
 				console.error(error)
+				res.append('msg', Array(
+					`Ha ocurrido un problema en el servidor. Revisa la consola del navegador y contacta con el administrador.`,
+					`A problem has occurred on the server. Check the browser console and contact the administrator.`
+				)[req.session.lang])
+				res.append('snack', 'true')
+				res.append('error', error)
 				await doc.end() // Close file
-				return res.send(null)
+				return res.status(500).end()
 			}
 
-			res.append('filename', 'output.pdf')
+			res.append(
+				'filename',
+				Array(`formato_de_evaluación-${data._id}.pdf`, `evaluation_format-${data._id}.pdf`)[req.session.lang]
+			)
+			res.append('msg', Array(
+				`Documento generado correctamente. Descargando ahora.`,
+				`Document generated successfully. Downloading now.`
+			)[req.session.lang])
+			res.append('snack', 'true')
 			await doc.pipe(res)
 			await doc.end() // Close file
 		} else {
-			console.error('No data')
-			return res.json({
-				status: 404,
-				error: 'No data'
-			})
+			res.append('msg', Array(
+				`No se recibieron datos del empleado en la base de datos. Contacta con el administrador.`,
+				`No employee data was received in the database. Contact the administrator.`
+			)[req.session.lang])
+			res.append('snack', 'true')
+			return res.status(404).end()
 		}
 	})
 	.catch(error => {
 		console.error(error)
-		return res.json({
-			status: 500,
-			error: error
-		})
+		res.append('msg', Array(
+			`Ha ocurrido un problema en el servidor. Revisa la consola del navegador y contacta con el administrador.`,
+			`A problem has occurred on the server. Check the browser console and contact the administrator.`
+		)[req.session.lang])
+		res.append('snack', 'true')
+		res.append('error', error)
+		return res.status(500).end()
 	})
 }
 
