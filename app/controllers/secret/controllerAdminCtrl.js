@@ -49,7 +49,7 @@ async function root(req, res) {
 async function search(req, res) {
 	if(!('_id' in req.session)) {
 		return res.status(401).json({
-			msg: [
+			msg:[
 				`Por favor, inicia sesión nuevamente`,
 				`Please, log in again`
 			],
@@ -174,14 +174,14 @@ async function search(req, res) {
 					})
 				})
 			else return res.status(418).json({
-				error: ['Sin datos', 'Without data'],
+				msg: ['Sin datos', 'Without data'],
 				status: 418
 			})
 		} catch (error) {
 			console.error(error)
 		}
 	} else return res.status(418).json({
-		error: ['Sin datos', 'Without data'],
+		msg: ['Sin datos', 'Without data'],
 		status: 418
 	})
 }
@@ -199,8 +199,6 @@ function update(req, res) {
 	}
 
 	if(req.body) {
-		console.log(req.body)
-
 		// yyyy-mm-dd
 		const FORMAT_DATE = `${ DATE.getFullYear() }-`+
 		`${ (String(DATE.getMonth()+1).length == 1) ? '0'+(DATE.getMonth()+1) : DATE.getMonth()+1 }-`+
@@ -219,7 +217,7 @@ function update(req, res) {
 			operation: 'modified'
 		}
 
-		let handler = {status: 200}
+		let handler = {status: 200, msg:['Cambios guardados', 'Changes saved']}
 
 		if('user' in req.body) {
 			if('pass' in req.body.user)
@@ -231,7 +229,7 @@ function update(req, res) {
 		}
 
 		if('user_info' in req.body) {
-			modelUserInfo.updateOne({ _id: req.body._id}, { $set: req.body.user_info })
+			return modelUserInfo.updateOne({ _id: req.body._id}, { $set: req.body.user_info })
 			//.then(data => { console.log(data) })
 			.catch(error => { handler['user_info'] = false; console.error(error)})
 		}
@@ -264,7 +262,7 @@ function update(req, res) {
 
 	} else return res.status(418).json({
 		status: 418,
-		error: ['Sin datos', 'Without data']
+		msg: ['Sin datos', 'Without data']
 	})
 }
 

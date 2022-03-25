@@ -1,9 +1,9 @@
 let anchorID = null, anchorLength = null, anchorCollection = null,
 	spin = false,
-	areaData,
-	positionData,
-	directionData,
-	categoryData
+	areaData = {},
+	positionData = {},
+	directionData = {},
+	categoryData = {}
 
 /**
  * Find the description of the object inside of the
@@ -87,6 +87,39 @@ window.addEventListener('load', async() => {
 		)
 	} finally {
 		$a('.rm').forEach(node => node.remove())
+
+		areaData.forEach(obj => {
+			$e('#manual-reg #area').insertAdjacentHTML(
+				'beforeend',
+				`<option class="area-opt" value="${ obj._id }">${
+					obj.description[lang]
+				}</option>`
+			)
+		})
+		directionData.forEach(obj => {
+			$e('#manual-reg #direction').insertAdjacentHTML(
+				'beforeend',
+				`<option class="direction-opt" value="${ obj._id }">${
+					obj.description[lang]
+				}</option>`
+			)
+		})
+		positionData.forEach(obj => {
+			$e('#manual-reg #position').insertAdjacentHTML(
+				'beforeend',
+				`<option class="position-opt" value="${ obj._id }">${
+					obj.description[lang]
+				}</option>`
+			)
+		})
+		categoryData.forEach(obj => {
+			$e('#manual-reg #category').insertAdjacentHTML(
+				'beforeend',
+				`<option class="category-opt" value="${ obj._id }">${
+					obj.description[lang]
+				}</option>`
+			)
+		})
 	}
 })
 
@@ -223,8 +256,11 @@ const updateInfo = (e) => {
 			'POST',
 			pkg,
 			(result) => {
+				if(result.snack)
+					showSnack(result.msg, null, (result.status === 200)?'success':'warning')
+					
 				if(result.status === 200) {
-					showSnack((lang == 0) ? 'Cambios guardados' : 'Changes saved', null, 'success')
+					showSnack(Array('Cambios guardados', 'Changes saved')[lang], null, 'success')
 					$a(`.${tgt}:not(.read-only)`).forEach(node => {
 						node.disabled = true
 					})
@@ -234,8 +270,7 @@ const updateInfo = (e) => {
 					})
 					$e(`#edit-${tgt}`).classList.remove('d-none')
 					$e(`#edit-${tgt}`).disabled = false
-				} else
-					showSnack(result.error, null, 'error')
+				}
 			},
 			(error) => {
 				console.error(error)
@@ -327,12 +362,12 @@ const findCollections = (e) => {
 																			</p>
 																			<div class="container ps-3">
 																				<div class="button b2 mt-2 mb-2" id="button-17">
-																					<input name="disabled"  type="checkbox"
+																					<input name="disabled" type="checkbox"
 																						class="checkbox _${ result.data[i]._id } ${ 
-																							( /* If the year is not equal to the current year and not exists "score" in the record */
+																							( /* If the year is not equal to the current year or exists "score" in the record */
 																								result.data[i].eval_.records[r].year != CURRENT_YEAR
-																								&& !('score' in result.data[i].eval_.records[r])
-																							) ? 'read-only' : '' 
+																								|| 'score' in result.data[i].eval_.records[r]
+																							) ? 'read-only' : '' /* then the input will be read-only, else can be modified */
 																						}"
 																						data-class="evaluation" data-year="${ result.data[i].eval_.records[r].year }"
 																						${ ('disabled' in result.data[i].eval_.records[r]) ? 'checked' : '' /* Unchecked = Yes, Checked= No */ } }
@@ -614,38 +649,38 @@ const findCollections = (e) => {
 														<div class="row">
 															<div class="my-1 col-md-6 col-12 mx-auto">
 																<p class="text-mini-label text-center m-0">${
-																	(lang == 0) ? 'Idioma (es)' : 'Language (es)'
+																	Array('Idioma (es)', 'Language (es)')[lang]
 																}</p>
 																<input value="${ result.data[i]['description'][0] }" class="form-control _${ result.data[i]['_id'] }"
 																	name="0" type="text" disabled>
 															</div><div class="my-1 col-md-6 col-12 mx-auto">
 																<p class="text-mini-label text-center m-0">${
-																	(lang == 0) ? 'Idioma (en)' : 'Language (en)'
+																	Array('Idioma (en)', 'Language (en)')[lang]
 																}</p>
 																<input value="${ (result.data[i]['description'][1]) ? result.data[i]['description'][1] : '' }"
-																	name="1" class="form-control _${ result.data[i]['_id'] }" id="extn-_${ result.data[i]['_id'] }"
+																	name="1" class="form-control _${ result.data[i]['_id'] }"
 																	type="text" disabled>
 														</div></div>
 														<div class="w-100 text-right d-flex justify-content-end mt-2 pe-3">
-															<button id="edit-_${ result.data[i]['_id'] }" data-id="_${ result.data[i]['_id'] }" data-table="${pkg.search}"
+															<button id="edit-_${ result.data[i]._id }" data-id="_${ result.data[i]['_id'] }" data-table="${pkg.search}"
 																class="btn-edit btn btn-secondary px-3 py-2">
 																<i class="pe-none pe-1 fa-solid fa-pen-to-square"></i>
 																<span class="pe-none lang">${
-																	(lang == 0) ? 'Editar' : 'Edit'
+																	Array('Editar', 'Edit')[lang]
 																}</span>
 															</button>
-															<button id="cancel-_${ result.data[i]['_id'] }" data-id="_${ result.data[i]['_id'] }" data-table="${pkg.search}"
+															<button id="cancel-_${ result.data[i]._id }" data-id="_${ result.data[i]['_id'] }" data-table="${pkg.search}"
 																class="btn-cancel btn btn-outline-danger px-3 py-2 me-2 d-none" disabled>
 																<i class="pe-none pe-1 fa-solid fa-ban"></i>
 																<span class="pe-none lang">${
-																	(lang == 0) ? 'Cancelar' : 'Cancel'
+																	Array('Cancelar', 'Cancel')[lang]
 																}</span>
 															</button>
-															<button id="save-_${ result.data[i]['_id'] }" data-id="_${ result.data[i]['_id'] }" data-table="${pkg.search}"
+															<button id="save-_${ result.data[i]._id }" data-id="_${ result.data[i]['_id'] }" data-table="${pkg.search}"
 																class="btn-save btn btn-outline-dark px-3 py-2 d-none" disabled>
 																<i class="pe-none pe-1 fa-solid fa-floppy-disk"></i>
 																<span class="pe-none lang">${
-																	(lang == 0) ? 'Guardar' : 'Save'
+																	Array('Guardar', 'Save')[lang]
 																}</span>
 											</button></div></div></div></div>`
 										)
@@ -656,10 +691,11 @@ const findCollections = (e) => {
 								console.error(error)
 								return showSnack(Array('Error', 'Error')[lang], null, 'error')
 							} finally {
-								
-								if(anchorLength != pkg.limit) { // Change in rows displayed
+								// Change in rows displayed
+								if(anchorLength != pkg.limit || anchorCollection != pkg.search) {
 									// Remove the current rows and show new ones with the new limit 
 									anchorLength = pkg.limit
+									anchorCollection = pkg.search
 									
 									$e('#reg-total').innerHTML = result.count
 									let numPages = result.count/pkg.limit
@@ -714,30 +750,26 @@ const findCollections = (e) => {
 									$e('.num-page[rel="0"]').click()
 								}
 
-								if(anchorCollection != pkg.search) { // Change in collection
-									anchorCollection = pkg.search
-									
-									$a('#collector .dynamic-hint').forEach(node => {
-										node.parentElement.insertAdjacentHTML(
-											'beforeend',
-											'<div class="modal-hint hide mt-1 bg-light rounded-3 shadow-lg position-absolute"></div>'
-										)
-									})
-									eventAssigner('#collector .dynamic-hint', 'focusin', (e) => modalHintDisplay(e, true))
-									eventAssigner('#collector .dynamic-hint', 'focusout', (e) => modalHintDisplay(e, false))
-									eventAssigner('#collector .dynamic-hint', 'keydown', (e) => dynamicHints(e, 'user_info'))
-									eventAssigner('#collector .dynamic-hint', 'change', (e) => dynamicHints(e, 'user_info'))
-			
-									eventUnassigner('.btn-edit', 'click', editInfo)
-									eventUnassigner('.btn-cancel', 'click', cancelInfo)
-									eventUnassigner('.btn-save', 'click', updateInfo)
-									eventUnassigner('input:not(.read-only)', 'change', highlighter)
-			
-									eventAssigner('.btn-edit', 'click', editInfo)
-									eventAssigner('.btn-cancel', 'click', cancelInfo)
-									eventAssigner('.btn-save', 'click', updateInfo)
-									eventAssigner('input:not(.read-only)', 'change', highlighter)
-								}
+								$a('#collector .dynamic-hint').forEach(node => {
+									node.parentElement.insertAdjacentHTML(
+										'beforeend',
+										'<div class="modal-hint hide mt-1 bg-light rounded-3 shadow-lg position-absolute"></div>'
+									)
+								})
+								eventAssigner('#collector .dynamic-hint', 'focusin', (e) => modalHintDisplay(e, true))
+								eventAssigner('#collector .dynamic-hint', 'focusout', (e) => modalHintDisplay(e, false))
+								eventAssigner('#collector .dynamic-hint', 'keydown', (e) => dynamicHints(e, 'user_info'))
+								eventAssigner('#collector .dynamic-hint', 'change', (e) => dynamicHints(e, 'user_info'))
+		
+								eventUnassigner('.btn-edit', 'click', editInfo)
+								eventUnassigner('.btn-cancel', 'click', cancelInfo)
+								eventUnassigner('.btn-save', 'click', updateInfo)
+								eventUnassigner('input:not(.read-only)', 'change', highlighter)
+		
+								eventAssigner('.btn-edit', 'click', editInfo)
+								eventAssigner('.btn-cancel', 'click', cancelInfo)
+								eventAssigner('.btn-save', 'click', updateInfo)
+								eventAssigner('input:not(.read-only)', 'change', highlighter)
 							}
 						}
 					} else {

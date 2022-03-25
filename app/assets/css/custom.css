@@ -1228,6 +1228,11 @@ code {
 	margin: auto;
 }
 
+#button-17 .checkbox:disabled + .knobs span,
+#button-17 .checkbox.read-only + .knobs span {
+	background-color: #9fb3c0;
+}
+
 #button-17 .checkbox:checked + .knobs span {
 	left: 50%;
 	background-color: #F44336;
@@ -1235,6 +1240,11 @@ code {
 
 #button-17 .checkbox:checked ~ .layer {
 	background-color: #fcebeb;
+}
+
+#button-17 .checkbox:disabled ~ .layer,
+#button-17 .checkbox.read-only ~ .layer {
+	background-color: #e9f4f8;
 }
 
 /* File input - https://codepen.io/aaronvanston/pen/dpRZXO */

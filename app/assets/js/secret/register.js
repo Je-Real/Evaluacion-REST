@@ -336,8 +336,6 @@ const register = async() => {
 			} else pkg.data[0][node.name] = node.value
 		}
 		else if(node.tagName.toLowerCase() == 'select') {
-			console.log('selectedIndex')
-			console.log(node.selectedIndex)
 			if(parseInt(node.selectedIndex) == 0 && pass) {
 				pass = false
 				return showSnack(

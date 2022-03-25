@@ -54,15 +54,10 @@
 							<div class="reg-field mb-3 col-md-6 col-12">
 								<div class="form-floating mb-3 mb-md-0">
 									<select class="form-control form-select ps-4 mandatory" name="area" id="area" disabled>
-										<option id="area-def" value="0" class="lang" data-lang="es" selected>
-											- Selecciona área -
-										</option>
-										<option id="area-def" value="0" class="lang" data-lang="en" selected>
-											- Select area -
-										</option>
-										<% /*for(let data in area) { %>
-											<option class="area-opt" value="<%= area[data]['n'] %>"><%= area[data]['desc'] %></option>
-										<% }*/ %>
+										<option id="area-def" value="0" class="lang" data-lang="es" 
+											selected>- Selecciona área -</option>
+										<option id="area-def" value="0" class="lang" data-lang="en"
+											selected>- Select area -</option>
 									</select>
 									<label for="area">
 										<span class="lang" data-lang="es">Área de Adscripción</span>
@@ -74,15 +69,10 @@
 							<div class="reg-field mb-3 col-md-6 col-12">
 								<div class="form-floating mb-3 mb-md-0">
 									<select class="form-control form-select ps-4 mandatory" name="direction" id="direction" disabled>
-										<option id="dir-def" value="0" class="lang" data-lang="es" selected>
-											- Selecciona dirección -
-										</option>
-										<option id="dir-def" value="0" class="lang" data-lang="en" selected>
-											- Select direction -
-										</option>
-										<% /*for(let data in depa) { %>
-											<option class="dir-opt" data-area="<%= depa[data]['area'] %>" value="<%= depa[data]['n'] %>"><%= depa[data]['desc'] %></option>
-										<% }*/ %>
+										<option id="dir-def" value="0" class="lang" data-lang="es"
+											selected>- Selecciona dirección -</option>
+										<option id="dir-def" value="0" class="lang" data-lang="en"
+											selected>- Select direction -</option>
 									</select>
 									<label for="direction">
 										<span class="lang" data-lang="es">Dirección / Subdirección</span>
@@ -96,15 +86,12 @@
 							<div class="reg-field mb-3 col-md-6 col-12">
 								<div class="form-floating">
 									<select class="form-control form-select ps-4 mandatory" name="position" id="position" disabled>
-										<option id="pos-def" value="0" class="lang" data-lang="es" selected>
+										<option id="position-def" value="0" class="lang" data-lang="es" selected>
 											- Selecciona puesto -
 										</option>
-										<option id="pos-def" value="0" class="lang" data-lang="en" selected>
+										<option id="position-def" value="0" class="lang" data-lang="en" selected>
 											- Select position -
 										</option>
-										<% /*for(let data in care) { %>
-											<option class="pos-opt" data-depa="<%= care[data]['department'] %>" value="<%= care[data]['n'] %>"><%= care[data]['desc'] %></option>
-										<% }*/ %>
 									</select>
 									<label for="position">
 										<span class="lang" data-lang="es">Puesto</span>
@@ -117,15 +104,12 @@
 							<div class="reg-field mb-3 col-md-6 col-12">
 								<div class="form-floating">
 									<select class="form-control form-select ps-4 mandatory" name="category" id="category" disabled>
-										<option id="cat-def" value="0" class="lang" data-lang="es" selected>
+										<option id="category-def" value="0" class="lang" data-lang="es" selected>
 											- Selecciona categoría -
 										</option>
-										<option id="cat-def" value="0" class="lang" data-lang="en" selected>
+										<option id="category-def" value="0" class="lang" data-lang="en" selected>
 											- Select category -
 										</option>
-										<option class="cat-opt" value="1">Mando Medio</option>
-										<option class="cat-opt" value="2">Administrativo</option>
-										<option class="cat-opt" value="3">Docente</option>
 									</select>
 									<label for="category">
 										<span class="lang" data-lang="es">Categoría</span>

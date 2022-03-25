@@ -13,6 +13,12 @@ const XLSXPopulate = require('xlsx-populate')
 
 const DATE = new Date()
 
+/**
+ * Register function
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 async function signUp(req, res) {
 	if(!('_id' in req.session)) {
 		res.append('msg', Array(
@@ -123,6 +129,13 @@ async function signUp(req, res) {
 
 		}
 
+		/**
+		 * IDK but this function put the information in
+		 * the excel file in the array order position
+		 * @param {*} data Data
+		 * @param {*} header Header array
+		 * @returns Data sheet
+		 */
 		const getSheetData = (data, header) => {
 			let fields = Object.keys(data[0])
 			let sheetData = data.map((row) => {
@@ -133,6 +146,11 @@ async function signUp(req, res) {
 			sheetData.unshift(header)
 			return sheetData
 		}
+		/**
+		 * Saves the log output as an excel file
+		 * @param {*} log regLog variable
+		 * @returns File buffer
+		 */
 		const saveAsExcel = async(log) => {
 			let header = (lang == 0) // Choose header by language
 				? ['_id', 'name', 'system_user', 'pass', 'information_user', 'error']
@@ -178,10 +196,10 @@ async function signUp(req, res) {
 		 * the result in regLog variable
 		 * @param {String} _id ID
 		 * @param {Number} dataIterator Number in the regLog array
-		 * @param {*} dataUser User data retrieved from a query (name)
+		 * @param {String} name User name retrieved from the query (or model)
 		 * @returns regLog record
 		 */
-		 const createSysUser = async(_id, dataIterator, dataUser) => {
+		 const createSysUser = async(_id, dataIterator, name) => {
 			return await modelUser.findOne({ _id: _id }, { _id: 1 })
 			.then(async(sys_user) => {
 				if(sys_user) {
@@ -226,8 +244,8 @@ async function signUp(req, res) {
 
 						if(!isFile) {
 							res.append('msg', Array(
-								`¡Usuario para ${dataUser.name } creado correctamente!`,
-								`User for ${dataUser.name } created successfully!`
+								`¡Usuario para ${ name } creado correctamente!`,
+								`User for ${ name } created successfully!`
 							)[lang])
 							res.status(200).send(await saveAsExcel(regLog.users))
 						} else if(isFile && data >= (regLog.length-1)) {
@@ -315,7 +333,11 @@ async function signUp(req, res) {
 							: '-1',
 					// blame system™ 😎
 					log: req.body.log
-				}, nextStep = true, errorGetter = null
+				}
+				let nextStep = true,
+					errorGetter = null,
+					newUser = ('new_user' in req.body.data[iterator]),
+					findUser = ('find_user' in req.body.data[iterator])
 
 				/**
 				 * Fuzzy search all the posible data that can be duplicated
@@ -353,8 +375,8 @@ async function signUp(req, res) {
 						}
 
 					if(dataUser) { // If the user exists
-						if('find_user' in req.body.data[iterator]) { // If there is 'find_user'
-							return createSysUser(model._id, i, dataUser) // Create system user
+						if(findUser) { // If there is 'find_user'
+							return createSysUser(model._id, i, model.name) // Create system user
 						} else {
 							regLog.users[i]['error'] = Array(
 								'¡Ya existe información de usuario con ese ID!',
@@ -384,9 +406,9 @@ async function signUp(req, res) {
 							)[lang]
 
 							// And if the employee is a system user
-							if('new_user' in req.body.data[iterator]) {
+							if(newUser) {
 								return createSysUser(model._id, i, dataUser)
-							} else{
+							} else {
 								if(!isFile) {
 									res.append('msg', Array(
 										`¡Información registrada correctamente!`,
@@ -461,59 +483,6 @@ async function signUp(req, res) {
 	})
 }
 
-async function getManager(req, res) {
-	let search
-
-	if(parseInt(req.query.category) == 1) {
-		search = { level: parseInt(req.query.category) }
-	} else if(req.query.direction > 0) {
-		search = {
-			area: parseInt(req.query.area),
-			level: parseInt(req.query.category)
-		}
-	} else if(req.query.position > 0) {
-		search = {
-			area: parseInt(req.query.area),
-			department: parseInt(req.query.direction),
-			level: parseInt(req.query.category)
-		}
-	} else {
-		search = {
-			area: parseInt(req.query.area),
-			department: parseInt(req.query.direction),
-			career: parseInt(req.query.position),
-			level: parseInt(req.query.category)
-		}
-	}
-
-	await modelUserInfo.find(search)
-	.then((data) => { //🟢
-		let info = []
-
-		for(i in data) {
-			info[i] = {
-				_id: data[i]._id,
-				level: data[i].category,
-				name: data[i].name,
-			}
-		}
-
-		return res.json({
-			data: info,
-			status: 200,
-			snack: true
-		})
-	})
-	.catch((error) => { //if error 🤬
-		console.error('Error:',error)
-		return res.json({
-			msg: 'Error en servidor.',
-			status: 500,
-			snack: true
-		})
-	})
-}
-
 async function fuzzySearch(req, res) {
 	await fuzzy({ query: req.body.query, collection: req.body.collection })
 	.then(async(data) => {
@@ -535,7 +504,6 @@ async function fuzzySearch(req, res) {
 }
 
 module.exports = {
-	signUp: signUp,
-	getManager,
+	signUp,
 	fuzzySearch,
 }
