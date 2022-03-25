@@ -2,1013 +2,1012 @@
 <%- include('template/!head.ejs') %>
 
 <body class="sb-nav-fixed">
-    <%- include('template/navbar.ejs') %>
+	<%- include('template/navbar.ejs') %>
 
-    <div id="layoutSidenav">
-    <%- include('template/sidebar.ejs') %>
+	<div id="layoutSidenav">
+	<%- include('template/sidebar.ejs') %>
 
-        <div id="layoutSidenav_content">
-            <div>
-                <div class="container-fluid px-5">
-                    <% if(userData.length > 0) { %>
-                    <div class="dynamic-title vw-80 vw-lg-50">
-                        <h1 class="display-2 text-center py-4">
-                            <span data-lang="es">Evaluación</span>
-                            <span data-lang="en">Evaluation</span>
-                        </h1>
-                    </div>
+		<div id="layoutSidenav_content">
+			<div>
+				<div class="container-fluid px-5">
+					<% if(userData.length > 0) { %>
+					<div class="dynamic-title vw-80 vw-lg-50">
+						<h1 class="display-2 text-center py-4">
+							<span data-lang="es">Evaluación</span>
+							<span data-lang="en">Evaluation</span>
+						</h1>
+					</div>
 
-                    <div class="help-bar bg-light w-100 rounded-3">
-                        <div class="d-flex justify-content-center">
-                            <div class="w-80 w-md-50 text-center d-inline-flex my-2">
-                                <i class="fa-solid ms-auto me-2 my-auto fa-question-circle fa-2x blink"></i>
-                                <p class="fs-5 me-auto ms-2 my-2">
-                                    <span data-lang="es">
-                                        Haz clic sobre uno de los recuadros de abajo para seleccionar a alguien para evaluar su desempeño.
-                                    </span>
-                                    <span data-lang="en">
-                                        Click on one of the boxes below to select someone to evaluate their performance.
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+					<div class="help-bar bg-light w-100 rounded-3">
+						<div class="d-flex justify-content-center">
+							<div class="w-80 w-md-50 text-center d-inline-flex my-2">
+								<i class="fa-solid ms-auto me-2 my-auto fa-question-circle fa-2x blink"></i>
+								<p class="fs-5 me-auto ms-2 my-2">
+									<span data-lang="es">
+										Haz clic sobre uno de los recuadros de abajo para seleccionar a alguien para evaluar su desempeño.
+									</span>
+									<span data-lang="en">
+										Click on one of the boxes below to select someone to evaluate their performance.
+									</span>
+								</p>
+							</div>
+						</div>
+					</div>
 
-                    <div class="container-fluid my-5">
-                        <div id="btnContainer" class="mb-5 text-md-end text-center me-md-5">
-                            <button id="list" class="mx-1 btn btn-view btn-secondary" onclick="listView()">
-                                <i class="fa fa-bars"></i> <span data-lang="es">Lista</span><span data-lang="en">List</span>
-                            </button> 
-                            <button id="card" class="mx-1 btn btn-view btn-on" onclick="cardView()">
-                                <i class="fa fa-th-large"></i> <span data-lang="es">Tarjetas</span><span data-lang="en">Grid</span>
-                            </button>
-                        </div>
-                        <div class="paginator d-flex flex-wrap justify-content-center" data-rows-shown="3, 6, 9, 12">
-                            <% for(let user in userData) { if(userData[user] != null) { %>
-                            <div id="_<%= userData[user]._id %>" data-id="<%= userData[user]._id %>" 
-                                class="container pag-item card card-option w-md-25 mx-2 mb-4 shadow-sm border-0">
-                                <div class="row mode card-mode">
-                                    <div class="card-header border-0 d-flex justify-content-center"></div>
-                                    <div class="card-body px-1">
-                                        <div class="items row text-center">
-                                            <div class="col-lg-6 col-12 px-1">
-                                                <p class="mx-2 mb-1 fs-5 text-card name"
-                                                    data-fname="<%= userData[user].name %>"><%= userData[user].name %></p>
-                                            </div>
-                                            <div class="col-lg-6 col-12 px-1 area">
-                                                <p class="mx-2 mb-1 fs-5 text-card"
-                                                    data-info="<%= userData[user].area %>"><%= userData[user].area %></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <% } } %>
-                        </div>
-                    </div>
+					<div class="container-fluid my-5">
+						<div id="btnContainer" class="mb-5 text-md-end text-center me-md-5">
+							<button id="list" class="mx-1 btn btn-view btn-secondary" onclick="listView()">
+								<i class="fa fa-bars"></i> <span data-lang="es">Lista</span><span data-lang="en">List</span>
+							</button> 
+							<button id="card" class="mx-1 btn btn-view btn-on" onclick="cardView()">
+								<i class="fa fa-th-large"></i> <span data-lang="es">Tarjetas</span><span data-lang="en">Grid</span>
+							</button>
+						</div>
+						<div class="paginator d-flex flex-wrap justify-content-center" data-rows-shown="3">
+							<% for(let user in userData) { if(userData[user] != null) { %>
+							<div id="_<%= userData[user]._id %>" data-id="<%= userData[user]._id %>" 
+								class="container pag-item card card-option w-md-25 mx-2 mb-4 shadow-sm border-0">
+								<div class="row mode card-mode">
+									<div class="card-header border-0 d-flex justify-content-center"></div>
+									<div class="card-body px-1">
+										<div class="items row text-center">
+											<div class="col-2 px-1">
+												<p class="mx-2 mb-1 fs-5 text-card _id text-center"><%= userData[user]._id %></p>
+											</div>
+											<div class="col-10 px-1">
+												<p class="mx-2 mb-1 fs-5 text-card name"
+													data-fname="<%= userData[user].name %>"><%= userData[user].name %></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<% } } %>
+						</div>
+					</div>
 
-                    <div class="help-bar bg-dark text-light w-100 rounded-3">
-                        <div class="d-flex justify-content-center">
-                            <div class="w-80 w-md-50 text-center d-inline-flex my-2">
-                                <i class="fa-solid ms-auto me-2 my-auto fa-info-circle fa-2x blink"></i>
-                                <p class="fs-5 me-auto ms-2 my-2">
-                                    <span data-lang="es">
-                                        <span class="fw-bold me-1">Hey! Aquí un tip:</span> Coloca tu cursor sobre las opciones
-                                        de cada pregunta un momento para saber más acerca de como estas calificando.
-                                    </span>
-                                    <span data-lang="en">
-                                        <span class="fw-bold me-1">Hey, here's a tip:</span> Hover your cursor over the options
-                                        for each question for a moment of each question for a moment to learn more about how you 
-                                        are grading.
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+					<div class="help-bar bg-dark text-light w-100 rounded-3">
+						<div class="d-flex justify-content-center">
+							<div class="w-80 w-md-50 text-center d-inline-flex my-2">
+								<i class="fa-solid ms-auto me-2 my-auto fa-info-circle fa-2x blink"></i>
+								<p class="fs-5 me-auto ms-2 my-2">
+									<span data-lang="es">
+										<span class="fw-bold me-1">Hey! Aquí un tip:</span> Coloca tu cursor sobre las opciones
+										de cada pregunta un momento para saber más acerca de como estas calificando.
+									</span>
+									<span data-lang="en">
+										<span class="fw-bold me-1">Hey, here's a tip:</span> Hover your cursor over the options
+										for each question for a moment of each question for a moment to learn more about how you 
+										are grading.
+									</span>
+								</p>
+							</div>
+						</div>
+					</div>
 
-                    <div class="container-fluid my-4 force-disabled">
-                        <form method="POST" name="f_survey" id="f_survey">                            
-                            <input type="hidden" name="userObj" id="userObj" value="">
+					<div class="container-fluid my-4 force-disabled">
+						<form method="POST" name="f_survey" id="f_survey">                            
+							<input type="hidden" name="userObj" id="userObj" value="">
 
-                            <div class="row table-responsive px-md-3">
-                                <!-- class="table-responsive" -->
-                                <table class="table align-middle border-0 table caption-top flex-table">
-                                    <tr class="border-0 table-header deactivated light" id="P-1">
-                                        <th class="border-0" scope="col">
-                                            <p class="m-0 px-4 text-justify">
-                                                <span class="lang" data-lang="es">I. Cumplimiento de las Funciones Principales de su
-                                                    puesto acorde al perfil</span>
-                                                <span class="lang" data-lang="en">I. Fulfillment of the main functions of the position
-                                                    according to the profile</span>
-                                            </p>
-                                        </th>
-                                        <th class="border-0 flex-th" scope="col">
-                                            <span class="lang" data-lang="es"><p class="m-0">Deficiente</p></span>
-                                            <span class="lang" data-lang="en"><p class="m-0">Bad</p></span>
-                                            
-                                        </th>
-                                        <th class="border-0 flex-th" scope="col">
-                                            <span class="lang" data-lang="es"><p class="m-0">Regular</p></span>
-                                            <span class="lang" data-lang="en"><p class="m-0">Neutral</p></span>
-                                            
-                                        </th>
-                                        <th class="border-0 flex-th" scope="col">
-                                            <span class="lang" data-lang="es"><p class="m-0">Bueno</p></span>
-                                            <span class="lang" data-lang="en"><p class="m-0">Good</p></span>
-                                            
-                                        </th>
-                                        <th class="border-0 flex-th" scope="col">
-                                            <span class="lang" data-lang="es"><p class="m-0">Muy bueno</p></span>
-                                            <span class="lang" data-lang="en"><p class="m-0">Very Good</p></span>
-                                            
-                                        </th>
-                                    </tr>
-                                    <tr class="border-0 table-light">
-                                        <td class="border-0 " scope="row">
-                                            <div class="d-flex">    
-                                                <p class="m-0 px-4 text-justify pe-1">
-                                                    <span class="lang" data-lang="es">1. Funciones principales del puesto</span>
-                                                    <span class="lang" data-lang="en">1. Main functions of the position</span>
-                                                    
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" data-tooltip-es="Tiene conocimiento en las 
-                                                funciones de su puesto, sin embargo, no sabe realizar las acciones necesarias 
-                                                para lograr los resultados esperados. Requiere supervisión permanente debido 
-                                                a sus continuos errores." for="I-1">
-                                                <input type="radio" name="r_1" class="super-sad pe-none" id="I-1" value="1" />
-                                                <i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP"></i>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="I-2">
-                                                <input type="radio" name="r_1" class="sad pe-none" id="I-2" value="2" />
-                                                <i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Sabe todo lo necesario sobre 
-                                                    las funciones de su puesto y realiza algunas de las acciones necesarias sin 
-                                                    embargo no logra los resultados esperados. Necesita frecuentemente supervisión.">
-                                                </i>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="I-3">
-                                                <input type="radio" name="r_1" class="happy pe-none" id="I-3" value="3" />
-                                                <i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Conoce todas las funciones de su 
-                                                puesto y trabaja de manera correcta en cada una de ellas cumpliendo con la mayoría 
-                                                de los resultados esperados."></i>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="I-4">
-                                                <input type="radio" name="r_1" class="super-happy pe-none" id="I-4" value="4" />
-                                                <i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple con todo lo 
-                                                    requerido en las funciones de su puesto logrando los resultados esperados y 
-                                                    además apoya en otras funciones que aun cuando no le corresponden reflejan 
-                                                    una actitud proactiva. La supervisión que necesita solo es en casos 
-                                                    especiales."></i>
-                                            </label>
-                                        </td>
-                                    </tr>
-                                </table>
+							<div class="row table-responsive px-md-3">
+								<!-- class="table-responsive" -->
+								<table class="table align-middle border-0 table caption-top flex-table">
+									<tr class="border-0 table-header deactivated light" id="P-1">
+										<th class="border-0" scope="col">
+											<p class="m-0 px-4 text-justify">
+												<span class="lang" data-lang="es">I. Cumplimiento de las Funciones Principales de su
+													puesto acorde al perfil</span>
+												<span class="lang" data-lang="en">I. Fulfillment of the main functions of the position
+													according to the profile</span>
+											</p>
+										</th>
+										<th class="border-0 flex-th" scope="col">
+											<span class="lang" data-lang="es"><p class="m-0">Deficiente</p></span>
+											<span class="lang" data-lang="en"><p class="m-0">Bad</p></span>
+											
+										</th>
+										<th class="border-0 flex-th" scope="col">
+											<span class="lang" data-lang="es"><p class="m-0">Regular</p></span>
+											<span class="lang" data-lang="en"><p class="m-0">Neutral</p></span>
+											
+										</th>
+										<th class="border-0 flex-th" scope="col">
+											<span class="lang" data-lang="es"><p class="m-0">Bueno</p></span>
+											<span class="lang" data-lang="en"><p class="m-0">Good</p></span>
+											
+										</th>
+										<th class="border-0 flex-th" scope="col">
+											<span class="lang" data-lang="es"><p class="m-0">Muy bueno</p></span>
+											<span class="lang" data-lang="en"><p class="m-0">Very Good</p></span>
+											
+										</th>
+									</tr>
+									<tr class="border-0 table-light">
+										<td class="border-0 " scope="row">
+											<div class="d-flex">    
+												<p class="m-0 px-4 text-justify pe-1">
+													<span class="lang" data-lang="es">1. Funciones principales del puesto</span>
+													<span class="lang" data-lang="en">1. Main functions of the position</span>
+													
+												</p>
+											</div>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" data-tooltip-es="Tiene conocimiento en las 
+												funciones de su puesto, sin embargo, no sabe realizar las acciones necesarias 
+												para lograr los resultados esperados. Requiere supervisión permanente debido 
+												a sus continuos errores." for="I-1">
+												<input type="radio" name="r_1" class="super-sad pe-none" id="I-1" value="1" />
+												<i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP"></i>
+											</label>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="I-2">
+												<input type="radio" name="r_1" class="sad pe-none" id="I-2" value="2" />
+												<i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Sabe todo lo necesario sobre 
+													las funciones de su puesto y realiza algunas de las acciones necesarias sin 
+													embargo no logra los resultados esperados. Necesita frecuentemente supervisión.">
+												</i>
+											</label>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="I-3">
+												<input type="radio" name="r_1" class="happy pe-none" id="I-3" value="3" />
+												<i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Conoce todas las funciones de su 
+												puesto y trabaja de manera correcta en cada una de ellas cumpliendo con la mayoría 
+												de los resultados esperados."></i>
+											</label>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="I-4">
+												<input type="radio" name="r_1" class="super-happy pe-none" id="I-4" value="4" />
+												<i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple con todo lo 
+													requerido en las funciones de su puesto logrando los resultados esperados y 
+													además apoya en otras funciones que aun cuando no le corresponden reflejan 
+													una actitud proactiva. La supervisión que necesita solo es en casos 
+													especiales."></i>
+											</label>
+										</td>
+									</tr>
+								</table>
 
-                                <table class="table align-middle border-0 table caption-top flex-table">
-                                    <tr class="border-0 table-header deactivated light" id="P-2">
-                                        <th class="border-0" scope="col">
-                                            <div class="">
-                                                <p class="m-0 px-4 text-justify">
-                                                    <span class="lang" data-lang="es">II. Grado de Cumplimiento en las competencias y/o
-                                                        habilidades definidas en el perfil de puestos</span>
-                                                    <span class="lang" data-lang="en">II. Degree of compliance with the competencies
-                                                        and/or skills defined in the skills defined in the job profile</span>
-                                                    
-                                                </p>
-                                            </div>
-                                        </th>
-                                        <th class="border-0" scope="col"></th>
-                                        <th class="border-0" scope="col"></th>
-                                        <th class="border-0" scope="col"></th>
-                                        <th class="border-0" scope="col"></th>
-                                    </tr>
-                                    <tr class="border-0 table-light">
-                                        <td class="border-0" scope="row">
-                                            <div class="d-flex">
-                                                <p class="m-0 px-4 text-justify pe-1">
-                                                    <span class="lang" data-lang="es">2. Competencias y/o habilidades</span>
-                                                    <span class="lang" data-lang="en">2. Competencies and/or skills</span>
-                                                    
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="II-1">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_2" class="super-sad pe-none" id="II-1" value="1" />
-                                                    <i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="No cuenta con las 
-                                                        competencias y/o habilidades que se requieren en el puesto. Es urgente que 
-                                                        se le ayude a desarrollar la competencia requerida a través de la capacitación.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="II-2">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_2" class="sad pe-none" id="II-2" value="2" />
-                                                    <i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cuenta con algunas de las competencias 
-                                                        y/o habilidades requeridas para su puesto sin embargo necesita capacitación en dos 
-                                                        o más areas para que pueda lograr los resultados esperados."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="II-3">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_2" class="happy pe-none" id="II-3" value="3" />
-                                                    <i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cuenta con las competencias 
-                                                        necesarias y adecuadas para desarrollar las funciones de su puesto. La capacitación 
-                                                        que requiere solo es para mejorar el cumplimiento de los resultados.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="II-4">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_2" class="super-happy pe-none" id="II-4" value="4" />
-                                                    <i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple con todas las competencias
-                                                        y habilidades requeridos en su puesto lo cual lo lleva a lograr de manera satisfactoria 
-                                                        los resultados esperados. La capacitación que requiere servirá solo como actualización e 
-                                                        implementación de la mejora continua."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                    </tr>
-                                </table>
+								<table class="table align-middle border-0 table caption-top flex-table">
+									<tr class="border-0 table-header deactivated light" id="P-2">
+										<th class="border-0" scope="col">
+											<div class="">
+												<p class="m-0 px-4 text-justify">
+													<span class="lang" data-lang="es">II. Grado de Cumplimiento en las competencias y/o
+														habilidades definidas en el perfil de puestos</span>
+													<span class="lang" data-lang="en">II. Degree of compliance with the competencies
+														and/or skills defined in the skills defined in the job profile</span>
+													
+												</p>
+											</div>
+										</th>
+										<th class="border-0" scope="col"></th>
+										<th class="border-0" scope="col"></th>
+										<th class="border-0" scope="col"></th>
+										<th class="border-0" scope="col"></th>
+									</tr>
+									<tr class="border-0 table-light">
+										<td class="border-0" scope="row">
+											<div class="d-flex">
+												<p class="m-0 px-4 text-justify pe-1">
+													<span class="lang" data-lang="es">2. Competencias y/o habilidades</span>
+													<span class="lang" data-lang="en">2. Competencies and/or skills</span>
+													
+												</p>
+											</div>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="II-1">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_2" class="super-sad pe-none" id="II-1" value="1" />
+													<i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="No cuenta con las 
+														competencias y/o habilidades que se requieren en el puesto. Es urgente que 
+														se le ayude a desarrollar la competencia requerida a través de la capacitación.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="II-2">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_2" class="sad pe-none" id="II-2" value="2" />
+													<i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cuenta con algunas de las competencias 
+														y/o habilidades requeridas para su puesto sin embargo necesita capacitación en dos 
+														o más areas para que pueda lograr los resultados esperados."></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="II-3">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_2" class="happy pe-none" id="II-3" value="3" />
+													<i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cuenta con las competencias 
+														necesarias y adecuadas para desarrollar las funciones de su puesto. La capacitación 
+														que requiere solo es para mejorar el cumplimiento de los resultados.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="II-4">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_2" class="super-happy pe-none" id="II-4" value="4" />
+													<i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple con todas las competencias
+														y habilidades requeridos en su puesto lo cual lo lleva a lograr de manera satisfactoria 
+														los resultados esperados. La capacitación que requiere servirá solo como actualización e 
+														implementación de la mejora continua."></i>
+												</div>
+											</label>
+										</td>
+									</tr>
+								</table>
 
-                                <table class="table align-middle border-0 table caption-top flex-table">
-                                    <tr class="border-0 table-header deactivated light" id="P-3">
-                                        <th class="border-0" scope="col">
-                                            <p class="m-0 px-4 text-justify">
-                                                <span class="lang" data-lang="es">III. Grado de Cumplimiento y/o Participación en las
-                                                    líneas de acción establecidas en el POA de cada año</span>
-                                                <span class="lang" data-lang="en">III. Degree of Compliance and/or Participation in the
-                                                    lines of action established in the AOP for each year.</span>
-                                            </p>
-                                        </th>
-                                        <th class="border-0" scope="col"></th>
-                                        <th class="border-0" scope="col"></th>
-                                        <th class="border-0" scope="col"></th>
-                                        <th class="border-0" scope="col"></th>
-                                    </tr>
-                                    <tr class="border-0 table-light">
-                                        <td class="border-0" scope="row">
-                                            <div class="d-flex">
-                                                <p class="m-0 px-4 text-justify pe-1">
-                                                    <span class="lang" data-lang="es">3. Líneas de acción de participación directa
-                                                        o indirecta del POA</span>
-                                                    <span class="lang" data-lang="en">3. Lines of action of direct or indirect
-                                                        participation or indirect participation of the POA</span>
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="III-1">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_3" class="super-sad pe-none" id="III-1" value="1" />
-                                                    <i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="No cumple con las funciones que le 
-                                                        corresponde para el logro de la acción establecida en el POA">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="III-2">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_3" class="sad pe-none" id="III-2" value="2" />
-                                                    <i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Contribuye realizando de manera eficaz 
-                                                        algunas actividades que llevan al cumplimiento de la acción establecida en el POA sin 
-                                                        embargo estas no son suficientes para el grado de cumplimiento esperado.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="III-3">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_3" class="happy pe-none" id="III-3" value="3" />
-                                                    <i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Contribuye realizando de manera eficaz 
-                                                        algunas actividades que llevan al cumplimiento de la acción establecida en el POA sin 
-                                                        embargo estas no son suficientes para el grado de cumplimiento esperado.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="III-4">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_3" class="super-happy pe-none" id="III-4" value="4" />
-                                                    <i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Las funciones que realiza contribuyen
-                                                        de manera clara y satisfactoria según lo establecido en las líneas de acción del POA">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                    </tr>
-                                </table>
+								<table class="table align-middle border-0 table caption-top flex-table">
+									<tr class="border-0 table-header deactivated light" id="P-3">
+										<th class="border-0" scope="col">
+											<p class="m-0 px-4 text-justify">
+												<span class="lang" data-lang="es">III. Grado de Cumplimiento y/o Participación en las
+													líneas de acción establecidas en el POA de cada año</span>
+												<span class="lang" data-lang="en">III. Degree of Compliance and/or Participation in the
+													lines of action established in the AOP for each year.</span>
+											</p>
+										</th>
+										<th class="border-0" scope="col"></th>
+										<th class="border-0" scope="col"></th>
+										<th class="border-0" scope="col"></th>
+										<th class="border-0" scope="col"></th>
+									</tr>
+									<tr class="border-0 table-light">
+										<td class="border-0" scope="row">
+											<div class="d-flex">
+												<p class="m-0 px-4 text-justify pe-1">
+													<span class="lang" data-lang="es">3. Líneas de acción de participación directa
+														o indirecta del POA</span>
+													<span class="lang" data-lang="en">3. Lines of action of direct or indirect
+														participation or indirect participation of the POA</span>
+												</p>
+											</div>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="III-1">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_3" class="super-sad pe-none" id="III-1" value="1" />
+													<i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="No cumple con las funciones que le 
+														corresponde para el logro de la acción establecida en el POA">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="III-2">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_3" class="sad pe-none" id="III-2" value="2" />
+													<i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Contribuye realizando de manera eficaz 
+														algunas actividades que llevan al cumplimiento de la acción establecida en el POA sin 
+														embargo estas no son suficientes para el grado de cumplimiento esperado.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="III-3">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_3" class="happy pe-none" id="III-3" value="3" />
+													<i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Contribuye realizando de manera eficaz 
+														algunas actividades que llevan al cumplimiento de la acción establecida en el POA sin 
+														embargo estas no son suficientes para el grado de cumplimiento esperado.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="III-4">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_3" class="super-happy pe-none" id="III-4" value="4" />
+													<i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Las funciones que realiza contribuyen
+														de manera clara y satisfactoria según lo establecido en las líneas de acción del POA">
+													</i>
+												</div>
+											</label>
+										</td>
+									</tr>
+								</table>
 
-                                <table class="table align-middle border-0 table caption-top flex-table">
-                                    <tr class="border-0 table-header deactivated light" id="P-4">
-                                        <th class="border-0" scope="col">
-                                            <div class="">
-                                                <p class="m-0 px-4 text-justify">
-                                                    <span class="lang" data-lang="es">IV. Grado de Cumplimiento en los indicadores
-                                                        establecidos en el SGC</span>
-                                                    <span class="lang" data-lang="en">IV. Degree of Compliance with the indicators
-                                                        established in the SGC</span>
-                                                    
-                                                </p>
-                                            </div>
-                                        </th>
-                                        <th class="border-0" scope="col"></th>
-                                        <th class="border-0" scope="col"></th>
-                                        <th class="border-0" scope="col"></th>
-                                        <th class="border-0" scope="col"></th>
-                                    </tr>
-                                    <tr class="border-0 table-light">
-                                        <td class="border-0" scope="row">
-                                            <div class="d-flex">
-                                                <p class="m-0 px-4 text-justify pe-1">
-                                                    <span class="lang" data-lang="es">4. Indicadores del SGC con participación
-                                                        directa o indirecta</span>
-                                                    <span class="lang" data-lang="en">4. QMS indicators with direct or indirect
-                                                        direct or indirect</span>
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="IV-1">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_4" class="super-sad pe-none" id="IV-1" value="1" />
-                                                    <i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="No cumple con las funciones que le 
-                                                        corresponden lo que se ve reflejado en el incumplimiento de los indicadores del SGC.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="IV-2">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_4" class="sad pe-none" id="IV-2" value="2" />
-                                                    <i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Aun cuando contribuye realizando algunas 
-                                                        actividades estas no son lo suficientemente eficaces para que se llegue al cumplimiento 
-                                                        de los indicadores del SGC.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="IV-3">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_4" class="happy pe-none" id="IV-3" value="3" />
-                                                    <i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Las funciones que realiza son eficaces y 
-                                                        contribuyen al cumplimiento de los indicadores del SGC.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="IV-4">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_4" class="super-happy pe-none" id="IV-4" value="4" />
-                                                    <i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Las funciones que realiza se consideran 
-                                                        eficaces y cumple de manera satisfactoria con lo establecido en los indicadores del SGC. Se 
-                                                        encuentra preparado para aportar funciones que lleven a la mejora continua.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                    </tr>
-                                </table>
+								<table class="table align-middle border-0 table caption-top flex-table">
+									<tr class="border-0 table-header deactivated light" id="P-4">
+										<th class="border-0" scope="col">
+											<div class="">
+												<p class="m-0 px-4 text-justify">
+													<span class="lang" data-lang="es">IV. Grado de Cumplimiento en los indicadores
+														establecidos en el SGC</span>
+													<span class="lang" data-lang="en">IV. Degree of Compliance with the indicators
+														established in the SGC</span>
+													
+												</p>
+											</div>
+										</th>
+										<th class="border-0" scope="col"></th>
+										<th class="border-0" scope="col"></th>
+										<th class="border-0" scope="col"></th>
+										<th class="border-0" scope="col"></th>
+									</tr>
+									<tr class="border-0 table-light">
+										<td class="border-0" scope="row">
+											<div class="d-flex">
+												<p class="m-0 px-4 text-justify pe-1">
+													<span class="lang" data-lang="es">4. Indicadores del SGC con participación
+														directa o indirecta</span>
+													<span class="lang" data-lang="en">4. QMS indicators with direct or indirect
+														direct or indirect</span>
+												</p>
+											</div>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="IV-1">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_4" class="super-sad pe-none" id="IV-1" value="1" />
+													<i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="No cumple con las funciones que le 
+														corresponden lo que se ve reflejado en el incumplimiento de los indicadores del SGC.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="IV-2">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_4" class="sad pe-none" id="IV-2" value="2" />
+													<i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Aun cuando contribuye realizando algunas 
+														actividades estas no son lo suficientemente eficaces para que se llegue al cumplimiento 
+														de los indicadores del SGC.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="IV-3">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_4" class="happy pe-none" id="IV-3" value="3" />
+													<i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Las funciones que realiza son eficaces y 
+														contribuyen al cumplimiento de los indicadores del SGC.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="IV-4">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_4" class="super-happy pe-none" id="IV-4" value="4" />
+													<i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Las funciones que realiza se consideran 
+														eficaces y cumple de manera satisfactoria con lo establecido en los indicadores del SGC. Se 
+														encuentra preparado para aportar funciones que lleven a la mejora continua.">
+													</i>
+												</div>
+											</label>
+										</td>
+									</tr>
+								</table>
 
-                                <table class="table align-middle border-0 table caption-top flex-table">
-                                    <tr class="border-0 table-header deactivated light" id="P-5">
-                                        <th class="border-0" scope="col">
-                                            <div class="">
-                                                <p class="m-0 px-4 text-justify">
-                                                    <span class="lang" data-lang="es">V. Grado de cumplimiento con la normativa
-                                                        establecida</span>
-                                                    <span class="lang" data-lang="en">V. Degree of compliance with established
-                                                        regulations established</span>
-                                                </p>
-                                            </div>
-                                        </th>
-                                        <th class="border-0" scope="col"></th>
-                                        <th class="border-0" scope="col"></th>
-                                        <th class="border-0" scope="col"></th>
-                                        <th class="border-0" scope="col"></th>
-                                    </tr>
-                                    <tr class="border-0 table-light">
-                                        <td class="border-0 border-bottom" scope="row">
-                                            <div class="d-flex">
-                                                <p class="m-0 px-4 text-justify pe-1">
-                                                    <span class="lang" data-lang="es">5. Gestión de permisos para inasistencias,
-                                                    retardos, días económicos, vacaciones, etc. en tiempo y forma</span>
-                                                    <span class="lang" data-lang="en">5. Management of leaves for absences, tardiness,
-                                                        economic days, vacations, etc, economic days, vacations, etc.
-                                                        in due time and form.</span>
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="V-1">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_5" class="super-sad pe-none" id="V-1" value="1" />
-                                                    <i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="No cumple con la normatividad.
-                                                        En reiteradas ocasiones se ha llegado a amonestar."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="V-2">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_5" class="sad pe-none" id="V-2" value="2" />
-                                                    <i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Aun cuando su incumplimiento a la 
-                                                        normatividad no es total tiene muchos aspectos en los cuales mejorar."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="V-3">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_5" class="happy pe-none" id="V-3" value="3" />
-                                                    <i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple de manera satisfactoria con 
-                                                        la normatividad. Puede mejorar algún aspecto"></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="V-4">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_5" class="super-happy pe-none" id="V-4" value="4" />
-                                                    <i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple totalmente con la 
-                                                        normatividad aplicable. Se puede considerar un empleado ejemplar."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                    </tr>
+								<table class="table align-middle border-0 table caption-top flex-table">
+									<tr class="border-0 table-header deactivated light" id="P-5">
+										<th class="border-0" scope="col">
+											<div class="">
+												<p class="m-0 px-4 text-justify">
+													<span class="lang" data-lang="es">V. Grado de cumplimiento con la normativa
+														establecida</span>
+													<span class="lang" data-lang="en">V. Degree of compliance with established
+														regulations established</span>
+												</p>
+											</div>
+										</th>
+										<th class="border-0" scope="col"></th>
+										<th class="border-0" scope="col"></th>
+										<th class="border-0" scope="col"></th>
+										<th class="border-0" scope="col"></th>
+									</tr>
+									<tr class="border-0 table-light">
+										<td class="border-0 border-bottom" scope="row">
+											<div class="d-flex">
+												<p class="m-0 px-4 text-justify pe-1">
+													<span class="lang" data-lang="es">5. Gestión de permisos para inasistencias,
+													retardos, días económicos, vacaciones, etc. en tiempo y forma</span>
+													<span class="lang" data-lang="en">5. Management of leaves for absences, tardiness,
+														economic days, vacations, etc, economic days, vacations, etc.
+														in due time and form.</span>
+												</p>
+											</div>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="V-1">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_5" class="super-sad pe-none" id="V-1" value="1" />
+													<i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="No cumple con la normatividad.
+														En reiteradas ocasiones se ha llegado a amonestar."></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="V-2">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_5" class="sad pe-none" id="V-2" value="2" />
+													<i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Aun cuando su incumplimiento a la 
+														normatividad no es total tiene muchos aspectos en los cuales mejorar."></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="V-3">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_5" class="happy pe-none" id="V-3" value="3" />
+													<i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple de manera satisfactoria con 
+														la normatividad. Puede mejorar algún aspecto"></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="V-4">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_5" class="super-happy pe-none" id="V-4" value="4" />
+													<i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple totalmente con la 
+														normatividad aplicable. Se puede considerar un empleado ejemplar."></i>
+												</div>
+											</label>
+										</td>
+									</tr>
 
-                                    <tr class="border-0 table-light">
-                                        <td class="border-0 border-bottom" scope="row">
-                                            <div class="d-flex">
-                                                <p class="m-0 px-4 text-justify pe-1">
-                                                    <span class="lang" data-lang="es">6. Vestimenta según la normativa establecida</span>
-                                                    <span class="lang" data-lang="en">6. Dress according to the established regulations</span>                                                    
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="VI-1">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_6" class="super-sad pe-none" id="VI-1" value="1" />
-                                                    <i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="No cumple con la normatividad.
-                                                        En reiteradas ocasiones se ha llegado a amonestar."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="VI-2">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_6" class="sad pe-none" id="VI-2" value="2" />
-                                                    <i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Aun cuando su incumplimiento a la 
-                                                        normatividad no es total tiene muchos aspectos en los cuales mejorar."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="VI-3">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_6" class="happy pe-none" id="VI-3" value="3" />
-                                                    <i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple de manera satisfactoria con 
-                                                        la normatividad. Puede mejorar algún aspecto"></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="VI-4">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_6" class="super-happy pe-none" id="VI-4" value="4" />
-                                                    <i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple totalmente con la 
-                                                        normatividad aplicable. Se puede considerar un empleado ejemplar."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                    </tr>
+									<tr class="border-0 table-light">
+										<td class="border-0 border-bottom" scope="row">
+											<div class="d-flex">
+												<p class="m-0 px-4 text-justify pe-1">
+													<span class="lang" data-lang="es">6. Vestimenta según la normativa establecida</span>
+													<span class="lang" data-lang="en">6. Dress according to the established regulations</span>                                                    
+												</p>
+											</div>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="VI-1">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_6" class="super-sad pe-none" id="VI-1" value="1" />
+													<i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="No cumple con la normatividad.
+														En reiteradas ocasiones se ha llegado a amonestar."></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="VI-2">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_6" class="sad pe-none" id="VI-2" value="2" />
+													<i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Aun cuando su incumplimiento a la 
+														normatividad no es total tiene muchos aspectos en los cuales mejorar."></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="VI-3">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_6" class="happy pe-none" id="VI-3" value="3" />
+													<i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple de manera satisfactoria con 
+														la normatividad. Puede mejorar algún aspecto"></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="VI-4">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_6" class="super-happy pe-none" id="VI-4" value="4" />
+													<i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple totalmente con la 
+														normatividad aplicable. Se puede considerar un empleado ejemplar."></i>
+												</div>
+											</label>
+										</td>
+									</tr>
 
-                                    <tr class="border-0 table-light">
-                                        <td class="border-0 border-bottom" scope="row">
-                                            <div class="d-flex">
-                                                <p class="m-0 px-4 text-justify pe-1">
-                                                    <span class="lang" data-lang="es">7. Participación activa en la capacitación a
-                                                        la que se le invita</span>
-                                                    <span class="lang" data-lang="en">7. Active participation in the training to
-                                                        which you are you are invited to</span>
-                                                    
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="VII-1">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_7" class="super-sad pe-none" id="VII-1" value="1" />
-                                                    <i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="No cumple con la normatividad.
-                                                        En reiteradas ocasiones se ha llegado a amonestar."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="VII-2">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_7" class="sad pe-none" id="VII-2" value="2" />
-                                                    <i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Aun cuando su incumplimiento a la 
-                                                        normatividad no es total tiene muchos aspectos en los cuales mejorar."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="VII-3">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_7" class="happy pe-none" id="VII-3" value="3" />
-                                                    <i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple de manera satisfactoria con 
-                                                        la normatividad. Puede mejorar algún aspecto"></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="VII-4">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_7" class="super-happy pe-none" id="VII-4" value="4" />
-                                                    <i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple totalmente con la 
-                                                        normatividad aplicable. Se puede considerar un empleado ejemplar."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    <tr class="border-0 table-light">
-                                        <td class="border-0 border-bottom" scope="row">
-                                            <div class="d-flex">
-                                                <p class="m-0 px-4 text-justify pe-1">
-                                                    <span class="lang" data-lang="es">8. Cumplimiento de los reglamentos aplicables</span>
-                                                    <span class="lang" data-lang="en">8. Compliance with applicable regulations</span>
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="VIII-1">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_8" class="super-sad pe-none" id="VIII-1" value="1" />
-                                                    <i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="No cumple con la normatividad.
-                                                        En reiteradas ocasiones se ha llegado a amonestar."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="VIII-2">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_8" class="sad pe-none" id="VIII-2" value="2" />
-                                                    <i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Aun cuando su incumplimiento a la 
-                                                        normatividad no es total tiene muchos aspectos en los cuales mejorar."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="VIII-3">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_8" class="happy pe-none" id="VIII-3" value="3" />
-                                                    <i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple de manera satisfactoria con 
-                                                        la normatividad. Puede mejorar algún aspecto"></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="VIII-4">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_8" class="super-happy pe-none" id="VIII-4" value="4" />
-                                                    <i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple totalmente con la 
-                                                        normatividad aplicable. Se puede considerar un empleado ejemplar."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                    </tr>
-                                </table>
+									<tr class="border-0 table-light">
+										<td class="border-0 border-bottom" scope="row">
+											<div class="d-flex">
+												<p class="m-0 px-4 text-justify pe-1">
+													<span class="lang" data-lang="es">7. Participación activa en la capacitación a
+														la que se le invita</span>
+													<span class="lang" data-lang="en">7. Active participation in the training to
+														which you are you are invited to</span>
+													
+												</p>
+											</div>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="VII-1">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_7" class="super-sad pe-none" id="VII-1" value="1" />
+													<i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="No cumple con la normatividad.
+														En reiteradas ocasiones se ha llegado a amonestar."></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="VII-2">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_7" class="sad pe-none" id="VII-2" value="2" />
+													<i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Aun cuando su incumplimiento a la 
+														normatividad no es total tiene muchos aspectos en los cuales mejorar."></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="VII-3">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_7" class="happy pe-none" id="VII-3" value="3" />
+													<i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple de manera satisfactoria con 
+														la normatividad. Puede mejorar algún aspecto"></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="VII-4">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_7" class="super-happy pe-none" id="VII-4" value="4" />
+													<i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple totalmente con la 
+														normatividad aplicable. Se puede considerar un empleado ejemplar."></i>
+												</div>
+											</label>
+										</td>
+									</tr>
+									<tr class="border-0 table-light">
+										<td class="border-0 border-bottom" scope="row">
+											<div class="d-flex">
+												<p class="m-0 px-4 text-justify pe-1">
+													<span class="lang" data-lang="es">8. Cumplimiento de los reglamentos aplicables</span>
+													<span class="lang" data-lang="en">8. Compliance with applicable regulations</span>
+												</p>
+											</div>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="VIII-1">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_8" class="super-sad pe-none" id="VIII-1" value="1" />
+													<i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="No cumple con la normatividad.
+														En reiteradas ocasiones se ha llegado a amonestar."></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="VIII-2">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_8" class="sad pe-none" id="VIII-2" value="2" />
+													<i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Aun cuando su incumplimiento a la 
+														normatividad no es total tiene muchos aspectos en los cuales mejorar."></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="VIII-3">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_8" class="happy pe-none" id="VIII-3" value="3" />
+													<i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple de manera satisfactoria con 
+														la normatividad. Puede mejorar algún aspecto"></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="VIII-4">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_8" class="super-happy pe-none" id="VIII-4" value="4" />
+													<i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Cumple totalmente con la 
+														normatividad aplicable. Se puede considerar un empleado ejemplar."></i>
+												</div>
+											</label>
+										</td>
+									</tr>
+								</table>
 
-                                <table class="table align-middle border-0 table caption-top flex-table">
-                                    <tr class="border-0 table-header deactivated light" id="P-6">
-                                        <th class="border-0" scope="col">
-                                            <div class="">
-                                                <p class="m-0 px-4 text-justify">
-                                                    <span class="lang" data-lang="es">VI. Grado de participación en los
-                                                        proyectos institucionales</span>
-                                                    <span class="lang" data-lang="en">VI. Degree of participation in
-                                                        institutional institutional projects</span>
-                                                    
-                                                </p>
-                                            </div>
-                                        </th>
-                                        <th class="border-0" scope="col"></th>
-                                        <th class="border-0" scope="col"></th>
-                                        <th class="border-0" scope="col"></th>
-                                        <th class="border-0" scope="col"></th>
-                                    </tr>
+								<table class="table align-middle border-0 table caption-top flex-table">
+									<tr class="border-0 table-header deactivated light" id="P-6">
+										<th class="border-0" scope="col">
+											<div class="">
+												<p class="m-0 px-4 text-justify">
+													<span class="lang" data-lang="es">VI. Grado de participación en los
+														proyectos institucionales</span>
+													<span class="lang" data-lang="en">VI. Degree of participation in
+														institutional institutional projects</span>
+													
+												</p>
+											</div>
+										</th>
+										<th class="border-0" scope="col"></th>
+										<th class="border-0" scope="col"></th>
+										<th class="border-0" scope="col"></th>
+										<th class="border-0" scope="col"></th>
+									</tr>
 
-                                    <tr class="border-0 table-light">
-                                        <td class="border-0 border-bottom" scope="row">
-                                            <div class="d-flex">
-                                                <p class="m-0 px-4 text-justify pe-1">
-                                                    <span class="lang" data-lang="es">9. Participación en actividades que se
-                                                        realizan en su dirección que coadyuvan a cumplir objetivos institucionales</span>
-                                                    <span class="lang" data-lang="en">9. Participation in activities that are activities
-                                                        that contribute to the achievement of institutional objectives.</span>
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="IX-1">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_9" class="super-sad pe-none" id="IX-1" value="1" />
-                                                    <i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="No muestra ningún interés 
-                                                        ni participación activa en algún proyecto institucional."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="IX-2">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_9" class="sad pe-none" id="IX-2" value="2" />
-                                                    <i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Realiza pocas funciones que 
-                                                        contribuyen a algún proyecto institucional sin embargo no se puede considerar 
-                                                        una participación activa y comprometida."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="IX-3">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_9" class="happy pe-none" id="IX-3" value="3" />
-                                                    <i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Tiene una participación 
-                                                        satisfactoria y comprometida en proyectos institucionales"></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="IX-4">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_9" class="super-happy pe-none" id="IX-4" value="4" />
-                                                    <i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Participa de manera 
-                                                        activa y comprometida en los proyectos institucionales que le son encomendados. 
-                                                        Además tiene la creatividad para generar nuevos proyectos."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    <tr class="border-0 table-light">
-                                        <td class="border-0" scope="row">
-                                            <div class="d-flex">
-                                                <p class="m-0 px-4 text-justify pe-1">
-                                                    <span class="lang" data-lang="es">10. Participación en actividades y/o eventos
-                                                        que salen de su función pero que contribuyen al quehacer institucional. 
-                                                        (participación en comités, capacitaciones, organización de eventos,
-                                                        nombramientos especiales, etc.)</span>
-                                                    <span class="lang" data-lang="en">10. Participation in activities and/or events
-                                                        that are outside their function but that contribute to the (participation
-                                                        in committees, training, organization of committees, training, organization
-                                                        of events, special events, special appointments, etc.)</span>
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="X-1">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_10" class="super-sad pe-none" id="X-1" value="1" />
-                                                    <i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="No muestra ningún interés 
-                                                        ni participación activa en algún proyecto institucional."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="X-2">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_10" class="sad pe-none" id="X-2" value="2" />
-                                                    <i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Realiza pocas funciones que 
-                                                        contribuyen a algún proyecto institucional sin embargo no se puede considerar 
-                                                        una participación activa y comprometida."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="X-3">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_10" class="happy pe-none" id="X-3" value="3" />
-                                                    <i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Tiene una participación 
-                                                        satisfactoria y comprometida en proyectos institucionales"></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="X-4">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_10" class="super-happy pe-none" id="X-4" value="4" />
-                                                    <i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Participa de manera 
-                                                        activa y comprometida en los proyectos institucionales que le son encomendados. 
-                                                        Además tiene la creatividad para generar nuevos proyectos."></i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                                <table class="table align-middle border-0 table caption-top flex-table">
-                                    <tr class="border-0 table-header deactivated light" id="P-7">
-                                        <th class="border-0" scope="col">
-                                            <div class="">
-                                                <p class="m-0 px-4 text-justify">
-                                                    <span class="lang" data-lang="es">VII. Actitud</span>
-                                                    <span class="lang" data-lang="en">VII. Attitude</span>
-                                                </p>
-                                            </div>
-                                        </th>
-                                        <th class="border-0" scope="col"></th>
-                                        <th class="border-0" scope="col"></th>
-                                        <th class="border-0" scope="col"></th>
-                                        <th class="border-0" scope="col"></th>
-                                    </tr>
+									<tr class="border-0 table-light">
+										<td class="border-0 border-bottom" scope="row">
+											<div class="d-flex">
+												<p class="m-0 px-4 text-justify pe-1">
+													<span class="lang" data-lang="es">9. Participación en actividades que se
+														realizan en su dirección que coadyuvan a cumplir objetivos institucionales</span>
+													<span class="lang" data-lang="en">9. Participation in activities that are activities
+														that contribute to the achievement of institutional objectives.</span>
+												</p>
+											</div>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="IX-1">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_9" class="super-sad pe-none" id="IX-1" value="1" />
+													<i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="No muestra ningún interés 
+														ni participación activa en algún proyecto institucional."></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="IX-2">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_9" class="sad pe-none" id="IX-2" value="2" />
+													<i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Realiza pocas funciones que 
+														contribuyen a algún proyecto institucional sin embargo no se puede considerar 
+														una participación activa y comprometida."></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="IX-3">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_9" class="happy pe-none" id="IX-3" value="3" />
+													<i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Tiene una participación 
+														satisfactoria y comprometida en proyectos institucionales"></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="IX-4">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_9" class="super-happy pe-none" id="IX-4" value="4" />
+													<i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Participa de manera 
+														activa y comprometida en los proyectos institucionales que le son encomendados. 
+														Además tiene la creatividad para generar nuevos proyectos."></i>
+												</div>
+											</label>
+										</td>
+									</tr>
+									<tr class="border-0 table-light">
+										<td class="border-0" scope="row">
+											<div class="d-flex">
+												<p class="m-0 px-4 text-justify pe-1">
+													<span class="lang" data-lang="es">10. Participación en actividades y/o eventos
+														que salen de su función pero que contribuyen al quehacer institucional. 
+														(participación en comités, capacitaciones, organización de eventos,
+														nombramientos especiales, etc.)</span>
+													<span class="lang" data-lang="en">10. Participation in activities and/or events
+														that are outside their function but that contribute to the (participation
+														in committees, training, organization of committees, training, organization
+														of events, special events, special appointments, etc.)</span>
+												</p>
+											</div>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="X-1">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_10" class="super-sad pe-none" id="X-1" value="1" />
+													<i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="No muestra ningún interés 
+														ni participación activa en algún proyecto institucional."></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="X-2">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_10" class="sad pe-none" id="X-2" value="2" />
+													<i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Realiza pocas funciones que 
+														contribuyen a algún proyecto institucional sin embargo no se puede considerar 
+														una participación activa y comprometida."></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="X-3">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_10" class="happy pe-none" id="X-3" value="3" />
+													<i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Tiene una participación 
+														satisfactoria y comprometida en proyectos institucionales"></i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="X-4">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_10" class="super-happy pe-none" id="X-4" value="4" />
+													<i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Participa de manera 
+														activa y comprometida en los proyectos institucionales que le son encomendados. 
+														Además tiene la creatividad para generar nuevos proyectos."></i>
+												</div>
+											</label>
+										</td>
+									</tr>
+								</table>
+								
+								<table class="table align-middle border-0 table caption-top flex-table">
+									<tr class="border-0 table-header deactivated light" id="P-7">
+										<th class="border-0" scope="col">
+											<div class="">
+												<p class="m-0 px-4 text-justify">
+													<span class="lang" data-lang="es">VII. Actitud</span>
+													<span class="lang" data-lang="en">VII. Attitude</span>
+												</p>
+											</div>
+										</th>
+										<th class="border-0" scope="col"></th>
+										<th class="border-0" scope="col"></th>
+										<th class="border-0" scope="col"></th>
+										<th class="border-0" scope="col"></th>
+									</tr>
 
-                                    <tr class="border-0 table-light">
-                                        <td class="border-bottom" scope="row">
-                                            <div class="d-flex">
-                                                <p class="m-0 px-4 text-justify pe-1">
-                                                    <span class="lang" data-lang="es">11. Calidad en el servicio que brinda a personas internas o externas a la universidad</span>
-                                                    <span class="lang" data-lang="en">11. Quality in the service provided to people inside or outside the university</span>
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="XI-1">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_11" class="super-sad pe-none" id="XI-1" value="1" />
-                                                    <i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Muestra descontento ante su 
-                                                        labor diaria, ante los eventos que se generan en su área y/o en la institución, 
-                                                        utiliza frecuentemente la crítica negativamente a su centro de trabajo.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="XI-2">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_11" class="sad pe-none" id="XI-2" value="2" />
-                                                    <i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="La mayor parte del tiempo muestra 
-                                                        indiferencia y nulo interés en su labor diaria y/o en los eventos que se generan en 
-                                                        su área y en la institución.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="XI-3">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_11" class="happy pe-none" id="XI-3" value="3" />
-                                                    <i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Se muestra entusiasta y se preocupa en 
-                                                        cumplir con sus funciones y con los eventos que se generan. Se preocupa y contribuye en 
-                                                        el prestigio de la institución.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="XI-4">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_11" class="super-happy pe-none" id="XI-4" value="4" />
-                                                    <i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Se esfuerza por cumplir los estándares 
-                                                        en su labor diaria su actitud es claramente proactiva en beneficio total de su área y de 
-                                                        la institución.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                    </tr>
+									<tr class="border-0 table-light">
+										<td class="border-bottom" scope="row">
+											<div class="d-flex">
+												<p class="m-0 px-4 text-justify pe-1">
+													<span class="lang" data-lang="es">11. Calidad en el servicio que brinda a personas internas o externas a la universidad</span>
+													<span class="lang" data-lang="en">11. Quality in the service provided to people inside or outside the university</span>
+												</p>
+											</div>
+										</td>
+										<td class="border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="XI-1">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_11" class="super-sad pe-none" id="XI-1" value="1" />
+													<i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Muestra descontento ante su 
+														labor diaria, ante los eventos que se generan en su área y/o en la institución, 
+														utiliza frecuentemente la crítica negativamente a su centro de trabajo.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="XI-2">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_11" class="sad pe-none" id="XI-2" value="2" />
+													<i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="La mayor parte del tiempo muestra 
+														indiferencia y nulo interés en su labor diaria y/o en los eventos que se generan en 
+														su área y en la institución.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="XI-3">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_11" class="happy pe-none" id="XI-3" value="3" />
+													<i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Se muestra entusiasta y se preocupa en 
+														cumplir con sus funciones y con los eventos que se generan. Se preocupa y contribuye en 
+														el prestigio de la institución.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="XI-4">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_11" class="super-happy pe-none" id="XI-4" value="4" />
+													<i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Se esfuerza por cumplir los estándares 
+														en su labor diaria su actitud es claramente proactiva en beneficio total de su área y de 
+														la institución.">
+													</i>
+												</div>
+											</label>
+										</td>
+									</tr>
 
-                                    <tr class="border-0 table-light">
-                                        <td class="border-bottom" scope="row">
-                                            <div class="d-flex">
-                                                <p class="m-0 px-4 text-justify pe-1">
-                                                    <span class="lang" data-lang="es">12. Trabajo en equipo con los demás integrantes de su dirección</span>
-                                                    <span class="lang" data-lang="en">12. Teamwork with other members of your management team</span>
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="XII-1">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_12" class="super-sad pe-none" id="XII-1" value="1" />
-                                                    <i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Muestra descontento ante su 
-                                                        labor diaria, ante los eventos que se generan en su área y/o en la institución, 
-                                                        utiliza frecuentemente la crítica negativamente a su centro de trabajo.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="XII-2">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_12" class="sad pe-none" id="XII-2" value="2" />
-                                                    <i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="La mayor parte del tiempo muestra 
-                                                        indiferencia y nulo interés en su labor diaria y/o en los eventos que se generan en 
-                                                        su área y en la institución.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="XII-3">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_12" class="happy pe-none" id="XII-3" value="3" />
-                                                    <i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Se muestra entusiasta y se preocupa en 
-                                                        cumplir con sus funciones y con los eventos que se generan. Se preocupa y contribuye en 
-                                                        el prestigio de la institución.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="XII-4">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_12" class="super-happy pe-none" id="XII-4" value="4" />
-                                                    <i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Se esfuerza por cumplir los estándares 
-                                                        en su labor diaria su actitud es claramente proactiva en beneficio total de su área y de 
-                                                        la institución.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                    </tr>
+									<tr class="border-0 table-light">
+										<td class="border-bottom" scope="row">
+											<div class="d-flex">
+												<p class="m-0 px-4 text-justify pe-1">
+													<span class="lang" data-lang="es">12. Trabajo en equipo con los demás integrantes de su dirección</span>
+													<span class="lang" data-lang="en">12. Teamwork with other members of your management team</span>
+												</p>
+											</div>
+										</td>
+										<td class="border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="XII-1">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_12" class="super-sad pe-none" id="XII-1" value="1" />
+													<i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Muestra descontento ante su 
+														labor diaria, ante los eventos que se generan en su área y/o en la institución, 
+														utiliza frecuentemente la crítica negativamente a su centro de trabajo.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="XII-2">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_12" class="sad pe-none" id="XII-2" value="2" />
+													<i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="La mayor parte del tiempo muestra 
+														indiferencia y nulo interés en su labor diaria y/o en los eventos que se generan en 
+														su área y en la institución.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="XII-3">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_12" class="happy pe-none" id="XII-3" value="3" />
+													<i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Se muestra entusiasta y se preocupa en 
+														cumplir con sus funciones y con los eventos que se generan. Se preocupa y contribuye en 
+														el prestigio de la institución.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="XII-4">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_12" class="super-happy pe-none" id="XII-4" value="4" />
+													<i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Se esfuerza por cumplir los estándares 
+														en su labor diaria su actitud es claramente proactiva en beneficio total de su área y de 
+														la institución.">
+													</i>
+												</div>
+											</label>
+										</td>
+									</tr>
 
-                                    <tr class="border-0 table-light">    
-                                        <td class="border-bottom" scope="row">
-                                            <div class="d-flex">
-                                                <p class="m-0 px-4 text-justify pe-1">
-                                                    <span class="lang" data-lang="es">13. Grado de apoyo que manifiesta ante situaciones laborales no previstas</span>
-                                                    <span class="lang" data-lang="en">13. Degree of support expressed for unforeseen work situations</span>
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="XIII-1">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_13" class="super-sad pe-none" id="XIII-1" value="1" />
-                                                    <i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Muestra descontento ante su 
-                                                        labor diaria, ante los eventos que se generan en su área y/o en la institución, 
-                                                        utiliza frecuentemente la crítica negativamente a su centro de trabajo.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="XIII-2">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_13" class="sad pe-none" id="XIII-2" value="2" />
-                                                    <i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="La mayor parte del tiempo muestra 
-                                                        indiferencia y nulo interés en su labor diaria y/o en los eventos que se generan en 
-                                                        su área y en la institución.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="XIII-3">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_13" class="happy pe-none" id="XIII-3" value="3" />
-                                                    <i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Se muestra entusiasta y se preocupa en 
-                                                        cumplir con sus funciones y con los eventos que se generan. Se preocupa y contribuye en 
-                                                        el prestigio de la institución.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-bottom flex-td">
-                                            <label class="m-0 tooltip-text" for="XIII-4">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_13" class="super-happy pe-none" id="XIII-4" value="4" />
-                                                    <i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Se esfuerza por cumplir los estándares 
-                                                        en su labor diaria su actitud es claramente proactiva en beneficio total de su área y de 
-                                                        la institución.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                    </tr>
+									<tr class="border-0 table-light">    
+										<td class="border-bottom" scope="row">
+											<div class="d-flex">
+												<p class="m-0 px-4 text-justify pe-1">
+													<span class="lang" data-lang="es">13. Grado de apoyo que manifiesta ante situaciones laborales no previstas</span>
+													<span class="lang" data-lang="en">13. Degree of support expressed for unforeseen work situations</span>
+												</p>
+											</div>
+										</td>
+										<td class="border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="XIII-1">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_13" class="super-sad pe-none" id="XIII-1" value="1" />
+													<i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Muestra descontento ante su 
+														labor diaria, ante los eventos que se generan en su área y/o en la institución, 
+														utiliza frecuentemente la crítica negativamente a su centro de trabajo.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="XIII-2">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_13" class="sad pe-none" id="XIII-2" value="2" />
+													<i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="La mayor parte del tiempo muestra 
+														indiferencia y nulo interés en su labor diaria y/o en los eventos que se generan en 
+														su área y en la institución.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="XIII-3">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_13" class="happy pe-none" id="XIII-3" value="3" />
+													<i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Se muestra entusiasta y se preocupa en 
+														cumplir con sus funciones y con los eventos que se generan. Se preocupa y contribuye en 
+														el prestigio de la institución.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-bottom flex-td">
+											<label class="m-0 tooltip-text" for="XIII-4">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_13" class="super-happy pe-none" id="XIII-4" value="4" />
+													<i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Se esfuerza por cumplir los estándares 
+														en su labor diaria su actitud es claramente proactiva en beneficio total de su área y de 
+														la institución.">
+													</i>
+												</div>
+											</label>
+										</td>
+									</tr>
 
-                                    <tr class="border-0 table-light">    
-                                        <td class="border-0" scope="row">
-                                            <div class="d-flex">
-                                                <p class="m-0 px-4 text-justify pe-1">
-                                                    <span class="lang" data-lang="es">14. Satisfacción que manifiesta al hacer su trabajo</span>
-                                                    <span class="lang" data-lang="en">14. Satisfaction expressed in doing your job</span>
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="XIV-1">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_14" class="super-sad pe-none" id="XIV-1" value="1" />
-                                                    <i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Muestra descontento ante su 
-                                                        labor diaria, ante los eventos que se generan en su área y/o en la institución, 
-                                                        utiliza frecuentemente la crítica negativamente a su centro de trabajo.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="XIV-2">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_14" class="sad pe-none" id="XIV-2" value="2" />
-                                                    <i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="La mayor parte del tiempo muestra 
-                                                        indiferencia y nulo interés en su labor diaria y/o en los eventos que se generan en 
-                                                        su área y en la institución.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="XIV-3">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_14" class="happy pe-none" id="XIV-3" value="3" />
-                                                    <i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Se muestra entusiasta y se preocupa en 
-                                                        cumplir con sus funciones y con los eventos que se generan. Se preocupa y contribuye en 
-                                                        el prestigio de la institución.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="border-0 flex-td">
-                                            <label class="m-0 tooltip-text" for="XIV-4">
-                                                <div class="tooltip-tb radio">
-                                                    <input type="radio" name="r_14" class="super-happy pe-none" id="XIV-4" value="4" />
-                                                    <i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Se esfuerza por cumplir los estándares 
-                                                        en su labor diaria su actitud es claramente proactiva en beneficio total de su área y de 
-                                                        la institución.">
-                                                    </i>
-                                                </div>
-                                            </label>
-                                        </td>
-                                    </tr>
-                                </table>
+									<tr class="border-0 table-light">    
+										<td class="border-0" scope="row">
+											<div class="d-flex">
+												<p class="m-0 px-4 text-justify pe-1">
+													<span class="lang" data-lang="es">14. Satisfacción que manifiesta al hacer su trabajo</span>
+													<span class="lang" data-lang="en">14. Satisfaction expressed in doing your job</span>
+												</p>
+											</div>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="XIV-1">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_14" class="super-sad pe-none" id="XIV-1" value="1" />
+													<i class="far fa-sad-tear fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Muestra descontento ante su 
+														labor diaria, ante los eventos que se generan en su área y/o en la institución, 
+														utiliza frecuentemente la crítica negativamente a su centro de trabajo.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="XIV-2">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_14" class="sad pe-none" id="XIV-2" value="2" />
+													<i class="far fa-meh fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="La mayor parte del tiempo muestra 
+														indiferencia y nulo interés en su labor diaria y/o en los eventos que se generan en 
+														su área y en la institución.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="XIV-3">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_14" class="happy pe-none" id="XIV-3" value="3" />
+													<i class="far fa-smile fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Se muestra entusiasta y se preocupa en 
+														cumplir con sus funciones y con los eventos que se generan. Se preocupa y contribuye en 
+														el prestigio de la institución.">
+													</i>
+												</div>
+											</label>
+										</td>
+										<td class="border-0 flex-td">
+											<label class="m-0 tooltip-text" for="XIV-4">
+												<div class="tooltip-tb radio">
+													<input type="radio" name="r_14" class="super-happy pe-none" id="XIV-4" value="4" />
+													<i class="far fa-laugh-beam fa-3x MOVE-TXT-TOOLTIP" data-tooltip-es="Se esfuerza por cumplir los estándares 
+														en su labor diaria su actitud es claramente proactiva en beneficio total de su área y de 
+														la institución.">
+													</i>
+												</div>
+											</label>
+										</td>
+									</tr>
+								</table>
 
-                                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                                    <button id="btn-send" class="btn btn-success btn-lg mx-auto" type="button">
-                                        <span class="lang" data-lang="es">Enviar</span>
-                                        <span class="lang" data-lang="en">Send</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <% } else { %>
-                    <div class="my-e-void d-flex flex-nowrap justify-content-center">
-                        <div class="container">
-                            <div class="row">
-                                <h1 class="fs-1 text-center text-ghost">
-                                    <span class="lang" data-lang="es">No hay nadie para evaluar</span>
-                                    <span class="lang" data-lang="en">There is nobody to evaluate</span>
-                                </h1>
-                            </div>
-                            <div class="row my-3">
-                                <div class="text-center">
-                                    <i class="fa-solid fa-search f-vScreen-15 my-3 text-black-15"></i>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <p class="fs-4 px-5 text-center text-black-50">
-                                    <span class="lang" data-lang="es">Si crees que tienes un problema con esta pagina contacta con el administrador</span>
-                                    <span class="lang" data-lang="en">If you think you have a problem with this page contact the administrator</span>
-                                </p>
-                            </div>
+								<div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+									<button id="btn-send" class="btn btn-success btn-lg mx-auto" type="button">
+										<span class="lang" data-lang="es">Enviar</span>
+										<span class="lang" data-lang="en">Send</span>
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<% } else { %>
+					<div class="my-e-void d-flex flex-nowrap justify-content-center">
+						<div class="container">
+							<div class="row">
+								<h1 class="fs-1 text-center text-ghost">
+									<span class="lang" data-lang="es">No hay nadie para evaluar</span>
+									<span class="lang" data-lang="en">There is nobody to evaluate</span>
+								</h1>
+							</div>
+							<div class="row my-3">
+								<div class="text-center">
+									<i class="fa-solid fa-search f-vScreen-15 my-3 text-black-15"></i>
+								</div>
+							</div>
+							<div class="row">
+								<p class="fs-4 px-5 text-center text-black-50">
+									<span class="lang" data-lang="es">Si crees que tienes un problema con esta pagina contacta con el administrador</span>
+									<span class="lang" data-lang="en">If you think you have a problem with this page contact the administrator</span>
+								</p>
+							</div>
 
-                        </div>
-                    </div>
-                    <% } %>
-                </div>
-            </div>
-        </div>
-    </div>
+						</div>
+					</div>
+					<% } %>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
-    <%- include('template/!scripts.ejs') %>
-    <script src="/js/evaluation.js"></script>
-    <script src="/js/page-inator.js"></script>
+	<%- include('template/!scripts.ejs') %>
+	<script src="/js/evaluation.js"></script>
+	<script src="/js/page-inator.js"></script>
 </body>
 
 </html>
 <% } else { %>
-    <%- include('template/!handler.ejs') %>
+	<%- include('template/!handler.ejs') %>
 <% } %>

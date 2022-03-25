@@ -1,6 +1,6 @@
 {
   "name": "utna-evaluation",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Api Rest del grupo 9B",
   "main": "server.js",
   "scripts": {

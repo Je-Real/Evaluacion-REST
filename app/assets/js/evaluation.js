@@ -53,7 +53,7 @@ window.addEventListener('load', async(e) => {
                 default:
                     console.error('Not found a value for the following element:')
                     console.error(tgt)
-                    break;
+                    break
             }
         }
 
