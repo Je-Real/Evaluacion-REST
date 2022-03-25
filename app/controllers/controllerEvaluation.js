@@ -184,7 +184,7 @@ async function post(req, res) {
 
 	await modelUserInfo.findOne(
 		{ _id: req.body._id },
-		{ _id: true, area: true, direction: true, manager: true }
+		{ _id: true, area: true, direction: true, position: true, manager: true }
 	)
 	.then(async(dataUInfo) => { //🟢
 		if(dataUInfo) {
@@ -218,6 +218,7 @@ async function post(req, res) {
 						answers: answers,
 						area: dataUInfo.area,
 						direction: dataUInfo.direction,
+						position: dataUInfo.position,
 						manager: dataUInfo.manager
 					}
 					

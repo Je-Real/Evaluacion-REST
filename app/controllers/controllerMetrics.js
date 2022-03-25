@@ -23,8 +23,7 @@ async function root(req, res) {
 				.catch((error) => { console.error(error) })
 			directions = await modelDirection.find({}) // Get all directions in DB
 				.catch((error) => { console.error(error) })
-		}
-		else {
+		} else {
 			areas = await modelUserInfo.aggregate([
 				{
 					$match: {
@@ -129,6 +128,12 @@ async function root(req, res) {
 	}
 }
 
+/**
+ * Individual reports (Metrics on cards)
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 function getOne(req, res) {
 	if(!('_id' in req.session)) {
 		return res.json({
@@ -306,7 +311,7 @@ function getOne(req, res) {
 	.catch((error) => { //🔴
 		console.error(error)
 		return res.status(404).json({
-			msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldra bien.',
+			msg: 'Algo salio mal. Contacta con el administrador',
 			status: 404,
 			snack: true,
 			notiType: 'error',
@@ -315,6 +320,13 @@ function getOne(req, res) {
 	})
 }
 
+/**
+ * For bar chart (Not used since there are a 
+ * lot of areas, directions, etc)
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 async function getAll(req, res) {
 	if(!('_id' in req.session)) {
 		return res.json({
@@ -393,13 +405,12 @@ async function getAll(req, res) {
 	]
 
 	/* 	We need the data like this:
-
 		[{
 			total: 90.5 		(Number)
 			length: 5			(Number)
 			description:[		(Array)
-				"ES Languaje",	(String)
-				"EN Languaje"	(String)
+				"ES Language",	(String)
+				"EN Language"	(String)
 			]
 
 		},
@@ -441,6 +452,12 @@ async function getAll(req, res) {
 		.catch(error => { console.error(error); failure() })
 }
 
+/**
+ * Generate the output report (PDF)
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 async function printer(req, res) {
 	if(!('_id' in req.session)) {
 		return res.json({
@@ -453,7 +470,73 @@ async function printer(req, res) {
 		})
 	}
 
-	const lang = req.session.lang
+	// test for print  e v e r y t h i n g
+	if('all' in req.body) {
+		modelEvaluation.aggregate([
+			{
+				'$match': {
+					'records.area': 1
+				}
+			}, {
+				'$unwind': {
+					'path': '$records'
+				}
+			}, {
+				'$match': {
+					'records.year': 2022
+				}
+			}, {
+				'$lookup': {
+					'from': 'positions', 
+					'pipeline': [
+						{
+							'$unset': [
+								'_id', '__v', 'log'
+							]
+						}, {
+							'$unwind': '$description'
+						}
+					], 
+					'localField': 'records.position', 
+					'foreignField': '_id', 
+					'as': 'records.position'
+				}
+			}, {
+				'$lookup': {
+					'from': 'areas', 
+					'pipeline': [
+						{
+							'$unset': [
+								'_id', '__v', 'log'
+							]
+						}, {
+							'$unwind': '$description'
+						}
+					], 
+					'localField': 'records.area', 
+					'foreignField': '_id', 
+					'as': 'records.area'
+				}
+			}, {
+				'$lookup': {
+					'from': 'directions', 
+					'pipeline': [
+						{
+							'$unset': [
+								'_id', '__v', 'log'
+							]
+						}, {
+							'$unwind': '$description'
+						}
+					], 
+					'localField': 'records.direction', 
+					'foreignField': '_id', 
+					'as': 'records.direction'
+				}
+			}
+		])
+	}
+
 	const DATA = await req.body
 	const FORMAT_DATE = `${ DATE.getFullYear() }-`+
 		`${ (String(DATE.getMonth()+1).length == 1) ? '0'+(DATE.getMonth()+1) : DATE.getMonth()+1 }-`+
@@ -479,17 +562,18 @@ async function printer(req, res) {
 		hTable.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm })
 			.text(`${DATE.getDate()}/${DATE.getMonth()+1}/${CURRENT_YEAR}`, {textAlign: 'right'})
 
-		if('poly' in req.body) {
+		/* For bar chart (Not used since there are a lot of areas, directions, etc)
+		if('bars' in req.body) {
 			const theRecords = {
-				past: await getAll({body:{search:DATA.barSearch, FORCE_YEAR_TO:parseInt(CURRENT_YEAR)-1}}, undefined),
-				curr: await getAll({body:{search:DATA.barSearch, FORCE_YEAR_TO:CURRENT_YEAR}}, undefined)
+				past: await getAll({body:{search:DATA.barsSearch, FORCE_YEAR_TO:parseInt(CURRENT_YEAR)-1}}, undefined),
+				curr: await getAll({body:{search:DATA.barsSearch, FORCE_YEAR_TO:CURRENT_YEAR}}, undefined)
 			}
 
-			const polyJPEG = await sharp(new Buffer.from(DATA.poly, 'base64')).resize({height: 400})
+			const barsJPEG = await sharp(new Buffer.from(DATA.bars, 'base64')).resize({height: 400})
 			.flatten({ background: '#ffffff' }).jpeg().toBuffer()
 
 			// --------------------------- Comparison graph page --------------------------- //
-			const img = new pdf.Image(polyJPEG)
+			const img = new pdf.Image(barsJPEG)
 			doc.cell({ paddingTop: 0.4*pdf.cm, paddingBottom: 0.5*pdf.cm }).text({ textAlign: 'center', fontSize: 14 })
 				.add(`Comparación de areas (${parseInt(CURRENT_YEAR)-1} - ${parseInt(CURRENT_YEAR)})`)
 			doc.cell({ paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm }).image(img, { height: 7.5*pdf.cm, align: 'center'})
@@ -502,7 +586,7 @@ async function printer(req, res) {
 			})
 			const tHeader = tableC.header()
 			tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 10})
-				.text({ textAlign: 'center', fontSize: 10 }).add(DATA.barSearch)
+				.text({ textAlign: 'center', fontSize: 10 }).add(DATA.barsSearch)
 			tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 5, paddingBottom: 5})
 				.text({ textAlign: 'center', fontSize: 10 }).add(`Porcentaje (${parseInt(CURRENT_YEAR)-1})`)
 			tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 5, paddingBottom: 5})
@@ -523,9 +607,10 @@ async function printer(req, res) {
 
 			doc.pageBreak()
 		}
+		*/
 
+		// --------------------------- Individual Metrics page --------------------------- //
 		if('mono' in req.body) {
-			// --------------------------- Individual Metrics page --------------------------- //
 			const tableM = doc.table({
 				widths: [null, null],
 				borderWidth: 0,

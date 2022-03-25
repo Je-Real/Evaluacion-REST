@@ -377,7 +377,7 @@ const monoMetrics = async() => { // All the individual graphs
 
 	return metrics
 }
-const polyMetrics = async() => { // The bar graph
+const barsMetrics = async() => { // The bar graph
 	let canvasGetter = $e('#bars canvas')
 	return canvasGetter.toDataURL().split(',')[1]
 }
@@ -391,15 +391,15 @@ const generatePDF = async(mode = '') => {
 			case 'all':
 				pkg = {
 					barSearch: barSearch,
-					poly: await polyMetrics(),
+					bars: await barsMetrics(),
 					mono: await monoMetrics(),
 				}
 				break
 
-			case 'poly':
+			case 'bars':
 				pkg = {
 					barSearch: barSearch,
-					poly: await polyMetrics(),
+					bars: await barsMetrics(),
 				}
 				break
 
