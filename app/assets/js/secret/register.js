@@ -246,7 +246,7 @@ const readUrl = (input) => {
 				filename = files[0].name
 
 			extension = filename.substring(filename.lastIndexOf('.')).toUpperCase()
-			if (extension == '.XLS' || extension == '.XLSX') {
+			if(extension == '.XLS' || extension == '.XLSX') {
 				excelToJSON(files[0])
 				.then((result) => {
 					if(result) {
@@ -263,12 +263,11 @@ const readUrl = (input) => {
 					)
 				})
 			}
-			else
-				return showSnack(
-					(lang == 0) ?'Por favor, selecciona un archivo de excel valido'
-					:'Please select a valid excel file',
-					null, 'error'
-				)
+			else return showSnack(
+				(lang == 0) ?'Por favor, selecciona un archivo de excel valido'
+				:'Please select a valid excel file',
+				null, 'error'
+			)
 		}
 		reader.onerror = (e) => { console.error(e) }
 		reader.readAsDataURL(input.files[0])

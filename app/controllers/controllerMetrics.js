@@ -5,6 +5,7 @@ const modelDirection = require('../models/modelDirection')
 
 const sharp = require('sharp')
 const pdf = require('pdfjs')
+const XLSXPopulate = require('xlsx-populate')
 
 const DATE = new Date()
 const CURRENT_YEAR = DATE.getFullYear()
@@ -130,9 +131,9 @@ async function root(req, res) {
 
 /**
  * Individual reports (Metrics on cards)
- * @param {*} req 
- * @param {*} res 
- * @returns 
+ * @param {*} req
+ * @param {*} res
+ * @returns
  */
 function getOne(req, res) {
 	if(!('_id' in req.session)) {
@@ -177,11 +178,10 @@ function getOne(req, res) {
 		search['records.manager'] = req.session._id
 		filter['records.manager'] = req.session._id
 	}
-	
+
 	modelEvaluation.aggregate([
+		{ $match: search },
 		{
-			$match: search
-		}, {
 			$unwind: {
 				path: '$records',
 				preserveNullAndEmptyArrays: true
@@ -248,7 +248,7 @@ function getOne(req, res) {
 			finalAverage = parseFloat((finalAverage / divideBy).toFixed(2))
 
 			// If an area or direction is requested, then get the employees of the search
-			if(req.body._id == null || req.body._id == undefined) {
+			if((req.body._id == null || req.body._id == undefined) && req.session.super) {
 				search = {}
 
 				if('_id' in req.body) {
@@ -258,18 +258,18 @@ function getOne(req, res) {
 					search.area = req.body.area
 				else if('direction' in req.body)
 					search.direction = req.body.direction
-				
+
 				search.manager = req.session._id
 
 				await modelUserInfo.aggregate([
 					{ '$match': search }, {
 						'$lookup': {
-							'from': 'positions', 
+							'from': 'positions',
 							'pipeline': [
 								{ '$unset': ['_id', '__v'] }
-							], 
-							'localField': 'position', 
-							'foreignField': '_id', 
+							],
+							'localField': 'position',
+							'foreignField': '_id',
 							'as': 'position'
 						}
 					}, {
@@ -321,11 +321,11 @@ function getOne(req, res) {
 }
 
 /**
- * For bar chart (Not used since there are a 
+ * For bar chart (Not used since there are a
  * lot of areas, directions, etc)
- * @param {*} req 
- * @param {*} res 
- * @returns 
+ * @param {*} req
+ * @param {*} res
+ * @returns
  */
 async function getAll(req, res) {
 	if(!('_id' in req.session)) {
@@ -454,9 +454,9 @@ async function getAll(req, res) {
 
 /**
  * Generate the output report (PDF)
- * @param {*} req 
- * @param {*} res 
- * @returns 
+ * @param {*} req
+ * @param {*} res
+ * @returns
  */
 async function printer(req, res) {
 	if(!('_id' in req.session)) {
@@ -470,88 +470,297 @@ async function printer(req, res) {
 		})
 	}
 
-	// test for print  e v e r y t h i n g
-	if('all' in req.body) {
-		modelEvaluation.aggregate([
-			{
-				'$match': {
-					'records.area': 1
-				}
-			}, {
-				'$unwind': {
-					'path': '$records'
-				}
-			}, {
-				'$match': {
-					'records.year': 2022
-				}
-			}, {
-				'$lookup': {
-					'from': 'positions', 
-					'pipeline': [
-						{
-							'$unset': [
-								'_id', '__v', 'log'
-							]
-						}, {
-							'$unwind': '$description'
-						}
-					], 
-					'localField': 'records.position', 
-					'foreignField': '_id', 
-					'as': 'records.position'
-				}
-			}, {
-				'$lookup': {
-					'from': 'areas', 
-					'pipeline': [
-						{
-							'$unset': [
-								'_id', '__v', 'log'
-							]
-						}, {
-							'$unwind': '$description'
-						}
-					], 
-					'localField': 'records.area', 
-					'foreignField': '_id', 
-					'as': 'records.area'
-				}
-			}, {
-				'$lookup': {
-					'from': 'directions', 
-					'pipeline': [
-						{
-							'$unset': [
-								'_id', '__v', 'log'
-							]
-						}, {
-							'$unwind': '$description'
-						}
-					], 
-					'localField': 'records.direction', 
-					'foreignField': '_id', 
-					'as': 'records.direction'
-				}
-			}
-		])
-	}
-
 	const DATA = await req.body
 	const FORMAT_DATE = `${ DATE.getFullYear() }-`+
 		`${ (String(DATE.getMonth()+1).length == 1) ? '0'+(DATE.getMonth()+1) : DATE.getMonth()+1 }-`+
 		`${ (String(DATE.getDate()).length == 1) ? '0'+(DATE.getDate()) : DATE.getDate() }`
+
+	// test for print  e v e r y t h i n g
+	if('all' in DATA) {
+		res.append('msg', Array( // MSG will change if it reaches some states
+			`Documento generado correctamente. Descargando ahora.`,
+			`Document generated successfully. Downloading now.`
+		)[req.session.lang])
+
+		const getEvaluations = async(match) => {
+			try {
+				return await modelEvaluation.aggregate([
+					{
+						$match: match
+					}, {
+						$unwind: { path: '$records' }
+					}, {
+						$match: { 'records.year': CURRENT_YEAR }
+					}, {
+						$replaceRoot: {
+							newRoot: {
+								'_id': '$_id',
+								'year': '$records.year',
+								'score': { $cond: [
+										  // If disable is not null (if exists)
+										  { $eq: ['$records.disabled', true] },
+										  0, // user disabled
+										  '$records.score' // user with an evaluation already done
+									]},
+								'position': '$records.position'
+							}
+						}
+					}, {
+						$lookup: {
+							from: 'positions',
+							pipeline: [
+								{ '$unset': [ '_id', '__v', 'log' ] },
+								{ '$unwind': '$description' }
+							],
+							localField: 'position',
+							foreignField: '_id',
+							as: 'position'
+						}
+					}
+				])
+			} catch (error) {
+				throw error
+			}
+		}
+
+		const posSelector = Array('Puesto', 'Position')[req.session.lang]
+		const dirSelector = Array('Dirección', 'Direction')[req.session.lang]
+		const avgSelector = Array('Promedio', 'Average')[req.session.lang]
+
+		/**
+		 * IDK but this function put the information in
+		 * the excel file in the array order position
+		 * @param {*} data Data
+		 * @param {*} header Header array
+		 * @returns Data sheet
+		 */
+		const getSheetData = (data, header) => {
+			let fields = Object.keys(data[0])
+			let sheetData = data.map((row) => {
+				return fields.map((fieldName) => {
+					return (String(row[fieldName]).length != 0) ? row[fieldName] : ''
+				})
+			})
+			sheetData.unshift(header)
+			return sheetData
+		}
+
+		let directionsSheet = [],
+			transactionDir
+
+		for(let dir in DATA.all.directions) {
+			if(!(DATA.all.directions[dir]._id)) { // No id direction
+				console.error({
+					Error: 'No data in '+DATA.all.directions[dir].description,
+					Data: DATA.all.directions[dir]
+				})
+				res.append('msg', Array(
+					`No se recibieron algunos datos para búsqueda de métricas. Contacta con el administrador.`,
+					`Some data were not received for metrics search. Contact the administrator.`
+				)[req.session.lang])
+			}
+			let match = {
+				'records.direction': DATA.all.directions[dir]._id
+			}
+
+			transactionDir = await getEvaluations(match)
+			.then(employees => {
+				/* Data expected
+					[
+						{
+							_id: '0000',
+							year: 2000,
+							score: 99.99,
+							position: ['Puesto', 'Position']
+						}, {...}
+					]
+				*/
+
+				if(employees.length) {
+					let divideBy = 0
+					let directionAvg = 0
+					
+					employees.forEach((employee) => { // Sum all scores
+						if(employee.score > 0) {
+							directionAvg += employee.score
+							divideBy++
+						}
+					})
+
+					directionAvg = (directionAvg == undefined) ? 0 : parseFloat((directionAvg / divideBy).toFixed(2))
+
+					let push = {}
+					push[dirSelector] = DATA.all.directions[dir].description
+					push[avgSelector] = directionAvg
+
+					directionsSheet.push(push)
+					return true
+				} else return false
+			})
+			.catch(error => {
+				console.error(error)
+				res.append('error', error)
+				res.append('msg', Array(
+					`Ocurrió un error en búsqueda de métricas. Contacta con el administrador.`,
+					`An error occurred in metrics search. Contact the administrator.`
+				)[req.session.lang])
+				res.append('snack', 'true')
+				res.status(500).end()
+				return false
+			})
+		}
+
+		let areasSheet = [],
+			transactionArea
+
+		for(let area in DATA.all.areas) {
+			if(!(DATA.all.areas[area]._id)) { // No id direction
+				console.error({
+					Error: 'No data in '+DATA.all.areas[area].description,
+					Data: DATA.all.areas[area]
+				})
+				res.append('msg', Array(
+					`No se recibieron algunos datos para búsqueda de métricas. Contacta con el administrador.`,
+					`Some data were not received for metrics search. Contact the administrator.`
+				)[req.session.lang])
+			}
+			let match = {
+				'records.manager': DATA.all.areas[area]._id
+			}
+
+			transactionArea = await getEvaluations(match)
+			.then(employees => {
+				/* Data expected
+					[
+						{
+							_id: '0000',
+							year: 2000,
+							score: 99.99,
+							position: [
+								{ description: 'Puesto' },
+								{ description: 'Position' },
+							]
+						}, {...}
+					]
+				*/
+
+				if(employees.length) {
+					let push = {
+						description: DATA.all.areas[area].description
+					}, employeeRecords = []
+
+					employees.forEach(employee => {
+						let info ={}
+						info[posSelector] = employee.position[req.session.lang].description
+						info[avgSelector] = employee.score
+						employeeRecords.push(info)
+					})
+
+					push['records'] = employeeRecords
+
+					areasSheet.push(push)
+					return true
+				} else return false
+			})
+			.catch(error => {
+				console.error(error)
+				res.append('error', error)
+				res.append('msg', Array(
+					`Ocurrió un error en búsqueda de métricas. Contacta con el administrador.`,
+					`An error occurred in metrics search. Contact the administrator.`
+				)[req.session.lang])
+				res.append('snack', 'true')
+				res.status(500).end()
+				return false
+			})
+		}
+
+		if(transactionDir) {
+			res.append('filename', Array(
+				`reporte-completo-${FORMAT_DATE}.xlsx`,
+				`report-complete-${FORMAT_DATE}.xlsx`
+			)[req.session.lang])
+			res.append('snack', 'true')
+
+			return await res.status(200).send(
+				await XLSXPopulate.fromBlankAsync().then(async(workbook) => {
+					// Directions averages (Sheet 1)
+					let headerDirection = [dirSelector, avgSelector]
+					const sheet_1 = workbook.sheet(0)
+
+					const sheetDataDir = getSheetData(directionsSheet, headerDirection)
+					const totalColumnsDir = sheetDataDir[0].length
+
+					sheet_1.column('A').width(60)
+					sheet_1.column('B').width(10)
+					sheet_1.cell('A1').value(sheetDataDir)
+					const endColumnDir = String.fromCharCode(64 + totalColumnsDir)
+					sheet_1.row(1).style('bold', true)
+					sheet_1.range('A1:' + endColumnDir + '1').style('fill', 'BFBFBF')
+					sheet_1.range('A1:' + endColumnDir + '1').style('border', true)
+					
+					// Employees by areas averages (Sheet 1)
+					let alphabet = 4,
+						rowStart = 1,
+						maxRow = 0,
+						headerAreas = [posSelector, avgSelector]
+					//const sheet_2 = workbook.sheet(1)
+					
+					areasSheet.forEach(area => {
+						if(area.records.length) {
+							const sheetDataArea = getSheetData(area.records, headerAreas)
+							const totalColumnsArea = sheetDataArea[0].length
+		
+							const startColumnArea = String.fromCharCode(64 + alphabet)
+							const endColumnArea = String.fromCharCode(64 + alphabet + (totalColumnsArea-1))
+
+							// Title
+							const rangeMerge = workbook.sheet(0).range(startColumnArea+`${rowStart}:`+endColumnArea+`${rowStart}`)
+							rangeMerge.value(area.description)
+							rangeMerge.style({horizontalAlignment: 'center', verticalAlignment: 'center', })
+							rangeMerge.merged(true)
+
+							// Table
+							sheet_1.column(startColumnArea).width(50)
+							sheet_1.column(endColumnArea).width(10)
+							sheet_1.cell(startColumnArea+`${rowStart+1}`).value(sheetDataArea)
+							sheet_1.row(1).style('bold', true)
+							sheet_1.range(startColumnArea+`${rowStart+1}:`+endColumnArea+`${rowStart+1}`).style('fill', 'BFBFBF')
+							sheet_1.range(startColumnArea+`${rowStart+1}:`+endColumnArea+`${rowStart+1}`).style('border', true)
+	
+							if(maxRow < area.records.length) maxRow = area.records.length
+
+							// If CharCode is greater than last letter then
+							// reset the alphabet and change the starting row.
+							// This can be changed
+							if((alphabet + totalColumnsArea) >= 26) {
+								alphabet = 4
+								rowStart += maxRow + 1
+								maxRow = 0
+							}
+							else alphabet += totalColumnsArea
+						}
+					})
+
+					return await workbook.outputAsync()
+					.catch(error => {
+						console.error(error)
+						res.append('msg', Array(
+							`Hubo un error en el documento generado.`,
+							`There was an error in the generated document.`
+						)[req.session.lang])
+					})
+				})
+			)
+		}
+	}
+
 	const doc = new pdf.Document({ // Vertical letter
 		width:   612, // 21.59 cm
 		height:  792, // 27.94 cm
 		padding: 32
 	})
 
-	res.append('filename', Array(
-		`reporte-${FORMAT_DATE}.pdf`,
-		`report-${FORMAT_DATE}.pdf`
-	)[req.session.lang])
-	res.append('snack', 'true')
 	try {
 		const header = doc.header().table({widths: [150, 240, 150], borderWidth: 0})
 		const hTable = header.row()
@@ -635,13 +844,27 @@ async function printer(req, res) {
 				}
 			}
 		}
+
+		res.append('filename', Array(
+			`reporte-${FORMAT_DATE}.pdf`,
+			`report-${FORMAT_DATE}.pdf`
+		)[req.session.lang])
+		res.append('msg', Array(
+			`Documento generado correctamente. Descargando ahora.`,
+			`Document generated successfully. Downloading now.`
+		)[req.session.lang])
+		res.append('snack', 'true')
+		return await res.send(await doc.asBuffer())
 	} catch (error) {
 		console.error(error)
-		doc.end() // Close file
-		res.status(500).end()
-	} finally {
-		res.append('filename', 'output.pdf')
-		return await res.send(await doc.asBuffer())
+		res.append('msg', Array(
+			`Ha ocurrido un problema en el servidor. Revisa la consola del navegador y contacta con el administrador.`,
+			`A problem has occurred on the server. Check the browser console and contact the administrator.`
+		)[req.session.lang])
+		res.append('snack', 'true')
+		res.append('error', error)
+		await doc.end() // Close file
+		return res.status(500).end()
 	}
 }
 

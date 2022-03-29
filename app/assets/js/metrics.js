@@ -200,8 +200,8 @@ const formSelect = (e) => { // All .forms-select that isn't #sel-bar-chart
 		else if(tgt.classList.contains('subordinates')) { // Subordinates select
 			emptyArea()
 			emptyDirections()
+			canvasTitle.innerHTML = Array('Personal a cargo', 'Personnel in charge')[lang]
 			if(tgt.selectedIndex == 0) { // All subordinates option
-				canvasTitle.innerHTML = Array('Personal a cargo', 'Personnel in charge')[lang]
 				$e(`.panel[data-id="${idSelect}"] #lbl-name`).innerHTML = ''
 				return getData(true, null)
 			}
@@ -293,17 +293,18 @@ async function getData(auto, getter = null) {
 			if(result.status === 200) {
 				if('area' in pkg) {
 					if('subordinates' in result.data) { // Add new subordinates to select
-						let longText = `.panel[data-id="${idSelect}"] .subordinates`
-						$a(`${longText} .sub`).forEach(node => {
-							node.remove()
-						})
-						$e(`${longText} .sub-def`).selected = true
-	
+						// Update subordinates select when change areas o directions
 						if(result.data.subordinates) {
+							let longText = `.panel[data-id="${idSelect}"] .subordinates`
+							$a(`${longText} .sub`).forEach(node => {
+								node.remove()
+							})
+							$e(`${longText} .sub-def`).selected = true
+
 							$e(longText).disabled = false
 							$e(`${longText} .sub-def`).innerHTML = Array('Personal a cargo', 'Personnel in charge')[lang]
 	
-							for (let i in result.data.subordinates) {
+							for(let i in result.data.subordinates) {
 								$e(longText).insertAdjacentHTML(
 									'beforeend', `<option class="sub" data-index="${parseInt(i)+1}"`+
 									`value="${result.data.subordinates[i]._id}">`+
@@ -390,19 +391,49 @@ const generatePDF = async(mode = '') => {
 		switch (mode) {
 			case 'all':
 				pkg = {
-					barSearch: barSearch,
-					bars: await barsMetrics(),
-					mono: await monoMetrics(),
+					all: {
+						directions: [
+							{
+								_id: 1,
+								description: 'Rectoría'
+							}, {
+								_id: 4,
+								description: 'Dirección de administración y finanzas'
+							}, {
+								_id: 2,
+								description: 'Secretaría Académica'
+							}, {
+								_id: 7,
+								description: 'Dirección de Planeación y Evaluación institucional'
+							}, {
+								_id: 5,
+								description: 'Dirección de Promoción, Comunicación y Extensión Universitaria'
+							}, {
+								_id: 14,
+								description: 'Académica de Administración y Contaduría'
+							}, {
+								_id: 11,
+								description: 'Académica de Tecnologías de la Información'
+							}, {
+								_id: 9,
+								description: 'Académica de Agricultura y DNM'
+							}
+						],
+						areas: [
+							{
+								_id: '0007',
+								description: 'Rectoria'
+							}
+						]
+					}
 				}
 				break
-
-			case 'bars':
+			/*case 'bars':
 				pkg = {
 					barSearch: barSearch,
 					bars: await barsMetrics(),
 				}
-				break
-
+				break*/
 			case 'mono':
 				pkg = {
 					mono: await monoMetrics(),
@@ -424,22 +455,35 @@ const generatePDF = async(mode = '') => {
 		}
 
 		await fetch(window.location.origin+'/metrics/print', REQ_PARAMS)
-		.then(async res => await res.arrayBuffer()) // response data to array buffer
 		.then(async data => {
-			if(data == null || data == undefined || String(data) == '')
-				return showSnack('Server error', null, 'error')
-			const blob = new Blob([data]) // Create a Blob object
-			const url = URL.createObjectURL(blob) // Create an object URL
-			download(url, Array(`formato-evaluacion-.pdf`, `evaluation-format-.pdf`)[lang]) // Download file
-			URL.revokeObjectURL(url) // Release the object URL
+			if(data.status != 401) {
+				let SNK_Type = '',
+					filename = data.headers.get('filename')
+
+				if(data.status === 200) SNK_Type = 'success'
+				else SNK_Type = 'warning'
+				if(Boolean(data.headers.get('snack')) == true) {
+					showSnack(data.headers.get('msg'), null, SNK_Type)
+				}
+
+				data.arrayBuffer()
+				.then(data => {
+					if(data == null || data == undefined)
+					return showSnack('Server error', null, 'error')
+					const blob = new Blob([data]) // Create a Blob object
+					const url = URL.createObjectURL(blob) // Create an object URL
+					download(url, filename) // Download file
+					URL.revokeObjectURL(url) // Release the object URL
+				})
+			} else showSnack(data.headers.get('msg'), null, 'error')
 		})
-		.catch(err => {
+		.catch(error => {
+			console.error(error)
 			showSnack(
 				Array('Por favor abra la consola del navegador, copie el error y contacte con un especialista en soporte',
 					'Please open the browser console, copy the error and contact a support specialist.')[lang],
 				null, 'error'
 			)
-			console.error(err)
 		})
 		.finally(() => {
 			$e('#layoutSidenav_content').classList.remove('fixed-size')

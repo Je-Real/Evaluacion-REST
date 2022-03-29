@@ -9,9 +9,6 @@ const controllerLogin = require('../controllers/session/controllerLogin')
 const controllerResetPsw = require('../controllers/session/controllerResetPsw')
 const controllerRegister = require('../controllers/session/controllerRegister')
 
-const controllerUserGenerator = require('../controllers/secret/controllerUserGenerator')
-const controllerTest = require('../controllers/secret/controllerTest')
-
 const controllerAdminCtrl = require('../controllers/secret/controllerAdminCtrl')
 
 const controller404 = require('../controllers/error/controller404')
@@ -30,7 +27,7 @@ router //👇
 // Reports
 .get('/metrics', controllerMetrics.root)
 .post('/metrics', controllerMetrics.getOne) // Individual metrics
-.post('/metrics/all', controllerMetrics.getAll) // Comparison metrics (bar chart)
+//.post('/metrics/all', controllerMetrics.getAll) // Comparison metrics (bar chart)
 .post('/metrics/print', controllerMetrics.printer)
 
 // Survey / Evaluation

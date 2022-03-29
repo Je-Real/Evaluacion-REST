@@ -429,15 +429,51 @@ async function manageUserEvaluation(req, res) {
 					snack: true
 				})
 
-		if(action == 'disabled') // Push the current year with the disabled state
-			updater = { $push: { records: { year: CURRENT_YEAR, disabled: true } } }
+		modelUserInfo.aggregate([
+			{ $match: { _id: id } },
+			{
+				$project: {
+					area: true,
+					direction: true,
+					position: true,
+					manager: true
+				}
+			}
+		])
+		.then(([dataInfo]) => {
+			if(action == 'disabled') // Push the current year with the disabled state
+			updater = {
+				$push: {
+					records: {
+						year: CURRENT_YEAR,
+						disabled: true,
+						position: dataInfo.position,
+						area: dataInfo.area,
+						direction: dataInfo.direction,
+						manager: dataInfo.manager
+					}
+				}
+			}
 		else if(action == 'enabled') // Delete the current year record to set a evaluation
 			updater = { $pull: { records: { year: CURRENT_YEAR } } }
 
-		modelEvaluation.updateOne({ _id: id }, updater)
-		.then(() => {
-			return res.status(200).json({
-				status: 200
+			modelEvaluation.updateOne({ _id: id }, updater)
+			.then(() => {
+				return res.status(200).json({
+					status: 200
+				})
+			})
+			.catch(error => {
+				console.error(error)
+				return res.status(500).json({
+					status: 500,
+					error: error,
+					msg: Array(
+						'Hubo un error en el servidor al habilitar / deshabilitar.',
+						'There was an error in the server when enabled / disabled.',
+					)[req.session.lang],
+					snack: true
+				})
 			})
 		})
 		.catch(error => {
@@ -446,8 +482,8 @@ async function manageUserEvaluation(req, res) {
 				status: 500,
 				error: error,
 				msg: Array(
-					'Hubo un error en el servidor al habilitar / deshabilitar.',
-					'There was an error in the server when enabled / disabled.',
+					'Error al buscar empleado en la base de datos al habilitar / deshabilitar.',
+					'Error while searching employee in the database when enabled / disabled.',
 				)[req.session.lang],
 				snack: true
 			})

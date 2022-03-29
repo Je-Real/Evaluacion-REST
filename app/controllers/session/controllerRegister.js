@@ -126,7 +126,6 @@ async function signUp(req, res) {
 					snack: true
 				})
 			})
-
 		}
 
 		/**
@@ -140,7 +139,7 @@ async function signUp(req, res) {
 			let fields = Object.keys(data[0])
 			let sheetData = data.map((row) => {
 				return fields.map((fieldName) => {
-					return (String(row[fieldName]).length != 0) ? row[fieldName] : ''
+					return (String(row[fieldName]).length != 0) ? String(row[fieldName]) : ''
 				})
 			})
 			sheetData.unshift(header)
@@ -152,15 +151,18 @@ async function signUp(req, res) {
 		 * @returns File buffer
 		 */
 		const saveAsExcel = async(log) => {
-			let header = (lang == 0) // Choose header by language
-				? ['_id', 'name', 'system_user', 'pass', 'information_user', 'error']
-				: ['_id', 'nombre', 'usuario_de_sistema', 'clave', 'informacion_de_usurio', 'error']
+			let header = Array( // Choose header by language
+				['_id', 'nombre', 'usuario_de_sistema', 'clave_de_acceso', 'informacion_de_usurio', 'error'],
+				['_id', 'name', 'system_user', 'pass', 'information_user', 'error']
+			)[lang]
 
 			return await XLSXPopulate.fromBlankAsync().then(async (workbook) => {
 				const sheet1 = workbook.sheet(0)
 				const sheetData = getSheetData(log, header)
 				const totalColumns = sheetData[0].length
 
+				sheet.column('A').width(60)
+				//sheet.column('B').width(60)
 				sheet1.cell('A1').value(sheetData)
 				const range = sheet1.usedRange()
 				const endColumn = String.fromCharCode(64 + totalColumns)
@@ -236,11 +238,11 @@ async function signUp(req, res) {
 					// If user_info exits then save a new user for that employee
 					new modelUser(model).save()
 					.then(async() => { //🟢
-						regLog.users[dataIterator]['system_user'] = Array(
+						regLog.users[dataIterator][Array('system_user', 'usuario_de_sistema')[lang]] = Array(
 							'Usuario creado',
 							'User created'
 						)[lang]
-						regLog.users[dataIterator]['pass'] = password
+						regLog.users[dataIterator][Array('pass', 'clave_de_acceso')[lang]] = password
 
 						if(!isFile) {
 							res.append('msg', Array(
@@ -258,7 +260,7 @@ async function signUp(req, res) {
 					})
 					.catch(async(error) => { //🔴
 						console.error(error)
-						regLog.users[dataIterator]['system_user'] = Array(
+						regLog.users[dataIterator][Array('system_user', 'usuario_de_sistema')[lang]] = Array(
 							'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
 							'Unable to register user. Please try again later.'
 						)[lang]
@@ -276,7 +278,7 @@ async function signUp(req, res) {
 			})
 			.catch(async(error) => { //🔴
 				console.error(error)
-				regLog.users[parseInt(data)]['system_user'] = Array(
+				regLog.users[parseInt(data)][Array('system_user', 'usuario_de_sistema')[lang]] = Array(
 						'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
 						'Unable to register user. Please try again later.'
 					)[lang]
@@ -299,12 +301,12 @@ async function signUp(req, res) {
 			regLog.users[i] = {
 				_id: ('fields' in req.body) ? req.body.data[iterator][req.body.fields._id] : req.body.data[iterator]._id,
 			}
-			regLog.users[i]['name'] = ('fields' in req.body)
+			regLog.users[i][Array('name', 'nombre')[lang]] = ('fields' in req.body)
 				? req.body.data[iterator][req.body.fields.name]
 				: req.body.data[iterator].name
-			regLog.users[i]['system_user'] = Array('Omitido', 'Skipped')[lang]
-			regLog.users[i]['pass'] = Array('Omitido', 'Skipped')[lang]
-			regLog.users[i]['information_user'] = Array('Omitido', 'Skipped')[lang]
+			regLog.users[i][Array('system_user', 'usuario_de_sistema')[lang]] = Array('Omitido', 'Skipped')[lang]
+			regLog.users[i][Array('pass', 'clave_de_acceso')[lang]] = Array('Omitido', 'Skipped')[lang]
+			regLog.users[i][Array('information_user', 'informacion_de_usurio')[lang]] = Array('Omitido', 'Skipped')[lang]
 			regLog.users[i]['error'] = ''
 
 			// Sign in validator
@@ -400,7 +402,7 @@ async function signUp(req, res) {
 					} else { // Save a new information_user
 						new modelUserInfo(model).save()
 						.then(async() => { //🟢
-							regLog.users[i]['information_user'] = Array(
+							regLog.users[i][Array('information_user', 'informacion_de_usurio')[lang]] = Array(
 								'Información guardada',
 								'Information saved'
 							)[lang]
@@ -426,7 +428,7 @@ async function signUp(req, res) {
 						})
 						.catch(async(error) => { //🔴
 							console.error(error)
-							regLog.users[i]['information_user'] = Array(
+							regLog.users[i][Array('information_user', 'informacion_de_usurio')[lang]] = Array(
 									'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
 									'Unable to register user. Please try again later.'
 								)[lang]
@@ -442,7 +444,7 @@ async function signUp(req, res) {
 						})
 					}
 				} else {
-					regLog.users[i]['information_user'] = Array(
+					regLog.users[i][Array('information_user', 'informacion_de_usurio')[lang]] = Array(
 						'Se detectó error en la búsqueda dinámica. Por favor, revise el archivo descargado',
 						'An error was detected in the dynamic search. Please check the downloaded file.'
 					)[lang]
