@@ -8,28 +8,28 @@ let anchorID = null, anchorLength = null, anchorCollection = null,
 /**
  * Find the description of the object inside of the
  * collections variables
- * @param {'area'|'position'|'directorate'|'category'} collection Collection to be searched 
- * @param {Number} _id ID of the element
+ * @param {'area'|'position'|'directorate'|'category'} collection Collection to be searched
+ * @param {Number} id ID of the element
  */
-const findFrom = (collection, _id) => {
-	if(_id == 0) return '' 
+const findFrom = (collection, id) => {
+	if(id <= 0 || !id) return id
 
 	let elem
 	switch (collection) {
 		case 'area':
-			elem = areaData.find(x => x._id == _id)
-			return elem.description[lang] 
+			elem = areaData.find(x => x._id == id)
+			return elem.description[lang]
 		case 'position':
-			elem = positionData.find(x => x._id == _id)
-			return elem.description[lang] 
+			elem = positionData.find(x => x._id == id)
+			return elem.description[lang]
 		case 'directorate':
-			elem = directionData.find(x => x._id == _id)
-			return elem.description[lang] 
+			elem = directionData.find(x => x._id == id)
+			return elem.description[lang]
 		case 'category':
-			elem = categoryData.find(x => x._id == _id)
-			return elem.description[lang] 
+			elem = categoryData.find(x => x._id == id)
+			return elem.description[lang]
 		default:
-			return _id
+			return id
 	}
 }
 
@@ -62,13 +62,13 @@ window.addEventListener('load', async() => {
 				'No se obtuvieron datos de la colección: Categoría. Por favor, contacte con soporte.',
 				'No data were obtained from the collection: Category. Please, contact support'
 			)[lang]
-		
+
 		$e('#tables-opts .dropdown-item[data-table="1"]').click()
 		eventAssigner('#reload-list', 'click', () => {
 			anchorID = null
 			anchorLength = null
 			anchorCollection = null
-			
+
 			findCollections()
 		})
 	} catch (error) {
@@ -258,7 +258,7 @@ const updateInfo = (e) => {
 			(result) => {
 				if(result.snack)
 					showSnack(result.msg, null, (result.status === 200)?'success':'warning')
-					
+
 				if(result.status === 200) {
 					showSnack(Array('Cambios guardados', 'Changes saved')[lang], null, 'success')
 					$a(`.${tgt}:not(.read-only)`).forEach(node => {
@@ -311,7 +311,7 @@ const findCollections = (e) => {
 	pkg['skip'] = ($e('.num-page.active') && anchorCollection == pkg.search) ? parseInt($e('.num-page.active').rel) : 0
 
 	$e('#reload-list').classList.add('rotate') // Reload button animation start
-	
+
 	if(pkg.search) {
 		fetchTo(
 			window.location.origin+'/admin-control/search',
@@ -337,7 +337,7 @@ const findCollections = (e) => {
 
 									for(let i in result.data) {
 										let evalRecords = ''
-		
+
 										if('eval_' in result.data[i]) {
 											if(Object.keys(result.data[i].eval_.records).length != 0) {
 												console.log()
@@ -363,7 +363,7 @@ const findCollections = (e) => {
 																			<div class="container ps-3">
 																				<div class="button b2 mt-2 mb-2" id="button-17">
 																					<input name="disabled" type="checkbox"
-																						class="checkbox _${ result.data[i]._id } ${ 
+																						class="checkbox _${ result.data[i]._id } ${
 																							( /* If the year is not equal to the current year or exists "score" in the record */
 																								result.data[i].eval_.records[r].year != CURRENT_YEAR
 																								|| 'score' in result.data[i].eval_.records[r]
@@ -383,7 +383,7 @@ const findCollections = (e) => {
 																				</p>
 																				<input value="${ result.data[i].eval_.records[r].score }"
 																					class="form-control _${ result.data[i]._id } read-only"
-																					name="score" 
+																					name="score"
 																					data-class="evaluation" data-year="${ result.data[i].eval_.records[r].year }" type="text" disabled>
 																			</div><div class="my-1 col-12 col-md-6">
 																				<p class="text-mini-label text-center m-0">
@@ -391,7 +391,7 @@ const findCollections = (e) => {
 																				</p>
 																				<input value="${ result.data[i].eval_.records[r].answers }"
 																					class="form-control _${ result.data[i]._id } read-only"
-																					name="answers" 
+																					name="answers"
 																					data-class="evaluation" data-year="${ result.data[i].eval_.records[r].year }" type="text" disabled>
 																			</div><div class="my-1 col-12 col-xxl-6 mx-auto">
 																				<p class="text-mini-label text-center m-0">
@@ -402,7 +402,7 @@ const findCollections = (e) => {
 																						? result.data[i].eval_.records[r].area : 0
 																					) }"
 																					class="form-control _${ result.data[i]._id } read-only"
-																					name="area" 
+																					name="area"
 																					data-class="evaluation" data-year="${ result.data[i].eval_.records[r].year }" type="text" disabled/>
 																			</div>
 																			${ ('directorate' in result.data[i].eval_.records[r])
@@ -419,7 +419,7 @@ const findCollections = (e) => {
 																						data-year="${ result.data[i].eval_.records[r].year }" type="text" disabled/>
 																				</div>` : ''
 																			}` : '' }
-																		
+
 													</div></div></div></div></div>`
 												}
 											} else {
@@ -428,7 +428,7 @@ const findCollections = (e) => {
 												}</p></div>`
 											}
 										}
-		
+
 										$e('#collector-accordion').insertAdjacentHTML(
 											'beforeend',
 											`<div class="accordion-item">
@@ -458,45 +458,59 @@ const findCollections = (e) => {
 																			${ Array('Información de puesto', 'Position information')[lang] }
 																		</h6></div>` : ''
 																}
-																<div class="my-1 col-md-6 col-12">
-																	<p class="text-mini-label text-center m-0">
-																		${ Array('Área de adscripción', 'Adscription area')[lang] }
-																	</p>
-																	<input value="${ findFrom('area', result.data[i].area) }"
-																		class="form-control _${ result.data[i]._id }" name="area"
-																		data-class="user_info" type="text" disabled/>
-																</div><div class="my-1 col-md-6 col-12">
-																	<p class="text-mini-label text-center m-0">
-																		${ Array('Dirección / Subdirección', 'Directorate / Sub-directorate')[lang] }
-																	</p>
-																	<input value="${ findFrom('directorate', result.data[i].directorate) }"
-																		class="form-control _${ result.data[i]._id }" name="directorate"
-																		data-class="user_info" type="text" disabled/>
-																</div><div class="my-1 col-md-6 col-12">
-																	<p class="text-mini-label text-center m-0">
-																		${ Array('Categoría', 'Category')[lang] }
-																	</p>
-																	<input value="${ findFrom('category', result.data[i].category) }"
-																		class="form-control _${ result.data[i]._id }" name="category"
-																		data-class="user_info" type="text" disabled/>
-																</div>
-																<div class="my-1 col-md-6 col-12">
-																	<p class="text-mini-label text-center m-0">
-																		${ Array('Puesto', 'Position')[lang] }
-																	</p>
-																	<input value="${ findFrom('position', result.data[i].position) }"
-																		class="form-control _${ result.data[i]._id }" name="position"
-																		data-class="user_info" type="text" disabled/>
-															</div></div>
-															<div class="row">
-																<div class="my-1 col-md-5 col-6 mx-auto">
-																	<p class="text-mini-label text-center m-0">
-																		${ Array('ID Jefe directo', 'ID manager')[lang] }
-																	</p>
-																	<input value="${ result.data[i].manager }" class="form-control dynamic-hint _${ result.data[i]._id }"
-																		name="manager" data-hint="id" data-class="user_info"
-																		type="text" disabled/>
-														</div></div></div>
+																${ ('area' in result.data[i])
+																	? `<div class="my-1 col-md-6 col-12">
+																		<p class="text-mini-label text-center m-0">
+																			${ Array('Área de adscripción', 'Adscription area')[lang] }
+																		</p>
+																		<input value="${ findFrom('area', result.data[i].area) }"
+																			class="form-control _${ result.data[i]._id }" name="area"
+																			data-class="user_info" type="text" disabled/>
+																	</div>`
+																	: '' }
+																${ ('directorate' in result.data[i])
+																	? `<div class="my-1 col-md-6 col-12">
+																		<p class="text-mini-label text-center m-0">
+																			${ Array('Dirección / Subdirección', 'Directorate / Sub-directorate')[lang] }
+																		</p>
+																		<input value="${ findFrom('directorate', result.data[i].directorate) }"
+																			class="form-control _${ result.data[i]._id }" name="directorate"
+																			data-class="user_info" type="text" disabled/>
+																	</div>`
+																	: '' }
+																${ ('category' in result.data[i])
+																	? `<div class="my-1 col-md-6 col-12">
+																		<p class="text-mini-label text-center m-0">
+																			${ Array('Categoría', 'Category')[lang] }
+																		</p>
+																		<input value="${ findFrom('category', result.data[i].category) }"
+																			class="form-control _${ result.data[i]._id }" name="category"
+																			data-class="user_info" type="text" disabled/>
+																	</div>`
+																	: '' }
+																${ ('position' in result.data[i])
+																	? `<div class="my-1 col-md-6 col-12">
+																		<p class="text-mini-label text-center m-0">
+																			${ Array('Puesto', 'Position')[lang] }
+																		</p>
+																		<input value="${ findFrom('position', result.data[i].position) }"
+																			class="form-control _${ result.data[i]._id }" name="position"
+																			data-class="user_info" type="text" disabled/>
+																	</div>`
+																	: '' }
+															</div>
+															${ ('manager' in result.data[i])
+																? `<div class="row">
+																	<div class="my-1 col-md-5 col-6 mx-auto">
+																		<p class="text-mini-label text-center m-0">
+																			${ Array('ID Jefe directo', 'ID manager')[lang] }
+																		</p>
+																		<input value="${ result.data[i].manager }" class="form-control dynamic-hint _${ result.data[i]._id }"
+																			name="manager" data-hint="id" data-class="user_info"
+																			type="text" disabled/>
+																</div></div>`
+																: '' }
+														</div>
 														${ ('user_' in result.data[i])
 															? `<div class="my-md-2 my-1 px-md-3 py-md-2 p-2 rounded-3">
 																<div class="row">
@@ -505,7 +519,7 @@ const findCollections = (e) => {
 																			${ Array('Información de solo lectura', 'Read-Only information')[lang] }
 																		</h6>
 																	</div>
-		
+
 																	<div class="my-1 col-md-6 col-12 mx-auto">
 																		<p class="text-mini-label text-center m-0">
 																			${ Array('Creado', 'Created')[lang] }
@@ -532,7 +546,7 @@ const findCollections = (e) => {
 																			type="button" data-bs-toggle="collapse" data-bs-target="#flush-eval-collapse-${ result.data[i]._id }"
 																			aria-expanded="false" aria-controls="flush-eval-collapse-${ result.data[i]._id }">
 																			${ Array('Evaluaciones', 'Evaluations')[lang] }
-		
+
 																		</button>
 																	</h2>
 																	<div id="flush-eval-collapse-${ result.data[i]._id }" class="accordion-collapse collapse"
@@ -583,8 +597,8 @@ const findCollections = (e) => {
 																					<div class="container ps-3">
 																						<div class="button b2 mt-2 mb-2" id="button-17">
 																							<input name="enabled" type="checkbox"
-																								data-class="${ 
-																									('user_' in result.data[i]) ? 'user_all' : 'user_info' 
+																								data-class="${
+																									('user_' in result.data[i]) ? 'user_all' : 'user_info'
 																								}" class="checkbox _${ result.data[i]._id }"
 																									${(result.data[i].enabled) ? '' : 'checked' /*checked = No*/} disabled>
 																								<div class="knobs" data-unchecked="${ Array('Sí', 'Yes')[lang] }"
@@ -642,7 +656,7 @@ const findCollections = (e) => {
 																	: result.data[i]['description'][0]
 																}</p>
 												</div></div></button></h2>
-		
+
 												<div id="flush-collector-${ result.data[i]['_id'] }" class="accordion-collapse collapse"
 													aria-labelledby="flush-head-collector-${ result.data[i]['_id'] }" data-bs-parent="#collector-accordion">
 													<div class="accordion-body px-3">
@@ -689,17 +703,22 @@ const findCollections = (e) => {
 								eventAssigner('#rows', 'change', (e) => {findCollections()})
 							} catch (error) {
 								console.error(error)
-								return showSnack(Array('Error', 'Error')[lang], null, 'error')
+								return showSnack(
+									Array(
+										'Ocurrió un error. Revisa la consola.',
+										'An error occurred. Check the console.'
+									)[lang], null, 'error'
+								)
 							} finally {
 								// Change in rows displayed
 								if(anchorLength != pkg.limit || anchorCollection != pkg.search) {
-									// Remove the current rows and show new ones with the new limit 
+									// Remove the current rows and show new ones with the new limit
 									anchorLength = pkg.limit
 									anchorCollection = pkg.search
-									
+
 									$e('#reg-total').innerHTML = result.count
 									let numPages = result.count/pkg.limit
-	
+
 									$a('.num-page').forEach(node => { node.remove() })
 
 									for(i=0; i<numPages; i++) {
@@ -715,18 +734,18 @@ const findCollections = (e) => {
 											)
 										}
 									}
-	
+
 									eventAssigner('.num-page', 'click', (e) => {
 										let rel = parseInt(e.target.rel),
 											lastRel = parseInt($e('.num-page:last-child').rel)
 											margin = [2, 2]
-	
+
 										if((rel-1) == 0) margin = [1, 3] // Left buttons displayed (nearby limit)
 										else if((rel-2) < 0) margin = [0, 4] // Left buttons displayed (limit)
-	
+
 										if((rel+1) == lastRel) margin = [3, 1] // Right buttons displayed (nearby limit)
 										else if((rel+2) > lastRel) margin = [4, 0] // Right buttons displayed (limit)
-	
+
 										$a('.num-page').forEach(node => {
 											if(node.classList.contains('active'))
 												node.classList.remove('active')
@@ -743,7 +762,7 @@ const findCollections = (e) => {
 												node.classList.remove('d-none')
 											}
 										})
-	
+
 										findCollections()
 									})
 
@@ -760,12 +779,12 @@ const findCollections = (e) => {
 								eventAssigner('#collector .dynamic-hint', 'focusout', (e) => modalHintDisplay(e, false))
 								eventAssigner('#collector .dynamic-hint', 'keydown', (e) => dynamicHints(e, 'user_info'))
 								eventAssigner('#collector .dynamic-hint', 'change', (e) => dynamicHints(e, 'user_info'))
-		
+
 								eventUnassigner('.btn-edit', 'click', editInfo)
 								eventUnassigner('.btn-cancel', 'click', cancelInfo)
 								eventUnassigner('.btn-save', 'click', updateInfo)
 								eventUnassigner('input:not(.read-only)', 'change', highlighter)
-		
+
 								eventAssigner('.btn-edit', 'click', editInfo)
 								eventAssigner('.btn-cancel', 'click', cancelInfo)
 								eventAssigner('.btn-save', 'click', updateInfo)

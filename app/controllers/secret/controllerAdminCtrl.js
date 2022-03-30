@@ -47,8 +47,8 @@ async function root(req, res) {
 }
 
 async function search(req, res) {
-	if(!('_id' in session)) {
-		if(req.session.category != -1 || 'super' in req.session)
+	if(!('_id' in req.session)) {
+		if(req.session.category != -1 || 'super' in req.session) {
 			return res.status(401).json({
 				msg:[
 					`Por favor, inicia sesión nuevamente`,
@@ -57,6 +57,9 @@ async function search(req, res) {
 				snack: true,
 				status: 401
 			})
+			
+			return res.status(401).end()
+		}
 	}
 
 	if(req.body) {
