@@ -123,9 +123,9 @@ const addAreaField = () => {
 		<label><span>${label}</span>
 		<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
 		</label></div>
-		<button id="remove-${id}" type="button" class="btn btn-close col-1 p-1
-		d-flex mx-center align-self-center"
-		data-target="#_${id}"></button>
+		<div class="col-1 d-flex"><button id="remove-${id}" type="button" class="btn btn-close p-1
+		m-auto" data-tooltip-es="Quitar este campo" data-tooltip-en="Remove this field"
+		data-target="#_${id}"></button></div>
 		</div></div>`
 	)
 	} catch (error) {
