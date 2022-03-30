@@ -189,8 +189,8 @@ async function search(req, res) {
 
 function update(req, res) {
 	if(!('_id' in req.session)) {
-		if(req.session.category != -1 || 'super' in req.session)
-			return res.status(401).json({
+		if(req.session.category != -1 || 'super' in req.session) {
+			res.status(401).json({
 				msg: [
 					`Por favor, inicia sesión nuevamente`,
 					`Please, log in again`
@@ -198,6 +198,9 @@ function update(req, res) {
 				snack: true,
 				status: 401
 			})
+
+			return res.status(401).end()
+		}
 	}
 
 	if(req.body) {
