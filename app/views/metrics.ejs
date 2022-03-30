@@ -604,15 +604,6 @@
 									</span>
 								</button>
 							<% } %>
-							<button id="addPanel" class="btn btn-add-panel text-center d-flex flex-column mx-3">
-								<span class="w-100">
-									<i class="fa-solid fa-plus fa-3x"></i>
-								</span>
-								<span class="w-100 mt-2">
-									<span class="lang" data-lang="es">Agregar panel</span>
-									<span class="lang" data-lang="en">Add Panel</span>
-								</span>
-							</button>
 						</div>
 					</div>
 				</div>
@@ -633,11 +624,13 @@
 								<p class="fs-5 me-auto ms-2 my-2">
 									<span class="lang" data-lang="es">
 										<span class="fw-bold me-1">Pequeño tip:</span> Si deseas comparar áreas y demás,
-										basta con solo agregar un nuevo panel y configurar lo que quieres ver. ¡Sencillísimo!
+										basta con solo agregar un nuevo panel haciendo clic en el botón del fondo y configurar
+										lo que quieres ver. ¡Sencillísimo!
 									</span>
 									<span class="lang" data-lang="en">
-										<span class="fw-bold me-1">Little tip:</span> If you want to compare areas and so on,
-										just add a new panel and configure what you want to see. Very simple!
+										<span class="fw-bold me-1">Little tip:</span>If you want to compare areas and so on,
+										just add a new panel by clicking on the button at the bottom and set up what you want
+										to see. Very simple!
 									</span>
 								</p>
 							</div>
@@ -649,33 +642,6 @@
 
 			<div class="mb-5">
 				<div class="container-fluid px-4">
-					<% if(false) { /* - Bar chart - */ %>
-					<!--div class="row w-100 my-4">
-						<div class="row mx-auto w-100 w-md-75 w-lg-50 my-3">
-							<div class="col-md-6 col-5">
-								<p class="text-justyfied m-0 d-flex h-100">
-									<span class="text-wrap align-self-center m-0 p-0" data-lang="es">Elige lo que quieres ver en la tabla</span>
-									<span class="text-wrap align-self-center m-0 p-0" data-lang="en">Select what yo want to display in the chart</span>
-								</p>
-							</div>
-
-							<div class="col-md-6 col-7">
-								<select class="form-select" id="sel-bar-chart" name="sel-bar-chart">
-									<option class="barSelect lang" value="0" data-lang="es" selected>Áreas</option>
-									<option class="barSelect lang" value="0" data-lang="en" selected>Areas</option>
-
-									<option class="barSelect lang" value="1" data-lang="es">Direcciones / Subdirecciones</option>
-									<option class="barSelect lang" value="1" data-lang="en">Directorates / Sub-directorates</option>
-								</select>
-							</div>
-						</div>
-
-						<div id="bars" class="row mx-3">
-							<canvas width="75%" height="30%"></canvas>
-						</div>
-					</div-->
-					<% } %>
-
 					<div id="panelContainer" class="row m-0 my-4 mx-auto justify-content-center"> <!-- Row div container for the report panels -->
 						<div class="col-12 col-lg-6 col-xxl-4 panel my-3" data-id="0">
 							<div class="shadow-lg rounded-2 buttons-container">
@@ -750,12 +716,10 @@
 												</div>
 
 												<div class="col-8 col-md-10 mt-4">
-													<h5 class="text-center fs-4 text-uppercase canvasTitle lang" data-lang="es">
-														Personal a cargo
-													</h5>
-													<h5 class="text-center fs-4 text-uppercase canvasTitle lang" data-lang="en">
-														Personnel
-													</h5>
+													<h5 class="text-center fs-4 text-uppercase canvasTitle lang"
+														data-lang="es">Personal a cargo</h5>
+													<h5 class="text-center fs-4 text-uppercase canvasTitle lang"
+														data-lang="en">Personnel</h5>
 												</div>
 
 												<div class="col-2 col-md-1 p-0 m-0">
@@ -779,6 +743,19 @@
 								</div>
 							</div>
 						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<button id="addPanel" class="btn btn-add-panel text-center d-flex flex-column mx-3">
+							<span class="w-100">
+								<i class="fa-solid fa-plus fa-3x"></i>
+							</span>
+							<span class="w-100 mt-2">
+								<span class="lang" data-lang="es">Agregar panel</span>
+								<span class="lang" data-lang="en">Add Panel</span>
+							</span>
+						</button>
 					</div>
 				</div>
 			</div>

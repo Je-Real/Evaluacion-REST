@@ -330,8 +330,9 @@ const addPanel = () => {
 			null, 'info'
 		)
 	} else {
-		if(panelsDisplayed < 10 && !compareAll) {
+		if(panelsDisplayed < 25 && !compareAll) {
 			clone.setAttribute('data-id', String(idSelect))
+			clone.querySelector('.canvasTitle').innerHTML = 'Panel'
 			$e('#panelContainer').appendChild(clone)
 
 			displayCharts(false, idSelect)
@@ -341,7 +342,7 @@ const addPanel = () => {
 			idSelect = -1
 		} else
 			showSnack(
-				Array('El limite son 10 paneles', 'The limit is 10 panels')[lang],
+				Array('El limite son 25 paneles', 'The limit is 25 panels')[lang],
 				null, 'warning'
 			)
 	}
