@@ -2,7 +2,7 @@ const modelUser = require('../../models/modelUser')
 const modelUserInfo = require('../../models/modelUserInfo')
 
 const modelArea = require('../../models/modelArea')
-const modelDirection = require('../../models/modelDirection')
+const modelDirectorate = require('../../models/modelDirectorate')
 const modelCategory = require('../../models/modelCategory')
 const modelPosition = require('../../models/modelPosition')
 
@@ -59,8 +59,8 @@ async function signUp(req, res) {
 			// Select model
 			if(collection == 'area')
 				modelMaster = modelArea
-			if(collection == 'direction')
-				modelMaster = modelDirection
+			if(collection == 'directorate')
+				modelMaster = modelDirectorate
 			if(collection == 'category')
 				modelMaster = modelCategory
 			if(collection == 'position')
@@ -157,17 +157,21 @@ async function signUp(req, res) {
 			)[lang]
 
 			return await XLSXPopulate.fromBlankAsync().then(async (workbook) => {
-				const sheet1 = workbook.sheet(0)
+				const sheet = workbook.sheet(0)
 				const sheetData = getSheetData(log, header)
 				const totalColumns = sheetData[0].length
 
-				sheet.column('A').width(60)
-				//sheet.column('B').width(60)
-				sheet1.cell('A1').value(sheetData)
-				const range = sheet1.usedRange()
+				sheet.column('A').width(7)
+				sheet.column('B').width(55)
+				sheet.column('C').width(25)
+				sheet.column('E').width(25)
+				sheet.column('F').width(50)
+
+				sheet.cell('A1').value(sheetData)
+				const range = sheet.usedRange()
 				const endColumn = String.fromCharCode(64 + totalColumns)
-				sheet1.row(1).style('bold', true)
-				sheet1.range('A1:' + endColumn + '1').style('fill', 'BFBFBF')
+				sheet.row(1).style('bold', true)
+				sheet.range('A1:' + endColumn + '1').style('fill', 'BFBFBF')
 				range.style('border', true)
 				return await workbook.outputAsync()
 					.catch(error => console.error(error))
@@ -325,7 +329,7 @@ async function signUp(req, res) {
 					_id: ('fields' in req.body) ? req.body.data[iterator][req.body.fields._id] : req.body.data[iterator]._id,
 					name: ('fields' in req.body) ? req.body.data[iterator][req.body.fields.name] : req.body.data[iterator].name,
 					area: ('fields' in req.body) ? req.body.data[iterator][req.body.fields.area] : req.body.data[iterator].area,
-					direction: ('fields' in req.body) ? req.body.data[iterator][req.body.fields.direction] : req.body.data[iterator].direction,
+					directorate: ('fields' in req.body) ? req.body.data[iterator][req.body.fields.directorate] : req.body.data[iterator].directorate,
 					position: ('fields' in req.body) ? req.body.data[iterator][req.body.fields.position] : req.body.data[iterator].position,
 					category: ('fields' in req.body) ? req.body.data[iterator][req.body.fields.category] : req.body.data[iterator].category,
 					manager: ('fields' in req.body)
@@ -352,8 +356,8 @@ async function signUp(req, res) {
 						if(parseInt(fuzzID) > 0) return parseInt(fuzzID)
 						else nextStep = false
 					}).catch(error => {console.error(error); nextStep = false; errorGetter = error})
-				if(model.direction != undefined)
-					model['direction'] = await getFuzzy(model['direction'], 'direction').then(fuzzID => {
+				if(model.directorate != undefined)
+					model['directorate'] = await getFuzzy(model['directorate'], 'directorate').then(fuzzID => {
 						if(parseInt(fuzzID) > 0) return parseInt(fuzzID)
 						else nextStep = false
 					}).catch(error => {console.error(error); nextStep = false; errorGetter = error})

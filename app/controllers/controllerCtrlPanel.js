@@ -75,7 +75,7 @@ async function root(req, res) {
 			}, {
 				$unset: [
 					'category', 'area',
-					'direction', 'position',
+					'directorate', 'position',
 					'manager', 'eval_',
 					'__v', 'log'
 				]
@@ -127,7 +127,7 @@ async function pdfEvalFormat(req, res) {
 			$lookup: {
 				from: 'user_infos',
 				pipeline: [ { $unset: ['manager', 'category', 'area',
-					'direction', 'position', 'log', '__v', 'enabled'] } ],
+					'directorate', 'position', 'log', '__v', 'enabled'] } ],
 				localField: 'manager',
 				foreignField: '_id',
 				as: 'mngr_info',
@@ -145,12 +145,12 @@ async function pdfEvalFormat(req, res) {
 			}
 		}, {
 			$lookup: {
-				from: 'directions',
+				from: 'directorates',
 				pipeline: [
 					{ $unset: ['__v', '_id', 'log'] },
-					{ $project: { direction: '$description' } }
+					{ $project: { directorate: '$description' } }
 				],
-				localField: 'direction',
+				localField: 'directorate',
 				foreignField: '_id',
 				as: 'direction_',
 			}
@@ -177,7 +177,7 @@ async function pdfEvalFormat(req, res) {
 				as: 'category_',
 			}
 		}, 
-		{ $unset: ['area', 'direction', 'position', 'category'] },
+		{ $unset: ['area', 'directorate', 'position', 'category'] },
 		{
 			$replaceRoot: {
 				newRoot: {
@@ -214,7 +214,7 @@ async function pdfEvalFormat(req, res) {
 					_id: 'ID',
 					name: 'NAME',
 					area: 'AREA',
-					direction: 'DIRECTION',
+					directorate: 'DIRECTION',
 					position: 'POSITION',
 					category: 'CATEGORY',
 					records: [
@@ -224,7 +224,7 @@ async function pdfEvalFormat(req, res) {
 							answers: [ ..11 positions.. ],
 							manager: 'ID',
 							area: 0,
-							direction: 0,
+							directorate: 0,
 							position: 0
 						}
 					],
@@ -294,8 +294,8 @@ async function pdfEvalFormat(req, res) {
 				doc.cell({ width: 2.5*pdf.cm, x: 22.25*pdf.cm, y: 17.15*pdf.cm }) // Date
 				.text({ textAlign: 'center', fontSize: 7 }).add(dateFormated)
 
-				doc.cell({ width: 7.5*pdf.cm, x: 2.5*pdf.cm, y: 16.45*pdf.cm }) // Direction
-				.text({ textAlign: 'center', fontSize: 7 }).add(data.direction[req.session.lang])
+				doc.cell({ width: 7.5*pdf.cm, x: 2.5*pdf.cm, y: 16.45*pdf.cm }) // Directorate
+				.text({ textAlign: 'center', fontSize: 7 }).add(data.directorate[req.session.lang])
 
 				doc.cell({ width: 4.3*pdf.cm, x: 11.3*pdf.cm, y: 16.45*pdf.cm }) // Category
 				.text({ textAlign: 'center', fontSize: 7 }).add(data.category[req.session.lang])
@@ -434,7 +434,7 @@ async function manageUserEvaluation(req, res) {
 			{
 				$project: {
 					area: true,
-					direction: true,
+					directorate: true,
 					position: true,
 					manager: true
 				}
@@ -449,7 +449,7 @@ async function manageUserEvaluation(req, res) {
 						disabled: true,
 						position: dataInfo.position,
 						area: dataInfo.area,
-						direction: dataInfo.direction,
+						directorate: dataInfo.directorate,
 						manager: dataInfo.manager
 					}
 				}

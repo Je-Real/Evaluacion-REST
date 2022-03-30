@@ -56,11 +56,11 @@ async function root(req, res) {
 				}
 			}, {
 				$lookup: {
-					from: 'directions',
+					from: 'directorates',
 					pipeline: [ { $unset: ['_id', 'n', 'area'] } ],
-					localField: 'direction',
+					localField: 'directorate',
 					foreignField: 'n',
-					as: 'direction',
+					as: 'directorate',
 				}
 			}, {
 				$replaceRoot: {
@@ -87,18 +87,18 @@ async function root(req, res) {
 							else: { $arrayElemAt: ['$area.description', 0] },
 						},
 					},
-					direction: {
+					directorate: {
 						$cond: {
-							if: { $eq: [[], '$direction'], },
+							if: { $eq: [[], '$directorate'], },
 							then: '$$REMOVE',
-							else: { $arrayElemAt: ['$direction.description', 0] },
+							else: { $arrayElemAt: ['$directorate.description', 0] },
 						},
 					}
 				},
 			},
 			{ $match: { records: 0 } }, // This match filters only the employees available
 			{ $unset: [
-				'area', 'direction', 'category',
+				'area', 'directorate', 'category',
 				'manager', 'eval_', '__v', 'log'
 			] },
 		])
@@ -184,7 +184,7 @@ async function post(req, res) {
 
 	await modelUserInfo.findOne(
 		{ _id: req.body._id },
-		{ _id: true, area: true, direction: true, position: true, manager: true }
+		{ _id: true, area: true, directorate: true, position: true, manager: true }
 	)
 	.then(async(dataUInfo) => { //🟢
 		if(dataUInfo) {
@@ -217,7 +217,7 @@ async function post(req, res) {
 						score: score,
 						answers: answers,
 						area: dataUInfo.area,
-						direction: dataUInfo.direction,
+						directorate: dataUInfo.directorate,
 						position: dataUInfo.position,
 						manager: dataUInfo.manager
 					}
@@ -254,7 +254,7 @@ async function post(req, res) {
 							score: score,
 							answers: answers,
 							area: dataUInfo.area,
-							direction: dataUInfo.direction,
+							directorate: dataUInfo.directorate,
 							manager: dataUInfo.manager
 						}]
 					}

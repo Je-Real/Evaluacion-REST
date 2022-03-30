@@ -55,7 +55,7 @@ async function logIn(req, res) {
 						req.session._id = req.body._id
 						req.session.name = dataUInfo.name
 						req.session.area = dataUInfo.area
-						req.session.direction = dataUInfo.direction
+						req.session.directorate = dataUInfo.directorate
 						req.session.position = dataUInfo.position
 						req.session.category = dataUInfo.category
 						if('super' in dataUInfo) req.session.super = dataUInfo.super

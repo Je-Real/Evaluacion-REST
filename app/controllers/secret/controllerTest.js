@@ -12,7 +12,7 @@ async function root(req, res) {
 			_id: "0",
 			name: "test",
 			area: 0,
-			direction: 0,
+			directorate: 0,
 			position: 0,
 			category: 0,
 		}
@@ -38,7 +38,7 @@ async function saveAsExcel(req, res) {
 			"name": "María Angélica Martínez Díaz",
 			"category": 1,
 			"area": 1,
-			"direction": 0,
+			"directorate": 0,
 			"position": 0,
 			"manager": false
 		},
@@ -56,7 +56,7 @@ async function saveAsExcel(req, res) {
 			"area": 1,
 			"manager": 0
 		}]
-		let header = ["_id", "name", "category", "area", "direction", "position", "manager"]
+		let header = ["_id", "name", "category", "area", "directorate", "position", "manager"]
 	
 		return await XLSXPopulate.fromBlankAsync().then(async (workbook) => {
 			const sheet1 = workbook.sheet(0)

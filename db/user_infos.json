@@ -1,1364 +1,5441 @@
-[
-    {
-        "_id": 1,
-        "name": "María Angélica Martínez Díaz",
-        "category": 1,
-        "area": 1,
-        "direction": 0,
-        "position": 0,
-        "manager": false
-    },
-    {
-        "_id": 2,
-        "name": "Angelica Zavala Martínez",
-        "category": 2,
-        "area": 1,
-        "manager": 0
-    },
-    {
-        "_id": 3,
-        "name": "Alfredo Cárdenas",
-        "category": 2,
-        "area": 1,
-        "manager": 0
-    },
-    {
-        "_id": 4,
-        "name": "Ma. Elizabeth Almeida Salazar",
-        "category": 2,
-        "area": 1,
-        "manager": 0
-    },
-    {
-        "_id": 5,
-        "name": "Martha Guadalupe Díaz Venegas",
-        "category": 2,
-        "area": 1,
-        "manager": 0
-    },
-    {
-        "_id": 6,
-        "name": "Ángel Eduardo Zamora Acevedo",
-        "category": 2,
-        "area": 1,
-        "manager": 0
-    },
-    {
-        "_id": 7,
-        "name": "Eduardo de Anda López",
-        "category": 2,
-        "area": 1,
-        "manager": 0
-    },
-    {
-        "_id": 8,
-        "name": "Eduardo Sotres Ramos",
-        "category": 2,
-        "area": 7,
-        "manager": 0
-    },
-    {
-        "_id": 9,
-        "name": "Jorge Enrique Uria Adame",
-        "category": 2,
-        "area": 6,
-        "manager": 0
-    },
-    {
-        "_id": 10,
-        "name": "Rebeca Inés Rodríguez Beltrán",
-        "category": 2,
-        "area": 5,
-        "manager": 0
-    },
-    {
-        "_id": 11,
-        "name": "Armando Jare Bernal Pérez",
-        "category": 2,
-        "area": 1,
-        "manager": 0
-    },
-    {
-        "_id": 12,
-        "name": "Blanca Haydee Hernández Gallardo",
-        "category": 2,
-        "area": 3,
-        "manager": 0
-    },
-    {
-        "_id": 13,
-        "name": "Diana Verónica Rodríguez Escobedo",
-        "category": 3,
-        "area": 1,
-        "manager": 10
-    },
-    {
-        "_id": 14,
-        "name": "Christian Hernández Duque Díaz de León",
-        "category": 3,
-        "area": 1,
-        "manager": 11
-    },
-    {
-        "_id": 15,
-        "name": "Ernesto Díaz Romero",
-        "category": 3,
-        "area": 1,
-        "manager": 11
-    },
-    {
-        "_id": 16,
-        "name": "Maribel Dávila Rodríguez",
-        "category": 3,
-        "area": 1,
-        "manager": 11
-    },
-    {
-        "_id": 17,
-        "name": "Yolanda Velasco De Luna",
-        "category": 3,
-        "area": 1,
-        "manager": 11
-    },
-    {
-        "_id": 18,
-        "name": "José de Jesús Báez Puebla",
-        "category": 3,
-        "area": 1,
-        "manager": 11
-    },
-    {
-        "_id": 532,
-        "name": "Verónica Ivett González Gutiérrez",
-        "category": 3,
-        "area": 4,
-        "manager": 11
-    },
-    {
-        "_id": 20,
-        "name": "Claudia Mónica Medina Badillo",
-        "category": 4,
-        "area": 4,
-        "manager": 18
-    },
-    {
-        "_id": 21,
-        "name": "Ernesto Macías Gómez",
-        "category": 3,
-        "area": 5,
-        "direction": 6,
-        "manager": 9
-    },
-    {
-        "_id": 22,
-        "name": "Claudia Prieto Macías",
-        "category": 3,
-        "area": 5,
-        "direction": 1,
-        "manager": 9
-    },
-    {
-        "_id": 23,
-        "name": "Felipe de Jesús Ocampo Rangel",
-        "category": 3,
-        "area": 5,
-        "direction": 2,
-        "manager": 9
-    },
-    {
-        "_id": 24,
-        "name": "Christian Fabiola Quiroz Puentes",
-        "category": 3,
-        "area": 5,
-        "direction": 1,
-        "manager": 9
-    },
-    {
-        "_id": 25,
-        "name": "Ma. Del Refugio Martínez Hernández",
-        "category": 3,
-        "area": 5,
-        "direction": 3,
-        "manager": 9
-    },
-    {
-        "_id": 26,
-        "name": "Francisca Herrera Castañón",
-        "category": 5,
-        "area": 5,
-        "direction": 1,
-        "manager": 21
-    },
-    {
-        "_id": 27,
-        "name": "Perla Cecilia Bustos Estrada",
-        "category": 5,
-        "area": 5,
-        "direction": 1,
-        "manager": 21
-    },
-    {
-        "_id": 28,
-        "name": "Ana Evelia Sánchez García",
-        "category": 5,
-        "area": 5,
-        "direction": 1,
-        "manager": 21
-    },
-    {
-        "_id": 29,
-        "name": "Nelly Jocabeth Herrera Hernández",
-        "category": 5,
-        "area": 5,
-        "direction": 1,
-        "manager": 21
-    },
-    {
-        "_id": 30,
-        "name": "César Omar Elias Díaz",
-        "category": 5,
-        "area": 5,
-        "direction": 1,
-        "manager": 21
-    },
-    {
-        "_id": 31,
-        "name": "Soraila Edith Covarrubias Rodríguez",
-        "category": 5,
-        "area": 5,
-        "direction": 1,
-        "manager": 21
-    },
-    {
-        "_id": 32,
-        "name": "Karla Noemí García Cisneros",
-        "category": 5,
-        "area": 5,
-        "direction": 1,
-        "manager": 21
-    },
-    {
-        "_id": 33,
-        "name": "Delia Castañón Mata",
-        "category": 5,
-        "area": 5,
-        "direction": 1,
-        "manager": 21
-    },
-    {
-        "_id": 34,
-        "name": "Marybel Olmedo Gómez",
-        "category": 4,
-        "area": 5,
-        "direction": 2,
-        "manager": 22
-    },
-    {
-        "_id": 35,
-        "name": "José De Jesús Martínez Ramos",
-        "category": 4,
-        "area": 5,
-        "direction": 2,
-        "manager": 22
-    },
-    {
-        "_id": 36,
-        "name": "Polette Palacios González",
-        "category": 4,
-        "area": 5,
-        "direction": 2,
-        "manager": 22
-    },
-    {
-        "_id": 37,
-        "name": "Juan Carlos Puentes Herrera",
-        "category": 4,
-        "area": 5,
-        "direction": 3,
-        "manager": 24
-    },
-    {
-        "_id": 38,
-        "name": "Javier Meza Caldera",
-        "category": 4,
-        "area": 5,
-        "direction": 3,
-        "manager": 24
-    },
-    {
-        "_id": 39,
-        "name": "Blanca Anabel López Cortés",
-        "category": 4,
-        "area": 5,
-        "direction": 3,
-        "manager": 24
-    },
-    {
-        "_id": 40,
-        "name": "Aketzalli Gregorio Ramírez",
-        "category": 4,
-        "area": 5,
-        "direction": 3,
-        "manager": 24
-    },
-    {
-        "_id": 42,
-        "name": "Maribel Medrano Díaz",
-        "category": 4,
-        "area": 5,
-        "direction": 5,
-        "manager": 20
-    },
-    {
-        "_id": 43,
-        "name": "Carlos Jacobo Hinojosa Manrique",
-        "category": 4,
-        "area": 5,
-        "direction": 4,
-        "manager": 20
-    },
-    {
-        "_id": 44,
-        "name": "Alma Mayela Reyes Gutiérrez",
-        "category": 4,
-        "area": 5,
-        "direction": 4,
-        "manager": 20
-    },
-    {
-        "_id": 45,
-        "name": "Liliana Herrera García",
-        "category": 4,
-        "area": 5,
-        "direction": 4,
-        "manager": 20
-    },
-    {
-        "_id": 46,
-        "name": "José Javier Mares Zapata",
-        "category": 4,
-        "area": 5,
-        "direction": 5,
-        "manager": 20
-    },
-    {
-        "_id": 47,
-        "name": "Jorge Delgado Delgado",
-        "category": 4,
-        "area": 5,
-        "direction": 6,
-        "manager": 20
-    },
-    {
-        "_id": 48,
-        "name": "Nayeli Margarita Rosales Villalobos",
-        "category": 5,
-        "area": 5,
-        "direction": 5,
-        "manager": 41
-    },
-    {
-        "_id": 49,
-        "name": "Ana Yely Flores Flores",
-        "category": 5,
-        "area": 5,
-        "direction": 5,
-        "manager": 41
-    },
-    {
-        "_id": 50,
-        "name": "Maricela Gómez Herrera",
-        "category": 5,
-        "area": 5,
-        "direction": 5,
-        "manager": 41
-    },
-    {
-        "_id": 51,
-        "name": "Laura Patricia Narvaez Valadéz",
-        "category": 5,
-        "area": 5,
-        "direction": 5,
-        "manager": 41
-    },
-    {
-        "_id": 52,
-        "name": "Randy Yenber Buendía Delgado",
-        "category": 5,
-        "area": 5,
-        "direction": 6,
-        "manager": 46
-    },
-    {
-        "_id": 53,
-        "name": "José Alberto Nájera Castorena",
-        "category": 5,
-        "area": 5,
-        "direction": 6,
-        "manager": 46
-    },
-    {
-        "_id": 54,
-        "name": "Jorge García Cervantes",
-        "category": 5,
-        "area": 5,
-        "direction": 6,
-        "manager": 46
-    },
-    {
-        "_id": 55,
-        "name": "Jesús Eduardo Najera Castorena",
-        "category": 5,
-        "area": 5,
-        "direction": 6,
-        "manager": 46
-    },
-    {
-        "_id": 56,
-        "name": "José de Jesús Serrano Álvarez",
-        "category": 5,
-        "area": 5,
-        "direction": 6,
-        "manager": 46
-    },
-    {
-        "_id": 57,
-        "name": "Efrain Castorena Reyes",
-        "category": 5,
-        "area": 5,
-        "direction": 6,
-        "manager": 46
-    },
-    {
-        "_id": 58,
-        "name": "Aureliano Luevano Herrera",
-        "category": 5,
-        "area": 5,
-        "direction": 6,
-        "manager": 46
-    },
-    {
-        "_id": 59,
-        "name": "Luis Fernando Carreón Rodríguez",
-        "category": 5,
-        "area": 5,
-        "direction": 6,
-        "manager": 46
-    },
-    {
-        "_id": 60,
-        "name": "Ignacio García Castorena",
-        "category": 5,
-        "area": 5,
-        "direction": 6,
-        "manager": 46
-    },
-    {
-        "_id": 61,
-        "name": "Raúl Aguilar Alvarado",
-        "category": 5,
-        "area": 5,
-        "direction": 6,
-        "manager": 46
-    },
-    {
-        "_id": 62,
-        "name": "José David Soto Reyes",
-        "category": 5,
-        "area": 5,
-        "direction": 6,
-        "manager": 46
-    },
-    {
-        "_id": 63,
-        "name": "Javier Velasco Luévano",
-        "category": 5,
-        "area": 5,
-        "direction": 6,
-        "manager": 46
-    },
-    {
-        "_id": 64,
-        "name": "José de Jesús Pérez Lugo",
-        "category": 5,
-        "area": 5,
-        "direction": 6,
-        "manager": 46
-    },
-    {
-        "_id": 65,
-        "name": "J Dolores Campos Galván",
-        "category": 5,
-        "area": 5,
-        "direction": 6,
-        "manager": 46
-    },
-    {
-        "_id": 66,
-        "name": "Abel Cervantes Delgado",
-        "category": 5,
-        "area": 5,
-        "direction": 6,
-        "manager": 46
-    },
-    {
-        "_id": 67,
-        "name": "Ricardo García Castorena",
-        "category": 5,
-        "area": 5,
-        "direction": 6,
-        "manager": 46
-    },
-    {
-        "_id": 68,
-        "name": "Víctor Daniel Robles Luévano",
-        "category": 5,
-        "area": 5,
-        "direction": 7,
-        "manager": 42,
-        "note": "Soporte Tecnico"
-    },
-    {
-        "_id": 69,
-        "name": "Ricardo Chávez Durán",
-        "category": 5,
-        "area": 5,
-        "direction": 7,
-        "manager": 42,
-        "note": "Soporte Tecnico"
-    },
-    {
-        "_id": 70,
-        "name": "Martha Guadalupe Montalvo Salazar",
-        "category": 5,
-        "area": 5,
-        "direction": 7,
-        "manager": 42,
-        "note": "Soporte Tecnico"
-    },
-    {
-        "_id": 71,
-        "name": "Emmanuel Zamora López",
-        "category": 5,
-        "area": 5,
-        "direction": 7,
-        "manager": 42,
-        "note": "Soporte Tecnico"
-    },
-    {
-        "_id": 72,
-        "name": "Deisy Fabiola López Delgado",
-        "category": 5,
-        "area": 5,
-        "direction": 7,
-        "manager": 42,
-        "note": "Soporte Tecnico"
-    },
-    {
-        "_id": 73,
-        "name": "Nieves Araceli Valadéz Chávez",
-        "category": 5,
-        "area": 5,
-        "direction": 7,
-        "manager": 42,
-        "note": "Soporte Tecnico"
-    },
-    {
-        "_id": 74,
-        "name": "Nancy del Merced Delgado García",
-        "category": 3,
-        "area": 6,
-        "manager": 8
-    },
-    {
-        "_id": 75,
-        "name": "Jorge García Guzmán",
-        "category": 3,
-        "area": 6,
-        "manager": 8
-    },
-    {
-        "_id": 76,
-        "name": "Alma Alejandra Aguiñaga Vidales",
-        "category": 3,
-        "area": 6,
-        "manager": 8
-    },
-    {
-        "_id": 77,
-        "name": "Zuleica Denise Romo Palacios",
-        "category": 3,
-        "area": 6,
-        "manager": 8
-    },
-    {
-        "_id": 78,
-        "name": "Daniel Isaias Loera Tovar",
-        "category": 3,
-        "area": 6,
-        "manager": 8
-    },
-    {
-        "_id": 79,
-        "name": "Magdalena Esparza Sosa",
-        "category": 4,
-        "area": 6,
-        "manager": 74
-    },
-    {
-        "_id": 80,
-        "name": "María Guadalupe Saludes Bernal",
-        "category": 4,
-        "area": 6,
-        "manager": 74
-    },
-    {
-        "_id": 81,
-        "name": "Blanca Magdalena García Esparza",
-        "category": 4,
-        "area": 6,
-        "manager": 74
-    },
-    {
-        "_id": 82,
-        "name": "Carolina Chávez Tafoya",
-        "category": 4,
-        "area": 6,
-        "manager": 77
-    },
-    {
-        "_id": 83,
-        "name": "Christian Raudel Montoya Valencia",
-        "category": 4,
-        "area": 6,
-        "manager": 77
-    },
-    {
-        "_id": 84,
-        "name": "Ada Sarair Borrayo Tovar",
-        "category": 4,
-        "area": 6,
-        "manager": 75
-    },
-    {
-        "_id": 85,
-        "name": "José Miguel Alcántara",
-        "category": 3,
-        "area": 7,
-        "manager": 7
-    },
-    {
-        "_id": 86,
-        "name": "Gabriel Alfonso De la Madrid Franco",
-        "category": 3,
-        "area": 7,
-        "manager": 7
-    },
-    {
-        "_id": 87,
-        "name": "Leticia Aranda Legorreta",
-        "category": 3,
-        "area": 7,
-        "manager": 7
-    },
-    {
-        "_id": 88,
-        "name": "José De Jesús Herrera Salazar",
-        "category": 3,
-        "area": 7,
-        "manager": 7
-    },
-    {
-        "_id": 89,
-        "name": "Omar Alejandro Montes Contreras",
-        "category": 3,
-        "area": 7,
-        "manager": 7
-    },
-    {
-        "_id": 90,
-        "name": "Ileana Adame Ramírez",
-        "category": 3,
-        "area": 7,
-        "manager": 7
-    },
-    {
-        "_id": 91,
-        "name": "Laura Elizabeth Vera Mata Zamora Acevedo",
-        "category": 3,
-        "area": 8,
-        "manager": 5
-    },
-    {
-        "_id": 92,
-        "name": "Iris Berenice Torres García",
-        "category": 3,
-        "area": 8,
-        "manager": 5,
-        "note": "Servicios Escolares"
-    },
-    {
-        "_id": 93,
-        "name": "Erika Magali Lazcano Ugalde",
-        "category": 3,
-        "area": 8,
-        "direction": 15,
-        "manager": 5,
-        "note": "Académica Área Industrial"
-    },
-    {
-        "_id": 94,
-        "name": "Ana Cecilia López López",
-        "category": 3,
-        "area": 8,
-        "direction": 13,
-        "manager": 5
-    },
-    {
-        "_id": 95,
-        "name": "Ricardo Salvador González de Alba",
-        "category": 3,
-        "area": 8,
-        "direction": 14,
-        "manager": 5
-    },
-    {
-        "_id": 96,
-        "name": "Mayra Cuevas Banda",
-        "category": 3,
-        "area": 8,
-        "direction": 15,
-        "manager": 5,
-        "note": "Académica de Tecnologías de la Información"
-    },
-    {
-        "_id": 97,
-        "name": "Miguel Ángel Campos Ojeda",
-        "category": 3,
-        "area": 8,
-        "direction": 16,
-        "manager": 5
-    },
-    {
-        "_id": 98,
-        "name": "Jorge Luis Castañeda Limones",
-        "category": 4,
-        "area": 8,
-        "manager": 91,
-        "note": "Servicios Escolares"
-    },
-    {
-        "_id": 99,
-        "name": "Lorena Padilla Salazar",
-        "category": 4,
-        "area": 8,
-        "manager": 91,
-        "note": "Servicios Escolares"
-    },
-    {
-        "_id": 100,
-        "name": "Fabiola Ramírez Ponce",
-        "category": 4,
-        "area": 8,
-        "manager": 91,
-        "note": "Servicios Escolares"
-    },
-    {
-        "_id": 101,
-        "name": "Rosario Adriana Hernández Velazquez",
-        "category": 4,
-        "area": 8,
-        "manager": 91,
-        "note": "Servicios Escolares"
-    },
-    {
-        "_id": 102,
-        "name": "Brenda Zamora Romo",
-        "category": 4,
-        "area": 8,
-        "manager": 91,
-        "note": "Servicios Escolares"
-    },
-    {
-        "_id": 103,
-        "name": "Sanjuana Herrera Herrera",
-        "category": 4,
-        "area": 6,
-        "direction": 11,
-        "manager": 91,
-        "note": "Formacion Integral"
-    },
-    {
-        "_id": 104,
-        "name": "Nohelia Leticia González",
-        "category": 4,
-        "area": 6,
-        "direction": 11,
-        "manager": 91,
-        "note": "Formacion Integral"
-    },
-    {
-        "_id": 105,
-        "name": "Sandra Lucia Villalobos Martínez",
-        "category": 4,
-        "area": 6,
-        "direction": 11,
-        "manager": 91,
-        "note": "Formacion Integral"
-    },
-    {
-        "_id": 106,
-        "name": "Paula Carmina Del Valle Avila",
-        "category": 4,
-        "area": 6,
-        "direction": 11,
-        "manager": 104,
-        "note": "Formacion Integral"
-    },
-    {
-        "_id": 107,
-        "name": "Virginia Delgado Ruiz Esparza",
-        "category": 4,
-        "area": 6,
-        "direction": 11,
-        "manager": 104,
-        "note": "Formacion Integral"
-    },
-    {
-        "_id": 108,
-        "name": "Ana Cecilia Alvarez Loera",
-        "category": 4,
-        "area": 6,
-        "direction": 11,
-        "manager": 104,
-        "note": "Formacion Integral"
-    },
-    {
-        "_id": 109,
-        "name": "Elizabeth Martinez Ortiz",
-        "category": 4,
-        "area": 6,
-        "direction": 11,
-        "manager": 104,
-        "note": "Formacion Integral"
-    },
-    {
-        "_id": 110,
-        "name": "Fernando Nájera Romo",
-        "category": 4,
-        "area": 8,
-        "direction": 16,
-        "manager": 96
-    },
-    {
-        "_id": 111,
-        "name": "Martha Jessica Cadengo Lizaran",
-        "category": 4,
-        "area": 8,
-        "direction": 16,
-        "manager": 96
-    },
-    {
-        "_id": 112,
-        "name": "Patricia Corral Olvera",
-        "category": 4,
-        "area": 8,
-        "direction": 16,
-        "manager": 96
-    },
-    {
-        "_id": 113,
-        "name": "Claudia Benitez García",
-        "category": 4,
-        "area": 8,
-        "direction": 16,
-        "manager": 96
-    },
-    {
-        "_id": 114,
-        "name": "Malinali Xochiquetzal Martínez Martínez",
-        "category": 4,
-        "area": 8,
-        "direction": 16,
-        "manager": 96
-    },
-    {
-        "_id": 115,
-        "name": "Mauro Jorge Bolaños Cruz",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 92,
-        "note": "Académica Area Industrial"
-    },
-    {
-        "_id": 116,
-        "name": "Hector Manuel Sanchez Estrada",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 92,
-        "note": "Académica Area Industrial"
-    },
-    {
-        "_id": 117,
-        "name": "Tomas Moreno Granados",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 92,
-        "note": "Académica Area Industrial"
-    },
-    {
-        "_id": 118,
-        "name": "Juan Manuel Nuñez Montalvo",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 92,
-        "note": "Académica Area Industrial"
-    },
-    {
-        "_id": 119,
-        "name": "José Antonio Medina Mendoza",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 92,
-        "note": "Académica Area Industrial"
-    },
-    {
-        "_id": 120,
-        "name": "Fernando Octavio Lopez Reyes",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 92,
-        "note": "Académica Area Industrial"
-    },
-    {
-        "_id": 121,
-        "name": "Ricardo Arellano Yañez",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 92,
-        "note": "Académica Area Industrial"
-    },
-    {
-        "_id": 122,
-        "name": "Gerardo Mendez Macias",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 92,
-        "note": "Académica Area Industrial"
-    },
-    {
-        "_id": 123,
-        "name": "Mauricio Flores Aguilar",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 92,
-        "note": "Académica Area Industrial"
-    },
-    {
-        "_id": 124,
-        "name": "Norberto Raul Madrid Peralta",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 92,
-        "note": "Académica Area Industrial"
-    },
-    {
-        "_id": 125,
-        "name": "Rosa Ines Vazquez Gutiérrez",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 92,
-        "note": "Académica Area Industrial"
-    },
-    {
-        "_id": 126,
-        "name": "Oscar Daniel Calvillo Valadéz",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 92,
-        "note": "Académica Area Industrial"
-    },
-    {
-        "_id": 127,
-        "name": "Naieli Herrera Reyes",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 92,
-        "note": "Académica Area Industrial"
-    },
-    {
-        "_id": 128,
-        "name": "Cesar Guillermo Garcia Fonseca",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 92,
-        "note": "Académica Area Industrial"
-    },
-    {
-        "_id": 129,
-        "name": "Jeronimo Varela Puga",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 92,
-        "note": "Académica Area Industrial"
-    },
-    {
-        "_id": 130,
-        "name": "Maria Sanjuana Medina Badillo",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 92,
-        "note": "Académica Area Industrial"
-    },
-    {
-        "_id": 131,
-        "name": "Lizbeth Melina Correa Hernández",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 92,
-        "note": "Académica Area Industrial"
-    },
-    {
-        "_id": 132,
-        "name": "Rosa Angelica Davila Espinoza",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 92,
-        "note": "Académica Area Industrial"
-    },
-    {
-        "_id": 133,
-        "name": "Arturo Martin Castañeda Ortiz",
-        "category": 4,
-        "area": 8,
-        "direction": 13,
-        "manager": 93
-    },
-    {
-        "_id": 134,
-        "name": "Roxana Montero Mendoza",
-        "category": 4,
-        "area": 8,
-        "direction": 13,
-        "manager": 93
-    },
-    {
-        "_id": 135,
-        "name": "Ernesto Diaz Olvera",
-        "category": 4,
-        "area": 8,
-        "direction": 13,
-        "manager": 93
-    },
-    {
-        "_id": 136,
-        "name": "Rebeca Hernández Torres",
-        "category": 4,
-        "area": 8,
-        "direction": 13,
-        "manager": 93
-    },
-    {
-        "_id": 137,
-        "name": "Marcela Rocha López",
-        "category": 4,
-        "area": 8,
-        "direction": 13,
-        "manager": 93
-    },
-    {
-        "_id": 138,
-        "name": "Nallaly Selene Martínez Giron",
-        "category": 4,
-        "area": 8,
-        "direction": 13,
-        "manager": 93
-    },
-    {
-        "_id": 139,
-        "name": "Pedro Antonio Salcedo López",
-        "category": 4,
-        "area": 8,
-        "direction": 13,
-        "manager": 93
-    },
-    {
-        "_id": 140,
-        "name": "Rosa Mayela Mendoza Esparza",
-        "category": 4,
-        "area": 8,
-        "direction": 13,
-        "manager": 93
-    },
-    {
-        "_id": 141,
-        "name": "Karla María de la Cruz Espino",
-        "category": 4,
-        "area": 8,
-        "direction": 13,
-        "manager": 93
-    },
-    {
-        "_id": 142,
-        "name": "José de Jesús Marquez Luna",
-        "category": 4,
-        "area": 8,
-        "direction": 13,
-        "manager": 93
-    },
-    {
-        "_id": 143,
-        "name": "Andrea Saharai Guerrero Hernández",
-        "category": 4,
-        "area": 8,
-        "direction": 13,
-        "manager": 93
-    },
-    {
-        "_id": 144,
-        "name": "Araceli Maricruz Diaz Roman",
-        "category": 4,
-        "area": 8,
-        "direction": 13,
-        "manager": 93
-    },
-    {
-        "_id": 145,
-        "name": "Zaida Raquel Guerrero Contreras",
-        "category": 4,
-        "area": 8,
-        "direction": 14,
-        "manager": 94
-    },
-    {
-        "_id": 146,
-        "name": "Rene Felix Dominguez López",
-        "category": 4,
-        "area": 8,
-        "direction": 14,
-        "manager": 94
-    },
-    {
-        "_id": 147,
-        "name": "Georgina Becerra Delgado",
-        "category": 4,
-        "area": 8,
-        "direction": 14,
-        "manager": 94
-    },
-    {
-        "_id": 148,
-        "name": "Soren Hector de Velasco Galván",
-        "category": 4,
-        "area": 8,
-        "direction": 14,
-        "manager": 94
-    },
-    {
-        "_id": 149,
-        "name": "Ana Maria Acosta Zamarripa",
-        "category": 4,
-        "area": 8,
-        "direction": 14,
-        "manager": 94
-    },
-    {
-        "_id": 150,
-        "name": "Fabian Jairo Quiroz Andrade",
-        "category": 4,
-        "area": 8,
-        "direction": 14,
-        "manager": 94
-    },
-    {
-        "_id": 151,
-        "name": "Ricardo Flavio Zarzosa Vega",
-        "category": 4,
-        "area": 8,
-        "direction": 14,
-        "manager": 94
-    },
-    {
-        "_id": 152,
-        "name": "Felipe Espinoza Aguilar",
-        "category": 4,
-        "area": 8,
-        "direction": 14,
-        "manager": 94
-    },
-    {
-        "_id": 153,
-        "name": "Felipe Fernando González Medina",
-        "category": 4,
-        "area": 8,
-        "direction": 14,
-        "manager": 94
-    },
-    {
-        "_id": 154,
-        "name": "Diana Celia Lozano Avila",
-        "category": 4,
-        "area": 8,
-        "direction": 14,
-        "manager": 94
-    },
-    {
-        "_id": 155,
-        "name": "Silvia Karina Jimenez Escobar",
-        "category": 4,
-        "area": 8,
-        "direction": 14,
-        "manager": 94
-    },
-    {
-        "_id": 156,
-        "name": "Maria de Lourdes Vargas Perea",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 95
-    },
-    {
-        "_id": 157,
-        "name": "Fernando García Vargas",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 95
-    },
-    {
-        "_id": 158,
-        "name": "Alejandro Villarreal Ortiz",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 95
-    },
-    {
-        "_id": 159,
-        "name": "Rolando López Martinez",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 95
-    },
-    {
-        "_id": 160,
-        "name": "Sergio Humberto Delgado Guerrero",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 95
-    },
-    {
-        "_id": 161,
-        "name": "Juan Carlos García Rodríguez",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 95
-    },
-    {
-        "_id": 162,
-        "name": "Martin Eduardo Rodríguez Franco",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 95
-    },
-    {
-        "_id": 163,
-        "name": "Yadira Fabiola López Alvarez",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 95
-    },
-    {
-        "_id": 164,
-        "name": "Ricardo Jara Ruiz",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 95
-    },
-    {
-        "_id": 165,
-        "name": "Juan Felipe Tavares Avendaño",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 95
-    },
-    {
-        "_id": 166,
-        "name": "Ma. del Rocio Martínez Hernández",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 95
-    },
-    {
-        "_id": 167,
-        "name": "Gricelda Medina Veloz",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 95
-    },
-    {
-        "_id": 168,
-        "name": "Jorge Herrera Serrano",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 95
-    },
-    {
-        "_id": 169,
-        "name": "Veronica de Luna Hernández",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 95
-    },
-    {
-        "_id": 170,
-        "name": "Antonio Diaz Mejia",
-        "category": 4,
-        "area": 8,
-        "direction": 15,
-        "manager": 95
-    },
-    {
-        "_id": 790,
-        "name": "b b",
-        "area": 1,
-        "direction": 1,
-        "position": 1,
-        "category": 1
-    },
-    {
-        "_id": "admin-inator",
-        "name": "Jeremy Oswald Richarte Bernal",
-        "category": -1
-    }
-]
+[{
+  "_id": "admin-inator",
+  "category": -1,
+  "name": "Jeremy Oswald Richarte Bernal"
+},{
+  "_id": "0007",
+  "enabled": true,
+  "manager": "false",
+  "name": "María Angélica Martínez Díaz",
+  "area": 1,
+  "directorate": 1,
+  "position": 1,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0334",
+  "enabled": true,
+  "manager": "0007",
+  "name": "Ángel Eduardo Zamora Acevedo",
+  "area": 1,
+  "directorate": 2,
+  "position": 2,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0116",
+  "enabled": true,
+  "manager": "0007",
+  "name": "Eduardo de Anda López",
+  "area": 1,
+  "directorate": 3,
+  "position": 3,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0110",
+  "enabled": true,
+  "manager": "0007",
+  "name": "Ana Cecilia López López",
+  "area": 2,
+  "directorate": 2,
+  "position": 4,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0118",
+  "enabled": true,
+  "manager": "0007",
+  "name": "Rebeca Inés Rodríguez Beltrán",
+  "area": 3,
+  "directorate": 4,
+  "position": 5,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0120",
+  "enabled": true,
+  "manager": "0007",
+  "name": "Ricardo Salvador González de Alba",
+  "area": 4,
+  "directorate": 2,
+  "position": 6,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0302",
+  "enabled": true,
+  "manager": "0007",
+  "name": "Eduardo Sotres Ramos",
+  "area": 5,
+  "directorate": 5,
+  "position": 7,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0330",
+  "enabled": true,
+  "manager": "0007",
+  "name": "Christian Hernández Duque Díaz de León",
+  "area": 6,
+  "directorate": 6,
+  "position": 8,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0456",
+  "enabled": true,
+  "manager": "0007",
+  "name": "Juan Carlos García Rodríguez",
+  "area": 7,
+  "directorate": 2,
+  "position": 9,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0472",
+  "enabled": true,
+  "manager": "0007",
+  "name": "Erika Magali Lazcano Ugalde",
+  "area": 8,
+  "directorate": 2,
+  "position": 10,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0210",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Alma Alejandra Aguiñaga Vidales",
+  "area": 9,
+  "directorate": 7,
+  "position": 11,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0212",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Ignacio Delfino Gámez Pérez",
+  "area": 10,
+  "directorate": 2,
+  "position": 12,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0322",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Ernesto Macías Gómez",
+  "area": 11,
+  "directorate": 8,
+  "position": 13,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0464",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Jorge García Guzmán",
+  "area": 9,
+  "directorate": 7,
+  "position": 14,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0208",
+  "enabled": true,
+  "manager": "0330",
+  "name": "Ernesto Díaz Romero",
+  "area": 12,
+  "directorate": 6,
+  "position": 15,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0314",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Gabriel Alfonso de la Madrid Franco",
+  "area": 5,
+  "directorate": 5,
+  "position": 16,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0324",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Felipe de Jesús Ocampo Rangel",
+  "area": 13,
+  "directorate": 4,
+  "position": 17,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0325",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Maribel Medrano Díaz",
+  "area": 11,
+  "directorate": 8,
+  "position": 18,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0326",
+  "enabled": true,
+  "manager": "0007",
+  "name": "Armando Jare Bernal Pérez",
+  "area": 14,
+  "directorate": 9,
+  "position": 19,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0327",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Claudia Prieto Macías",
+  "area": 15,
+  "directorate": 4,
+  "position": 20,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0329",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Jorge Delgado Delgado",
+  "area": 11,
+  "directorate": 8,
+  "position": 21,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0332",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Carlos Jacobo Hinojosa Manrique",
+  "area": 11,
+  "directorate": 8,
+  "position": 22,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0335",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Sandra Lucia Villalobos Martínez",
+  "area": 10,
+  "directorate": 10,
+  "position": 23,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0337",
+  "enabled": true,
+  "manager": "0330",
+  "name": "Diana Natalie Romo López",
+  "area": 6,
+  "directorate": 6,
+  "position": 24,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0338",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Itzel Dayanara Palos Hornedo",
+  "area": 16,
+  "directorate": 4,
+  "position": 25,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0492",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Martha Jessica Cadengo Lizarán",
+  "area": 17,
+  "directorate": 2,
+  "position": 26,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0511",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Zuleica Denise Romo Palacios",
+  "area": 9,
+  "directorate": 7,
+  "position": 27,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0526",
+  "enabled": true,
+  "manager": "0210",
+  "name": "Naieli Herrera Reyes",
+  "area": 18,
+  "directorate": 2,
+  "position": 28,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "1801",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Verónica Ivett González Gutiérrez",
+  "area": 19,
+  "directorate": 6,
+  "position": 29,
+  "category": 1,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0400",
+  "enabled": true,
+  "manager": "0456",
+  "name": "Juan Felipe Tavares Avendaño",
+  "area": 7,
+  "directorate": 11,
+  "position": 30,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0406",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Fernando García Vargas",
+  "area": 20,
+  "directorate": 11,
+  "position": 30,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0409",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Mauro Jorge Bolaños Cruz",
+  "area": 8,
+  "directorate": 12,
+  "position": 30,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0410",
+  "enabled": true,
+  "manager": "0409",
+  "name": "Héctor Manuel Sánchez Estrada",
+  "area": 8,
+  "directorate": 12,
+  "position": 30,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0413",
+  "enabled": true,
+  "manager": "0406",
+  "name": "Alejandro Villarreal Ortiz",
+  "area": 20,
+  "directorate": 11,
+  "position": 30,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0431",
+  "enabled": true,
+  "manager": "0406",
+  "name": "Rolando López Martínez",
+  "area": 20,
+  "directorate": 11,
+  "position": 30,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0435",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Tomás Moreno Granados",
+  "area": 8,
+  "directorate": 12,
+  "position": 30,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0448",
+  "enabled": true,
+  "manager": "0406",
+  "name": "Sergio Humberto Delgado Guerrero",
+  "area": 20,
+  "directorate": 11,
+  "position": 30,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0450",
+  "enabled": true,
+  "manager": "0435",
+  "name": "Juan Manuel Núñez Montalvo",
+  "area": 8,
+  "directorate": 12,
+  "position": 31,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0451",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Zaida Raquel Guerrero Contreras",
+  "area": 4,
+  "directorate": 13,
+  "position": 30,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0452",
+  "enabled": true,
+  "manager": "0456",
+  "name": "Gricelda Medina Veloz",
+  "area": 7,
+  "directorate": 11,
+  "position": 30,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0454",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Roxana Montero Mendoza",
+  "area": 2,
+  "directorate": 14,
+  "position": 31,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0462",
+  "enabled": true,
+  "manager": "0335",
+  "name": "Paula Carmina del Valle Ávila",
+  "area": 21,
+  "directorate": 10,
+  "position": 30,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0463",
+  "enabled": true,
+  "manager": "0335",
+  "name": "Virginia Delgado Ruiz Esparza",
+  "area": 21,
+  "directorate": 10,
+  "position": 30,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0487",
+  "enabled": true,
+  "manager": "-1",
+  "name": "René Félix Domínguez López",
+  "area": 4,
+  "directorate": 13,
+  "position": 30,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0489",
+  "enabled": true,
+  "manager": "0454",
+  "name": "Rebeca Hernández Torres",
+  "area": 2,
+  "directorate": 14,
+  "position": 30,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0490",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Marcela Rocha López",
+  "area": 2,
+  "directorate": 14,
+  "position": 30,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0499",
+  "enabled": true,
+  "manager": "0490",
+  "name": "Pedro Antonio Salcedo López",
+  "area": 2,
+  "directorate": 14,
+  "position": 31,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0517",
+  "enabled": true,
+  "manager": "0406",
+  "name": "Yadira Fabiola López Álvarez",
+  "area": 20,
+  "directorate": 11,
+  "position": 31,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0522",
+  "enabled": true,
+  "manager": "0451",
+  "name": "Soren Héctor de Velasco Gálvan",
+  "area": 4,
+  "directorate": 13,
+  "position": 30,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0523",
+  "enabled": true,
+  "manager": "0487",
+  "name": "Ana María Acosta Zamarripa",
+  "area": 4,
+  "directorate": 13,
+  "position": 31,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0530",
+  "enabled": true,
+  "manager": "0490",
+  "name": "Rosa Mayela Mendoza Esparza",
+  "area": 2,
+  "directorate": 14,
+  "position": 31,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0470",
+  "enabled": true,
+  "manager": "0454",
+  "name": "Ernesto Díaz Olvera",
+  "area": 2,
+  "directorate": 14,
+  "position": 32,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0473",
+  "enabled": true,
+  "manager": "0409",
+  "name": "José Antonio Medina Mendoza",
+  "area": 8,
+  "directorate": 12,
+  "position": 33,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0491",
+  "enabled": true,
+  "manager": "0490",
+  "name": "Nallaly Selene Martínez Girón",
+  "area": 2,
+  "directorate": 14,
+  "position": 32,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0493",
+  "enabled": true,
+  "manager": "0406",
+  "name": "Martín Eduardo Rodríguez Franco",
+  "area": 20,
+  "directorate": 11,
+  "position": 32,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0494",
+  "enabled": true,
+  "manager": "0409",
+  "name": "Ricardo Arellano Yañez",
+  "area": 8,
+  "directorate": 12,
+  "position": 32,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0495",
+  "enabled": true,
+  "manager": "0409",
+  "name": "Gerardo Méndez Macías",
+  "area": 8,
+  "directorate": 12,
+  "position": 33,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0496",
+  "enabled": true,
+  "manager": "0409",
+  "name": "Mauricio Flores Aguilar",
+  "area": 8,
+  "directorate": 12,
+  "position": 32,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0514",
+  "enabled": true,
+  "manager": "0435",
+  "name": "Rosa Inés Vázquez Gutiérrez",
+  "area": 8,
+  "directorate": 12,
+  "position": 32,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0528",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Felipe Espinoza Aguilar",
+  "area": 4,
+  "directorate": 13,
+  "position": 34,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0529",
+  "enabled": true,
+  "manager": "0451",
+  "name": "Felipe Fernando González Medina",
+  "area": 4,
+  "directorate": 13,
+  "position": 34,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0521",
+  "enabled": true,
+  "manager": "0406",
+  "name": "Ricardo Jara Ruiz",
+  "area": 20,
+  "directorate": 11,
+  "position": 33,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0534",
+  "enabled": true,
+  "manager": "0454",
+  "name": "Karla María de la Cruz Espino",
+  "area": 2,
+  "directorate": 14,
+  "position": 34,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0535",
+  "enabled": true,
+  "manager": "0492",
+  "name": "Malinali Xochiquetzal Martínez Martínez",
+  "area": 22,
+  "directorate": 2,
+  "position": 34,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0536",
+  "enabled": true,
+  "manager": "0454",
+  "name": "José de Jesús Márquez Luna",
+  "area": 2,
+  "directorate": 14,
+  "position": 34,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0539",
+  "enabled": true,
+  "manager": "0335",
+  "name": "Ana Cecilia Álvarez Loera",
+  "area": 21,
+  "directorate": 10,
+  "position": 34,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0540",
+  "enabled": true,
+  "manager": "0409",
+  "name": "Jerónimo Varela Puga",
+  "area": 8,
+  "directorate": 12,
+  "position": 34,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0549",
+  "enabled": true,
+  "manager": "0492",
+  "name": "Luis Ernesto Alemán Macías",
+  "area": 17,
+  "directorate": 2,
+  "position": 32,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0550",
+  "enabled": true,
+  "manager": "0409",
+  "name": "Saúl Hernández Amparan",
+  "area": 8,
+  "directorate": 12,
+  "position": 33,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0551",
+  "enabled": true,
+  "manager": "0451",
+  "name": "Christian Flores Gutiérrez",
+  "area": 4,
+  "directorate": 13,
+  "position": 34,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0443",
+  "enabled": true,
+  "manager": "0456",
+  "name": "Ma. del Rocío Martínez Hernández",
+  "area": 7,
+  "directorate": 11,
+  "position": 35,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0476",
+  "enabled": true,
+  "manager": "0492",
+  "name": "Fernando Nájera Romo",
+  "area": 17,
+  "directorate": 2,
+  "position": 36,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0515",
+  "enabled": true,
+  "manager": "0435",
+  "name": "Oscar Daniel Calvillo Valdéz",
+  "area": 8,
+  "directorate": 12,
+  "position": 35,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0519",
+  "enabled": true,
+  "manager": "0330",
+  "name": "Georgina Becerra Delgado",
+  "area": 6,
+  "directorate": 6,
+  "position": 35,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0524",
+  "enabled": true,
+  "manager": "0487",
+  "name": "Fabián Jairo Quiroz Andrade",
+  "area": 4,
+  "directorate": 13,
+  "position": 35,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0525",
+  "enabled": true,
+  "manager": "0487",
+  "name": "Ricardo Flavio Zarzosa Vega",
+  "area": 4,
+  "directorate": 13,
+  "position": 35,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0537",
+  "enabled": true,
+  "manager": "0435",
+  "name": "César Guillermo García Fonseca",
+  "area": 8,
+  "directorate": 12,
+  "position": 37,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0538",
+  "enabled": true,
+  "manager": "0456",
+  "name": "Jorge Eduardo Herrera Serrano",
+  "area": 7,
+  "directorate": 11,
+  "position": 36,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0544",
+  "enabled": true,
+  "manager": "0492",
+  "name": "Viviana Valeria Herrera Ortíz",
+  "area": 17,
+  "directorate": 2,
+  "position": 35,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0548",
+  "enabled": true,
+  "manager": "0435",
+  "name": "Carmela Ortíz Negrete",
+  "area": 8,
+  "directorate": 12,
+  "position": 35,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0501",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Norberto Raúl Madrid Peralta",
+  "area": 8,
+  "directorate": 12,
+  "position": 38,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "2400",
+  "enabled": true,
+  "manager": "-1",
+  "name": "María Guadalupe Saludes Bernal",
+  "area": 9,
+  "directorate": 7,
+  "position": 39,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "2501",
+  "enabled": true,
+  "manager": "0116",
+  "name": "Celeste Jazmín Reyes Morales",
+  "area": 1,
+  "directorate": 3,
+  "position": 40,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "2502",
+  "enabled": true,
+  "manager": "0116",
+  "name": "Karla Noemi Rivera Castorena",
+  "area": 1,
+  "directorate": 3,
+  "position": 41,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0606",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Magdalena Esparza Sosa",
+  "area": 23,
+  "directorate": 7,
+  "position": 42,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0611",
+  "enabled": true,
+  "manager": "0007",
+  "name": "Angelica Zavala Martínez",
+  "area": 1,
+  "directorate": 1,
+  "position": 43,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0701",
+  "enabled": true,
+  "manager": "0330",
+  "name": "Maribel Dávila Rodríguez",
+  "area": 6,
+  "directorate": 6,
+  "position": 44,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0702",
+  "enabled": true,
+  "manager": "0332",
+  "name": "Ricardo Chávez Durán",
+  "area": 24,
+  "directorate": 8,
+  "position": 45,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0915",
+  "enabled": true,
+  "manager": "0325",
+  "name": "Nayeli Margarita Rosales Villalobos",
+  "area": 25,
+  "directorate": 8,
+  "position": 46,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "2008",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Laura Elizabeth Vera Mata",
+  "area": 26,
+  "directorate": 10,
+  "position": 47,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0512",
+  "enabled": true,
+  "manager": "0332",
+  "name": "Víctor Daniel Robles Luévano",
+  "area": 24,
+  "directorate": 8,
+  "position": 48,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0612",
+  "enabled": true,
+  "manager": "0332",
+  "name": "Deisy Fabiola López Delgado",
+  "area": 24,
+  "directorate": 8,
+  "position": 48,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0700",
+  "enabled": true,
+  "manager": "0329",
+  "name": "J Dolores Campos Galván",
+  "area": 27,
+  "directorate": 8,
+  "position": 49,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0901",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Francisca Herrera Castañón",
+  "area": 15,
+  "directorate": 4,
+  "position": 50,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0920",
+  "enabled": true,
+  "manager": "0302",
+  "name": "José De Jesús Herrera Salazar",
+  "area": 5,
+  "directorate": 5,
+  "position": 51,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0923",
+  "enabled": true,
+  "manager": "0327",
+  "name": "Perla Cecilia Bustos Estrada",
+  "area": 15,
+  "directorate": 4,
+  "position": 52,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "1201",
+  "enabled": true,
+  "manager": "0329",
+  "name": "Abel Cervantes Delgado",
+  "area": 27,
+  "directorate": 8,
+  "position": 53,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "1608",
+  "enabled": true,
+  "manager": "0329",
+  "name": "José Alberto Nájera Castorena",
+  "area": 27,
+  "directorate": 8,
+  "position": 49,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "2002",
+  "enabled": true,
+  "manager": "2008",
+  "name": "Rosario Adriana Hernández Velázquez",
+  "area": 26,
+  "directorate": 10,
+  "position": 54,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0907",
+  "enabled": true,
+  "manager": "0302",
+  "name": "Leticia Aranda Legorreta",
+  "area": 5,
+  "directorate": 5,
+  "position": 55,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "1611",
+  "enabled": true,
+  "manager": "-1",
+  "name": "José De Jesús Martínez Ramos",
+  "area": 13,
+  "directorate": 4,
+  "position": 56,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0903",
+  "enabled": true,
+  "manager": "2008",
+  "name": "Lorena Padilla Salazar",
+  "area": 26,
+  "directorate": 10,
+  "position": 57,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0919",
+  "enabled": true,
+  "manager": "0329",
+  "name": "Randy Yenber Buendía Delgado",
+  "area": 27,
+  "directorate": 8,
+  "position": 58,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0929",
+  "enabled": true,
+  "manager": "0332",
+  "name": "Martha Guadalupe Montalvo Salazar",
+  "area": 24,
+  "directorate": 8,
+  "position": 59,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "1617",
+  "enabled": true,
+  "manager": "0007",
+  "name": "Alfredo Cárdenas",
+  "area": 1,
+  "directorate": 1,
+  "position": 60,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "1616",
+  "enabled": true,
+  "manager": "0338",
+  "name": "Juan Carlos Puentes Herrera",
+  "area": 16,
+  "directorate": 4,
+  "position": 61,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "0927",
+  "enabled": true,
+  "manager": "0324",
+  "name": "Marybel Olmedo Gómez",
+  "area": 13,
+  "directorate": 4,
+  "position": 62,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "2000",
+  "enabled": true,
+  "manager": "9054",
+  "name": "Carolina Chávez Tafoya",
+  "area": 28,
+  "directorate": 7,
+  "position": 63,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "2006",
+  "enabled": true,
+  "manager": "0330",
+  "name": "Yolanda Velasco De Luna",
+  "area": 6,
+  "directorate": 6,
+  "position": 55,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "2401",
+  "enabled": true,
+  "manager": "0118",
+  "name": "Christian Fabiola Quiroz Puentes",
+  "area": 3,
+  "directorate": 4,
+  "position": 55,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "2402",
+  "enabled": true,
+  "manager": "2008",
+  "name": "Claudia Benitez García",
+  "area": 26,
+  "directorate": 10,
+  "position": 64,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "2403",
+  "enabled": true,
+  "manager": "0007",
+  "name": "Ma. Elizabeth Almeida Salazar",
+  "area": 1,
+  "directorate": 1,
+  "position": 65,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "1400",
+  "enabled": true,
+  "manager": "0329",
+  "name": "Ricardo García Castorena",
+  "area": 27,
+  "directorate": 8,
+  "position": 66,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "1613",
+  "enabled": true,
+  "manager": "0329",
+  "name": "Jorge García Cervantes",
+  "area": 27,
+  "directorate": 8,
+  "position": 67,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8547",
+  "enabled": true,
+  "manager": "0456",
+  "name": "María de Lourdes Vargas Perea",
+  "area": 29,
+  "directorate": 11,
+  "position": 55,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8622",
+  "enabled": true,
+  "manager": "0327",
+  "name": "Nelly Jocabeth Herrera Hernández",
+  "area": 15,
+  "directorate": 4,
+  "position": 68,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8673",
+  "enabled": true,
+  "manager": "0329",
+  "name": "Jesús Eduardo Najera Castorena",
+  "area": 27,
+  "directorate": 8,
+  "position": 69,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8682",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Blanca Magdalena García Esparza",
+  "area": 23,
+  "directorate": 7,
+  "position": 70,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8721",
+  "enabled": true,
+  "manager": "2008",
+  "name": "Brenda Zamora Romo",
+  "area": 26,
+  "directorate": 10,
+  "position": 64,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8723",
+  "enabled": true,
+  "manager": "0329",
+  "name": "José de Jesús Serrano Álvarez",
+  "area": 27,
+  "directorate": 8,
+  "position": 71,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8725",
+  "enabled": true,
+  "manager": "0472",
+  "name": "María Sanjuana Medina Badillo",
+  "area": 8,
+  "directorate": 12,
+  "position": 55,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8732",
+  "enabled": true,
+  "manager": "0302",
+  "name": "José Miguel Alcántara",
+  "area": 30,
+  "directorate": 5,
+  "position": 72,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8734",
+  "enabled": true,
+  "manager": "0329",
+  "name": "Efrain Castorena Reyes",
+  "area": 27,
+  "directorate": 8,
+  "position": 69,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8750",
+  "enabled": true,
+  "manager": "0302",
+  "name": "Omar Alejandro Montes Contreras",
+  "area": 5,
+  "directorate": 5,
+  "position": 73,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8907",
+  "enabled": true,
+  "manager": "0456",
+  "name": "Verónica de Luna Hernández",
+  "area": 29,
+  "directorate": 11,
+  "position": 55,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8915",
+  "enabled": true,
+  "manager": "9055",
+  "name": "Liliana Herrera García",
+  "area": 31,
+  "directorate": 8,
+  "position": 74,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8970",
+  "enabled": true,
+  "manager": "0325",
+  "name": "Ana Yely Flores Flores",
+  "area": 25,
+  "directorate": 8,
+  "position": 75,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8988",
+  "enabled": true,
+  "manager": "0329",
+  "name": "Aureliano Luevano Herrera",
+  "area": 27,
+  "directorate": 8,
+  "position": 69,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9004",
+  "enabled": true,
+  "manager": "0325",
+  "name": "Maricela Gómez Herrera",
+  "area": 25,
+  "directorate": 8,
+  "position": 75,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9045",
+  "enabled": true,
+  "manager": "0332",
+  "name": "Emmanuel Zamora López",
+  "area": 24,
+  "directorate": 8,
+  "position": 76,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9049",
+  "enabled": true,
+  "manager": "0338",
+  "name": "Aketzalli Gregorio Ramírez",
+  "area": 16,
+  "directorate": 4,
+  "position": 61,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9053",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Eduardo Trinidad Hernández Alfaro",
+  "area": 32,
+  "directorate": 7,
+  "position": 77,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9054",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Daniel Isaias Loera Tovar",
+  "area": 9,
+  "directorate": 7,
+  "position": 78,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9055",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Alma Mayela Reyes Gutiérrez",
+  "area": 31,
+  "directorate": 8,
+  "position": 79,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9074",
+  "enabled": true,
+  "manager": "0327",
+  "name": "César Omar Elias Díaz",
+  "area": 15,
+  "directorate": 4,
+  "position": 68,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9108",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Nancy del Merced Delgado García",
+  "area": 9,
+  "directorate": 7,
+  "position": 55,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9110",
+  "enabled": true,
+  "manager": "0110",
+  "name": "Soraila Edith Covarrubias Rodríguez",
+  "area": 2,
+  "directorate": 14,
+  "position": 55,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9162",
+  "enabled": true,
+  "manager": "0329",
+  "name": "Luis Fernando Carreón Rodríguez",
+  "area": 27,
+  "directorate": 8,
+  "position": 71,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9163",
+  "enabled": true,
+  "manager": "0329",
+  "name": "Ignacio García Castorena",
+  "area": 27,
+  "directorate": 8,
+  "position": 71,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9182",
+  "enabled": true,
+  "manager": "1801",
+  "name": "Claudia Mónica Medina Badillo",
+  "area": 19,
+  "directorate": 6,
+  "position": 65,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9186",
+  "enabled": true,
+  "manager": "0334",
+  "name": "Lizbeth Melina Correa Hernández",
+  "area": 18,
+  "directorate": 2,
+  "position": 55,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9187",
+  "enabled": true,
+  "manager": "0329",
+  "name": "Raúl Aguilar Alvarado",
+  "area": 27,
+  "directorate": 8,
+  "position": 71,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9188",
+  "enabled": true,
+  "manager": "0110",
+  "name": "Andrea Saharai Guerrero Hernández",
+  "area": 2,
+  "directorate": 14,
+  "position": 55,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9194",
+  "enabled": true,
+  "manager": "0901",
+  "name": "Karla Noemí García Cisneros",
+  "area": 15,
+  "directorate": 4,
+  "position": 80,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9197",
+  "enabled": true,
+  "manager": "0120",
+  "name": "Silvia Karina Jiménez Escobar",
+  "area": 4,
+  "directorate": 13,
+  "position": 55,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9199",
+  "enabled": true,
+  "manager": "0332",
+  "name": "Nieves Araceli Valadéz Chávez",
+  "area": 24,
+  "directorate": 8,
+  "position": 81,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9217",
+  "enabled": true,
+  "manager": "0325",
+  "name": "Laura Patricia Narvaez Valadéz",
+  "area": 25,
+  "directorate": 8,
+  "position": 75,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9226",
+  "enabled": true,
+  "manager": "0322",
+  "name": "José Javier Mares Zapata",
+  "area": 25,
+  "directorate": 8,
+  "position": 75,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9228",
+  "enabled": true,
+  "manager": "0329",
+  "name": "José David Soto Reyes",
+  "area": 27,
+  "directorate": 8,
+  "position": 71,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9230",
+  "enabled": true,
+  "manager": "-1",
+  "name": "José de Jesús Pérez Lugo",
+  "area": 27,
+  "directorate": 8,
+  "position": 71,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9231",
+  "enabled": true,
+  "manager": "0901",
+  "name": "Delia Castañón Mata",
+  "area": 15,
+  "directorate": 4,
+  "position": 80,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9237",
+  "enabled": true,
+  "manager": "2008",
+  "name": "Nohelia Leticia González",
+  "area": 26,
+  "directorate": 10,
+  "position": 64,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9244",
+  "enabled": true,
+  "manager": "0335",
+  "name": "Elizabeth Martínez Ortíz",
+  "area": 21,
+  "directorate": 10,
+  "position": 82,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9245",
+  "enabled": true,
+  "manager": "0456",
+  "name": "Antonio Díaz Mejía",
+  "area": 29,
+  "directorate": 11,
+  "position": 83,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9247",
+  "enabled": true,
+  "manager": "0120",
+  "name": "María Guadalupe de Lara Ruíz",
+  "area": 4,
+  "directorate": 13,
+  "position": 55,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9263",
+  "enabled": true,
+  "manager": "0324",
+  "name": "Sheila Paola Pérez Rodríguez",
+  "area": 13,
+  "directorate": 4,
+  "position": 62,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9267",
+  "enabled": true,
+  "manager": "0338",
+  "name": "Rodrigo Antonio Muñoz Romero",
+  "area": 16,
+  "directorate": 4,
+  "position": 61,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9270",
+  "enabled": true,
+  "manager": "0332",
+  "name": "Flor Andrea Guzmán Sosa",
+  "area": 24,
+  "directorate": 8,
+  "position": 81,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9271",
+  "enabled": true,
+  "manager": "0007",
+  "name": "Alicia Santillán Herrera",
+  "area": 1,
+  "directorate": 1,
+  "position": 84,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9272",
+  "enabled": true,
+  "manager": "0492",
+  "name": "Noemí del Carmen Arenas Reyes",
+  "area": 17,
+  "directorate": 2,
+  "position": 65,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9273",
+  "enabled": true,
+  "manager": "0472",
+  "name": "Alondra Rodríguez Lazarín",
+  "area": 8,
+  "directorate": 12,
+  "position": 55,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9274",
+  "enabled": true,
+  "manager": "0901",
+  "name": "Cecilia Jannet Padilla Escobar",
+  "area": 15,
+  "directorate": 4,
+  "position": 80,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9278",
+  "enabled": true,
+  "manager": "2008",
+  "name": "Marissa Martínez Salazar",
+  "area": 26,
+  "directorate": 10,
+  "position": 64,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9279",
+  "enabled": true,
+  "manager": "9054",
+  "name": "Ricardo Díaz Ortíz",
+  "area": 28,
+  "directorate": 7,
+  "position": 63,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9280",
+  "enabled": true,
+  "manager": "0302",
+  "name": "Jorge Eduardo Macías Franco",
+  "area": 5,
+  "directorate": 5,
+  "position": 85,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9292",
+  "enabled": true,
+  "manager": "0326",
+  "name": "José Eduardo Morán Luévano",
+  "area": 14,
+  "directorate": 9,
+  "position": 86,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9295",
+  "enabled": true,
+  "manager": "0338",
+  "name": "Alejandro Ávila Estrada",
+  "area": 16,
+  "directorate": 4,
+  "position": 61,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9297",
+  "enabled": true,
+  "manager": "0606",
+  "name": "Juan Diego Sánchez Delgado",
+  "area": 23,
+  "directorate": 7,
+  "position": 70,
+  "category": 3,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "5017",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Esperanza Moncada Márquez",
+  "area": 33,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "5025",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Silvia Moreno Pinedo",
+  "area": 33,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "5026",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Raquel Jauregui Dueñas",
+  "area": 15,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "5043",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Arturo Hernández Cárdenas",
+  "area": 34,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "5058",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Mónica del Carmen Padilla Salazar",
+  "area": 35,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "5064",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Luis Fernando Nieto Flores",
+  "area": 34,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "5067",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Julio Abraham Quiroz Pacheco",
+  "area": 15,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "5508",
+  "enabled": true,
+  "manager": "-1",
+  "name": "César Israel Rodríguez Luévano",
+  "area": 34,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "5559",
+  "enabled": true,
+  "manager": "-1",
+  "name": "César Eduardo Hernández Landín",
+  "area": 34,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "5563",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Adriana Monserrat Hernández Cortés",
+  "area": 36,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "6122",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Ricardo Ibarra García",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "6140",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Luis Roberto González Cravioto",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "6141",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Daniel Ernesto Esparza Padilla",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "6508",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Samuel Hernández Gaytán",
+  "area": 37,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "7513",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Ma. de la Luz Lazarín Arenas",
+  "area": 38,
+  "directorate": 12,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "7551",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Lorena Carreón Calvillo",
+  "area": 38,
+  "directorate": 12,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8057",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Juan Carlos Medina del Alto",
+  "area": 39,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8508",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Salvador Macías Mata",
+  "area": 40,
+  "directorate": 5,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8513",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Edgar Pérez Reyes",
+  "area": 40,
+  "directorate": 5,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8534",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Julián Villalobos Solís",
+  "area": 40,
+  "directorate": 5,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8592",
+  "enabled": true,
+  "manager": "-1",
+  "name": "José Manuel Castillo Reyes",
+  "area": 40,
+  "directorate": 5,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8612",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Arturo Silva Martínez",
+  "area": 40,
+  "directorate": 5,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8645",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Rolando Antonio Díaz Esparza",
+  "area": 40,
+  "directorate": 5,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8665",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Simón Eduardo Rodríguez Rodríguez",
+  "area": 15,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8667",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Jesús Elliot Tovar",
+  "area": 40,
+  "directorate": 5,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8699",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Sandro Francisco Gallegos Ortega",
+  "area": 40,
+  "directorate": 5,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8738",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Mayra Alejandra Romo Macías",
+  "area": 35,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8746",
+  "enabled": true,
+  "manager": "-1",
+  "name": "María Gabriela Macías López",
+  "area": 35,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8759",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Francisco González Martínez",
+  "area": 37,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8763",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Jairo Ulises Reyes López",
+  "area": 36,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8773",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Daniel Eduardo Gómez Cuevas",
+  "area": 39,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8783",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Luis Martín Macías Valdéz",
+  "area": 41,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8784",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Leticia Suárez Ruíz",
+  "area": 33,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8786",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Maria del Rosario Trancoso Rodríguez",
+  "area": 37,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8795",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Gustavo Adolfo Urrútia López",
+  "area": 39,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8804",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Rocío Hernández Hernández",
+  "area": 33,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8810",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Roberto Paniagua Zwanziger",
+  "area": 15,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8816",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Jorge Eduardo Urquieta Pañeda",
+  "area": 42,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8821",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Elizabeth Carolina Romo Delgado",
+  "area": 43,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8846",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Margarita González Rodríguez",
+  "area": 35,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8860",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Jazmin Yesenia Martínez Tavarez",
+  "area": 44,
+  "directorate": 12,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8867",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Horacio Puentes Medina",
+  "area": 15,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8878",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Angélica Contreras Castañeda",
+  "area": 38,
+  "directorate": 12,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8920",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Julián Rogelio Real Garduño",
+  "area": 45,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8924",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Alondra Meza Ortiz",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8944",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Reynaldo Oziel Silva Prieto",
+  "area": 40,
+  "directorate": 5,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8945",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Eddy Afanaciel Romo Mejía",
+  "area": 33,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8952",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Alejandra Guzmán Campos",
+  "area": 34,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8962",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Ileana Danira Mondragon Garibay",
+  "area": 33,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8963",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Irma Dominguez Aguilar",
+  "area": 33,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8964",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Obed Alejandro Parada González",
+  "area": 34,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8991",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Jaime Guadarrama Morales",
+  "area": 34,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "8993",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Rita Verónica Serna Niño",
+  "area": 39,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9000",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Carolina de Guadalupe Robledo Rodriguez",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9011",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Víctor Manuel Galván Quezada",
+  "area": 44,
+  "directorate": 12,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9014",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Alexis del Refugio Lucio Contreras",
+  "area": 36,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9017",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Marisol Herrera Reyes",
+  "area": 37,
+  "directorate": 12,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9018",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Ángel Iván Olivetti Díaz",
+  "area": 40,
+  "directorate": 5,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9019",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Luis Fernando Macías de Anda",
+  "area": 36,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9020",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Edgar Ernesto Durón García",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9028",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Luis Arturo Martínez Mercado",
+  "area": 15,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9030",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Ricardo Romero Lomelí",
+  "area": 38,
+  "directorate": 12,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9034",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Polo Andre Flores Soto",
+  "area": 40,
+  "directorate": 5,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9037",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Joel Hernández Hernández",
+  "area": 15,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9038",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Fátima del Rocío Martínez Casillas",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9044",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Daritza Vianney Macías Ortíz",
+  "area": 39,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9051",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Nidia Herrera Reyes",
+  "area": 38,
+  "directorate": 12,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9052",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Javier Brianza Gordillo",
+  "area": 38,
+  "directorate": 12,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9056",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Sandra Elvira Martínez Macías",
+  "area": 35,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9058",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Carlos Alberto Ortíz Villaseñor",
+  "area": 15,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9067",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Blanca Vianney Peña Nájera",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9071",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Winston Spencer de Velasco Galván",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9078",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Yeni de Nieves Caldera Cordero",
+  "area": 39,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9098",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Nereida Monserrat Terrones García",
+  "area": 39,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9100",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Antonio Aguilar Rodríguez",
+  "area": 36,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9101",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Paulina Jaqueline Pérez",
+  "area": 39,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9102",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Jaqueline Camacho Rivera",
+  "area": 38,
+  "directorate": 12,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9105",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Julio César Moreno Castillo",
+  "area": 15,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9107",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Javier González Huizar",
+  "area": 39,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9111",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Francisco Arturo Neumann Landa",
+  "area": 41,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9117",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Heriberto Campos Álvarez",
+  "area": 37,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9119",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Francisco Javier Romero Lomelí",
+  "area": 38,
+  "directorate": 12,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9121",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Jaqueline Ojeda Rodríguez",
+  "area": 46,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9122",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Alejandro Núñez Zavala",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9124",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Blanca Aide Ramos Ramírez",
+  "area": 39,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9132",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Rosa Isela Santillán Gutiérrez",
+  "area": 47,
+  "directorate": 12,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9136",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Carmen Karely Espino Cortes",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9138",
+  "enabled": true,
+  "manager": "-1",
+  "name": "María de Lourdes Rodríguez Flores",
+  "area": 15,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9147",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Ernesto Rodríguez Guevara",
+  "area": 41,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9150",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Fabián Cruz Macías",
+  "area": 41,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9158",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Paola del Rocío Vargas Cabral",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9168",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Juan Negrete Sandoval",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9177",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Rubén Pedroza Méndez",
+  "area": 42,
+  "directorate": 12,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9178",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Yeivi Jara Ruiz",
+  "area": 39,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9179",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Irving Sebastian Martínez Dávalos",
+  "area": 41,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9189",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Omar Ricardo Ovalle García",
+  "area": 34,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9192",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Alexis José Ovalle Calvillo",
+  "area": 33,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9193",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Araceli Maricruz Díaz Román",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9201",
+  "enabled": true,
+  "manager": "-1",
+  "name": "José Julián Pasillas Velázquez",
+  "area": 43,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9205",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Ricardo Daniel Pedroza García",
+  "area": 43,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9210",
+  "enabled": true,
+  "manager": "-1",
+  "name": "José Arturo Méndez Almeida",
+  "area": 43,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9213",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Jorge Ernesto Fernández Alfaro",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9214",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Evlyn Alain Andrade Hernández",
+  "area": 15,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9218",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Francisco Javier Vargas Cruz",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9219",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Carina Hernández Morales",
+  "area": 48,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9220",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Héctor Ochoa Guerrero",
+  "area": 15,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9225",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Omar Álvarez Loera",
+  "area": 40,
+  "directorate": 5,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9233",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Irma Lorena Riojas González",
+  "area": 35,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9240",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Luis Renato Adame Galvan",
+  "area": 41,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9249",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Yolanda de Jesús de Lara Valdés",
+  "area": 33,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9255",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Josafat Negrete Martínez",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9256",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Norma Rocha Rendón",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9261",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Sergio Abraham Gutiérrez Martín",
+  "area": 49,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9276",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Julio Alberto Cruz Olivares",
+  "area": 40,
+  "directorate": 5,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9281",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Nathanael Flores Calzada",
+  "area": 43,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9282",
+  "enabled": true,
+  "manager": "-1",
+  "name": "José Maximiliano Mendoza Martínez",
+  "area": 37,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9283",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Adán Jair Serna Reyes",
+  "area": 43,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9284",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Pedro Serafín Vergara",
+  "area": 39,
+  "directorate": 15,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9285",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Carolina Medina Muñoz",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9286",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Héctor Calvillo Marmolejo",
+  "area": 15,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9288",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Jessica Fragoza González",
+  "area": 40,
+  "directorate": 5,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9289",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Ana Cristina Segoviano Raga",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9290",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Cynthia Alejandra Rodríguez Esparza",
+  "area": 50,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9291",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Ulises Antonio Macías",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9293",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Estefani Yareli Calvillo Muñoz",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9294",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Irma Graciela Martínez Mercado",
+  "area": 15,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9296",
+  "enabled": true,
+  "manager": "-1",
+  "name": "José Martín Ortíz Martínez",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9298",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Frank Daniel Hernández González",
+  "area": 17,
+  "directorate": 2,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9299",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Omar Martín Vázquez",
+  "area": 38,
+  "directorate": 12,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9300",
+  "enabled": true,
+  "manager": "-1",
+  "name": "César Eduardo Aviña Berumen",
+  "area": 33,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9301",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Damaris Rodríguez López",
+  "area": 41,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9302",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Javier Sánchez de Luna",
+  "area": 41,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9303",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Juan Carlos Durón Garcìa",
+  "area": 41,
+  "directorate": 13,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+},{
+  "_id": "9304",
+  "enabled": true,
+  "manager": "-1",
+  "name": "Carlos Alberto Sánchez Esqueda",
+  "area": 33,
+  "directorate": 14,
+  "position": 87,
+  "category": 2,
+  "log": {
+    "_id": "admin-inator",
+    "name": "Jeremy Oswald Richarte Bernal",
+    "timestamp": {
+      "date": "2022-03-21",
+      "time": "14:24"
+    },
+    "operation": "created"
+  }
+}]

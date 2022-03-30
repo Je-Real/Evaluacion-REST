@@ -1,0 +1,325 @@
+[{
+  "_id": 1,
+  "description": [
+    "Rectoría",
+    "Rectory"
+  ]
+},{
+  "_id": 2,
+  "description": [
+    "Secretaría Académica",
+    "Secretaría Académica"
+  ]
+},{
+  "_id": 3,
+  "description": [
+    "Órgano Interno de Control",
+    "Órgano Interno de Control"
+  ]
+},{
+  "_id": 4,
+  "description": [
+    "Administración y Finanzas",
+    "Administración y Finanzas"
+  ]
+},{
+  "_id": 5,
+  "description": [
+    "Promoción, Comunicación y Extensión Universitaria",
+    "Promoción, Comunicación y Extensión Universitaria"
+  ]
+},{
+  "_id": 6,
+  "description": [
+    "Vinculación",
+    "Vinculación"
+  ]
+},{
+  "_id": 7,
+  "description": [
+    "Planeación y Evaluación Institucional",
+    "Planeación y Evaluación Institucional"
+  ]
+},{
+  "_id": 8,
+  "description": [
+    "Subdirección de Servicios Administrativos",
+    "Subdirección de Servicios Administrativos"
+  ]
+},{
+  "_id": 9,
+  "description": [
+    "Subdirección Jurídica",
+    "Subdirección Jurídica"
+  ]
+},{
+  "_id": 10,
+  "description": [
+    "Subdirección de Atención al Cliente",
+    "Subdirección de Atención al Cliente"
+  ]
+},{
+  "_id": 11,
+  "description": [
+    "Académica de Tecnologías de la Información",
+    "Académica de Tecnologías de la Información"
+  ]
+},{
+  "_id": 12,
+  "description": [
+    "Académica Área Industrial",
+    "Académica Área Industrial"
+  ]
+},{
+  "_id": 13,
+  "description": [
+    "Académica de Agricultura y DNM",
+    "Académica de Agricultura y DNM"
+  ]
+},{
+  "_id": 14,
+  "description": [
+    "Académica de Administración y Contaduría",
+    "Académica de Administración y Contaduría"
+  ]
+},{
+  "_id": 15,
+  "description": [
+    "Dirección Académica de Tecnologías de la Información",
+    "Dirección Académica de Tecnologías de la Información"
+  ]
+},{
+  "_id": 16,
+  "description": [
+    "Atención al Cliente",
+    "Atención al Cliente"
+  ]
+},{
+  "_id": 17,
+  "description": [
+    "Servicios Administrativos",
+    "Servicios Administrativos"
+  ]
+},{
+  "_id": 18,
+  "description": [
+    "Relaciones Industriales",
+    "Relaciones Industriales"
+  ]
+},{
+  "_id": 19,
+  "description": [
+    "Programación y Presupuesto",
+    "Programación y Presupuesto"
+  ]
+},{
+  "_id": 20,
+  "description": [
+    "Jurídico",
+    "Jurídico"
+  ]
+},{
+  "_id": 21,
+  "description": [
+    "Contabilidad",
+    "Contabilidad"
+  ]
+},{
+  "_id": 22,
+  "description": [
+    "Adquisiciones",
+    "Adquisiciones"
+  ]
+},{
+  "_id": 23,
+  "description": [
+    "Idiomas",
+    "Idiomas"
+  ]
+},{
+  "_id": 24,
+  "description": [
+    "Logística y Enlace Institucional",
+    "Logística y Enlace Institucional"
+  ]
+},{
+  "_id": 25,
+  "description": [
+    "Académica de Mecatrónica y Mecánica Automotriz",
+    "Académica de Mecatrónica y Mecánica Automotriz"
+  ]
+},{
+  "_id": 26,
+  "description": [
+    "Formación Integral",
+    "Formación Integral"
+  ]
+},{
+  "_id": 27,
+  "description": [
+    "Expresión Oral y Escrita",
+    "Expresión Oral y Escrita"
+  ]
+},{
+  "_id": 28,
+  "description": [
+    "Planeación",
+    "Planeación"
+  ]
+},{
+  "_id": 29,
+  "description": [
+    "Soporte Técnico",
+    "Soporte Técnico"
+  ]
+},{
+  "_id": 30,
+  "description": [
+    "Capital Humano",
+    "Capital Humano"
+  ]
+},{
+  "_id": 31,
+  "description": [
+    "Servicios Escolares",
+    "Servicios Escolares"
+  ]
+},{
+  "_id": 32,
+  "description": [
+    "Infraestructura",
+    "Infraestructura"
+  ]
+},{
+  "_id": 33,
+  "description": [
+    "Centro de Información",
+    "Centro de Información"
+  ]
+},{
+  "_id": 34,
+  "description": [
+    "Dirección Académica de Tecnologías de la Información y Comunicación",
+    "Dirección Académica de Tecnologías de la Información y Comunicación"
+  ]
+},{
+  "_id": 35,
+  "description": [
+    "Difusión y Divulgación",
+    "Difusión y Divulgación"
+  ]
+},{
+  "_id": 36,
+  "description": [
+    "Gestión de Calidad y Ambiental",
+    "Gestión de Calidad y Ambiental"
+  ]
+},{
+  "_id": 37,
+  "description": [
+    "Administración",
+    "Administración"
+  ]
+},{
+  "_id": 38,
+  "description": [
+    "Desarrollo de Negocios",
+    "Desarrollo de Negocios"
+  ]
+},{
+  "_id": 39,
+  "description": [
+    "Formación Sociocultural",
+    "Formación Sociocultural"
+  ]
+},{
+  "_id": 40,
+  "description": [
+    "Expresión Oral y Escrita (Jefatura de Idiomas)",
+    "Expresión Oral y Escrita (Jefatura de Idiomas)"
+  ]
+},{
+  "_id": 41,
+  "description": [
+    "Mecatrónica",
+    "Mecatrónica"
+  ]
+},{
+  "_id": 42,
+  "description": [
+    "Industrial",
+    "Industrial"
+  ]
+},{
+  "_id": 43,
+  "description": [
+    "Tecnologías de la Información",
+    "Tecnologías de la Información"
+  ]
+},{
+  "_id": 44,
+  "description": [
+    "Act. Culturales y Deportivas",
+    "Act. Culturales y Deportivas"
+  ]
+},{
+  "_id": 45,
+  "description": [
+    "Agricultura Sustentable y Protegida",
+    "Agricultura Sustentable y Protegida"
+  ]
+},{
+  "_id": 46,
+  "description": [
+    "Mecánica",
+    "Mecánica"
+  ]
+},{
+  "_id": 47,
+  "description": [
+    "Matemáticas",
+    "Matemáticas"
+  ]
+},{
+  "_id": 48,
+  "description": [
+    "Industrial (Química)",
+    "Industrial (Química)"
+  ]
+},{
+  "_id": 49,
+  "description": [
+    "Contabilidad / Administración",
+    "Contabilidad / Administración"
+  ]
+},{
+  "_id": 50,
+  "description": [
+    "Logística y Comercio",
+    "Logística y Comercio"
+  ]
+},{
+  "_id": 51,
+  "description": [
+    "Diseño",
+    "Diseño"
+  ]
+},{
+  "_id": 52,
+  "description": [
+    "Logística y Transporte",
+    "Logística y Transporte"
+  ]
+},{
+  "_id": 53,
+  "description": [
+    "Diseño y Gestión en Redes Logísticas",
+    "Diseño y Gestión en Redes Logísticas"
+  ]
+},{
+  "_id": 54,
+  "description": [
+    "Fiscal",
+    "Fiscal"
+  ]
+}]

@@ -1,10 +1,17 @@
 let firstName, lastName,
-	area, direction, position,
+	area, directorate, position,
 	a_ = null, d_ = 0, p_ = 0,
 	lvl_s = 0,
 	pkg = { data: [] }, options = []
 
 let fuzzyLock = true
+
+/**
+ * Show or hide the hints box below the input text
+ * @param {*} e Event target
+ * @param {Boolean} show Show the hints box (Default: true)
+ * @returns 
+ */
 const modalHintDisplay = async(e, show = true) => {
 	try {
 		return setTimeout(() => {
@@ -33,6 +40,13 @@ const modalHintDisplay = async(e, show = true) => {
 		throw false
 	}
 }
+
+/**
+ * Search by ID or name dynamically data from 
+ * a specific collection and retrieve information.
+ * @param {*} e Event target
+ * @param {*} collection Collection to search
+ */
 const dynamicHints = async(e, collection) => {
 	if(fuzzyLock && e.target) {
 		fuzzyLock = false

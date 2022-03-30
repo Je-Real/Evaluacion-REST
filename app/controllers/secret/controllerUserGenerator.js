@@ -70,11 +70,11 @@ async function generatorFixed(params) {
 			
 			if((typeof params[i].level == 'number') &&
 				(typeof params[i].area == 'number') &&
-				(typeof params[i].direction == 'number')) {
+				(typeof params[i].directorate == 'number')) {
 				mana = params[i].manager
 				
 				area = params[i].area
-				depa = params[i].direction
+				depa = params[i].directorate
 				care = params[i].position
 				lvl = params[i].level
 	

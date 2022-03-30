@@ -1,7 +1,7 @@
 const modelEvaluation = require('../models/modelEvaluation')
 const modelUserInfo = require('../models/modelUserInfo')
 const modelArea = require('../models/modelArea')
-const modelDirection = require('../models/modelDirection')
+const modelDirectorate = require('../models/modelDirectorate')
 
 const sharp = require('sharp')
 const pdf = require('pdfjs')
@@ -13,7 +13,7 @@ const CURRENT_YEAR = DATE.getFullYear()
 // >>>>>>>>>>>>>>>>>>>>>> Reportes <<<<<<<<<<<<<<<<<<<<<<
 async function root(req, res) {
 	let areas = [],
-		directions = [],
+		directorates = [],
 		subordinates = []
 
 	if(!('_id' in req.session)) { // No session 😡
@@ -22,7 +22,7 @@ async function root(req, res) {
 		if(req.session.super) {
 			areas = await modelArea.find({}) // Get all areas in DB
 				.catch((error) => { console.error(error) })
-			directions = await modelDirection.find({}) // Get all directions in DB
+			directorates = await modelDirectorate.find({}) // Get all directorates in DB
 				.catch((error) => { console.error(error) })
 		} else {
 			areas = await modelUserInfo.aggregate([
@@ -58,28 +58,28 @@ async function root(req, res) {
 			]) // Get the areas of the user and subordinates
 			.catch((error) => { console.error(error) })
 
-			directions = await modelUserInfo.aggregate([
+			directorates = await modelUserInfo.aggregate([
 				{
 					$match: {
 						$or: [ { _id: req.session._id }, { manager: req.session._id } ],
 					}
 				}, {
 					$lookup: {
-						from: "directions",
+						from: "directorates",
 						pipeline: [ { $unset: ["__v"] } ],
-						localField: "direction",
+						localField: "directorate",
 						foreignField: "_id",
-						as: "direction",
+						as: "directorate",
 					},
 				}, {
 					$unwind: {
-						path: "$direction",
+						path: "$directorate",
 						preserveNullAndEmptyArrays: true,
 					},
 				}, {
 					$group: {
-						_id: "$direction._id",
-						description: { $addToSet: "$direction.description" },
+						_id: "$directorate._id",
+						description: { $addToSet: "$directorate.description" },
 						count: { $sum: 1 },
 					},
 				}, {
@@ -88,7 +88,7 @@ async function root(req, res) {
 						preserveNullAndEmptyArrays: true,
 					},
 				},
-			]) // Get all directions in DB
+			]) // Get all directorates in DB
 			.catch((error) => { console.error(error) })
 		}
 
@@ -122,7 +122,7 @@ async function root(req, res) {
 		return res.status(200).render('metrics', {
 			title_page: 'UTNA - Metricas',
 			session: req.session,
-			directions: directions,
+			directorates: directorates,
 			areas: areas,
 			subordinates: subordinates,
 		})
@@ -170,9 +170,9 @@ function getOne(req, res) {
 		search['records.area'] = req.body.area
 		filter['records.area'] = req.body.area
 	}
-	else if('direction' in req.body) {
-		search['records.direction'] = req.body.direction
-		filter['records.direction'] = req.body.direction
+	else if('directorate' in req.body) {
+		search['records.directorate'] = req.body.directorate
+		filter['records.directorate'] = req.body.directorate
 	}
 	else {
 		search['records.manager'] = req.session._id
@@ -208,7 +208,7 @@ function getOne(req, res) {
 							score: 99.9
 							answers: [...]
 							area: 1
-							direction: 1
+							directorate: 1
 							manager: "manager_id"
 						},
 						{...}
@@ -247,7 +247,7 @@ function getOne(req, res) {
 			)
 			finalAverage = parseFloat((finalAverage / divideBy).toFixed(2))
 
-			// If an area or direction is requested, then get the employees of the search
+			// If an area or directorate is requested, then get the employees of the search
 			if((req.body._id == null || req.body._id == undefined) && req.session.super) {
 				search = {}
 
@@ -256,8 +256,8 @@ function getOne(req, res) {
 				}
 				else if('area' in req.body)
 					search.area = req.body.area
-				else if('direction' in req.body)
-					search.direction = req.body.direction
+				else if('directorate' in req.body)
+					search.directorate = req.body.directorate
 
 				search.manager = req.session._id
 
@@ -275,7 +275,7 @@ function getOne(req, res) {
 					}, {
 						'$unset': [
 							'enabled', 'name', 'manager', 'area',
-							'direction', 'category', '__v', 'log'
+							'directorate', 'category', '__v', 'log'
 						]
 					}, {
 						'$unwind': { 'path': '$position' }
@@ -322,7 +322,7 @@ function getOne(req, res) {
 
 /**
  * For bar chart (Not used since there are a
- * lot of areas, directions, etc)
+ * lot of areas, directorates, etc)
  * @param {*} req
  * @param {*} res
  * @returns
@@ -439,8 +439,8 @@ async function getAll(req, res) {
 
 	if(req.body.search == 'area')
 		modelMaster = modelArea
-	else if (req.body.search == 'directions')
-		modelMaster = modelDirection
+	else if (req.body.search == 'directorates')
+		modelMaster = modelDirectorate
 	else
 		return failure()
 
@@ -470,100 +470,100 @@ async function printer(req, res) {
 		})
 	}
 
-	const DATA = await req.body
+	const REQ = await req.body
 	const FORMAT_DATE = `${ DATE.getFullYear() }-`+
 		`${ (String(DATE.getMonth()+1).length == 1) ? '0'+(DATE.getMonth()+1) : DATE.getMonth()+1 }-`+
 		`${ (String(DATE.getDate()).length == 1) ? '0'+(DATE.getDate()) : DATE.getDate() }`
 
-	// test for print  e v e r y t h i n g
-	if('all' in DATA) {
 		res.append('msg', Array( // MSG will change if it reaches some states
-			`Documento generado correctamente. Descargando ahora.`,
-			`Document generated successfully. Downloading now.`
-		)[req.session.lang])
+		`Documento generado correctamente. Descargando ahora.`,
+		`Document generated successfully. Downloading now.`
+	)[req.session.lang])
 
-		const getEvaluations = async(match) => {
-			try {
-				return await modelEvaluation.aggregate([
-					{
-						$match: match
-					}, {
-						$unwind: { path: '$records' }
-					}, {
-						$match: { 'records.year': CURRENT_YEAR }
-					}, {
-						$replaceRoot: {
-							newRoot: {
-								'_id': '$_id',
-								'year': '$records.year',
-								'score': { $cond: [
-										  // If disable is not null (if exists)
-										  { $eq: ['$records.disabled', true] },
-										  0, // user disabled
-										  '$records.score' // user with an evaluation already done
-									]},
-								'position': '$records.position'
-							}
-						}
-					}, {
-						$lookup: {
-							from: 'positions',
-							pipeline: [
-								{ '$unset': [ '_id', '__v', 'log' ] },
-								{ '$unwind': '$description' }
-							],
-							localField: 'position',
-							foreignField: '_id',
-							as: 'position'
+	const getEvaluations = async(match) => {
+		try {
+			return await modelEvaluation.aggregate([
+				{
+					$match: match
+				}, {
+					$unwind: { path: '$records' }
+				}, {
+					$match: { 'records.year': CURRENT_YEAR }
+				}, {
+					$replaceRoot: {
+						newRoot: {
+							'_id': '$_id',
+							'year': '$records.year',
+							'score': { $cond: [
+									// If disable is not null (if exists)
+									{ $eq: ['$records.disabled', true] },
+									0, // user disabled
+									'$records.score' // user with an evaluation already done
+								]},
+							'position': '$records.position'
 						}
 					}
-				])
-			} catch (error) {
-				throw error
-			}
+				}, {
+					$lookup: {
+						from: 'positions',
+						pipeline: [
+							{ '$unset': [ '_id', '__v', 'log' ] },
+							{ '$unwind': '$description' }
+						],
+						localField: 'position',
+						foreignField: '_id',
+						as: 'position'
+					}
+				}
+			])
+		} catch (error) {
+			throw error
 		}
+	}
 
-		const posSelector = Array('Puesto', 'Position')[req.session.lang]
-		const dirSelector = Array('Dirección', 'Direction')[req.session.lang]
-		const avgSelector = Array('Promedio', 'Average')[req.session.lang]
+	const posSelector = Array('Puesto', 'Position')[req.session.lang]
+	const dirSelector = Array('Dirección', 'Directorate')[req.session.lang]
+	const avgSelector = Array('Promedio', 'Average')[req.session.lang]
 
-		/**
-		 * IDK but this function put the information in
-		 * the excel file in the array order position
-		 * @param {*} data Data
-		 * @param {*} header Header array
-		 * @returns Data sheet
-		 */
-		const getSheetData = (data, header) => {
-			let fields = Object.keys(data[0])
-			let sheetData = data.map((row) => {
-				return fields.map((fieldName) => {
-					return (String(row[fieldName]).length != 0) ? row[fieldName] : ''
-				})
+	/**
+	 * IDK but this function put the information in
+	 * the excel file in the array order position
+	 * @param {*} data Data
+	 * @param {*} header Header array
+	 * @returns Data sheet
+	 */
+	const getSheetData = (data, header) => {
+		let fields = Object.keys(data[0])
+		let sheetData = data.map((row) => {
+			return fields.map((fieldName) => {
+				return (String(row[fieldName]).length != 0) ? row[fieldName] : ''
 			})
-			sheetData.unshift(header)
-			return sheetData
-		}
+		})
+		sheetData.unshift(header)
+		return sheetData
+	}
 
-		let directionsSheet = [],
-			transactionDir
-
-		for(let dir in DATA.all.directions) {
-			if(!(DATA.all.directions[dir]._id)) { // No id direction
+	let directionsTable = [],
+		transaction
+	if('directorates' in REQ.data) {
+		for(let dir in REQ.data.directorates) {
+			if(!(REQ.data.directorates[dir]._id)) { // No id directorate
 				console.error({
-					Error: 'No data in '+DATA.all.directions[dir].description,
-					Data: DATA.all.directions[dir]
+					Error: 'No directorate data in '+REQ.data.directorates[dir].description,
+					Data: REQ.data.directorates[dir]
 				})
 				res.append('msg', Array(
 					`No se recibieron algunos datos para búsqueda de métricas. Contacta con el administrador.`,
 					`Some data were not received for metrics search. Contact the administrator.`
 				)[req.session.lang])
-			}
-			let match = {
-				'records.direction': DATA.all.directions[dir]._id
+				return res.status(500).end({})
 			}
 
-			transactionDir = await getEvaluations(match)
+			let match = {
+				'records.directorate': parseInt(REQ.data.directorates[dir]._id)
+			}
+
+			transaction = await getEvaluations(match)
 			.then(employees => {
 				/* Data expected
 					[
@@ -579,7 +579,7 @@ async function printer(req, res) {
 				if(employees.length) {
 					let divideBy = 0
 					let directionAvg = 0
-					
+
 					employees.forEach((employee) => { // Sum all scores
 						if(employee.score > 0) {
 							directionAvg += employee.score
@@ -590,10 +590,10 @@ async function printer(req, res) {
 					directionAvg = (directionAvg == undefined) ? 0 : parseFloat((directionAvg / divideBy).toFixed(2))
 
 					let push = {}
-					push[dirSelector] = DATA.all.directions[dir].description
+					push[dirSelector] = REQ.data.directorates[dir].description
 					push[avgSelector] = directionAvg
 
-					directionsSheet.push(push)
+					directionsTable.push(push)
 					return true
 				} else return false
 			})
@@ -609,26 +609,28 @@ async function printer(req, res) {
 				return false
 			})
 		}
+	}
 
-		let areasSheet = [],
-			transactionArea
-
-		for(let area in DATA.all.areas) {
-			if(!(DATA.all.areas[area]._id)) { // No id direction
+	let areasTable = []
+	if('areas' in REQ.data) {
+		for(let area in REQ.data.areas) {
+			if(!(REQ.data.areas[area]._id)) { // No id area
 				console.error({
-					Error: 'No data in '+DATA.all.areas[area].description,
-					Data: DATA.all.areas[area]
+					Error: 'No area data in '+REQ.data.areas[area].description,
+					Data: REQ.data.areas[area]
 				})
 				res.append('msg', Array(
 					`No se recibieron algunos datos para búsqueda de métricas. Contacta con el administrador.`,
 					`Some data were not received for metrics search. Contact the administrator.`
 				)[req.session.lang])
 			}
-			let match = {
-				'records.manager': DATA.all.areas[area]._id
-			}
+			let match = {}
+			if(typeof REQ.data.areas[area]._id === 'string')
+				match['records.manager'] = REQ.data.areas[area]._id
+			else
+				match['records.area'] = parseInt(REQ.data.areas[area]._id)
 
-			transactionArea = await getEvaluations(match)
+			transaction = await getEvaluations(match)
 			.then(employees => {
 				/* Data expected
 					[
@@ -646,7 +648,7 @@ async function printer(req, res) {
 
 				if(employees.length) {
 					let push = {
-						description: DATA.all.areas[area].description
+						description: REQ.data.areas[area].description
 					}, employeeRecords = []
 
 					employees.forEach(employee => {
@@ -658,7 +660,7 @@ async function printer(req, res) {
 
 					push['records'] = employeeRecords
 
-					areasSheet.push(push)
+					areasTable.push(push)
 					return true
 				} else return false
 			})
@@ -674,198 +676,554 @@ async function printer(req, res) {
 				return false
 			})
 		}
+	}
 
-		if(transactionDir) {
+	let aDirectorateTable = []
+	if('a_directorates' in REQ.data) {
+		for(let adir in REQ.data.a_directorates) {
+			if(!(REQ.data.directorates[adir]._id)) { // No id academic directorate
+				console.error({
+					Error: 'No academic directorate data in '+REQ.data.directorates[adir].description,
+					Data: REQ.data.directorates[adir]
+				})
+				res.append('msg', Array(
+					`No se recibieron algunos datos para búsqueda de métricas. Contacta con el administrador.`,
+					`Some data were not received for metrics search. Contact the administrator.`
+				)[req.session.lang])
+			}
+			let match = {
+				'records.directorate': parseInt(REQ.data.directorates[adir]._id)
+			}
+
+			transaction = await getEvaluations(match)
+			.then(employees => {
+				/* Data expected
+					[
+						{
+							_id: '0000',
+							year: 2000,
+							score: 99.99,
+							position: ['Puesto', 'Position']
+						}, {...}
+					]
+				*/
+
+				if(employees.length) {
+					let push = {
+						description: REQ.data.a_directorates[adir].description
+					}, employeeRecords = []
+
+					employees.forEach(employee => {
+						let info ={}
+						info[posSelector] = employee.position[req.session.lang].description
+						info[avgSelector] = employee.score
+						employeeRecords.push(info)
+					})
+
+					push['records'] = employeeRecords
+
+					aDirectorateTable.push(push)
+					return true
+				} else return false
+			})
+			.catch(error => {
+				console.error(error)
+				res.append('error', error)
+				res.append('msg', Array(
+					`Ocurrió un error en búsqueda de métricas. Contacta con el administrador.`,
+					`An error occurred in metrics search. Contact the administrator.`
+				)[req.session.lang])
+				res.append('snack', 'true')
+				res.status(500).end()
+				return false
+			})
+		}
+	}
+
+	let managerTable = []
+	if('manager' in REQ.data) {
+		for(let m in REQ.data.manager) {
+			if(!String(REQ.data.manager[m]._id).length) { // No manager
+				console.error({
+					Error: 'No manager data in '+REQ.data.manager[m].description,
+					Data: REQ.data.manager[m]
+				})
+				res.append('msg', Array(
+					`No se recibieron algunos datos para búsqueda de métricas. Contacta con el administrador.`,
+					`Some data were not received for metrics search. Contact the administrator.`
+				)[req.session.lang])
+			} else if(REQ.data.manager[m]._id == 0) {
+				REQ.data.manager[m]._id = req.session._id
+			}
+			let match = {
+				'records.manager': REQ.data.manager[m]._id
+			}
+
+			transaction = await getEvaluations(match)
+			.then(employees => {
+				/* Data expected
+					[
+						{
+							_id: '0000',
+							year: 2000,
+							score: 99.99,
+							position: ['Puesto', 'Position']
+						}, {...}
+					]
+				*/
+
+				if(employees.length) {
+					let push = {
+						description: REQ.data.manager[m].description
+					}, employeeRecords = []
+
+					employees.forEach(employee => {
+						let info ={}
+						info[posSelector] = employee.position[req.session.lang].description
+						info[avgSelector] = employee.score
+						employeeRecords.push(info)
+					})
+
+					push['records'] = employeeRecords
+
+					managerTable.push(push)
+					return true
+				} else return false
+			})
+			.catch(error => {
+				console.error(error)
+				res.append('error', error)
+				res.append('msg', Array(
+					`Ocurrió un error en búsqueda de métricas. Contacta con el administrador.`,
+					`An error occurred in metrics search. Contact the administrator.`
+				)[req.session.lang])
+				res.append('snack', 'true')
+				res.status(500).end()
+				return false
+			})
+		}
+	}
+
+	let subordinatesTable = []
+	if('subordinates' in REQ.data) {
+		for(let sub in REQ.data.subordinates) {
+			if(!(REQ.data.manager[m]._id)) { // No subordinates
+				console.error({
+					Error: 'No subordinate data in '+REQ.data.subordinates[sub].description,
+					Data: REQ.data.subordinates[sub]
+				})
+				res.append('msg', Array(
+					`No se recibieron algunos datos para búsqueda de métricas. Contacta con el administrador.`,
+					`Some data were not received for metrics search. Contact the administrator.`
+				)[req.session.lang])
+			}
+			let match = {
+				'records.manager': REQ.data.subordinates[sub]._id
+			}
+
+			transaction = await getEvaluations(match)
+			.then(employees => {
+				/* Data expected
+					[
+						{
+							_id: '0000',
+							year: 2000,
+							score: 99.99,
+							position: ['Puesto', 'Position']
+						}, {...}
+					]
+				*/
+
+				if(employees.length) {
+					let push = {
+						description: REQ.data.subordinates[sub].description
+					}, employeeRecords = []
+
+					employees.forEach(employee => {
+						let info = {}
+						info[posSelector] = employee.position[req.session.lang].description
+						info[avgSelector] = employee.score
+						employeeRecords.push(info)
+					})
+
+					push['records'] = employeeRecords
+
+					subordinatesTable.push(push)
+					return true
+				} else return false
+			})
+			.catch(error => {
+				console.error(error)
+				res.append('error', error)
+				res.append('msg', Array(
+					`Ocurrió un error en búsqueda de métricas. Contacta con el administrador.`,
+					`An error occurred in metrics search. Contact the administrator.`
+				)[req.session.lang])
+				res.append('snack', 'true')
+				res.status(500).end()
+				return false
+			})
+		}
+	}
+
+	if(transaction === true) {
+		if(REQ.mode == 'all')
 			res.append('filename', Array(
 				`reporte-completo-${FORMAT_DATE}.xlsx`,
 				`report-complete-${FORMAT_DATE}.xlsx`
 			)[req.session.lang])
-			res.append('snack', 'true')
+		else
+			res.append('filename', Array(
+				`reporte-${FORMAT_DATE}.xlsx`,
+				`report-${FORMAT_DATE}.xlsx`
+			)[req.session.lang])
+		res.append('snack', 'true')
 
-			return await res.status(200).send(
-				await XLSXPopulate.fromBlankAsync().then(async(workbook) => {
-					// Directions averages (Sheet 1)
-					let headerDirection = [dirSelector, avgSelector]
-					const sheet_1 = workbook.sheet(0)
+		return await res.status(200).send(
+			await XLSXPopulate.fromBlankAsync().then(async(workbook) => {
+				// Directorates averages
+				let headerDirection = [dirSelector, avgSelector]
+				const sheet_1 = workbook.sheet(0)
+				sheet_1.name("sheet-1")
 
-					const sheetDataDir = getSheetData(directionsSheet, headerDirection)
+				if(directionsTable.length) {
+					let sheet = sheet_1
+
+					const sheetDataDir = getSheetData(directionsTable, headerDirection)
 					const totalColumnsDir = sheetDataDir[0].length
 
-					sheet_1.column('A').width(60)
-					sheet_1.column('B').width(10)
-					sheet_1.cell('A1').value(sheetDataDir)
+					sheet.column('A').width(60)
+					sheet.column('B').width(10)
+					sheet.cell('A1').value(sheetDataDir)
 					const endColumnDir = String.fromCharCode(64 + totalColumnsDir)
-					sheet_1.row(1).style('bold', true)
-					sheet_1.range('A1:' + endColumnDir + '1').style('fill', 'BFBFBF')
-					sheet_1.range('A1:' + endColumnDir + '1').style('border', true)
-					
-					// Employees by areas averages (Sheet 1)
-					let alphabet = 4,
-						rowStart = 1,
-						maxRow = 0,
-						headerAreas = [posSelector, avgSelector]
-					//const sheet_2 = workbook.sheet(1)
-					
-					areasSheet.forEach(area => {
+					sheet.row(1).style('bold', true)
+					sheet.range('A1:' + endColumnDir + '1').style('fill', 'BFBFBF')
+					sheet.range('A1:' + endColumnDir + '1').style('border', true)
+				}
+
+				// Employees by areas averages
+				let alpha = (directionsTable.length) ? 4 : 1,
+					beta = 0,
+					gamma = 0,
+					rowStart = 1,
+					headerAreas = [posSelector, avgSelector]
+				const sheet_2 = (directionsTable.length) ? workbook.addSheet('sheet-2', 1) : sheet_1
+
+				if(areasTable.length) {
+					areasTable.forEach(area => {
 						if(area.records.length) {
 							const sheetDataArea = getSheetData(area.records, headerAreas)
 							const totalColumnsArea = sheetDataArea[0].length
-		
-							const startColumnArea = String.fromCharCode(64 + alphabet)
-							const endColumnArea = String.fromCharCode(64 + alphabet + (totalColumnsArea-1))
+
+							let startColumnArea = String.fromCharCode(64 + alpha)
+							if(beta > 0) startColumnArea = String.fromCharCode(64 + beta) + startColumnArea
+							if(gamma > 0) startColumnArea = String.fromCharCode(64 + gamma) + startColumnArea
+
+							let endColumnArea = String.fromCharCode(64 + alpha + (totalColumnsArea-1))
+							if(beta > 0) endColumnArea = String.fromCharCode(64 + beta) + endColumnArea
+							if(gamma > 0) endColumnArea = String.fromCharCode(64 + gamma) + endColumnArea
 
 							// Title
-							const rangeMerge = workbook.sheet(0).range(startColumnArea+`${rowStart}:`+endColumnArea+`${rowStart}`)
+							const rangeMerge = sheet_2.range(startColumnArea+`${rowStart}:`+endColumnArea+`${rowStart}`)
 							rangeMerge.value(area.description)
 							rangeMerge.style({horizontalAlignment: 'center', verticalAlignment: 'center', })
 							rangeMerge.merged(true)
 
 							// Table
-							sheet_1.column(startColumnArea).width(50)
-							sheet_1.column(endColumnArea).width(10)
-							sheet_1.cell(startColumnArea+`${rowStart+1}`).value(sheetDataArea)
-							sheet_1.row(1).style('bold', true)
-							sheet_1.range(startColumnArea+`${rowStart+1}:`+endColumnArea+`${rowStart+1}`).style('fill', 'BFBFBF')
-							sheet_1.range(startColumnArea+`${rowStart+1}:`+endColumnArea+`${rowStart+1}`).style('border', true)
-	
-							if(maxRow < area.records.length) maxRow = area.records.length
+							sheet_2.column(startColumnArea).width(50)
+							sheet_2.column(endColumnArea).width(10)
+							sheet_2.cell(startColumnArea+`${rowStart+1}`).value(sheetDataArea)
+							sheet_2.row(1).style('bold', true)
+							sheet_2.range(startColumnArea+`${rowStart+1}:`+endColumnArea+`${rowStart+1}`).style('fill', 'BFBFBF')
+							sheet_2.range(startColumnArea+`${rowStart+1}:`+endColumnArea+`${rowStart+1}`).style('border', true)
 
 							// If CharCode is greater than last letter then
-							// reset the alphabet and change the starting row.
-							// This can be changed
-							if((alphabet + totalColumnsArea) >= 26) {
-								alphabet = 4
-								rowStart += maxRow + 1
-								maxRow = 0
+							// reset the alphabet and change the starting column.
+							if((alpha + totalColumnsArea) >= 26) {
+								alpha = 1
+								beta++
+								if((beta + 1) >= 26) {
+									beta = 1
+									gamma++
+								}
 							}
-							else alphabet += totalColumnsArea
+							else alpha += totalColumnsArea + 1
+						}
+					})
+				}
+
+				if(REQ.mode == 'all') {
+					alpha = 1
+					beta = 0
+					gamma = 0
+					rowStart = 1
+					headerAreas = [posSelector, avgSelector]
+					const sheet_3 = (areasTable.length) ? workbook.addSheet('sheet-3', 2) : workbook.addSheet('sheet-2', 1)
+
+					aDirectorateTable.forEach(aDir => {
+						if(aDir.records.length) {
+							const sheetDataArea = getSheetData(aDir.records, headerAreas)
+							const totalColumnsArea = sheetDataArea[0].length
+
+							let startColumnArea = String.fromCharCode(64 + alpha)
+							if(beta > 0) startColumnArea = String.fromCharCode(64 + beta) + startColumnArea
+							if(gamma > 0) startColumnArea = String.fromCharCode(64 + gamma) + startColumnArea
+
+							let endColumnArea = String.fromCharCode(64 + alpha + (totalColumnsArea-1))
+							if(beta > 0) endColumnArea = String.fromCharCode(64 + beta) + endColumnArea
+							if(gamma > 0) endColumnArea = String.fromCharCode(64 + gamma) + endColumnArea
+
+							// Title
+							const rangeMerge = sheet_3.range(startColumnArea+`${rowStart}:`+endColumnArea+`${rowStart}`)
+							rangeMerge.value(aDir.description)
+							rangeMerge.style({horizontalAlignment: 'center', verticalAlignment: 'center', })
+							rangeMerge.merged(true)
+
+							// Table
+							sheet_3.column(startColumnArea).width(50)
+							sheet_3.column(endColumnArea).width(10)
+							sheet_3.cell(startColumnArea+`${rowStart+1}`).value(sheetDataArea)
+							sheet_3.row(1).style('bold', true)
+							sheet_3.range(startColumnArea+`${rowStart+1}:`+endColumnArea+`${rowStart+1}`).style('fill', 'BFBFBF')
+							sheet_3.range(startColumnArea+`${rowStart+1}:`+endColumnArea+`${rowStart+1}`).style('border', true)
+
+							// If CharCode is greater than last letter then
+							// reset the alphabet and change the starting column.
+							if((alpha + totalColumnsArea) >= 26) {
+								alpha = 1
+								beta++
+								if((beta + 1) >= 26) {
+									beta = 1
+									gamma++
+								}
+							}
+							else alpha += totalColumnsArea + 1
+						}
+					})
+				}
+
+				if(REQ.mode == 'mono') {
+					managerTable.forEach(manager => {
+						if(manager.records.length) {
+							const sheetDataArea = getSheetData(manager.records, headerAreas)
+							const totalColumnsArea = sheetDataArea[0].length
+
+							let startColumnArea = String.fromCharCode(64 + alpha)
+							if(beta > 0) startColumnArea = String.fromCharCode(64 + beta) + startColumnArea
+							if(gamma > 0) startColumnArea = String.fromCharCode(64 + gamma) + startColumnArea
+
+							let endColumnArea = String.fromCharCode(64 + alpha + (totalColumnsArea-1))
+							if(beta > 0) endColumnArea = String.fromCharCode(64 + beta) + endColumnArea
+							if(gamma > 0) endColumnArea = String.fromCharCode(64 + gamma) + endColumnArea
+
+							// Title
+							const rangeMerge = sheet_2.range(startColumnArea+`${rowStart}:`+endColumnArea+`${rowStart}`)
+							rangeMerge.value(manager.description)
+							rangeMerge.style({horizontalAlignment: 'center', verticalAlignment: 'center', })
+							rangeMerge.merged(true)
+
+							// Table
+							sheet_2.column(startColumnArea).width(50)
+							sheet_2.column(endColumnArea).width(10)
+							sheet_2.cell(startColumnArea+`${rowStart+1}`).value(sheetDataArea)
+							sheet_2.row(1).style('bold', true)
+							sheet_2.range(startColumnArea+`${rowStart+1}:`+endColumnArea+`${rowStart+1}`).style('fill', 'BFBFBF')
+							sheet_2.range(startColumnArea+`${rowStart+1}:`+endColumnArea+`${rowStart+1}`).style('border', true)
+
+							// If CharCode is greater than last letter then
+							// reset the alphabet and change the starting column.
+							if((alpha + totalColumnsArea) >= 26) {
+								alpha = 1
+								beta++
+								if((beta + 1) >= 26) {
+									beta = 1
+									gamma++
+								}
+							}
+							else alpha += totalColumnsArea + 1
 						}
 					})
 
-					return await workbook.outputAsync()
-					.catch(error => {
-						console.error(error)
-						res.append('msg', Array(
-							`Hubo un error en el documento generado.`,
-							`There was an error in the generated document.`
-						)[req.session.lang])
+					subordinatesTable.forEach(sub => {
+						if(sub.records.length) {
+							const sheetDataArea = getSheetData(sub.records, headerAreas)
+							const totalColumnsArea = sheetDataArea[0].length
+
+							let startColumnArea = String.fromCharCode(64 + alpha)
+							if(beta > 0) startColumnArea = String.fromCharCode(64 + beta) + startColumnArea
+							if(gamma > 0) startColumnArea = String.fromCharCode(64 + gamma) + startColumnArea
+
+							let endColumnArea = String.fromCharCode(64 + alpha + (totalColumnsArea-1))
+							if(beta > 0) endColumnArea = String.fromCharCode(64 + beta) + endColumnArea
+							if(gamma > 0) endColumnArea = String.fromCharCode(64 + gamma) + endColumnArea
+
+							// Title
+							const rangeMerge = sheet_2.range(startColumnArea+`${rowStart}:`+endColumnArea+`${rowStart}`)
+							rangeMerge.value(sub.description)
+							rangeMerge.style({horizontalAlignment: 'center', verticalAlignment: 'center', })
+							rangeMerge.merged(true)
+
+							// Table
+							sheet_2.column(startColumnArea).width(50)
+							sheet_2.column(endColumnArea).width(10)
+							sheet_2.cell(startColumnArea+`${rowStart+1}`).value(sheetDataArea)
+							sheet_2.row(1).style('bold', true)
+							sheet_2.range(startColumnArea+`${rowStart+1}:`+endColumnArea+`${rowStart+1}`).style('fill', 'BFBFBF')
+							sheet_2.range(startColumnArea+`${rowStart+1}:`+endColumnArea+`${rowStart+1}`).style('border', true)
+
+							// If CharCode is greater than last letter then
+							// reset the alphabet and change the starting column.
+							if((alpha + totalColumnsArea) >= 26) {
+								alpha = 1
+								beta++
+								if((beta + 1) >= 26) {
+									beta = 1
+									gamma++
+								}
+							}
+							else alpha += totalColumnsArea + 1
+						}
 					})
-				})
-			)
-		}
-	}
-
-	const doc = new pdf.Document({ // Vertical letter
-		width:   612, // 21.59 cm
-		height:  792, // 27.94 cm
-		padding: 32
-	})
-
-	try {
-		const header = doc.header().table({widths: [150, 240, 150], borderWidth: 0})
-		const hTable = header.row()
-
-		hTable.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm })
-			.text(req.session.name)
-		hTable.cell().text('')
-		hTable.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm })
-			.text(`${DATE.getDate()}/${DATE.getMonth()+1}/${CURRENT_YEAR}`, {textAlign: 'right'})
-
-		/* For bar chart (Not used since there are a lot of areas, directions, etc)
-		if('bars' in req.body) {
-			const theRecords = {
-				past: await getAll({body:{search:DATA.barsSearch, FORCE_YEAR_TO:parseInt(CURRENT_YEAR)-1}}, undefined),
-				curr: await getAll({body:{search:DATA.barsSearch, FORCE_YEAR_TO:CURRENT_YEAR}}, undefined)
-			}
-
-			const barsJPEG = await sharp(new Buffer.from(DATA.bars, 'base64')).resize({height: 400})
-			.flatten({ background: '#ffffff' }).jpeg().toBuffer()
-
-			// --------------------------- Comparison graph page --------------------------- //
-			const img = new pdf.Image(barsJPEG)
-			doc.cell({ paddingTop: 0.4*pdf.cm, paddingBottom: 0.5*pdf.cm }).text({ textAlign: 'center', fontSize: 14 })
-				.add(`Comparación de areas (${parseInt(CURRENT_YEAR)-1} - ${parseInt(CURRENT_YEAR)})`)
-			doc.cell({ paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm }).image(img, { height: 7.5*pdf.cm, align: 'center'})
-
-			const tableC = doc.table({
-				widths: [340, 100, 100],
-				borderVerticalWidths: [0, 1, 1, 0],
-				borderHorizontalWidth: 1,
-				borderColor: 0xadadad
-			})
-			const tHeader = tableC.header()
-			tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 10})
-				.text({ textAlign: 'center', fontSize: 10 }).add(DATA.barsSearch)
-			tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 5, paddingBottom: 5})
-				.text({ textAlign: 'center', fontSize: 10 }).add(`Porcentaje (${parseInt(CURRENT_YEAR)-1})`)
-			tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 5, paddingBottom: 5})
-				.text({ textAlign: 'center', fontSize: 10 }).add(`Porcentaje (${CURRENT_YEAR})`)
-
-
-			for(let i in theRecords.curr) {{
-				const row = tableC.row()
-				row.cell({ paddingTop: 2, paddingBottom: 2, paddingLeft: 0.35*pdf.cm }).text({ textAlign: 'left', fontSize: 9 })
-					.add(theRecords.curr[i].description[lang])
-				row.cell({ paddingTop: 2, paddingBottom: 2, })
-					.text({ textAlign: 'center', fontSize: 9, color: (theRecords.past[i].length != 0) ? 0x000000 : 0x505050 })
-					.add((theRecords.past[i].length != 0) ? theRecords.past[i].total / theRecords.past[i].length : 'N.A.')
-				row.cell({ paddingTop: 2, paddingBottom: 2, })
-					.text({ textAlign: 'center', fontSize: 9, color: (theRecords.curr[i].length != 0) ? 0x000000 : 0x505050 })
-					.add((theRecords.curr[i].length != 0) ? theRecords.curr[i].total / theRecords.curr[i].length : 'N.A.')
-			}}
-
-			doc.pageBreak()
-		}
-		*/
-
-		// --------------------------- Individual Metrics page --------------------------- //
-		if('mono' in req.body) {
-			const tableM = doc.table({
-				widths: [null, null],
-				borderWidth: 0,
-			})
-
-			for(let i in DATA.mono) {
-				const r = tableM.row()
-				for(let j in DATA.mono[i]) {
-					const cell = r.cell({paddingTop: 3, paddingBottom: 0.75*pdf.cm})
-
-					const semiJPEG = await sharp(new Buffer.from(DATA.mono[i][j].semi, 'base64')).resize({height: 200})
-						.flatten({ background: '#ffffff' }).jpeg().toBuffer()
-					const semiChart = new pdf.Image(semiJPEG)
-					const lineJPEG = await sharp(new Buffer.from(DATA.mono[i][j].line, 'base64')).resize({height: 200})
-						.flatten({ background: '#ffffff' }).jpeg().toBuffer()
-					const lineChart = new pdf.Image(lineJPEG)
-
-					cell.text({fontSize: 10, textAlign: 'center'}).add(DATA.mono[i][j].title).add()
-					cell.image(semiChart, { height: 3.1*pdf.cm, align: 'center' })
-					cell.text({fontSize: 10, textAlign: 'center'}).add('Promedio total: '+DATA.mono[i][j].score)
-					cell.image(lineChart, { height: 3.3*pdf.cm, align: 'center' })
 				}
-			}
-		}
 
-		res.append('filename', Array(
-			`reporte-${FORMAT_DATE}.pdf`,
-			`report-${FORMAT_DATE}.pdf`
-		)[req.session.lang])
-		res.append('msg', Array(
-			`Documento generado correctamente. Descargando ahora.`,
-			`Document generated successfully. Downloading now.`
-		)[req.session.lang])
-		res.append('snack', 'true')
-		return await res.send(await doc.asBuffer())
-	} catch (error) {
-		console.error(error)
-		res.append('msg', Array(
-			`Ha ocurrido un problema en el servidor. Revisa la consola del navegador y contacta con el administrador.`,
-			`A problem has occurred on the server. Check the browser console and contact the administrator.`
-		)[req.session.lang])
-		res.append('snack', 'true')
-		res.append('error', error)
-		await doc.end() // Close file
-		return res.status(500).end()
+				return await workbook.outputAsync()
+				.catch(error => {
+					console.error(error)
+					res.append('msg', Array(
+						`Hubo un error en el documento generado.`,
+						`There was an error in the generated document.`
+					)[req.session.lang])
+				})
+			})
+		)
 	}
+
+	// This will be deleted
+	//switch (REQ.mode) {
+	//	case 'mono':
+	//		const doc = new pdf.Document({ // Vertical letter
+	//			width:   612, // 21.59 cm
+	//			height:  792, // 27.94 cm
+	//			padding: 32
+	//		})
+	//
+	//		try {
+	//			const header = doc.header().table({widths: [150, 240, 150], borderWidth: 0})
+	//			const hTable = header.row()
+	//
+	//			hTable.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm })
+	//				.text(req.session.name)
+	//			hTable.cell().text('')
+	//			hTable.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm })
+	//				.text(`${DATE.getDate()}/${DATE.getMonth()+1}/${CURRENT_YEAR}`, {textAlign: 'right'})
+	//
+	//			/* For bar chart (Not used since there are a lot of areas, directorates, etc)
+	//			if('bars' in req.body) {
+	//				const theRecords = {
+	//					past: await getAll({body:{search:DATA.barsSearch, FORCE_YEAR_TO:parseInt(CURRENT_YEAR)-1}}, undefined),
+	//					curr: await getAll({body:{search:DATA.barsSearch, FORCE_YEAR_TO:CURRENT_YEAR}}, undefined)
+	//				}
+	//
+	//				const barsJPEG = await sharp(new Buffer.from(DATA.bars, 'base64')).resize({height: 400})
+	//				.flatten({ background: '#ffffff' }).jpeg().toBuffer()
+	//
+	//				// --------------------------- Comparison graph page --------------------------- //
+	//				const img = new pdf.Image(barsJPEG)
+	//				doc.cell({ paddingTop: 0.4*pdf.cm, paddingBottom: 0.5*pdf.cm }).text({ textAlign: 'center', fontSize: 14 })
+	//					.add(`Comparación de areas (${parseInt(CURRENT_YEAR)-1} - ${parseInt(CURRENT_YEAR)})`)
+	//				doc.cell({ paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm }).image(img, { height: 7.5*pdf.cm, align: 'center'})
+	//
+	//				const tableC = doc.table({
+	//					widths: [340, 100, 100],
+	//					borderVerticalWidths: [0, 1, 1, 0],
+	//					borderHorizontalWidth: 1,
+	//					borderColor: 0xadadad
+	//				})
+	//				const tHeader = tableC.header()
+	//				tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 10})
+	//					.text({ textAlign: 'center', fontSize: 10 }).add(DATA.barsSearch)
+	//				tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 5, paddingBottom: 5})
+	//					.text({ textAlign: 'center', fontSize: 10 }).add(`Porcentaje (${parseInt(CURRENT_YEAR)-1})`)
+	//				tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 5, paddingBottom: 5})
+	//					.text({ textAlign: 'center', fontSize: 10 }).add(`Porcentaje (${CURRENT_YEAR})`)
+	//
+	//
+	//				for(let i in theRecords.curr) {{
+	//					const row = tableC.row()
+	//					row.cell({ paddingTop: 2, paddingBottom: 2, paddingLeft: 0.35*pdf.cm }).text({ textAlign: 'left', fontSize: 9 })
+	//						.add(theRecords.curr[i].description[lang])
+	//					row.cell({ paddingTop: 2, paddingBottom: 2, })
+	//						.text({ textAlign: 'center', fontSize: 9, color: (theRecords.past[i].length != 0) ? 0x000000 : 0x505050 })
+	//						.add((theRecords.past[i].length != 0) ? theRecords.past[i].total / theRecords.past[i].length : 'N.A.')
+	//					row.cell({ paddingTop: 2, paddingBottom: 2, })
+	//						.text({ textAlign: 'center', fontSize: 9, color: (theRecords.curr[i].length != 0) ? 0x000000 : 0x505050 })
+	//						.add((theRecords.curr[i].length != 0) ? theRecords.curr[i].total / theRecords.curr[i].length : 'N.A.')
+	//				}}
+	//
+	//				doc.pageBreak()
+	//			}
+	//			*/
+	//
+	//			// --------------------------- Individual Metrics page --------------------------- //
+	//			if('mono' in req.body) {
+	//				const tableM = doc.table({
+	//					widths: [null, null],
+	//					borderWidth: 0,
+	//				})
+	//
+	//				for(let i in REQ.mono) {
+	//					const r = tableM.row()
+	//					for(let j in REQ.mono[i]) {
+	//						const cell = r.cell({paddingTop: 3, paddingBottom: 0.75*pdf.cm})
+	//
+	//						const semiJPEG = await sharp(new Buffer.from(REQ.mono[i][j].semi, 'base64')).resize({height: 200})
+	//							.flatten({ background: '#ffffff' }).jpeg().toBuffer()
+	//						const semiChart = new pdf.Image(semiJPEG)
+	//						const lineJPEG = await sharp(new Buffer.from(REQ.mono[i][j].line, 'base64')).resize({height: 200})
+	//							.flatten({ background: '#ffffff' }).jpeg().toBuffer()
+	//						const lineChart = new pdf.Image(lineJPEG)
+	//
+	//						cell.text({fontSize: 10, textAlign: 'center'}).add(REQ.mono[i][j].title).add()
+	//						cell.image(semiChart, { height: 3.1*pdf.cm, align: 'center' })
+	//						cell.text({fontSize: 10, textAlign: 'center'}).add('Promedio total: '+REQ.mono[i][j].score)
+	//						cell.image(lineChart, { height: 3.3*pdf.cm, align: 'center' })
+	//					}
+	//				}
+	//			}
+	//
+	//			res.append('filename', Array(
+	//				`reporte-${FORMAT_DATE}.pdf`,
+	//				`report-${FORMAT_DATE}.pdf`
+	//			)[req.session.lang])
+	//			res.append('msg', Array(
+	//				`Documento generado correctamente. Descargando ahora.`,
+	//				`Document generated successfully. Downloading now.`
+	//			)[req.session.lang])
+	//			res.append('snack', 'true')
+	//			return await res.send(await doc.asBuffer())
+	//		} catch (error) {
+	//			console.error(error)
+	//			res.append('msg', Array(
+	//				`Ha ocurrido un problema en el servidor. Revisa la consola del navegador y contacta con el administrador.`,
+	//				`A problem has occurred on the server. Check the browser console and contact the administrator.`
+	//			)[req.session.lang])
+	//			res.append('snack', 'true')
+	//			res.append('error', error)
+	//			await doc.end() // Close file
+	//			return res.status(500).end()
+	//		}
+	//		break
+	//
+	//	default:
+	//		console.log(REQ)
+	//		res.append('msg', Array(
+	//			`No se han recibido datos por parte del usuario. Si el problema persiste contacta con el administrador.`,
+	//			`No data has been received from the user. If the problem persists contact the administrator.`
+	//		)[req.session.lang])
+	//		res.append('snack', 'true')
+	//		return res.status(404).end()
+	//		break
+	//}
 }
 
 module.exports = {

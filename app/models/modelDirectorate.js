@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-//Schema for direction colecction
+//Schema for directorate colecction
 const directionSchema = new mongoose.Schema({
     _id:{ type: Number },
     area:{ type: Number },
@@ -10,4 +10,4 @@ const directionSchema = new mongoose.Schema({
 	log: { type: Object }
 }).index({description: 'text'})
 
-module.exports = mongoose.model('direction', directionSchema)
+module.exports = mongoose.model('directorate', directionSchema)

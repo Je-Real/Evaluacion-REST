@@ -8,7 +8,7 @@ let anchorID = null, anchorLength = null, anchorCollection = null,
 /**
  * Find the description of the object inside of the
  * collections variables
- * @param {'area'|'position'|'direction'|'category'} collection Collection to be searched 
+ * @param {'area'|'position'|'directorate'|'category'} collection Collection to be searched 
  * @param {Number} _id ID of the element
  */
 const findFrom = (collection, _id) => {
@@ -22,7 +22,7 @@ const findFrom = (collection, _id) => {
 		case 'position':
 			elem = positionData.find(x => x._id == _id)
 			return elem.description[lang] 
-		case 'direction':
+		case 'directorate':
 			elem = directionData.find(x => x._id == _id)
 			return elem.description[lang] 
 		case 'category':
@@ -50,7 +50,7 @@ window.addEventListener('load', async() => {
 		if(directionData == false || directionData.length == 0)
 			throw Array(
 				'No se obtuvieron datos de la colección: Dirección. Por favor, contacte con soporte.',
-				'No data were obtained from the collection: Direction. Please, contact support'
+				'No data were obtained from the collection: Directorate. Please, contact support'
 			)[lang]
 		if(positionData == false || positionData.length == 0)
 			throw Array(
@@ -97,9 +97,9 @@ window.addEventListener('load', async() => {
 			)
 		})
 		directionData.forEach(obj => {
-			$e('#manual-reg #direction').insertAdjacentHTML(
+			$e('#manual-reg #directorate').insertAdjacentHTML(
 				'beforeend',
-				`<option class="direction-opt" value="${ obj._id }">${
+				`<option class="directorate-opt" value="${ obj._id }">${
 					obj.description[lang]
 				}</option>`
 			)
@@ -229,9 +229,9 @@ const updateInfo = (e) => {
 				break
 
 			case 3:
-				pkg['direction'] = { description : [] }
+				pkg['directorate'] = { description : [] }
 				$a(`input.${tgt}`).forEach(node => {
-					pkg.direction.description[parseInt(node.name)] = node.value
+					pkg.directorate.description[parseInt(node.name)] = node.value
 				})
 				break
 
@@ -405,17 +405,17 @@ const findCollections = (e) => {
 																					name="area" 
 																					data-class="evaluation" data-year="${ result.data[i].eval_.records[r].year }" type="text" disabled/>
 																			</div>
-																			${ ('direction' in result.data[i].eval_.records[r])
+																			${ ('directorate' in result.data[i].eval_.records[r])
 																				?`<div class="my-1 col-12 col-xxl-6 mx-auto">
 																					<p class="text-mini-label text-center m-0">
-																						${ Array('Dirección / Subdirección', 'Direction / Sub-direction')[lang] }
+																						${ Array('Dirección / Subdirección', 'Directorate / Sub-directorate')[lang] }
 																					</p>
-																					<input value="${ findFrom('direction',
-																							(result.data[i].eval_.records[r].direction)
-																							? (result.data[i].eval_.records[r].direction) : 0
+																					<input value="${ findFrom('directorate',
+																							(result.data[i].eval_.records[r].directorate)
+																							? (result.data[i].eval_.records[r].directorate) : 0
 																						) }"
 																						class="form-control _${ result.data[i]._id } read-only"
-																						name="direction"  data-class="evaluation"
+																						name="directorate"  data-class="evaluation"
 																						data-year="${ result.data[i].eval_.records[r].year }" type="text" disabled/>
 																				</div>` : ''
 																			}` : '' }
@@ -467,10 +467,10 @@ const findCollections = (e) => {
 																		data-class="user_info" type="text" disabled/>
 																</div><div class="my-1 col-md-6 col-12">
 																	<p class="text-mini-label text-center m-0">
-																		${ Array('Dirección / Subdirección', 'Direction / Sub-direction')[lang] }
+																		${ Array('Dirección / Subdirección', 'Directorate / Sub-directorate')[lang] }
 																	</p>
-																	<input value="${ findFrom('direction', result.data[i].direction) }"
-																		class="form-control _${ result.data[i]._id }" name="direction"
+																	<input value="${ findFrom('directorate', result.data[i].directorate) }"
+																		class="form-control _${ result.data[i]._id }" name="directorate"
 																		data-class="user_info" type="text" disabled/>
 																</div><div class="my-1 col-md-6 col-12">
 																	<p class="text-mini-label text-center m-0">

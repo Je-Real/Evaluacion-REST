@@ -3,60 +3,147 @@ let rec, showCharts, clone, idSelect = 0,
 	compareAll = false,
 	barSearch, lastConfigPanel = -1
 
-/* Code for bar chart
-const barChartSearch = () => {
-	barSearch = $e('#sel-bar-chart').value
+let fuzzyLock = true
 
-	if(barSearch == 0) {
-		$e('#bars').classList.remove('ext')
-		barSearch = 'area'
-	}else {
-		$e('#bars').classList.add('ext')
-		barSearch = 'direction'
-	}
+/**
+ * Show or hide the hints box below the input text
+ * @param {*} e Event target
+ * @param {Boolean} show Show the hints box (Default: true)
+ * @returns
+ */
+ const modalHintDisplay = async(e, show = true) => {
+	try {
+		return setTimeout(() => {
+			if(e.target)
+				if(show) {
+					let modalHint = e.target.parentElement.querySelector('.modal-hint')
 
-	fetchTo(
-		window.location.origin+'/metrics/all',
-		'POST',
-		{ search: barSearch },
-		(result) => {
-			if(result.snack === true)
-				showSnack(result.msg, null, result.snackType)
+					if(modalHint != null)
+						modalHint.classList.remove('hide')
 
-			if(result.status === 200) {
-				if(result.data.length) {
-					let barLabels = [],
-						barData = []
+					return true
+				} else {
+					let modalHint = e.target.parentElement.querySelector('.modal-hint')
 
-					for(let i in result.data) {
-						barLabels.push(result.data[i].description[lang])
-						barData.push(
-							(
-								typeof result.data[i].total === 'number'
-								&& (result.data[i].total != 0
-								&& result.data[i].length != 0)
-							)
-							? (result.data[i].total / result.data[i].length).toFixed(2)
-							: 0
-						)
+					if(modalHint != null) {
+						modalHint.innerHTML = ''
+						modalHint.classList.add('hide')
 					}
 
-					try {
-						barChart('#bars canvas', barLabels, barData)
-						displayCharts(true, '#bars canvas')
-					}
-					catch (error) {
-						console.error(error)
-					}
+					return true
 				}
-			}
-		},
-		(error) => {
-			showSnack('Error '+error, null, 'error')
-			console.error(error)
-		}
+			else return false
+		}, 200)
+	} catch (error) {
+		console.warn(error)
+		throw false
+	}
+}
+
+/**
+ * Search by ID or name dynamically data from
+ * a specific collection and retrieve information.
+ * @param {*} e Event target
+ * @param {*} collection Collection to search
+ */
+const dynamicHints = async(e, collection) => {
+	if(fuzzyLock && e.target) {
+		fuzzyLock = false
+		setTimeout(() => {
+			fetchTo(
+				window.location.origin+'/admin-control/fuzzy-find',
+				'POST',
+				{ query: (e.target.value).trim(), collection: collection },
+				(result) => {
+					if(result.snack) {
+						return showSnack(result.msg, null, 'warning')
+					} else if(result.status === 200) {
+						let textItterator = ''
+						fuzzyLock = true
+
+						if(result.data) {
+							for(let d in result.data) {
+								textItterator += `<div class="hints btn btn-outline-light py-2 px-4"
+								data-name="${result.data[d].name}" data-id="${result.data[d]._id}">
+								<p class="m-0 p-0 text-dark text-start pe-none">
+									<span class="pe-2">ID: ${result.data[d]._id}</span> -
+									<span class="ps-2">${result.data[d].name}</span>
+								</p></div>`
+							}
+							let modalHint = e.target.parentElement.querySelector('.modal-hint')
+							if(modalHint != null)
+								modalHint.innerHTML = textItterator
+
+							eventAssigner('.hints', 'click', (e) => {
+								let input = e.target.parentElement.parentElement.querySelector('input')
+
+								input.dataset['id'] = e.target.dataset['id']
+								input.value = `${e.target.dataset['name']} - ${e.target.dataset['id']}`
+								modalHintDisplay(e.target, false)
+							})
+						}
+					}
+				},
+				(error) => {
+					console.warn(error)
+					return showSnack(error, null, 'error')
+				}
+			)
+		}, 750)
+	}
+}
+
+const setEventsSelector = (target = null) => {
+	if(target == null) target = '.dynamic-hint'
+
+	$a(target).forEach(node => {
+		node.parentElement.insertAdjacentHTML(
+			'beforeend',
+			'<div class="modal-hint hide mt-1 bg-light rounded-3 shadow-lg"></div>'
+		)
+	})
+	eventAssigner(target, 'focusin', (e) => modalHintDisplay(e, true))
+	eventAssigner(target, 'focusout', (e) => modalHintDisplay(e, false))
+	eventAssigner(target, 'keydown', (e) => dynamicHints(e, 'user_info'))
+	eventAssigner(target, 'change', (e) => dynamicHints(e, 'user_info'))
+}
+
+const addAreaField = () => {
+	let label = $e('#add-label').value.trim(),
+		rnd = Math.random().toString(16).substring(2, 8)
+	let id = `${label.split(' ')[0]}-${rnd}`
+
+	try {
+		$e('#addAreaField').insertAdjacentHTML('beforebegin',
+		`<div id="_${id}" class="col-12 col-md-6 mb-3 mx-auto">
+		<div class="row p-0 m-0">
+		<div class="form-floating col-11 px-0">
+		<input type="text" class="form-control dynamic-hint ps-4 mandatory area _${rnd}"
+		data-type="areas" data-id="">
+		<label><span>${label}</span>
+		<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+		</label></div>
+		<button id="remove-${id}" type="button" class="btn btn-close col-1 p-1
+		d-flex mx-center align-self-center"
+		data-target="#_${id}"></button>
+		</div></div>`
 	)
-}*/
+	} catch (error) {
+		console.error(error)
+		return showSnack(error, null, 'error')
+	} finally {
+		setTimeout(() => {
+			$e('#add-label').value = ''
+			setEventsSelector(`.area._${rnd}`)
+			eventAssigner(`#remove-${id}`, 'click', removeAreaField)
+		}, 100);
+	}
+}
+
+const removeAreaField = (e) => {
+	let tgt = e.target
+	$e(tgt.dataset['target']).remove()
+}
 
 window.addEventListener('load', async(e) => {
 	$a('.canvas-container canvas').forEach(node => node.classList.add('d-none'))
@@ -73,8 +160,8 @@ window.addEventListener('load', async(e) => {
 
 	eventAssigner('#addPanel', 'click', addPanel).catch((error) => {return console.error(error)})
 	//eventAssigner('#sel-bar-chart', 'change', barChartSearch).catch((error) => {return console.error(error)})
-	eventAssigner('#btn-all-report', 'click', () => generatePDF('all'))
-	eventAssigner('#btn-mono-report', 'click', () => generatePDF('mono'))
+	if($e('#btn-all-report')) eventAssigner('#btn-all-report', 'click', () => generateFile('all'))
+	eventAssigner('#btn-mono-report', 'click', () => generateFile('mono'))
 	buttonListeners()
 
 	setTimeout(() => {
@@ -82,6 +169,19 @@ window.addEventListener('load', async(e) => {
     }, 150)
 
 	eventAssigner('html', 'click', configClose)
+
+	if($e('#modalSelector')) {
+		$a('#modalSelector .directorate, #modalSelector .a-directorate').forEach(node => {
+			if('prefer' in node.dataset) {
+				const select = node.dataset['prefer']
+				node.querySelector(`option[value="${select}"]`).selected = true
+			}
+		})
+		eventAssigner('#btn-mono-report', 'change', () => generateFile('mono'))
+		eventAssigner('#addField', 'click', addAreaField)
+
+		setEventsSelector()
+	}
 })
 
 function displayCharts(show, idElement) {
@@ -170,7 +270,7 @@ const formSelect = (e) => { // All .forms-select that isn't #sel-bar-chart
 		$e(`.panel[data-id="${idSelect}"] .area-def`).selected = true
 	}
 	const emptyDirections = () => {
-		$e(`.panel[data-id="${idSelect}"] .direction-def`).selected = true
+		$e(`.panel[data-id="${idSelect}"] .directorate-def`).selected = true
 	}
 	let tgt = e.target, canvasTitle
 
@@ -189,13 +289,13 @@ const formSelect = (e) => { // All .forms-select that isn't #sel-bar-chart
 			canvasTitle.innerHTML = tgt.options[tgt.selectedIndex].innerHTML
 			getter = {area: parseInt(tgt.value)}
 		}
-		else if(tgt.classList.contains('directions')) {
+		else if(tgt.classList.contains('directorates')) {
 			if(parseInt(tgt.value) == 0) return false
 
 			emptySubordinate()
 			emptyArea()
 			canvasTitle.innerHTML = tgt.options[tgt.selectedIndex].innerHTML
-			getter = {direction: parseInt(tgt.value)}
+			getter = {directorate: parseInt(tgt.value)}
 		}
 		else if(tgt.classList.contains('subordinates')) { // Subordinates select
 			emptyArea()
@@ -210,7 +310,7 @@ const formSelect = (e) => { // All .forms-select that isn't #sel-bar-chart
 			subSelected = tgt.options[tgt.selectedIndex]
 			$e(`.panel[data-id="${idSelect}"] #lbl-name`).innerHTML = subSelected.innerHTML
 			getter = {_id: tgt.value}
-		} 
+		}
 		else return false
 
 		getData(false, getter)
@@ -267,12 +367,14 @@ const deletePanel = (e) => {
 function buttonListeners() {
 	eventUnassigner('.canvas-config', 'click', config).catch((error) => {return console.error(error)})
 	eventUnassigner('.canvas-remove', 'click', deletePanel).catch((error) => {return console.error(error)})
-	eventUnassigner('.form-select:not(#sel-bar-chart)', 'change', formSelect).catch((error) => {return console.error(error)})
+	eventUnassigner('.form-select:not(#sel-bar-chart):not(.selector)', 'change', formSelect)
+		.catch((error) => {return console.error(error)})
 	eventUnassigner('html', 'click', configClose).catch((error) => {return console.error(error)})
 
 	eventAssigner('.canvas-config', 'click', config).catch((error) => {return console.error(error)})
 	eventAssigner('.canvas-remove', 'click', deletePanel).catch((error) => {return console.error(error)})
-	eventAssigner('.form-select:not(#sel-bar-chart)', 'change', formSelect).catch((error) => {return console.error(error)})
+	eventAssigner('.form-select:not(#sel-bar-chart):not(.selector)', 'change', formSelect)
+		.catch((error) => {return console.error(error)})
 	eventAssigner('html', 'click', configClose).catch((error) => {return console.error(error)})
 }
 
@@ -286,14 +388,14 @@ async function getData(auto, getter = null) {
 		window.location.origin+'/metrics',
 		'POST',
 		pkg,
-		(result) => {			
+		(result) => {
             if(result.console) log(result.console, 'warning')
 			if(result.snack) showSnack(result.msg, null, 'info')
 
 			if(result.status === 200) {
 				if('area' in pkg) {
 					if('subordinates' in result.data) { // Add new subordinates to select
-						// Update subordinates select when change areas o directions
+						// Update subordinates select when change areas o directorates
 						if(result.data.subordinates) {
 							let longText = `.panel[data-id="${idSelect}"] .subordinates`
 							$a(`${longText} .sub`).forEach(node => {
@@ -303,7 +405,7 @@ async function getData(auto, getter = null) {
 
 							$e(longText).disabled = false
 							$e(`${longText} .sub-def`).innerHTML = Array('Personal a cargo', 'Personnel in charge')[lang]
-	
+
 							for(let i in result.data.subordinates) {
 								$e(longText).insertAdjacentHTML(
 									'beforeend', `<option class="sub" data-index="${parseInt(i)+1}"`+
@@ -383,61 +485,109 @@ const barsMetrics = async() => { // The bar graph
 	return canvasGetter.toDataURL().split(',')[1]
 }
 
-const generatePDF = async(mode = '') => {
+const generateFile = async(mode = '') => {
+	spinner('wait', true)
+
 	let REQ_PARAMS, pkg
 	$e('#layoutSidenav_content').classList.add('fixed-size')
 
 	setTimeout(async() => {
 		switch (mode) {
 			case 'all':
+				let lockSend = false
+
 				pkg = {
-					all: {
-						directions: [
-							{
-								_id: 1,
-								description: 'Rectoría'
-							}, {
-								_id: 4,
-								description: 'Dirección de administración y finanzas'
-							}, {
-								_id: 2,
-								description: 'Secretaría Académica'
-							}, {
-								_id: 7,
-								description: 'Dirección de Planeación y Evaluación institucional'
-							}, {
-								_id: 5,
-								description: 'Dirección de Promoción, Comunicación y Extensión Universitaria'
-							}, {
-								_id: 14,
-								description: 'Académica de Administración y Contaduría'
-							}, {
-								_id: 11,
-								description: 'Académica de Tecnologías de la Información'
-							}, {
-								_id: 9,
-								description: 'Académica de Agricultura y DNM'
-							}
-						],
-						areas: [
-							{
-								_id: '0007',
-								description: 'Rectoria'
-							}
-						]
+					mode: 'all',
+					data: {
+						directorates: [],
+						areas: [],
+						a_directorates: []
 					}
 				}
+
+				$a('#modalSelector .form-control').forEach(node => {
+					if(!lockSend) {
+						if(node.classList.contains('mandatory')) {
+							if(!String(node.value).trim().length || node.value == '0') {
+								showSnack(
+									[
+										`No se ha podido obtener los datos del campo ${
+											node.nextElementSibling.querySelector('span').innerHTML
+										}. Vuelve a seleccionar la información e intenta de nuevo.`,
+										`Field data could not be obtained from ${
+											node.nextElementSibling.querySelector('span').innerHTML
+										}. Select again the information and try again.`
+									], null, 'warning'
+								)
+								lockSend = true
+							}
+						}
+
+						let description = node.parentElement.querySelector('label span:first-child').innerHTML
+
+						if(node.tagName.toLowerCase() == 'select') {
+							if(String(node.value).trim().length)
+								pkg.data[node.dataset.class].push({
+									_id: parseInt(node.value),
+									description: description
+								})
+						} else {
+							if(String(node.dataset.id).trim().length)
+								pkg.data[node.dataset.class].push({
+									_id: String(node.dataset.id).trim(),
+									description: description
+								})
+							else if(String(node.value).split('-').length > 1) {
+								pkg.data[node.dataset.class].push({
+									_id: String(node.value).split('-')[1].trim(),
+									description: description
+								})
+							}
+						}
+					}
+				})
 				break
-			/*case 'bars':
-				pkg = {
-					barSearch: barSearch,
-					bars: await barsMetrics(),
-				}
-				break*/
+
 			case 'mono':
 				pkg = {
-					mono: await monoMetrics(),
+					mode: 'mono',
+					data: {}
 				}
+
+				$a('.panel').forEach(canvas => {
+					if(canvas.querySelector('.areas').value != '0') {
+						let node = canvas.querySelector('.areas')
+						if(!('areas' in pkg.data)) pkg.data['areas'] = []
+						return pkg.data.areas.push({
+							_id: parseInt(node.value),
+							description: node[node.selectedIndex].innerHTML.trim()
+						})
+					}
+					if(canvas.querySelector('.directorates').value != '0') {
+						let node = canvas.querySelector('.directorates')
+						if(!('directorates' in pkg.data)) pkg.data['directorates'] = []
+						return pkg.data.directorates.push({
+							_id: parseInt(node.value),
+							description: node[node.selectedIndex].innerHTML.trim()
+						})
+					}
+					if(canvas.querySelector('.subordinates').value == '0') {
+						let node = canvas.querySelector('.subordinates')
+						if(!('manager' in pkg.data)) pkg.data['manager'] = []
+							return pkg.data.manager.push({
+								_id: parseInt(node.value),
+								description: node[node.selectedIndex].innerHTML.trim()
+							})
+					} else {
+						let node = canvas.querySelector('.subordinates')
+						if(!('subordinates' in pkg.data)) pkg.data['subordinates'] = []
+							return pkg.data.subordinates.push({
+							_id: parseInt(node.value),
+							description: node[node.selectedIndex].innerHTML.trim()
+						})
+					}
+				})
+
 				break
 
 			default:
@@ -484,9 +634,11 @@ const generatePDF = async(mode = '') => {
 					'Please open the browser console, copy the error and contact a support specialist.')[lang],
 				null, 'error'
 			)
+			spinner('wait', false)
 		})
 		.finally(() => {
 			$e('#layoutSidenav_content').classList.remove('fixed-size')
+			spinner('wait', false)
 		})
 	}, 150)
 }

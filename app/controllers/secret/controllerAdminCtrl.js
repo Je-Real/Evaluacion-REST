@@ -3,7 +3,7 @@ const modelUserInfo = require('../../models/modelUserInfo')
 const modelUser = require('../../models/modelUser')
 
 const modelArea = require('../../models/modelArea')
-const modelDirection = require('../../models/modelDirection')
+const modelDirectorate = require('../../models/modelDirectorate')
 const modelPosition = require('../../models/modelPosition')
 const modelCategory = require('../../models/modelCategory')
 
@@ -21,7 +21,7 @@ async function root(req, res) {
 	if(req.session.category == -1) {
 		areaData = await modelArea.find({}, {_id: true, description: true})
 			.catch(error => { console.error(error); return false })
-		directionData = await modelDirection.find({}, {_id: true, description: true})
+		directionData = await modelDirectorate.find({}, {_id: true, description: true})
 			.catch(error => { console.error(error); return false })
 		positionData = await modelPosition.find({}, {_id: true, description: true})
 			.catch(error => { console.error(error); return false })
@@ -47,15 +47,16 @@ async function root(req, res) {
 }
 
 async function search(req, res) {
-	if(!('_id' in req.session)) {
-		return res.status(401).json({
-			msg:[
-				`Por favor, inicia sesión nuevamente`,
-				`Please, log in again`
-			],
-			snack: true,
-			status: 401
-		})
+	if(!('_id' in session)) {
+		if(req.session.category != -1 || 'super' in req.session)
+			return res.status(401).json({
+				msg:[
+					`Por favor, inicia sesión nuevamente`,
+					`Please, log in again`
+				],
+				snack: true,
+				status: 401
+			})
 	}
 
 	if(req.body) {
@@ -147,11 +148,11 @@ async function search(req, res) {
 					})
 				})
 			else if(req.body.search == 3)
-				modelDirection.aggregate(structure)
+				modelDirectorate.aggregate(structure)
 				.then(async(data) => {
 					return res.status(200).json({
 						data: data,
-						count: await modelDirection.countDocuments({}),
+						count: await modelDirectorate.countDocuments({}),
 						status: 200
 					})
 				})
@@ -188,14 +189,15 @@ async function search(req, res) {
 
 function update(req, res) {
 	if(!('_id' in req.session)) {
-		return res.status(401).json({
-			msg: [
-				`Por favor, inicia sesión nuevamente`,
-				`Please, log in again`
-			],
-			snack: true,
-			status: 401
-		})
+		if(req.session.category != -1 || 'super' in req.session)
+			return res.status(401).json({
+				msg: [
+					`Por favor, inicia sesión nuevamente`,
+					`Please, log in again`
+				],
+				snack: true,
+				status: 401
+			})
 	}
 
 	if(req.body) {
@@ -245,9 +247,9 @@ function update(req, res) {
 			modelArea.updateOne({ _id: req.body._id}, { $set: req.body.area })
 			.catch(error => { handler['area'] = false; console.error(error)})
 		}
-		if('direction' in req.body) {
-			modelDirection.updateOne({ _id: req.body._id}, { $set: req.body.direction })
-			.catch(error => { handler['direction'] = false; console.error(error)})
+		if('directorate' in req.body) {
+			modelDirectorate.updateOne({ _id: req.body._id}, { $set: req.body.directorate })
+			.catch(error => { handler['directorate'] = false; console.error(error)})
 		}
 		if('position' in req.body) {
 			modelPosition.updateOne({ _id: req.body._id}, { $set: req.body.position })

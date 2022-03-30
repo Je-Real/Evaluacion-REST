@@ -2,7 +2,7 @@ const modelUserInfo = require('../../models/modelUserInfo')
 const modelUser = require('../../models/modelUser')
 
 const modelArea = require('../../models/modelArea')
-const modelDirection = require('../../models/modelDirection')
+const modelDirectorate = require('../../models/modelDirectorate')
 const modelPosition = require('../../models/modelPosition')
 const modelCategory = require('../../models/modelCategory')
 
@@ -47,8 +47,8 @@ async function fuzzySearch(req = { query: '', collection: '' }) {
 					return false
 				})
 
-			case 'direction':
-				return await modelDirection.aggregate([
+			case 'directorate':
+				return await modelDirectorate.aggregate([
 					{ $match: {description: { $regex: regrex, $options: 'i' }} },
 					{ $project: {_id: 1, description: 1}}
 				])
