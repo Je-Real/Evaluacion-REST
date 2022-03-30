@@ -440,10 +440,10 @@ const findCollections = (e) => {
 															<div class="text-center p-0 col-3 d-flex"> <p class="m-0">ID: ${ result.data[i]._id }</p> </div>
 															<div class="text-center p-0 mx-2"> <p class="m-0">${ result.data[i].name }</p> </div>
 															<div class="text-right p-0 ms-auto me-2">
-																<p class="m-0">${
-																	(result.data[i].enabled)
+																<p class="m-0">${ (result.data[i].category == -1) ? 'AD'
+																	: ( (result.data[i].enabled)
 																	? Array('Habilitado', 'Enabled')[lang]
-																	: Array('Deshabilitado', 'Disabled')[lang]
+																	: Array('Deshabilitado', 'Disabled')[lang] )
 																}</p>
 												</div></div></button></h2>
 												<div id="flush-collector-collapse-${ result.data[i]._id }" class="accordion-collapse collapse"
@@ -590,23 +590,26 @@ const findCollections = (e) => {
 																		aria-labelledby="danger-flush-${ result.data[i]._id }" data-bs-parent="#inner-accordions-${ result.data[i]._id }">
 																		<div class="accordion-body px-0">
 																			<div class="row">
-																				<div class="my-1 col-md-4 col-12 mx-auto">
-																					<p class="text-mini-label text-center m-0">
-																						${ Array('Usuario habilitado', 'User enabled')[lang] }
-																					</p>
-																					<div class="container ps-3">
-																						<div class="button b2 mt-2 mb-2" id="button-17">
-																							<input name="enabled" type="checkbox"
-																								data-class="${
-																									('user_' in result.data[i]) ? 'user_all' : 'user_info'
-																								}" class="checkbox _${ result.data[i]._id }"
-																									${(result.data[i].enabled) ? '' : 'checked' /*checked = No*/} disabled>
-																								<div class="knobs" data-unchecked="${ Array('Sí', 'Yes')[lang] }"
-																									data-checked="${ Array('No', 'No')[lang] }"><span></span></div>
-																							<div class="layer"></div>
+																				${ (result.data[i].category != -1)
+																					? `<div class="my-1 col-md-4 col-12 mx-auto">
+																						<p class="text-mini-label text-center m-0">
+																							${ Array('Usuario habilitado', 'User enabled')[lang] }
+																						</p>
+																						<div class="container ps-3">
+																							<div class="button b2 mt-2 mb-2" id="button-17">
+																								<input name="enabled" type="checkbox"
+																									data-class="${
+																										('user_' in result.data[i]) ? 'user_all' : 'user_info'
+																									}" class="checkbox _${ result.data[i]._id }"
+																										${(result.data[i].enabled) ? '' : 'checked' /*checked = No*/} disabled>
+																									<div class="knobs" data-unchecked="${ Array('Sí', 'Yes')[lang] }"
+																										data-checked="${ Array('No', 'No')[lang] }"><span></span></div>
+																								<div class="layer"></div>
+																							</div>
 																						</div>
-																					</div>
-																				</div>
+																					</div>`
+																					: ''
+																				}
 																				${ ('user_' in result.data[i])
 																					? `<div class="my-1 col-md-5 col-12 mx-auto">
 																						<p class="text-mini-label text-center m-0">
