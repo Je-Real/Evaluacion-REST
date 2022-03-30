@@ -58,7 +58,7 @@ function showSnack(msg, title, style) {
 		)
 
 		setTimeout(() => $e(`#${id}`).classList.replace('fade-anim-disappear', 'fade-anim-appear'), 100)
-		setTimeout(() => hideSnack(id), 4000)
+		setTimeout(() => hideSnack(id), 6000)
 	} else
 		log('Toast overflow! Discarding new notifications', 'error')
 }

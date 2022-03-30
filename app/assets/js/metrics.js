@@ -489,13 +489,14 @@ const generateFile = async(mode = '') => {
 	spinner('wait', true)
 
 	let REQ_PARAMS, pkg
-	$e('#layoutSidenav_content').classList.add('fixed-size')
+	// The server gets no more the client graphs
+	//$e('#layoutSidenav_content').classList.add('fixed-size')
 
 	setTimeout(async() => {
+		let lockSend = false
+
 		switch (mode) {
 			case 'all':
-				let lockSend = false
-
 				pkg = {
 					mode: 'all',
 					data: {
@@ -511,12 +512,12 @@ const generateFile = async(mode = '') => {
 							if(!String(node.value).trim().length || node.value == '0') {
 								showSnack(
 									[
-										`No se ha podido obtener los datos del campo ${
+										`No se ha podido obtener los datos del campo "${
 											node.nextElementSibling.querySelector('span').innerHTML
-										}. Vuelve a seleccionar la información e intenta de nuevo.`,
-										`Field data could not be obtained from ${
+										}". Vuelve a seleccionar la información e intenta de nuevo.`,
+										`Field data could not be obtained from "${
 											node.nextElementSibling.querySelector('span').innerHTML
-										}. Select again the information and try again.`
+										}". Select again the information and try again.`
 									], null, 'warning'
 								)
 								lockSend = true
@@ -598,6 +599,8 @@ const generateFile = async(mode = '') => {
 				)
 		}
 
+		if(lockSend) return spinner('wait', false)
+
 		REQ_PARAMS = {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
@@ -634,10 +637,9 @@ const generateFile = async(mode = '') => {
 					'Please open the browser console, copy the error and contact a support specialist.')[lang],
 				null, 'error'
 			)
-			spinner('wait', false)
 		})
 		.finally(() => {
-			$e('#layoutSidenav_content').classList.remove('fixed-size')
+			//$e('#layoutSidenav_content').classList.remove('fixed-size')
 			spinner('wait', false)
 		})
 	}, 150)

@@ -1110,7 +1110,7 @@ code {
 .modal-hint {
 	display: grid;
 	opacity: 1;
-	position: fixed;
+	position: absolute;
 	z-index: 5;
 	min-width: 20vw;
 	max-width: 45vw;
