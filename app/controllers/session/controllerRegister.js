@@ -164,6 +164,7 @@ async function signUp(req, res) {
 				sheet.column('A').width(7)
 				sheet.column('B').width(55)
 				sheet.column('C').width(25)
+				sheet.column('D').width(25)
 				sheet.column('E').width(25)
 				sheet.column('F').width(50)
 
