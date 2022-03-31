@@ -140,17 +140,26 @@ async function logIn(req, res) {
  * @returns JSON
  */
 async function logOut(req, res) {
+	if(!('_id' in req.session)) {
+		return res.json({
+			status: 200,
+			snack: true
+		})
+	}
+	
 	req.session.destroy()
 	
 	if(req.session == null) {
 		return res.json({
-			msg: 'Sesión finalizada.', 
 			status: 200,
 			snack: true
 		})
 	} else {
 		return res.json({
-			msg: 'Algo salio mal.\n\r¡No te alarmes! Todo saldrá bien.', 
+			msg: Array(
+				'Error del servidor. Contacta con el administrador.',
+				'Server error. Contact the administrator.'
+			), 
 			status: 404,
 			snack: true
 		})

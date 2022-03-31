@@ -291,6 +291,55 @@ window.addEventListener('DOMContentLoaded', async(e) => {
 			}
 		})
 	}
+
+	let newPass = ''
+	eventAssigner('.cancel-pass', 'click', () => {
+		$e('#new-password').value = ''
+	})
+
+	eventAssigner('#check-pass', 'click', () => {
+		newPass = $e('#new-password').value
+
+		if(newPass.length < 8) {
+			return showSnack(
+				['La contraseña debe contener al menos 8 caracteres.',
+				'The password must contain at least 8 characters.'],
+				null, 'warning'
+			)
+		} 
+		else {
+			$e('#close-modal-password').click()
+			$e('#modal-password-confirm').click()
+		}
+	})
+
+	eventAssigner('#update-pass', 'click', () => {
+		spinner('wait', true)
+
+		fetchTo(
+			window.location.origin+'/session/reset-psw',
+			'POST',
+			{ pass: newPass },
+			async(result) => {
+				if(result.snack) showSnack(result.msg, null, result.snackType)
+
+				if(result.status === 200) {
+					spinner('wait', false)
+					spinner('load', true)
+					eatCookies()
+					.finally(() => {
+						setTimeout(logout, 1200)
+					})
+				} else {
+					showSnack(
+						`Error: ${result.msg}`,
+						null, 'error'
+					)
+				}
+			},
+			async(error) => console.error('Log out: '+error)
+		)
+	})
 })
 
 function outSession(clicked) {

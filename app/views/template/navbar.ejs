@@ -64,6 +64,9 @@
 				</div></li>
 
 				<% if(session) { %>
+					<li><button class="dropdown-item container ps-3" data-bs-toggle="modal" data-bs-target="#modalPassword">
+						<span data-lang="es">Cambiar contraseña</span><span data-lang="en">Change Password</span>
+					</button></li>
 					<li><a class="dropdown-item" href="javascript:logout()">
 						<span data-lang="es">Cerrar sesión</span><span data-lang="en">Logout</span>
 					</a></li>
@@ -73,3 +76,75 @@
 	</ul>
 </nav>
 <!-- Navbar -->
+
+<button id="modal-password-confirm" class="d-none" hidden data-bs-toggle="modal" data-bs-target="#passwordConfirm"></button>
+
+<div id="modalPassword" class="modal fade" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">
+					<span data-lang="es">Cambiar contraseña</span>
+					<span data-lang="en">Change Password</span>
+				</h5>
+				<button id="close-modal-password" type="button" class="btn-close cancel-pass" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<h6 class="text-center">
+					<span data-lang="es">Establece una nueva contraseña. La nueva contraseña debe contener al menos 8 caracteres.</span>
+					<span data-lang="en">Set a new password. The new password must contain at least 8 characters.</span>
+				</h6>
+				<div class="reg-field mb-3 col-10 mx-auto">
+					<div class="form-floating mb-3 mb-md-0">
+						<input id="new-password" class="form-control dynamic-hint mandatory" data-hint-collection="user_info" autocomplete="new-password"
+							name="name" id="name" type="password" placeholder="." maxlength="30" />
+						<label for="name">
+							<span class="lang" data-lang="es">Contraseña</span>
+							<span class="lang" data-lang="en">Password</span>
+							<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary cancel-pass" data-bs-dismiss="modal">Close</button>
+				<button id="check-pass" type="button" class="btn btn-primary">
+					<span data-lang="es">Actualizar contraseña</span>
+					<span data-lang="en">Update Password</span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="passwordConfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="passwordConfirmLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="passwordConfirmLabel">
+					<span data-lang="es">Confirmar Acción</span>
+					<span data-lang="en">Confirm Action</span>
+				</h5>
+				<button type="button" class="btn-close cancel-pass" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<h6 class="text-center">
+					<span data-lang="es">Debe asegurarse que recuerda la contraseña.
+						¿Desea confirmar el cambio de contraseña?</span>
+					<span data-lang="en">Make sure you remember the password.
+						Do you want to confirm the password change?</span>
+				</h6>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary cancel-pass" data-bs-dismiss="modal">
+					<span data-lang="es">Cancel</span>
+					<span data-lang="en">Cancel</span>
+				</button>
+				<button id="update-pass" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+					<span data-lang="es">Confirmar</span>
+					<span data-lang="en">Confirm</span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
