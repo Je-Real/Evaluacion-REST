@@ -1,5 +1,5 @@
 <!-- Modal Register -->
-<div id="register" class="modal fade">
+<div id="register" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	<div class="modal-dialog modal-xl modal-dialog-centered w-90 w-md-75">
 		<div class="modal-content bg-dark rounded-3 shadow-lg">
 			<div class="row my-auto align-content-center px-3">
@@ -191,7 +191,7 @@
 	</div>
 </div>
 
-<div id="register-file" class="modal fade">
+<div id="register-file" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	<div class="modal-dialog modal-xl modal-dialog-centered w-75 w-md-60">
 		<div class="modal-content bg-dark rounded-3 shadow-lg">
 			<form method="POST" name="file-reg" id="file-reg" autocomplete="off">
@@ -316,14 +316,25 @@
 								</label>
 							</div>
 						</div>
-						<div class="col-6 mx-auto">
+						<div class="col-6">
 							<div class="form-floating my-2">
 								<select class="form-control form-select ps-4" name="manager" id="col-manager" disabled>
 									<option value="0" selected>N.A.</option>
 								</select>
 								<label for="col-manager">
-									<span class="lang" data-lang="es">Jefe directo</span>
-									<span class="lang" data-lang="en">Manager</span>
+									<span class="lang" data-lang="es">Jefe directo (IDs)</span>
+									<span class="lang" data-lang="en">Manager (IDs)</span>
+								</label>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-floating my-2">
+								<select class="form-control form-select ps-4" name="new_user" id="col-new_user" disabled>
+									<option value="0" selected>N.A.</option>
+								</select>
+								<label for="col-manager">
+									<span class="lang" data-lang="es">Usuario de Sistema</span>
+									<span class="lang" data-lang="en">System User</span>
 								</label>
 							</div>
 						</div>

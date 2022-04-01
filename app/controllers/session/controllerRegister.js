@@ -152,7 +152,7 @@ async function signUp(req, res) {
 		 */
 		const saveAsExcel = async(log) => {
 			let header = Array( // Choose header by language
-				['_id', 'nombre', 'usuario_de_sistema', 'clave_de_acceso', 'informacion_de_usurio', 'error'],
+				['_id', 'nombre', 'usuario_de_sistema', 'clave_de_acceso', 'informacion_de_usuario', 'error'],
 				['_id', 'name', 'system_user', 'pass', 'information_user', 'error']
 			)[lang]
 
@@ -190,7 +190,7 @@ async function signUp(req, res) {
 		}
 		let regLog = { length: req.body.data.length, users: [] },
 			isFile = (req.body.data.length > 1),
-			model
+			model = {}
 
 		res.append('filename', Array(
 			`lista-registro-${FORMAT_DATE}-${DATE.getHours()}-${DATE.getMinutes()}.xlsx`,
@@ -202,15 +202,17 @@ async function signUp(req, res) {
 		 * Creates a new system user from an ID and save 
 		 * the result in regLog variable
 		 * @param {String} _id ID
-		 * @param {Number} dataIterator Number in the regLog array
+		 * @param {Number} i Number in the regLog array
 		 * @param {String} name User name retrieved from the query (or model)
 		 * @returns regLog record
 		 */
-		 const createSysUser = async(_id, dataIterator, name) => {
-			return await modelUser.findOne({ _id: _id }, { _id: 1 })
-			.then(async(sys_user) => {
-				if(sys_user) {
-					regLog.users[dataIterator]['error'] = Array(
+		 const createSysUser = async(_id, i, name) => {
+			return modelUser.findOne({ _id: _id }, { _id: 1 })
+			.then(async(sysUser) => {
+				if(sysUser != null) {
+					console.log('-------------system '+sysUser)
+
+					regLog.users[i]['error'] = Array(
 						'¡Ya existe usuario del sistema con ese ID!',
 						'There is a system user with that ID already!'
 					)[lang]
@@ -221,10 +223,10 @@ async function signUp(req, res) {
 							'There is a system user with that ID already!'
 						)[lang])
 						return res.status(409).send(await saveAsExcel(regLog.users))
-					} else if(isFile && data >= (regLog.length-1)) {
+					} else if(isFile && i >= (regLog.length-1)) {
 						res.append('msg', Array(
-							'Se completo el registro con algunas fallas. Por favor, Revise en el archivo descargado.',
-							'The registration is complete with some errors. Check in the downloaded file.'
+							'Se completo el registro con algunos usuarios duplicados. Por favor, Revise en el archivo descargado.',
+							'The registration is complete with some duplicated users. Check in the downloaded file.'
 						)[lang])
 						return res.status(409).send(await saveAsExcel(regLog.users))
 					}
@@ -243,11 +245,11 @@ async function signUp(req, res) {
 					// If user_info exits then save a new user for that employee
 					new modelUser(model).save()
 					.then(async() => { //🟢
-						regLog.users[dataIterator][Array('system_user', 'usuario_de_sistema')[lang]] = Array(
+						regLog.users[i][Array('system_user', 'usuario_de_sistema')[lang]] = Array(
 							'Usuario creado',
 							'User created'
 						)[lang]
-						regLog.users[dataIterator][Array('pass', 'clave_de_acceso')[lang]] = password
+						regLog.users[i][Array('pass', 'clave_de_acceso')[lang]] = password
 
 						if(!isFile) {
 							res.append('msg', Array(
@@ -255,7 +257,7 @@ async function signUp(req, res) {
 								`User for ${ name } created successfully!`
 							)[lang])
 							res.status(200).send(await saveAsExcel(regLog.users))
-						} else if(isFile && data >= (regLog.length-1)) {
+						} else if(isFile && i >= (regLog.length-1)) {
 							res.append('msg', Array(
 								`!Proceso de registro completado correctamente!`,
 								`Registration process successfully completed!`
@@ -265,13 +267,13 @@ async function signUp(req, res) {
 					})
 					.catch(async(error) => { //🔴
 						console.error(error)
-						regLog.users[dataIterator][Array('system_user', 'usuario_de_sistema')[lang]] = Array(
+						regLog.users[i][Array('system_user', 'usuario_de_sistema')[lang]] = Array(
 							'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
 							'Unable to register user. Please try again later.'
 						)[lang]
-						regLog.users[dataIterator]['error'] = error
+						regLog.users[i]['error'] = error
 
-						if((isFile && data >= (regLog.length-1)) || !isFile) {
+						if((isFile && i >= (regLog.length-1)) || !isFile) {
 							res.append('msg', Array(
 								'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
 								'Unable to register user. Please try again later.'
@@ -283,13 +285,13 @@ async function signUp(req, res) {
 			})
 			.catch(async(error) => { //🔴
 				console.error(error)
-				regLog.users[parseInt(data)][Array('system_user', 'usuario_de_sistema')[lang]] = Array(
+				regLog.users[i][Array('system_user', 'usuario_de_sistema')[lang]] = Array(
 						'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
 						'Unable to register user. Please try again later.'
 					)[lang]
-				regLog.users[parseInt(data)]['error'] = error
+				regLog.users[i]['error'] = error
 
-				if((isFile && data >= (regLog.length-1)) || !isFile) {
+				if((isFile && i >= (regLog.length-1)) || !isFile) {
 					res.append('msg', Array(
 						'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
 						'Unable to register user. Please try again later.'
@@ -304,22 +306,22 @@ async function signUp(req, res) {
 
 			// regLog will be returned as a file log in excel for each operation
 			regLog.users[i] = {
-				_id: ('fields' in req.body) ? req.body.data[iterator][req.body.fields._id] : req.body.data[iterator]._id,
+				_id: String(('fields' in req.body) ? req.body.data[i][req.body.fields._id] : req.body.data[i]._id).trim(),
 			}
 			regLog.users[i][Array('name', 'nombre')[lang]] = ('fields' in req.body)
-				? req.body.data[iterator][req.body.fields.name]
-				: req.body.data[iterator].name
+				? req.body.data[i][req.body.fields.name]
+				: req.body.data[i].name
 			regLog.users[i][Array('system_user', 'usuario_de_sistema')[lang]] = Array('Omitido', 'Skipped')[lang]
 			regLog.users[i][Array('pass', 'clave_de_acceso')[lang]] = Array('Omitido', 'Skipped')[lang]
-			regLog.users[i][Array('information_user', 'informacion_de_usurio')[lang]] = Array('Omitido', 'Skipped')[lang]
+			regLog.users[i][Array('information_user', 'informacion_de_usuario')[lang]] = Array('Omitido', 'Skipped')[lang]
 			regLog.users[i]['error'] = ''
 
 			// Sign in validator
 			await modelUserInfo.findOne(
-				{ _id: ('fields' in req.body) ? req.body.data[iterator][req.body.fields._id] : req.body.data[iterator]._id },
+				{ _id: String(('fields' in req.body) ? req.body.data[i][req.body.fields._id] : req.body.data[i]._id).trim() },
 				{ _id: 1 }
 			)
-			.then(async(dataUser) => {
+			.then(async(dataUserInfo) => {
 				model = { // Structure compatible with the all the models used
 					/**
 					 * If in the body there is a 'fields' it means that a file was uploaded,
@@ -327,61 +329,61 @@ async function signUp(req, res) {
 					 * and we'll retrieving the data with the custom name instead of the
 					 * expected
 					**/
-					_id: ('fields' in req.body) ? req.body.data[iterator][req.body.fields._id] : req.body.data[iterator]._id,
-					name: ('fields' in req.body) ? req.body.data[iterator][req.body.fields.name] : req.body.data[iterator].name,
-					area: ('fields' in req.body) ? req.body.data[iterator][req.body.fields.area] : req.body.data[iterator].area,
-					directorate: ('fields' in req.body) ? req.body.data[iterator][req.body.fields.directorate] : req.body.data[iterator].directorate,
-					position: ('fields' in req.body) ? req.body.data[iterator][req.body.fields.position] : req.body.data[iterator].position,
-					category: ('fields' in req.body) ? req.body.data[iterator][req.body.fields.category] : req.body.data[iterator].category,
-					manager: ('fields' in req.body)
-						? req.body.data[iterator][req.body.fields.manager]
-						: ('manager' in req.body.data[iterator])
-							? req.body.data[iterator].manager
-							: '-1',
+					_id: String(('fields' in req.body) ? req.body.data[i][req.body.fields._id] : req.body.data[i]._id).trim(),
+					name: String(('fields' in req.body) ? req.body.data[i][req.body.fields.name] : req.body.data[i].name).trim(),
+					area: String(('fields' in req.body) ? req.body.data[i][req.body.fields.area] : req.body.data[i].area).trim(),
+					directorate: String(('fields' in req.body) ? req.body.data[i][req.body.fields.directorate] : req.body.data[i].directorate).trim(),
+					position: String(('fields' in req.body) ? req.body.data[i][req.body.fields.position] : req.body.data[i].position).trim(),
+					category: String(('fields' in req.body) ? req.body.data[i][req.body.fields.category] : req.body.data[i].category).trim(),
+					manager: String(('fields' in req.body)
+						? (String(req.body.data[i][req.body.fields.manager]).trim().length)
+							? String(req.body.data[i][req.body.fields.manager]).trim()
+							: 'null'
+						: ('manager' in req.body.data[i])
+							? req.body.data[i].manager
+							: 'null').trim(),
 					// blame system™ 😎
 					log: req.body.log
 				}
 				let nextStep = true,
-					errorGetter = null,
-					newUser = ('new_user' in req.body.data[iterator]),
-					findUser = ('find_user' in req.body.data[iterator])
-
+					errorGetter = null
+					findUser = ('find_user' in req.body.data[i]),
+					newUser = ('fields' in req.body)
+						? (req.body.fields.new_user in req.body.data[i])
+							? (String(req.body.data[i][req.body.fields.new_user]).trim().length >= 4)
+							: false
+						: ('new_user' in req.body.data[i])
+			
 				/**
 				 * Fuzzy search all the posible data that can be duplicated
 				 * Create a document if, for example, the area isn't in the
 				 * db and get its ID, but it matches with an already in db
 				 * area, then just get its ID
 				**/
-				if(model.area != undefined)
+				if(model.area != 'undefined')
 					model['area'] = await getFuzzy(model['area'], 'area').then(fuzzID => {
 						if(parseInt(fuzzID) > 0) return parseInt(fuzzID)
 						else nextStep = false
 					}).catch(error => {console.error(error); nextStep = false; errorGetter = error})
-				if(model.directorate != undefined)
+				if(model.directorate != 'undefined')
 					model['directorate'] = await getFuzzy(model['directorate'], 'directorate').then(fuzzID => {
 						if(parseInt(fuzzID) > 0) return parseInt(fuzzID)
 						else nextStep = false
 					}).catch(error => {console.error(error); nextStep = false; errorGetter = error})
-				if(model.position != undefined)
+				if(model.position != 'undefined')
 					model['position'] = await getFuzzy(model['position'], 'position').then(fuzzID => {
 						if(parseInt(fuzzID) > 0) return parseInt(fuzzID)
 						else nextStep = false
 					}).catch(error => {console.error(error); nextStep = false; errorGetter = error})
-				if(model.category != undefined)
+				if(model.category != 'undefined')
 					model['category'] = await getFuzzy(model['category'], 'category').then(fuzzID => {
 						if(parseInt(fuzzID) > 0) return parseInt(fuzzID)
 						else nextStep = false
 					}).catch(error => {console.error(error); nextStep = false; errorGetter = error})
 
-				if(nextStep) {
-					if('manager' in req.body.data[iterator])
-						req.body.data[iterator] = {
-							manager: ('fields' in req.body)
-							? req.body.data[iterator][req.body.fields.manager]
-							: req.body.data[iterator].manager
-						}
 
-					if(dataUser) { // If the user exists
+				if(nextStep) {
+					if(dataUserInfo) { // If the user exists
 						if(findUser) { // If there is 'find_user'
 							return createSysUser(model._id, i, model.name) // Create system user
 						} else {
@@ -396,10 +398,10 @@ async function signUp(req, res) {
 									'There is an system user with that ID already!'
 								)[lang])
 								return res.status(409).send(await saveAsExcel(regLog.users))
-							} else if(isFile && iterator >= (regLog.length-1)) {
+							} else if(isFile && i >= (regLog.length-1)) {
 								res.append('msg', Array(
-									'Se completo el registro con algunas fallas. Por favor, Revise en el archivo descargado.',
-									'The registration is complete with some errors. Check in the downloaded file.'
+									'Se completo el registro con algunos datos duplicados. Por favor, Revise en el archivo descargado.',
+									'The registration is complete with some duplicated data. Check in the downloaded file.'
 								)[lang])
 								return res.status(409).send(await saveAsExcel(regLog.users))
 							}
@@ -407,39 +409,38 @@ async function signUp(req, res) {
 					} else { // Save a new information_user
 						new modelUserInfo(model).save()
 						.then(async() => { //🟢
-							regLog.users[i][Array('information_user', 'informacion_de_usurio')[lang]] = Array(
+							regLog.users[i][Array('information_user', 'informacion_de_usuario')[lang]] = Array(
 								'Información guardada',
 								'Information saved'
 							)[lang]
 
 							// And if the employee is a system user
-							if(newUser) {
-								return createSysUser(model._id, i, dataUser)
-							} else {
-								if(!isFile) {
-									res.append('msg', Array(
-										`¡Información registrada correctamente!`,
-										`Information successfully recorded!`
-									)[lang])
-									return res.status(200).send(await saveAsExcel(regLog.users))
-								} else if(isFile && iterator >= (regLog.length-1)) {
-									res.append('msg', Array(
-										`!Proceso de registro completado correctamente!`,
-										`Registration process successfully completed!`
-									)[lang])
-									return res.status(200).send(await saveAsExcel(regLog.users))
-								}
+							if(newUser)
+								return await createSysUser(model._id, i, model.name)
+							
+							if(!isFile) {
+								res.append('msg', Array(
+									`¡Información registrada correctamente!`,
+									`Information successfully recorded!`
+								)[lang])
+								return res.status(200).send(await saveAsExcel(regLog.users))
+							} else if(isFile && i >= (regLog.length-1)) {
+								res.append('msg', Array(
+									`!Proceso de registro completado correctamente!`,
+									`Registration process successfully completed!`
+								)[lang])
+								return res.status(200).send(await saveAsExcel(regLog.users))
 							}
 						})
 						.catch(async(error) => { //🔴
 							console.error(error)
-							regLog.users[i][Array('information_user', 'informacion_de_usurio')[lang]] = Array(
+							regLog.users[i][Array('information_user', 'informacion_de_usuario')[lang]] = Array(
 									'Revisa la información enviada y notifica al administrador. Ocurrió un error al leer los datos.',
 									'Unable to register user. Please try again later.'
 								)[lang]
 							regLog.users[i]['error'] = error
 
-							if((isFile && iterator >= (regLog.length-1)) || !isFile) {
+							if((isFile && i >= (regLog.length-1)) || !isFile) {
 								res.append('msg', Array(
 									'Proceso con errores. Revisa en el archivo descargado.',
 									'Process with errors. Check in the downloaded file.'
@@ -449,7 +450,7 @@ async function signUp(req, res) {
 						})
 					}
 				} else {
-					regLog.users[i][Array('information_user', 'informacion_de_usurio')[lang]] = Array(
+					regLog.users[i][Array('information_user', 'informacion_de_usuario')[lang]] = Array(
 						'Se detectó error en la búsqueda dinámica. Por favor, revise el archivo descargado',
 						'An error was detected in the dynamic search. Please check the downloaded file.'
 					)[lang]
@@ -461,7 +462,7 @@ async function signUp(req, res) {
 							'An error was detected in the dynamic search. Please check the downloaded file.'
 						)[lang])
 						return res.status(409).send(await saveAsExcel(regLog.users))
-					} else if(isFile && iterator >= (regLog.length-1)) {
+					} else if(isFile && i >= (regLog.length-1)) {
 						res.append('msg', Array(
 							'Se completo el registro con algunas fallas. Por favor, Revise en el archivo descargado.',
 							'The registration is complete with some errors. Check in the downloaded file.'
@@ -474,7 +475,7 @@ async function signUp(req, res) {
 				console.error(error)
 				regLog.users[i]['error'] = error
 
-				if((isFile && iterator >= (regLog.length-1)) || !isFile) {
+				if((isFile && i >= (regLog.length-1)) || !isFile) {
 					res.append('msg', Array(
 						'Error en servidor. Revisa en el archivo descargado.',
 						'Server error. Check in the downloaded file.'
@@ -499,6 +500,7 @@ async function fuzzySearch(req, res) {
 		})
 	})
 	.catch(error => {
+		console.error(error)
 		return res.json({
 			msg: [
 				`No se pudo leer la columna ${collection}.`,

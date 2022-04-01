@@ -144,19 +144,17 @@ window.addEventListener('load', async(e) => {
 			'<div class="modal-hint hide mt-1 bg-light rounded-3 shadow-lg"></div>'
 		)
 	})
-	eventAssigner('.dynamic-hint', 'focusin', (e) => modalHintDisplay(e, true))
-	eventAssigner('.dynamic-hint', 'focusout', (e) => modalHintDisplay(e, false))
-	eventAssigner('.dynamic-hint', 'keydown', (e) => dynamicHints(e, 'user_info'))
-	eventAssigner('.dynamic-hint', 'change', (e) => dynamicHints(e, 'user_info'))
+	eventAssigner('.dynamic-hint', 'focusin', e => modalHintDisplay(e, true))
+	eventAssigner('.dynamic-hint', 'focusout', e => modalHintDisplay(e, false))
+	eventAssigner('.dynamic-hint', 'keydown', e => dynamicHints(e, 'user_info'))
+	eventAssigner('.dynamic-hint', 'change', e => dynamicHints(e, 'user_info'))
 	
 	eventAssigner('#excel-file', 'change', e => {readUrl(e.target)}) // Read the name and columns of the file
 	eventAssigner('#submit-file', 'click', async e => { // Send file event
-		spinner('wait', true)
-
 		pkg['file'] = true
 		pkg['fields'] = {}
 
-		$a('#register-file select').forEach(node => {
+		$a('#register-file select').forEach(async(node) => {
 			let value = node[node.selectedIndex].value
 
 			if(node.classList.contains('mandatory')) {
@@ -176,6 +174,8 @@ window.addEventListener('load', async(e) => {
 		})
 
 		if(pkg['file']) {
+			spinner('wait', true)
+
 			await fetch(window.location.origin+'/session/sign-in',
 				{method: 'POST',
 				headers: {'Content-Type': 'application/json'},
@@ -293,6 +293,15 @@ const readUrl = (input) => {
 //Method to read excel file and convert it into JSON
 const excelToJSON = async(file) => {
 	try {
+		$a('#register-file select option').forEach(node => {
+			node.remove()
+		})
+		$a('#register-file select').forEach(node => {
+			node.innerHTML = Array(
+				`<option value="0" selected>- Selecciona una columna -</option>`,
+				`<option value="0" selected>- Select a column -</option>`)[lang]
+		})
+
 		let reader = new FileReader()
 
 		reader.readAsBinaryString(file)
@@ -302,13 +311,18 @@ const excelToJSON = async(file) => {
 				
 			workbook.SheetNames.forEach((sheetName, i) => {
 				if(i === 0) {
-					let roa = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName])
-					if (roa.length > 0) {
+					let roa = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]),
+						ref = workbook.Sheets[sheetName]['!ref'],
+						firstCol = ref.split(':')[0].charCodeAt(0),
+						lastCol = ref.split(':')[1].charCodeAt(0)
+
+					if(roa.length > 0) {
 						pkg['data'] = roa
 						
-						for(let j in roa[0]) {
+						for(let j = firstCol; j <= lastCol; j++) {
+							let header = String(workbook.Sheets[sheetName][String.fromCharCode(j)+'1'].v)
 							$a('#register-file select').forEach(node => {
-								node.insertAdjacentHTML('beforeend', `<option value="${j}">${j}</option>`)
+								node.insertAdjacentHTML('beforeend', `<option value="${header}">${header.trim()}</option>`)
 							})
 						}
 					}
@@ -325,8 +339,6 @@ const excelToJSON = async(file) => {
 }
 
 const register = async() => {
-	spinner('wait', true)
-
 	pkg['data'] = [{}]
 
 	if($e('#new_user:not(disabled)').checked) {
@@ -337,7 +349,6 @@ const register = async() => {
 
 	let pass = true
 	$a('#manual-reg .form-control.mandatory').forEach(node => {
-
 		if(node.tagName.toLowerCase() == 'input') {
 			if(node.value.lenght < 4 && pass) {
 				pass = false
@@ -364,6 +375,8 @@ const register = async() => {
 	})
 
 	if(pass) {
+		spinner('wait', true)
+
 		await fetch(window.location.origin+'/session/sign-in',
 			{method: 'POST',
 			headers: {'Content-Type': 'application/json'},
