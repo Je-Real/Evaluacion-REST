@@ -210,8 +210,6 @@ async function signUp(req, res) {
 			return modelUser.findOne({ _id: _id }, { _id: 1 })
 			.then(async(sysUser) => {
 				if(sysUser != null) {
-					console.log('-------------system '+sysUser)
-
 					regLog.users[i]['error'] = Array(
 						'¡Ya existe usuario del sistema con ese ID!',
 						'There is a system user with that ID already!'
@@ -243,8 +241,8 @@ async function signUp(req, res) {
 					model['pass'] = crypto.AES.encrypt(password, model._id).toString()
 
 					// If user_info exits then save a new user for that employee
-					new modelUser(model).save()
-					.then(async() => { //🟢
+					await new modelUser(model).save()
+					.then(async(save) => { //🟢
 						regLog.users[i][Array('system_user', 'usuario_de_sistema')[lang]] = Array(
 							'Usuario creado',
 							'User created'
@@ -350,10 +348,10 @@ async function signUp(req, res) {
 					findUser = ('find_user' in req.body.data[i]),
 					newUser = ('fields' in req.body)
 						? (req.body.fields.new_user in req.body.data[i])
-							? (String(req.body.data[i][req.body.fields.new_user]).trim().length >= 4)
+							? (String(req.body.data[i][req.body.fields.new_user]).trim().length > 0)
 							: false
 						: ('new_user' in req.body.data[i])
-			
+
 				/**
 				 * Fuzzy search all the posible data that can be duplicated
 				 * Create a document if, for example, the area isn't in the
@@ -407,8 +405,8 @@ async function signUp(req, res) {
 							}
 						}
 					} else { // Save a new information_user
-						new modelUserInfo(model).save()
-						.then(async() => { //🟢
+						await new modelUserInfo(model).save()
+						.then(async(save) => { //🟢
 							regLog.users[i][Array('information_user', 'informacion_de_usuario')[lang]] = Array(
 								'Información guardada',
 								'Information saved'
