@@ -6,7 +6,7 @@ const modelDirectorate = require('../../models/modelDirectorate')
 const modelCategory = require('../../models/modelCategory')
 const modelPosition = require('../../models/modelPosition')
 
-const fuzzy = require('../util/util').fuzzySearch
+const fuzzy = require('../util/fuzzy').fuzzySearch
 
 const crypto = require('crypto-js')
 const XLSXPopulate = require('xlsx-populate')

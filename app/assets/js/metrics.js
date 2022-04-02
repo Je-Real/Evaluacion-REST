@@ -419,7 +419,7 @@ const generateFile = async(mode = '') => {
 
 				$a('#modalSelector .form-control').forEach(node => {
 					if(!lockSend) {
-						/*if(node.classList.contains('mandatory')) {
+						if(node.classList.contains('mandatory')) {
 							if(!String(node.value).trim().length || node.value == '0') {
 								showSnack(
 									[
@@ -433,7 +433,7 @@ const generateFile = async(mode = '') => {
 								)
 								lockSend = true
 							}
-						}*/
+						}
 
 						let description = node.parentElement.querySelector('label span:first-child').innerHTML
 
@@ -444,12 +444,12 @@ const generateFile = async(mode = '') => {
 									description: description
 								})
 						} else {
-							if(String(node.dataset.id).trim().length)
+							if('id' in node.dataset)
 								pkg.data[node.dataset.class].push({
 									_id: String(node.dataset.id).trim(),
 									description: description
 								})
-							else if(String(node.value).split('-').length > 1) {
+							else if(node.value.trim().length > 6) {
 								pkg.data[node.dataset.class].push({
 									_id: String(node.value).split('-')[0].trim(),
 									description: description

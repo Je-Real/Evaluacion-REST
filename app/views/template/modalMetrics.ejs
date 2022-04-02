@@ -1,567 +1,589 @@
 <div id="modalSelector" class="modal fade" tabindex="-1">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    <span class="lang" data-lang="es">Generar Reporte</span>
-                    <span class="lang" data-lang="en">Generate Report</span>
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body container">
-                <div class="row mb-3">
-                    <div class="col-12">
-                        <p class="text-center m-0">
-                            <span class="lang" data-lang="es">Los campos obligatorios aparecen marcados con un </span>
-                            <span class="lang" data-lang="en">Required fields are marked with a </span>
-                            <span class="text-danger ps-2"><i class="fa-solid fa-asterisk"></i></span>
-                        </p>
-                    </div>
-                    <div class="col-12">
-                        <p class="text-center m-0">
-                            <span class="lang fs-5" data-lang="es">
-                                Verifica que las direcciones correspondan con la
-                                información obtenida de la base de datos, de lo
-                                contrario puedes elegir la dirección correcta.
-                            </span>
-                            <span class="lang fs-5" data-lang="en">
-                                Verify that the directorate correspond to the information
-                                information obtained from the database, otherwise
-                                you can choose the correct otherwise you can choose
-                                the correct directorate.
-                            </span>
-                        </p>
-                    </div>
-                </div>
+	<div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">
+					<span class="lang" data-lang="es">Generar Reporte</span>
+					<span class="lang" data-lang="en">Generate Report</span>
+				</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body container">
+				<div class="row mb-3">
+					<div class="col-12">
+						<p class="text-center m-0">
+							<span class="lang" data-lang="es">Los campos obligatorios aparecen marcados con un </span>
+							<span class="lang" data-lang="en">Required fields are marked with a </span>
+							<span class="text-danger ps-2"><i class="fa-solid fa-asterisk"></i></span>
+						</p>
+					</div>
+					<div class="col-12">
+						<p class="text-center m-0">
+							<span class="lang fs-5" data-lang="es">
+								Verifica que las direcciones correspondan con la
+								información obtenida de la base de datos, de lo
+								contrario puedes elegir la dirección correcta.
+							</span>
+							<span class="lang fs-5" data-lang="en">
+								Verify that the directorate correspond to the information
+								information obtained from the database, otherwise
+								you can choose the correct otherwise you can choose
+								the correct directorate.
+							</span>
+						</p>
+					</div>
+				</div>
 
-                <div class="row">
-                    <div class="accordion" id="accordionMetrics">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="h-1">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
-                                <span class="lang" data-lang="es">Evaluación por Direcciones</span>
-                                <span class="lang" data-lang="en">Evaluation by Directorates</span>
-                                </button>
-                            </h2>
-                            <div id="collapse-1" class="accordion-collapse collapse show" aria-labelledby="h-1"
-                                data-bs-parent="#accordionMetrics">
-                                <div class="accordion-body pt-3 row">
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <select class="form-control form-select selector ps-4 mandatory directorate" data-class="directorates" name="rectory" id="rectory"
-                                                data-prefer="1">
-                                            <% for(let dir in directorates) { %>
-                                                <option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
-                                            <% } %>
-                                            </select>
-                                            <label for="rectory">
-                                                <span class="lang" data-lang="es">Rectoría</span>
-                                                <span class="lang" data-lang="en">Rectory</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <select class="form-control form-select selector ps-4 mandatory directorate" data-class="directorates" name="daf" id="daf"
-                                                data-prefer="4">
-                                            <% for(let dir in directorates) { %>
-                                                <option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
-                                            <% } %>
-                                            </select>
-                                            <label for="daf">
-                                                <span class="lang" data-lang="es">Dirección de administración y finanzas</span>
-                                                <span class="lang" data-lang="en">Administration and Finance Management</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <select class="form-control form-select selector ps-4 mandatory directorate" data-class="directorates" name="sa" id="sa"
-                                                data-prefer="2">
-                                            <% for(let dir in directorates) { %>
-                                                <option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
-                                            <% } %>
-                                            </select>
-                                            <label for="sa">
-                                                <span class="lang" data-lang="es">Secretaría Académica</span>
-                                                <span class="lang" data-lang="en">Academic Secretariat</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <select class="form-control form-select selector ps-4 mandatory directorate" data-class="directorates" name="dpei" id="dpei"
-                                                data-prefer="7">
-                                            <% for(let dir in directorates) { %>
-                                                <option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
-                                            <% } %>
-                                            </select>
-                                            <label for="dpei">
-                                                <span class="lang" data-lang="es">Dirección de Planeación y Evaluación institucional</span>
-                                                <span class="lang" data-lang="en">Directorate of Institutional Planning and Evaluation</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <select class="form-control form-select selector ps-4 mandatory directorate" data-class="directorates" name="dpceu" id="dpceu"
-                                                data-prefer="5">
-                                            <% for(let dir in directorates) { %>
-                                                <option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
-                                            <% } %>
-                                            </select>
-                                            <label for="dpceu">
-                                                <span class="lang" data-lang="es">Dirección de Promoción, Comunicación y Extensión Universitaria</span>
-                                                <span class="lang" data-lang="en">Promotion, Communication and University Extension Directorate</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <select class="form-control form-select selector ps-4 mandatory directorate" data-class="directorates" name="aac" id="aac"
-                                                data-prefer="14">
-                                            <% for(let dir in directorates) { %>
-                                                <option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
-                                            <% } %>
-                                            </select>
-                                            <label for="aac">
-                                                <span class="lang" data-lang="es">Académica de Administración y Contaduría</span>
-                                                <span class="lang" data-lang="en">Academic Administration and Accounting</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <select class="form-control form-select selector ps-4 mandatory directorate" data-class="directorates" name="ati" id="ati"
-                                                data-prefer="11">
-                                            <% for(let dir in directorates) { %>
-                                                <option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
-                                            <% } %>
-                                            </select>
-                                            <label for="ati">
-                                                <span class="lang" data-lang="es">Académica de Tecnologías de la Información</span>
-                                                <span class="lang" data-lang="en">Academic of Information Technologies</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <select class="form-control form-select selector ps-4 mandatory directorate" data-class="directorates" name="aadnm" id="aadnm"
-                                                data-prefer="9">
-                                            <% for(let dir in directorates) { %>
-                                                <option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
-                                            <% } %>
-                                            </select>
-                                            <label for="aadnm">
-                                                <span class="lang" data-lang="es">Académica de Agricultura y DNM</span>
-                                                <span class="lang" data-lang="en">Academic of Agriculture and DNM</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3 mx-auto">
-                                        <div class="form-floating">
-                                            <select class="form-control form-select selector ps-4 directorate" data-class="directorates" name="dai" id="dai">
-                                            <% for(let dir in directorates) { %>
-                                                <option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
-                                            <% } %>
-                                            </select>
-                                            <label for="dai">
-                                                <span class="lang" data-lang="es">Dirección Académica de Ingenierías</span>
-                                                <span class="lang" data-lang="en">Academic directorate of Engineering</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+				<div class="row">
+					<div class="accordion" id="accordionMetrics">
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="h-1">
+								<button class="accordion-button" type="button" data-bs-toggle="collapse"
+									data-bs-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
+								<span class="lang" data-lang="es">Evaluación por Direcciones</span>
+								<span class="lang" data-lang="en">Evaluation by Directorates</span>
+								</button>
+							</h2>
+							<div id="collapse-1" class="accordion-collapse collapse show" aria-labelledby="h-1"
+								data-bs-parent="#accordionMetrics">
+								<div class="accordion-body pt-3 row">
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<select class="form-control form-select selector ps-4 mandatory directorate"
+												data-class="directorates" name="rectory" id="rectory" data-prefer="1">
+											<% for(let dir in directorates) { %>
+												<option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
+											<% } %>
+											</select>
+											<label for="rectory">
+												<span class="lang" data-lang="es">Rectoría</span>
+												<span class="lang" data-lang="en">Rectory</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<select class="form-control form-select selector ps-4 mandatory directorate"
+												data-class="directorates" name="daf" id="daf" data-prefer="4">
+											<% for(let dir in directorates) { %>
+												<option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
+											<% } %>
+											</select>
+											<label for="daf">
+												<span class="lang" data-lang="es">Dirección de administración y finanzas</span>
+												<span class="lang" data-lang="en">Administration and Finance Management</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<select class="form-control form-select selector ps-4 mandatory directorate"
+												data-class="directorates" name="sa" id="sa" data-prefer="2">
+											<% for(let dir in directorates) { %>
+												<option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
+											<% } %>
+											</select>
+											<label for="sa">
+												<span class="lang" data-lang="es">Secretaría Académica</span>
+												<span class="lang" data-lang="en">Academic Secretariat</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<select class="form-control form-select selector ps-4 mandatory directorate"
+												data-class="directorates" name="dpei" id="dpei" data-prefer="7">
+											<% for(let dir in directorates) { %>
+												<option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
+											<% } %>
+											</select>
+											<label for="dpei">
+												<span class="lang" data-lang="es">Dirección de Planeación y Evaluación institucional</span>
+												<span class="lang" data-lang="en">Directorate of Institutional Planning and Evaluation</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<select class="form-control form-select selector ps-4 mandatory directorate"
+												data-class="directorates" name="dpceu" id="dpceu" data-prefer="5">
+											<% for(let dir in directorates) { %>
+												<option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
+											<% } %>
+											</select>
+											<label for="dpceu">
+												<span class="lang" data-lang="es">Dirección de Promoción, Comunicación y Extensión Universitaria</span>
+												<span class="lang" data-lang="en">Promotion, Communication and University Extension Directorate</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<select class="form-control form-select selector ps-4 mandatory directorate"
+												data-class="directorates" name="aac" id="aac" data-prefer="14">
+											<% for(let dir in directorates) { %>
+												<option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
+											<% } %>
+											</select>
+											<label for="aac">
+												<span class="lang" data-lang="es">Académica de Administración y Contaduría</span>
+												<span class="lang" data-lang="en">Academic Administration and Accounting</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<select class="form-control form-select selector ps-4 mandatory directorate"
+												data-class="directorates" name="ati" id="ati" data-prefer="11">
+											<% for(let dir in directorates) { %>
+												<option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
+											<% } %>
+											</select>
+											<label for="ati">
+												<span class="lang" data-lang="es">Académica de Tecnologías de la Información</span>
+												<span class="lang" data-lang="en">Academic of Information Technologies</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<select class="form-control form-select selector ps-4 mandatory directorate"
+												data-class="directorates" name="aadnm" id="aadnm" data-prefer="9">
+											<% for(let dir in directorates) { %>
+												<option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
+											<% } %>
+											</select>
+											<label for="aadnm">
+												<span class="lang" data-lang="es">Académica de Agricultura y DNM</span>
+												<span class="lang" data-lang="en">Academic of Agriculture and DNM</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3 mx-auto">
+										<div class="form-floating">
+											<select class="form-control form-select selector ps-4 directorate"
+												data-class="directorates" name="dai" id="dai"> 
+											<% for(let dir in directorates) { %>
+												<option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
+											<% } %>
+											</select>
+											<label for="dai">
+												<span class="lang" data-lang="es">Dirección Académica de Ingenierías</span>
+												<span class="lang" data-lang="en">Academic directorate of Engineering</span>
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="h-2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
-                                    <span class="lang" data-lang="es">Evaluación por Áreas</span>
-                                    <span class="lang" data-lang="en">Evaluation by Areas</span>
-                                </button>
-                            </h2>
-                            <div id="collapse-2" class="accordion-collapse collapse" aria-labelledby="h-2"
-                                data-bs-parent="#accordionMetrics">
-                                <div class="accordion-body row">
-                                    <div class="col-12">
-                                        <h6 class="text-center mb-3">
-                                            <span class="fw-bold" data-lang="es">Busca y selecciona el nombre del jefe de cada area</span>
-                                            <span class="fw-bold" data-lang="en">Search and select the manager's name of each area</span>
-                                        </h6>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="rectory" id="rectory-1" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="rectory-1">
-                                                <span class="lang" data-lang="es">Rectoría</span>
-                                                <span class="lang" data-lang="en">Rectory</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="ld" id="ld" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="ld">
-                                                <span class="lang" data-lang="es">Dirección De Vinculación</span>
-                                                <span class="lang" data-lang="en">Liaison Department</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="juridical" id="juridical" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="juridical">
-                                                <span class="lang" data-lang="es">Jurídico</span>
-                                                <span class="lang" data-lang="en">Juridical</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="lil" id="lil" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="lil">
-                                                <span class="lang" data-lang="es">Logística y Enlace Institucional</span>
-                                                <span class="lang" data-lang="en">Logistics and Institutional Liaison</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="accounting" id="accounting" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="accounting">
-                                                <span class="lang" data-lang="es">Departamento de Contabilidad</span>
-                                                <span class="lang" data-lang="en">Accounting Department</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="afd" id="afd" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="afd">
-                                                <span class="lang" data-lang="es">Dirección de Administración y Finanzas</span>
-                                                <span class="lang" data-lang="en">Administration and Finance Department</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="pbd" id="pbd" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="pbd">
-                                                <span class="lang" data-lang="es">Departamento de Programación y Presupuesto</span>
-                                                <span class="lang" data-lang="en">Programming and Budget Department</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="procurement" id="procurement" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="procurement">
-                                                <span class="lang" data-lang="es">Departamento De Adquisiciones</span>
-                                                <span class="lang" data-lang="en">Procurement Department</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="administrative" id="administrative" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="administrative">
-                                                <span class="lang" data-lang="es">Servicios Administrativos</span>
-                                                <span class="lang" data-lang="en">Administrative Services</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="hcd" id="hcd" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="hcd">
-                                                <span class="lang" data-lang="es">Departamento de Capital Humano</span>
-                                                <span class="lang" data-lang="en">Human Capital Department</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="id" id="id" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="id">
-                                                <span class="lang" data-lang="es">Departamento de Infraestructura</span>
-                                                <span class="lang" data-lang="en">Infrastructure Department</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="ntd" id="ntd" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="ntd">
-                                                <span class="lang" data-lang="es">Departamento de Redes y Telecomunicaciones</span>
-                                                <span class="lang" data-lang="en">Network and Telecommunications Department</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="dipe" id="dipe" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="dipe">
-                                                <span class="lang" data-lang="es">Dirección de Planeación y Evaluación Institucional</span>
-                                                <span class="lang" data-lang="en">area of Institutional Planning and Evaluation</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="sp" id="sp" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="sp">
-                                                <span class="lang" data-lang="es">Subdirección de Planeación</span>
-                                                <span class="lang" data-lang="en">Sub-directorate of Planning</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="info" id="info" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="info">
-                                                <span class="lang" data-lang="es">Centro de Información</span>
-                                                <span class="lang" data-lang="en">Information Center</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="quality" id="quality" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="quality">
-                                                <span class="lang" data-lang="es">Departamento de Gestión de la Calidad y Ambiental</span>
-                                                <span class="lang" data-lang="en">Quality and Environmental Management Department</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="ies" id="ies" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="ies">
-                                                <span class="lang" data-lang="es">Subdirección de Evaluación Institucional</span>
-                                                <span class="lang" data-lang="en">Institutional Evaluation Sub-directorate</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="dpcue" id="dpcue" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="dpcue">
-                                                <span class="lang" data-lang="es">Dirección de Promoción, Comunicación y Extensión Universitaria</span>
-                                                <span class="lang" data-lang="en">Directorate of Promotion, Communication and University Extension</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="csd" id="csd" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="csd">
-                                                <span class="lang" data-lang="es">Subdirección de Atención al Cliente</span>
-                                                <span class="lang" data-lang="en">Customer Service Department</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="language" id="language" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="language">
-                                                <span class="lang" data-lang="es">Departamento de Idiomas</span>
-                                                <span class="lang" data-lang="en">Language Department</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 mb-3 mx-auto">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
-                                                name="ifd" id="ifd" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-                                            <label for="ifd">
-                                                <span class="lang" data-lang="es">Departamento de Formación Integral</span>
-                                                <span class="lang" data-lang="en">Integral Formation Department</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="h-2">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+									data-bs-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
+									<span class="lang" data-lang="es">Evaluación por Áreas</span>
+									<span class="lang" data-lang="en">Evaluation by Areas</span>
+								</button>
+							</h2>
+							<div id="collapse-2" class="accordion-collapse collapse" aria-labelledby="h-2"
+								data-bs-parent="#accordionMetrics">
+								<div class="accordion-body row">
+									<div class="col-12">
+										<h6 class="text-center mb-3">
+											<span class="fw-bold" data-lang="es">Busca y selecciona el nombre del jefe de cada area</span>
+											<span class="fw-bold" data-lang="en">Search and select the manager's name of each area</span>
+										</h6>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="rectory" id="rectory-1" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['rectory'] %>" <% } %>>
+											<label for="rectory-1">
+												<span class="lang" data-lang="es">Rectoría</span>
+												<span class="lang" data-lang="en">Rectory</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="ld" id="ld" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['ld'] %>" <% } %>>
+											<label for="ld">
+												<span class="lang" data-lang="es">Dirección De Vinculación</span>
+												<span class="lang" data-lang="en">Liaison Department</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="juridical" id="juridical" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['juridical'] %>" <% } %>>
+											<label for="juridical">
+												<span class="lang" data-lang="es">Jurídico</span>
+												<span class="lang" data-lang="en">Juridical</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="lil" id="lil" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['lil'] %>" <% } %>>
+											<label for="lil">
+												<span class="lang" data-lang="es">Logística y Enlace Institucional</span>
+												<span class="lang" data-lang="en">Logistics and Institutional Liaison</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="accounting" id="accounting" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['accounting'] %>" <% } %>>
+											<label for="accounting">
+												<span class="lang" data-lang="es">Departamento de Contabilidad</span>
+												<span class="lang" data-lang="en">Accounting Department</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="afd" id="afd" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['afd'] %>" <% } %>>
+											<label for="afd">
+												<span class="lang" data-lang="es">Dirección de Administración y Finanzas</span>
+												<span class="lang" data-lang="en">Administration and Finance Department</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="pbd" id="pbd" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['pbd'] %>" <% } %>>
+											<label for="pbd">
+												<span class="lang" data-lang="es">Departamento de Programación y Presupuesto</span>
+												<span class="lang" data-lang="en">Programming and Budget Department</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="procurement" id="procurement" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['procurement'] %>" <% } %>>
+											<label for="procurement">
+												<span class="lang" data-lang="es">Departamento De Adquisiciones</span>
+												<span class="lang" data-lang="en">Procurement Department</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="administrative" id="administrative" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['administrative'] %>" <% } %>>
+											<label for="administrative">
+												<span class="lang" data-lang="es">Servicios Administrativos</span>
+												<span class="lang" data-lang="en">Administrative Services</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="hcd" id="hcd" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['hcd'] %>" <% } %>>
+											<label for="hcd">
+												<span class="lang" data-lang="es">Departamento de Capital Humano</span>
+												<span class="lang" data-lang="en">Human Capital Department</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="id" id="id" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['id'] %>" <% } %>>
+											<label for="id">
+												<span class="lang" data-lang="es">Departamento de Infraestructura</span>
+												<span class="lang" data-lang="en">Infrastructure Department</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="ntd" id="ntd" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['ntd'] %>" <% } %>>
+											<label for="ntd">
+												<span class="lang" data-lang="es">Departamento de Redes y Telecomunicaciones</span>
+												<span class="lang" data-lang="en">Network and Telecommunications Department</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="dipe" id="dipe" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['dipe'] %>" <% } %>>
+											<label for="dipe">
+												<span class="lang" data-lang="es">Dirección de Planeación y Evaluación Institucional</span>
+												<span class="lang" data-lang="en">area of Institutional Planning and Evaluation</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="sp" id="sp" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['sp'] %>" <% } %>>
+											<label for="sp">
+												<span class="lang" data-lang="es">Subdirección de Planeación</span>
+												<span class="lang" data-lang="en">Sub-directorate of Planning</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="info" id="info" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['info'] %>" <% } %>>
+											<label for="info">
+												<span class="lang" data-lang="es">Centro de Información</span>
+												<span class="lang" data-lang="en">Information Center</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="quality" id="quality" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['quality'] %>" <% } %>>
+											<label for="quality">
+												<span class="lang" data-lang="es">Departamento de Gestión de la Calidad y Ambiental</span>
+												<span class="lang" data-lang="en">Quality and Environmental Management Department</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="ies" id="ies" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['ies'] %>" <% } %>>
+											<label for="ies">
+												<span class="lang" data-lang="es">Subdirección de Evaluación Institucional</span>
+												<span class="lang" data-lang="en">Institutional Evaluation Sub-directorate</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="dpcue" id="dpcue" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['dpcue'] %>" <% } %>>
+											<label for="dpcue">
+												<span class="lang" data-lang="es">Dirección de Promoción, Comunicación y Extensión Universitaria</span>
+												<span class="lang" data-lang="en">Directorate of Promotion, Communication and University Extension</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="csd" id="csd" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['csd'] %>" <% } %>>
+											<label for="csd">
+												<span class="lang" data-lang="es">Subdirección de Atención al Cliente</span>
+												<span class="lang" data-lang="en">Customer Service Department</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="language" id="language" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['language'] %>" <% } %>>
+											<label for="language">
+												<span class="lang" data-lang="es">Departamento de Idiomas</span>
+												<span class="lang" data-lang="en">Language Department</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-3 mx-auto">
+										<div class="form-floating">
+											<input type="text" class="form-control dynamic-hint ps-4 mandatory area" data-class="areas"
+												name="ifd" id="ifd" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info"
+												<% if(areaManager) { %> value="<%= areaManager['ifd'] %>" <% } %>>
+											<label for="ifd">
+												<span class="lang" data-lang="es">Departamento de Formación Integral</span>
+												<span class="lang" data-lang="en">Integral Formation Department</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
 
-                                    <div id="addAreaField" class="col-12 my-2 py-2">
-                                        <h6 class="lang text-center" data-lang="es">Añadir un nuevo campo para evaluación de area</h6>
-                                        <h6 class="lang text-center" data-lang="en">Add a new field for area evaluation</h6>
-                                        <button type="button" class="btn btn-secondary mx-auto d-flex align-self-center mb-4"
-                                            data-bs-toggle="modal" data-bs-target="#addFiledModal">
-                                            <i class="fa-solid fa-plus fs-5 py-1"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+									<div id="addAreaField" class="col-12 my-2 py-2">
+										<h6 class="lang text-center" data-lang="es">Añadir un nuevo campo para evaluación de area</h6>
+										<h6 class="lang text-center" data-lang="en">Add a new field for area evaluation</h6>
+										<button type="button" class="btn btn-secondary mx-auto d-flex align-self-center mb-4"
+											data-bs-toggle="modal" data-bs-target="#addFiledModal">
+											<i class="fa-solid fa-plus fs-5 py-1"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
 
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="h-3">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapse-3" aria-expanded="false" aria-controls="collapse-3">
-                                    <span class="lang" data-lang="es">Evaluación por Dirección Académica</span>
-                                    <span class="lang" data-lang="en">Evaluation by Academic Directorate</span>
-                                </button>
-                            </h2>
-                            <div id="collapse-3" class="accordion-collapse collapse" aria-labelledby="h-3"
-                                data-bs-parent="#accordionMetrics">
-                                <div class="accordion-body row">
-                                    <div class="col-12 mb-3 mx-auto">
-                                        <div class="form-floating">
-                                            <select class="form-control form-select selector ps-4 mandatory a_directorates" data-class="a_directorates" name="adaa" id="adaa" data-prefer="14">
-                                                <% for(let dir in directorates) { %>
-                                                    <option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
-                                                <% } %>
-                                            </select>
-                                            <label for="adaa">
-                                                <span class="lang" data-lang="es">Dirección Académica de Administración y Contaduría</span>
-                                                <span class="lang" data-lang="en">Academic Directorate of Administration and Accounting</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 mb-3 mx-auto">
-                                        <div class="form-floating">
-                                            <select class="form-control form-select selector ps-4 mandatory a-directorate" data-class="a_directorates" name="aditm" id="aditm" data-prefer="11">
-                                                <% for(let dir in directorates) { %>
-                                                    <option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
-                                                <% } %>
-                                            </select>
-                                            <label for="aditm">
-                                                <span class="lang" data-lang="es">Dirección Académica de Tecnologías de la Información y Mecatrónica</span>
-                                                <span class="lang" data-lang="en">Academic Directorate of Information Technologies and Mechatronics</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 mb-3 mx-auto">
-                                        <div class="form-floating">
-                                            <select class="form-control form-select selector ps-4 mandatory a-directorate" data-class="a_directorates" name="adia" id="adia" data-prefer="12">
-                                                <% for(let dir in directorates) { %>
-                                                    <option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
-                                                <% } %>
-                                            </select>
-                                            <label for="adia">
-                                                <span class="lang" data-lang="es">Dirección Académica del Área Industrial</span>
-                                                <span class="lang" data-lang="en">Academic Directorate of the Industrial Area</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 mb-3 mx-auto">
-                                        <div class="form-floating">
-                                            <select class="form-control form-select selector ps-4 mandatory a-directorate" data-class="a_directorates" name="adbda" id="adbda" data-prefer="38">
-                                                <% for(let dir in directorates) { %>
-                                                    <option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
-                                                <% } %>
-                                            </select>
-                                            <label for="adbda">
-                                                <span class="lang" data-lang="es">Dirección Académica de Desarrollo de Negocios y Agricultura</span>
-                                                <span class="lang" data-lang="en">Academic Directorate of Business Development and Agriculture</span>
-                                                <span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <span data-lang="es">Cancelar</span>
-                    <span data-lang="en">Cancel</span>
-                </button>
-                <button id="btn-all-report" type="button" class="btn btn-dark" data-bs-dismiss="modal">
-                    <span data-lang="es">Descargar Reporte</span>
-                    <span data-lang="en">Download Report</span>
-                </button>
-            </div>
-        </div>
-    </div>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="h-3">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+									data-bs-target="#collapse-3" aria-expanded="false" aria-controls="collapse-3">
+									<span class="lang" data-lang="es">Evaluación por Dirección Académica</span>
+									<span class="lang" data-lang="en">Evaluation by Academic Directorate</span>
+								</button>
+							</h2>
+							<div id="collapse-3" class="accordion-collapse collapse" aria-labelledby="h-3"
+								data-bs-parent="#accordionMetrics">
+								<div class="accordion-body row">
+									<div class="col-12 mb-3 mx-auto">
+										<div class="form-floating">
+											<select class="form-control form-select selector ps-4 mandatory a_directorates" data-class="a_directorates" name="adaa" id="adaa" data-prefer="14">
+												<% for(let dir in directorates) { %>
+													<option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
+												<% } %>
+											</select>
+											<label for="adaa">
+												<span class="lang" data-lang="es">Dirección Académica de Administración y Contaduría</span>
+												<span class="lang" data-lang="en">Academic Directorate of Administration and Accounting</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 mb-3 mx-auto">
+										<div class="form-floating">
+											<select class="form-control form-select selector ps-4 mandatory a-directorate" data-class="a_directorates" name="aditm" id="aditm" data-prefer="11">
+												<% for(let dir in directorates) { %>
+													<option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
+												<% } %>
+											</select>
+											<label for="aditm">
+												<span class="lang" data-lang="es">Dirección Académica de Tecnologías de la Información y Mecatrónica</span>
+												<span class="lang" data-lang="en">Academic Directorate of Information Technologies and Mechatronics</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 mb-3 mx-auto">
+										<div class="form-floating">
+											<select class="form-control form-select selector ps-4 mandatory a-directorate" data-class="a_directorates" name="adia" id="adia" data-prefer="12">
+												<% for(let dir in directorates) { %>
+													<option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
+												<% } %>
+											</select>
+											<label for="adia">
+												<span class="lang" data-lang="es">Dirección Académica del Área Industrial</span>
+												<span class="lang" data-lang="en">Academic Directorate of the Industrial Area</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-12 mb-3 mx-auto">
+										<div class="form-floating">
+											<select class="form-control form-select selector ps-4 mandatory a-directorate" data-class="a_directorates" name="adbda" id="adbda" data-prefer="38">
+												<% for(let dir in directorates) { %>
+													<option value="<%= directorates[dir]._id %>"><%= directorates[dir].description[session.lang] %></option>
+												<% } %>
+											</select>
+											<label for="adbda">
+												<span class="lang" data-lang="es">Dirección Académica de Desarrollo de Negocios y Agricultura</span>
+												<span class="lang" data-lang="en">Academic Directorate of Business Development and Agriculture</span>
+												<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+					<span data-lang="es">Cancelar</span>
+					<span data-lang="en">Cancel</span>
+				</button>
+				<button id="btn-all-report" type="button" class="btn btn-dark" data-bs-dismiss="modal">
+					<span data-lang="es">Descargar Reporte</span>
+					<span data-lang="en">Download Report</span>
+				</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div id="addFiledModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-        <div class="modal-content shadow-lg">
-            <div class="modal-body">
-                <div class="container">
-                    <h6 class="text-center" data-lang="es">Escribe nombre de la área a añadir y que servirá para buscar el jefe
-                        a cargo de esta. Los empleados a su cargo aparecerán en las gráficas del reporte.</h6>
-                    <h6 class="text-center" data-lang="en">Type the name of the area to be added, which will be used to search
-                        for the manager in charge of it. in charge of it. The employees in charge will appear in
-                        the report graphs.</h6>
-                    <div class="form-floating mt-3">
-                        <input type="text" class="form-control" id="add-label">
-                        <label for="add-label">
-                            <span class="lang" data-lang="es">Nombre de la Área</span>
-                            <span class="lang" data-lang="en">Area name</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <span data-lang="es">Cancelar</span>
-                    <span data-lang="en">Cancel</span>
-                </button>
-                <button id="addField" type="button" class="btn btn-primary" data-bs-dismiss="modal">
-                    <span data-lang="es">Añadir Campo</span>
-                    <span data-lang="en">Add Field</span>
-                </button>
-            </div>
-        </div>
-    </div>
+	aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+		<div class="modal-content shadow-lg">
+			<div class="modal-body">
+				<div class="container">
+					<h6 class="text-center" data-lang="es">Escribe nombre de la área a añadir y que servirá para buscar el jefe
+						a cargo de esta. Los empleados a su cargo aparecerán en las gráficas del reporte.</h6>
+					<h6 class="text-center" data-lang="en">Type the name of the area to be added, which will be used to search
+						for the manager in charge of it. in charge of it. The employees in charge will appear in
+						the report graphs.</h6>
+					<div class="form-floating mt-3">
+						<input type="text" class="form-control" id="add-label">
+						<label for="add-label">
+							<span class="lang" data-lang="es">Nombre de la Área</span>
+							<span class="lang" data-lang="en">Area name</span>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+					<span data-lang="es">Cancelar</span>
+					<span data-lang="en">Cancel</span>
+				</button>
+				<button id="addField" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+					<span data-lang="es">Añadir Campo</span>
+					<span data-lang="en">Add Field</span>
+				</button>
+			</div>
+		</div>
+	</div>
 </div>

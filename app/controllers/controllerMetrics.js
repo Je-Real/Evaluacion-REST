@@ -3,9 +3,9 @@ const modelUserInfo = require('../models/modelUserInfo')
 const modelArea = require('../models/modelArea')
 const modelDirectorate = require('../models/modelDirectorate')
 
-const sharp = require('sharp')
-const pdf = require('pdfjs')
 const XLSXPopulate = require('xlsx-populate')
+
+const { fuzzySearch } = require('./util/fuzzy')
 
 const DATE = new Date()
 const CURRENT_YEAR = DATE.getFullYear()
@@ -14,16 +14,60 @@ const CURRENT_YEAR = DATE.getFullYear()
 async function root(req, res) {
 	let areas = [],
 		directorates = [],
-		subordinates = []
+		subordinates = [],
+		areaManager = {}
 
 	if(!('_id' in req.session)) { // No session 😡
 		res.redirect('/home/')
 	} else { // Session 🤑
 		if(req.session.super) {
+			let positions = {
+				rectory: 'Rector',
+				ld: 'Director de Vinculación',
+				juridical: 'Jefe de departamento de Asuntos Jurídicos',
+				lil: 'Jefe de Departamento de Logística y Enlace Institucional',
+				accounting: 'Jefe de Oficina en Contabilidad de Caja',
+				afd: 'Directora de Administración y Finanzas',
+				pbd: 'Jefe del departamento de Programación y Presupuesto',
+				procurement: 'Jefa de departamento de Adquisiciones',
+				administrative: 'Subdirector de Servicios Administrativos',
+				hcd: 'Jefe de departamento de Capital Humano',
+				id: 'Jefe de departamento de Infraestructura',
+				ntd: 'Jefe de departamento de Redes y Telecomunicaciones ',
+				dipe: 'Coordinadora de Planeación',
+				sp: 'Subdirector de Planeación',
+				info: 'Coordinador del Centro de Información',
+				quality: '',
+				ies: 'Subdirectora de Evaluación',
+				dpcue: 'Director de Promoción, Comunicación y Extensión Universitaria',
+				csd: 'Subdirector de Atención al Cliente',
+				language: 'Jefe de departamento de Idiomas',
+				ifd: 'Jefe de departamento de Formación Integral'
+				
+				//: 'Médico',
+				//: 'Directora Académica de Administración y Contaduría',
+				//: 'Secretario Académico',
+				//: 'Jefe de departamento de Contabilidad',
+				//: 'Titular de la Unidad Auditora del Órgano Interno de Control',
+				//: 'Directora Académica del Área Industrial',
+				//: 'Director Académico de Tecnologías de la Información',
+				//: 'Coordinación de Servicios Escolares',
+				//: 'Director Académico de Agricultura y DNM',
+			}
+
+			for(let area in positions) {
+				let res = await fuzzySearch({query: positions[area], collection: 'areaPosition'})
+				
+				areaManager[area] = ''
+				if(res)
+					if(res.length) 
+						areaManager[area] = `${res[0]._id} - ${res[0].name}`
+			}
+
 			areas = await modelArea.find({}) // Get all areas in DB
-				.catch((error) => { console.error(error) })
+				.catch((error) => { console.error(error); return [] })
 			directorates = await modelDirectorate.find({}) // Get all directorates in DB
-				.catch((error) => { console.error(error) })
+				.catch((error) => { console.error(error); return [] })
 		} else {
 			areas = await modelUserInfo.aggregate([
 				{
@@ -125,6 +169,7 @@ async function root(req, res) {
 			directorates: directorates,
 			areas: areas,
 			subordinates: subordinates,
+			areaManager: areaManager
 		})
 	}
 }
@@ -413,8 +458,7 @@ async function getAll(req, res) {
 				"EN Language"	(String)
 			]
 
-		},
-		{...}]
+		}, {...}]
 	*/
 
 	const failure = () => {
@@ -902,7 +946,7 @@ async function printer(req, res) {
 				}
 
 				// Employees by areas averages
-				let alpha = (directionsTable.length) ? 4 : 1,
+				let alpha = 1,
 					beta = 0,
 					gamma = 0,
 					rowStart = 1,
@@ -924,7 +968,7 @@ async function printer(req, res) {
 							if(gamma > 0) endColumnArea = String.fromCharCode(64 + gamma) + endColumnArea
 
 							// Title
-							const rangeMerge = sheet_2.range(startColumnArea+`${rowStart}:`+endColumnArea+`${rowStart}`)
+							const rangeMerge = sheet_2.range(`${startColumnArea}${rowStart}:${endColumnArea}${rowStart}`)
 							rangeMerge.value(area.description)
 							rangeMerge.style({horizontalAlignment: 'center', verticalAlignment: 'center', })
 							rangeMerge.merged(true)
@@ -939,9 +983,9 @@ async function printer(req, res) {
 
 							// If CharCode is greater than last letter then
 							// reset the alphabet and change the starting column.
-							if((alpha + totalColumnsArea) >= 26) {
-								alpha = 1
+							if((alpha + totalColumnsArea) > 24) {
 								beta++
+								alpha = (beta % 2) + 1
 								if((beta + 1) >= 26) {
 									beta = 1
 									gamma++
@@ -1097,133 +1141,6 @@ async function printer(req, res) {
 			})
 		)
 	}
-
-	// This will be deleted
-	//switch (REQ.mode) {
-	//	case 'mono':
-	//		const doc = new pdf.Document({ // Vertical letter
-	//			width:   612, // 21.59 cm
-	//			height:  792, // 27.94 cm
-	//			padding: 32
-	//		})
-	//
-	//		try {
-	//			const header = doc.header().table({widths: [150, 240, 150], borderWidth: 0})
-	//			const hTable = header.row()
-	//
-	//			hTable.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm })
-	//				.text(req.session.name)
-	//			hTable.cell().text('')
-	//			hTable.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm })
-	//				.text(`${DATE.getDate()}/${DATE.getMonth()+1}/${CURRENT_YEAR}`, {textAlign: 'right'})
-	//
-	//			/* For bar chart (Not used since there are a lot of areas, directorates, etc)
-	//			if('bars' in req.body) {
-	//				const theRecords = {
-	//					past: await getAll({body:{search:DATA.barsSearch, FORCE_YEAR_TO:parseInt(CURRENT_YEAR)-1}}, undefined),
-	//					curr: await getAll({body:{search:DATA.barsSearch, FORCE_YEAR_TO:CURRENT_YEAR}}, undefined)
-	//				}
-	//
-	//				const barsJPEG = await sharp(new Buffer.from(DATA.bars, 'base64')).resize({height: 400})
-	//				.flatten({ background: '#ffffff' }).jpeg().toBuffer()
-	//
-	//				// --------------------------- Comparison graph page --------------------------- //
-	//				const img = new pdf.Image(barsJPEG)
-	//				doc.cell({ paddingTop: 0.4*pdf.cm, paddingBottom: 0.5*pdf.cm }).text({ textAlign: 'center', fontSize: 14 })
-	//					.add(`Comparación de areas (${parseInt(CURRENT_YEAR)-1} - ${parseInt(CURRENT_YEAR)})`)
-	//				doc.cell({ paddingTop: 0.5*pdf.cm, paddingBottom: 0.5*pdf.cm }).image(img, { height: 7.5*pdf.cm, align: 'center'})
-	//
-	//				const tableC = doc.table({
-	//					widths: [340, 100, 100],
-	//					borderVerticalWidths: [0, 1, 1, 0],
-	//					borderHorizontalWidth: 1,
-	//					borderColor: 0xadadad
-	//				})
-	//				const tHeader = tableC.header()
-	//				tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 10})
-	//					.text({ textAlign: 'center', fontSize: 10 }).add(DATA.barsSearch)
-	//				tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 5, paddingBottom: 5})
-	//					.text({ textAlign: 'center', fontSize: 10 }).add(`Porcentaje (${parseInt(CURRENT_YEAR)-1})`)
-	//				tHeader.cell({ paddingLeft: 0.75*pdf.cm, paddingRight: 0.75*pdf.cm, paddingTop: 5, paddingBottom: 5})
-	//					.text({ textAlign: 'center', fontSize: 10 }).add(`Porcentaje (${CURRENT_YEAR})`)
-	//
-	//
-	//				for(let i in theRecords.curr) {{
-	//					const row = tableC.row()
-	//					row.cell({ paddingTop: 2, paddingBottom: 2, paddingLeft: 0.35*pdf.cm }).text({ textAlign: 'left', fontSize: 9 })
-	//						.add(theRecords.curr[i].description[lang])
-	//					row.cell({ paddingTop: 2, paddingBottom: 2, })
-	//						.text({ textAlign: 'center', fontSize: 9, color: (theRecords.past[i].length != 0) ? 0x000000 : 0x505050 })
-	//						.add((theRecords.past[i].length != 0) ? theRecords.past[i].total / theRecords.past[i].length : 'N.A.')
-	//					row.cell({ paddingTop: 2, paddingBottom: 2, })
-	//						.text({ textAlign: 'center', fontSize: 9, color: (theRecords.curr[i].length != 0) ? 0x000000 : 0x505050 })
-	//						.add((theRecords.curr[i].length != 0) ? theRecords.curr[i].total / theRecords.curr[i].length : 'N.A.')
-	//				}}
-	//
-	//				doc.pageBreak()
-	//			}
-	//			*/
-	//
-	//			// --------------------------- Individual Metrics page --------------------------- //
-	//			if('mono' in req.body) {
-	//				const tableM = doc.table({
-	//					widths: [null, null],
-	//					borderWidth: 0,
-	//				})
-	//
-	//				for(let i in REQ.mono) {
-	//					const r = tableM.row()
-	//					for(let j in REQ.mono[i]) {
-	//						const cell = r.cell({paddingTop: 3, paddingBottom: 0.75*pdf.cm})
-	//
-	//						const semiJPEG = await sharp(new Buffer.from(REQ.mono[i][j].semi, 'base64')).resize({height: 200})
-	//							.flatten({ background: '#ffffff' }).jpeg().toBuffer()
-	//						const semiChart = new pdf.Image(semiJPEG)
-	//						const lineJPEG = await sharp(new Buffer.from(REQ.mono[i][j].line, 'base64')).resize({height: 200})
-	//							.flatten({ background: '#ffffff' }).jpeg().toBuffer()
-	//						const lineChart = new pdf.Image(lineJPEG)
-	//
-	//						cell.text({fontSize: 10, textAlign: 'center'}).add(REQ.mono[i][j].title).add()
-	//						cell.image(semiChart, { height: 3.1*pdf.cm, align: 'center' })
-	//						cell.text({fontSize: 10, textAlign: 'center'}).add('Promedio total: '+REQ.mono[i][j].score)
-	//						cell.image(lineChart, { height: 3.3*pdf.cm, align: 'center' })
-	//					}
-	//				}
-	//			}
-	//
-	//			res.append('filename', Array(
-	//				`reporte-${FORMAT_DATE}.pdf`,
-	//				`report-${FORMAT_DATE}.pdf`
-	//			)[req.session.lang])
-	//			res.append('msg', Array(
-	//				`Documento generado correctamente. Descargando ahora.`,
-	//				`Document generated successfully. Downloading now.`
-	//			)[req.session.lang])
-	//			res.append('snack', 'true')
-	//			return await res.send(await doc.asBuffer())
-	//		} catch (error) {
-	//			console.error(error)
-	//			res.append('msg', Array(
-	//				`Ha ocurrido un problema en el servidor. Revisa la consola del navegador y contacta con el administrador.`,
-	//				`A problem has occurred on the server. Check the browser console and contact the administrator.`
-	//			)[req.session.lang])
-	//			res.append('snack', 'true')
-	//			res.append('error', error)
-	//			await doc.end() // Close file
-	//			return res.status(500).end()
-	//		}
-	//		break
-	//
-	//	default:
-	//		console.log(REQ)
-	//		res.append('msg', Array(
-	//			`No se han recibido datos por parte del usuario. Si el problema persiste contacta con el administrador.`,
-	//			`No data has been received from the user. If the problem persists contact the administrator.`
-	//		)[req.session.lang])
-	//		res.append('snack', 'true')
-	//		return res.status(404).end()
-	//		break
-	//}
 }
 
 module.exports = {

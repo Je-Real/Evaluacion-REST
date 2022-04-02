@@ -13,7 +13,7 @@
 			</div>
 
 			<% if('super' in session) { %>
-				<%- include('template/modalMetrics.ejs') %>
+				<%- include('template/modalMetrics.ejs', {areaManager: areaManager}) %>
 			<% } %>
 
 			<div class="mb-3">
