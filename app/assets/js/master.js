@@ -298,9 +298,7 @@ window.addEventListener('DOMContentLoaded', async(e) => {
 	})
 
 	eventAssigner('#check-pass', 'click', () => {
-		newPass = $e('#new-password').value
-
-		if(newPass.length < 8) {
+		if($e('#new-password').value.length < 8) {
 			return showSnack(
 				['La contraseña debe contener al menos 8 caracteres.',
 				'The password must contain at least 8 characters.'],
@@ -308,6 +306,8 @@ window.addEventListener('DOMContentLoaded', async(e) => {
 			)
 		} 
 		else {
+			newPass = $e('#new-password').value
+
 			$e('#close-modal-password').click()
 			$e('#modal-password-confirm').click()
 		}

@@ -221,7 +221,7 @@ async function post(req, res) {
 						position: dataUInfo.position,
 						manager: dataUInfo.manager
 					}
-					
+
 					return await modelEvaluation.updateOne({ _id: req.body._id }, { $push: { records: insert } })
 					.then(() => { //🟢
 						return res.json({
@@ -255,11 +255,12 @@ async function post(req, res) {
 							answers: answers,
 							area: dataUInfo.area,
 							directorate: dataUInfo.directorate,
+							position: dataUInfo.position,
 							manager: dataUInfo.manager
 						}]
 					}
 	
-					return await new modelEvaluation(insert).save()
+					await new modelEvaluation(insert).save()
 					.then(() => { //🟢
 						return res.json({
 							msg: Array(

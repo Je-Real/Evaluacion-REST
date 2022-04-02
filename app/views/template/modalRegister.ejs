@@ -29,8 +29,10 @@
 						<div class="row">
 							<div class="reg-field mb-3 col-md-4 col-12 find-user">
 								<div class="form-floating">
-									<input class="form-control dynamic-hint mandatory find-user" data-hint-collection="user_info" name="_id" id="new_id"
-										type="number" placeholder="0" min="0" max="9999" disabled />
+									<input class="form-control dynamic-hint mandatory find-user" data-hint-collection="user_info"
+										autocomplete="new-password" name="_id" id="new_id" type="text" placeholder="." maxlength="4"
+										data-hint-siblings="id-name" data-hint-target="id" data-hint-display="id"
+										disabled />
 									<label for="new_id">
 										<span class="lang" data-lang="es">Código de usuario</span>
 										<span class="lang" data-lang="en">User code</span>(ID)
@@ -40,8 +42,10 @@
 							</div>
 							<div class="reg-field mb-3 col-md-8 col-12 find-user">
 								<div class="form-floating mb-3 mb-md-0">
-									<input class="form-control dynamic-hint mandatory find-user" data-hint-collection="user_info" autocomplete="new-password"
-										name="name" id="name" type="text" placeholder="." maxlength="30" disabled />
+									<input class="form-control dynamic-hint mandatory find-user" data-hint-collection="user_info"
+										autocomplete="new-password" name="name" id="name" type="text" placeholder="." maxlength="30"
+										data-hint-siblings="id-name" data-hint-target="name" data-hint-display="name"
+										disabled />
 									<label for="name">
 										<span class="lang" data-lang="es">Nombre</span>
 										<span class="lang" data-lang="en">Name</span>
@@ -123,8 +127,8 @@
 						<div class="row">
 							<div class="reg-field mb-3 col-md-6 col-12 mx-auto">
 								<div class="form-floating mb-3 mb-md-0">
-									<input class="form-control dynamic-hint mandatory" data-hint="manager" data-hint-collection="user_info"
-										name="manager" id="manager" type="text" placeholder="." disabled />
+									<input class="form-control dynamic-hint mandatory" data-hint-display="all" data-hint-collection="user_info"
+										name="manager" id="manager" type="text" placeholder="." data-hint-target="id" disabled />
 									<label for="manager">
 										<span class="lang" data-lang="es">Jefe directo</span>
 										<span class="lang" data-lang="en">Manager</span>

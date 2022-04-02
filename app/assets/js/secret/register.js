@@ -4,100 +4,6 @@ let firstName, lastName,
 	lvl_s = 0,
 	pkg = { data: [] }, options = []
 
-let fuzzyLock = true
-
-/**
- * Show or hide the hints box below the input text
- * @param {*} e Event target
- * @param {Boolean} show Show the hints box (Default: true)
- * @returns 
- */
-const modalHintDisplay = async(e, show = true) => {
-	try {
-		return setTimeout(() => {
-			if(e.target)
-				if(show) {
-					let modalHint = e.target.parentElement.querySelector('.modal-hint')
-		
-					if(modalHint != null)
-						modalHint.classList.remove('hide')
-	
-					return true
-				} else {
-					let modalHint = e.target.parentElement.querySelector('.modal-hint')
-					
-					if(modalHint != null) {
-						modalHint.innerHTML = ''
-						modalHint.classList.add('hide')
-					}
-	
-					return true
-				}
-			else return false
-		}, 200)
-	} catch (error) {
-		console.warn(error)
-		throw false
-	}
-}
-
-/**
- * Search by ID or name dynamically data from 
- * a specific collection and retrieve information.
- * @param {*} e Event target
- * @param {*} collection Collection to search
- */
-const dynamicHints = async(e, collection) => {
-	if(fuzzyLock && e.target) {
-		fuzzyLock = false
-		setTimeout(() => {
-			fetchTo(
-				window.location.origin+'/admin-control/fuzzy-find',
-				'POST',
-				{ query: (e.target.value).trim(), collection: collection },
-				(result) => {
-					if(result.snack) {
-						return showSnack(result.msg, null, 'warning')
-					} else if(result.status === 200) {
-						let textItterator = ''
-						fuzzyLock = true
-
-						if(result.data) {
-							for(let d in result.data) {
-								textItterator += `<div class="hints btn btn-outline-light py-2 px-4"
-								data-name="${result.data[d].name}" data-id="${result.data[d]._id}">
-								<p class="m-0 p-0 text-dark text-start pe-none">
-									<span class="pe-2">ID: ${result.data[d]._id}</span> - 
-									<span class="ps-2">${result.data[d].name}</span>
-								</p></div>`
-							}
-							let modalHint = e.target.parentElement.querySelector('.modal-hint')
-							if(modalHint != null)
-								modalHint.innerHTML = textItterator
-
-							eventAssigner('.hints', 'click', (e) => { // TODO: Fix this (get automatically? the value)
-								let input = e.target.parentElement.parentElement.querySelector('input')
-
-								if('hint' in input.dataset)
-									input.value = e.target.dataset['id']
-								else {
-									$e('#new_id').value = e.target.dataset['id']
-									$e('#name').value = e.target.dataset['name']
-								}
-								modalHintDisplay(e.target, false)
-							})
-						}
-					}
-				},
-				(error) => {
-					console.warn(error)
-					return showSnack(error, null, 'error')
-				}
-			)
-		}, 750)
-	}
-}
-
 window.addEventListener('load', async(e) => {
 	lockRegister(true)
 	eventAssigner('#submit-register', 'click', register)
@@ -137,17 +43,6 @@ window.addEventListener('load', async(e) => {
 			if(tgt.checked) all_mode()
 		}
 	})
-
-	$a('.dynamic-hint').forEach(node => {
-		node.parentElement.insertAdjacentHTML(
-			'beforeend',
-			'<div class="modal-hint hide mt-1 bg-light rounded-3 shadow-lg"></div>'
-		)
-	})
-	eventAssigner('.dynamic-hint', 'focusin', e => modalHintDisplay(e, true))
-	eventAssigner('.dynamic-hint', 'focusout', e => modalHintDisplay(e, false))
-	eventAssigner('.dynamic-hint', 'keydown', e => dynamicHints(e, 'user_info'))
-	eventAssigner('.dynamic-hint', 'change', e => dynamicHints(e, 'user_info'))
 	
 	eventAssigner('#excel-file', 'change', e => {readUrl(e.target)}) // Read the name and columns of the file
 	eventAssigner('#submit-file', 'click', async e => { // Send file event
@@ -347,21 +242,29 @@ const register = async() => {
 		pkg.data[0]['find_user'] = $e('#find_user:not(disabled)').checked
 	}
 
-	let pass = true
+	let passReg = true
 	$a('#manual-reg .form-control.mandatory').forEach(node => {
 		if(node.tagName.toLowerCase() == 'input') {
-			if(node.value.lenght < 4 && pass) {
-				pass = false
+			if(node.value.lenght < 4 && passReg) {
+				passReg = false
 				return showSnack(
 					(lang == 0) ? `No se puede enviar el registro, hay campos vacíos.`
 								: `Unable to send the data, there is empty fields`,
 					null, 'warning'
 				)
+			}
+			
+			if(node.classList.contains('dynamic-hint')) {
+				if('id' in node.dataset)
+					pkg.data[0][node.name] = node.dataset.id
+				else if('name' in node.dataset)
+					pkg.data[0][node.name] = node.dataset.name
+				else
+					pkg.data[0][node.name] = node.value
 			} else pkg.data[0][node.name] = node.value
-		}
-		else if(node.tagName.toLowerCase() == 'select') {
-			if(parseInt(node.selectedIndex) == 0 && pass) {
-				pass = false
+		} else if(node.tagName.toLowerCase() == 'select') {
+			if(parseInt(node.selectedIndex) == 0 && passReg) {
+				passReg = false
 				return showSnack(
 					(lang == 0) ? `No se puede enviar el registro, hay campos vacíos.`
 								: `Unable to send the data, there is empty fields`,
@@ -369,12 +272,12 @@ const register = async() => {
 				)
 			} else pkg.data[0][node.name] = parseInt(node[node.selectedIndex].value)
 		} else {
-			pass = false
+			passReg = false
 			return console.warn(node)
 		}
 	})
 
-	if(pass) {
+	if(passReg) {
 		spinner('wait', true)
 
 		await fetch(window.location.origin+'/session/sign-in',
@@ -402,7 +305,7 @@ const register = async() => {
 					download(url, filename) // Download file
 					URL.revokeObjectURL(url) // Release the object URL
 				})
-			} else showSnack(data.headers.get('msg'), null, 'error')
+			} else showSnack(data.headers.get('msg').split('|'), null, 'error')
 		})
 		.catch(error => console.error(error))
 		.finally(() => {

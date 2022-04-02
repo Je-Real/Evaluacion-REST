@@ -40,6 +40,8 @@ router //👇
 .get('/session/log-out', controllerLogin.logOut)
 .post('/session/lang', controllerLogin.lang)
 
+.post('/admin-control/super-user', controllerRegister.superUser)
+
 // Recovery password
 .post('/session/reset-psw', controllerResetPsw.reset)
 

@@ -48,10 +48,10 @@
 
 	<!-- Navbar-->
 	<ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-5">
+		<% if(session) { %>
 		<li class="nav-item dropdown">
-			<% let temp = (session) ? session.name : '' %>
 			<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-				aria-expanded="false"><i class="fa-solid fa-user fa-fw me-1"></i><%= temp %></a>
+				aria-expanded="false"><i class="fa-solid fa-user fa-fw me-1"></i><%= session.name %></a>
 			<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
 				<li><div class="container ps-3">
@@ -63,16 +63,22 @@
 					</div>
 				</div></li>
 
-				<% if(session) { %>
-					<li><button class="dropdown-item container ps-3" data-bs-toggle="modal" data-bs-target="#modalPassword">
-						<span data-lang="es">Cambiar contraseña</span><span data-lang="en">Change Password</span>
-					</button></li>
-					<li><a class="dropdown-item" href="javascript:logout()">
-						<span data-lang="es">Cerrar sesión</span><span data-lang="en">Logout</span>
-					</a></li>
+				<li><button class="dropdown-item container ps-3" data-bs-toggle="modal" data-bs-target="#modalPassword">
+					<span data-lang="es">Cambiar contraseña</span><span data-lang="en">Change Password</span>
+				</button></li>
+
+				<% if(session.category == -1) { %>
+				<li><button class="dropdown-item container ps-3" data-bs-toggle="modal" data-bs-target="#modalSuperUser">
+					<span data-lang="es">Super Usuario</span><span data-lang="en">Super User</span>
+				</button></li>
 				<% } %>
+
+				<li><a class="dropdown-item" href="javascript:logout()">
+					<span data-lang="es">Cerrar sesión</span><span data-lang="en">Logout</span>
+				</a></li>
 			</ul>
 		</li>
+		<% } %>
 	</ul>
 </nav>
 <!-- Navbar -->
@@ -96,18 +102,20 @@
 				</h6>
 				<div class="reg-field mb-3 col-10 mx-auto">
 					<div class="form-floating mb-3 mb-md-0">
-						<input id="new-password" class="form-control dynamic-hint mandatory" data-hint-collection="user_info" autocomplete="new-password"
-							name="name" id="name" type="password" placeholder="." maxlength="30" />
+						<input id="new-password" class="form-control mandatory" autocomplete="new-password"
+							type="password" placeholder="." maxlength="30" />
 						<label for="name">
 							<span class="lang" data-lang="es">Contraseña</span>
 							<span class="lang" data-lang="en">Password</span>
-							<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
 						</label>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary cancel-pass" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-secondary cancel-pass" data-bs-dismiss="modal">
+					<span data-lang="es">Cancelar</span>
+					<span data-lang="en">Cancel</span>
+				</button>
 				<button id="check-pass" type="button" class="btn btn-primary">
 					<span data-lang="es">Actualizar contraseña</span>
 					<span data-lang="en">Update Password</span>
@@ -117,7 +125,8 @@
 	</div>
 </div>
 
-<div class="modal fade" id="passwordConfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="passwordConfirmLabel" aria-hidden="true">
+<div class="modal fade" id="passwordConfirm" data-bs-backdrop="static" data-bs-keyboard="false"
+	tabindex="-1" aria-labelledby="passwordConfirmLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -137,7 +146,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary cancel-pass" data-bs-dismiss="modal">
-					<span data-lang="es">Cancel</span>
+					<span data-lang="es">Cancelar</span>
 					<span data-lang="en">Cancel</span>
 				</button>
 				<button id="update-pass" type="button" class="btn btn-primary" data-bs-dismiss="modal">
@@ -148,3 +157,90 @@
 		</div>
 	</div>
 </div>
+
+<% if(session.category == -1) { %>
+<button id="modal-super-confirm" class="d-none" hidden data-bs-toggle="modal" data-bs-target="#superUserConfirm"></button>
+
+<div id="modalSuperUser" class="modal fade" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">
+					<span data-lang="es">Super Usuario</span>
+					<span data-lang="en">Super User</span>
+				</h5>
+				<button id="close-modal-super" type="button" class="btn-close cancel-pass"
+					data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<h6 class="text-center">
+					<span data-lang="es">Busque el nombre o el código de usuario (ID)
+						del empleado para añadir el modo "Super Usuario".</span>
+					<span data-lang="en">Search for the employee's name or user code
+						(ID) to add the "Super User" mode.</span>
+				</h6>
+				<div class="reg-field mb-3 col-10 mx-auto">
+					<div class="form-floating mb-3 mb-md-0">
+						<input id="new-super" class="form-control dynamic-hint mandatory" data-hint-display="all"
+							data-hint-collection="user_info" name="_id" data-hint-target="id" type="text" placeholder="." />
+						<label for="name">
+							<span class="lang" data-lang="es">Usuario</span>
+							<span class="lang" data-lang="en">Usuario</span>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary cancel-super" data-bs-dismiss="modal">
+					<span data-lang="es">Cancelar</span>
+					<span data-lang="en">Cancel</span>
+				</button>
+				<button id="check-super" type="button" class="btn btn-primary">
+					<span data-lang="es">Continuar</span>
+					<span data-lang="en">Continue</span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="superUserConfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+	aria-labelledby="superUserConfirmLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="superUserConfirmLabel">
+					<span data-lang="es">Confirmar Super Usuario</span>
+					<span data-lang="en">Confirm Super User</span>
+				</h5>
+				<button type="button" class="btn-close cancel-super" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<h6 class="text-center">
+					<span data-lang="es">Ingrese la contraseña de administrador para continuar.</span>
+					<span data-lang="en">Enter the administrator password to continue.</span>
+				</h6>
+				<div class="reg-field mb-3 col-10 mx-auto">
+					<div class="form-floating mb-3 mb-md-0">
+						<input id="pass" class="form-control mandatory" type="password" placeholder="." />
+						<label for="pass">
+							<span class="lang" data-lang="es">Contraseña</span>
+							<span class="lang" data-lang="en">Password</span>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary cancel-pass" data-bs-dismiss="modal">
+					<span data-lang="es">Cancelar</span>
+					<span data-lang="en">Cancel</span>
+				</button>
+				<button id="add-super-user" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+					<span data-lang="es">Continuar</span>
+					<span data-lang="en">Continue</span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<% } %>

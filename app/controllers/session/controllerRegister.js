@@ -21,10 +21,7 @@ const DATE = new Date()
  */
 async function signUp(req, res) {
 	if(!('_id' in req.session)) {
-		res.append('msg', Array(
-			`Por favor, inicia sesión nuevamente`,
-			`Please, log in again`
-		))
+		res.append('msg', `Por favor, inicia sesión nuevamente | Please, log in again`)
 		res.append('snack', 'true')
 		return res.status(401).end()
 	}
@@ -510,7 +507,38 @@ async function fuzzySearch(req, res) {
 	})
 }
 
+function superUser(req, res) {
+	if(!('_id' in req.session)) {
+		res.json({
+			msg: Array('Por favor, inicia sesión nuevamente', 'Please, log in again'),
+			snack: 'true',
+			status: 401
+		})
+		return res.status(401).end()
+	}
+
+	return modelUserInfo.updateOne({_id: req.body._id}, {$set: { super: true }})
+	.then((data) => {
+		return res.status(200).json({
+			msg: Array('Agregado super usuario exitosamente', 'Added super user successfully'),
+			snack: 'true',
+			status: 200
+		})
+	})
+	.catch(error => {
+		console.error(error)
+		return res.status(500).json({
+			msg: Array(
+				'Error en el servidor. Revisa la consola y comunicate con el administrador.',
+				'Server error. Check the console and contact the administrator.'),
+			snack: 'true',
+			status: 500
+		})
+	})
+}
+
 module.exports = {
 	signUp,
 	fuzzySearch,
+	superUser,
 }

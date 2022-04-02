@@ -3,96 +3,6 @@ let rec, showCharts, clone, idSelect = 0,
 	compareAll = false,
 	barSearch, lastConfigPanel = -1
 
-let fuzzyLock = true
-
-/**
- * Show or hide the hints box below the input text
- * @param {*} e Event target
- * @param {Boolean} show Show the hints box (Default: true)
- * @returns
- */
- const modalHintDisplay = async(e, show = true) => {
-	try {
-		return setTimeout(() => {
-			if(e.target)
-				if(show) {
-					let modalHint = e.target.parentElement.querySelector('.modal-hint')
-
-					if(modalHint != null)
-						modalHint.classList.remove('hide')
-
-					return true
-				} else {
-					let modalHint = e.target.parentElement.querySelector('.modal-hint')
-
-					if(modalHint != null) {
-						modalHint.innerHTML = ''
-						modalHint.classList.add('hide')
-					}
-
-					return true
-				}
-			else return false
-		}, 200)
-	} catch (error) {
-		console.warn(error)
-		throw false
-	}
-}
-
-/**
- * Search by ID or name dynamically data from
- * a specific collection and retrieve information.
- * @param {*} e Event target
- * @param {*} collection Collection to search
- */
-const dynamicHints = async(e, collection) => {
-	if(fuzzyLock && e.target) {
-		fuzzyLock = false
-		setTimeout(() => {
-			fetchTo(
-				window.location.origin+'/admin-control/fuzzy-find',
-				'POST',
-				{ query: (e.target.value).trim(), collection: collection },
-				(result) => {
-					if(result.snack) {
-						return showSnack(result.msg, null, 'warning')
-					} else if(result.status === 200) {
-						let textItterator = ''
-						fuzzyLock = true
-
-						if(result.data) {
-							for(let d in result.data) {
-								textItterator += `<div class="hints btn btn-outline-light py-2 px-4"
-								data-name="${result.data[d].name}" data-id="${result.data[d]._id}">
-								<p class="m-0 p-0 text-dark text-start pe-none">
-									<span class="pe-2">ID: ${result.data[d]._id}</span> -
-									<span class="ps-2">${result.data[d].name}</span>
-								</p></div>`
-							}
-							let modalHint = e.target.parentElement.querySelector('.modal-hint')
-							if(modalHint != null)
-								modalHint.innerHTML = textItterator
-
-							eventAssigner('.hints', 'click', (e) => {
-								let input = e.target.parentElement.parentElement.querySelector('input')
-
-								input.dataset['id'] = e.target.dataset['id']
-								input.value = `${e.target.dataset['name']} - ${e.target.dataset['id']}`
-								modalHintDisplay(e.target, false)
-							})
-						}
-					}
-				},
-				(error) => {
-					console.warn(error)
-					return showSnack(error, null, 'error')
-				}
-			)
-		}, 750)
-	}
-}
-
 const setEventsSelector = (target = null) => {
 	if(target == null) target = '.dynamic-hint'
 
@@ -119,7 +29,7 @@ const addAreaField = () => {
 		<div class="row p-0 m-0">
 		<div class="form-floating col-11 px-0">
 		<input type="text" class="form-control dynamic-hint ps-4 mandatory area _${rnd}"
-		data-type="areas" data-id="">
+		data-type="areas" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
 		<label><span>${label}</span>
 		<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
 		</label></div>
@@ -509,7 +419,7 @@ const generateFile = async(mode = '') => {
 
 				$a('#modalSelector .form-control').forEach(node => {
 					if(!lockSend) {
-						if(node.classList.contains('mandatory')) {
+						/*if(node.classList.contains('mandatory')) {
 							if(!String(node.value).trim().length || node.value == '0') {
 								showSnack(
 									[
@@ -523,7 +433,7 @@ const generateFile = async(mode = '') => {
 								)
 								lockSend = true
 							}
-						}
+						}*/
 
 						let description = node.parentElement.querySelector('label span:first-child').innerHTML
 
@@ -541,7 +451,7 @@ const generateFile = async(mode = '') => {
 								})
 							else if(String(node.value).split('-').length > 1) {
 								pkg.data[node.dataset.class].push({
-									_id: String(node.value).split('-')[1].trim(),
+									_id: String(node.value).split('-')[0].trim(),
 									description: description
 								})
 							}

@@ -1108,12 +1108,12 @@ code {
 }
 
 .modal-hint {
-	display: grid;
+	display: inline;
 	opacity: 1;
 	position: absolute;
 	z-index: 5;
-	min-width: 20vw;
-	max-width: 45vw;
+	min-width: 27.5vw;
+	max-width: 50vw;
 	transition: all 200ms ease-in-out;
 }
 

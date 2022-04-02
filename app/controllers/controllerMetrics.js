@@ -703,18 +703,18 @@ async function printer(req, res) {
 							_id: '0000',
 							year: 2000,
 							score: 99.99,
-							position: ['Puesto', 'Position']
+							position: [{description: 'Puesto'}, {description: 'Position'}]
 						}, {...}
 					]
 				*/
-
-				if(employees.length) {
+				
+				if(employees.length > 0) {
 					let push = {
 						description: REQ.data.a_directorates[adir].description
 					}, employeeRecords = []
-
+					
 					employees.forEach(employee => {
-						let info ={}
+						let info = {}
 						info[posSelector] = employee.position[req.session.lang].description
 						info[avgSelector] = employee.score
 						employeeRecords.push(info)
@@ -958,7 +958,7 @@ async function printer(req, res) {
 					gamma = 0
 					rowStart = 1
 					headerAreas = [posSelector, avgSelector]
-					const sheet_3 = (areasTable.length) ? workbook.addSheet('sheet-3', 2) : workbook.addSheet('sheet-2', 1)
+					const sheet_3 = (areasTable.length) ? workbook.addSheet('sheet-3', 2) : sheet_2
 
 					aDirectorateTable.forEach(aDir => {
 						if(aDir.records.length) {

@@ -137,7 +137,7 @@ html {
 .waves {
 	position: fixed;
 	width: 115%;
-	height: 15vh;
+	height: 28vh;
 	margin-bottom: -7px; /*Fix for safari gap*/
 	min-height: 100px;
 	max-height: 150px;
