@@ -155,20 +155,6 @@ th {
 	content: "";
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 html,
 body {
 	height: 100%;
@@ -443,4 +429,9 @@ body {
 }
 .sb-sidenav-light .sb-sidenav-footer {
 	background-color: #e9ecef;
+}
+
+.dropdown-item:focus, .dropdown-item:hover  {
+    color: #1e2125;
+    background-color: #e9ecef;
 }

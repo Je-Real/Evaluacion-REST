@@ -6,7 +6,7 @@
 </noscript>
 
 <!-- Navbar -->
-<div id="spinner-loading" class="floating-spinner show">
+<div id="spinner-loading" class="floating-screen show">
 	<div class="w-100 h-100">
 		<div>
 			<div class="spinner-border text-info"></div>
@@ -14,7 +14,7 @@
 	</div>
 </div>
 
-<div id="spinner-waiting" class="floating-spinner show fade hide">
+<div id="spinner-waiting" class="floating-screen hide">
 	<div class="w-100 vh-40">
 		<div>
 			<div class="spinner-border text-light"></div>
@@ -22,6 +22,35 @@
 				<p class="lang" data-lang="es">Por favor, espere...</p>
 				<p class="lang" data-lang="en">Please wait...</p>
 			</h3>
+		</div>
+	</div>
+</div>
+
+<div id="screen" class="floating-screen hide">
+	<div class="w-100 vh-40 my-auto">
+		<div class="w-100 h-100 py-4 rounded-3 bg-light">
+			<div class="row d-flex justify-content-center">
+				<div class="success-checkmark">
+					<div class="check-icon ">
+						<span class="icon-line line-tip"></span>
+						<span class="icon-line line-long"></span>
+						<div class="icon-circle"></div>
+						<div class="icon-fix"></div>
+					</div>
+				</div>
+				<h3 class="fw-bold text-center">
+					<span data-lang="es">¡Éxito!</span>
+					<span data-lang="en">Success!</span>
+				</h3>
+			</div>
+			<div class="row my-auto">
+				<div class="col-xl-7 col-md-9 col-11 mx-auto text-center">
+					<h4 id="screen-msg">
+						<span data-lang="es">Se completo el registro de la evaluación exitosamente.</span>
+						<span data-lang="en">The evaluation registration was successfully completed.</span>
+					</h4>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -35,9 +64,9 @@
 <nav id="layoutNavbar" data-log="<%= (session) ? true : false %>"
 	class="sb-topnav navbar navbar-expand navbar-dark bg-dark text-end">
 	<!-- Navbar Brand-->
-	<a class="navbar-brand ps-3" href="/home/">
-		<img class="mx-auto d-block pt-1" src="/img/logo-utna.png" width="100" alt="UTNA">
-	</a>
+	<button class="navbar-brand btn goto ps-3" data-goto="/home/">
+		<img class="mx-auto d-block pt-1 pe-none" src="/img/logo-utna.png" width="100" alt="UTNA">
+	</button>
 
 	<!-- Sidebar Toggle-->
 	<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" ><i
@@ -73,9 +102,9 @@
 				</button></li>
 				<% } %>
 
-				<li><a class="dropdown-item" href="javascript:logout()">
-					<span data-lang="es">Cerrar sesión</span><span data-lang="en">Logout</span>
-				</a></li>
+				<li><button class="dropdown-item container logout">
+					<span class="pe-none" data-lang="es">Cerrar sesión</span><span data-lang="en">Logout</span>
+				</button></li>
 			</ul>
 		</li>
 		<% } %>

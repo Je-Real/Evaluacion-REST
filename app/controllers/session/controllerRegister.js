@@ -331,7 +331,7 @@ async function signUp(req, res) {
 					position: String(('fields' in req.body) ? req.body.data[i][req.body.fields.position] : req.body.data[i].position).trim(),
 					category: String(('fields' in req.body) ? req.body.data[i][req.body.fields.category] : req.body.data[i].category).trim(),
 					manager: String(('fields' in req.body)
-						? (String(req.body.data[i][req.body.fields.manager]).trim().length)
+						? (req.body.fields.manager in req.body.data[i])
 							? String(req.body.data[i][req.body.fields.manager]).trim()
 							: 'null'
 						: ('manager' in req.body.data[i])

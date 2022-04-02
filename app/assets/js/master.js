@@ -69,6 +69,7 @@ const log = (text, style) => {
 	console.log(`%c${text}`, options);
 }
 
+var spinnerStatus
 /**
  * Control the loading spinner
  * @param {'load' | 'wait'} type Select from spinner-loading or spinner-waiting
@@ -83,7 +84,11 @@ const spinner = async(type, show) => {
 	else
 		return false
 
-	if(show) {
+	if(spinnerStatus != show) spinnerStatus = show
+	else return true
+
+	if(spinnerStatus) {
+		type.classList.add('fade', 'show')
 		setTimeout(async() => {
 			type.classList.remove('hide', 'fade')
 		}, 200)
@@ -93,6 +98,44 @@ const spinner = async(type, show) => {
 			type.classList.add('fade')
 			setTimeout(() => {
 				type.classList.add('hide')
+				type.classList.remove('fade', 'show')
+			}, 200)
+		}, 200)
+		return true
+	}
+}
+
+var screenStatus = null
+/**
+ * Show or hide the success (in the future & error) screen
+ * @param {'success' | 'error'} type Select from spinner-loading or spinner-waiting
+ * @param {Boolean} show Show the spinner
+ * @return Boolean
+**/
+const screen = async(type, show) => {
+	if(type == 'success')
+		type = $e('#screen')
+	else if (type == 'error')
+		//type = $e('#screen .error') // Not yet
+		return false
+	else
+		return false
+	
+	if(screenStatus != show) screenStatus = show
+	else return true
+
+	if(screenStatus) {
+		type.classList.add('fade', 'show')
+		setTimeout(async() => {
+			type.classList.remove('hide', 'fade')
+		}, 200)
+		return true
+	} else {
+		setTimeout(async() => {
+			type.classList.add('fade')
+			setTimeout(() => {
+				type.classList.add('hide')
+				type.classList.remove('fade', 'show')
 			}, 200)
 		}, 200)
 		return true
@@ -340,28 +383,26 @@ window.addEventListener('DOMContentLoaded', async(e) => {
 			async(error) => console.error('Log out: '+error)
 		)
 	})
+
+	eventAssigner('.logout', 'click', logout).catch(error => {})
+	eventAssigner('.goto', 'click', (e) => {
+		console.log(e.target)
+		if(e.target.dataset.goto.length)
+			go(e.target.dataset.goto)
+	}).catch(error => {})
 })
 
-function outSession(clicked) {
-	if(clicked) setTimeout(() => go('home/'), 2500)
-}
-
-function logout() {
+const logout = () => {
 	fetchTo(
 		window.location.origin+'/session/log-out',
 		'GET',
 		null,
 		async(result) => {
 			if(result.status === 200) {
-				outSession(true)
 				spinner('load', true)
-				.then(async() => {
-					await eatCookies()
-						.finally(() => {
-							setTimeout(() => {
-								go('home/')
-							}, 500)
-						})
+				await eatCookies()
+				.finally(() => {
+					go('home/')
 				})
 			} else {
 				showSnack(

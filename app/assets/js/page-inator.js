@@ -35,7 +35,7 @@ function paginator() {
                         ${(lang == 0) ? 'Registros' : 'Records'}: <span id="reg-total" class="fw-bold mx-1">⛔</span>
                     </p>
                 </div class="d-flex">
-                <div class="rows-quantity">
+                <div class="rows-quantity d-none">
                     <div class="form-floating">
                         <select name="rows" id="rows" class="form-select ps-4"
                             title="Rows-quantity" aria-label="Rows in view">
