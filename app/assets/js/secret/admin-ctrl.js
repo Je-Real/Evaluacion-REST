@@ -122,7 +122,8 @@ window.addEventListener('load', async() => {
 		})
 	}
 
-	let newSuper = ''
+	let newSuper = '',
+		confirmPass = ''
 	eventAssigner('.cancel-super', 'click', () => {
 		$e('#new-super').value = ''
 		$e('#new-super').dataset.id = ''
@@ -145,13 +146,19 @@ window.addEventListener('load', async() => {
 	})
 
 	eventAssigner('#add-super-user', 'click', ()=> {
+		confirmPass = $e('#confirm-pass-super').value
 		fetchTo(
 			window.location.origin+'/admin-control/super-user',
 			'POST',
-			{ _id: newSuper },
+			{ _id: newSuper, pass: confirmPass },
 			(result) => {
 				let SNK_Type
-				if(result.status === 200) SNK_Type = 'success'
+				if(result.status === 200)  {
+					SNK_Type = 'success'
+					newSuper = '',
+					$e('#new-super').value = ''
+					$e('#new-super').dataset.id = ''
+				}
 				else SNK_Type = 'warning'
 
 				if(Boolean(result.snack) == true) {
@@ -162,7 +169,10 @@ window.addEventListener('load', async() => {
 				console.error(error)
 				showSnack(error, null, 'error')
 			}
-		)
+		).finally(() => {
+			$e('#confirm-pass-super').value = ''
+			confirmPass = ''
+		})
 	})
 })
 
@@ -233,32 +243,46 @@ const updateInfo = (e) => {
 		}
 
 	if(String(tgt).length) {
+		let passInfo = true
+
 		switch(pkg.collection) {
 			case 1:
 				$a(`.${tgt}.edited`).forEach(node => {
-					if(node.dataset.class == 'user_all' || node.dataset.class == 'user') {
-						if(!('user' in pkg)) pkg['user'] = {} // if not exists user
-						if(node.type =="checkbox")
-							pkg.user[node.name] = !node.checked
-						else
-							pkg.user[node.name] = node.value
-					}
-					if(node.dataset.class == 'user_all' || node.dataset.class == 'user_info') {
-						if(!('user_info' in pkg)) pkg['user_info'] = {} // if not exists user_info
-						if(node.type =="checkbox")
-							pkg.user_info[node.name] = !node.checked
-						else
-							pkg.user_info[node.name] = node.value
-					}
-					if(node.dataset.class == 'evaluation') {
-						if(node.checked == true) {
-							if(!('evaluation' in pkg))
-								pkg['evaluation'] = { records: {} } // if not exists evaluation.records
-							if(!(node.dataset.year in pkg.evaluation.records))
-								pkg.evaluation.records[node.dataset.year] = { disabled: true } // and the years
-						} else {
-							if(!('rm_evaluation' in pkg)) pkg['rm_evaluation'] = {} // if not exists rm_evaluation
-							pkg.rm_evaluation[`records.${node.dataset.year}`] = ''
+					if(passInfo) {
+						if(node.dataset.class == 'user_all' || node.dataset.class == 'user') {
+							if(!('user' in pkg)) pkg['user'] = {} // if not exists user
+							if(node.type == "checkbox")
+								pkg.user[node.name] = !node.checked
+							else {
+								if(node.type == "password")
+									if(node.value.length < 8) {
+										passInfo = false
+										return showSnack(
+											['La nueva contraseña debe contener al menos 8 caracteres.',
+											'The new password must contain at least 8 characters.'],
+											null, 'warning'
+										)
+									}
+								pkg.user[node.name] = node.value
+							}
+						}
+						if(node.dataset.class == 'user_all' || node.dataset.class == 'user_info') {
+							if(!('user_info' in pkg)) pkg['user_info'] = {} // if not exists user_info
+							if(node.type == "checkbox")
+								pkg.user_info[node.name] = !node.checked
+							else
+								pkg.user_info[node.name] = node.value
+						}
+						if(node.dataset.class == 'evaluation') {
+							if(node.checked == true) {
+								if(!('evaluation' in pkg))
+									pkg['evaluation'] = { records: {} } // if not exists evaluation.records
+								if(!(node.dataset.year in pkg.evaluation.records))
+									pkg.evaluation.records[node.dataset.year] = { disabled: true } // and the years
+							} else {
+								if(!('rm_evaluation' in pkg)) pkg['rm_evaluation'] = {} // if not exists rm_evaluation
+								pkg.rm_evaluation[`records.${node.dataset.year}`] = ''
+							}
 						}
 					}
 				})
@@ -294,33 +318,38 @@ const updateInfo = (e) => {
 		}
 		delete pkg['collection']
 
-		fetchTo(
-			window.location.origin+'/admin-control/update',
-			'POST',
-			pkg,
-			(result) => {
-				if(result.snack)
-					showSnack(result.msg, null, (result.status === 200)?'success':'warning')
-
-				if(result.status === 200) {
-					showSnack(Array('Cambios guardados', 'Changes saved')[lang], null, 'success')
-					$a(`.${tgt}:not(.read-only)`).forEach(node => {
-						node.disabled = true
-					})
-					$a(`#save-${tgt}, #cancel-${tgt}`).forEach(node => {
-						node.classList.add('d-none')
-						node.disabled = true
-					})
-					$e(`#edit-${tgt}`).classList.remove('d-none')
-					$e(`#edit-${tgt}`).disabled = false
+		if(passInfo) {
+			fetchTo(
+				window.location.origin+'/admin-control/update',
+				'POST',
+				pkg,
+				(result) => {
+					if(result.snack)
+						showSnack(result.msg, null, (result.status === 200)?'success':'warning')
+	
+					if(result.status === 200) {
+						showSnack(Array('Cambios guardados', 'Changes saved')[lang], null, 'success')
+						$a(`.${tgt}:not(.read-only)`).forEach(node => {
+							node.disabled = true
+						})
+						$a(`#save-${tgt}, #cancel-${tgt}`).forEach(node => {
+							node.classList.add('d-none')
+							node.disabled = true
+						})
+						$e(`#edit-${tgt}`).classList.remove('d-none')
+						$e(`#edit-${tgt}`).disabled = false
+					}
+				},
+				(error) => {
+					console.error(error)
 				}
-			},
-			(error) => {
-				console.error(error)
-			}
-		)
-	} else
-		log(`[AD-CTRL] Not found ID target in button event (target = ${tgt})`, 'error')
+			)
+		}
+	} else return showSnack(
+		[`[AD-CTRL] No se encontró el ID del objetivo en el evento del botón (objetivo= ${tgt})`,
+		`[AD-CTRL] Not found ID target in button event (target= ${tgt})`],
+		null, 'warning'
+	)
 }
 
 /**
@@ -479,8 +508,8 @@ const findCollections = (e) => {
 													data-bs-target="#flush-collector-collapse-${ result.data[i]._id }" aria-expanded="false"
 													aria-controls="flush-collector-collapse-${ result.data[i]._id }">
 														<div class="item-header d-flex w-100">
-															<div class="text-center p-0 col-3 d-flex"> <p class="m-0">ID: ${ result.data[i]._id }</p> </div>
-															<div class="text-center p-0 mx-2"> <p class="m-0">${ result.data[i].name }</p> </div>
+															<div class="text-center p-0 col-3 d-flex"> <p class="m-0 id-text">ID: ${ result.data[i]._id }</p> </div>
+															<div class="text-center p-0 mx-2"> <p class="m-0 name-text">${ result.data[i].name }</p> </div>
 															<div class="text-right p-0 ms-auto me-2">
 																<p class="m-0">${ (result.data[i].category == -1) ? 'AD'
 																	: ( (result.data[i].enabled)
@@ -656,7 +685,7 @@ const findCollections = (e) => {
 																							${ Array('Contraseña', 'Password')[lang] }
 																						</p>
 																						<input value="amogus_sussy_bak😈📸" class="form-control _${ result.data[i]._id } mt-2"
-																							name="pass" data-class="user" type="password"
+																							name="pass" data-class="user" type="password" minlength="8"
 																							autocomplete="new-password" disabled>
 																					</div>` : ''
 																				}

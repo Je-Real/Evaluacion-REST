@@ -507,7 +507,7 @@ async function fuzzySearch(req, res) {
 	})
 }
 
-function superUser(req, res) {
+async function superUser(req, res) {
 	if(!('_id' in req.session)) {
 		res.json({
 			msg: Array('Por favor, inicia sesión nuevamente', 'Please, log in again'),
@@ -517,21 +517,49 @@ function superUser(req, res) {
 		return res.status(401).end()
 	}
 
-	return modelUserInfo.updateOne({_id: req.body._id}, {$set: { super: true }})
-	.then((data) => {
-		return res.status(200).json({
-			msg: Array('Agregado super usuario exitosamente', 'Added super user successfully'),
-			snack: 'true',
-			status: 200
+	return await modelUser.findOne({ _id: req.session._id }, { _id: 1, pass: 1, enabled: 1 })
+	.then(async(dataUser) => {
+		if('_id' in dataUser) {
+			let compare = crypto.AES.decrypt(dataUser.pass, dataUser._id)
+			if(compare.toString(crypto.enc.Utf8) === req.body.pass) {
+				return await modelUserInfo.updateOne({_id: req.body._id}, {$set: { super: true }})
+				.then((data) => {
+					return res.status(200).json({
+						msg: Array('Agregado super usuario exitosamente', 'Added super user successfully'),
+						snack: 'true',
+						status: 200
+					})
+				})
+				.catch(error => {
+					console.error(error)
+					return res.status(500).json({
+						msg: Array(
+							'Error en el servidor. Revisa la consola y comunicate con el administrador.',
+							'Server error. Check the console and contact the administrator.'),
+						snack: 'true',
+						status: 500
+					})
+				})
+			}
+		} 
+		return res.json({
+			msg: Array(
+				'La contraseña no coincide. Intentalo de nuevo por favor.',
+				'The password does not match. Please try again.'
+			),
+			snack: true,
+			status: 404
 		})
 	})
-	.catch(error => {
+	.catch((error) => { //if error 🤬
 		console.error(error)
-		return res.status(500).json({
+		return res.json({
 			msg: Array(
-				'Error en el servidor. Revisa la consola y comunicate con el administrador.',
-				'Server error. Check the console and contact the administrator.'),
-			snack: 'true',
+				'Error del servidor. Contacta con el administrador.',
+				'Server error. Contact the administrator.'
+			),
+			snack: true,
+			error: true,
 			status: 500
 		})
 	})
