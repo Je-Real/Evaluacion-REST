@@ -6,7 +6,7 @@
 					<span class="lang" data-lang="es">Generar Reporte</span>
 					<span class="lang" data-lang="en">Generate Report</span>
 				</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				<button id="close-modal-selector" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body container">
 				<div class="row mb-3">
@@ -180,6 +180,15 @@
 												<span class="lang" data-lang="en">Academic directorate of Engineering</span>
 											</label>
 										</div>
+									</div>
+
+									<div id="addDirectorateField" class="col-12 my-2 py-2">
+										<h6 class="lang text-center" data-lang="es">Añadir un nuevo campo para evaluación de direcciones</h6>
+										<h6 class="lang text-center" data-lang="en">Add a new field for directorates evaluation</h6>
+										<button type="button" class="btn btn-secondary mx-auto d-flex align-self-center mb-4 add-field"
+											data-bs-toggle="modal" data-bs-target="#addFiledModal" data-field-type="directorate">
+											<i class="fa-solid fa-plus pe-none fs-5 py-1"></i>
+										</button>
 									</div>
 								</div>
 							</div>
@@ -456,11 +465,11 @@
 									</div>
 
 									<div id="addAreaField" class="col-12 my-2 py-2">
-										<h6 class="lang text-center" data-lang="es">Añadir un nuevo campo para evaluación de area</h6>
-										<h6 class="lang text-center" data-lang="en">Add a new field for area evaluation</h6>
-										<button type="button" class="btn btn-secondary mx-auto d-flex align-self-center mb-4"
-											data-bs-toggle="modal" data-bs-target="#addFiledModal">
-											<i class="fa-solid fa-plus fs-5 py-1"></i>
+										<h6 class="lang text-center" data-lang="es">Añadir un nuevo campo para evaluación de areas</h6>
+										<h6 class="lang text-center" data-lang="en">Add a new field for areas evaluation</h6>
+										<button type="button" class="btn btn-secondary mx-auto d-flex align-self-center mb-4 add-field"
+											data-bs-toggle="modal" data-bs-target="#addFiledModal" data-field-type="area">
+											<i class="fa-solid fa-plus pe-none fs-5 py-1"></i>
 										</button>
 									</div>
 								</div>
@@ -534,6 +543,15 @@
 											</label>
 										</div>
 									</div>
+
+									<div id="addADirectorateField" class="col-12 my-2 py-2">
+										<h6 class="lang text-center" data-lang="es">Añadir un nuevo campo para evaluación de direcciones académicas</h6>
+										<h6 class="lang text-center" data-lang="en">Add a new field for academic directorates evaluation</h6>
+										<button type="button" class="btn btn-secondary mx-auto d-flex align-self-center mb-4 add-field"
+											data-bs-toggle="modal" data-bs-target="#addFiledModal" data-field-type="a-directorate">
+											<i class="fa-solid fa-plus pe-none fs-5 py-1"></i>
+										</button>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -545,7 +563,7 @@
 					<span data-lang="es">Cancelar</span>
 					<span data-lang="en">Cancel</span>
 				</button>
-				<button id="btn-all-report" type="button" class="btn btn-dark" data-bs-dismiss="modal">
+				<button id="btn-all-report" type="button" class="btn btn-dark">
 					<span data-lang="es">Descargar Reporte</span>
 					<span data-lang="en">Download Report</span>
 				</button>
@@ -560,18 +578,7 @@
 		<div class="modal-content shadow-lg">
 			<div class="modal-body">
 				<div class="container">
-					<h6 class="text-center" data-lang="es">Escribe nombre de la área a añadir y que servirá para buscar el jefe
-						a cargo de esta. Los empleados a su cargo aparecerán en el archivo de reporte.</h6>
-					<h6 class="text-center" data-lang="en">Type the name of the area to be added, which will be used to search
-						for the manager in charge of it. in charge of it. The employees in charge will appear in
-						the report file.</h6>
-					<div class="form-floating mt-3">
-						<input type="text" class="form-control" id="add-label">
-						<label for="add-label">
-							<span class="lang" data-lang="es">Nombre de la Área</span>
-							<span class="lang" data-lang="en">Area name</span>
-						</label>
-					</div>
+					
 				</div>
 			</div>
 			<div class="modal-footer">

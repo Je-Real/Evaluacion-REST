@@ -386,7 +386,6 @@ window.addEventListener('DOMContentLoaded', async(e) => {
 
 	eventAssigner('.logout', 'click', logout).catch(error => {})
 	eventAssigner('.goto', 'click', (e) => {
-		console.log(e.target)
 		if(e.target.dataset.goto.length)
 			go(e.target.dataset.goto)
 	}).catch(error => {})

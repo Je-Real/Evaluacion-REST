@@ -105,6 +105,9 @@ const dynamicHints = async(e, collection) => {
 						name = e.target.dataset['name']
 					
 					input = $a(`input.dynamic-hint[data-hint-id="${parentID}"]`)
+					if(input.length < 0 || !parentID)
+						input = tgt.parentElement.parentElement.querySelectorAll('input.dynamic-hint')
+
 					if('hintSiblings' in input[0].dataset) {
 						input = $a(`input.dynamic-hint[data-hint-siblings="${
 							input[0].dataset['hintSiblings']

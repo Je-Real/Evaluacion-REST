@@ -18,26 +18,68 @@ const setEventsSelector = (target = null) => {
 	eventAssigner(target, 'change', (e) => dynamicHints(e, 'user_info'))
 }
 
+let addFiledType = null
 const addAreaField = () => {
 	let label = $e('#add-label').value.trim(),
 		rnd = Math.random().toString(16).substring(2, 8)
-	let id = `${label.split(' ')[0]}-${rnd}`
+	let id = `${label.split(' ')[0]}-${rnd}`,
+		optsList
 
 	try {
-		$e('#addAreaField').insertAdjacentHTML('beforebegin',
-		`<div id="_${id}" class="col-12 col-md-6 mb-3 mx-auto">
-		<div class="row p-0 m-0">
-		<div class="form-floating col-11 px-0">
-		<input type="text" class="form-control dynamic-hint ps-4 mandatory area _${rnd}"
-		data-type="areas" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
-		<label><span>${label}</span>
-		<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
-		</label></div>
-		<div class="col-1 d-flex"><button id="remove-${id}" type="button" class="btn btn-close p-1
-		m-auto" data-tooltip-es="Quitar este campo" data-tooltip-en="Remove this field"
-		data-target="#_${id}"></button></div>
-		</div></div>`
-	)
+		switch (addFiledType) {
+			case 'directorate':
+				optsList = $e('#dai').innerHTML
+				$e('#addDirectorateField').insertAdjacentHTML('beforebegin',
+				`<div id="_${id}" class="col-12 col-md-6 mb-3 mx-auto">
+				<div class="row p-0 m-0">
+				<div class="form-floating col-11 px-0">
+				<select class="form-control form-select selector ps-4 directorate _${rnd}"
+					data-class="directorates" name="dai" id="dai">${optsList}</select>
+				<label><span>${label}</span>
+				<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+				</label></div>
+				<div class="col-1 d-flex"><button id="remove-${id}" type="button" class="btn btn-close p-1
+				m-auto" data-tooltip-es="Quitar este campo" data-tooltip-en="Remove this field"
+				data-target="#_${id}"></button></div>
+				</div></div>`)
+				break;
+			
+			case 'area':
+				$e('#addAreaField').insertAdjacentHTML('beforebegin',
+				`<div id="_${id}" class="col-12 col-md-6 mb-3 mx-auto">
+				<div class="row p-0 m-0">
+				<div class="form-floating col-11 px-0">
+				<input type="text" class="form-control dynamic-hint ps-4 mandatory area _${rnd}"
+					data-class="areas" data-hint-target="id" data-hint-display="all" data-hint-collection="user_info">
+				<label><span>${label}</span>
+				<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+				</label></div>
+				<div class="col-1 d-flex"><button id="remove-${id}" type="button" class="btn btn-close p-1
+				m-auto" data-tooltip-es="Quitar este campo" data-tooltip-en="Remove this field"
+				data-target="#_${id}"></button></div>
+				</div></div>`)
+				break
+			
+			case 'a-directorate':
+				optsList = $e('#adbda').innerHTML
+				$e('#addADirectorateField').insertAdjacentHTML('beforebegin',
+				`<div id="_${id}" class="col-12 mb-3 mx-auto">
+				<div class="row p-0 m-0">
+				<div class="form-floating col-11 px-0">
+				<select class="form-control form-select selector ps-4 a-directorate" _${rnd}"
+					data-class="a_directorates">${optsList}</select>
+				<label><span>${label}</span>
+				<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+				</label></div>
+				<div class="col-1 d-flex"><button id="remove-${id}" type="button" class="btn btn-close p-1
+				m-auto" data-tooltip-es="Quitar este campo" data-tooltip-en="Remove this field"
+				data-target="#_${id}"></button></div>
+				</div></div>`)
+				break;
+		
+			default:
+				break;
+		}
 	} catch (error) {
 		console.error(error)
 		return showSnack(error, null, 'error')
@@ -66,10 +108,8 @@ window.addEventListener('load', async(e) => {
 	$e('.panel[data-id="0"] .canvas-remove').remove()
 
 	displayCharts(false, idSelect)
-	//barChartSearch()
 
 	eventAssigner('#addPanel', 'click', addPanel).catch((error) => {return console.error(error)})
-	//eventAssigner('#sel-bar-chart', 'change', barChartSearch).catch((error) => {return console.error(error)})
 	if($e('#btn-all-report')) eventAssigner('#btn-all-report', 'click', () => generateFile('all'))
 	eventAssigner('#btn-mono-report', 'click', () => generateFile('mono'))
 	buttonListeners()
@@ -88,6 +128,66 @@ window.addEventListener('load', async(e) => {
 			}
 		})
 		eventAssigner('#btn-mono-report', 'change', () => generateFile('mono'))
+		eventAssigner('.add-field', 'click', (e) => { // Add field button pressed
+			let tgt = e.target
+			addFiledType = tgt.dataset.fieldType
+			
+			switch (addFiledType) {
+				case 'directorate':
+					$e('#addFiledModal .modal-body .container').innerHTML =`<h6 class="text-center" data-lang="es">${Array(
+						`Escribe nombre de la dirección a añadir y que servirá para crear una nueva
+						lista desplegable.`,
+						`Type the name of the directorate to be added, which will be used to create a new
+						drop-down list.`
+					)[lang]}</h6>
+					<div class="form-floating mt-3">
+					<input type="text" class="form-control" id="add-label">
+					<label for="add-label">${
+						Array('<span class="lang" data-lang="es">Nombre de la dirección</span>',
+						'<span class="lang" data-lang="en">Directorate name</span>')[lang]
+					}</label>
+					</div>`
+					break;
+				
+				case 'area':
+					$e('#addFiledModal .modal-body .container').innerHTML =`<h6 class="text-center" data-lang="es">
+					${Array(
+						`Escribe nombre del área a añadir y que servirá para buscar el jefe
+						a cargo de esta. Los empleados a su cargo aparecerán en el archivo de reporte.`,
+						`Type the name of the area to be added, which will be used to search
+						for the manager in charge of it. in charge of it. The employees in charge will appear in
+						the report file.`
+					)[lang]}</h6>
+					<div class="form-floating mt-3">
+					<input type="text" class="form-control" id="add-label">
+					<label for="add-label">${
+						Array('<span class="lang" data-lang="es">Nombre del area</span>',
+						'<span class="lang" data-lang="en">Area name</span>')[lang]
+					}</label>
+					</div>`
+					break
+				
+				case 'a-directorate':
+					$e('#addFiledModal .modal-body .container').innerHTML =`<h6 class="text-center" data-lang="es">
+					${Array(
+						`Escribe nombre de la dirección académica a añadir y que servirá para crear una nueva
+						lista desplegable.`,
+						`Type the academic directorate to be added, which will be used to create a new
+						drop-down list.`
+					)[lang]}</h6>
+					<div class="form-floating mt-3">
+					<input type="text" class="form-control" id="add-label">
+					<label for="add-label">${
+						Array('<span class="lang" data-lang="es">Nombre de la dirección</span>',
+						'<span class="lang" data-lang="en">Directorate name</span>')[lang]
+					}</label>
+					</div>`
+					break
+			
+				default:
+					break;
+			}
+		})
 		eventAssigner('#addField', 'click', addAreaField)
 
 		setEventsSelector()
@@ -552,6 +652,7 @@ const generateFile = async(mode = '') => {
 		.finally(() => {
 			//$e('#layoutSidenav_content').classList.remove('fixed-size')
 			spinner('wait', false)
+			$e('#close-modal-selector').click()
 		})
 	}, 150)
 }
