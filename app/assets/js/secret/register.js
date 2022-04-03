@@ -107,9 +107,75 @@ window.addEventListener('load', async(e) => {
 		}
 	})
 
-	eventAssigner('button[aria-label="Close"]', 'click', () => {
+	eventAssigner('button[aria-label="Close"]:not(#close-add-record)', 'click', () => {
 		$e('#manual-reg').reset()
 		$e('#file-reg').reset()
+	})
+
+	eventAssigner('#close-add-record', 'click', () => {
+		$a('#add-records-modal input.form-control').forEach(node => {
+			node.value = ''
+		})
+		$e('#collection-selector')[0].selected = true
+	})
+
+	eventAssigner('#add-records', 'click', (e) => {
+		let passRecords = true,
+			collectionSlc = $e('#collection-selector').value,
+			description = []
+		
+		if(parseInt(collectionSlc) == 0) 
+			return showSnack(
+				Array('No se ha seleccionado una colección / tabla. Seleccione una por favor',
+				'A collection / table has not been selected. Please select one.')[lang],
+				null, 'warning'
+			)
+		
+		$a('#add-records-modal input.form-control').forEach(node => {
+			let valTrimmed = node.value.trim()
+			if(valTrimmed.length < 1 && passRecords) {
+				showSnack(
+					Array('Un campo se encuentra vació. Por favor, llénalo antes de enviar los datos.',
+					'One field is empty. Please fill it before sending the data.')[lang],
+					null, 'warning'
+				)
+				return passRecords = false
+			}
+			description.push(valTrimmed)
+		})
+
+		if(passRecords) {
+			spinner('wait', true)
+			fetchTo(
+				window.location.origin+'/admin-control/add-record-to',
+				'POST',
+				{ description: description, collection: collectionSlc },
+				async(result) => {
+					if(result.snack)
+						showSnack(result.msg, null, result.snackType)
+
+					if(result.status === 200) {
+						$a('#add-records input.form-control').forEach(node => {
+							node.value = ''
+						})
+
+						$e(`#register select[name="${collectionSlc}"]`).insertAdjacentHTML(
+							'beforeend',
+							`<option value="${result.data._id}">${result.data.description[lang]}</option>`
+						)
+					}
+				},
+				async(error) => console.error(error)
+			)
+			.finally(() => {
+				$a('#add-records-modal input.form-control').forEach(node => {
+					node.value = ''
+				})
+				$e('#collection-selector')[0].selected = true
+				$e('#reload-list').click()
+				spinner('wait', false)
+			})
+		}
 	})
 })
 

@@ -58,7 +58,7 @@ window.addEventListener('load', async(e) => {
 				btn.disabled = false
 				setTimeout(() => {
 					loginBox.classList.remove('stop')
-				}, 1050);
+				}, 1050)
 			})
 		}
 	}

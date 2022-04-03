@@ -364,8 +364,87 @@
 						</div>
 					</div>
 				</div>
-
 			</form>
+		</div>
+	</div>
+</div>
+
+<div id="add-records-modal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+	aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+		<div class="modal-content shadow-lg">
+			<div class="modal-body">
+				<div class="container">
+					<h6 class="text-center">
+						<span data-lang="es">
+							Selecciona a que tabla o colección pertenecerá el
+							nuevo registro a registrar. Posteriormente escribe
+							el nombre del registro en Español (primer campo) y
+							en Inglés (segundo campo), luego de esto da clic en
+							<span class="fw-bold">Añadir Registro</span>.
+						</span>
+						<span data-lang="en">
+							Select the table or collection the new record will
+							belong to. Then type the name of the record in
+							Spanish (first field) and in English (second field),
+							after that click on <span class="fw-bold">Add Records</span>.
+						</span>
+					</h6>
+					
+					<div class="col-12 mt-3 mx-auto">
+						<div class="form-floating">
+							<select id="collection-selector" class="form-control form-select selector ps-4 mandatory">
+								<option value="0" data-lang="es">Selecciona una opción</option>
+								<option value="0" data-lang="en">Select an option</option>
+
+								<option value="area" data-lang="es">Areas de adscripción</option>
+								<option value="area" data-lang="en">Adscription areas</option>
+
+								<option value="directorate" data-lang="es">Direcciones / Subdirecciones</option>
+								<option value="directorate" data-lang="en">Directorates / Sub-directorates</option>
+
+								<option value="position" data-lang="es">Puestos</option>
+								<option value="position" data-lang="en">Positions</option>
+
+								<option value="category" data-lang="es">Categorías</option>
+								<option value="category" data-lang="en">Categories</option>	
+							</select>
+							<label for="collectionSelector">
+								<span data-lang="es">Selecciona una colección / tabla</span>
+								<span data-lang="en">Select a collection / table</span>
+								<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+							</label>
+						</div>
+					</div>
+					
+					<div class="form-floating mt-3">
+						<input type="text" class="form-control" id="record-es" lang="es">
+						<label for="record-es">
+							<span class="lang" data-lang="es">Nombre del registro (Español)</span>
+							<span class="lang" data-lang="en">Record name (Spanish)</span>
+							<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+						</label>
+					</div>
+					<div class="form-floating mt-3">
+						<input type="text" class="form-control" id="record-en" lang="en">
+						<label for="record-en">
+							<span class="lang" data-lang="es">Nombre del registro (Inglés)</span>
+							<span class="lang" data-lang="en">Record name (English)</span>
+							<span class="text-danger"><i class="fa-solid fa-asterisk"></i></span>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="close-add-record" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+					<span data-lang="es">Cancelar</span>
+					<span data-lang="en">Cancel</span>
+				</button>
+				<button id="add-records" type="button" class="btn btn-primary">
+					<span data-lang="es">Añadir Registro</span>
+					<span data-lang="en">Add Records</span>
+				</button>
+			</div>
 		</div>
 	</div>
 </div>

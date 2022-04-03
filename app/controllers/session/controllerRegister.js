@@ -565,8 +565,131 @@ async function superUser(req, res) {
 	})
 }
 
+async function addRecordsToCollection(req, res) {
+	if(!('_id' in req.session)) {
+		res.json({
+			msg: Array('Por favor, inicia sesión nuevamente', 'Please, log in again'),
+			snack: 'true',
+			snackType: 'error',
+			status: 401
+		})
+		return res.status(401).end()
+	}
+
+	let passRecords = true
+	req.body.description.forEach(node => {
+		if(node.length < 1 && passRecords) {
+			passRecords = false
+			return res.json({
+				msg: Array(
+					`Un campo se encuentra vació. Por favor, llénalo antes de enviar los datos.`,
+					`One field is empty. Please fill it before sending the data.`
+				)[req.session.lang],
+				snack: 'true',
+				snackType: 'warning',
+				status: 404
+			})
+		}
+	})
+	if(!passRecords) return res.status(404).end()
+
+	const FORMAT_DATE = `${ DATE.getFullYear() }-`+
+	`${ (String(DATE.getMonth()+1).length == 1) ? '0'+(DATE.getMonth()+1) : DATE.getMonth()+1 }-`+
+	`${ (String(DATE.getDate()).length == 1) ? '0'+(DATE.getDate()) : DATE.getDate() }`
+	// hh:mm
+	const FORMAT_HOUR = `${ (String(DATE.getHours()).length == 1) ? '0'+(DATE.getHours()) : DATE.getHours() }:`+
+	`${ (String(DATE.getMinutes()).length == 1) ? '0'+(DATE.getMinutes()) : DATE.getMinutes() }`
+	let modelMaster
+
+	switch (req.body.collection) {
+		case 'area':
+			modelMaster = modelArea
+			break
+
+		case 'directorate':
+			modelMaster = modelDirectorate
+			break
+
+		case 'position':
+			modelMaster = modelPosition
+			break
+
+		case 'category':
+			modelMaster = modelCategory
+			break
+	
+		default:
+			return res.status(404).json({
+				msg: Array(
+					`No se encontró la colección objetivo. Se recibió ${req.body.collection}.`,
+					`The target collection was not found. Received ${req.body.collection}.`
+				)[req.session.lang],
+				snack: 'true',
+				snackType: 'warning',
+				status: 404
+			})
+	}
+
+	return await modelMaster.aggregate([
+		{ $sort: { '_id': -1 } },
+		{ $limit: 1 },
+		{ $project: { '_id': 1 } }
+	])
+	.then(async(data) => {
+		let save = {
+			_id: parseInt(data[0]._id) + 1,
+			description: req.body.description,
+			log: {
+				_id: req.session._id,
+				name: req.session.name,
+				timestamp: {
+					date: FORMAT_DATE,
+					time: FORMAT_HOUR
+				},
+				operation: 'created'
+			}
+		}
+
+		return await new modelMaster(save).save()
+		.then((dataSave) => {
+			return res.status(200).json({
+				msg: Array('Se agrego el registro exitosamente', 'Added record successfully'),
+				data: dataSave,
+				snack: 'true',
+				snackType: 'success',
+				status: 200
+			})
+		})
+		.catch(error => {
+			console.error(error)
+			return res.status(500).json({
+				msg: Array(
+					'Imposible guardar en la base de datos. Revisa la consola y comunicate con el administrador.',
+					'Server error. Check the console and contact the administrator.'),
+				snack: 'true',
+				snackType: 'error',
+				error: error,
+				status: 500
+			})
+		})
+	})
+	.catch(error => {
+		console.error(error)
+		return res.status(500).json({
+			msg: Array(
+				'Error en el servidor. Revisa la consola y comunicate con el administrador.',
+				'Server error. Check the console and contact the administrator.'),
+			snack: 'true',
+			snackType: 'error',
+			error: error,
+			status: 500
+		})
+	})
+}
+
 module.exports = {
 	signUp,
 	fuzzySearch,
 	superUser,
+	addRecordTo: addRecordsToCollection,
 }

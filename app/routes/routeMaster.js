@@ -57,6 +57,7 @@ router //👇
 
 // (Utils) Fuzzy search 
 .post('/admin-control/fuzzy-find', controllerRegister.fuzzySearch)
+.post('/admin-control/add-record-to', controllerRegister.addRecordTo)
 
 // Errors handlers (Always keep this at the end)
 .get('**', controller404.root)
