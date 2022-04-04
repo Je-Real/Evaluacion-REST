@@ -17,7 +17,7 @@ function paginator() {
 
         arr_rows = $e('.paginator').getAttribute('data-rows-shown').split(',')
     } catch (error) {
-        return console.error(error)
+        return console.warn(error)
     }
 
     for(let i in arr_rows) {

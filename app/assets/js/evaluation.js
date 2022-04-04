@@ -4,138 +4,139 @@ window.addEventListener('load', async(e) => {
 		activeSec_6 = [0, 2], // 0 filled (initialized) out of 2 radio buttons in total inside 6th section
 		activeSec_7 = [0, 4] // and so on...
 
-	$e('#btn-send').disabled = true
+	if($e('#btn-send')) {
+		$e('#btn-send').disabled = true
 
-	const inputClick = (e) => {
-		let tgt = e.target
+		const inputClick = (e) => {
+			let tgt = e.target
 
+			radioFields[tgt.name] = parseInt(tgt.value)
+			radioFields.length++
 
-		radioFields[tgt.name] = parseInt(tgt.value)
-		radioFields.length++
+			if(parseInt(tgt.name.split('_')[1]) > 0 && parseInt(tgt.name.split('_')[1]) <= 4)
+				$e('#P-'+tgt.name.split('_')[1]).classList.replace('deactivated', 'activated')
+			else {
+				switch (parseInt(tgt.name.split('_')[1])) {
+					case 5:
+						activeSec_5[0]++
+						break
+					case 6:
+						activeSec_5[0]++
+						break
+					case 7:
+						activeSec_5[0]++
+						break
+					case 8:
+						activeSec_5[0]++
+						break
 
-		if(parseInt(tgt.name.split('_')[1]) > 0 && parseInt(tgt.name.split('_')[1]) <= 4)
-			$e('#P-'+tgt.name.split('_')[1]).classList.replace('deactivated', 'activated')
-		else {
-			switch (parseInt(tgt.name.split('_')[1])) {
-				case 5:
-					activeSec_5[0]++
-					break
-				case 6:
-					activeSec_5[0]++
-					break
-				case 7:
-					activeSec_5[0]++
-					break
-				case 8:
-					activeSec_5[0]++
-					break
+					case 9:
+						activeSec_6[0]++
+						break
+					case 10:
+						activeSec_6[0]++
+						break
 
-				case 9:
-					activeSec_6[0]++
-					break
-				case 10:
-					activeSec_6[0]++
-					break
+					case 11:
+						activeSec_7[0]++
+						break
+					case 12:
+						activeSec_7[0]++
+						break
+					case 13:
+						activeSec_7[0]++
+						break
+					case 14:
+						activeSec_7[0]++
+						break
 
-				case 11:
-					activeSec_7[0]++
-					break
-				case 12:
-					activeSec_7[0]++
-					break
-				case 13:
-					activeSec_7[0]++
-					break
-				case 14:
-					activeSec_7[0]++
-					break
-
-				default:
-					console.error('Not found a value for the following element:')
-					console.error(tgt)
-					break
+					default:
+						console.error('Not found a value for the following element:')
+						console.error(tgt)
+						break
+				}
 			}
+
+			if(activeSec_5[0] === activeSec_5[1]) $e('#P-5').classList.replace('deactivated', 'activated')
+			if(activeSec_6[0] === activeSec_6[1]) $e('#P-6').classList.replace('deactivated', 'activated')
+			if(activeSec_7[0] === activeSec_7[1]) $e('#P-7').classList.replace('deactivated', 'activated')
+
+			if(radioFields.length === 14) $e('#btn-send').disabled = false
 		}
 
-		if(activeSec_5[0] === activeSec_5[1]) $e('#P-5').classList.replace('deactivated', 'activated')
-		if(activeSec_6[0] === activeSec_6[1]) $e('#P-6').classList.replace('deactivated', 'activated')
-		if(activeSec_7[0] === activeSec_7[1]) $e('#P-7').classList.replace('deactivated', 'activated')
+		const slctOjb = () => selectObjective(true)
 
-		if(radioFields.length === 14) $e('#btn-send').disabled = false
-	}
+		if(localStorage.getItem('paginator-card-view') === 'true') cardView()
+		else listView()
 
-	const slctOjb = () => selectObjective(true)
+		await getCookie('USelected')
+		.then((data) => {
+			if(data.length) {
+				selectObjective(data)
+				setCookie('USelected', '')
+			}
+		})
+		.catch((error) => {
+			log('[Survey] Error user selected! '+error, 'pink')
+		})
 
-	if(localStorage.getItem('paginator-card-view') === 'true') cardView()
-	else listView()
+		eventAssigner('.card.card-option', 'click', slctOjb)
+		eventAssigner('input[type="radio"]', 'click', inputClick)
 
-	await getCookie('USelected')
-	.then((data) => {
-		if(data.length) {
-			selectObjective(data)
-			setCookie('USelected', '')
-		}
-	})
-	.catch((error) => {
-		log('[Survey] Error user selected! '+error, 'pink')
-	})
+		eventAssigner('#btn-send', 'click', () => {
+			let id
+			delete radioFields.length
 
-	eventAssigner('.card.card-option', 'click', slctOjb)
-	eventAssigner('input[type="radio"]', 'click', inputClick)
-
-	eventAssigner('#btn-send', 'click', () => {
-		let id
-		delete radioFields.length
-
-		if(String($e('#userObj').value).length <= 0)
-			return showSnack(
-				(lang == 0) ? 'Debes seleccionar a alguien para evaluar'
-							: 'You must select someone to evaluate',
-				null, 'warning'
-			)
-		else id = $e('#userObj').value
-
-		for(let score in radioFields) {
-			if(radioFields[score] == undefined || radioFields[score] == null || radioFields[score] == 0) {
-				console.log(radioFields[score])
+			if(String($e('#userObj').value).length <= 0)
 				return showSnack(
-					(lang == 0) ? '¡Aun no se puede enviar!<br/>Debes completar la evaluación! Falta '+score
-								: 'Cannot be sent yet!<br/>You must complete the evaluation. Remain '+score,
+					(lang == 0) ? 'Debes seleccionar a alguien para evaluar'
+								: 'You must select someone to evaluate',
 					null, 'warning'
 				)
-			}
-		}
+			else id = $e('#userObj').value
 
-		let pkg = {
-			_id: id,
-			records: radioFields
-		}
-
-		fetchTo(
-			window.location.origin+'/evaluation',
-			'POST',
-			pkg,
-			(result) => {
-				if(result.status === 200) {
-					screen('success', true)
-					return setTimeout(() => {
-						screen('success', false)
-						spinner('load', true)
-						setTimeout(() => {window.location.reload(false)}, 300)
-					}, 2500)
-					
-					/* TODO: If page without reloading this will help */
-					radioFields = { length: 0 }
-					activeSec_5 = [0, 4]
-					activeSec_6 = [0, 2]
-					activeSec_7 = [0, 4]
+			for(let score in radioFields) {
+				if(radioFields[score] == undefined || radioFields[score] == null || radioFields[score] == 0) {
+					console.log(radioFields[score])
+					return showSnack(
+						(lang == 0) ? '¡Aun no se puede enviar!<br/>Debes completar la evaluación! Falta '+score
+									: 'Cannot be sent yet!<br/>You must complete the evaluation. Remain '+score,
+						null, 'warning'
+					)
 				}
+			}
 
-				if(result.snack) showSnack(result.msg, null, 'info')
-			},
-			(error) => showSnack(`Error: ${error}`, null, 'error')
-		)
-	})
+			let pkg = {
+				_id: id,
+				records: radioFields
+			}
+
+			fetchTo(
+				window.location.origin+'/evaluation',
+				'POST',
+				pkg,
+				(result) => {
+					if(result.status === 200) {
+						screen('success', true)
+						return setTimeout(() => {
+							screen('success', false)
+							spinner('load', true)
+							setTimeout(() => {window.location.reload(false)}, 300)
+						}, 2500)
+						
+						/* TODO: If page without reloading this will help */
+						radioFields = { length: 0 }
+						activeSec_5 = [0, 4]
+						activeSec_6 = [0, 2]
+						activeSec_7 = [0, 4]
+					}
+
+					if(result.snack) showSnack(result.msg, null, 'info')
+				},
+				(error) => showSnack(`Error: ${error}`, null, 'error')
+			)
+		})
+	}
 })
 
 function listView() {

@@ -1,5 +1,5 @@
 // 👇 Production mode
-//'use strict'
+'use strict'
 
 const DATE = new Date()
 const CURRENT_YEAR = DATE.getFullYear()
