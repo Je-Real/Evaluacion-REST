@@ -195,7 +195,8 @@
 	</div>
 </div>
 
-<div id="register-file" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div id="register-file" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"
+	aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	<div class="modal-dialog modal-xl modal-dialog-centered w-75 w-md-60">
 		<div class="modal-content bg-dark rounded-3 shadow-lg">
 			<form method="POST" name="file-reg" id="file-reg" autocomplete="off">
@@ -343,8 +344,43 @@
 								</label>
 							</div>
 						</div>
+
+
+						<% if(true) {  // ------------------------------ Set false if not required for testing ------------------------------ %>
+						<div class="col-6">
+							<div class="form-floating my-2">
+								<select class="form-control form-select ps-4" name="sp-score" id="col-sp-score" disabled>
+									<option value="0" selected>N.A.</option>
+								</select>
+								<label for="col-manager">
+									<span>(Especial) Promedio</span>
+								</label>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-floating my-2">
+								<select class="form-control form-select ps-4" name="sp-year" id="col-sp-year" >
+									<option value="0" selected>N.A.</option>
+								</select>
+								<label for="col-manager">
+									<span>(Especial) Año</span>
+								</label>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-floating my-2">
+								<select class="form-control form-select ps-4" name="sp-answers" id="col-sp-answers" >
+									<option value="0" selected>N.A.</option>
+								</select>
+								<label for="col-manager">
+									<span>(Especial) Respuestas</span>
+								</label>
+							</div>
+						</div>
+						<% } %>
 					</div>
 				</div>
+				
 				<div class="row">
 					<div class="mb-0">
 						<div class="row mt-2">

@@ -6,7 +6,7 @@ let firstName, lastName,
 
 window.addEventListener('load', async(e) => {
 	lockRegister(true)
-	eventAssigner('#submit-register', 'click', register)
+	eventAssigner('#submit-register', 'click', e => {register()})
 
 	eventAssigner('#register-personnel, .to-register', 'click', () => { lockRegister(false); lockFile(true) })
 	eventAssigner('*[aria-label="Close"]:not(.to-register)', 'click', () => { lockRegister(true); lockFile(false) })
@@ -45,67 +45,7 @@ window.addEventListener('load', async(e) => {
 	})
 	
 	eventAssigner('#excel-file', 'change', e => {readUrl(e.target)}) // Read the name and columns of the file
-	eventAssigner('#submit-file', 'click', async e => { // Send file event
-		pkg['file'] = true
-		pkg['fields'] = {}
-
-		$a('#register-file select').forEach(async(node) => {
-			let value = node[node.selectedIndex].value
-
-			if(node.classList.contains('mandatory')) {
-				if(value === '0') {
-					if(pkg['file'] == true) {
-						showSnack(
-							(lang == 0) ? 'Algún campo obligatorio debe esta incompleto. Por favor, revisa el formulario'
-							: 'Some required fields must be incomplete. Please check the form',
-							null, 'warning'
-						)
-						return pkg['file'] = false
-					}
-				}
-			}
-			
-			pkg.fields[node.name] = value
-		})
-
-		if(pkg['file']) {
-			spinner('wait', true)
-
-			await fetch(window.location.origin+'/session/sign-in',
-				{method: 'POST',
-				headers: {'Content-Type': 'application/json'},
-				body: JSON.stringify(pkg)}
-			)
-			.then(async data => {
-				if(data.status != 401) {
-					let SNK_Type = '',
-						filename = data.headers.get('filename')
-
-					if(data.status === 200) SNK_Type = 'success'
-					else SNK_Type = 'warning'
-					if(Boolean(data.headers.get('snack')) == true) {
-						showSnack(data.headers.get('msg'), null, SNK_Type)
-					}
-	
-					await data.arrayBuffer()
-					.then(async(data) => {
-						if(data == null || data == undefined)
-							return showSnack('Server error', null, 'error')
-						const blob = new Blob([data]) // Create a Blob object
-						const url = URL.createObjectURL(blob) // Create an object URL
-						download(url, filename) // Download file
-						URL.revokeObjectURL(url) // Release the object URL
-					})
-				} else showSnack(data.headers.get('msg'), null, 'error')
-			})
-			.catch(error => console.error(error))
-			.finally(async() => {
-				$e('#register-file button.close-modal').click()
-				$e('#reload-list').click()
-				spinner('wait', false)
-			})
-		}
-	})
+	eventAssigner('#submit-file', 'click', e => {register(true)})
 
 	eventAssigner('button[aria-label="Close"]:not(#close-add-record)', 'click', () => {
 		$e('#manual-reg').reset()
@@ -299,85 +239,151 @@ const excelToJSON = async(file) => {
 	}
 }
 
-const register = async() => {
-	pkg['data'] = [{}]
+const register = async(fileMode = false) => {
+	if(fileMode) {
+		pkg['file'] = true
+		pkg['fields'] = {}
 
-	if($e('#new_user:not(disabled)').checked) {
-		pkg.data[0]['new_user'] = $e('#new_user:not(disabled)').checked
-	} else if($e('#find_user:not(disabled)').checked) {
-		pkg.data[0]['find_user'] = $e('#find_user:not(disabled)').checked
-	}
+		$a('#register-file select').forEach(async(node) => {
+			let value = node.value
 
-	let passReg = true
-	$a('#manual-reg .form-control.mandatory').forEach(node => {
-		if(node.tagName.toLowerCase() == 'input') {
-			if(node.value.lenght < 4 && passReg) {
-				passReg = false
-				return showSnack(
-					(lang == 0) ? `No se puede enviar el registro, hay campos vacíos.`
-								: `Unable to send the data, there is empty fields`,
-					null, 'warning'
-				)
+			if(node.classList.contains('mandatory')) {
+				if(value === '0') {
+					if(pkg['file'] == true) {
+						showSnack(
+							(lang == 0) ? 'Algún campo obligatorio debe esta incompleto. Por favor, revisa el formulario'
+							: 'Some required fields must be incomplete. Please check the form',
+							null, 'warning'
+						)
+						return pkg['file'] = false
+					}
+				}
 			}
 			
-			if(node.classList.contains('dynamic-hint')) {
-				if('id' in node.dataset)
-					pkg.data[0][node.name] = node.dataset.id
-				else if('name' in node.dataset)
-					pkg.data[0][node.name] = node.dataset.name
-				else
-					pkg.data[0][node.name] = node.value
-			} else pkg.data[0][node.name] = node.value
-		} else if(node.tagName.toLowerCase() == 'select') {
-			if(parseInt(node.selectedIndex) == 0 && passReg) {
-				passReg = false
-				return showSnack(
-					(lang == 0) ? `No se puede enviar el registro, hay campos vacíos.`
-								: `Unable to send the data, there is empty fields`,
-					null, 'warning'
-				)
-			} else pkg.data[0][node.name] = parseInt(node[node.selectedIndex].value)
-		} else {
-			passReg = false
-			return console.warn(node)
+			pkg.fields[node.name] = value
+		})
+
+		if(pkg['file']) {
+			spinner('wait', true)
+
+			await fetch(window.location.origin+'/session/sign-in',
+				{method: 'POST',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify(pkg)}
+			)
+			.then(async data => {
+				if(data.status != 401) {
+					let SNK_Type = '',
+						filename = data.headers.get('filename')
+
+					if(data.status === 200) SNK_Type = 'success'
+					else SNK_Type = 'warning'
+					if(Boolean(data.headers.get('snack')) == true) {
+						showSnack(data.headers.get('msg'), null, SNK_Type)
+					}
+
+					await data.arrayBuffer()
+					.then(async(data) => {
+						if(data == null || data == undefined)
+							return showSnack('Server error', null, 'error')
+						const blob = new Blob([data]) // Create a Blob object
+						const url = URL.createObjectURL(blob) // Create an object URL
+						download(url, filename) // Download file
+						URL.revokeObjectURL(url) // Release the object URL
+					})
+				} else showSnack(data.headers.get('msg'), null, 'error')
+			})
+			.catch(error => console.error(error))
+			.finally(async() => {
+				$e('#register-file button.close-modal').click()
+				$e('#reload-list').click()
+				spinner('wait', false)
+
+				pkg['data'] = [{}]
+			})
 		}
-	})
+	} else {
+		pkg['data'] = [{}]
 
-	if(passReg) {
-		spinner('wait', true)
+		if($e('#new_user:not(disabled)').checked) {
+			pkg.data[0]['new_user'] = $e('#new_user:not(disabled)').checked
+		} else if($e('#find_user:not(disabled)').checked) {
+			pkg.data[0]['find_user'] = $e('#find_user:not(disabled)').checked
+		}
 
-		await fetch(window.location.origin+'/session/sign-in',
-			{method: 'POST',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify(pkg)}
-		)
-		.then(async data => {
-			if(data.status != 401) {
-				let SNK_Type = '',
-					filename = data.headers.get('filename')
-
-				if(data.status === 200) SNK_Type = 'success'
-				else SNK_Type = 'warning'
-				if(Boolean(data.headers.get('snack')) == true) {
-					showSnack(data.headers.get('msg'), null, SNK_Type)
+		let passReg = true
+		$a('#manual-reg .form-control.mandatory').forEach(node => {
+			if(node.tagName.toLowerCase() == 'input') {
+				if(node.value.lenght < 4 && passReg) {
+					passReg = false
+					return showSnack(
+						(lang == 0) ? `No se puede enviar el registro, hay campos vacíos.`
+									: `Unable to send the data, there is empty fields`,
+						null, 'warning'
+					)
 				}
+				
+				if(node.classList.contains('dynamic-hint')) {
+					if('id' in node.dataset)
+						pkg.data[0][node.name] = node.dataset.id
+					else if('name' in node.dataset)
+						pkg.data[0][node.name] = node.dataset.name
+					else
+						pkg.data[0][node.name] = node.value
+				} else pkg.data[0][node.name] = node.value
+			} else if(node.tagName.toLowerCase() == 'select') {
+				if(parseInt(node.selectedIndex) == 0 && passReg) {
+					passReg = false
+					return showSnack(
+						(lang == 0) ? `No se puede enviar el registro, hay campos vacíos.`
+									: `Unable to send the data, there is empty fields`,
+						null, 'warning'
+					)
+				} else pkg.data[0][node.name] = parseInt(node[node.selectedIndex].value)
+			} else {
+				passReg = false
+				return console.warn(node)
+			}
+		})
 
-				data.arrayBuffer()
-				.then(data => {
-					if(data == null || data == undefined)
-					return showSnack('Server error', null, 'error')
-					const blob = new Blob([data]) // Create a Blob object
-					const url = URL.createObjectURL(blob) // Create an object URL
-					download(url, filename) // Download file
-					URL.revokeObjectURL(url) // Release the object URL
-				})
-			} else showSnack(data.headers.get('msg').split('|'), null, 'error')
-		})
-		.catch(error => console.error(error))
-		.finally(() => {
-			$e('#register button.close-modal').click()
-			$e('#reload-list').click()
-			spinner('wait', false)
-		})
+		if(passReg) {
+			spinner('wait', true)
+
+			await fetch(window.location.origin+'/session/sign-in',
+				{method: 'POST',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify(pkg)}
+			)
+			.then(async data => {
+				if(data.status != 401) {
+					let SNK_Type = '',
+						filename = data.headers.get('filename')
+
+					if(data.status === 200) SNK_Type = 'success'
+					else SNK_Type = 'warning'
+					if(Boolean(data.headers.get('snack')) == true) {
+						showSnack(data.headers.get('msg'), null, SNK_Type)
+					}
+
+					data.arrayBuffer()
+					.then(data => {
+						if(data == null || data == undefined)
+						return showSnack('Server error', null, 'error')
+						const blob = new Blob([data]) // Create a Blob object
+						const url = URL.createObjectURL(blob) // Create an object URL
+						download(url, filename) // Download file
+						URL.revokeObjectURL(url) // Release the object URL
+					})
+				} else showSnack(data.headers.get('msg').split('|'), null, 'error')
+			})
+			.catch(error => console.error(error))
+			.finally(() => {
+				$e('#register button.close-modal').click()
+				$e('#reload-list').click()
+				spinner('wait', false)
+
+				pkg['data'] = [{}]
+			})
+		}
 	}
 }

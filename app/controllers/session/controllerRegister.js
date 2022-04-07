@@ -6,6 +6,8 @@ const modelDirectorate = require('../../models/modelDirectorate')
 const modelCategory = require('../../models/modelCategory')
 const modelPosition = require('../../models/modelPosition')
 
+const modelEvaluation = require('../../models/modelEvaluation')
+
 const fuzzy = require('../util/fuzzy').fuzzySearch
 
 const crypto = require('crypto-js')
@@ -203,7 +205,7 @@ async function signUp(req, res) {
 		 * @param {String} name User name retrieved from the query (or model)
 		 * @returns regLog record
 		 */
-		 const createSysUser = async(_id, i, name) => {
+		const createSysUser = async(_id, i, name) => {
 			return modelUser.findOne({ _id: _id }, { _id: 1 })
 			.then(async(sysUser) => {
 				if(sysUser != null) {
@@ -296,6 +298,89 @@ async function signUp(req, res) {
 			})
 		}
 
+		const addEvalRecords = async(model, i) => { // Test
+			return await modelEvaluation.aggregate([
+				{
+					'$match': {
+						'_id': model._id
+					}
+				}, {
+					'$project': {'_id': 1}
+				}
+			])
+			.then(async(evalID) => {
+				if(evalID[0]) {
+					return await modelEvaluation.aggregate([
+						{
+							'$match': {
+								'_id': model._id,
+								'records.year': model["evaluations-records"].year
+							}
+						}, {
+							'$unwind': '$records'
+						}, {
+							'$match': {
+								'records.year': model["evaluations-records"].year
+							}
+						}
+					])
+					.then((evalData) => {
+						if(evalData.length) {
+							modelEvaluation.updateOne(
+								{ _id: model._id }, {
+									 $set: {
+										"records.$[elem]" : model["evaluations-records"]
+									  }
+								}, {
+									arrayFilters: [
+										{ "elem.year": { $eq: model["evaluations-records"].year } }
+									]
+								}
+							)
+							.then((data) => {
+								regLog.users[i]['error'] = 'Added data eval '+model["evaluations-records"].year
+							})
+							.catch(error => {
+								console.error(error)
+								regLog.users[i]['error'] = error
+							})
+						} else {
+							modelEvaluation.updateOne({ _id: model._id }, { $push: { records: model["evaluations-records"] } })
+							.then((data) => {
+								regLog.users[i]['error'] = 'Added data eval '+model["evaluations-records"].year
+							})
+							.catch(error => {
+								console.error(error)
+								regLog.users[i]['error'] = error
+							})
+						}
+					})
+					.catch(error => {
+						console.error(error)
+						regLog.users[i]['error'] = error
+					})
+				} else {
+					let save = {
+						_id: model._id,
+						records: [model["evaluations-records"]]
+					}
+
+					return await new modelEvaluation(save).save()
+					.then((data) => {
+						regLog.users[i]['error'] = 'Inserted data eval '+model["evaluations-records"].year
+					})
+					.catch(error => {
+						console.error(error)
+						regLog.users[i]['error'] = error
+					})
+				}
+			})
+			.catch(error => {
+				console.error(error)
+				regLog.users[i]['error'] = error
+			})
+		}
+
 		for(let iterator in req.body.data) {
 			const i = parseInt(iterator)
 
@@ -347,7 +432,8 @@ async function signUp(req, res) {
 						? (req.body.fields.new_user in req.body.data[i])
 							? (String(req.body.data[i][req.body.fields.new_user]).trim().length > 0)
 							: false
-						: ('new_user' in req.body.data[i])
+						: ('new_user' in req.body.data[i]),
+					testEval = false
 
 				/**
 				 * Fuzzy search all the posible data that can be duplicated
@@ -376,6 +462,19 @@ async function signUp(req, res) {
 						else nextStep = false
 					}).catch(error => {console.error(error); nextStep = false; errorGetter = error})
 
+				if('sp-year' in req.body.fields) { // For testing 
+					if(parseInt(req.body.data[i][req.body.fields["sp-year"]]) > 2015) {
+						testEval = true
+						model["evaluations-records"] = {
+							year: parseInt(req.body.data[i][req.body.fields["sp-year"]]),
+							score: parseFloat(req.body.data[i][req.body.fields["sp-score"]]),
+							answers: req.body.data[i][req.body.fields["sp-answers"]].split(','),
+							area: model.area,
+							directorate: model.directorate,
+							manager: model.manager
+						}
+					}
+				}
 
 				if(nextStep) {
 					if(dataUserInfo) { // If the user exists
@@ -408,6 +507,10 @@ async function signUp(req, res) {
 								'Información guardada',
 								'Information saved'
 							)[lang]
+
+							// If test
+							if(testEval)
+								await addEvalRecords(model, i)
 
 							// And if the employee is a system user
 							if(newUser)
