@@ -15,8 +15,6 @@ const controller404 = require('../controllers/error/controller404')
 const controller401 = require('../controllers/error/controller401')
 const controller500 = require('../controllers/error/controller500')
 
-const fuzzy = require('../controllers/util/fuzzy')
-
 router //👇
 
 // Index
@@ -33,6 +31,7 @@ router //👇
 // Survey / Evaluation
 .get('/evaluation', controllerLayoutStatic.root)
 .post('/evaluation', controllerLayoutStatic.post)
+.post('/evaluation-check', controllerLayoutStatic.checkScore)
 
 // Users
 .post('/session/sign-in', controllerRegister.signUp)

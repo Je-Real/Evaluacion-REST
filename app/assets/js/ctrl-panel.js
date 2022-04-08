@@ -1,3 +1,5 @@
+let idTarget
+
 const evaluateUser = (e) => {
 	upperAttrIterator(e.target, 'id')
 	.then(res => {
@@ -6,35 +8,49 @@ const evaluateUser = (e) => {
 			go('evaluation/')
 		}
 	})
-	.catch(err => console.log(err))
+	.catch(error => console.log(error))
 }
 
-const manageEvalUser = (e) => {
-	upperAttrIterator(e.target, 'id')
-	.then(id => {
-		if(id != null) {
-			fetchTo(
-				window.location.origin+'/home/manage-user/'+id+'/'+e.target.value,
-				'GET',
-				null,
-				async (result) => {
-					if(result.snack) showSnack(result.msg, null, 'info')
-					if(result.status === 200)
-						window.location.reload(true)
-				},
-				(err) => {
-					showSnack(
-						(lang == 0) ? 'Por favor abra la consola del navegador, copie el error y contacte con un especialista en soporte'
-									: 'Please open the browser console, copy the error and contact a support specialist.',
-						null,
-						'error'
-					)
-					console.error(err)
+const deleteEvalUser = async(e) => {
+	idTarget = await upperAttrIterator(e.target, 'id')
+		.catch(error => console.log(error))
+	$e('#delete-eval-modal #message-user').innerHTML = e.target.parentElement.parentElement.querySelector('.name').innerHTML.trim()
+}
+
+const confirmDeleteEval = async(e) => {
+	manageEvalUser({target: {id: idTarget, value: 'delete'}}, false)
+}
+
+const manageEvalUser = async(e, auto = true) => {
+	let id = null
+	
+	if(auto) id = await upperAttrIterator(e.target, 'id')
+		.catch(error => console.log(error))
+	else id = e.target.id
+
+	if(id != null) {
+		fetchTo(
+			window.location.origin+'/home/manage-user/'+id+'/'+e.target.value,
+			'GET',
+			null,
+			async (result) => {
+				if(result.snack) showSnack(result.msg, null, 'info')
+				if(result.status === 200) {
+					if(!auto) $e('#delete-eval-modal .close-modal').click()
+					window.location.reload(true)
 				}
-			)
-		}
-	})
-	.catch(err => console.log(err))
+			},
+			(error) => {
+				showSnack(
+					(lang == 0) ? 'Por favor abra la consola del navegador, copie el error y contacte con un especialista en soporte'
+								: 'Please open the browser console, copy the error and contact a support specialist.',
+					null,
+					'error'
+				)
+				console.error(error)
+			}
+		)
+	}
 }
 
 const pdfFormatEval = (e) => {
@@ -65,14 +81,14 @@ const pdfFormatEval = (e) => {
 					})
 				} else showSnack(data.headers.get('msg'), null, 'error')
 			})
-			.catch(err => {
+			.catch(error => {
 				showSnack(
 					(lang == 0) ? 'Por favor abra la consola del navegador, copie el error y contacte con un especialista en soporte'
 								: 'Please open the browser console, copy the error and contact a support specialist.',
 					null,
 					'error'
 				)
-				console.error(err)
+				console.error(error)
 			})
 		} else
 			showSnack(
@@ -82,13 +98,15 @@ const pdfFormatEval = (e) => {
 				'error'
 			)
 	})
-	.catch(err => console.log(err))
+	.catch(error => console.log(error))
 }
 
 window.addEventListener('load', async(e) => {
 	eventAssigner('.evaluate', 'click', evaluateUser).catch((error) => console.error(error))
 	eventAssigner('.manage-eval', 'click', manageEvalUser).catch((error) => console.error(error))
 	eventAssigner('.generate-pdf', 'click', pdfFormatEval).catch((error) => console.error(error))
+	eventAssigner('.delete-eval', 'click', deleteEvalUser).catch((error) => console.error(error))
+	eventAssigner('#confirm-delete', 'click', confirmDeleteEval).catch((error) => console.error(error))
 	//eventAssigner('#registerPersonnel', 'click', () => go('register/')).catch((error) => console.warn(error))
 })
 

@@ -7,6 +7,38 @@
 	<div id="layoutSidenav">
 	<%- include('template/sidebar.ejs') %>
 
+		<div id="delete-eval-modal" class="modal fade" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+				<div class="modal-content shadow-lg">
+					<div class="modal-header">
+						<h5 class="modal-title">
+							<span class="lang" data-lang="es">Eliminar Evaluación</span>
+							<span class="lang" data-lang="en">Delete Evaluation</span>
+						</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<h5 class="container text-center">
+							<span data-lang="es">¿Deseas eliminar la evaluación del año en curso de</span>
+							<span data-lang="en">Do you wish to delete</span>
+							<span id="message-user" class="fw-bold"></span><span data-lang="es">?</span>
+							<span data-lang="en">current year evaluation?</span>
+						</h5>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary close-modal" data-bs-dismiss="modal">
+							<span data-lang="es">Cancelar</span>
+							<span data-lang="en">Cancel</span>
+						</button>
+						<button id="confirm-delete" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+							<span data-lang="es">Eliminar</span>
+							<span data-lang="en">Delete</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div id="layoutSidenav_content" >
 			<div class="mb-5">
 				<div class="session-container">
@@ -78,7 +110,7 @@
 						</div>
 					<% } %>
 
-					<div class="container w-lg-75 w-90 mx-auto table-responsive">
+					<div class="container w-xxl-75 w-90 mx-auto table-responsive">
 						<table class="paginator table-effect border-0 table caption-top flex-table table align-middle" data-rows-shown="5">
 							<thead>
 								<tr class="border-0 flex-th">
@@ -93,6 +125,10 @@
 									<th class="border-0 border-bottom border-start flex-th">
 										<span class="lang" data-lang="es">Evaluación</span>
 										<span class="lang" data-lang="en">Evaluation</span>
+									</th>
+									<th class="border-0 border-bottom border-start flex-th">
+										<span class="lang" data-lang="es">Promedio</span>
+										<span class="lang" data-lang="en">Average</span>
 									</th>
 									<th class="border-0 border-bottom border-start flex-th">
 										<span class="lang" data-lang="es">Acciones</span>
@@ -112,6 +148,13 @@
 											<p class="p-0 m-0 name"><%=records[person]['name'] %></p>
 										</td>
 										<td class="border-0 border-start text-center i-status"></td>
+										<td class="border-0 border-start text-center">
+											<% if('average' in records[person]) { %>
+											<p class="p-0 m-0 avg filled"><%=records[person]['average'] %></p>
+											<% } else { %>
+											<p class="p-0 m-0 avg">N.A.</p>
+											<% } %>
+										</td>
 										<td class="border-0 border-start d-flex justify-content-center h-100">
 										<% if(records[person]['records'] == -1) { %>
 											<button type="button" value="enabled"
@@ -126,6 +169,12 @@
 												data-tooltip-es="Generar formato de evaluación para <%=records[person]['name']%>"
 												data-tooltip-en="Generate evaluation format for <%=records[person]['name']%>">
 												<i class="text-white pe-none mx-1 fa-solid fa-file-pdf fa-2x"></i>
+											</button>
+											<button type="button" data-bs-toggle="modal" data-bs-target="#delete-eval-modal"
+												class="ctrl-btn btn btn-dark delete-eval mx-md-2 my-auto mx-1 p-1 tooltip-text"
+												data-tooltip-es="Eliminar la evaluación para <%=records[person]['name']%>"
+												data-tooltip-en="Delete evaluation for <%=records[person]['name']%>">
+												<i class="text-white pe-none mx-auto fa-solid fa-trash fa-2x"></i>
 											</button>
 										<% } else if(records[person]['records'] == 0) { %>
 											<button type="button"

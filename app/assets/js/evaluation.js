@@ -111,13 +111,66 @@ window.addEventListener('load', async(e) => {
 				records: radioFields
 			}
 
+			spinner('wait', true)
+
+			fetchTo(
+				window.location.origin+'/evaluation-check',
+				'POST',
+				pkg,
+				(result) => {
+					if(result.snack) showSnack(result.msg, null, 'info')
+					if('error' in result) showSnack(result.error, null, 'error')
+
+					if(result.status === 200) {
+						$e('#confirm-eval-modal #message-user').innerHTML = $e('.pag-item.selected .name').dataset.fname
+						$e('#confirm-eval-modal #message-average').innerHTML = result.data
+
+						$e('#show-confirm-eval').click()
+					}
+				},
+				(error) => showSnack(`Error: ${error}`, null, 'error')
+			).finally(() => {
+				spinner('wait', false)
+			})
+		})
+
+		eventAssigner('#confirm-eval', 'click', () => {
+			let id
+			delete radioFields.length
+
+			if(String($e('#userObj').value).length <= 0)
+				return showSnack(
+					(lang == 0) ? 'Debes seleccionar a alguien para evaluar'
+								: 'You must select someone to evaluate',
+					null, 'warning'
+				)
+			else id = $e('#userObj').value
+
+			for(let score in radioFields) {
+				if(radioFields[score] == undefined || radioFields[score] == null || radioFields[score] == 0) {
+					console.log(radioFields[score])
+					return showSnack(
+						(lang == 0) ? '¡Aun no se puede enviar!<br/>Debes completar la evaluación! Falta '+score
+									: 'Cannot be sent yet!<br/>You must complete the evaluation. Remain '+score,
+						null, 'warning'
+					)
+				}
+			}
+
+			let pkg = {
+				_id: id,
+				records: radioFields
+			}
+
 			fetchTo(
 				window.location.origin+'/evaluation',
 				'POST',
 				pkg,
 				(result) => {
 					if(result.status === 200) {
+						$e('#confirm-eval-modal .btn-close').click()
 						screen('success', true)
+
 						return setTimeout(() => {
 							screen('success', false)
 							spinner('load', true)

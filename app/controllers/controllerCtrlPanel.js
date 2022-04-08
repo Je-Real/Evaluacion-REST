@@ -47,7 +47,8 @@ async function root(req, res) {
 									-1, // user disabled
 									1 // user with an evaluation already done
 								]
-							}
+							},
+							average: '$records.score'
 						}}
 					],
 					localField: '_id',
@@ -408,6 +409,17 @@ async function pdfEvalFormat(req, res) {
  * @param {*} res 
  */
 async function manageUserEvaluation(req, res) {
+	if(!('_id' in req.session)) {
+		return res.json({
+			msg: Array(
+				`Por favor, inicia sesión nuevamente`,
+				`Please, log in again`
+			),
+			status: 401,
+			snack: true
+		})
+	}
+	
 	const id = req.params.id
 	const action = req.params.action
 
@@ -441,7 +453,7 @@ async function manageUserEvaluation(req, res) {
 			}
 		])
 		.then(([dataInfo]) => {
-			if(action == 'disabled') // Push the current year with the disabled state
+		if(action == 'disabled') // Push the current year with the disabled state
 			updater = {
 				$push: {
 					records: {
@@ -454,7 +466,7 @@ async function manageUserEvaluation(req, res) {
 					}
 				}
 			}
-		else if(action == 'enabled') // Delete the current year record to set a evaluation
+		else if(action == 'enabled' || action == 'delete') // Delete the current year record to set a evaluation
 			updater = { $pull: { records: { year: CURRENT_YEAR } } }
 
 			modelEvaluation.updateOne({ _id: id }, updater)

@@ -11,7 +11,7 @@ html {
 	padding: 40px;
 	transform: translate(-50%, -50%);
 	box-sizing: border-box;
-	box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+	box-shadow: 0 15px 25px rgb(0 0 0 / 60%);
 	border-radius: 10px;
 	background: rgba(33, 33, 38, 1);
 	transition: all 200ms ease-in-out;

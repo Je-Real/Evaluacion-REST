@@ -6,6 +6,41 @@
 
 	<div id="layoutSidenav">
 	<%- include('template/sidebar.ejs') %>
+		
+		<button type="button" id="show-confirm-eval" class="d-none"
+			data-bs-toggle="modal" data-bs-target="#confirm-eval-modal" hidden></button>
+
+		<div id="confirm-eval-modal" class="modal fade" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+				<div class="modal-content shadow-lg">
+					<div class="modal-header">
+						<h5 class="modal-title">
+							<span class="lang" data-lang="es">Evaluación</span>
+							<span class="lang" data-lang="en">Evaluation</span>
+						</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<h5 class="container text-center">
+							<span data-lang="es">Se enviara la evaluación de <span id="message-user" class="fw-bold"></span>
+								con una calificación de <span id="message-average" class="fw-bold"></span>%</span>
+							<span data-lang="en"><span id="message-user" class="fw-bold"></span>
+								evaluation will be sent with a score of <span id="message-average" class="fw-bold"></span>%</span>
+						</h5>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+							<span data-lang="es">Cancelar</span>
+							<span data-lang="en">Cancel</span>
+						</button>
+						<button id="confirm-eval" class="btn btn-success" type="button">
+							<span data-lang="es">Enviar</span>
+							<span data-lang="en">Send</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<div id="layoutSidenav_content">
 			<div>

@@ -326,7 +326,80 @@ async function post(req, res) {
 	})
 }
 
-function weighting(numAnswer, answer) {
+async function checkScore(req, res) {
+	if(!('_id' in req.session)) {
+		return res.json({
+			msg: Array(
+				`Por favor, inicia sesión nuevamente`,
+				`Please, log in again`
+			),
+			status: 401,
+			snack: true
+		})
+	}
+	
+	let score = 0,
+		rec = req.body.records,
+		answers = []
+
+	try {
+		for(let answer in rec) {
+			if(rec[answer] >= 1 && rec[answer] <= 4)
+				answers.push(rec[answer])
+			else {
+				return console.log(`Error: Answer ${answer}`)
+			}
+		}
+	
+		rec.r_1 = weighting(1, rec.r_1)
+		rec.r_2 = weighting(2, rec.r_2)
+		rec.r_3 = weighting(3, rec.r_3)
+		rec.r_4 = weighting(4, rec.r_4)
+		rec.r_5 = weighting(5, rec.r_5)
+		rec.r_6 = weighting(6, rec.r_6)
+		rec.r_7 = weighting(7, rec.r_7)
+		rec.r_8 = weighting(8, rec.r_8)
+		rec.r_9 = weighting(9, rec.r_9)
+		rec.r_10 = weighting(10, rec.r_10)
+		rec.r_11 = weighting(11, rec.r_11)
+		rec.r_12 = weighting(11, rec.r_12)
+		rec.r_13 = weighting(11, rec.r_13)
+		rec.r_14 = weighting(11, rec.r_14)
+	
+		for(let r in rec) {
+			score += parseFloat(rec[r])
+		}
+	
+		//Round decimals
+		let temp = Number((Math.abs(score) * 100).toPrecision(15))
+		score = Math.round(temp) / 100 * Math.sign(score)
+
+		return res.json({
+			data: score,
+			status: 200
+		})
+	} catch (error) {
+		console.error(error)
+		return res.json({
+			msg: Array(
+				`Ha ocurrido un problema en el servidor. Revisa la consola del navegador y contacta con el administrador.`,
+				`A problem has occurred on the server. Check the browser console and contact the administrator.`
+			)[req.session.lang],
+			status: 500,
+			snack: true,
+			error: error
+		})
+	}
+	
+}
+
+/**
+ * Calculate the weighting of each answer question 
+ * @param {Number} numQuestion Question number (1 to 14)
+ * @param {Number} answer Number of answer (1 to 4)
+ * @returns {Number | Object} Return a float number. If there's an error return an object
+ */
+function weighting(numQuestion, answer) {
 	let failure = (question) => { return {
 		msg: 'Error: No se obtuvo calificación de ' + question,
 		resType: 'error',
@@ -334,7 +407,7 @@ function weighting(numAnswer, answer) {
 		status: 500,
 	}}
 
-	switch (parseInt(numAnswer)) {
+	switch (parseInt(numQuestion)) {
 		case 1:
 			switch (answer) {
 				case 4:
@@ -346,7 +419,7 @@ function weighting(numAnswer, answer) {
 				case 1:
 					return 7.5
 				default:
-					return failure('question-'+numAnswer)
+					return failure('question-'+numQuestion)
 			}
 
 		case 2:
@@ -360,7 +433,7 @@ function weighting(numAnswer, answer) {
 				case 1:
 					return 5
 				default:
-					return failure('question-'+numAnswer)
+					return failure('question-'+numQuestion)
 			}
 
 		case 3:
@@ -374,7 +447,7 @@ function weighting(numAnswer, answer) {
 				case 1:
 					return 2.5
 				default:
-					return failure('question-'+numAnswer)
+					return failure('question-'+numQuestion)
 			}
 
 		case 4:
@@ -388,7 +461,7 @@ function weighting(numAnswer, answer) {
 				case 1:
 					return 1.6
 				default:
-					return failure('question-'+numAnswer)
+					return failure('question-'+numQuestion)
 			}
 
 		case 5:
@@ -402,7 +475,7 @@ function weighting(numAnswer, answer) {
 				case 1:
 					return 0.4
 				default:
-					return failure('question-'+numAnswer)
+					return failure('question-'+numQuestion)
 			}
 
 		case 6:
@@ -416,7 +489,7 @@ function weighting(numAnswer, answer) {
 				case 1:
 					return 0.4
 				default:
-					return failure('question-'+numAnswer)
+					return failure('question-'+numQuestion)
 			}
 
 		case 7:
@@ -430,7 +503,7 @@ function weighting(numAnswer, answer) {
 				case 1:
 					return 0.4
 				default:
-					return failure('question-'+numAnswer)
+					return failure('question-'+numQuestion)
 			}
 
 		case 8:
@@ -444,7 +517,7 @@ function weighting(numAnswer, answer) {
 				case 1:
 					return 0.4
 				default:
-					return failure('question-'+numAnswer)
+					return failure('question-'+numQuestion)
 			}
 
 		case 9:
@@ -458,7 +531,7 @@ function weighting(numAnswer, answer) {
 				case 1:
 					return 1.25
 				default:
-					return failure('question-'+numAnswer)
+					return failure('question-'+numQuestion)
 			}
 
 		case 10:
@@ -472,7 +545,7 @@ function weighting(numAnswer, answer) {
 				case 1:
 					return 1.25
 				default:
-					return failure('question-'+numAnswer)
+					return failure('question-'+numQuestion)
 			}
 
 		case 11:
@@ -486,7 +559,7 @@ function weighting(numAnswer, answer) {
 				case 1:
 					return 0.5
 				default:
-					return failure('question-'+numAnswer)
+					return failure('question-'+numQuestion)
 			}
 
 		case 12:
@@ -500,7 +573,7 @@ function weighting(numAnswer, answer) {
 				case 1:
 					return 0.5
 				default:
-					return failure('question-'+numAnswer)
+					return failure('question-'+numQuestion)
 			}
 
 		case 13:
@@ -514,7 +587,7 @@ function weighting(numAnswer, answer) {
 				case 1:
 					return 0.5
 				default:
-					return failure('question-'+numAnswer)
+					return failure('question-'+numQuestion)
 			}
 
 		case 14:
@@ -528,7 +601,7 @@ function weighting(numAnswer, answer) {
 				case 1:
 					return 0.5
 				default:
-					return failure('question-'+numAnswer)
+					return failure('question-'+numQuestion)
 			}
 
 		default:
@@ -539,5 +612,6 @@ function weighting(numAnswer, answer) {
 module.exports = {
 	root,
 	post,
-	weighting
+	weighting,
+	checkScore
 }
