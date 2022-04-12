@@ -50,16 +50,6 @@ h1, h2, h3, h4, h5, h6 {
 	padding-top: 2.2rem;
 }
 
-#utna-bg {
-	background-image: url(../img/bg-utna.jpeg);
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
-	left: 0;right: 0;height: 100vh;
-	position: absolute;
-	filter: saturate(1.35) blur(3px);
-	z-index: -1;}
-
 .spinner-border {
 	width: 35px;
 	height: 35px;

@@ -2,6 +2,18 @@ html {
 	height: 100%;
 }
 
+#utna-bg {
+	background-image: url(../img/bg-utna.jpeg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	left: 0;right: 0;height: 100vh;
+	position: absolute;
+	image-rendering: -webkit-optimize-contrast;
+	filter: saturate(1.35) blur(2px);
+	z-index: -1;
+}
+
 .login-box {
 	position: absolute;
 	overflow: hidden;
