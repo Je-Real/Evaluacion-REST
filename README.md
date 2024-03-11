@@ -9,17 +9,18 @@ realizar la evaluación de todo el personal por sus diferentes áreas para por m
 
 > El objetivo principal será evaluar el desempeño del empleado o docente respecto a las funciones que se mencionan y en base a los estándares que se proporcionan.
 
-## Vistazo a la App (Administrador)
+## Vistazo a la App
 
-Dentro de la pagina de inicio de sesión se ingresará el usuario (código de empleado o de administrador) para poder acceder al sistema. El usuario administrador es definido directamente en la base de datos.
-
-### Página de inicio (Usuario administrador) 
-
-El usuario administrador se identificará por tener un código de usuario con un formato distinto a los códigos de usuarios comunes, siendo su código por defecto “ad”. Al iniciar sesión con este usuario se enviará al usuario a una página distinta a la página de inicio (Véase en el Manual de Usuario).
+Dentro de la pagina de inicio de sesión se ingresará el usuario (código de empleado o de administrador) para poder acceder al sistema. El usuario administrador es definido directamente en la base de datos, en caso que el usuario no tenga este rol se tomara como un usuario evaluador.
 
 <p align="center">
   <img src="/docs/img/inicio_de_sesion.png" alt="Página de inicio para sesión"/>
 </p>
+
+
+### Página de inicio (Usuario administrador) 
+
+El usuario administrador se identificará por tener un código de usuario con un formato distinto a los códigos de usuarios comunes, siendo su código por defecto “ad”. Al iniciar sesión con este usuario se enviará al usuario a una página distinta a la página de inicio (Véase en el Manual de Usuario).
 
 En esta página se podrá ver y administrar los datos de los empleados, áreas, direcciones y subdirecciones, puesto y categorías, dando la posibilidad de añadir, editar y deshabilitar esta información.
 
@@ -33,12 +34,6 @@ Los controles están ubicados arriba de la lista de información, en un listón 
 El administrador podrá dar de alta, modificar y deshabilitar usuarios de empleados en el sistema, ademas de asignar el rol de "super usuario" al usuario de sistema del empleado que estará encargado de gestionar las evaluaciones.
 
 ### Pagina de inicio (Usuario evaluador)
-
-Interfaz para ingresar se tendrá que escribir el usuario (código de empleado) y la contraseña para poder acceder al sistema.
-
-<p align="center">
-  <img src="/docs/img/inicio_de_sesion.png" alt="Página de inicio para sesión"/>
-</p>
 
 El panel de control es una tabla que lista al personal a cargo. Cada fila representa un subordinado y este puede tener 3 estados distintos: 
 Sin evaluación, con evaluación y evaluación bloqueada o deshabilitada.
