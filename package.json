@@ -1,13 +1,13 @@
 {
   "name": "utna-evaluation",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Project for employees, areas and academic departments evaluations",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon -e js, ejs"
   },
-  "author": "0s-el-poderoso",
+  "author": "Je-Real",
   "license": "ISC",
   "dependencies": {
     "ansi-regex": "^6.0.1",
