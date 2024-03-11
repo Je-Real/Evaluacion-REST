@@ -7,10 +7,7 @@
 La aplicación permitirá realizar la evaluación al desempeño del personal de la Universidad Tecnológica del Norte de Aguascalientes (UTNA) el cual su función será  
 realizar la evaluación de todo el personal por sus diferentes áreas para por medio de ello medir y calificar su rendimiento laboral mediante un proceso técnico a través del cual, en forma integral, sistemática y continua; se valora el conjunto de actitudes, los rendimientos y el comportamiento laboral del personal durante el desempeño de su cargo.
 
-El diseño está basado en los colores de la universidad, así como de la página oficial, es un sistema de uso profesional dentro de la institución por el personal adecuado y 
-registrado en sistema para su debido uso, contando con pruebas totalmente aprobadas en el ámbito laboral y educativo.
-
-El objetivo principal será evaluar el desempeño del empleado o docente respecto a las funciones que se mencionan y en base a los estándares que se proporcionan.
+> El objetivo principal será evaluar el desempeño del empleado o docente respecto a las funciones que se mencionan y en base a los estándares que se proporcionan.
 
 ## Vistazo a la App (Administrador)
 
@@ -50,13 +47,13 @@ Sin evaluación, con evaluación y evaluación bloqueada o deshabilitada.
   <img src="/docs/img/inicio_usuario.png" alt="Página de inicio para usuario"/>
 </p>
 
-- 1. Sin evaluación:
+1. Sin evaluación:
 En la columna “Evaluación” se verá plasmada la frase “No realizado” con un fondo naranja claro. En la columna “Acciones” aparecerán 2 botones, el azul con icono de cruz, nos redirigirá a la página de evaluación. El botón rojo tendrá la función de bloquear la evaluación de la persona en cuestión, al dar clic en este botón, la persona dejará de aparecer en la lista de personal a evaluar en la página evaluación. Al refrescar la página, en el panel de control el empleado aparecerá con el estado de bloqueado.
 
-- 2. Con evaluación:
+2. Con evaluación:
 Para cada empleado que se haya completado la evaluación del año en curso en la columna “Evaluación” se verá plasmada la frase “Realizado” con un fondo verde claro. Esto da constancia de que se registró exitosamente la evaluación. En este estado en la columna “Acciones”, aparecerá un botón de color verde con un icono de archivo, este botón tiene la función de generar y descargar el Formato de Evaluación del empleado en un archivo PDF, listo para su inmediata impresión.
 
-- 3. Evaluación bloqueada / deshabilitada:
+3. Evaluación bloqueada / deshabilitada:
 Este estado aparecerá después de que se ha hecho clic en el botón de bloqueo de evaluación, en la columna “Evaluación” aparecerá con la frase “Deshabilitado” con un fondo en color azul grisáceo claro. Tendré un botón gris con un icono de un candado abierto en la columna de “Acciones” y su función es la de remover el bloqueo de la evaluación al empleado.
 
 ### Página de evaluación
